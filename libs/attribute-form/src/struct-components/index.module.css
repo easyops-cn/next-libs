@@ -1,0 +1,9 @@
+.addStructBtnContainer {
+  display: inline-block;
+}
+.formItem {
+  margin: 10px 0;
+}
+.formLabel {
+  display: block;
+}

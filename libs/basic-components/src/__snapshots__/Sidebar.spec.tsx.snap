@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Sidebar should work 1`] = `
+<Menu
+  mode="inline"
+  selectedKeys={Array []}
+  style={
+    Object {
+      "borderRight": 0,
+      "height": "100%",
+    }
+  }
+>
+  <MenuItem
+    key="0"
+  >
+    <Link
+      to="/for/good"
+    >
+      for-good
+    </Link>
+  </MenuItem>
+  <MenuItem
+    key="1"
+  >
+    <Link
+      to={
+        Object {
+          "pathname": "for-better",
+          "search": "?even-more",
+        }
+      }
+    >
+      for-better
+    </Link>
+  </MenuItem>
+  <MenuItemGroup
+    disabled={true}
+    key="2"
+    title="grouped"
+  >
+    <MenuItem
+      key="3"
+    >
+      <Link
+        to="/for/perfect"
+      >
+        for-perfect
+      </Link>
+    </MenuItem>
+  </MenuItemGroup>
+</Menu>
+`;

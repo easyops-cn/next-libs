@@ -1,0 +1,33 @@
+.formContainer {
+  margin: 0 auto;
+}
+.formRow {
+  display: grid;
+  grid-template-columns: 30% 70%;
+  margin: 24px 0;
+}
+.formLabel {
+  text-align: right;
+  padding-right: 20px;
+}
+.whiteListFormContainer {
+  margin-top: 24px;
+}
+.subFormRow {
+  display: grid;
+  grid-template-columns: 30% 60%;
+  margin-top: 15px;
+}
+.subFormLabel {
+  text-align: right;
+  line-height: 32px;
+  padding-right: 10px;
+  font-size: 12px;
+}
+.panelContainer {
+  padding: 24px;
+  background: #fff;
+}
+.btnGroupContainer {
+  margin-bottom: 16px;
+}

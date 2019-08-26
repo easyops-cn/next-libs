@@ -1,0 +1,94 @@
+.easyopsCustomizeAntTree
+  :global(.ant-tree)
+  li
+  :global(.ant-tree-node-content-wrapper) {
+  padding: 0px;
+}
+
+.easyopsCustomizeAntTree
+  :global(.ant-tree-treenode-disabled)
+  :global(.ant-tree-node-content-wrapper)
+  span {
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.easyopsCustomizeAntTree
+  :global(.ant-tree)
+  li
+  :global(.ant-tree-node-content-wrapper.ant-tree-node-selected) {
+  padding-right: 4px;
+}
+
+.easyopsCustomizeAntTree
+  :global(.ant-tree)
+  li
+  :global(.ant-tree-node-content-wrapper):hover {
+  padding-right: 4px;
+}
+
+.easyopsCustomizeAntTree
+  :global(.ant-tree.ant-tree-show-line.hide-file-icon)
+  li
+  span:global(.ant-tree-switcher-noop) {
+  background: transparent;
+}
+
+.easyopsCustomizeAntTree
+  :global(.ant-tree.ant-tree-show-line.hide-file-icon)
+  li:before {
+  content: " ";
+  width: 1px;
+  border-left: 1px solid #d9d9d9;
+  height: 100%;
+  position: absolute;
+  left: 12px;
+  top: 0;
+  margin: 0;
+}
+
+.easyopsCustomizeAntTree
+  :global(.ant-tree.ant-tree-show-line.hide-file-icon)
+  li:first-child:before {
+  top: 6px;
+  height: calc(100% - 6px);
+}
+
+.easyopsCustomizeAntTree
+  :global(.ant-tree.ant-tree-show-line.hide-file-icon)
+  li:last-child:before {
+  height: 16px;
+}
+
+.easyopsCustomizeAntTree
+  :global(.ant-tree.ant-tree-show-line.hide-file-icon)
+  li:first-child:last-child:before {
+  height: 10px;
+}
+
+.easyopsCustomizeAntTree
+  :global(.ant-tree.ant-tree-show-line.hide-file-icon)
+  li
+  :global(.ant-tree-switcher-noop)
+  > i {
+  visibility: hidden;
+}
+
+.easyopsCustomizeAntTree
+  :global(.ant-tree.ant-tree-show-line.hide-file-icon)
+  li
+  :global(.ant-tree-switcher-noop:after) {
+  content: " ";
+  height: 1px;
+  border-bottom: 1px solid #d9d9d9;
+  width: 10px;
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  margin: 0;
+}
+
+.easyopsCustomizeAntTree
+  :global(.ant-tree)li
+  :global(.ant-tree-node-content-wrapper) {
+  padding: 0px;
+}

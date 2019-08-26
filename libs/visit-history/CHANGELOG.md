@@ -1,0 +1,42 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.2.1](https://git.easyops.local/anyclouds/brick-next/compare/@libs/visit-history@0.2.0...@libs/visit-history@0.2.1) (2019-08-26)
+
+**Note:** Version bump only for package @libs/visit-history
+
+# [0.2.0](https://git.easyops.local/anyclouds/brick-next/compare/@libs/visit-history@0.1.4...@libs/visit-history@0.2.0) (2019-08-14)
+
+### Features
+
+- **search:** checkable tag and search history ([c83000f](https://git.easyops.local/anyclouds/brick-next/commits/c83000f))
+
+## [0.1.4](https://git.easyops.local/anyclouds/brick-next/compare/@libs/visit-history@0.1.3...@libs/visit-history@0.1.4) (2019-07-22)
+
+**Note:** Version bump only for package @libs/visit-history
+
+## [0.1.3](https://git.easyops.local/anyclouds/brick-next/compare/@libs/visit-history@0.1.2...@libs/visit-history@0.1.3) (2019-07-12)
+
+**Note:** Version bump only for package @libs/visit-history
+
+## [0.1.2](https://git.easyops.local/anyclouds/brick-next/compare/@libs/visit-history@0.1.1...@libs/visit-history@0.1.2) (2019-07-10)
+
+**Note:** Version bump only for package @libs/visit-history
+
+## [0.1.1](https://git.easyops.local/anyclouds/brick-next/compare/@libs/visit-history@0.1.0...@libs/visit-history@0.1.1) (2019-07-03)
+
+**Note:** Version bump only for package @libs/visit-history
+
+# 0.1.0 (2019-06-24)
+
+### Bug Fixes
+
+- **visit-history:** 修复 visit-history 库没有把信息存储到本地的 local storage ([e5920c1](https://git.easyops.local/anyclouds/brick-next/commits/e5920c1))
+
+### Features
+
+- **artifact:** artifactIndex bug fix ([f01a56e](https://git.easyops.local/anyclouds/brick-next/commits/f01a56e))
+- **artifact:** 完善程序包列表构件 ([1dea449](https://git.easyops.local/anyclouds/brick-next/commits/1dea449))
+- **cmdb-instances:** 高级搜索的字段生成和展示 ([2165972](https://git.easyops.local/anyclouds/brick-next/commits/2165972))

@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cmdb tree renderTitle renderTitle should work 1`] = `
+<span
+  className="ant-tree-title"
+>
+  <React.Fragment>
+    hell
+  </React.Fragment>
+  <span
+    style={
+      Object {
+        "color": "rgb(204, 121, 33)",
+      }
+    }
+  >
+    o
+  </span>
+  <React.Fragment>
+    , w
+  </React.Fragment>
+  <span
+    style={
+      Object {
+        "color": "rgb(204, 121, 33)",
+      }
+    }
+  >
+    o
+  </span>
+  <React.Fragment>
+    rld
+  </React.Fragment>
+</span>
+`;
+
+exports[`cmdb tree should work 1`] = `
+<div
+  className="easyopsCustomizeAntTree"
+>
+  <Tree
+    autoExpandParent={true}
+    blockNode={false}
+    checkable={false}
+    className="hide-file-icon"
+    defaultExpandAll={false}
+    draggable={true}
+    expandedKeys={Array []}
+    key="init"
+    loadData={[Function]}
+    motion={
+      Object {
+        "motionAppear": false,
+        "motionName": "ant-motion-collapse",
+        "onAppearActive": [Function],
+        "onAppearStart": [Function],
+        "onEnterActive": [Function],
+        "onEnterStart": [Function],
+        "onLeaveActive": [Function],
+        "onLeaveStart": [Function],
+      }
+    }
+    onDragEnd={[Function]}
+    onDragStart={[Function]}
+    onExpand={[Function]}
+    selectedKeys={
+      Array [
+        "target",
+      ]
+    }
+    showIcon={false}
+    showLine={true}
+  >
+    <ContextTreeNode
+      dataRef={
+        Object {
+          "isLeaf": true,
+          "key": "business-id-1",
+          "objectId": "BUSINESS",
+          "title": "business-1",
+        }
+      }
+      isLeaf={true}
+      key="business-id-1"
+      title={
+        <span
+          className="ant-tree-title"
+        >
+          business-1
+        </span>
+      }
+    />
+  </Tree>
+</div>
+`;

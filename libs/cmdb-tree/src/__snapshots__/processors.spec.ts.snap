@@ -1,0 +1,102 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`transformToTreeData transformToTreeData should work 1`] = `
+Array [
+  Object {
+    "children": Array [
+      Object {
+        "children": Array [
+          Object {
+            "category": "应用资源.部署资源",
+            "key": "RESOURCE_GROUP",
+            "name": "部署资源组",
+            "objectId": "RESOURCE_GROUP",
+            "title": "部署资源组",
+            "type": "object",
+          },
+        ],
+        "key": "应用资源.部署资源",
+        "title": "部署资源",
+        "type": "tag",
+      },
+      Object {
+        "category": "应用资源",
+        "key": "BUSINESS",
+        "name": "业务",
+        "objectId": "BUSINESS",
+        "title": "业务",
+        "type": "object",
+      },
+      Object {
+        "category": "应用资源",
+        "key": "APP",
+        "name": "应用",
+        "objectId": "APP",
+        "title": "应用",
+        "type": "object",
+      },
+    ],
+    "key": "应用资源",
+    "title": "应用资源",
+    "type": "category",
+  },
+  Object {
+    "children": Array [],
+    "key": "平台资源",
+    "title": "平台资源",
+    "type": "category",
+  },
+  Object {
+    "children": Array [
+      Object {
+        "children": Array [
+          Object {
+            "category": "基础设施.F5",
+            "key": "iRoute",
+            "name": "iRoute",
+            "objectId": "iRoute",
+            "title": "iRoute",
+            "type": "object",
+          },
+        ],
+        "key": "基础设施.F5",
+        "title": "F5",
+        "type": "tag",
+      },
+    ],
+    "key": "基础设施",
+    "title": "基础设施",
+    "type": "category",
+  },
+  Object {
+    "children": Array [],
+    "key": "组织信息",
+    "title": "组织信息",
+    "type": "category",
+  },
+  Object {
+    "category": "",
+    "key": "HELLO",
+    "name": "hello",
+    "objectId": "HELLO",
+    "title": "hello",
+    "type": "object",
+  },
+  Object {
+    "category": "others.foo",
+    "key": "OTHERS",
+    "name": "others",
+    "objectId": "OTHERS",
+    "title": "others",
+    "type": "object",
+  },
+  Object {
+    "category": "others.foo",
+    "key": "xOTHERS",
+    "name": "others",
+    "objectId": "xOTHERS",
+    "title": "others",
+    "type": "object",
+  },
+]
+`;
