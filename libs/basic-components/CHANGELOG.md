@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.7.0 (2019-08-26)
+
+
+### Features
+
+* Initial commit for moved libs ([008ff9a](https://git.easyops.local/anyclouds/brick-next/commits/008ff9a))
+
+
+
+
+
 ## [0.6.23](https://git.easyops.local/anyclouds/brick-next/compare/@libs/basic-components@0.6.22...@libs/basic-components@0.6.23) (2019-08-26)
 
 **Note:** Version bump only for package @libs/basic-components
