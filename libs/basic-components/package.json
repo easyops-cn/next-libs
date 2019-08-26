@@ -2,7 +2,7 @@
   "name": "@libs/basic-components",
   "version": "0.7.0",
   "description": "> TODO: description",
-  "homepage": "https://git.easyops.local/anyclouds/brick-next/tree/master/libs/basic-components",
+  "homepage": "https://git.easyops.local/anyclouds/next-libs/tree/master/libs/basic-components",
   "license": "UNLICENSED",
   "main": "dist/index.bundle.js",
   "module": "dist/index.esm.js",
@@ -12,7 +12,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git@git.easyops.local:anyclouds/brick-next.git"
+    "url": "git@git.easyops.local:anyclouds/next-libs.git"
   },
   "scripts": {
     "clean": "rimraf dist",
