@@ -8,7 +8,17 @@
   "devDependencies": {
     "automerge": true
   },
-  "ignorePresets": [
-    ":ignoreModulesAndTests"
+  "ignorePresets": [":ignoreModulesAndTests"],
+  "packageRules": [
+    {
+      "packagePatterns": [
+        "^@bricks/",
+        "^@easyops/",
+        "^@libs/",
+        "^@micro-apps/",
+        "^@sdk/"
+      ],
+      "automerge": false
+    }
   ]
 }
