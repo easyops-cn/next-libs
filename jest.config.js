@@ -1,9 +1,6 @@
 module.exports = {
   setupFilesAfterEnv: ["<rootDir>/__jest__/setup.ts"],
-  snapshotSerializers: [
-    "enzyme-to-json/serializer",
-    "<rootDir>/__jest__/customElementsV1Serializer.ts"
-  ],
+  snapshotSerializers: ["enzyme-to-json/serializer"],
   coveragePathIgnorePatterns: [
     "/node_modules/",
     "/dist/",
@@ -39,9 +36,7 @@ module.exports = {
   },
   // Ref https://github.com/facebook/jest/issues/2070#issuecomment-431706685
   // Todo(steve): remove next line when issue fixed.
-  modulePathIgnorePatterns: [
-    "<rootDir>/libs/[^/]*/src/.*/__mocks__"
-  ],
+  modulePathIgnorePatterns: ["<rootDir>/libs/[^/]*/src/.*/__mocks__"],
   // Use jsdom@14 which supports MutationObserver
   testEnvironment: "jest-environment-jsdom-fourteen",
   timers: "fake"
