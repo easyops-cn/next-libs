@@ -84,6 +84,12 @@ function match(treeNode: TreeNode, q: string): boolean {
     return false;
   }
 
+  if (
+    treeNode.key.toLowerCase().includes(str) ||
+    treeNode.title.toLowerCase().includes(str)
+  ) {
+    return true;
+  }
   treeNode.children = treeNode.children.filter(node => match(node, q));
   return !isEmpty(treeNode.children);
 }
