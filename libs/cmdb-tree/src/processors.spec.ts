@@ -78,5 +78,8 @@ describe("transformToTreeData", () => {
     ]);
 
     expect(search(treeData, "xxx").length).toBe(0);
+
+    result = search(treeData, "name-1");
+    expect(result[0]).toEqual(treeData[0]);
   });
 });

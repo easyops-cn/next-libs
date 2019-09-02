@@ -370,13 +370,13 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
       let count = 0;
       segments.forEach((seg: string, index: number) => {
         nodes.push(
-          <React.Fragment key={index}>
+          <React.Fragment key={seg + index}>
             {title.substr(count, seg.length)}
           </React.Fragment>
         );
         count += seg.length;
         nodes.push(
-          <span key={index} style={{ color }}>
+          <span key={this.props.q + index} style={{ color }}>
             {title.substr(count, qLen)}
           </span>
         );

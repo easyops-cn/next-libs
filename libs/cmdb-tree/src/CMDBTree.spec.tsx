@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React from "react";
 import { shallow } from "enzyme";
+import { render } from "@testing-library/react";
+import "snapshot-diff";
+import "snapshot-diff/extend-expect";
 import { InstanceTreeApi } from "@sdk/cmdb-sdk";
 import { CMDBTree } from "./CMDBTree";
 import * as kit from "@easyops/brick-kit";
@@ -186,6 +189,25 @@ describe("cmdb tree", () => {
       component = wrapper.instance() as CMDBTree;
       const title = component.renderTitle("hello, world");
       expect(title).toMatchSnapshot();
+    });
+  });
+
+  describe("treeData not empty", () => {
+    it("should work", () => {
+      const { asFragment, rerender } = render(
+        <CMDBTree
+          q=""
+          treeData={[{ title: "node-1", key: "key-1", children: [] }]}
+        />
+      );
+      const snap = asFragment();
+      rerender(
+        <CMDBTree
+          q="nOdE"
+          treeData={[{ title: "node-1", key: "key-1", children: [] }]}
+        />
+      );
+      expect(snap).toMatchDiffSnapshot(asFragment());
     });
   });
 });
