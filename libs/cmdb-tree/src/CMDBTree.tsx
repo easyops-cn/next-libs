@@ -363,16 +363,24 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
 
   renderTitle(title: string): React.ReactNode {
     if (this.props.q) {
+      const qLen = this.props.q.length;
       const color = "rgb(204, 121, 33)";
-      const segments = title.split(this.props.q);
+      const segments = title.toLowerCase().split(this.props.q.toLowerCase());
       const nodes: React.ReactNode[] = [];
+      let count = 0;
       segments.forEach((seg: string, index: number) => {
-        nodes.push(<React.Fragment key={index}>{seg}</React.Fragment>);
         nodes.push(
-          <span key={index} style={{ color }}>
-            {this.props.q}
+          <React.Fragment key={seg + index}>
+            {title.substr(count, seg.length)}
+          </React.Fragment>
+        );
+        count += seg.length;
+        nodes.push(
+          <span key={this.props.q + index} style={{ color }}>
+            {title.substr(count, qLen)}
           </span>
         );
+        count += qLen;
       });
       return <span className="ant-tree-title">{nodes.slice(0, -1)}</span>;
     }

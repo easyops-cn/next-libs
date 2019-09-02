@@ -93,3 +93,28 @@ exports[`cmdb tree should work 1`] = `
   </Tree>
 </div>
 `;
+
+exports[`cmdb tree treeData not empty should work 1`] = `
+"Snapshot Diff:
+- First value
++ Second value
+
+@@ -44,11 +44,16 @@
+              class=\\"ant-tree-title\\"
+            >
+              <span
+                class=\\"ant-tree-title\\"
+              >
+-               node-1
++               <span
++                 style=\\"color: rgb(204, 121, 33);\\"
++               >
++                 node
++               </span>
++               -1
+              </span>
+            </span>
+          </span>
+        </li>
+      </ul>"
+`;
