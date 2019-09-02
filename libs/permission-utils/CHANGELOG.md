@@ -3,16 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# 0.7.0 (2019-08-26)
+## [0.7.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/permission-utils@0.7.0...@libs/permission-utils@0.7.1) (2019-09-02)
 
+**Note:** Version bump only for package @libs/permission-utils
+
+# 0.7.0 (2019-08-26)
 
 ### Features
 
-* Initial commit for moved libs ([008ff9a](https://git.easyops.local/anyclouds/brick-next/commits/008ff9a))
-
-
-
-
+- Initial commit for moved libs ([008ff9a](https://git.easyops.local/anyclouds/brick-next/commits/008ff9a))
 
 ## [0.6.40](https://git.easyops.local/anyclouds/brick-next/compare/@libs/permission-utils@0.6.39...@libs/permission-utils@0.6.40) (2019-08-26)
 
