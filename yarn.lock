@@ -1930,7 +1930,7 @@
   resolved "https://registry.npm.taobao.org/@sheerun/mutationobserver-shim/download/@sheerun/mutationobserver-shim-0.3.2.tgz#8013f2af54a2b7d735f71560ff360d3a8176a87b"
   integrity sha1-gBPyr1Sit9c19xVg/zYNOoF2qHs=
 
-"@testing-library/dom@^6.0.0":
+"@testing-library/dom@^6.1.0":
   version "6.1.0"
   resolved "https://registry.npm.taobao.org/@testing-library/dom/download/@testing-library/dom-6.1.0.tgz#8d5a954158e81ecd7c994907f4ec240296ed823b"
   integrity sha1-jVqVQVjoHs18mUkH9OwkApbtgjs=
@@ -1957,13 +1957,13 @@
     pretty-format "^24.0.0"
     redent "^3.0.0"
 
-"@testing-library/react@^9.1.3":
-  version "9.1.3"
-  resolved "https://registry.npm.taobao.org/@testing-library/react/download/@testing-library/react-9.1.3.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40testing-library%2Freact%2Fdownload%2F%40testing-library%2Freact-9.1.3.tgz#3fb495227322ea36cd817532441dabb552e0d6ce"
-  integrity sha1-P7SVInMi6jbNgXUyRB2rtVLg1s4=
+"@testing-library/react@^9.1.4":
+  version "9.1.4"
+  resolved "https://registry.npm.taobao.org/@testing-library/react/download/@testing-library/react-9.1.4.tgz#4cc1a228a944c0f468ee501e7da1651d8bbd9902"
+  integrity sha1-TMGiKKlEwPRo7lAefaFlHYu9mQI=
   dependencies:
     "@babel/runtime" "^7.5.5"
-    "@testing-library/dom" "^6.0.0"
+    "@testing-library/dom" "^6.1.0"
     "@types/testing-library__react" "^9.1.0"
 
 "@types/babel__core@^7.1.0":
