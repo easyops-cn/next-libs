@@ -1,0 +1,36 @@
+{
+  "name": "@libs/custom-hook",
+  "version": "0.0.0",
+  "description": "> TODO: description",
+  "homepage": "https://git.easyops.local/anyclouds/next-libs/tree/master/libs/custom-hook",
+  "license": "UNLICENSED",
+  "main": "dist/index.bundle.js",
+  "module": "dist/index.esm.js",
+  "typings": "dist/types/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@git.easyops.local:anyclouds/next-libs.git"
+  },
+  "scripts": {
+    "clean": "rimraf dist",
+    "prestart": "npm run clean",
+    "start": "npm run build:types && rollup --config rollup.config.js --watch",
+    "prebuild": "npm run clean",
+    "build": "npm run build:types && npm run build:rollup",
+    "build:rollup": "rollup --config rollup.config.js",
+    "build:types": "tsc --emitDeclarationOnly --declaration --declarationDir dist/types",
+    "test": "cross-env NODE_ENV='test' jest",
+    "test:ci": "cross-env NODE_ENV='test' CI=true jest"
+  },
+  "devDependencies": {
+    "@easyops/brick-dll": "^0.6.2",
+    "@easyops/rollup-config-factory": "^0.2.1"
+  },
+  "peerDependencies": {
+    "@easyops/brick-dll": "*"
+  },
+  "sideEffects": false
+}
