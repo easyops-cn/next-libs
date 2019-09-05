@@ -799,17 +799,17 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@easyops/brick-dll@^0.6.2":
-  version "0.6.2"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-dll/download/@easyops/brick-dll-0.6.2.tgz#6f3b9d51ac845a1528b7cf72c80bb48c2b23d89b"
-  integrity sha1-bzudUayEWhUot89yyAu0jCsj2Js=
+"@easyops/brick-dll@^0.6.3":
+  version "0.6.3"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-dll/download/@easyops/brick-dll-0.6.3.tgz#3237e72efa866a7c3ad43aca08fec29b3064c1bf"
+  integrity sha1-MjfnLvqGanw61DrKCP7CmzBkwb8=
   dependencies:
     "@easyops/brick-http" "^0.2.1"
-    "@easyops/brick-kit" "^0.22.1"
-    "@easyops/brick-utils" "^0.7.1"
-    "@easyops/fontawesome-library" "^0.7.1"
+    "@easyops/brick-kit" "^0.22.2"
+    "@easyops/brick-utils" "^0.7.2"
+    "@easyops/fontawesome-library" "^0.8.0"
     "@fortawesome/react-fontawesome" "^0.1.4"
-    antd "^3.22.2"
+    antd "^3.23.1"
     history "^4.9.0"
     i18next "^17.0.13"
     lodash "^4.17.15"
@@ -824,12 +824,12 @@
   resolved "http://registry.npm.easyops.local/@easyops/brick-http/download/@easyops/brick-http-0.2.1.tgz#410d3f1ed901cd1ee2449c49ac67d44744beb3c7"
   integrity sha1-QQ0/HtkBzR7iRJxJrGfUR0S+s8c=
 
-"@easyops/brick-kit@^0.22.1":
-  version "0.22.1"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-kit/download/@easyops/brick-kit-0.22.1.tgz#8ee7dc550695a892569a6d26aaa7f18200ecc6be"
-  integrity sha1-jufcVQaVqJJWmm0mqqfxggDsxr4=
+"@easyops/brick-kit@^0.22.2":
+  version "0.22.2"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-kit/download/@easyops/brick-kit-0.22.2.tgz#d7d89ef55be22babf5efaac78bfa9418c87505a4"
+  integrity sha1-19ie9VviK6v176rHi/qUGMh1BaQ=
   dependencies:
-    "@easyops/brick-types" "^0.14.1"
+    "@easyops/brick-types" "^0.14.2"
     "@sdk/auth-sdk" "^0.5.3"
 
 "@easyops/brick-scripts@^0.13.4":
@@ -845,28 +845,28 @@
     meow "^5.0.0"
     prettier "^1.18.2"
 
-"@easyops/brick-types@^0.14.1":
-  version "0.14.1"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-types/download/@easyops/brick-types-0.14.1.tgz#402a6b535b548a9b9dff7b4084738b1948ebf314"
-  integrity sha1-QCprU1tUipud/3tAhHOLGUjr8xQ=
+"@easyops/brick-types@^0.14.2":
+  version "0.14.2"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-types/download/@easyops/brick-types-0.14.2.tgz#a79a24cbb9315caa083cc3f4f5aebca0465469ed"
+  integrity sha1-p5oky7kxXKoIPMP09a68oEZUae0=
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^1.2.22"
-    antd "^3.22.2"
+    antd "^3.23.1"
     history "^4.9.0"
-    path-to-regexp "^3.0.0"
+    path-to-regexp "^3.1.0"
 
-"@easyops/brick-utils@^0.7.1":
-  version "0.7.1"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-utils/download/@easyops/brick-utils-0.7.1.tgz#9d93344a126d192243ea294cb88ee073129fdb70"
-  integrity sha1-nZM0ShJtGSJD6ilMuI7gcxKf23A=
+"@easyops/brick-utils@^0.7.2":
+  version "0.7.2"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-utils/download/@easyops/brick-utils-0.7.2.tgz#c242bf7da7617568b98465ac131a869bc2ada50a"
+  integrity sha1-wkK/fadhdWi5hGWsExqGm8KtpQo=
   dependencies:
-    "@easyops/brick-types" "^0.14.1"
-    path-to-regexp "^3.0.0"
+    "@easyops/brick-types" "^0.14.2"
+    path-to-regexp "^3.1.0"
 
-"@easyops/fontawesome-library@^0.7.1":
-  version "0.7.1"
-  resolved "http://registry.npm.easyops.local/@easyops/fontawesome-library/download/@easyops/fontawesome-library-0.7.1.tgz#fe5b585f03576606024411a99dc12f9c3281dbb5"
-  integrity sha1-/ltYXwNXZgYCRBGpncEvnDKB27U=
+"@easyops/fontawesome-library@^0.8.0":
+  version "0.8.0"
+  resolved "http://registry.npm.easyops.local/@easyops/fontawesome-library/download/@easyops/fontawesome-library-0.8.0.tgz#c5cc93e1315fc3472bb84e522c254a6b8bd4c0f6"
+  integrity sha1-xcyT4TFfw0cruE5SLCVKa4vUwPY=
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^1.2.22"
     "@fortawesome/free-brands-svg-icons" "^5.10.2"
@@ -2641,10 +2641,10 @@ ansi-styles@^3.2.0, ansi-styles@^3.2.1:
   dependencies:
     color-convert "^1.9.0"
 
-antd@^3.22.2:
-  version "3.22.2"
-  resolved "https://registry.npm.taobao.org/antd/download/antd-3.22.2.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fantd%2Fdownload%2Fantd-3.22.2.tgz#ae8279d940decf062a0708880bc4340783b7b270"
-  integrity sha1-roJ52UDezwYqBwiIC8Q0B4O3snA=
+antd@^3.23.1:
+  version "3.23.1"
+  resolved "https://registry.npm.taobao.org/antd/download/antd-3.23.1.tgz#a251b0cdc2072a91a8c157f8b31de8ad92ce5d18"
+  integrity sha1-olGwzcIHKpGowVf4sx3orZLOXRg=
   dependencies:
     "@ant-design/create-react-context" "^0.2.4"
     "@ant-design/icons" "~2.1.1"
@@ -2672,7 +2672,7 @@ antd@^3.22.2:
     rc-dropdown "~2.4.1"
     rc-editor-mention "^1.1.13"
     rc-form "^2.4.5"
-    rc-input-number "~4.4.5"
+    rc-input-number "~4.5.0"
     rc-mentions "~0.4.0"
     rc-menu "~7.4.23"
     rc-notification "~3.3.1"
@@ -8339,10 +8339,10 @@ path-parse@^1.0.6:
   resolved "https://registry.npm.taobao.org/path-parse/download/path-parse-1.0.6.tgz#d62dbb5679405d72c4737ec58600e9ddcf06d24c"
   integrity sha1-1i27VnlAXXLEc37FhgDp3c8G0kw=
 
-path-to-regexp@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.npm.taobao.org/path-to-regexp/download/path-to-regexp-3.0.0.tgz#c981a218f3df543fa28696be2f88e0c58d2e012a"
-  integrity sha1-yYGiGPPfVD+ihpa+L4jgxY0uASo=
+path-to-regexp@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.npm.taobao.org/path-to-regexp/download/path-to-regexp-3.1.0.tgz#f45a9cc4dc6331ae8f131e0ce4fde8607f802367"
+  integrity sha1-9FqcxNxjMa6PEx4M5P3oYH+AI2c=
 
 path-type@^1.0.0:
   version "1.1.0"
@@ -9168,10 +9168,10 @@ rc-hammerjs@~0.6.0:
     hammerjs "^2.0.8"
     prop-types "^15.5.9"
 
-rc-input-number@~4.4.5:
-  version "4.4.5"
-  resolved "https://registry.npm.taobao.org/rc-input-number/download/rc-input-number-4.4.5.tgz?cache=0&sync_timestamp=1566201735533&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Frc-input-number%2Fdownload%2Frc-input-number-4.4.5.tgz#81473d2885a6b312e486c4f2ba3f441c1ab88520"
-  integrity sha1-gUc9KIWmsxLkhsTyuj9EHBq4hSA=
+rc-input-number@~4.5.0:
+  version "4.5.0"
+  resolved "https://registry.npm.taobao.org/rc-input-number/download/rc-input-number-4.5.0.tgz?cache=0&sync_timestamp=1566201710062&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Frc-input-number%2Fdownload%2Frc-input-number-4.5.0.tgz#0e1728101fcec2ee0bce4e20bf84c669895c4fb9"
+  integrity sha1-DhcoEB/Owu4Lzk4gv4TGaYlcT7k=
   dependencies:
     babel-runtime "6.x"
     classnames "^2.2.0"
