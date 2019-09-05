@@ -751,7 +751,7 @@
     "@babel/helper-plugin-utils" "^7.0.0"
     "@babel/plugin-transform-typescript" "^7.3.2"
 
-"@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.3.1", "@babel/runtime@^7.4.5", "@babel/runtime@^7.5.1", "@babel/runtime@^7.5.5":
+"@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.3.1", "@babel/runtime@^7.4.5", "@babel/runtime@^7.5.1", "@babel/runtime@^7.5.4", "@babel/runtime@^7.5.5":
   version "7.5.5"
   resolved "https://registry.npm.taobao.org/@babel/runtime/download/@babel/runtime-7.5.5.tgz#74fba56d35efbeca444091c7850ccd494fd2f132"
   integrity sha1-dPulbTXvvspEQJHHhQzNSU/S8TI=
@@ -1957,6 +1957,15 @@
     pretty-format "^24.0.0"
     redent "^3.0.0"
 
+"@testing-library/react-hooks@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.npm.taobao.org/@testing-library/react-hooks/download/@testing-library/react-hooks-2.0.1.tgz#1c3ec40882d0830df3078ddae0056fdf7366c81d"
+  integrity sha1-HD7ECILQgw3zB43a4AVv33NmyB0=
+  dependencies:
+    "@babel/runtime" "^7.5.4"
+    "@types/react" ">=16.9.0"
+    "@types/react-test-renderer" ">=16.9.0"
+
 "@testing-library/react@^9.1.4":
   version "9.1.4"
   resolved "https://registry.npm.taobao.org/@testing-library/react/download/@testing-library/react-9.1.4.tgz#4cc1a228a944c0f468ee501e7da1651d8bbd9902"
@@ -2372,7 +2381,14 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@^16.9.2":
+"@types/react-test-renderer@>=16.9.0":
+  version "16.9.0"
+  resolved "https://registry.npm.taobao.org/@types/react-test-renderer/download/@types/react-test-renderer-16.9.0.tgz#d60f530ecf4c906721511603cca711b4fa830d41"
+  integrity sha1-1g9TDs9MkGchURYDzKcRtPqDDUE=
+  dependencies:
+    "@types/react" "*"
+
+"@types/react@*", "@types/react@>=16.9.0", "@types/react@^16.9.2":
   version "16.9.2"
   resolved "https://registry.npm.taobao.org/@types/react/download/@types/react-16.9.2.tgz#6d1765431a1ad1877979013906731aae373de268"
   integrity sha1-bRdlQxoa0Yd5eQE5BnMarjc94mg=
