@@ -889,15 +889,15 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@easyops/brick-dll@^0.6.5":
-  version "0.6.5"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-dll/download/@easyops/brick-dll-0.6.5.tgz#18eb1ac30ffdb5169b4483628e40dd18f7f706b9"
-  integrity sha1-GOsaww/9tRabRINijkDdGPf3Brk=
+"@easyops/brick-dll@^0.6.6":
+  version "0.6.6"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-dll/download/@easyops/brick-dll-0.6.6.tgz#8697b9cddff89f90d9de5cc80cefeac0a8c8feb8"
+  integrity sha1-hpe5zd/4n5DZ3lzIDO/qwKjI/rg=
   dependencies:
-    "@easyops/brick-http" "^0.2.1"
-    "@easyops/brick-kit" "^0.23.0"
-    "@easyops/brick-utils" "^0.8.0"
-    "@easyops/fontawesome-library" "^0.8.0"
+    "@easyops/brick-http" "^0.2.2"
+    "@easyops/brick-kit" "^0.23.1"
+    "@easyops/brick-utils" "^0.8.1"
+    "@easyops/fontawesome-library" "^0.8.1"
     "@fortawesome/react-fontawesome" "^0.1.4"
     antd "^3.23.1"
     history "^4.9.0"
@@ -909,23 +909,23 @@
     react-i18next "^10.12.2"
     react-transition-group "^4.2.2"
 
-"@easyops/brick-http@^0.2.1":
-  version "0.2.1"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-http/download/@easyops/brick-http-0.2.1.tgz#410d3f1ed901cd1ee2449c49ac67d44744beb3c7"
-  integrity sha1-QQ0/HtkBzR7iRJxJrGfUR0S+s8c=
+"@easyops/brick-http@^0.2.2":
+  version "0.2.2"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-http/download/@easyops/brick-http-0.2.2.tgz#eb4e80d8e9727082d4f40b0e9f197a5e53280cd0"
+  integrity sha1-606A2OlycILU9AsOnxl6XlMoDNA=
 
-"@easyops/brick-kit@^0.23.0":
-  version "0.23.0"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-kit/download/@easyops/brick-kit-0.23.0.tgz#07a64057900bda94b1c5cceeb4520ba0b179f308"
-  integrity sha1-B6ZAV5AL2pSxxczutFILoLF58wg=
+"@easyops/brick-kit@^0.23.1":
+  version "0.23.1"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-kit/download/@easyops/brick-kit-0.23.1.tgz#39add3a8138d8ce276938bc8cb56160dafe674b8"
+  integrity sha1-Oa3TqBONjOJ2k4vIy1YWDa/mdLg=
   dependencies:
-    "@easyops/brick-types" "^0.14.2"
+    "@easyops/brick-types" "^0.14.3"
     "@sdk/auth-sdk" "^0.5.3"
 
-"@easyops/brick-scripts@^0.13.7":
-  version "0.13.7"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-scripts/download/@easyops/brick-scripts-0.13.7.tgz#28c127438eac76a6f518dea984ff844eb6185321"
-  integrity sha1-KMEnQ46sdqb1GN6phP+ETrYYUyE=
+"@easyops/brick-scripts@^0.14.0":
+  version "0.14.0"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-scripts/download/@easyops/brick-scripts-0.14.0.tgz#9c8dee1fd1245d150511fd9e9def100af38156e1"
+  integrity sha1-nI3uH9EkXRUFEf2ene8QCvOBVuE=
   dependencies:
     chalk "^2.4.2"
     change-case "^3.1.0"
@@ -935,28 +935,28 @@
     meow "^5.0.0"
     prettier "^1.18.2"
 
-"@easyops/brick-types@^0.14.2":
-  version "0.14.2"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-types/download/@easyops/brick-types-0.14.2.tgz#a79a24cbb9315caa083cc3f4f5aebca0465469ed"
-  integrity sha1-p5oky7kxXKoIPMP09a68oEZUae0=
+"@easyops/brick-types@^0.14.3":
+  version "0.14.3"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-types/download/@easyops/brick-types-0.14.3.tgz#8b488fd9e0ccdbe0f54ae09201eb637eeb5bf53f"
+  integrity sha1-i0iP2eDM2+D1SuCSAetjfutb9T8=
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^1.2.22"
     antd "^3.23.1"
     history "^4.9.0"
     path-to-regexp "^3.1.0"
 
-"@easyops/brick-utils@^0.8.0":
-  version "0.8.0"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-utils/download/@easyops/brick-utils-0.8.0.tgz#16247c14cd7af9aa15904eb5207bcef6d529c209"
-  integrity sha1-FiR8FM16+aoVkE61IHvO9tUpwgk=
+"@easyops/brick-utils@^0.8.1":
+  version "0.8.1"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-utils/download/@easyops/brick-utils-0.8.1.tgz#0f59bb05aad00648895995e8f9d773edf3df0440"
+  integrity sha1-D1m7BarQBkiJWZXo+ddz7fPfBEA=
   dependencies:
-    "@easyops/brick-types" "^0.14.2"
+    "@easyops/brick-types" "^0.14.3"
     path-to-regexp "^3.1.0"
 
-"@easyops/fontawesome-library@^0.8.0":
-  version "0.8.0"
-  resolved "http://registry.npm.easyops.local/@easyops/fontawesome-library/download/@easyops/fontawesome-library-0.8.0.tgz#c5cc93e1315fc3472bb84e522c254a6b8bd4c0f6"
-  integrity sha1-xcyT4TFfw0cruE5SLCVKa4vUwPY=
+"@easyops/fontawesome-library@^0.8.1":
+  version "0.8.1"
+  resolved "http://registry.npm.easyops.local/@easyops/fontawesome-library/download/@easyops/fontawesome-library-0.8.1.tgz#5699a353c8bda9ff765c3142395559d701c517b0"
+  integrity sha1-VpmjU8i9qf92XDFCOVVZ1wHFF7A=
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^1.2.22"
     "@fortawesome/free-brands-svg-icons" "^5.10.2"
