@@ -1,6 +1,12 @@
 {
   "name": "next-libs",
   "private": true,
+  "homepage": "https://git.easyops.local/anyclouds/next-libs",
+  "repository": {
+    "type": "git",
+    "url": "git@git.easyops.local:anyclouds/next-libs.git"
+  },
+  "license": "UNLICENSED",
   "scripts": {
     "prepare": "lerna bootstrap",
     "build": "lerna run build",
@@ -9,11 +15,6 @@
     "yo": "brick-scripts -t libs",
     "yo-debug": "node --inspect-brk ./node_modules/@easyops/brick-scripts/dist/index.js -t libs"
   },
-  "repository": {
-    "type": "git",
-    "url": "git@git.easyops.local:anyclouds/next-libs.git"
-  },
-  "license": "UNLICENSED",
   "devDependencies": {
     "@babel/core": "^7.6.0",
     "@babel/plugin-proposal-class-properties": "^7.5.5",
