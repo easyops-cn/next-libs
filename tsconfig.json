@@ -13,8 +13,7 @@
     "strictNullChecks": false,
     "jsx": "preserve",
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "plugins": [{ "name": "typescript-plugin-css-modules" }]
+    "experimentalDecorators": true
   },
   "exclude": ["node_modules", "**/*.spec.ts", "dist/", "**/__mocks__/"]
 }

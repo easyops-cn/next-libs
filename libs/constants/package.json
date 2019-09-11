@@ -25,8 +25,5 @@
     "test": "cross-env NODE_ENV='test' jest",
     "test:ci": "cross-env NODE_ENV='test' CI=true jest"
   },
-  "sideEffects": false,
-  "devDependencies": {
-    "@easyops/rollup-config-factory": "^0.2.1"
-  }
+  "sideEffects": false
 }
