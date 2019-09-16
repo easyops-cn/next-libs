@@ -14,7 +14,7 @@ export interface AddStructModalProps {
   visible: boolean;
 }
 export interface AddStructModalState {
-  structData: any;
+  structData?: any;
   // 格式是否匹配数组
   showError?: boolean[];
 }
@@ -25,11 +25,17 @@ export class AddStructModal extends React.Component<
 > {
   constructor(props: AddStructModalProps) {
     super(props);
-    const { attribute, structData } = props;
+    const { attribute } = props;
     this.state = {
-      structData: structData || {},
       showError: new Array(attribute.value.struct_define.length).fill(false)
     };
+  }
+  componentDidUpdate(prevProps: AddStructModalProps) {
+    if (prevProps.visible !== this.props.visible) {
+      if (this.props.visible) {
+        this.setState({ structData: this.props.structData || {} });
+      }
+    }
   }
   handleValueChange = (e: SelectValue, define: Structkey) => {
     const structData = this.state.structData;
