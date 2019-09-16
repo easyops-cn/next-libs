@@ -889,13 +889,13 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@easyops/brick-dll@^0.6.7":
-  version "0.6.7"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-dll/download/@easyops/brick-dll-0.6.7.tgz#b0fe33a2d016ea6f41ec690778e0c6c1c3937adc"
-  integrity sha1-sP4zotAW6m9B7GkHeODGwcOTetw=
+"@easyops/brick-dll@^0.6.10":
+  version "0.6.10"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-dll/download/@easyops/brick-dll-0.6.10.tgz#d425596a8f176a052577484b95c6f06c66567976"
+  integrity sha1-1CVZao8XagUld0hLlcbwbGZWeXY=
   dependencies:
     "@easyops/brick-http" "^0.2.2"
-    "@easyops/brick-kit" "^0.24.0"
+    "@easyops/brick-kit" "^0.25.1"
     "@easyops/brick-utils" "^0.9.0"
     "@easyops/fontawesome-library" "^0.8.1"
     "@fortawesome/react-fontawesome" "^0.1.4"
@@ -914,18 +914,18 @@
   resolved "http://registry.npm.easyops.local/@easyops/brick-http/download/@easyops/brick-http-0.2.2.tgz#eb4e80d8e9727082d4f40b0e9f197a5e53280cd0"
   integrity sha1-606A2OlycILU9AsOnxl6XlMoDNA=
 
-"@easyops/brick-kit@^0.24.0":
-  version "0.24.0"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-kit/download/@easyops/brick-kit-0.24.0.tgz#bb8f576410d55fb5502ae45bb129f4a5644c40a1"
-  integrity sha1-u49XZBDVX7VQKuRbsSn0pWRMQKE=
+"@easyops/brick-kit@^0.25.1":
+  version "0.25.1"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-kit/download/@easyops/brick-kit-0.25.1.tgz#0fd996b217d7e7b2498d5261a507465731eace89"
+  integrity sha1-D9mWshfX57JJjVJhpQdGVzHqzok=
   dependencies:
     "@easyops/brick-types" "^0.15.0"
     "@sdk/auth-sdk" "^0.5.3"
 
-"@easyops/brick-scripts@^0.14.2":
-  version "0.14.2"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-scripts/download/@easyops/brick-scripts-0.14.2.tgz#714b5c1f6ba040d562e7774044325732bea68146"
-  integrity sha1-cUtcH2ugQNVi53dARDJXMr6mgUY=
+"@easyops/brick-scripts@^0.14.5":
+  version "0.14.5"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-scripts/download/@easyops/brick-scripts-0.14.5.tgz#94c4d5178f32d300dcc7011e4811d35db55ea2c9"
+  integrity sha1-lMTVF48y0wDcxwEeSBHTXbVeosk=
   dependencies:
     chalk "^2.4.2"
     change-case "^3.1.0"
