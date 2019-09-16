@@ -69,7 +69,6 @@ exports[`AddStruct should render 1`] = `
     }
     handleCancelFunction={[Function]}
     handleStoreFunction={[Function]}
-    structData={Object {}}
     visible={false}
   />
   <StructTable

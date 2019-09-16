@@ -70,7 +70,6 @@ export class AddStruct extends React.Component<AddStructProps, AddStructState> {
         <AddStructModal
           attribute={attribute as Attribute}
           visible={showModal}
-          structData={{}}
           handleStoreFunction={(formData: any) =>
             this.handleAddStruct(formData)
           }

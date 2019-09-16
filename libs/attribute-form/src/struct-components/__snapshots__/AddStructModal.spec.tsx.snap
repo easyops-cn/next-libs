@@ -22,7 +22,7 @@ exports[`AddStructModal should init addStructModal 1`] = `
   onCancel={[Function]}
   onOk={[Function]}
   transitionName="zoom"
-  visible={true}
+  visible={false}
   width={520}
 >
   <div

@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from "react";
 import { shallow } from "enzyme";
-import { AddStructModal } from "./AddStructModal";
+import { AddStructModal, AddStructModalProps } from "./AddStructModal";
 import { DatePicker, Input, InputNumber, Radio, Select } from "antd";
 import moment from "moment";
 import { attribute, structData } from "./mockData";
@@ -14,9 +14,9 @@ describe("AddStructModal", () => {
     attribute,
     handleStoreFunction,
     handleCancelFunction,
-    visible: true
+    visible: false
   };
-  const wrapper = shallow(<AddStructModal {...props} />);
+  const wrapper = shallow<AddStructModalProps>(<AddStructModal {...props} />);
   const instance = wrapper.instance() as AddStructModal;
   it("should init addStructModal", () => {
     expect(wrapper).toMatchSnapshot();
@@ -24,6 +24,8 @@ describe("AddStructModal", () => {
   });
   it("should call the store function", () => {
     const spy = jest.spyOn(props, "handleStoreFunction");
+
+    wrapper.setProps({ visible: true });
     instance.handleStore();
     expect(spy).toBeCalledWith(structData);
   });
