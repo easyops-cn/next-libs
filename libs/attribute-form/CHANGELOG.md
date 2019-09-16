@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/attribute-form@0.2.1...@libs/attribute-form@0.2.2) (2019-09-16)
+
+### Bug Fixes
+
+- **attribute-form:** 在添加结构体的模态框显示时，更新 state 的 structData ([d617947](https://git.easyops.local/anyclouds/next-libs/commits/d617947))
+
 ## [0.2.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/attribute-form@0.2.0...@libs/attribute-form@0.2.1) (2019-09-02)
 
 **Note:** Version bump only for package @libs/attribute-form
