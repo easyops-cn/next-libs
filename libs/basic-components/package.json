@@ -27,13 +27,13 @@
   },
   "sideEffects": false,
   "devDependencies": {
-    "@easyops/brick-dll": "^0.6.10"
+    "@easyops/brick-dll": "^0.6.11"
   },
   "peerDependencies": {
     "@easyops/brick-dll": "*"
   },
   "dependencies": {
-    "@easyops/brick-types": "^0.15.0",
+    "@easyops/brick-types": "^0.15.1",
     "@libs/cmdb-utils": "^0.2.2"
   }
 }
