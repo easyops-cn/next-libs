@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.3](https://git.easyops.local/anyclouds/next-libs/compare/@libs/attribute-form@0.2.2...@libs/attribute-form@0.2.3) (2019-09-17)
+
+**Note:** Version bump only for package @libs/attribute-form
+
 ## [0.2.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/attribute-form@0.2.1...@libs/attribute-form@0.2.2) (2019-09-16)
 
 ### Bug Fixes
