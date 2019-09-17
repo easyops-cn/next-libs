@@ -889,14 +889,14 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@easyops/brick-dll@^0.6.11":
-  version "0.6.11"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-dll/download/@easyops/brick-dll-0.6.11.tgz#a63c9a8b7da36933ef2798313cfbbab3b3fa2c32"
-  integrity sha1-pjyai32jaTPvJ5gxPPu6s7P6LDI=
+"@easyops/brick-dll@^0.6.12":
+  version "0.6.12"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-dll/download/@easyops/brick-dll-0.6.12.tgz#51ca82818d01a6fc348aafe99f5aa2b674ab4cc6"
+  integrity sha1-UcqCgY0Bpvw0iq/pn1qitnSrTMY=
   dependencies:
     "@easyops/brick-http" "^0.2.2"
-    "@easyops/brick-kit" "^0.25.2"
-    "@easyops/brick-utils" "^0.9.1"
+    "@easyops/brick-kit" "^0.25.3"
+    "@easyops/brick-utils" "^0.9.2"
     "@easyops/fontawesome-library" "^0.8.1"
     "@fortawesome/react-fontawesome" "^0.1.4"
     antd "^3.23.1"
@@ -914,18 +914,18 @@
   resolved "http://registry.npm.easyops.local/@easyops/brick-http/download/@easyops/brick-http-0.2.2.tgz#eb4e80d8e9727082d4f40b0e9f197a5e53280cd0"
   integrity sha1-606A2OlycILU9AsOnxl6XlMoDNA=
 
-"@easyops/brick-kit@^0.25.2":
-  version "0.25.2"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-kit/download/@easyops/brick-kit-0.25.2.tgz#30ea167b524124cd14c427691638970a862af21f"
-  integrity sha1-MOoWe1JBJM0UxCdpFjiXCoYq8h8=
+"@easyops/brick-kit@^0.25.3":
+  version "0.25.3"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-kit/download/@easyops/brick-kit-0.25.3.tgz#12c002135d4af6c117ed731ffca280f43a719396"
+  integrity sha1-EsACE11K9sEX7XMf/KKA9Dpxk5Y=
   dependencies:
-    "@easyops/brick-types" "^0.15.1"
-    "@sdk/auth-sdk" "^0.5.3"
+    "@easyops/brick-types" "^0.16.0"
+    "@sdk/auth-sdk" "^0.7.0"
 
-"@easyops/brick-scripts@^0.14.6":
-  version "0.14.6"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-scripts/download/@easyops/brick-scripts-0.14.6.tgz#ffeaf103f6e18361f6e2d091a5ca90c68aa0e7f6"
-  integrity sha1-/+rxA/bhg2H24tCRpcqQxoqg5/Y=
+"@easyops/brick-scripts@^0.14.7":
+  version "0.14.7"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-scripts/download/@easyops/brick-scripts-0.14.7.tgz#99673720c775e18a6bf61474a64ae8daa4b66e24"
+  integrity sha1-mWc3IMd14Ypr9hR0pkro2qS2biQ=
   dependencies:
     chalk "^2.4.2"
     change-case "^3.1.0"
@@ -935,22 +935,17 @@
     meow "^5.0.0"
     prettier "^1.18.2"
 
-"@easyops/brick-types@^0.15.1":
-  version "0.15.1"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-types/download/@easyops/brick-types-0.15.1.tgz#8deb4b5e6764fc1c10036c2e390d7356b5ccb499"
-  integrity sha1-jetLXmdk/BwQA2wuOQ1zVrXMtJk=
-  dependencies:
-    "@fortawesome/fontawesome-svg-core" "^1.2.22"
-    antd "^3.23.1"
-    history "^4.9.0"
-    path-to-regexp "^3.1.0"
+"@easyops/brick-types@^0.16.0":
+  version "0.16.0"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-types/download/@easyops/brick-types-0.16.0.tgz#bff183ed98331ef73f14b3faad577fac724ddf68"
+  integrity sha1-v/GD7ZgzHvc/FLP6rVd/rHJN32g=
 
-"@easyops/brick-utils@^0.9.1":
-  version "0.9.1"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-utils/download/@easyops/brick-utils-0.9.1.tgz#3a95c0a2aa0f4aeb19732051377bd8cdbea4f05c"
-  integrity sha1-OpXAoqoPSusZcyBRN3vYzb6k8Fw=
+"@easyops/brick-utils@^0.9.2":
+  version "0.9.2"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-utils/download/@easyops/brick-utils-0.9.2.tgz#d325d958eb6f8b6bb0539cac7b113079d2a524ec"
+  integrity sha1-0yXZWOtvi2uwU5ysexEwedKlJOw=
   dependencies:
-    "@easyops/brick-types" "^0.15.1"
+    "@easyops/brick-types" "^0.16.0"
     path-to-regexp "^3.1.0"
 
 "@easyops/fontawesome-library@^0.8.1":
@@ -2005,10 +2000,10 @@
   dependencies:
     any-observable "^0.3.0"
 
-"@sdk/auth-sdk@^0.5.3":
-  version "0.5.3"
-  resolved "http://registry.npm.easyops.local/@sdk/auth-sdk/download/@sdk/auth-sdk-0.5.3.tgz#76ee5a32876f0df827c5f3db28e82cba1502fc5e"
-  integrity sha1-du5aModvDfgnxfPbKOgsuhUC/F4=
+"@sdk/auth-sdk@^0.7.0":
+  version "0.7.0"
+  resolved "http://registry.npm.easyops.local/@sdk/auth-sdk/download/@sdk/auth-sdk-0.7.0.tgz#d0ffeaa0bfb515e43def42b17bce97b58c4dc61b"
+  integrity sha1-0P/qoL+1FeQ970Kxe86XtYxNxhs=
 
 "@sdk/cmdb-sdk@^0.5.1":
   version "0.5.1"
