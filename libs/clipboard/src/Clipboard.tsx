@@ -1,6 +1,6 @@
-import React, {PropsWithChildren, ReactElement} from "react";
-import {Icon} from "antd";
-import {IconProps} from "antd/lib/icon";
+import React, { PropsWithChildren, ReactElement } from "react";
+import { Icon } from "antd";
+import { IconProps } from "antd/lib/icon";
 
 export interface ClipboardProps {
   text: string;
@@ -11,7 +11,7 @@ export interface ClipboardProps {
 export function Clipboard(
   props: PropsWithChildren<ClipboardProps>
 ): React.ReactElement {
-  const { onCopy, icon, ...restProps } = props;
+  const { onCopy, icon, children, ...restProps } = props;
   const defaultIconProps = {
     theme: "filled",
     type: "copy"
@@ -39,6 +39,7 @@ export function Clipboard(
       onCopy && onCopy(props.text, successful);
       return;
     } catch (err) {
+      // eslint-disable-next-line no-console
       console.log("unable copy to using execCommand", err);
 
       try {
@@ -48,6 +49,7 @@ export function Clipboard(
         onCopy && onCopy(props.text, true);
         return;
       } catch (e) {
+        // eslint-disable-next-line no-console
         console.error("unable to copy using clipboardData: ", e);
       }
     }
