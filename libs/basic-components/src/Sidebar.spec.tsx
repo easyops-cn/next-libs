@@ -1,7 +1,8 @@
 import React from "react";
 import { shallow } from "enzyme";
 import { createHistory } from "@easyops/brick-kit";
-import { Sidebar, SidebarMenuItem } from "./Sidebar";
+import { Sidebar } from "./Sidebar";
+import { SidebarMenuItem } from "@easyops/brick-types";
 
 createHistory();
 

@@ -1,10 +1,17 @@
 import React from "react";
 import { Menu } from "antd";
-import { UnregisterCallback, Location, LocationDescriptor } from "history";
+import { UnregisterCallback, Location } from "history";
 import { getHistory } from "@easyops/brick-kit";
 import { matchPath } from "@easyops/brick-utils";
 import { Link } from "./Link";
 import { MenuTheme } from "antd/lib/menu/MenuContext";
+import { GeneralIcon } from "./GeneralIcon";
+import {
+  SidebarMenuSimpleItem,
+  SidebarMenuItem,
+  SidebarMenuGroup
+} from "@easyops/brick-types";
+import style from "./Sidebar.module.css";
 
 interface SidebarProps {
   menuItems: SidebarMenuItem[];
@@ -13,27 +20,6 @@ interface SidebarProps {
 
 interface SidebarState {
   location: Location;
-}
-
-export type SidebarMenuItemType = "default" | "group";
-
-export type SidebarMenuItem = SidebarMenuSimpleItem | SidebarMenuGroup;
-
-export interface SidebarMenuSimpleItem {
-  text: string;
-  to: LocationDescriptor;
-  type?: "default";
-  exact?: boolean;
-  activeIncludes?: string[];
-  activeExcludes?: string[];
-  key?: string;
-}
-
-export interface SidebarMenuGroup {
-  type: "group";
-  title: string;
-  items: SidebarMenuSimpleItem[];
-  key?: string;
 }
 
 function isGroup(item: SidebarMenuItem): item is SidebarMenuGroup {
@@ -132,19 +118,26 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
         theme={this.props.theme}
         selectedKeys={selectedKeys}
         style={{ height: "100%", borderRight: 0 }}
+        className={style.menuContainer}
       >
         {this.props.menuItems.map(item =>
           isGroup(item) ? (
             <Menu.ItemGroup key={item.key} title={item.title}>
               {item.items.map(innerItem => (
                 <Menu.Item key={String(innerItem.key)}>
-                  <Link to={innerItem.to}>{innerItem.text}</Link>
+                  <Link to={innerItem.to}>
+                    <GeneralIcon icon={innerItem.icon} />
+                    <span className={style.itemText}>{innerItem.text}</span>
+                  </Link>
                 </Menu.Item>
               ))}
             </Menu.ItemGroup>
           ) : (
             <Menu.Item key={String(item.key)}>
-              <Link to={item.to}>{item.text}</Link>
+              <Link to={item.to}>
+                <GeneralIcon icon={item.icon} />
+                <span className={style.itemText}>{item.text}</span>
+              </Link>
             </Menu.Item>
           )
         )}
