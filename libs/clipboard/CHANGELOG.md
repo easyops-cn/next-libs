@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.4](https://git.easyops.local/anyclouds/next-libs/compare/@libs/clipboard@0.2.3...@libs/clipboard@0.2.4) (2019-09-19)
+
+### Bug Fixes
+
+- should exclude `children` in `restProps` ([52dfcad](https://git.easyops.local/anyclouds/next-libs/commits/52dfcad))
+
 ## [0.2.3](https://git.easyops.local/anyclouds/next-libs/compare/@libs/clipboard@0.2.2...@libs/clipboard@0.2.3) (2019-09-17)
 
 **Note:** Version bump only for package @libs/clipboard
