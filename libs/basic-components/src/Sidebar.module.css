@@ -1,0 +1,11 @@
+.menuContainer :global(.ant-menu-item) > a {
+  display: flex;
+  align-items: center;
+}
+
+.itemText,
+.menuContainer :global(.ant-menu-item-group-title) {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

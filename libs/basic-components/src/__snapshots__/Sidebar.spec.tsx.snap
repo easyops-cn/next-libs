@@ -2,6 +2,7 @@
 
 exports[`Sidebar should work 1`] = `
 <Menu
+  className="menuContainer"
   mode="inline"
   selectedKeys={Array []}
   style={
@@ -17,7 +18,12 @@ exports[`Sidebar should work 1`] = `
     <Link
       to="/for/good"
     >
-      for-good
+      <GeneralIcon />
+      <span
+        className="itemText"
+      >
+        for-good
+      </span>
     </Link>
   </MenuItem>
   <MenuItem
@@ -31,7 +37,12 @@ exports[`Sidebar should work 1`] = `
         }
       }
     >
-      for-better
+      <GeneralIcon />
+      <span
+        className="itemText"
+      >
+        for-better
+      </span>
     </Link>
   </MenuItem>
   <MenuItemGroup
@@ -45,7 +56,12 @@ exports[`Sidebar should work 1`] = `
       <Link
         to="/for/perfect"
       >
-        for-perfect
+        <GeneralIcon />
+        <span
+          className="itemText"
+        >
+          for-perfect
+        </span>
       </Link>
     </MenuItem>
   </MenuItemGroup>
