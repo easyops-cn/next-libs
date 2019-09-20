@@ -191,6 +191,7 @@ export class ModelAttributeFormControl extends Component<
         }
         return FormControlTypeEnum.SELECT;
       case ModelAttributeValueType.INTEGER:
+      case ModelAttributeValueType.FLOAT:
         return FormControlTypeEnum.NUMBER;
       case ModelAttributeValueType.DATE:
         return FormControlTypeEnum.DATE;
