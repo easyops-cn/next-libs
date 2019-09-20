@@ -21,7 +21,9 @@ export enum ModelAttributeValueType {
   STRUCT_LIST = "structs",
   FOREIGN_KEY = "FK",
   FOREIGN_KEYS = "FKs",
-  IP = "ip"
+  IP = "ip",
+  FLOAT = "float",
+  BOOLEAN = "bool"
 }
 
 export enum ModelAttributeValueModeType {
