@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/attribute-form@0.2.4...@libs/attribute-form@0.3.0) (2019-09-20)
+
+### Features
+
+- **attribute-form:** ModelAttributeValueType 增加 float 和 bool ([d4b3596](https://git.easyops.local/anyclouds/next-libs/commits/d4b3596))
+
 ## [0.2.4](https://git.easyops.local/anyclouds/next-libs/compare/@libs/attribute-form@0.2.3...@libs/attribute-form@0.2.4) (2019-09-19)
 
 **Note:** Version bump only for package @libs/attribute-form
