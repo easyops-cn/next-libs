@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-utils@0.2.4...@libs/cmdb-utils@0.3.0) (2019-09-23)
+
+### Features
+
+- **cmdb-utils:** formatAttrValue ([12b4ddc](https://git.easyops.local/anyclouds/next-libs/commits/12b4ddc))
+
 ## [0.2.4](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-utils@0.2.3...@libs/cmdb-utils@0.2.4) (2019-09-19)
 
 **Note:** Version bump only for package @libs/cmdb-utils
