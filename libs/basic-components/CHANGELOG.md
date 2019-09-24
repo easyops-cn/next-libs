@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.9.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@0.8.1...@libs/basic-components@0.9.0) (2019-09-24)
+
+### Features
+
+- add easyops icons ([d90e4d7](https://git.easyops.local/anyclouds/next-libs/commits/d90e4d7))
+
 ## [0.8.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@0.8.0...@libs/basic-components@0.8.1) (2019-09-23)
 
 **Note:** Version bump only for package @libs/basic-components
