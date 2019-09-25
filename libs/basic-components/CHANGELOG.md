@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@0.9.0...@libs/basic-components@0.9.1) (2019-09-25)
+
+### Bug Fixes
+
+- update brick-types to v0.18.0 ([e89f39a](https://git.easyops.local/anyclouds/next-libs/commits/e89f39a))
+
 # [0.9.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@0.8.1...@libs/basic-components@0.9.0) (2019-09-24)
 
 ### Features
