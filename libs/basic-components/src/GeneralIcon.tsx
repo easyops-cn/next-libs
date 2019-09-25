@@ -18,7 +18,10 @@ export function GeneralIcon({ icon }: MenuIconProps): React.ReactElement {
   }
 
   if (icon.lib === "fa") {
-    return <Icon component={() => <FontAwesomeIcon icon={icon.icon} />} />;
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
+    const faIcon = icon.prefix ? [icon.prefix, icon.icon] : icon.icon;
+    return <Icon component={() => <FontAwesomeIcon icon={faIcon} />} />;
   }
 
   if (icon.lib === "easyops") {
