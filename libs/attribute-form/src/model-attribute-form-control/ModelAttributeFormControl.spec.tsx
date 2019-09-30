@@ -74,10 +74,20 @@ describe("ModelAttributeFormControl", () => {
       expect(result).toEqual(FormControlTypeEnum.MARKDOWN);
     });
 
-    it("should return 'number'", () => {
+    it("should return 'number' when type equal 'int'", () => {
       const result = computeFormControlType({
         value: {
           type: "int"
+        }
+      });
+
+      expect(result).toEqual(FormControlTypeEnum.NUMBER);
+    });
+
+    it("should return 'number' when type equal 'float'", () => {
+      const result = computeFormControlType({
+        value: {
+          type: "float"
         }
       });
 
@@ -179,6 +189,15 @@ describe("ModelAttributeFormControl", () => {
         }
       });
       expect(result).toEqual(FormControlTypeEnum.SELECT);
+    });
+
+    it("should return 'radio' when type equal 'bool'", () => {
+      const result = computeFormControlType({
+        value: {
+          type: "bool"
+        }
+      });
+      expect(result).toEqual(FormControlTypeEnum.RADIO);
     });
 
     it("should return 'struct'", () => {

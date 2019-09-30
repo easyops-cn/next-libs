@@ -6,7 +6,7 @@ import moment, { Moment } from "moment";
 import { AttributeFormControlUrl } from "../attribute-form-control-url/AttributeFormControlUrl";
 
 export interface FormControlSelectItem {
-  id: string;
+  id: any;
   text: string;
 }
 
@@ -209,6 +209,8 @@ export class ModelAttributeFormControl extends Component<
           throw new Error("请在资源模型中添加结构体属性");
         }
         return FormControlTypeEnum.STRUCT;
+      case ModelAttributeValueType.BOOLEAN:
+        return FormControlTypeEnum.RADIO;
       default:
         throw new Error(`unsupported type: ${attribute.value.type}`);
     }
@@ -223,7 +225,21 @@ export class ModelAttributeFormControl extends Component<
       attribute,
       type
     );
-    const items = this.computeFormControlItems(attribute);
+    let items = this.computeFormControlItems(attribute);
+
+    if (attribute.value.type === ModelAttributeValueType.BOOLEAN) {
+      items = [
+        {
+          id: true,
+          text: "true"
+        },
+        {
+          id: false,
+          text: "false"
+        }
+      ];
+    }
+
     const result: FormControl = {
       type: formControlType,
       items,
@@ -405,12 +421,12 @@ export class ModelAttributeFormControl extends Component<
         return (
           <Radio.Group
             onChange={(e: any) => this.onChange(e)}
-            value={value || unselected.id}
+            value={value !== undefined ? value : unselected.id}
             className={this.props.className}
             style={this.props.style}
           >
             {items.map(item => (
-              <Radio value={item.id} key={item.id}>
+              <Radio value={item.id} key={String(item.id)}>
                 {item.text}
               </Radio>
             ))}
