@@ -1990,10 +1990,10 @@
     pretty-format "^24.8.0"
     wait-for-expect "^1.3.0"
 
-"@testing-library/jest-dom@^4.1.1":
-  version "4.1.1"
-  resolved "https://registry.npm.taobao.org/@testing-library/jest-dom/download/@testing-library/jest-dom-4.1.1.tgz#fe063a97784c8e58fc0498869e689151faeceda3"
-  integrity sha1-/gY6l3hMjlj8BJiGnmiRUfrs7aM=
+"@testing-library/jest-dom@^4.1.2":
+  version "4.1.2"
+  resolved "https://registry.npm.taobao.org/@testing-library/jest-dom/download/@testing-library/jest-dom-4.1.2.tgz#e523047191379abd67cf0896dfd93cabc7e33eab"
+  integrity sha1-5SMEcZE3mr1nzwiW39k8q8fjPqs=
   dependencies:
     "@babel/runtime" "^7.5.1"
     chalk "^2.4.1"
