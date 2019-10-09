@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/attribute-form@0.4.3...@libs/attribute-form@0.5.0) (2019-10-09)
+
+### Features
+
+- **attribute-form:** ModelAttributeFormControl 支持 boolean 类型 ([cfc58db](https://git.easyops.local/anyclouds/next-libs/commits/cfc58db))
+
 ## [0.4.3](https://git.easyops.local/anyclouds/next-libs/compare/@libs/attribute-form@0.4.2...@libs/attribute-form@0.4.3) (2019-09-25)
 
 ### Bug Fixes
