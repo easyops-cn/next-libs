@@ -19,6 +19,10 @@ describe("ModelAttributeForm", () => {
     objectId: "HOST",
     disabled: false,
     isCreate: true,
+    formItemProps: {
+      labelCol: { span: 3 },
+      wrapperCol: { span: 17 }
+    },
     brickList: [
       {
         name: "console-printer",
@@ -119,7 +123,15 @@ describe("ModelAttributeForm", () => {
   it("should work", () => {
     const wrapper = mount(
       <InstanceModelAttributeForm
-        {...Object.assign({}, props, { isCreate: false })}
+        {...Object.assign({}, props, {
+          isCreate: false,
+          fieldsByTag: [
+            {
+              name: "基本信息",
+              fields: ["_agentHeartBeat", "_agentStatus"]
+            }
+          ]
+        })}
       />
     );
     const instance = wrapper
