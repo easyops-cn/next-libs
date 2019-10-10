@@ -1,7 +1,11 @@
 import React, { Component, FormEvent } from "react";
 import { Button, Checkbox, Collapse, Form } from "antd";
 import { CmdbModels, InstanceApi } from "@sdk/cmdb-sdk";
-import { FormComponentProps, ValidationRule } from "antd/lib/form";
+import {
+  FormComponentProps,
+  ValidationRule,
+  FormItemProps
+} from "antd/lib/form";
 import {
   FormControlTypeEnum,
   ModelAttributeFormControl,
@@ -16,13 +20,19 @@ export interface ModelAttributeFormChildren {
   options?: { [key: string]: any };
 }
 
+export interface FieldsByTag {
+  name: string;
+  fields: string[];
+}
+
 interface ModelAttributeFormProps extends FormComponentProps {
   isCreate?: boolean;
   disabled?: boolean;
   objectId?: string;
   allowContinueCreate?: boolean;
   brickList?: ModelAttributeFormChildren[];
-  tagsList?: { [s: string]: string[] };
+  fieldsByTag?: FieldsByTag[];
+  formItemProps?: FormItemProps;
   onSubmit(data: any): Promise<any>;
   basicInfoAttrList?: Partial<CmdbModels.ModelObjectAttr>[];
   attributeFormControlInitialValueMap:
@@ -30,9 +40,14 @@ interface ModelAttributeFormProps extends FormComponentProps {
     | Partial<InstanceApi.GetDetailResponseBody>;
 }
 
+export type attributesFieldsByTag = [
+  string,
+  Partial<CmdbModels.ModelObjectAttr>[]
+];
+
 interface ModelAttributeFormState {
   sending: boolean;
-  attrListGroupByTag: { [s: string]: Partial<CmdbModels.ModelObjectAttr>[] };
+  attrListGroupByTag: attributesFieldsByTag[];
   continueCreating: boolean;
 }
 
@@ -40,27 +55,36 @@ export class ModelAttributeForm extends Component<
   ModelAttributeFormProps,
   ModelAttributeFormState
 > {
+  formItemProps: FormItemProps = {
+    labelCol: { span: 6 },
+    wrapperCol: { span: 18 }
+  };
+
   constructor(props: ModelAttributeFormProps) {
     super(props);
 
-    let AttrListGroupByTag: Record<string, any> = {};
+    let AttrListGroupByTag: attributesFieldsByTag[] = [];
 
-    props.basicInfoAttrList.forEach(basicInfoAttr => {
-      const groupTag = basicInfoAttr.tag[0] || "默认属性";
+    if (props.formItemProps) {
+      this.formItemProps = props.formItemProps;
+    }
 
-      const basicInfoMapGroup = AttrListGroupByTag[groupTag];
-      if (basicInfoMapGroup) {
-        basicInfoMapGroup.push(basicInfoAttr);
-      } else {
-        AttrListGroupByTag[groupTag] = [basicInfoAttr];
-      }
-    });
-
-    if (props.tagsList) {
-      AttrListGroupByTag = ModelAttributeForm.sortAttributeList(
-        AttrListGroupByTag,
-        props.tagsList
+    if (props.fieldsByTag) {
+      AttrListGroupByTag = ModelAttributeForm.getFieldsByTag(
+        props.basicInfoAttrList,
+        props.fieldsByTag
       );
+    } else {
+      props.basicInfoAttrList.forEach(basicInfoAttr => {
+        const groupTag = basicInfoAttr.tag[0] || "默认属性";
+
+        const attrs = AttrListGroupByTag.find(([key]) => key === groupTag);
+        if (attrs) {
+          attrs[1].push(basicInfoAttr);
+        } else {
+          AttrListGroupByTag.push([groupTag, [basicInfoAttr]]);
+        }
+      });
     }
 
     this.state = {
@@ -68,6 +92,27 @@ export class ModelAttributeForm extends Component<
       attrListGroupByTag: AttrListGroupByTag,
       continueCreating: false
     };
+  }
+
+  static getFieldsByTag(
+    attributeList: Partial<CmdbModels.ModelObjectAttr>[],
+    fieldsByTag: FieldsByTag[]
+  ): attributesFieldsByTag[] {
+    const map = new Map<string, Partial<CmdbModels.ModelObjectAttr>[]>([]);
+
+    fieldsByTag.forEach(({ name, fields }) => {
+      if (!map.has(name)) {
+        map.set(name, []);
+        fields.forEach(field => {
+          map.set(name, [
+            ...map.get(name),
+            attributeList.find(({ id }) => id === field)
+          ]);
+        });
+      }
+    });
+
+    return Array.from(map);
   }
 
   static sortAttributeList(
@@ -203,27 +248,25 @@ export class ModelAttributeForm extends Component<
       allowContinueCreate
     } = this.props;
     const { getFieldDecorator } = form;
-    const formItemLayout = {
-      labelCol: { span: 6 },
-      wrapperCol: { span: 18 }
-    };
 
-    const tagArray = Object.keys(this.state.attrListGroupByTag);
+    let defaultActiveKey = this.state.attrListGroupByTag.map(([key]) => key);
 
-    let defaultActiveKey = tagArray;
     if (Array.isArray(brickList)) {
-      defaultActiveKey = [...tagArray, ...brickList.map(brick => brick.name)];
+      defaultActiveKey = [
+        ...defaultActiveKey,
+        ...brickList.map(brick => brick.name)
+      ];
     }
 
     const collapse = this.state.attrListGroupByTag && (
       <Collapse bordered={false} defaultActiveKey={defaultActiveKey}>
-        {tagArray.map(tag => (
+        {this.state.attrListGroupByTag.map(([tag, list]) => (
           <Panel header={tag} key={tag}>
-            {this.state.attrListGroupByTag[tag].map(attribute => (
+            {list.map(attribute => (
               <Form.Item
                 label={attribute.name}
                 key={attribute.name}
-                {...formItemLayout}
+                {...this.formItemProps}
               >
                 {getFieldDecorator(attribute.id, {
                   rules: this.rules(attribute),
@@ -241,7 +284,7 @@ export class ModelAttributeForm extends Component<
               <Form.Item
                 label={brick.label}
                 key={brick.name}
-                {...formItemLayout}
+                {...this.formItemProps}
               >
                 <brick.name
                   ref={(element: any) => {
@@ -257,10 +300,15 @@ export class ModelAttributeForm extends Component<
     );
 
     const submitContainer = (
-      <div className="ant-collapse-content">
+      <div className="ant-collapse-content" style={{ borderTop: "none" }}>
         <div className="ant-collapse-content-box">
           <Form.Item>
-            <div className="ant-col ant-col-6 " />
+            <div
+              className={[
+                "ant-col",
+                `ant-col-${this.formItemProps.labelCol.span}`
+              ].join(" ")}
+            />
             {allowContinueCreate && (
               <Checkbox onChange={this.handleCheckContinueCreating}>
                 创建另一个
