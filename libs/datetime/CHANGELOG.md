@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/datetime@0.5.7...@libs/datetime@0.6.0) (2019-10-12)
+
+### Features
+
+- **datetime:** cost time in unit of `month`, refs BRICK_STORE-381 ([6c88d5f](https://git.easyops.local/anyclouds/next-libs/commits/6c88d5f))
+
 ## [0.5.7](https://git.easyops.local/anyclouds/next-libs/compare/@libs/datetime@0.5.6...@libs/datetime@0.5.7) (2019-10-10)
 
 **Note:** Version bump only for package @libs/datetime
