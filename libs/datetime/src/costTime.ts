@@ -17,9 +17,14 @@ export const costTime = (cost: number, start?: any, end?: any) => {
   const seconds = Math.floor(cost / 1000) % 60;
   const minutes = Math.floor(cost / 60000) % 60;
   const hours = Math.floor(cost / 3600000) % 24;
-  const days = Math.floor(cost / 86400000);
+  const days = Math.floor(cost / 86400000) % 30;
+  const months = Math.floor(cost / (86400000 * 30));
 
   const list = [
+    {
+      count: months,
+      unit: "个月"
+    },
     {
       count: days,
       unit: "天"
@@ -47,7 +52,7 @@ export const costTime = (cost: number, start?: any, end?: any) => {
   });
 
   // 如果小于 1 分钟，统一只显示 `秒`
-  if (index >= 3 || index === -1) {
+  if (index >= 4 || index === -1) {
     // 如果小于 0.1 秒，取 3 位小数，否则取 1 位小数
     return +(cost / 1000).toFixed(cost >= 100 ? 1 : 3) + " 秒";
   }

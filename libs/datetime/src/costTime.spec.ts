@@ -10,6 +10,7 @@ describe("costTime", () => {
     [123456, undefined, undefined, "2 分钟 3 秒"],
     [12345678, undefined, undefined, "3 小时 25 分钟"],
     [1234567890, undefined, undefined, "14 天 6 小时"],
+    [4403622000, undefined, undefined, "1 个月 20 天"],
     [
       undefined,
       "2018-01-02T03:04:05Z",
