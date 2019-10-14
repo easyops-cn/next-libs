@@ -11,7 +11,8 @@ describe("Sidebar", () => {
     const menuItems: SidebarMenuItem[] = [
       {
         text: "for-good",
-        to: "/for/good"
+        to: "/for/good",
+        activeIncludes: ["/for/good"]
       },
       {
         type: "default",
@@ -27,7 +28,18 @@ describe("Sidebar", () => {
         items: [
           {
             text: "for-perfect",
-            to: "/for/perfect"
+            to: "/for/perfect",
+            activeExcludes: ["/for/perfect/aaa"]
+          },
+          {
+            type: "subMenu",
+            title: "subMenu",
+            items: [
+              {
+                text: "for-submenu",
+                to: "/for/submenu"
+              }
+            ]
           }
         ]
       }

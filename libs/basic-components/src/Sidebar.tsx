@@ -14,8 +14,6 @@ import {
 } from "@easyops/brick-types";
 import style from "./Sidebar.module.css";
 
-const { SubMenu } = Menu;
-
 interface SidebarProps {
   menuItems: SidebarMenuItem[];
   theme?: MenuTheme;
@@ -147,29 +145,25 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
   private renderGroupMenu(item: SidebarMenuGroup): React.ReactNode {
     return (
       <Menu.ItemGroup key={item.key} title={item.title}>
-        {item.items.map((innerItem: SidebarMenuItem) =>
-          isSubMenu(innerItem)
-            ? this.renderSubMenu(innerItem)
-            : isGroup(innerItem)
-            ? this.renderGroupMenu(innerItem)
-            : this.renderSimpleMenuItem(innerItem)
-        )}
+        {item.items.map(innerItem => this.renderMenuItem(innerItem))}
       </Menu.ItemGroup>
     );
   }
 
   private renderSubMenu(item: SidebarMenuGroup): React.ReactNode {
     return (
-      <SubMenu key={item.key} title={item.title}>
-        {item.items.map((innerItem: SidebarMenuItem) =>
-          isSubMenu(innerItem)
-            ? this.renderSubMenu(innerItem)
-            : isGroup(innerItem)
-            ? this.renderGroupMenu(innerItem)
-            : this.renderSimpleMenuItem(innerItem)
-        )}
-      </SubMenu>
+      <Menu.SubMenu key={item.key} title={item.title}>
+        {item.items.map(innerItem => this.renderMenuItem(innerItem))}
+      </Menu.SubMenu>
     );
+  }
+
+  private renderMenuItem(item: SidebarMenuItem): React.ReactNode {
+    return isSubMenu(item)
+      ? this.renderSubMenu(item)
+      : isGroup(item)
+      ? this.renderGroupMenu(item)
+      : this.renderSimpleMenuItem(item);
   }
 
   render(): React.ReactNode {
@@ -188,13 +182,7 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
         style={{ height: "100%", borderRight: 0 }}
         className={style.menuContainer}
       >
-        {this.props.menuItems.map(item =>
-          isSubMenu(item)
-            ? this.renderSubMenu(item)
-            : isGroup(item)
-            ? this.renderGroupMenu(item)
-            : this.renderSimpleMenuItem(item)
-        )}
+        {this.props.menuItems.map(item => this.renderMenuItem(item))}
       </Menu>
     );
   }
