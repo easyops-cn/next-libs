@@ -1,5 +1,6 @@
 import React from "react";
 import { Menu } from "antd";
+import { uniq } from "lodash";
 import { UnregisterCallback, Location } from "history";
 import { getHistory } from "@easyops/brick-kit";
 import { matchPath } from "@easyops/brick-utils";
@@ -13,6 +14,8 @@ import {
 } from "@easyops/brick-types";
 import style from "./Sidebar.module.css";
 
+const { SubMenu } = Menu;
+
 interface SidebarProps {
   menuItems: SidebarMenuItem[];
   theme?: MenuTheme;
@@ -24,6 +27,88 @@ interface SidebarState {
 
 function isGroup(item: SidebarMenuItem): item is SidebarMenuGroup {
   return item.type === "group";
+}
+
+function isSubMenu(item: SidebarMenuItem): item is SidebarMenuGroup {
+  return item.type === "subMenu";
+}
+
+function initMenuItemAndMatchCurrentPathKeys(
+  menuItems: SidebarMenuItem[],
+  pathname: string,
+  parentCursor: string
+): {
+  selectedKeys: string[];
+  openedKeys: string[];
+} {
+  const selectedKeys: string[] = [];
+  const openedKeys: string[] = [];
+
+  let cursor = 0;
+  menuItems.forEach(item => {
+    item.key = parentCursor === "" ? `${cursor}` : `${parentCursor}.${cursor}`;
+    if (isGroup(item) || isSubMenu(item)) {
+      const tmp = initMenuItemAndMatchCurrentPathKeys(
+        item.items,
+        pathname,
+        item.key
+      );
+      selectedKeys.push(...tmp.selectedKeys);
+      if (tmp.selectedKeys.length) {
+        openedKeys.push(item.key);
+      }
+      openedKeys.push(...tmp.openedKeys);
+    } else {
+      if (matchMenuItem(item, pathname)) {
+        selectedKeys.push(String(item.key));
+      }
+    }
+    cursor += 1;
+  });
+  if (selectedKeys.length && parentCursor !== "") {
+    openedKeys.push(parentCursor);
+  }
+  return {
+    selectedKeys: selectedKeys,
+    openedKeys: openedKeys
+  };
+}
+
+function matchMenuItem(item: SidebarMenuSimpleItem, pathname: string): boolean {
+  const path = typeof item.to === "object" ? item.to.pathname : item.to;
+
+  // Regex taken from: https://github.com/pillarjs/path-to-regexp/blob/master/index.js#L202
+  const escapedPath = path.replace(/([.+*?=^!:${}()[\]|/\\])/g, "\\$1");
+
+  let match = !!matchPath(pathname, {
+    path: escapedPath,
+    exact: item.exact
+  });
+
+  if (!match && Array.isArray(item.activeIncludes)) {
+    for (const include of item.activeIncludes) {
+      match = !!matchPath(pathname, {
+        path: include,
+        exact: true
+      });
+      if (match) {
+        break;
+      }
+    }
+  }
+
+  if (match && Array.isArray(item.activeExcludes)) {
+    for (const include of item.activeExcludes) {
+      match = !matchPath(pathname, {
+        path: include,
+        exact: true
+      });
+      if (!match) {
+        break;
+      }
+    }
+  }
+  return match;
 }
 
 export class Sidebar extends React.Component<SidebarProps, SidebarState> {
@@ -48,98 +133,67 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
     this.unlisten();
   }
 
-  private matchMenuItem(
-    item: SidebarMenuSimpleItem,
-    pathname: string,
-    selectedKeys: string[]
-  ): void {
-    const path = typeof item.to === "object" ? item.to.pathname : item.to;
+  private renderSimpleMenuItem(item: SidebarMenuSimpleItem): React.ReactNode {
+    return (
+      <Menu.Item key={String(item.key)}>
+        <Link to={item.to}>
+          <GeneralIcon icon={item.icon} />
+          <span className={style.itemText}>{item.text}</span>
+        </Link>
+      </Menu.Item>
+    );
+  }
 
-    // Regex taken from: https://github.com/pillarjs/path-to-regexp/blob/master/index.js#L202
-    const escapedPath = path.replace(/([.+*?=^!:${}()[\]|/\\])/g, "\\$1");
+  private renderGroupMenu(item: SidebarMenuGroup): React.ReactNode {
+    return (
+      <Menu.ItemGroup key={item.key} title={item.title}>
+        {item.items.map((innerItem: SidebarMenuItem) =>
+          isSubMenu(innerItem)
+            ? this.renderSubMenu(innerItem)
+            : isGroup(innerItem)
+            ? this.renderGroupMenu(innerItem)
+            : this.renderSimpleMenuItem(innerItem)
+        )}
+      </Menu.ItemGroup>
+    );
+  }
 
-    let match = !!matchPath(pathname, {
-      path: escapedPath,
-      exact: item.exact
-    });
-
-    if (!match && Array.isArray(item.activeIncludes)) {
-      for (const include of item.activeIncludes) {
-        match = !!matchPath(pathname, {
-          path: include,
-          exact: true
-        });
-        if (match) {
-          break;
-        }
-      }
-    }
-
-    if (match && Array.isArray(item.activeExcludes)) {
-      for (const include of item.activeExcludes) {
-        match = !matchPath(pathname, {
-          path: include,
-          exact: true
-        });
-        if (!match) {
-          break;
-        }
-      }
-    }
-
-    if (match) {
-      selectedKeys.push(String(item.key));
-    }
+  private renderSubMenu(item: SidebarMenuGroup): React.ReactNode {
+    return (
+      <SubMenu key={item.key} title={item.title}>
+        {item.items.map((innerItem: SidebarMenuItem) =>
+          isSubMenu(innerItem)
+            ? this.renderSubMenu(innerItem)
+            : isGroup(innerItem)
+            ? this.renderGroupMenu(innerItem)
+            : this.renderSimpleMenuItem(innerItem)
+        )}
+      </SubMenu>
+    );
   }
 
   render(): React.ReactNode {
     const { pathname } = this.state.location;
-    const selectedKeys: string[] = [];
-    let cursor = 0;
-    this.props.menuItems.forEach(item => {
-      if (isGroup(item)) {
-        item.key = String(cursor);
-        cursor += 1;
-        item.items.forEach(innerItem => {
-          innerItem.key = String(cursor);
-          cursor += 1;
-          this.matchMenuItem(innerItem, pathname, selectedKeys);
-        });
-      } else {
-        item.key = String(cursor);
-        cursor += 1;
-        this.matchMenuItem(item, pathname, selectedKeys);
-      }
-    });
-
+    const { selectedKeys, openedKeys } = initMenuItemAndMatchCurrentPathKeys(
+      this.props.menuItems,
+      pathname,
+      ""
+    );
     return (
       <Menu
         mode="inline"
         theme={this.props.theme}
-        selectedKeys={selectedKeys}
+        defaultOpenKeys={uniq(openedKeys)}
+        defaultSelectedKeys={selectedKeys}
         style={{ height: "100%", borderRight: 0 }}
         className={style.menuContainer}
       >
         {this.props.menuItems.map(item =>
-          isGroup(item) ? (
-            <Menu.ItemGroup key={item.key} title={item.title}>
-              {item.items.map(innerItem => (
-                <Menu.Item key={String(innerItem.key)}>
-                  <Link to={innerItem.to}>
-                    <GeneralIcon icon={innerItem.icon} />
-                    <span className={style.itemText}>{innerItem.text}</span>
-                  </Link>
-                </Menu.Item>
-              ))}
-            </Menu.ItemGroup>
-          ) : (
-            <Menu.Item key={String(item.key)}>
-              <Link to={item.to}>
-                <GeneralIcon icon={item.icon} />
-                <span className={style.itemText}>{item.text}</span>
-              </Link>
-            </Menu.Item>
-          )
+          isSubMenu(item)
+            ? this.renderSubMenu(item)
+            : isGroup(item)
+            ? this.renderGroupMenu(item)
+            : this.renderSimpleMenuItem(item)
         )}
       </Menu>
     );
