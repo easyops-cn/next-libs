@@ -44,6 +44,7 @@ function initMenuItemAndMatchCurrentPathKeys(
 
   let cursor = 0;
   menuItems.forEach(item => {
+    // key的格式最终为0,1,2,0.1,0.2,0.1.1,0.1.2
     item.key = parentCursor === "" ? `${cursor}` : `${parentCursor}.${cursor}`;
     if (isGroup(item) || isSubMenu(item)) {
       const tmp = initMenuItemAndMatchCurrentPathKeys(
