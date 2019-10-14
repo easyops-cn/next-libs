@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.8](https://git.easyops.local/anyclouds/next-libs/compare/@libs/custom-hook@0.1.7...@libs/custom-hook@0.1.8) (2019-10-14)
+
+**Note:** Version bump only for package @libs/custom-hook
+
 ## [0.1.7](https://git.easyops.local/anyclouds/next-libs/compare/@libs/custom-hook@0.1.6...@libs/custom-hook@0.1.7) (2019-10-12)
 
 **Note:** Version bump only for package @libs/custom-hook

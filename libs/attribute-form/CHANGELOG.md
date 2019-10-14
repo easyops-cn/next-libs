@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/attribute-form@0.5.2...@libs/attribute-form@0.6.0) (2019-10-14)
+
+### Features
+
+- **attribute-form:** structTable support word break ([e49becd](https://git.easyops.local/anyclouds/next-libs/commits/e49becd))
+
 ## [0.5.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/attribute-form@0.5.1...@libs/attribute-form@0.5.2) (2019-10-12)
 
 **Note:** Version bump only for package @libs/attribute-form
