@@ -7,3 +7,6 @@
 .formLabel {
   display: block;
 }
+.structTableTd {
+  word-break: break-all;
+}

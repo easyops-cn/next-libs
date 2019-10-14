@@ -8,41 +8,49 @@ exports[`StructTable should render 1`] = `
   columns={
     Array [
       Object {
+        "className": "structTableTd",
         "dataIndex": "arr",
         "render": [Function],
         "title": "数组",
       },
       Object {
+        "className": "structTableTd",
         "dataIndex": "str",
         "render": [Function],
         "title": "字符串",
       },
       Object {
+        "className": "structTableTd",
         "dataIndex": "int",
         "render": [Function],
         "title": "数组",
       },
       Object {
+        "className": "structTableTd",
         "dataIndex": "ip",
         "render": [Function],
         "title": "IP地址",
       },
       Object {
+        "className": "structTableTd",
         "dataIndex": "enum",
         "render": [Function],
         "title": "枚举",
       },
       Object {
+        "className": "structTableTd",
         "dataIndex": "date",
         "render": [Function],
         "title": "日期",
       },
       Object {
+        "className": "structTableTd",
         "dataIndex": "datetime",
         "render": [Function],
         "title": "时间",
       },
       Object {
+        "className": "structTableTd",
         "dataIndex": "operation",
         "render": [Function],
         "title": "操作",
@@ -101,41 +109,49 @@ exports[`StructTable should render 2`] = `
   columns={
     Array [
       Object {
+        "className": "structTableTd",
         "dataIndex": "arr",
         "render": [Function],
         "title": "数组",
       },
       Object {
+        "className": "structTableTd",
         "dataIndex": "str",
         "render": [Function],
         "title": "字符串",
       },
       Object {
+        "className": "structTableTd",
         "dataIndex": "int",
         "render": [Function],
         "title": "数组",
       },
       Object {
+        "className": "structTableTd",
         "dataIndex": "ip",
         "render": [Function],
         "title": "IP地址",
       },
       Object {
+        "className": "structTableTd",
         "dataIndex": "enum",
         "render": [Function],
         "title": "枚举",
       },
       Object {
+        "className": "structTableTd",
         "dataIndex": "date",
         "render": [Function],
         "title": "日期",
       },
       Object {
+        "className": "structTableTd",
         "dataIndex": "datetime",
         "render": [Function],
         "title": "时间",
       },
       Object {
+        "className": "structTableTd",
         "dataIndex": "operation",
         "render": [Function],
         "title": "操作",

@@ -4,7 +4,7 @@ import { Attribute, Structkey } from "./interfaces";
 import { isEmpty } from "lodash";
 import { AddStructModal } from "./AddStructModal";
 import { TableSize } from "antd/lib/table/interface";
-
+import styles from "./index.module.css";
 export interface StructTableProps {
   attribute: Attribute;
   structData: any;
@@ -34,12 +34,14 @@ export class StructTable extends React.Component<
   getColumns(defines: Structkey[]) {
     const columns = defines.map((item: Structkey) => ({
       title: item.name,
+      className: styles.structTableTd,
       dataIndex: item.id,
       render: (text: string, _record: any, _index: number) => text
     }));
     if (this.props.isEditable) {
       columns.push({
         title: "操作",
+        className: styles.structTableTd,
         dataIndex: "operation",
         render: (_text: string, record: any, index: number): any => {
           return this.renderOperation(record, index);
