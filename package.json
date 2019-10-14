@@ -23,7 +23,7 @@
     "@babel/preset-env": "^7.6.3",
     "@babel/preset-react": "^7.6.3",
     "@babel/preset-typescript": "^7.6.0",
-    "@easyops/brick-scripts": "^0.17.0",
+    "@easyops/brick-scripts": "^0.18.0",
     "@easyops/rollup-config-factory": "^0.3.2",
     "@testing-library/jest-dom": "^4.1.2",
     "@testing-library/react": "^9.3.0",
