@@ -3,9 +3,25 @@
   align-items: center;
 }
 
-:global(.menuItemText),
+.menuItemText,
 .menuContainer :global(.ant-menu-item-group-title) {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.menuItemIcon + .menuItemText {
+  margin-left: 17px;
+}
+
+.menuItemIcon {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  width: 14px;
+  height: 14px;
+}
+
+.menuItemText {
+  transition: all 250ms ease-out;
 }

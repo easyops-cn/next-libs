@@ -19,9 +19,8 @@ exports[`Sidebar should work 1`] = `
     <Link
       to="/for/good"
     >
-      <GeneralIcon />
       <span
-        className="itemText"
+        className="menuItemText"
       >
         for-good
       </span>
@@ -38,9 +37,8 @@ exports[`Sidebar should work 1`] = `
         }
       }
     >
-      <GeneralIcon />
       <span
-        className="itemText"
+        className="menuItemText"
       >
         for-better
       </span>
@@ -57,9 +55,8 @@ exports[`Sidebar should work 1`] = `
       <Link
         to="/for/perfect"
       >
-        <GeneralIcon />
         <span
-          className="itemText"
+          className="menuItemText"
         >
           for-perfect
         </span>
@@ -75,9 +72,8 @@ exports[`Sidebar should work 1`] = `
         <Link
           to="/for/submenu"
         >
-          <GeneralIcon />
           <span
-            className="itemText"
+            className="menuItemText"
           >
             for-submenu
           </span>

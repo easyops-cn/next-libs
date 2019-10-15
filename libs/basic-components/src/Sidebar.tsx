@@ -140,10 +140,12 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
     return (
       <Menu.Item key={String(item.key)}>
         <Link to={item.to}>
-          <i className="menuItemIcon">
-            <GeneralIcon icon={item.icon} />
-          </i>
-          <span className="menuItemText">{item.text}</span>
+          {item.icon && (
+            <i className={style.menuItemIcon}>
+              <GeneralIcon icon={item.icon} />
+            </i>
+          )}
+          <span className={style.menuItemText}>{item.text}</span>
         </Link>
       </Menu.Item>
     );
