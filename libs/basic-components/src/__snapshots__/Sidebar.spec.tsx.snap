@@ -3,8 +3,9 @@
 exports[`Sidebar should work 1`] = `
 <Menu
   className="menuContainer"
+  defaultOpenKeys={Array []}
+  defaultSelectedKeys={Array []}
   mode="inline"
-  selectedKeys={Array []}
   style={
     Object {
       "borderRight": 0,
@@ -51,7 +52,7 @@ exports[`Sidebar should work 1`] = `
     title="grouped"
   >
     <MenuItem
-      key="3"
+      key="2.0"
     >
       <Link
         to="/for/perfect"
@@ -64,6 +65,25 @@ exports[`Sidebar should work 1`] = `
         </span>
       </Link>
     </MenuItem>
+    <SubMenu
+      key="2.1"
+      title="subMenu"
+    >
+      <MenuItem
+        key="2.1.0"
+      >
+        <Link
+          to="/for/submenu"
+        >
+          <GeneralIcon />
+          <span
+            className="itemText"
+          >
+            for-submenu
+          </span>
+        </Link>
+      </MenuItem>
+    </SubMenu>
   </MenuItemGroup>
 </Menu>
 `;
