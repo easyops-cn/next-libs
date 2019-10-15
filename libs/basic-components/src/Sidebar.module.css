@@ -3,7 +3,7 @@
   align-items: center;
 }
 
-.itemText,
+:global(.menuItemText),
 .menuContainer :global(.ant-menu-item-group-title) {
   white-space: nowrap;
   overflow: hidden;
