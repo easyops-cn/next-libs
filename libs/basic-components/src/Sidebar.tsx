@@ -31,7 +31,7 @@ function isSubMenu(item: SidebarMenuItem): item is SidebarMenuGroup {
   return item.type === "subMenu";
 }
 
-function initMenuItemAndMatchCurrentPathKeys(
+export function initMenuItemAndMatchCurrentPathKeys(
   menuItems: SidebarMenuItem[],
   pathname: string,
   parentCursor: string
@@ -73,7 +73,10 @@ function initMenuItemAndMatchCurrentPathKeys(
   };
 }
 
-function matchMenuItem(item: SidebarMenuSimpleItem, pathname: string): boolean {
+export function matchMenuItem(
+  item: SidebarMenuSimpleItem,
+  pathname: string
+): boolean {
   const path = typeof item.to === "object" ? item.to.pathname : item.to;
 
   // Regex taken from: https://github.com/pillarjs/path-to-regexp/blob/master/index.js#L202
