@@ -6,6 +6,7 @@ exports[`Sidebar should work 1`] = `
   defaultOpenKeys={Array []}
   defaultSelectedKeys={Array []}
   mode="inline"
+  selectedKeys={Array []}
   style={
     Object {
       "borderRight": 0,
