@@ -17,6 +17,7 @@ import style from "./Sidebar.module.css";
 interface SidebarProps {
   menuItems: SidebarMenuItem[];
   theme?: MenuTheme;
+  inlineIndent?: number;
 }
 
 interface SidebarState {
@@ -139,8 +140,12 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
     return (
       <Menu.Item key={String(item.key)}>
         <Link to={item.to}>
-          <GeneralIcon icon={item.icon} />
-          <span className={style.itemText}>{item.text}</span>
+          {item.icon && (
+            <i className={style.menuItemIcon}>
+              <GeneralIcon icon={item.icon} />
+            </i>
+          )}
+          <span className={style.menuItemText}>{item.text}</span>
         </Link>
       </Menu.Item>
     );
@@ -181,6 +186,7 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
       <Menu
         mode="inline"
         theme={this.props.theme}
+        inlineIndent={this.props.inlineIndent}
         defaultOpenKeys={uniq(openedKeys)}
         defaultSelectedKeys={selectedKeys}
         style={{ height: "100%", borderRight: 0 }}
