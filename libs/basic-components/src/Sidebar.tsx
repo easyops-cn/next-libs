@@ -189,6 +189,7 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
         inlineIndent={this.props.inlineIndent}
         defaultOpenKeys={uniq(openedKeys)}
         defaultSelectedKeys={selectedKeys}
+        selectedKeys={selectedKeys}
         style={{ height: "100%", borderRight: 0 }}
         className={style.menuContainer}
       >
