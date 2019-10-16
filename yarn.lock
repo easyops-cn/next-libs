@@ -933,11 +933,6 @@
     request "^2.88.0"
     request-promise-native "^1.0.7"
 
-"@easyops/brick-types@^0.20.2":
-  version "0.20.2"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-types/download/@easyops/brick-types-0.20.2.tgz#1d2b68b1b67fc7cd6aaaa665f946ec330478f5ed"
-  integrity sha1-HStosbZ/x81qqqZl+UbsMwR49e0=
-
 "@easyops/brick-types@^0.21.0":
   version "0.21.0"
   resolved "http://registry.npm.easyops.local/@easyops/brick-types/download/@easyops/brick-types-0.21.0.tgz#21ee09392447992f5dc5e6afaa608fa02d5a14df"
