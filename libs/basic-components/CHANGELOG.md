@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.10.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@0.9.5...@libs/basic-components@0.10.0) (2019-10-16)
+
+### Features
+
+- **sidebar:** BRICK_STORE-339 sidebar 兼容 APPMenu 模式和普通使用模式 ([e406536](https://git.easyops.local/anyclouds/next-libs/commits/e406536))
+- **sidebar:** BRICK_STORE-339 修改测试用例 ([936557b](https://git.easyops.local/anyclouds/next-libs/commits/936557b))
+- **sidebar:** BRICK_STORE-339 提供 className，便于外部不同地方使用控制样式 ([7823c6d](https://git.easyops.local/anyclouds/next-libs/commits/7823c6d))
+- **sidebar:** BRICK_STORE-339 文档左侧菜单目录支持折叠 ([283055d](https://git.easyops.local/anyclouds/next-libs/commits/283055d))
+
 ## [0.9.5](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@0.9.4...@libs/basic-components@0.9.5) (2019-10-14)
 
 **Note:** Version bump only for package @libs/basic-components
