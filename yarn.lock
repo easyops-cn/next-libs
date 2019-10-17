@@ -918,10 +918,10 @@
     "@easyops/brick-types" "^0.22.0"
     "@sdk/auth-sdk" "^0.7.0"
 
-"@easyops/brick-scripts@^0.18.10":
-  version "0.18.10"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-scripts/download/@easyops/brick-scripts-0.18.10.tgz#7631d78075ab1e445fc82ee31e33b461e61ceb73"
-  integrity sha1-djHXgHWrHkRfyC7jHjO0YeYc63M=
+"@easyops/brick-scripts@^0.19.0":
+  version "0.19.0"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-scripts/download/@easyops/brick-scripts-0.19.0.tgz#eefdeac04add6cc55cd2e117ad6f364163731af6"
+  integrity sha1-7v3qwErdbMVc0uEXrW82QWNzGvY=
   dependencies:
     chalk "^2.4.2"
     change-case "^3.1.0"
