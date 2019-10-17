@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.7.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/attribute-form@0.6.1...@libs/attribute-form@0.7.0) (2019-10-17)
+
+### Features
+
+- **model-attribute-form:** blackList ([51f32e9](https://git.easyops.local/anyclouds/next-libs/commits/51f32e9))
+
 ## [0.6.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/attribute-form@0.6.0...@libs/attribute-form@0.6.1) (2019-10-16)
 
 **Note:** Version bump only for package @libs/attribute-form
