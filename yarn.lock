@@ -2022,10 +2022,10 @@
     pretty-format "^24.0.0"
     redent "^3.0.0"
 
-"@testing-library/react-hooks@^2.0.3":
-  version "2.0.3"
-  resolved "https://registry.npm.taobao.org/@testing-library/react-hooks/download/@testing-library/react-hooks-2.0.3.tgz#305a6c76facb5fa1d185792b9eb11b1ca1b63fb7"
-  integrity sha1-MFpsdvrLX6HRhXkrnrEbHKG2P7c=
+"@testing-library/react-hooks@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.npm.taobao.org/@testing-library/react-hooks/download/@testing-library/react-hooks-3.0.0.tgz#ceffe5e3e0543ca74b5489cb25dbc80af3215870"
+  integrity sha1-zv/l4+BUPKdLVInLJdvICvMhWHA=
   dependencies:
     "@babel/runtime" "^7.5.4"
     "@types/testing-library__react-hooks" "^2.0.0"
