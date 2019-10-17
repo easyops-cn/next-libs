@@ -12,6 +12,7 @@ import {
   ModelAttributeValueType
 } from "../model-attribute-form-control/ModelAttributeFormControl";
 import { AttributeFormControlUrl } from "../attribute-form-control-url/AttributeFormControlUrl";
+import { isNil } from "lodash";
 
 export interface ModelAttributeFormChildren {
   header: string;
@@ -30,6 +31,7 @@ interface ModelAttributeFormProps extends FormComponentProps {
   disabled?: boolean;
   objectId?: string;
   allowContinueCreate?: boolean;
+  blackList?: string[]; // 黑名单
   brickList?: ModelAttributeFormChildren[];
   fieldsByTag?: FieldsByTag[];
   formItemProps?: FormItemProps;
@@ -68,7 +70,6 @@ export class ModelAttributeForm extends Component<
     if (props.formItemProps) {
       this.formItemProps = props.formItemProps;
     }
-
     if (props.fieldsByTag) {
       AttrListGroupByTag = ModelAttributeForm.getFieldsByTag(
         props.basicInfoAttrList,
@@ -79,10 +80,16 @@ export class ModelAttributeForm extends Component<
         const groupTag = basicInfoAttr.tag[0] || "默认属性";
 
         const attrs = AttrListGroupByTag.find(([key]) => key === groupTag);
-        if (attrs) {
-          attrs[1].push(basicInfoAttr);
-        } else {
-          AttrListGroupByTag.push([groupTag, [basicInfoAttr]]);
+        // 判断是否为黑名单内的属性
+        if (
+          isNil(props.blackList) ||
+          !props.blackList.includes(basicInfoAttr.id)
+        ) {
+          if (attrs) {
+            attrs[1].push(basicInfoAttr);
+          } else {
+            AttrListGroupByTag.push([groupTag, [basicInfoAttr]]);
+          }
         }
       });
     }
