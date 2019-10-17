@@ -1,5 +1,5 @@
 import React from "react";
-import { mount } from "enzyme";
+import { mount, shallow } from "enzyme";
 import {
   InstanceModelAttributeForm,
   ModelAttributeForm
@@ -139,5 +139,100 @@ describe("ModelAttributeForm", () => {
       .instance() as ModelAttributeForm;
     expect(instance.submitBtnText).toBe("修改");
     expect(instance.state.sending).toBeFalsy();
+  });
+
+  it("test blackList", () => {
+    const form = {
+      getFieldDecorator: () => (comp: React.Component) => comp,
+      getFieldsValue: () => {},
+      validateFields: jest.fn(),
+      resetFields: jest.fn(),
+      getFieldsError: jest.fn(() => [])
+    };
+    const wrapper = shallow(
+      <ModelAttributeForm
+        form={form as any}
+        {...Object.assign({}, props, {
+          blackList: ["_agentHeartBeat", "_agentStatus"],
+          basicInfoAttrList: [
+            {
+              id: "_agentHeartBeat",
+              name: "agent心跳",
+              protected: true,
+              custom: "true",
+              unique: "false",
+              readonly: "false",
+              required: "false",
+              tag: ["默认属性"],
+              description: "",
+              tips: "",
+              value: {
+                type: "int",
+                regex: null,
+                default_type: "value",
+                default: -1,
+                struct_define: [],
+                mode: "",
+                prefix: "",
+                start_value: 0,
+                series_number_length: 0
+              },
+              wordIndexDenied: false
+            },
+            {
+              id: "_agentStatus",
+              name: "agent状态",
+              protected: true,
+              custom: "true",
+              unique: "false",
+              readonly: "false",
+              required: "false",
+              tag: ["默认属性"],
+              description: "",
+              tips: "",
+              value: {
+                type: "enum",
+                regex: ["未安装", "异常", "正常"],
+                default_type: "",
+                default: "未安装",
+                struct_define: [],
+                mode: "",
+                prefix: "",
+                start_value: 0,
+                series_number_length: 0
+              },
+              wordIndexDenied: false
+            },
+            {
+              id: "deviceId",
+              name: "设备ID",
+              protected: true,
+              custom: "true",
+              unique: "true",
+              readonly: "true",
+              required: "false",
+              tag: ["默认属性"],
+              description: "",
+              tips: "",
+              value: {
+                type: "str",
+                regex: null,
+                default_type: "function",
+                default: "guid()",
+                struct_define: [],
+                mode: "default",
+                prefix: "",
+                start_value: 0,
+                series_number_length: 0
+              },
+              wordIndexDenied: false
+            }
+          ]
+        })}
+      />
+    );
+    expect(wrapper.findWhere(n => n.prop("label") === "agent状态").length).toBe(
+      0
+    );
   });
 });
