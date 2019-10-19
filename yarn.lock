@@ -879,15 +879,15 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@easyops/brick-dll@^0.7.21":
-  version "0.7.21"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-dll/download/@easyops/brick-dll-0.7.21.tgz#c1576efbd95e0fb4e8b26f7efcdb0ac423af9ff0"
-  integrity sha1-wVdu+9leD7Tosm9+/NsKxCOvn/A=
+"@easyops/brick-dll@^0.7.24":
+  version "0.7.24"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-dll/download/@easyops/brick-dll-0.7.24.tgz#dda02a771eeb0f042dc919aa6a23ade574f05215"
+  integrity sha1-3aAqdx7rDwQtyRmqaiOt5XTwUhU=
   dependencies:
     "@easyops/brick-http" "^0.2.2"
     "@easyops/brick-icons" "^0.6.0"
-    "@easyops/brick-kit" "^0.30.6"
-    "@easyops/brick-utils" "^0.11.0"
+    "@easyops/brick-kit" "^0.32.1"
+    "@easyops/brick-utils" "^0.12.0"
     "@easyops/fontawesome-library" "^0.8.2"
     "@fortawesome/react-fontawesome" "^0.1.5"
     antd "^3.23.6"
@@ -910,18 +910,19 @@
   resolved "http://registry.npm.easyops.local/@easyops/brick-icons/download/@easyops/brick-icons-0.6.0.tgz#e3635fad8ba1655a4a9d3167342fe3c381113f4f"
   integrity sha1-42NfrYuhZVpKnTFnNC/jw4ERP08=
 
-"@easyops/brick-kit@^0.30.6":
-  version "0.30.6"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-kit/download/@easyops/brick-kit-0.30.6.tgz#86f244e23f5ec13bb3164c7355295b9b9dadafab"
-  integrity sha1-hvJE4j9ewTuzFkxzVSlbm52tr6s=
+"@easyops/brick-kit@^0.32.1":
+  version "0.32.1"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-kit/download/@easyops/brick-kit-0.32.1.tgz#242b863494fb766c695aab683034b377f826d63a"
+  integrity sha1-JCuGNJT7dmxpWqtoMDSzd/gm1jo=
   dependencies:
-    "@easyops/brick-types" "^0.22.0"
+    "@easyops/brick-types" "^0.23.0"
     "@sdk/auth-sdk" "^0.7.0"
+    "@sdk/user-service-sdk" "^0.1.0"
 
-"@easyops/brick-scripts@^0.19.0":
-  version "0.19.0"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-scripts/download/@easyops/brick-scripts-0.19.0.tgz#eefdeac04add6cc55cd2e117ad6f364163731af6"
-  integrity sha1-7v3qwErdbMVc0uEXrW82QWNzGvY=
+"@easyops/brick-scripts@^0.19.3":
+  version "0.19.3"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-scripts/download/@easyops/brick-scripts-0.19.3.tgz#6e710ced879d74ea7174984ceb057aa38ca13dec"
+  integrity sha1-bnEM7YeddOpxdJhM6wV6o4yhPew=
   dependencies:
     chalk "^2.4.2"
     change-case "^3.1.0"
@@ -933,17 +934,17 @@
     request "^2.88.0"
     request-promise-native "^1.0.7"
 
-"@easyops/brick-types@^0.22.0":
-  version "0.22.0"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-types/download/@easyops/brick-types-0.22.0.tgz#4d5fdd8c5c56d302962435a066d9b611022663c5"
-  integrity sha1-TV/djFxW0wKWJDWgZtm2EQImY8U=
+"@easyops/brick-types@^0.23.0":
+  version "0.23.0"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-types/download/@easyops/brick-types-0.23.0.tgz#32715b45ca9ed8335b43b643971e464fcd3ec391"
+  integrity sha1-MnFbRcqe2DNbQ7ZDlx5GT80+w5E=
 
-"@easyops/brick-utils@^0.11.0":
-  version "0.11.0"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-utils/download/@easyops/brick-utils-0.11.0.tgz#916b02563f151f57d4e4547faa94cf73ccaef594"
-  integrity sha1-kWsCVj8VH1fU5FR/qpTPc8yu9ZQ=
+"@easyops/brick-utils@^0.12.0":
+  version "0.12.0"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-utils/download/@easyops/brick-utils-0.12.0.tgz#2544a2d552ec7ed6be86bcfa89d3ce56da496a2e"
+  integrity sha1-JUSi1VLsfta+hrz6idPOVtpJai4=
   dependencies:
-    "@easyops/brick-types" "^0.22.0"
+    "@easyops/brick-types" "^0.23.0"
     path-to-regexp "^3.1.0"
 
 "@easyops/fontawesome-library@^0.8.2":
@@ -1989,6 +1990,11 @@
   version "0.5.1"
   resolved "http://registry.npm.easyops.local/@sdk/cmdb-sdk/download/@sdk/cmdb-sdk-0.5.1.tgz#8c32732f631c1407887981b41bae2a91b18956d4"
   integrity sha1-jDJzL2McFAeIeYG0G64qkbGJVtQ=
+
+"@sdk/user-service-sdk@^0.1.0":
+  version "0.1.0"
+  resolved "http://registry.npm.easyops.local/@sdk/user-service-sdk/download/@sdk/user-service-sdk-0.1.0.tgz#49905e15ad53b7810d1826898e9157846cc3b41f"
+  integrity sha1-SZBeFa1Tt4ENGCaJjpFXhGzDtB8=
 
 "@sheerun/mutationobserver-shim@^0.3.2":
   version "0.3.2"
