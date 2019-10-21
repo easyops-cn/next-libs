@@ -18,10 +18,7 @@ exports[`CommonSetting should work 1`] = `
       修改权限
     </Button>
   </div>
-  <Table
-    bordered={false}
-    childrenColumnName="children"
-    className=""
+  <withStore(Table)
     columns={
       Array [
         Object {
@@ -283,19 +280,6 @@ exports[`CommonSetting should work 1`] = `
         },
       ]
     }
-    indentSize={20}
-    loading={false}
-    locale={Object {}}
-    rowKey="key"
-    showHeader={true}
-    size="default"
-    sortDirections={
-      Array [
-        "ascend",
-        "descend",
-      ]
-    }
-    useFixedHeader={false}
   />
   <Modal
     confirmLoading={false}

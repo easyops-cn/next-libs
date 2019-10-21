@@ -1,10 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`StructTable should render 1`] = `
-<Table
-  bordered={false}
-  childrenColumnName="children"
-  className=""
+<withStore(Table)
   columns={
     Array [
       Object {
@@ -84,28 +81,12 @@ exports[`StructTable should render 1`] = `
       },
     ]
   }
-  indentSize={20}
-  loading={false}
-  locale={Object {}}
   pagination={false}
-  rowKey="key"
-  showHeader={true}
-  size="default"
-  sortDirections={
-    Array [
-      "ascend",
-      "descend",
-    ]
-  }
-  useFixedHeader={false}
 />
 `;
 
 exports[`StructTable should render 2`] = `
-<Table
-  bordered={false}
-  childrenColumnName="children"
-  className=""
+<withStore(Table)
   columns={
     Array [
       Object {
@@ -174,20 +155,7 @@ exports[`StructTable should render 2`] = `
       },
     ]
   }
-  indentSize={20}
-  loading={false}
-  locale={Object {}}
   pagination={false}
-  rowKey="key"
-  showHeader={true}
-  size="default"
-  sortDirections={
-    Array [
-      "ascend",
-      "descend",
-    ]
-  }
-  useFixedHeader={false}
 />
 `;
 
