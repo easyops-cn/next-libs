@@ -939,6 +939,11 @@
   resolved "http://registry.npm.easyops.local/@easyops/brick-types/download/@easyops/brick-types-0.24.2.tgz#15772233eac812fb99d932831dd9bd641b2a14b6"
   integrity sha1-FXciM+rIEvuZ2TKDHdm9ZBsqFLY=
 
+"@easyops/brick-types@^0.25.0":
+  version "0.25.0"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-types/download/@easyops/brick-types-0.25.0.tgz#056a8eb0b5bb7ca75be93f7e65ecaf8e42cbdd4f"
+  integrity sha1-BWqOsLW7fKdb6T9+ZeyvjkLL3U8=
+
 "@easyops/brick-utils@^0.15.2":
   version "0.15.2"
   resolved "http://registry.npm.easyops.local/@easyops/brick-utils/download/@easyops/brick-utils-0.15.2.tgz#984650797ef26e949eb1691feefd7826253babf3"
