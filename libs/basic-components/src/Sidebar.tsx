@@ -139,7 +139,7 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
   private renderSimpleMenuItem(item: SidebarMenuSimpleItem): React.ReactNode {
     return (
       <Menu.Item key={String(item.key)}>
-        <Link to={item.to}>
+        <Link to={item.to} target={item.target}>
           {item.icon && (
             <i className={style.menuItemIcon}>
               <GeneralIcon icon={item.icon} />
