@@ -1,7 +1,7 @@
 import React from "react";
 import { Menu } from "antd";
 import { uniq } from "lodash";
-import { UnregisterCallback, Location } from "history";
+import { UnregisterCallback, Location, parsePath } from "history";
 import { getHistory } from "@easyops/brick-kit";
 import { matchPath } from "@easyops/brick-utils";
 import { Link } from "./Link";
@@ -35,6 +35,7 @@ function isSubMenu(item: SidebarMenuItem): item is SidebarMenuGroup {
 export function initMenuItemAndMatchCurrentPathKeys(
   menuItems: SidebarMenuItem[],
   pathname: string,
+  search: string,
   parentCursor: string
 ): {
   selectedKeys: string[];
@@ -51,6 +52,7 @@ export function initMenuItemAndMatchCurrentPathKeys(
       const tmp = initMenuItemAndMatchCurrentPathKeys(
         item.items,
         pathname,
+        search,
         item.key
       );
       selectedKeys.push(...tmp.selectedKeys);
@@ -59,7 +61,7 @@ export function initMenuItemAndMatchCurrentPathKeys(
       }
       openedKeys.push(...tmp.openedKeys);
     } else {
-      if (matchMenuItem(item, pathname)) {
+      if (matchMenuItem(item, pathname, search)) {
         selectedKeys.push(String(item.key));
       }
     }
@@ -76,12 +78,13 @@ export function initMenuItemAndMatchCurrentPathKeys(
 
 export function matchMenuItem(
   item: SidebarMenuSimpleItem,
-  pathname: string
+  pathname: string,
+  search: string
 ): boolean {
-  const path = typeof item.to === "object" ? item.to.pathname : item.to;
+  const to = typeof item.to === "object" ? item.to : parsePath(item.to);
 
   // Regex taken from: https://github.com/pillarjs/path-to-regexp/blob/master/index.js#L202
-  const escapedPath = path.replace(/([.+*?=^!:${}()[\]|/\\])/g, "\\$1");
+  const escapedPath = to.pathname.replace(/([.+*?=^!:${}()[\]|/\\])/g, "\\$1");
 
   let match = !!matchPath(pathname, {
     path: escapedPath,
@@ -111,6 +114,18 @@ export function matchMenuItem(
       }
     }
   }
+
+  if (match && (item as any).activeMatchSearch) {
+    const toSearch = new URLSearchParams(to.search);
+    const currentSearch = new URLSearchParams(search);
+    for (const [key, value] of toSearch.entries()) {
+      if (currentSearch.get(key) !== value) {
+        match = false;
+        break;
+      }
+    }
+  }
+
   return match;
 }
 
@@ -176,10 +191,11 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
   }
 
   render(): React.ReactNode {
-    const { pathname } = this.state.location;
+    const { pathname, search } = this.state.location;
     const { selectedKeys, openedKeys } = initMenuItemAndMatchCurrentPathKeys(
       this.props.menuItems,
       pathname,
+      search,
       ""
     );
     return (
