@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.11.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@0.10.2...@libs/basic-components@0.11.0) (2019-10-29)
+
+### Features
+
+- BRICK_STORE-530 菜单支持新开页面跳转 ([7689a60](https://git.easyops.local/anyclouds/next-libs/commits/7689a60))
+
 ## [0.10.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@0.10.1...@libs/basic-components@0.10.2) (2019-10-17)
 
 **Note:** Version bump only for package @libs/basic-components
