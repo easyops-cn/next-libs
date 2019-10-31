@@ -7,6 +7,10 @@ export function getTemplateFromMap(map: Record<string, string>, key: string) {
 export function parseTemplate(template: string, data: Record<string, any>) {
   return template.replace(
     /#{([A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*)*)}/g,
-    (match: string, key: string) => get(data, key)
+    (match: string, key: string) => {
+      const value = get(data, key);
+
+      return value === undefined ? "" : value;
+    }
   );
 }
