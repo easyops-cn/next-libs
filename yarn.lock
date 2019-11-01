@@ -879,13 +879,13 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@easyops/brick-dll@^0.7.43":
-  version "0.7.43"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-dll/download/@easyops/brick-dll-0.7.43.tgz#6fdd40220287c982552268dce25237d9a574f44d"
-  integrity sha1-b91AIgKHyYJVImjc4lI32aV09E0=
+"@easyops/brick-dll@^0.7.45":
+  version "0.7.45"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-dll/download/@easyops/brick-dll-0.7.45.tgz#d13f243104091808d465d12ff59c3410d9d3234f"
+  integrity sha1-0T8kMQQJGAjUZdEv9Zw0ENnTI08=
   dependencies:
     "@easyops/brick-http" "^0.2.3"
-    "@easyops/brick-icons" "^0.6.5"
+    "@easyops/brick-icons" "^0.6.7"
     "@easyops/brick-kit" "^0.39.4"
     "@easyops/brick-utils" "^0.15.5"
     "@easyops/fontawesome-library" "^0.8.2"
@@ -905,10 +905,10 @@
   resolved "http://registry.npm.easyops.local/@easyops/brick-http/download/@easyops/brick-http-0.2.3.tgz#9764c369d45e854b9bcd89b73b6185b7ccbf2650"
   integrity sha1-l2TDadRehUubzYm3O2GFt8y/JlA=
 
-"@easyops/brick-icons@^0.6.5":
-  version "0.6.5"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-icons/download/@easyops/brick-icons-0.6.5.tgz#e5d3865e68c195fb979a77ad98b43ad10d9abbfb"
-  integrity sha1-5dOGXmjBlfuXmnetmLQ60Q2au/s=
+"@easyops/brick-icons@^0.6.7":
+  version "0.6.7"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-icons/download/@easyops/brick-icons-0.6.7.tgz#5b46cfac7cd4cc704cdbfe3469b5d81d71801426"
+  integrity sha1-W0bPrHzUzHBM2/40abXYHXGAFCY=
 
 "@easyops/brick-kit@^0.39.4":
   version "0.39.4"
@@ -919,10 +919,10 @@
     "@sdk/auth-sdk" "^0.7.0"
     "@sdk/user-service-sdk" "^0.1.0"
 
-"@easyops/brick-scripts@^0.20.6":
-  version "0.20.6"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-scripts/download/@easyops/brick-scripts-0.20.6.tgz#01893a27d29cdb225ba013297134ce78aa335e81"
-  integrity sha1-AYk6J9Kc2yJboBMpcTTOeKozXoE=
+"@easyops/brick-scripts@^0.20.8":
+  version "0.20.8"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-scripts/download/@easyops/brick-scripts-0.20.8.tgz#bb2791ad00104bdee44898adec6876cdaf90c2e5"
+  integrity sha1-uyeRrQAQS97kSJit7Gh2za+QwuU=
   dependencies:
     chalk "^2.4.2"
     change-case "^3.1.0"
