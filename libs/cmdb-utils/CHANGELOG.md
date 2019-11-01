@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.9](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-utils@0.3.8...@libs/cmdb-utils@0.3.9) (2019-11-01)
+
+### Bug Fixes
+
+- **cmdb-utils:** parseTemplate 用空字符串代替 undefined ([593a7b0](https://git.easyops.local/anyclouds/next-libs/commits/593a7b0))
+
 ## [0.3.8](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-utils@0.3.7...@libs/cmdb-utils@0.3.8) (2019-10-29)
 
 **Note:** Version bump only for package @libs/cmdb-utils
