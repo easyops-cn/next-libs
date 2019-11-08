@@ -2,10 +2,7 @@ import { CmdbModels, InstanceApi } from "@sdk/cmdb-sdk";
 import { CMDB_RESOURCE_FIELDS_SETTINGS } from "./constants";
 import { getRelationObjectSides } from "./processors";
 import _ from "lodash";
-export function composeInstanceShowName(
-  nameKeys: string[],
-  maxCharNum: number = 0
-) {
+export function composeInstanceShowName(nameKeys: string[], maxCharNum = 0) {
   let d;
   // 即使超过2个，也只显示前2个
   if (nameKeys.length >= 2) {
@@ -72,9 +69,16 @@ export const getBatchEditableAttributes = (
   );
 };
 
+export interface BatchEditableRelation extends CmdbModels.ModelCmdbObject {
+  id: string;
+  name: string;
+  isRelation: boolean;
+  objectId: string;
+}
+
 export const getBatchEditableRelations = (
   modelData: Partial<CmdbModels.ModelCmdbObject>
-): Partial<CmdbModels.ModelObjectRelation>[] => {
+): Partial<BatchEditableRelation>[] => {
   modelData.relation_list.forEach((item: any) => {
     const side = getRelationObjectSides(item, modelData);
     Object.assign(item, {
@@ -121,9 +125,7 @@ export function composeErrorMessage(
   );
   const partialError =
     errorData.update_count > 0
-      ? `部分失败，其中 ${errorData.update_count} 个成功，${
-          errorData.failed_count
-        } 个`
+      ? `部分失败，其中 ${errorData.update_count} 个成功，${errorData.failed_count} 个`
       : "";
 
   return `${action}${partialError}失败（${failedList.join("，")}）。`;
