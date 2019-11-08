@@ -4,16 +4,16 @@ module.exports = {
   coveragePathIgnorePatterns: [
     "/node_modules/",
     "/dist/",
-    "\\.spec\\.[jt]sx?$"
+    "\\.spec\\.[jt]sx?$",
+    "/__jest__/"
   ],
   collectCoverage: true,
-  collectCoverageFrom: ["libs/*/src/**/*.{ts,tsx,js,jsx}"],
   coverageThreshold: {
     global: {
-      statements: 85.24,
-      branches: 71.78,
-      functions: 80.79,
-      lines: 85.57
+      statements: 87.34,
+      branches: 76.73,
+      functions: 81.77,
+      lines: 87.8
     }
   },
   coverageDirectory: "<rootDir>/.coverage",
@@ -21,7 +21,7 @@ module.exports = {
   transform: {
     "^.+\\.[jt]sx?$": "babel-jest"
   },
-  testPathIgnorePatterns: ["/node_modules/", "/dist/", "/template/"],
+  testPathIgnorePatterns: ["/node_modules/", "/dist/"],
   moduleNameMapper: {
     "\\.module\\.css$": "identity-obj-proxy",
     "\\.css$": "<rootDir>/__mocks__/styleMock.js"
