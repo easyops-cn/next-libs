@@ -1,6 +1,6 @@
 {
   "name": "@libs/attribute-form",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "description": "> TODO: description",
   "homepage": "https://git.easyops.local/anyclouds/next-libs/tree/master/libs/attribute-form",
   "license": "UNLICENSED",
@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@easyops/brick-types": "^1.0.0",
-    "@libs/cmdb-utils": "^0.3.9"
+    "@libs/cmdb-utils": "^0.3.10"
   },
   "sideEffects": false
 }

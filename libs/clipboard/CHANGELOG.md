@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.14](https://git.easyops.local/anyclouds/next-libs/compare/@libs/clipboard@0.2.13...@libs/clipboard@0.2.14) (2019-11-08)
+
+**Note:** Version bump only for package @libs/clipboard
+
 ## [0.2.13](https://git.easyops.local/anyclouds/next-libs/compare/@libs/clipboard@0.2.12...@libs/clipboard@0.2.13) (2019-11-01)
 
 **Note:** Version bump only for package @libs/clipboard
