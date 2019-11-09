@@ -2132,13 +2132,13 @@
     pretty-format "^24.0.0"
     redent "^3.0.0"
 
-"@testing-library/react-hooks@^3.1.1":
-  version "3.1.1"
-  resolved "https://registry.npm.taobao.org/@testing-library/react-hooks/download/@testing-library/react-hooks-3.1.1.tgz#5c93e463c0252bea6ac237ec8d9c982c27d67208"
-  integrity sha1-XJPkY8AlK+pqwjfsjZyYLCfWcgg=
+"@testing-library/react-hooks@^3.2.1":
+  version "3.2.1"
+  resolved "https://registry.npm.taobao.org/@testing-library/react-hooks/download/@testing-library/react-hooks-3.2.1.tgz#19b6caa048ef15faa69d439c469033873ea01294"
+  integrity sha1-GbbKoEjvFfqmnUOcRpAzhz6gEpQ=
   dependencies:
     "@babel/runtime" "^7.5.4"
-    "@types/testing-library__react-hooks" "^2.0.0"
+    "@types/testing-library__react-hooks" "^3.0.0"
 
 "@testing-library/react@^9.3.2":
   version "9.3.2"
@@ -2599,10 +2599,10 @@
   dependencies:
     "@types/pretty-format" "*"
 
-"@types/testing-library__react-hooks@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.npm.taobao.org/@types/testing-library__react-hooks/download/@types/testing-library__react-hooks-2.0.0.tgz#7b289d64945517ae8ba9cbcb0c5b282432aaeffa"
-  integrity sha1-eyidZJRVF66LqcvLDFsoJDKq7/o=
+"@types/testing-library__react-hooks@^3.0.0":
+  version "3.1.0"
+  resolved "https://registry.npm.taobao.org/@types/testing-library__react-hooks/download/@types/testing-library__react-hooks-3.1.0.tgz#04d174ce767fbcce3ccb5021d7f156e1b06008a9"
+  integrity sha1-BNF0znZ/vM48y1Ah1/FW4bBgCKk=
   dependencies:
     "@types/react" "*"
     "@types/react-test-renderer" "*"
