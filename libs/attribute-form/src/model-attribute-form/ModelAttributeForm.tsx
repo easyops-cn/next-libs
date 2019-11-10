@@ -10,8 +10,8 @@ import {
   FormControlTypeEnum,
   ModelAttributeFormControl,
   ModelAttributeValueType
-} from "../model-attribute-form-control/ModelAttributeFormControl";
-import { AttributeFormControlUrl } from "../attribute-form-control-url/AttributeFormControlUrl";
+} from "@libs/attribute-form-control";
+import { AttributeFormControlUrl } from "@libs/attribute-form-control";
 import { isNil } from "lodash";
 
 export interface ModelAttributeFormChildren {
