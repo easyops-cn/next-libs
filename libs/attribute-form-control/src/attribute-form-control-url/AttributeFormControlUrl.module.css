@@ -1,0 +1,18 @@
+.singleContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  &:first-child {
+    margin-bottom: 30px;
+  }
+  .presetTitle {
+    text-align: right;
+    width: 50px;
+  }
+  .errorTip {
+    position: absolute;
+    line-height: 30px;
+    top: 30px;
+    left: 50px;
+  }
+}
