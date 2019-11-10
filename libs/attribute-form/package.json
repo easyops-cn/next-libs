@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "@easyops/brick-types": "^1.1.1",
+    "@libs/attribute-form-control": "^0.0.1",
     "@libs/cmdb-utils": "^0.3.12"
   },
   "sideEffects": false

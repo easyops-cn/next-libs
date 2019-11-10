@@ -166,4 +166,54 @@ describe("util", () => {
       "_deviceList_CLUSTER_HOST.instanceId": { $in: ["123", "456"] }
     });
   });
+  it("should work with composeErrorMessage", () => {
+    const failedList = [
+      {
+        instanceId: "1",
+        hostname: "1"
+      }
+    ];
+    const context = {
+      modelData: {
+        name: "主机"
+      },
+      nameKey: "hostname"
+    };
+
+    let errorData = {
+      update_count: 0,
+      failed_count: 1,
+      data: [
+        {
+          error: "找不到实例",
+          data: [
+            {
+              instanceId: "1"
+            }
+          ]
+        }
+      ]
+    };
+    expect(composeErrorMessage(errorData, failedList, context)).toEqual(
+      "批量编辑主机失败（找不到实例：1）。"
+    );
+
+    errorData = {
+      update_count: 1,
+      failed_count: 1,
+      data: [
+        {
+          error: "找不到实例",
+          data: [
+            {
+              instanceId: "1"
+            }
+          ]
+        }
+      ]
+    };
+    expect(composeErrorMessage(errorData, failedList, context)).toEqual(
+      "批量编辑主机部分失败，其中 1 个成功，1 个失败（找不到实例：1）。"
+    );
+  });
 });

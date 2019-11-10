@@ -1,7 +1,18 @@
-import { getRelationObjectSides, getDescription, getRelation } from "./object";
+import {
+  getRelationObjectSides,
+  getDescription,
+  getRelation,
+  forEachAvailableFields
+} from "./object";
 const modelData = {
   objectId: "HOST",
   name: "主机",
+  attrList: [
+    {
+      id: "name",
+      name: "名称"
+    }
+  ],
   relation_list: [
     {
       relation_id: "CLUSTER_deviceList_HOST",
@@ -47,7 +58,10 @@ const modelData = {
       right_tags: [],
       _version: 0
     }
-  ]
+  ],
+  view: {
+    hide_columns: ["_deviceList_CLUSTER"]
+  }
 };
 describe("getRelationObjectSides", () => {
   it("should work", () => {
@@ -83,5 +97,22 @@ describe("getDescription", () => {
     expect(getDescription(modelData.relation_list[1], modelData)).toEqual(
       "备份负责人"
     );
+  });
+});
+describe("forEachAvailableFields", () => {
+  it("should work", () => {
+    const attrCallback = jest.fn();
+    const relationCallback = jest.fn();
+
+    forEachAvailableFields(modelData, attrCallback, relationCallback);
+    expect(attrCallback).toBeCalled();
+    expect(relationCallback).toBeCalled();
+
+    forEachAvailableFields(modelData, attrCallback, relationCallback, [
+      "name",
+      "backupowner"
+    ]);
+    expect(attrCallback).toBeCalled();
+    expect(relationCallback).toBeCalled();
   });
 });
