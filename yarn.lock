@@ -983,7 +983,7 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@easyops/brick-dll@^1.0.9":
+"@easyops/brick-dll@^1.0.6", "@easyops/brick-dll@^1.0.9":
   version "1.0.9"
   resolved "http://registry.npm.easyops.local/@easyops/brick-dll/download/@easyops/brick-dll-1.0.9.tgz#6a8f7e87973a3f4b8f0ec43e371add1fbcdca150"
   integrity sha1-ao9+h5c6P0uPDsQ+NxrdH7zcoVA=
@@ -1038,7 +1038,7 @@
     request "^2.88.0"
     request-promise-native "^1.0.7"
 
-"@easyops/brick-types@^1.2.0":
+"@easyops/brick-types@^1.1.1", "@easyops/brick-types@^1.2.0":
   version "1.2.0"
   resolved "http://registry.npm.easyops.local/@easyops/brick-types/download/@easyops/brick-types-1.2.0.tgz#846d25adf5f756a1fdcc00ee0e5d8b1418c61c3f"
   integrity sha1-hG0lrfX3VqH9zADuDl2LFBjGHD8=
@@ -2097,6 +2097,16 @@
   version "0.5.1"
   resolved "http://registry.npm.easyops.local/@sdk/cmdb-sdk/download/@sdk/cmdb-sdk-0.5.1.tgz#8c32732f631c1407887981b41bae2a91b18956d4"
   integrity sha1-jDJzL2McFAeIeYG0G64qkbGJVtQ=
+
+"@sdk/cmdb-sdk@^0.7.4":
+  version "0.7.4"
+  resolved "http://registry.npm.easyops.local/@sdk/cmdb-sdk/download/@sdk/cmdb-sdk-0.7.4.tgz#a000f3dfc7ace11cdaad46b37a31149581c691da"
+  integrity sha1-oADz38es4RzarUazejEUlYHGkdo=
+
+"@sdk/permission-sdk@^0.2.5":
+  version "0.2.5"
+  resolved "http://registry.npm.easyops.local/@sdk/permission-sdk/download/@sdk/permission-sdk-0.2.5.tgz#720ece338ed849bf8c695a72eb8688415e04bdc2"
+  integrity sha1-cg7OM47YSb+MaVpy64aIQV4EvcI=
 
 "@sdk/user-service-sdk@^0.1.0":
   version "0.1.0"

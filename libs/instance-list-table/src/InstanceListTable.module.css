@@ -1,0 +1,11 @@
+.instanceListTableCell {
+  max-width: 240px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.shouldEllipsis .instanceListTableCell {
+  white-space: unset;
+  text-overflow: unset;
+}
