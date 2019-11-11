@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/custom-antd-styles@0.2.0...@libs/custom-antd-styles@0.2.1) (2019-11-11)
+
+### Bug Fixes
+
+- fix table styles ([64ac8e2](https://git.easyops.local/anyclouds/next-libs/commits/64ac8e2))
+
 # [0.2.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/custom-antd-styles@0.1.0...@libs/custom-antd-styles@0.2.0) (2019-11-11)
 
 ### Features
