@@ -983,15 +983,15 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@easyops/brick-dll@^1.0.6":
-  version "1.0.6"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-dll/download/@easyops/brick-dll-1.0.6.tgz#90af901b46367fea18227d22e651faf50d39ec4c"
-  integrity sha1-kK+QG0Y2f+oYIn0i5lH69Q057Ew=
+"@easyops/brick-dll@^1.0.9":
+  version "1.0.9"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-dll/download/@easyops/brick-dll-1.0.9.tgz#6a8f7e87973a3f4b8f0ec43e371add1fbcdca150"
+  integrity sha1-ao9+h5c6P0uPDsQ+NxrdH7zcoVA=
   dependencies:
     "@easyops/brick-http" "^1.0.0"
-    "@easyops/brick-icons" "^1.0.3"
-    "@easyops/brick-kit" "^1.1.3"
-    "@easyops/brick-utils" "^1.1.1"
+    "@easyops/brick-icons" "^1.0.4"
+    "@easyops/brick-kit" "^1.3.1"
+    "@easyops/brick-utils" "^1.2.0"
     "@easyops/fontawesome-library" "^1.0.0"
     "@fortawesome/react-fontawesome" "^0.1.7"
     antd "^3.24.3"
@@ -1009,24 +1009,24 @@
   resolved "http://registry.npm.easyops.local/@easyops/brick-http/download/@easyops/brick-http-1.0.0.tgz#792c55a81f55aa8b9baf86fd1cc34c965c03abb3"
   integrity sha1-eSxVqB9Vqoubr4b9HMNMllwDq7M=
 
-"@easyops/brick-icons@^1.0.3":
-  version "1.0.3"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-icons/download/@easyops/brick-icons-1.0.3.tgz#8e5c2366e3f76b3f51acd396a0b11764014ce06a"
-  integrity sha1-jlwjZuP3az9RrNOWoLEXZAFM4Go=
+"@easyops/brick-icons@^1.0.4":
+  version "1.0.4"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-icons/download/@easyops/brick-icons-1.0.4.tgz#47420e84013ce69b901b2e72e4d77ead47f8dd71"
+  integrity sha1-R0IOhAE85puQGy5y5Nd+rUf43XE=
 
-"@easyops/brick-kit@^1.1.3":
-  version "1.1.3"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-kit/download/@easyops/brick-kit-1.1.3.tgz#af679efdfdd44194d5fa60edbbbeee7c8b1045ad"
-  integrity sha1-r2ee/f3UQZTV+mDtu77ufIsQRa0=
+"@easyops/brick-kit@^1.3.1":
+  version "1.3.1"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-kit/download/@easyops/brick-kit-1.3.1.tgz#abdbe2895f8f710952e9a708545fdb9620f8f5f7"
+  integrity sha1-q9viiV+PcQlS6acIVF/bliD49fc=
   dependencies:
-    "@easyops/brick-types" "^1.1.1"
+    "@easyops/brick-types" "^1.2.0"
     "@sdk/auth-sdk" "^0.7.0"
     "@sdk/user-service-sdk" "^0.1.0"
 
-"@easyops/brick-scripts@^1.0.7":
-  version "1.0.7"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-scripts/download/@easyops/brick-scripts-1.0.7.tgz#28c6d4fe2020fb59ba28120391d0bc9ed5370772"
-  integrity sha1-KMbU/iAg+1m6KBIDkdC8ntU3B3I=
+"@easyops/brick-scripts@^1.1.0":
+  version "1.1.0"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-scripts/download/@easyops/brick-scripts-1.1.0.tgz#7f806b8a8bb71093adfd0962e43f6c0631cda341"
+  integrity sha1-f4Briou3EJOt/Qli5D9sBjHNo0E=
   dependencies:
     chalk "^2.4.2"
     change-case "^3.1.0"
@@ -1038,17 +1038,17 @@
     request "^2.88.0"
     request-promise-native "^1.0.7"
 
-"@easyops/brick-types@^1.1.1":
-  version "1.1.1"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-types/download/@easyops/brick-types-1.1.1.tgz#74308c2f4b665ecefbdd5d6ac4120175ef5d160b"
-  integrity sha1-dDCML0tmXs773V1qxBIBde9dFgs=
+"@easyops/brick-types@^1.2.0":
+  version "1.2.0"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-types/download/@easyops/brick-types-1.2.0.tgz#846d25adf5f756a1fdcc00ee0e5d8b1418c61c3f"
+  integrity sha1-hG0lrfX3VqH9zADuDl2LFBjGHD8=
 
-"@easyops/brick-utils@^1.1.1":
-  version "1.1.1"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-utils/download/@easyops/brick-utils-1.1.1.tgz#20ec2bb51905ef6292c62228843c3282f9ead845"
-  integrity sha1-IOwrtRkF72KSxiIohDwygvnq2EU=
+"@easyops/brick-utils@^1.2.0":
+  version "1.2.0"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-utils/download/@easyops/brick-utils-1.2.0.tgz#242d47c6777fea193b0d366cb4996bf5be339c34"
+  integrity sha1-JC1Hxnd/6hk7DTZstJlr9b4znDQ=
   dependencies:
-    "@easyops/brick-types" "^1.1.1"
+    "@easyops/brick-types" "^1.2.0"
     path-to-regexp "^3.1.0"
 
 "@easyops/fontawesome-library@^1.0.0":
