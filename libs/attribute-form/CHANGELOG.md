@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.8.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/attribute-form@0.7.8...@libs/attribute-form@0.8.0) (2019-11-12)
+
+### Features
+
+- **attribute-form:** model-relation-form refs BRICK_STORE-522 ([f7a92ac](https://git.easyops.local/anyclouds/next-libs/commits/f7a92ac))
+
 ## [0.7.8](https://git.easyops.local/anyclouds/next-libs/compare/@libs/attribute-form@0.7.7...@libs/attribute-form@0.7.8) (2019-11-12)
 
 **Note:** Version bump only for package @libs/attribute-form

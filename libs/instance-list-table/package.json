@@ -1,6 +1,6 @@
 {
   "name": "@libs/instance-list-table",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "> TODO: description",
   "homepage": "https://git.easyops.local/anyclouds/next-libs/tree/master/libs/instance-list-table",
   "license": "UNLICENSED",
@@ -34,9 +34,9 @@
   },
   "dependencies": {
     "@easyops/brick-types": "^1.2.0",
-    "@libs/attribute-form-control": "^0.0.4",
-    "@libs/basic-components": "^0.11.8",
-    "@libs/cmdb-utils": "^0.4.0",
+    "@libs/attribute-form-control": "^0.0.5",
+    "@libs/basic-components": "^0.11.9",
+    "@libs/cmdb-utils": "^0.4.1",
     "@sdk/cmdb-sdk": "^0.7.4",
     "@sdk/permission-sdk": "^0.2.5",
     "immutability-helper": "^3.0.1"
