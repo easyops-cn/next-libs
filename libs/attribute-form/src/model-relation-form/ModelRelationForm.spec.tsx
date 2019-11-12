@@ -27,7 +27,7 @@ describe("BrickConditionalDisplay", () => {
     const relation = objectList
       .find(objectData => objectData.objectId === "CLUSTER")
       .relation_list.find(relation => relation.left_id === "deviceList");
-    const instanceListData = {};
+    const instanceListData: any[] = [];
 
     const result = render(
       <ModelRelationForm
