@@ -34,7 +34,8 @@
   "dependencies": {
     "@easyops/brick-types": "^1.2.0",
     "@libs/attribute-form-control": "^0.0.4",
-    "@libs/cmdb-utils": "^0.4.0"
+    "@libs/cmdb-utils": "^0.4.0",
+    "@libs/instance-list-table": "^0.0.2"
   },
   "sideEffects": false
 }
