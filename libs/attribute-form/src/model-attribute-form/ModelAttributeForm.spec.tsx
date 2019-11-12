@@ -6,7 +6,8 @@ import {
 } from "./ModelAttributeForm";
 import {
   mockFetchCmdbInstanceDetailReturnValue,
-  mockFetchCmdbObjectDetailReturnValue
+  mockFetchCmdbObjectDetailReturnValue,
+  mockFetchCmdbObjectListReturnValue
 } from "../__mocks__";
 import { Checkbox } from "antd";
 
@@ -34,6 +35,7 @@ describe("ModelAttributeForm", () => {
         }
       }
     ],
+    objectList: mockFetchCmdbObjectListReturnValue,
     onSubmit: jest.fn()
   };
 

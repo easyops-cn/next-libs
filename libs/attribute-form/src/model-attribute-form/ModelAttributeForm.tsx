@@ -12,7 +12,16 @@ import {
   ModelAttributeValueType
 } from "@libs/attribute-form-control";
 import { AttributeFormControlUrl } from "@libs/attribute-form-control";
-import { isNil } from "lodash";
+import { isNil, keyBy } from "lodash";
+
+import { ModelRelationForm } from "../model-relation-form/ModelRelationForm";
+import {
+  ModifiedModelObjectAttr,
+  ModifiedModelObjectRelation,
+  ModifiedModelObjectField,
+  ModifiedModelCmdbObject,
+  modifyModelData
+} from "@libs/cmdb-utils";
 
 export interface ModelAttributeFormChildren {
   header: string;
@@ -37,15 +46,13 @@ interface ModelAttributeFormProps extends FormComponentProps {
   formItemProps?: FormItemProps;
   onSubmit(data: any): Promise<any>;
   basicInfoAttrList?: Partial<CmdbModels.ModelObjectAttr>[];
+  objectList?: Partial<CmdbModels.ModelCmdbObject>[];
   attributeFormControlInitialValueMap:
     | InstanceApi.GetDefaultValueTemplateResponseBody
     | Partial<InstanceApi.GetDetailResponseBody>;
 }
 
-export type attributesFieldsByTag = [
-  string,
-  Partial<CmdbModels.ModelObjectAttr>[]
-];
+export type attributesFieldsByTag = [string, ModifiedModelObjectField[]];
 
 interface ModelAttributeFormState {
   sending: boolean;
@@ -57,6 +64,12 @@ export class ModelAttributeForm extends Component<
   ModelAttributeFormProps,
   ModelAttributeFormState
 > {
+  private modelMap: Record<string, Partial<CmdbModels.ModelCmdbObject>> = keyBy(
+    this.props.objectList,
+    "objectId"
+  );
+  private modelData = modifyModelData(this.modelMap[this.props.objectId]);
+
   formItemProps: FormItemProps = {
     labelCol: { span: 6 },
     wrapperCol: { span: 18 }
@@ -72,7 +85,7 @@ export class ModelAttributeForm extends Component<
     }
     if (props.fieldsByTag) {
       AttrListGroupByTag = ModelAttributeForm.getFieldsByTag(
-        props.basicInfoAttrList,
+        this.modelData,
         props.fieldsByTag
       );
     } else {
@@ -102,7 +115,7 @@ export class ModelAttributeForm extends Component<
   }
 
   static getFieldsByTag(
-    attributeList: Partial<CmdbModels.ModelObjectAttr>[],
+    modelData: Partial<ModifiedModelCmdbObject>,
     fieldsByTag: FieldsByTag[]
   ): attributesFieldsByTag[] {
     const map = new Map<string, Partial<CmdbModels.ModelObjectAttr>[]>([]);
@@ -113,7 +126,7 @@ export class ModelAttributeForm extends Component<
         fields.forEach(field => {
           map.set(name, [
             ...map.get(name),
-            attributeList.find(({ id }) => id === field)
+            modelData.__fieldList.find(__field => __field.__id === field)
           ]);
         });
       }
@@ -246,6 +259,26 @@ export class ModelAttributeForm extends Component<
     this.setState({ continueCreating: e.target.checked });
   };
 
+  renderRelationFormControl = (
+    relation: Partial<ModifiedModelObjectRelation>
+  ) => {
+    return (
+      <Form.Item
+        label={relation.left_description}
+        key={relation.left_id}
+        {...this.formItemProps}
+      >
+        {this.props.form.getFieldDecorator(relation.left_id)(
+          <ModelRelationForm
+            modelMap={this.modelMap}
+            relation={relation}
+            instanceListData={{}}
+          />
+        )}
+      </Form.Item>
+    );
+  };
+
   render(): React.ReactNode {
     const Panel = Collapse.Panel;
     const {
@@ -269,19 +302,23 @@ export class ModelAttributeForm extends Component<
       <Collapse bordered={false} defaultActiveKey={defaultActiveKey}>
         {this.state.attrListGroupByTag.map(([tag, list]) => (
           <Panel header={tag} key={tag}>
-            {list.map(attribute => (
-              <Form.Item
-                label={attribute.name}
-                key={attribute.name}
-                {...this.formItemProps}
-              >
-                {getFieldDecorator(attribute.id, {
-                  rules: this.rules(attribute),
-                  initialValue:
-                    attributeFormControlInitialValueMap[attribute.id]
-                })(<ModelAttributeFormControl attribute={attribute} />)}
-              </Form.Item>
-            ))}
+            {list.map((attribute: Partial<ModifiedModelObjectAttr>) =>
+              attribute.__isRelation ? (
+                this.renderRelationFormControl(attribute)
+              ) : (
+                <Form.Item
+                  label={attribute.name}
+                  key={attribute.name}
+                  {...this.formItemProps}
+                >
+                  {getFieldDecorator(attribute.id, {
+                    rules: this.rules(attribute),
+                    initialValue:
+                      attributeFormControlInitialValueMap[attribute.id]
+                  })(<ModelAttributeFormControl attribute={attribute} />)}
+                </Form.Item>
+              )
+            )}
           </Panel>
         ))}
 
