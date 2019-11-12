@@ -12,7 +12,7 @@ import { ModifiedModelObjectRelation } from "@libs/cmdb-utils";
 export interface ModelRelationFormProps {
   modelMap: Record<string, Partial<CmdbModels.ModelCmdbObject>>;
   relation: Partial<ModifiedModelObjectRelation>;
-  instanceListData: InstanceApi.PostSearchResponseBody;
+  instanceListData: any[];
   value?: string[];
   onChange?: (event: any) => void;
 }
@@ -26,7 +26,9 @@ export function ModelRelationForm(
   const [modalInstanceListData, setModalInstanceListData] = useState();
 
   let selectedInstanceListTemp: any[] = [];
-  const [selectedInstanceList, setSelectedInstanceList] = useState([]);
+  const [selectedInstanceList, setSelectedInstanceList] = useState(
+    props.instanceListData || []
+  );
 
   const presetConfigs = {
     fieldIds: oppositeModelData.attrList.map(attr => attr.id)

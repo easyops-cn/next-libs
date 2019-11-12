@@ -268,11 +268,17 @@ export class ModelAttributeForm extends Component<
         key={relation.left_id}
         {...this.formItemProps}
       >
-        {this.props.form.getFieldDecorator(relation.left_id)(
+        {this.props.form.getFieldDecorator(relation.left_id, {
+          initialValue: this.props.attributeFormControlInitialValueMap[
+            relation.left_id
+          ].map((instanceData: any) => instanceData.instanceId)
+        })(
           <ModelRelationForm
             modelMap={this.modelMap}
             relation={relation}
-            instanceListData={{}}
+            instanceListData={
+              this.props.attributeFormControlInitialValueMap[relation.left_id]
+            }
           />
         )}
       </Form.Item>
