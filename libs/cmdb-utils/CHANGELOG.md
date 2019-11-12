@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-utils@0.3.14...@libs/cmdb-utils@0.4.0) (2019-11-12)
+
+### Features
+
+- **cmdb-utils:** modify model data refs BRICK_STORE-522 ([bf7f77c](https://git.easyops.local/anyclouds/next-libs/commits/bf7f77c))
+
 ## [0.3.14](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-utils@0.3.13...@libs/cmdb-utils@0.3.14) (2019-11-11)
 
 **Note:** Version bump only for package @libs/cmdb-utils
