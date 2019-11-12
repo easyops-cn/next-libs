@@ -130,3 +130,150 @@ export function composeErrorMessage(
 
   return `${action}${partialError}失败（${failedList.join("，")}）。`;
 }
+
+export const IGNORED_FIELDS: Record<string, string[]> = {
+  APP: [
+    "appId",
+    "packageId",
+    "_packageList",
+    "installPath",
+    "runUser",
+    "businessId"
+  ],
+  BUSINESS: ["businessId"],
+  CLUSTER: ["clusterId", "packageId", "_packageList"],
+  HOST: ["deviceId"]
+};
+
+export interface ModifiedModelObjectAttr extends CmdbModels.ModelObjectAttr {
+  __isRelation: boolean;
+  __id: string;
+}
+
+export interface ModifiedModelObjectRelation
+  extends CmdbModels.ModelObjectRelation {
+  __isRelation: boolean;
+  __id: string;
+  __inverted: boolean;
+}
+
+export type ModifiedModelObjectField =
+  | Partial<ModifiedModelObjectAttr>
+  | Partial<ModifiedModelObjectRelation>;
+
+export interface ModifiedModelCmdbObject extends CmdbModels.ModelCmdbObject {
+  __fieldList: ModifiedModelObjectField[];
+}
+
+export function modifyModelData(
+  modelData: Partial<CmdbModels.ModelCmdbObject>
+): Partial<ModifiedModelCmdbObject> {
+  const clonedModelData: Partial<ModifiedModelCmdbObject> = _.cloneDeep(
+    modelData
+  );
+
+  const fieldIdList: string[] = [];
+  const fieldMap: Record<string, ModifiedModelObjectField> = {};
+  const ignoredFields = IGNORED_FIELDS[clonedModelData.objectId] || [];
+
+  clonedModelData.attrList.forEach(attr => {
+    if (!ignoredFields.includes(attr.id)) {
+      const clonedAttr: Partial<ModifiedModelObjectAttr> = _.cloneDeep(attr);
+
+      clonedAttr.__isRelation = false;
+      clonedAttr.__id = attr.id;
+
+      fieldIdList.push(clonedAttr.__id);
+      fieldMap[clonedAttr.__id] = clonedAttr;
+    }
+  });
+
+  clonedModelData.relation_list.forEach(relation => {
+    if (
+      relation.left_object_id === clonedModelData.objectId &&
+      !ignoredFields.includes(relation.left_id)
+    ) {
+      const clonedRelation: Partial<ModifiedModelObjectRelation> = _.cloneDeep(
+        relation
+      );
+
+      clonedRelation.__isRelation = true;
+      clonedRelation.__id = clonedRelation.left_id;
+      clonedRelation.__inverted = false;
+
+      fieldIdList.push(clonedRelation.__id);
+      fieldMap[clonedRelation.__id] = clonedRelation;
+    }
+
+    if (
+      relation.right_object_id === clonedModelData.objectId &&
+      !ignoredFields.includes(relation.right_id)
+    ) {
+      const clonedRelation: any = _.cloneDeep(relation);
+
+      const invertedFields = [
+        "object_id",
+        "id",
+        "name",
+        "description",
+        "min",
+        "max",
+        "groups",
+        "tags"
+      ];
+      invertedFields.forEach(invertedField => {
+        const tempFieldValue = clonedRelation[`left_${invertedField}`];
+        clonedRelation[`left_${invertedField}`] =
+          clonedRelation[`right_${invertedField}`];
+        clonedRelation[`right_${invertedField}`] = tempFieldValue;
+      });
+
+      clonedRelation.__isRelation = true;
+      clonedRelation.__id = clonedRelation.left_id;
+      clonedRelation.__inverted = true;
+
+      fieldIdList.push(clonedRelation.__id);
+      fieldMap[clonedRelation.__id] = clonedRelation;
+    }
+  });
+
+  const currentOrderedFieldIds = clonedModelData.view.attr_order || [];
+  const orderedFieldIds: string[] = [];
+  const notOrderedFieldIds: string[] = [];
+  currentOrderedFieldIds.forEach(currentOrderedFieldId => {
+    if (fieldIdList.includes(currentOrderedFieldId)) {
+      orderedFieldIds.push(currentOrderedFieldId);
+    }
+  });
+  fieldIdList.forEach(fieldId => {
+    if (!orderedFieldIds.includes(fieldId)) {
+      notOrderedFieldIds.push(fieldId);
+    }
+  });
+
+  const fieldList: ModifiedModelObjectField[] = [];
+  const attrList: Partial<ModifiedModelObjectAttr>[] = [];
+  const relationList: Partial<ModifiedModelObjectRelation>[] = [];
+  orderedFieldIds.forEach(orderedFieldId => {
+    fieldList.push(fieldMap[orderedFieldId]);
+    if (fieldMap[orderedFieldId].__isRelation) {
+      relationList.push(fieldMap[orderedFieldId]);
+    } else {
+      attrList.push(fieldMap[orderedFieldId]);
+    }
+  });
+  notOrderedFieldIds.forEach(notOrderedFieldId => {
+    fieldList.push(fieldMap[notOrderedFieldId]);
+    if (fieldMap[notOrderedFieldId].__isRelation) {
+      relationList.push(fieldMap[notOrderedFieldId]);
+    } else {
+      attrList.push(fieldMap[notOrderedFieldId]);
+    }
+  });
+
+  clonedModelData.__fieldList = fieldList;
+  clonedModelData.attrList = attrList;
+  clonedModelData.relation_list = relationList;
+
+  return clonedModelData;
+}

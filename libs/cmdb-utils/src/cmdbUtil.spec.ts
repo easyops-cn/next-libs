@@ -1,3 +1,4 @@
+import { cloneDeep } from "lodash";
 import {
   composeInstanceShowName,
   getInstanceShowName,
@@ -6,7 +7,8 @@ import {
   getBatchEditableAttributes,
   getBatchEditableRelations,
   composeErrorMessage,
-  getRelationQuery
+  getRelationQuery,
+  modifyModelData
 } from "./cmdbUtil";
 
 describe("util", () => {
@@ -215,5 +217,140 @@ describe("util", () => {
     expect(composeErrorMessage(errorData, failedList, context)).toEqual(
       "批量编辑主机部分失败，其中 1 个成功，1 个失败（找不到实例：1）。"
     );
+  });
+
+  const clusterObjectData = {
+    objectId: "CLUSTER",
+    name: "集群",
+    attrList: [
+      {
+        id: "name",
+        name: "名称"
+      },
+      {
+        id: "type",
+        name: "集群类型"
+      },
+      {
+        id: "packageId"
+      }
+    ],
+    relation_list: [
+      {
+        relation_id: "APP_clusters_CLUSTER",
+        left_object_id: "APP",
+        left_id: "clusters",
+        left_name: "集群",
+        left_description: "所属应用",
+        left_min: 0,
+        left_max: -1,
+        left_groups: [],
+        left_tags: [],
+        right_object_id: "CLUSTER",
+        right_id: "appId",
+        right_name: "所属应用",
+        right_description: "集群",
+        right_min: 0,
+        right_max: 1,
+        right_groups: [],
+        right_tags: []
+      },
+      {
+        relation_id: "CLUSTER_deviceList_HOST",
+        left_object_id: "CLUSTER",
+        left_id: "deviceList",
+        left_name: "主机",
+        left_description: "所属集群",
+        left_min: 0,
+        left_max: -1,
+        left_groups: ["basic_info"],
+        left_tags: [],
+        right_object_id: "HOST",
+        right_id: "_deviceList_CLUSTER",
+        right_name: "所属集群",
+        right_description: "主机",
+        right_min: 0,
+        right_max: 1,
+        right_groups: [],
+        right_tags: []
+      }
+    ],
+    view: {
+      attr_order: ["name", "deviceList", "notExistedAttrId"]
+    }
+  };
+
+  it("should modify objectDataList without attr_order correctly", () => {
+    const clusterObjectDataWithoutAttrOrder = cloneDeep(clusterObjectData);
+    clusterObjectDataWithoutAttrOrder.view.attr_order = undefined;
+    const modifiedClusterObjectData = modifyModelData(
+      clusterObjectDataWithoutAttrOrder
+    );
+
+    const ids = modifiedClusterObjectData.__fieldList.map(field => field.__id);
+    expect(ids).toEqual(["name", "type", "appId", "deviceList"]);
+  });
+
+  it("should modify objectDataList correctly", () => {
+    const modifiedClusterObjectData = modifyModelData(clusterObjectData);
+
+    expect(modifiedClusterObjectData.__fieldList).toEqual([
+      {
+        id: "name",
+        name: "名称",
+        __id: "name",
+        __isRelation: false
+      },
+      {
+        relation_id: "CLUSTER_deviceList_HOST",
+        left_object_id: "CLUSTER",
+        left_id: "deviceList",
+        left_name: "主机",
+        left_description: "所属集群",
+        left_min: 0,
+        left_max: -1,
+        left_groups: ["basic_info"],
+        left_tags: [],
+        right_object_id: "HOST",
+        right_id: "_deviceList_CLUSTER",
+        right_name: "所属集群",
+        right_description: "主机",
+        right_min: 0,
+        right_max: 1,
+        right_groups: [],
+        right_tags: [],
+        __id: "deviceList",
+        __isRelation: true,
+        __inverted: false
+      },
+      {
+        id: "type",
+        name: "集群类型",
+        __id: "type",
+        __isRelation: false
+      },
+      {
+        relation_id: "APP_clusters_CLUSTER",
+        left_object_id: "CLUSTER",
+        left_id: "appId",
+        left_name: "所属应用",
+        left_description: "集群",
+        left_min: 0,
+        left_max: 1,
+        left_groups: [],
+        left_tags: [],
+        right_object_id: "APP",
+        right_id: "clusters",
+        right_name: "集群",
+        right_description: "所属应用",
+        right_min: 0,
+        right_max: -1,
+        right_groups: [],
+        right_tags: [],
+        __id: "appId",
+        __isRelation: true,
+        __inverted: true
+      }
+    ]);
   });
 });
