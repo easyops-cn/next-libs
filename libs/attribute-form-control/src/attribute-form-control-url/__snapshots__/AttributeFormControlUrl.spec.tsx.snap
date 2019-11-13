@@ -23,16 +23,40 @@ exports[`AttributeFormControlUrl should work 1`] = `
         type="url"
         value="http://www.baidu.com"
       >
-        <input
-          className="ant-input"
+        <ClearableLabeledInput
+          element={
+            <input
+              className="ant-input"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onKeyDown={[Function]}
+              placeholder="请输入链接"
+              readOnly={true}
+              type="url"
+              value="http://www.baidu.com"
+            />
+          }
+          handleReset={[Function]}
+          inputType="input"
           onBlur={[Function]}
           onChange={[Function]}
-          onKeyDown={[Function]}
           placeholder="请输入链接"
+          prefixCls="ant-input"
           readOnly={true}
           type="url"
           value="http://www.baidu.com"
-        />
+        >
+          <input
+            className="ant-input"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onKeyDown={[Function]}
+            placeholder="请输入链接"
+            readOnly={true}
+            type="url"
+            value="http://www.baidu.com"
+          />
+        </ClearableLabeledInput>
       </Input>
     </div>
     <div
@@ -50,15 +74,37 @@ exports[`AttributeFormControlUrl should work 1`] = `
         placeholder="选填，请输入显示的标题"
         type="text"
       >
-        <input
-          className="ant-input"
+        <ClearableLabeledInput
+          defaultValue="百度"
+          element={
+            <input
+              className="ant-input"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onKeyDown={[Function]}
+              placeholder="选填，请输入显示的标题"
+              type="text"
+            />
+          }
+          handleReset={[Function]}
+          inputType="input"
           onBlur={[Function]}
           onChange={[Function]}
-          onKeyDown={[Function]}
           placeholder="选填，请输入显示的标题"
+          prefixCls="ant-input"
           type="text"
           value="百度"
-        />
+        >
+          <input
+            className="ant-input"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onKeyDown={[Function]}
+            placeholder="选填，请输入显示的标题"
+            type="text"
+            value="百度"
+          />
+        </ClearableLabeledInput>
       </Input>
     </div>
   </div>
