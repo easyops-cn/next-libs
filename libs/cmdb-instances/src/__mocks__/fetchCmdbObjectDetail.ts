@@ -1,8 +1,6 @@
 import { CmdbModels } from "@sdk/cmdb-sdk";
 
-export const mockFetchCmdbObjectDetailReturnValue: Partial<
-  CmdbModels.ModelCmdbObject
-> = {
+export const mockFetchCmdbObjectDetailReturnValue: Partial<CmdbModels.ModelCmdbObject> = {
   objectId: "HOST",
   name: "主机",
   icon: "fa fa-hdd-o",

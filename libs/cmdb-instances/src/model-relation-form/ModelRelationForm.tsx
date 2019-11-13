@@ -3,7 +3,7 @@ import { Modal, Table } from "antd";
 import { ColumnProps } from "antd/lib/table";
 
 import { CmdbModels, InstanceApi } from "@sdk/cmdb-sdk";
-import { InstanceListTable } from "@libs/instance-list-table";
+import { InstanceListTable } from "../instance-list-table/InstanceListTable";
 
 import styles from "./model-relation-form.module.css";
 

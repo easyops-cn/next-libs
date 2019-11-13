@@ -32,11 +32,8 @@ import {
 import { NS_CMDB_INSTANCES } from "./i18n/constants";
 
 import { InstanceListPresetConfigs } from "./interfaces";
-import {
-  Attribute,
-  ModelAttributeValueType,
-  StructTable
-} from "@libs/attribute-form-control";
+import { ModelAttributeValueType } from "../model-attribute-form-control/ModelAttributeFormControl";
+import { Attribute, StructTable } from "../struct-components";
 import styles from "./InstanceListTable.module.css";
 
 enum SortOrder {
