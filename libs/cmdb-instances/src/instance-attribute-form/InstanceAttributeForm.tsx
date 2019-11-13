@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { CmdbModels, InstanceApi } from "@sdk/cmdb-sdk";
 import { Form } from "antd";
 import { FormComponentProps } from "antd/lib/form";
-import { ModelAttributeFormControl } from "@libs/attribute-form-control";
+import { ModelAttributeFormControl } from "../model-attribute-form-control/ModelAttributeFormControl";
 
 export interface InstanceAttributeFormProps extends FormComponentProps {
   basicInfoAttrList?: Partial<CmdbModels.ModelObjectAttr>[];

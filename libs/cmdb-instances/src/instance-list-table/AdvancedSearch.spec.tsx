@@ -4,7 +4,7 @@ import { CmdbModels } from "@sdk/cmdb-sdk";
 
 import { AdvancedSearch } from "./AdvancedSearch";
 import { HOST } from "./data-providers/__mocks__/fetchCmdbObjectDetail";
-import { ModelAttributeValueType } from "@libs/attribute-form-control";
+import { ModelAttributeValueType } from "../model-attribute-form-control/ModelAttributeFormControl";
 
 const mockOnSearch = jest.fn(query => {});
 

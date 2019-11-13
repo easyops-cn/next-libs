@@ -1,8 +1,8 @@
 {
-  "name": "@libs/attribute-form",
-  "version": "0.8.3",
+  "name": "@libs/cmdb-instances",
+  "version": "0.0.0",
   "description": "> TODO: description",
-  "homepage": "https://git.easyops.local/anyclouds/next-libs/tree/master/libs/attribute-form",
+  "homepage": "https://git.easyops.local/anyclouds/next-libs/tree/master/libs/cmdb-instances",
   "license": "UNLICENSED",
   "main": "dist/index.bundle.js",
   "module": "dist/index.esm.js",
@@ -25,6 +25,7 @@
     "test": "cross-env NODE_ENV='test' jest",
     "test:ci": "cross-env NODE_ENV='test' CI=true jest"
   },
+  "sideEffects": false,
   "devDependencies": {
     "@easyops/brick-dll": "^1.0.15"
   },
@@ -33,9 +34,10 @@
   },
   "dependencies": {
     "@easyops/brick-types": "^1.2.0",
-    "@libs/attribute-form-control": "^0.0.6",
+    "@libs/basic-components": "^0.11.10",
     "@libs/cmdb-utils": "^0.5.0",
-    "@libs/instance-list-table": "^0.0.4"
-  },
-  "sideEffects": false
+    "@sdk/cmdb-sdk": "^0.7.4",
+    "@sdk/permission-sdk": "^0.2.5",
+    "immutability-helper": "^3.0.1"
+  }
 }

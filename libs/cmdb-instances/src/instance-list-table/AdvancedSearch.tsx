@@ -18,7 +18,7 @@ import {
   FormControlTypeEnum,
   ModelAttributeFormControl,
   ModelAttributeValueType
-} from "@libs/attribute-form-control";
+} from "../model-attribute-form-control/ModelAttributeFormControl";
 
 enum ComparisonOperators {
   Equal = "$eq",
