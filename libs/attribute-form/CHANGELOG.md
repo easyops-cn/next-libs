@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/attribute-form@0.8.1...@libs/attribute-form@0.8.2) (2019-11-13)
+
+### Bug Fixes
+
+- **attribute-form:** initial relation value error refs BRICK_STORE-522 ([b8c3bd8](https://git.easyops.local/anyclouds/next-libs/commits/b8c3bd8))
+
 ## [0.8.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/attribute-form@0.8.0...@libs/attribute-form@0.8.1) (2019-11-13)
 
 ### Bug Fixes
