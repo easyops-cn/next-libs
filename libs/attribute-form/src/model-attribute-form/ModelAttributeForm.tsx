@@ -12,7 +12,7 @@ import {
   ModelAttributeValueType
 } from "@libs/attribute-form-control";
 import { AttributeFormControlUrl } from "@libs/attribute-form-control";
-import { isNil, keyBy } from "lodash";
+import { isNil, keyBy, get } from "lodash";
 
 import { ModelRelationForm } from "../model-relation-form/ModelRelationForm";
 import {
@@ -262,17 +262,21 @@ export class ModelAttributeForm extends Component<
   renderRelationFormControl = (
     relation: Partial<ModifiedModelObjectRelation>
   ) => {
+    const InitialRelationValue = get(
+      this.props.attributeFormControlInitialValueMap,
+      relation.left_id
+    );
+    const initialValue = InitialRelationValue
+      ? InitialRelationValue.map((instanceData: any) => instanceData.instanceId)
+      : [];
+
     return (
       <Form.Item
         label={relation.left_description}
         key={relation.left_id}
         {...this.formItemProps}
       >
-        {this.props.form.getFieldDecorator(relation.left_id, {
-          initialValue: this.props.attributeFormControlInitialValueMap[
-            relation.left_id
-          ].map((instanceData: any) => instanceData.instanceId)
-        })(
+        {this.props.form.getFieldDecorator(relation.left_id, { initialValue })(
           <ModelRelationForm
             modelMap={this.modelMap}
             relation={relation}
