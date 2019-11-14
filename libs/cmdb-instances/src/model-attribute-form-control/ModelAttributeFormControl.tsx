@@ -59,8 +59,10 @@ export interface FormControl {
   type: FormControlTypeEnum;
   items?: FormControlSelectItem[];
   name: string;
+  label?: string;
   required?: boolean;
   readOnly?: boolean;
+  unique?: boolean;
   pattern?: RegExp;
   placeholder?: string;
   maxlength?: number; // 结构体数组的最大长度，如果是结构体，就是1,
@@ -245,8 +247,10 @@ export class ModelAttributeFormControl extends Component<
       items,
       id: id || attribute.id,
       name: attribute.id,
+      label: attribute.name,
       required: attribute.required === "true",
       readOnly: attribute.readonly === "true",
+      unique: attribute.unique === "true",
       pattern: ModelAttributeFormControl.computePattern(attribute)
     };
 
@@ -276,6 +280,9 @@ export class ModelAttributeFormControl extends Component<
     }
     if (formControl.pattern !== undefined) {
       placeholders.push(`匹配正则 ${formControl.pattern}`);
+    }
+    if (formControl.unique !== undefined) {
+      placeholders.push(`${formControl.label}唯一不能重复`);
     }
     return placeholders.join("，");
   }
