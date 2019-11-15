@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.3](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.1.2...@libs/cmdb-instances@0.1.3) (2019-11-15)
+
+### Bug Fixes
+
+- **cmdb-instance:** unique attribute refs BRICK_STORE-647 ([490718a](https://git.easyops.local/anyclouds/next-libs/commits/490718a))
+
 ## [0.1.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.1.1...@libs/cmdb-instances@0.1.2) (2019-11-15)
 
 ### Bug Fixes
