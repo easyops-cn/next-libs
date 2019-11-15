@@ -281,7 +281,7 @@ export class ModelAttributeFormControl extends Component<
     if (formControl.pattern !== undefined) {
       placeholders.push(`匹配正则 ${formControl.pattern}`);
     }
-    if (formControl.unique !== undefined) {
+    if (formControl.unique) {
       placeholders.push(`${formControl.label}唯一不能重复`);
     }
     return placeholders.join("，");
