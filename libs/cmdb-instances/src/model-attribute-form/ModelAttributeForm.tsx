@@ -64,11 +64,8 @@ export class ModelAttributeForm extends Component<
   ModelAttributeFormProps,
   ModelAttributeFormState
 > {
-  private modelMap: Record<string, Partial<CmdbModels.ModelCmdbObject>> = keyBy(
-    this.props.objectList,
-    "objectId"
-  );
-  private modelData = modifyModelData(this.modelMap[this.props.objectId]);
+  private modelMap: Record<string, Partial<CmdbModels.ModelCmdbObject>> = {};
+  private modelData: Partial<CmdbModels.ModelCmdbObject> = null;
 
   formItemProps: FormItemProps = {
     labelCol: { span: 6 },
@@ -78,6 +75,11 @@ export class ModelAttributeForm extends Component<
   constructor(props: ModelAttributeFormProps) {
     super(props);
 
+    if (this.props.objectList) {
+      this.modelMap = keyBy(this.props.objectList, "objectId");
+      this.modelData = modifyModelData(this.modelMap[this.props.objectId]);
+    }
+
     let AttrListGroupByTag: attributesFieldsByTag[] = [];
 
     if (props.formItemProps) {
@@ -85,8 +87,9 @@ export class ModelAttributeForm extends Component<
     }
     if (props.fieldsByTag) {
       AttrListGroupByTag = ModelAttributeForm.getFieldsByTag(
-        this.modelData,
-        props.fieldsByTag
+        this.props.basicInfoAttrList,
+        props.fieldsByTag,
+        this.modelData
       );
     } else {
       props.basicInfoAttrList.forEach(basicInfoAttr => {
@@ -115,8 +118,9 @@ export class ModelAttributeForm extends Component<
   }
 
   static getFieldsByTag(
-    modelData: Partial<ModifiedModelCmdbObject>,
-    fieldsByTag: FieldsByTag[]
+    attributeList: Partial<CmdbModels.ModelObjectAttr>[],
+    fieldsByTag: FieldsByTag[],
+    modelData?: Partial<ModifiedModelCmdbObject>
   ): attributesFieldsByTag[] {
     const map = new Map<string, Partial<CmdbModels.ModelObjectAttr>[]>([]);
 
@@ -126,7 +130,9 @@ export class ModelAttributeForm extends Component<
         fields.forEach(field => {
           map.set(name, [
             ...map.get(name),
-            modelData.__fieldList.find(__field => __field.__id === field)
+            modelData
+              ? modelData.__fieldList.find(__field => __field.__id === field)
+              : attributeList.find(({ id }) => id === field)
           ]);
         });
       }
