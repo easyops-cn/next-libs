@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.4](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.1.3...@libs/cmdb-instances@0.1.4) (2019-11-18)
+
+
+### Bug Fixes
+
+* **cmdb-instances:** initialize field value refs BRICK_STORE-659 ([ef606fc](https://git.easyops.local/anyclouds/next-libs/commits/ef606fc))
+
+
+
+
+
 ## [0.1.3](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.1.2...@libs/cmdb-instances@0.1.3) (2019-11-15)
 
 ### Bug Fixes
