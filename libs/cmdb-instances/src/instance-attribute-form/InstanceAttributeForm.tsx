@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { CmdbModels, InstanceApi } from "@sdk/cmdb-sdk";
 import { Form } from "antd";
+import { get } from "lodash";
 import { FormComponentProps } from "antd/lib/form";
 import { ModelAttributeFormControl } from "../model-attribute-form-control/ModelAttributeFormControl";
 
@@ -35,7 +36,11 @@ export class LegacyInstanceAttributeForm extends Component<
           {...formItemLayout}
         >
           {getFieldDecorator(attribute.id, {
-            rules: [{ required: attribute.required !== "false" }]
+            rules: [{ required: attribute.required !== "false" }],
+            initialValue: get(
+              this.props.attributeFormControlInitialValueMap,
+              attribute.id
+            )
           })(<ModelAttributeFormControl attribute={attribute} />)}
         </Form.Item>
       ));
