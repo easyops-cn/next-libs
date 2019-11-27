@@ -17,7 +17,7 @@
     "yo-debug": "node --inspect-brk ./node_modules/@easyops/brick-scripts/dist/index.js -t libs"
   },
   "devDependencies": {
-    "@babel/core": "^7.7.2",
+    "@babel/core": "^7.7.4",
     "@easyops/babel-preset-next": "^0.1.0",
     "@easyops/brick-scripts": "^1.1.22",
     "@easyops/eslint-config-next": "^0.1.0",
