@@ -924,13 +924,13 @@
     "@babel/preset-typescript" "^7.7.2"
     babel-plugin-import "^1.12.2"
 
-"@easyops/brick-dll@^1.0.29":
-  version "1.0.29"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-dll/download/@easyops/brick-dll-1.0.29.tgz#3a21b3fa3e0c987ee4a70a95783a55b469385cbe"
-  integrity sha1-OiGz+j4MmH7kpwqVeDpVtGk4XL4=
+"@easyops/brick-dll@^1.0.30":
+  version "1.0.30"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-dll/download/@easyops/brick-dll-1.0.30.tgz#569f5a21118631563d4d551aa12b6dde2e452df2"
+  integrity sha1-Vp9aIRGGMVY9TVUaoStt3i5FLfI=
   dependencies:
     "@easyops/brick-http" "^1.0.0"
-    "@easyops/brick-icons" "^1.6.3"
+    "@easyops/brick-icons" "^1.6.4"
     "@easyops/brick-kit" "^1.7.1"
     "@easyops/brick-utils" "^1.3.1"
     "@easyops/fontawesome-library" "^1.0.0"
@@ -950,10 +950,10 @@
   resolved "http://registry.npm.easyops.local/@easyops/brick-http/download/@easyops/brick-http-1.0.0.tgz#792c55a81f55aa8b9baf86fd1cc34c965c03abb3"
   integrity sha1-eSxVqB9Vqoubr4b9HMNMllwDq7M=
 
-"@easyops/brick-icons@^1.6.3":
-  version "1.6.3"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-icons/download/@easyops/brick-icons-1.6.3.tgz#a60d9af7af172e120ae7928f4824c28d7dc93172"
-  integrity sha1-pg2a968XLhIK55KPSCTCjX3JMXI=
+"@easyops/brick-icons@^1.6.4":
+  version "1.6.4"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-icons/download/@easyops/brick-icons-1.6.4.tgz#0c2c4199b441940c8c0564fb9dca91f14028216f"
+  integrity sha1-DCxBmbRBlAyMBWT7ncqR8UAoIW8=
 
 "@easyops/brick-kit@^1.7.1":
   version "1.7.1"
@@ -964,10 +964,10 @@
     "@sdk/auth-sdk" "^0.7.0"
     "@sdk/user-service-sdk" "^0.1.0"
 
-"@easyops/brick-scripts@^1.1.22":
-  version "1.1.22"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-scripts/download/@easyops/brick-scripts-1.1.22.tgz#920007d3a61d32a1fd53ac1c61cf18205cb03281"
-  integrity sha1-kgAH06YdMqH9U6wcYc8YIFywMoE=
+"@easyops/brick-scripts@^1.1.23":
+  version "1.1.23"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-scripts/download/@easyops/brick-scripts-1.1.23.tgz#2ed9cf8854a014b0cf9c8e038350dd427011e13d"
+  integrity sha1-LtnPiFSgFLDPnI4Dg1DdQnAR4T0=
   dependencies:
     chalk "^3.0.0"
     change-case "^3.1.0"
@@ -992,10 +992,10 @@
     "@easyops/brick-types" "^1.3.0"
     path-to-regexp "^6.1.0"
 
-"@easyops/eslint-config-next@^0.1.0":
-  version "0.1.0"
-  resolved "http://registry.npm.easyops.local/@easyops/eslint-config-next/download/@easyops/eslint-config-next-0.1.0.tgz#65bcdcfda25ad3f5ead53cfc48a0c3278fb1e199"
-  integrity sha1-Zbzc/aJa0/Xq1Tz8SKDDJ4+x4Zk=
+"@easyops/eslint-config-next@^0.1.1":
+  version "0.1.1"
+  resolved "http://registry.npm.easyops.local/@easyops/eslint-config-next/download/@easyops/eslint-config-next-0.1.1.tgz#4f29cb336b3194469b7233386aae644dfec54b81"
+  integrity sha1-TynLM2sxlEabcjM4aq5kTf7FS4E=
   dependencies:
     "@typescript-eslint/parser" "^2.7.0"
     eslint-config-prettier "^6.5.0"
