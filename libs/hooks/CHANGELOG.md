@@ -3,13 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [0.0.10](https://git.easyops.local/anyclouds/next-libs/compare/@libs/hooks@0.0.9...@libs/hooks@0.0.10) (2019-11-18)
+## [0.0.11](https://git.easyops.local/anyclouds/next-libs/compare/@libs/hooks@0.0.10...@libs/hooks@0.0.11) (2019-11-28)
 
 **Note:** Version bump only for package @libs/hooks
 
+## [0.0.10](https://git.easyops.local/anyclouds/next-libs/compare/@libs/hooks@0.0.9...@libs/hooks@0.0.10) (2019-11-18)
 
-
-
+**Note:** Version bump only for package @libs/hooks
 
 ## [0.0.9](https://git.easyops.local/anyclouds/next-libs/compare/@libs/hooks@0.0.8...@libs/hooks@0.0.9) (2019-11-15)
 
