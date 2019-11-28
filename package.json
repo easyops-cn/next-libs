@@ -19,8 +19,8 @@
   "devDependencies": {
     "@babel/core": "^7.7.4",
     "@easyops/babel-preset-next": "^0.1.0",
-    "@easyops/brick-scripts": "^1.1.22",
-    "@easyops/eslint-config-next": "^0.1.0",
+    "@easyops/brick-scripts": "^1.1.23",
+    "@easyops/eslint-config-next": "^0.1.1",
     "@easyops/rollup-config-factory": "^1.0.2",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
