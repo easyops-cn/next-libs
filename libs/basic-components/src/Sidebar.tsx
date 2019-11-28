@@ -18,6 +18,7 @@ interface SidebarProps {
   menuItems: SidebarMenuItem[];
   theme?: MenuTheme;
   inlineIndent?: number;
+  collapsed?: boolean;
 }
 
 interface SidebarState {
@@ -153,7 +154,7 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
 
   private renderSimpleMenuItem(item: SidebarMenuSimpleItem): React.ReactNode {
     return (
-      <Menu.Item key={String(item.key)}>
+      <Menu.Item key={String(item.key)} title={item.text}>
         <Link to={item.to} target={item.target}>
           {item.icon && (
             <i className={style.menuItemIcon}>
@@ -208,6 +209,7 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
         selectedKeys={selectedKeys}
         style={{ height: "100%", borderRight: 0 }}
         className={style.menuContainer}
+        inlineCollapsed={this.props.collapsed}
       >
         {this.props.menuItems.map(item => this.renderMenuItem(item))}
       </Menu>
