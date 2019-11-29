@@ -992,6 +992,11 @@
     "@easyops/brick-types" "^1.3.0"
     path-to-regexp "^6.1.0"
 
+"@easyops/browserslist-config-next@^0.1.0":
+  version "0.1.0"
+  resolved "http://registry.npm.easyops.local/@easyops/browserslist-config-next/download/@easyops/browserslist-config-next-0.1.0.tgz#9882b7364c8d25a81a00e04b559f72fb1a10b4a1"
+  integrity sha1-mIK3NkyNJagaAOBLVZ9y+xoQtKE=
+
 "@easyops/eslint-config-next@^0.1.1":
   version "0.1.1"
   resolved "http://registry.npm.easyops.local/@easyops/eslint-config-next/download/@easyops/eslint-config-next-0.1.1.tgz#4f29cb336b3194469b7233386aae644dfec54b81"
