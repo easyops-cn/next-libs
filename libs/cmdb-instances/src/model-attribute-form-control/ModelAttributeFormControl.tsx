@@ -493,10 +493,12 @@ export class ModelAttributeFormControl extends Component<
       }
 
       case FormControlTypeEnum.SELECT: {
+        const { readOnly } = restProps;
         return (
           <Select
             defaultValue={value || []}
             onChange={(e: any) => this.onChange(e)}
+            disabled={readOnly}
             className={this.props.className}
             style={this.props.style}
           >
