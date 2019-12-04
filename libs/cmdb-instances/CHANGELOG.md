@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.6](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.1.5...@libs/cmdb-instances@0.1.6) (2019-12-04)
+
+### Bug Fixes
+
+- **model-attribute-form-control:** Select 支持 disabled ([92883a5](https://git.easyops.local/anyclouds/next-libs/commits/92883a5))
+
 ## [0.1.5](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.1.4...@libs/cmdb-instances@0.1.5) (2019-11-28)
 
 **Note:** Version bump only for package @libs/cmdb-instances
