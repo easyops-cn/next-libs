@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.13.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@0.12.0...@libs/basic-components@0.13.0) (2019-12-05)
+
+### Features
+
+- hash link ([6329aa5](https://git.easyops.local/anyclouds/next-libs/commits/6329aa5))
+
 # [0.12.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@0.11.13...@libs/basic-components@0.12.0) (2019-11-28)
 
 ### Features
