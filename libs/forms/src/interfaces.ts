@@ -9,7 +9,11 @@ export interface AbstractGeneralFormElement extends HTMLElement {
   wrapperCol: ColProps;
 }
 
-export type GeneralOption = string | number | GeneralComplexOption;
+export type GeneralOption =
+  | string
+  | number
+  | GeneralComplexOption
+  | Record<string, any>;
 
 export interface GeneralComplexOption<T = string | number> {
   label: string;
