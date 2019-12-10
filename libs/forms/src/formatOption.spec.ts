@@ -26,19 +26,52 @@ describe("formatOptions", () => {
     ]);
   });
 
-  it("should return origin data if the input data is object type", () => {
+  it.each([{}, ""])(
+    "should return origin data if the input data is object type",
+    fields => {
+      const optons = [
+        {
+          label: "a",
+          value: "a"
+        },
+        {
+          label: "b",
+          value: "b"
+        }
+      ];
+      const result = formatOptions(optons, fields);
+      expect(result).toEqual([
+        {
+          label: "a",
+          value: "a"
+        },
+        {
+          label: "b",
+          value: "b"
+        }
+      ]);
+    }
+  );
+
+  it("should return empty array if the input data is undefined", () => {
+    const result = formatOptions(undefined);
+
+    expect(result).toEqual([]);
+  });
+
+  it("should return fields set", () => {
     const optons = [
       {
-        label: "a",
-        value: "a"
+        aaa: "a",
+        bbb: "a"
       },
       {
-        label: "b",
-        value: "b"
+        aaa: "b",
+        bbb: "b"
       }
     ];
 
-    const result = formatOptions(optons);
+    const result = formatOptions(optons, { label: "aaa", value: "bbb" });
     expect(result).toEqual([
       {
         label: "a",
@@ -49,11 +82,5 @@ describe("formatOptions", () => {
         value: "b"
       }
     ]);
-  });
-
-  it("should return empty array if the input data is undefined", () => {
-    const result = formatOptions(undefined);
-
-    expect(result).toEqual([]);
   });
 });
