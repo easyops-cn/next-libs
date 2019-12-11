@@ -27,7 +27,7 @@
   "devDependencies": {
     "@babel/core": "^7.7.5",
     "@easyops/babel-preset-next": "^0.1.1",
-    "@easyops/brick-scripts": "^1.1.28",
+    "@easyops/brick-scripts": "^1.1.29",
     "@easyops/browserslist-config-next": "^0.1.0",
     "@easyops/eslint-config-next": "^0.1.2",
     "@easyops/rollup-config-factory": "^1.0.4",
