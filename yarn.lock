@@ -2133,10 +2133,10 @@
     "@babel/runtime" "^7.5.4"
     "@types/testing-library__react-hooks" "^3.0.0"
 
-"@testing-library/react@^9.3.2":
-  version "9.3.2"
-  resolved "https://registry.npm.taobao.org/@testing-library/react/download/@testing-library/react-9.3.2.tgz#418000daa980dafd2d9420cc733d661daece9aa0"
-  integrity sha1-QYAA2qmA2v0tlCDMcz1mHa7OmqA=
+"@testing-library/react@^9.3.3":
+  version "9.3.3"
+  resolved "https://registry.npm.taobao.org/@testing-library/react/download/@testing-library/react-9.3.3.tgz?cache=0&sync_timestamp=1576043870673&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40testing-library%2Freact%2Fdownload%2F%40testing-library%2Freact-9.3.3.tgz#87fe594adb02cba4d0e86369d025ea13ad570d7c"
+  integrity sha1-h/5ZStsCy6TQ6GNp0CXqE61XDXw=
   dependencies:
     "@babel/runtime" "^7.6.0"
     "@testing-library/dom" "^6.3.0"
