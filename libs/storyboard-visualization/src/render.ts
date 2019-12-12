@@ -1,7 +1,15 @@
 import { ProcessedStoryboard, StoryboardNode } from "./interfaces";
 import { hierarchy, tree, HierarchyPointNode } from "d3-hierarchy";
 import { create } from "d3-selection";
-import { linkHorizontal } from "d3-shape";
+import {
+  linkHorizontal,
+  symbol,
+  symbolCircle,
+  symbolDiamond,
+  symbolSquare,
+  symbolTriangle,
+  SymbolType
+} from "d3-shape";
 
 export function render(storyboard: ProcessedStoryboard): SVGSVGElement {
   const hierarchyRoot = hierarchy(storyboard);
@@ -23,27 +31,62 @@ export function render(storyboard: ProcessedStoryboard): SVGSVGElement {
     [0, 0, width, x1 - x0 + dx * 2].join(",")
   );
 
+  const defs = svg.append("defs");
+  const marker = defs
+    .append("marker")
+    .attr("id", "arrow")
+    .attr("viewBox", "0 0 10 10")
+    .attr("refX", 5)
+    .attr("refY", 5)
+    .attr("markerWidth", 6)
+    .attr("markerHeight", 6)
+    .attr("orient", "auto")
+    .append("path")
+    .attr("d", "M 0 0 L 10 5 L 0 10 z")
+    .attr("fill", "#555")
+    .attr("fill-opacity", 0.8);
+
   const g = svg
     .append("g")
     .attr("font-family", "sans-serif")
     .attr("font-size", 12)
     .attr("transform", `translate(${dy / 3},${dx - x0})`);
 
+  const linkFactory = linkHorizontal<
+    unknown,
+    HierarchyPointNode<StoryboardNode>
+  >()
+    .x(d => d.y)
+    .y(d => d.x);
+
   const link = g
     .append("g")
     .attr("fill", "none")
     .attr("stroke", "#555")
     .attr("stroke-opacity", 0.4)
-    .attr("stroke-width", 1.5)
+    .attr("stroke-width", 1)
     .selectAll("path")
     .data(root.links())
     .join("path")
-    .attr(
-      "d",
-      linkHorizontal<unknown, HierarchyPointNode<StoryboardNode>>()
-        .x(d => d.y)
-        .y(d => d.x)
-    );
+    .attr("stroke-dasharray", d =>
+      d.target.data.type === "route" ? "3 2" : "none"
+    )
+    .attr("marker-end", "url(#arrow)")
+    .attr("d", ({ source, target }) => {
+      // 根据 depth 决定线往左边缩还是右边缩
+      const depthSign = source.depth <= target.depth ? 1 : -1;
+      const offset = 20;
+      return linkFactory({
+        source: {
+          ...source,
+          y: source.y + depthSign * offset
+        },
+        target: {
+          ...target,
+          y: target.y - depthSign * offset
+        }
+      });
+    });
 
   const node = g
     .append("g")
@@ -54,10 +97,42 @@ export function render(storyboard: ProcessedStoryboard): SVGSVGElement {
     .join("g")
     .attr("transform", d => `translate(${d.y},${d.x})`);
 
+  const getSymbolType = (data: StoryboardNode): SymbolType => {
+    switch (data.type) {
+      case "app":
+        return symbolCircle;
+      case "brick":
+        return symbolSquare;
+      case "route":
+        return symbolTriangle;
+      case "slot":
+        return symbolDiamond;
+    }
+  };
+
+  const symbolGenerator = symbol().size(200);
+
   node
-    .append("circle")
-    .attr("fill", d => (d.children ? "#555" : "#999"))
-    .attr("r", 2.5);
+    .append("path")
+    .attr("fill", d =>
+      d.data.type === "slot" && d.data.slotType === "routes"
+        ? "#555"
+        : d.data.type === "brick"
+        ? "#999"
+        : "none"
+    )
+    .attr("stroke-width", 2)
+    .attr("stroke", d =>
+      d.data.type === "brick" && !d.data.children ? "#999" : "#555"
+    )
+    .attr("d", d => symbolGenerator.type(getSymbolType(d.data))())
+    .attr("transform", d =>
+      d.data.type === "slot"
+        ? "rotate(90)"
+        : d.data.type === "route"
+        ? "scale(0.66)"
+        : "none"
+    );
 
   node
     .append("text")
