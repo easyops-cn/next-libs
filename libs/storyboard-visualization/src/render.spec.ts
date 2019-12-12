@@ -40,7 +40,9 @@ describe("render", () => {
       ]
     };
     const svg = render(processStoryboard(storyboard));
-    const containerG = svg.querySelector("g");
+    const containerG = Array.from(svg.children).filter(
+      item => item.nodeName === "g"
+    )[1];
     expect(containerG.querySelector("g").childNodes.length).toBe(6);
     expect(containerG.querySelectorAll("g").item(1).childNodes.length).toBe(7);
   });

@@ -26,9 +26,11 @@ export function render(storyboard: ProcessedStoryboard): SVGSVGElement {
     if (d.x < x0) x0 = d.x;
   });
 
+  const legendsHeight = 50;
+
   const svg = create("svg").attr(
     "viewBox",
-    [0, 0, width, x1 - x0 + dx * 2].join(",")
+    [0, 0, width, x1 - x0 + dx * 2 + legendsHeight].join(",")
   );
 
   const defs = svg.append("defs");
@@ -46,11 +48,17 @@ export function render(storyboard: ProcessedStoryboard): SVGSVGElement {
     .attr("fill", "#555")
     .attr("fill-opacity", 0.8);
 
+  const legendsGroup = svg
+    .append("g")
+    .attr("stroke-linejoin", "round")
+    .attr("font-family", "sans-serif")
+    .attr("font-size", 12);
+
   const g = svg
     .append("g")
     .attr("font-family", "sans-serif")
     .attr("font-size", 12)
-    .attr("transform", `translate(${dy / 3},${dx - x0})`);
+    .attr("transform", `translate(${dy / 3},${dx - x0 + legendsHeight})`);
 
   const linkFactory = linkHorizontal<
     unknown,
@@ -138,13 +146,13 @@ export function render(storyboard: ProcessedStoryboard): SVGSVGElement {
     .append("text")
     .attr("dy", "0.31em")
     .attr("y", d =>
-      d.data.type === "route" || d.data.type === "slot" ? "-1.25em" : "1.25em"
+      d.data.type === "route" || d.data.type === "slot" ? "-1.4em" : "1.4em"
     )
     .attr("text-anchor", "middle")
     .text(d => {
       switch (d.data.type) {
         case "app":
-          return "root";
+          return d.data.appData.name;
         case "route":
           return (d.data.routeData.path as string).replace(
             "${APP.homepage}",
@@ -171,6 +179,72 @@ export function render(storyboard: ProcessedStoryboard): SVGSVGElement {
     .clone(true)
     .lower()
     .attr("stroke", "white");
+
+  const legends = [
+    {
+      type: "brick",
+      hasChildren: false,
+      name: "构件"
+    },
+    {
+      type: "brick",
+      hasChildren: true,
+      name: "容器构件"
+    },
+    {
+      type: "slot",
+      slotType: "routes",
+      name: "插槽：路由"
+    },
+    {
+      type: "slot",
+      slotType: "bricks",
+      name: "插槽：构件"
+    },
+    {
+      type: "route",
+      name: "路由"
+    }
+  ];
+
+  const legendWidth = width / (legends.length + 1);
+  const legendNode = legendsGroup
+    .selectAll("g")
+    .data(legends)
+    .join("g")
+    .attr(
+      "transform",
+      (d, index) =>
+        `translate(${(index + 0.75) * legendWidth} ${legendsHeight / 2})`
+    );
+
+  legendNode
+    .append("path")
+    .attr("fill", d =>
+      d.type === "slot" && d.slotType === "routes"
+        ? "#555"
+        : d.type === "brick"
+        ? "#999"
+        : "none"
+    )
+    .attr("stroke-width", 2)
+    .attr("stroke", d =>
+      d.type === "brick" && !d.hasChildren ? "#999" : "#555"
+    )
+    .attr("d", d => symbolGenerator.type(getSymbolType(d as any))())
+    .attr("transform", d =>
+      d.type === "slot"
+        ? "rotate(90)"
+        : d.type === "route"
+        ? "scale(0.66)"
+        : "none"
+    );
+
+  legendNode
+    .append("text")
+    .attr("dy", "0.31em")
+    .attr("x", 25)
+    .text(d => d.name);
 
   return svg.node();
 }
