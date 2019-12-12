@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.7.26](https://git.easyops.local/anyclouds/next-libs/compare/@libs/permission-utils@0.7.25...@libs/permission-utils@0.7.26) (2019-12-12)
+
+**Note:** Version bump only for package @libs/permission-utils
+
 ## [0.7.25](https://git.easyops.local/anyclouds/next-libs/compare/@libs/permission-utils@0.7.24...@libs/permission-utils@0.7.25) (2019-12-10)
 
 **Note:** Version bump only for package @libs/permission-utils
