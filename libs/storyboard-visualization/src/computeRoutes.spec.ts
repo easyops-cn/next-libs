@@ -1,44 +1,8 @@
-import { Storyboard } from "@easyops/brick-types";
-import { processStoryboard } from "./processStoryboard";
+import { computeRoutes } from "./computeRoutes";
 import { StoryboardTree } from "./interfaces";
 
-describe("processStoryboard", () => {
+describe("computeRoutes", () => {
   it("should work", () => {
-    const storyboard: Storyboard = {
-      app: {
-        id: "a",
-        name: "A",
-        homepage: "/a"
-      },
-      routes: [
-        {
-          path: "/a",
-          bricks: [
-            {
-              brick: "a.b-c"
-            }
-          ]
-        },
-        {
-          path: "/x",
-          bricks: [
-            {
-              brick: "x.y-z",
-              slots: {
-                a: {
-                  type: "routes",
-                  routes: []
-                },
-                b: {
-                  type: "bricks",
-                  bricks: []
-                }
-              }
-            }
-          ]
-        }
-      ]
-    };
     const tree: StoryboardTree = {
       appData: {
         homepage: "/a",
@@ -102,6 +66,6 @@ describe("processStoryboard", () => {
       ],
       type: "app"
     };
-    expect(processStoryboard(storyboard)).toEqual(tree);
+    expect(computeRoutes(tree)).toEqual(["/a", "/x"]);
   });
 });

@@ -1,12 +1,22 @@
 import { RouteConf, MicroApp, BrickConf } from "@easyops/brick-types";
 
-export type ProcessedStoryboard = StoryboardNodeApp;
+export type StoryboardTree = StoryboardNodeApp;
 
 export type StoryboardNode =
   | StoryboardNodeApp
   | StoryboardNodeRoute
   | StoryboardNodeBrick
   | StoryboardNodeSlot;
+
+export interface AbstractStoryboardNode {
+  type: "app" | "route" | "brick" | "slot";
+  slotType?: "routes" | "bricks";
+  children?: AbstractStoryboardNode[];
+  appData?: MicroApp;
+  routeData?: Omit<RouteConf, "bricks">;
+  brickData?: BrickConf;
+  slotName?: string;
+}
 
 export interface StoryboardNodeApp {
   type: "app";
@@ -22,7 +32,7 @@ export interface StoryboardNodeRoute {
 
 export interface StoryboardNodeBrick {
   type: "brick";
-  children: StoryboardNodeSlot[];
+  children?: StoryboardNodeSlot[];
   brickData: BrickConf;
 }
 

@@ -1,31 +1,46 @@
-import { Storyboard, RouteConf, BrickConf } from "@easyops/brick-types";
+import { computeRealRoutePath } from "@easyops/brick-utils";
 import {
-  ProcessedStoryboard,
+  Storyboard,
+  RouteConf,
+  BrickConf,
+  MicroApp
+} from "@easyops/brick-types";
+import {
+  StoryboardTree,
   StoryboardNodeRoute,
   StoryboardNodeBrick,
   StoryboardNodeSlot
 } from "./interfaces";
 
-export function processStoryboard(storyboard: Storyboard): ProcessedStoryboard {
+export function processStoryboard(storyboard: Storyboard): StoryboardTree {
   return {
     type: "app",
     appData: storyboard.app,
-    children: processRoutes(storyboard.routes)
+    children: processRoutes(storyboard.routes, storyboard.app)
   };
 }
 
-function processRoutes(routes: RouteConf[]): StoryboardNodeRoute[] {
+function processRoutes(
+  routes: RouteConf[],
+  appData: MicroApp
+): StoryboardNodeRoute[] {
   return routes.map(routeConf => {
     const { bricks, ...routeData } = routeConf;
     return {
       type: "route",
-      routeData,
-      children: processBricks(bricks)
+      routeData: {
+        ...routeData,
+        path: computeRealRoutePath(routeData.path, appData)
+      },
+      children: processBricks(bricks, appData)
     };
   });
 }
 
-function processBricks(bricks: BrickConf[]): StoryboardNodeBrick[] {
+function processBricks(
+  bricks: BrickConf[],
+  appData: MicroApp
+): StoryboardNodeBrick[] {
   return bricks.map(brickConf => ({
     type: "brick",
     brickData: brickConf,
@@ -38,8 +53,8 @@ function processBricks(bricks: BrickConf[]): StoryboardNodeBrick[] {
               slotType: slotConf.type,
               children:
                 slotConf.type === "routes"
-                  ? processRoutes(slotConf.routes)
-                  : processBricks(slotConf.bricks)
+                  ? processRoutes(slotConf.routes, appData)
+                  : processBricks(slotConf.bricks, appData)
             } as StoryboardNodeSlot)
         )
       : undefined
