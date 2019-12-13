@@ -1,4 +1,4 @@
-import { ProcessedStoryboard, StoryboardNode } from "./interfaces";
+import { StoryboardTree, StoryboardNode } from "./interfaces";
 import { hierarchy, tree, HierarchyPointNode } from "d3-hierarchy";
 import { create } from "d3-selection";
 import {
@@ -11,7 +11,7 @@ import {
   SymbolType
 } from "d3-shape";
 
-export function render(storyboard: ProcessedStoryboard): SVGSVGElement {
+export function render(storyboard: StoryboardTree): SVGSVGElement {
   const hierarchyRoot = hierarchy(storyboard);
   const width = 1600;
   // x and y is swapped in horizontal tree layout.
@@ -139,7 +139,7 @@ export function render(storyboard: ProcessedStoryboard): SVGSVGElement {
         ? "rotate(90)"
         : d.data.type === "route"
         ? "scale(0.66)"
-        : "none"
+        : null
     );
 
   node
@@ -154,10 +154,10 @@ export function render(storyboard: ProcessedStoryboard): SVGSVGElement {
         case "app":
           return d.data.appData.name;
         case "route":
-          return (d.data.routeData.path as string).replace(
-            "${APP.homepage}",
-            "/~"
-          );
+          return (Array.isArray(d.data.routeData.path)
+            ? d.data.routeData.path[0]
+            : d.data.routeData.path
+          ).replace("${APP.homepage}", "/~");
         case "brick":
           return d.data.brickData.template || d.data.brickData.brick;
         case "slot":
@@ -237,7 +237,7 @@ export function render(storyboard: ProcessedStoryboard): SVGSVGElement {
         ? "rotate(90)"
         : d.type === "route"
         ? "scale(0.66)"
-        : "none"
+        : null
     );
 
   legendNode

@@ -27,10 +27,12 @@
   },
   "sideEffects": false,
   "devDependencies": {
-    "@dll/d3": "^1.1.0"
+    "@dll/d3": "^1.1.0",
+    "@easyops/brick-dll": "^1.0.37"
   },
   "peerDependencies": {
-    "@dll/d3": "*"
+    "@dll/d3": "*",
+    "@easyops/brick-dll": "*"
   },
   "dependencies": {
     "@easyops/brick-types": "^1.4.0"

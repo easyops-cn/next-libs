@@ -1,45 +1,72 @@
-import { Storyboard } from "@easyops/brick-types";
 import { render } from "./render";
-import { processStoryboard } from "./processStoryboard";
+import { StoryboardTree } from "./interfaces";
 
 describe("render", () => {
   it("should work", () => {
-    const storyboard: Storyboard = {
-      app: {
+    const tree: StoryboardTree = {
+      appData: {
+        homepage: "/a",
         id: "a",
-        name: "A",
-        homepage: "/a"
+        name: "A"
       },
-      routes: [
+      children: [
         {
-          path: "/a",
-          bricks: [
+          children: [
             {
-              brick: "a.b-c"
+              brickData: {
+                brick: "a.b-c"
+              },
+              children: undefined,
+              type: "brick"
             }
-          ]
+          ],
+          routeData: {
+            path: "/a"
+          },
+          type: "route"
         },
         {
-          path: "/x",
-          bricks: [
+          children: [
             {
-              brick: "x.y-z",
-              slots: {
-                a: {
-                  type: "routes",
-                  routes: []
-                },
-                b: {
-                  type: "bricks",
-                  bricks: []
+              brickData: {
+                brick: "x.y-z",
+                slots: {
+                  a: {
+                    routes: [],
+                    type: "routes"
+                  },
+                  b: {
+                    bricks: [],
+                    type: "bricks"
+                  }
                 }
-              }
+              },
+              children: [
+                {
+                  children: [],
+                  slotName: "a",
+                  slotType: "routes",
+                  type: "slot"
+                },
+                {
+                  children: [],
+                  slotName: "b",
+                  slotType: "bricks",
+                  type: "slot"
+                }
+              ],
+              type: "brick"
             }
-          ]
+          ],
+          routeData: {
+            path: "/x"
+          },
+          type: "route"
         }
-      ]
+      ],
+      type: "app"
     };
-    const svg = render(processStoryboard(storyboard));
+    const svg = render(tree);
     const containerG = Array.from(svg.children).filter(
       item => item.nodeName === "g"
     )[1];
