@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.3](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.1.2...@libs/forms@0.1.3) (2019-12-13)
+
+**Note:** Version bump only for package @libs/forms
+
 ## [0.1.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.1.1...@libs/forms@0.1.2) (2019-12-12)
 
 **Note:** Version bump only for package @libs/forms

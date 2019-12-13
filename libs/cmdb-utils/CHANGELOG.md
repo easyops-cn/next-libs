@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.8](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-utils@0.5.7...@libs/cmdb-utils@0.5.8) (2019-12-13)
+
+**Note:** Version bump only for package @libs/cmdb-utils
+
 ## [0.5.7](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-utils@0.5.6...@libs/cmdb-utils@0.5.7) (2019-12-12)
 
 **Note:** Version bump only for package @libs/cmdb-utils

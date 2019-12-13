@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.1.1...@libs/storyboard-visualization@0.2.0) (2019-12-13)
+
+### Features
+
+- compute routes and filter storyboard by route path ([4ccae08](https://git.easyops.local/anyclouds/next-libs/commits/4ccae08))
+
 ## [0.1.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.1.0...@libs/storyboard-visualization@0.1.1) (2019-12-12)
 
 ### Bug Fixes
