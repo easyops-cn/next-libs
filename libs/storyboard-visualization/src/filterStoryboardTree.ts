@@ -1,15 +1,15 @@
 import { matchPath } from "@easyops/brick-utils";
 import {
   StoryboardTree,
-  StoryboardNodeRoute,
-  AbstractStoryboardNode
+  AbstractStoryboardNode,
+  StoryboardNodeRoutedBrick
 } from "./interfaces";
 
 export interface FilterOptions {
   path?: string;
 }
 
-function matchRoute(node: StoryboardNodeRoute, path: string): boolean {
+function matchRoute(node: StoryboardNodeRoutedBrick, path: string): boolean {
   return (
     matchPath(path, {
       path: node.routeData.path,
@@ -24,13 +24,10 @@ function filterStoryboardNode(
 ): AbstractStoryboardNode {
   if (options.path && node.children) {
     let children = node.children;
-    if (
-      node.type === "app" ||
-      (node.type === "slot" && node.slotType === "routes")
-    ) {
+    if (node.type === "app" || node.type === "routes") {
       children = [
         children.find(child =>
-          matchRoute(child as StoryboardNodeRoute, options.path)
+          matchRoute(child as StoryboardNodeRoutedBrick, options.path)
         )
       ].filter(Boolean);
     }
