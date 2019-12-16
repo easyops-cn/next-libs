@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.1.11...@libs/cmdb-instances@0.2.0) (2019-12-16)
+
+### Features
+
+- **instance-list-table:** add paginationDisabled and configProps properties refs BRICK_STORE-754 ([5550e60](https://git.easyops.local/anyclouds/next-libs/commits/5550e60))
+
 ## [0.1.11](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.1.10...@libs/cmdb-instances@0.1.11) (2019-12-13)
 
 **Note:** Version bump only for package @libs/cmdb-instances
