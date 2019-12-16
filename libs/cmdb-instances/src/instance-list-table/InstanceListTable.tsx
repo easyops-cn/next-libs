@@ -7,7 +7,8 @@ import {
   PaginationConfig,
   SorterResult,
   TableCurrentDataSource,
-  TableRowSelection
+  TableRowSelection,
+  TableProps
 } from "antd/lib/table/interface";
 import {
   PropertyDisplay,
@@ -60,6 +61,8 @@ export interface InstanceListTableProps extends WithTranslation {
   onSortingChange?(sorting: ReadSortingChangeDetail): void;
   onSelectionChange?(selection: ReadSelectionChangeDetail): void;
   relationLinkDisabled?: boolean;
+  paginationDisabled?: boolean;
+  configProps?: TableProps<Record<string, any>>;
 }
 
 interface InstanceListTableState {
@@ -509,9 +512,10 @@ export class LegacyInstanceListTable extends React.Component<
           dataSource={this.props.instanceListData.list}
           rowKey="instanceId"
           scroll={{ x: "max-content" }}
-          pagination={this.state.pagination}
+          pagination={!this.props.paginationDisabled && this.state.pagination}
           rowSelection={rowSelection}
           onChange={this.onChange}
+          {...this.props.configProps}
         />
       </div>
     );
