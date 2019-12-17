@@ -4,7 +4,7 @@ export function computeRoutes(tree: StoryboardTree): string[] {
   const routes = new Set<string>();
 
   function walk(node: StoryboardNode): void {
-    if (node.type === "route") {
+    if (node.type === "brick" && node.brickType === "routed") {
       const paths = Array.isArray(node.routeData.path)
         ? node.routeData.path
         : [node.routeData.path];

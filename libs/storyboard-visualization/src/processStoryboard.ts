@@ -3,13 +3,15 @@ import {
   Storyboard,
   RouteConf,
   BrickConf,
-  MicroApp
+  MicroApp,
+  SlotsConf
 } from "@easyops/brick-types";
 import {
   StoryboardTree,
-  StoryboardNodeRoute,
-  StoryboardNodeBrick,
-  StoryboardNodeSlot
+  StoryboardNodeRoutedBrick,
+  StoryboardNodeSlottedBrick,
+  RouteData,
+  StoryboardNodeBrickChild
 } from "./interfaces";
 
 export function processStoryboard(storyboard: Storyboard): StoryboardTree {
@@ -23,40 +25,78 @@ export function processStoryboard(storyboard: Storyboard): StoryboardTree {
 function processRoutes(
   routes: RouteConf[],
   appData: MicroApp
-): StoryboardNodeRoute[] {
-  return routes.map(routeConf => {
-    const { bricks, ...routeData } = routeConf;
-    return {
-      type: "route",
-      routeData: {
-        ...routeData,
-        path: computeRealRoutePath(routeData.path, appData)
-      },
-      children: processBricks(bricks, appData)
-    };
-  });
+): StoryboardNodeRoutedBrick[] {
+  return routes.reduce<StoryboardNodeRoutedBrick[]>(
+    (acc, routeConf, index: number) => {
+      const { bricks, ...rest } = routeConf;
+      const routeData = {
+        ...rest,
+        path: computeRealRoutePath(rest.path, appData)
+      };
+      bricks.forEach(brickConf => {
+        acc.push(processRoutedBrick(brickConf, appData, routeData, index));
+      });
+      return acc;
+    },
+    []
+  );
 }
 
-function processBricks(
-  bricks: BrickConf[],
+function processBrickChildren(
+  slots: SlotsConf,
   appData: MicroApp
-): StoryboardNodeBrick[] {
-  return bricks.map(brickConf => ({
+): StoryboardNodeBrickChild[] {
+  if (!slots) {
+    return;
+  }
+  const children: StoryboardNodeBrickChild[] = [];
+  let index = 0;
+  for (const [slotName, slotConf] of Object.entries(slots)) {
+    if (slotConf.type === "routes") {
+      children.push({
+        type: "routes",
+        slotName,
+        groupIndex: index,
+        children: processRoutes(slotConf.routes, appData)
+      });
+    } else {
+      for (const brickConf of slotConf.bricks) {
+        children.push(processSlottedBrick(brickConf, appData, slotName, index));
+      }
+    }
+    index += 1;
+  }
+  return children;
+}
+
+function processSlottedBrick(
+  brickConf: BrickConf,
+  appData: MicroApp,
+  slotName: string,
+  groupIndex: number
+): StoryboardNodeSlottedBrick {
+  return {
     type: "brick",
+    brickType: "slotted",
     brickData: brickConf,
-    children: brickConf.slots
-      ? Object.entries(brickConf.slots).map(
-          ([slotName, slotConf]) =>
-            ({
-              type: "slot",
-              slotName,
-              slotType: slotConf.type,
-              children:
-                slotConf.type === "routes"
-                  ? processRoutes(slotConf.routes, appData)
-                  : processBricks(slotConf.bricks, appData)
-            } as StoryboardNodeSlot)
-        )
-      : undefined
-  }));
+    slotName,
+    groupIndex,
+    children: processBrickChildren(brickConf.slots, appData)
+  };
+}
+
+function processRoutedBrick(
+  brickConf: BrickConf,
+  appData: MicroApp,
+  routeData: RouteData,
+  groupIndex: number
+): StoryboardNodeRoutedBrick {
+  return {
+    type: "brick",
+    brickType: "routed",
+    brickData: brickConf,
+    routeData,
+    groupIndex,
+    children: processBrickChildren(brickConf.slots, appData)
+  };
 }

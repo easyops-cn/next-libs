@@ -1,0 +1,83 @@
+.svgRoot {
+  font-family: sans-serif;
+  font-size: 12px;
+}
+
+.arrowMarker path {
+  fill: #555;
+  fill-opacity: 0.8;
+}
+
+.legendsContainer,
+.nodesContainer {
+  stroke-linejoin: round;
+}
+
+.link path {
+  fill: none;
+  stroke: #555;
+  stroke-opacity: 0.4;
+  stroke-width: 1;
+}
+
+.link.brick.routed path {
+  stroke-dasharray: 3 2;
+}
+
+.link text {
+  text-anchor: end;
+  fill: #999;
+}
+
+.node path {
+  fill: #999;
+  stroke-width: 2;
+  stroke: #555;
+}
+
+.node.routes path {
+  fill: #555;
+  transform: rotate(90deg);
+}
+
+.node.app path {
+  fill: none;
+}
+
+.node.brick.leaf path {
+  stroke: #999;
+}
+
+.node text {
+  text-anchor: middle;
+}
+
+.node.app text {
+  fill: black;
+}
+
+.node.routes text {
+  fill: gray;
+}
+
+.node.brick text {
+  fill: green;
+}
+
+.node.brick.template text {
+  fill: blue;
+}
+
+.node.brick.provider text {
+  fill: orange;
+}
+
+.legend text {
+  text-anchor: start;
+}
+
+.groupContainer path {
+  stroke-dasharray: 4 2;
+  stroke: #ccc;
+  fill: rgba(0, 0, 0, 0.1);
+}

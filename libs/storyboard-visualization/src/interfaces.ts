@@ -4,53 +4,54 @@ export type StoryboardTree = StoryboardNodeApp;
 
 export type StoryboardNode =
   | StoryboardNodeApp
-  | StoryboardNodeRoute
-  | StoryboardNodeBrick
-  | StoryboardNodeSlot;
+  | StoryboardNodeSlottedRoutes
+  | StoryboardNodeRoutedBrick
+  | StoryboardNodeSlottedBrick;
+
+export type RouteData = Omit<RouteConf, "bricks">;
 
 export interface AbstractStoryboardNode {
-  type: "app" | "route" | "brick" | "slot";
-  slotType?: "routes" | "bricks";
+  type: "app" | "routes" | "brick";
+  brickType?: "routed" | "slotted";
   children?: AbstractStoryboardNode[];
   appData?: MicroApp;
-  routeData?: Omit<RouteConf, "bricks">;
+  routeData?: RouteData;
   brickData?: BrickConf;
   slotName?: string;
+  groupIndex?: number;
 }
 
 export interface StoryboardNodeApp {
   type: "app";
-  children: StoryboardNodeRoute[];
+  children: StoryboardNodeRoutedBrick[];
   appData: MicroApp;
+  groupIndex?: number;
 }
 
-export interface StoryboardNodeRoute {
-  type: "route";
-  children: StoryboardNodeBrick[];
-  routeData: Omit<RouteConf, "bricks">;
-}
-
-export interface StoryboardNodeBrick {
-  type: "brick";
-  children?: StoryboardNodeSlot[];
-  brickData: BrickConf;
-}
-
-export type StoryboardNodeSlot =
-  | StoryboardNodeSlotRoutes
-  | StoryboardNodeSlotBricks;
-
-export interface StoryboardNodeSlotBase {
-  type: "slot";
+export interface StoryboardNodeSlottedRoutes {
+  type: "routes";
   slotName: string;
+  children: StoryboardNodeRoutedBrick[];
+  groupIndex: number;
 }
 
-export interface StoryboardNodeSlotRoutes extends StoryboardNodeSlotBase {
-  slotType: "routes";
-  children: StoryboardNodeRoute[];
+export type StoryboardNodeBrickChild =
+  | StoryboardNodeSlottedRoutes
+  | StoryboardNodeSlottedBrick;
+
+export interface StoryboardNodeBaseBrick {
+  type: "brick";
+  children?: StoryboardNodeBrickChild[];
+  brickData: BrickConf;
+  groupIndex: number;
 }
 
-export interface StoryboardNodeSlotBricks extends StoryboardNodeSlotBase {
-  slotType: "bricks";
-  children: StoryboardNodeBrick[];
+export interface StoryboardNodeRoutedBrick extends StoryboardNodeBaseBrick {
+  brickType: "routed";
+  routeData: RouteData;
+}
+
+export interface StoryboardNodeSlottedBrick extends StoryboardNodeBaseBrick {
+  brickType: "slotted";
+  slotName: string;
 }

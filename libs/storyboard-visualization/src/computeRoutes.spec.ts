@@ -11,57 +11,45 @@ describe("computeRoutes", () => {
       },
       children: [
         {
-          children: [
-            {
-              brickData: {
-                brick: "a.b-c"
-              },
-              children: undefined,
-              type: "brick"
-            }
-          ],
+          brickData: {
+            brick: "a.b-c"
+          },
+          brickType: "routed",
+          children: undefined,
+          groupIndex: 0,
           routeData: {
             path: "/a"
           },
-          type: "route"
+          type: "brick"
         },
         {
+          brickData: {
+            brick: "x.y-z",
+            slots: {
+              a: {
+                routes: [],
+                type: "routes"
+              },
+              b: {
+                bricks: [],
+                type: "bricks"
+              }
+            }
+          },
+          brickType: "routed",
           children: [
             {
-              brickData: {
-                brick: "x.y-z",
-                slots: {
-                  a: {
-                    routes: [],
-                    type: "routes"
-                  },
-                  b: {
-                    bricks: [],
-                    type: "bricks"
-                  }
-                }
-              },
-              children: [
-                {
-                  children: [],
-                  slotName: "a",
-                  slotType: "routes",
-                  type: "slot"
-                },
-                {
-                  children: [],
-                  slotName: "b",
-                  slotType: "bricks",
-                  type: "slot"
-                }
-              ],
-              type: "brick"
+              children: [],
+              groupIndex: 0,
+              slotName: "a",
+              type: "routes"
             }
           ],
+          groupIndex: 1,
           routeData: {
             path: "/x"
           },
-          type: "route"
+          type: "brick"
         }
       ],
       type: "app"

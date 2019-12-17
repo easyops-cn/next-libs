@@ -1,4 +1,3 @@
-import { StoryboardTree, StoryboardNode } from "./interfaces";
 import { hierarchy, tree, HierarchyPointNode } from "d3-hierarchy";
 import { create } from "d3-selection";
 import {
@@ -7,17 +6,36 @@ import {
   symbolCircle,
   symbolDiamond,
   symbolSquare,
-  symbolTriangle,
   SymbolType
 } from "d3-shape";
+import { findLast, uniqueId } from "lodash";
+import classNames from "classnames";
+import { StoryboardTree, StoryboardNode } from "./interfaces";
 
-export function render(storyboard: StoryboardTree): SVGSVGElement {
+import styles from "./render.module.css";
+import { BrickConf } from "@easyops/brick-types";
+
+interface RenderOptions {
+  showFullBrickName?: boolean;
+}
+
+export function render(
+  storyboard: StoryboardTree,
+  options: RenderOptions = {}
+): SVGSVGElement {
   const hierarchyRoot = hierarchy(storyboard);
   const width = 1600;
   // x and y is swapped in horizontal tree layout.
   const dx = 40;
   const dy = width / (hierarchyRoot.height + 1);
-  const root = tree<StoryboardNode>().nodeSize([dx, dy])(hierarchyRoot);
+  const root = tree<StoryboardNode>()
+    .nodeSize([dx, dy])
+    .separation((a, b) => {
+      // Make the different grouped bricks be separated.
+      return a.parent === b.parent && a.data.groupIndex === b.data.groupIndex
+        ? 1
+        : 2;
+    })(hierarchyRoot);
 
   let x0 = Infinity;
   let x1 = -x0;
@@ -28,15 +46,16 @@ export function render(storyboard: StoryboardTree): SVGSVGElement {
 
   const legendsHeight = 50;
 
-  const svg = create("svg").attr(
-    "viewBox",
-    [0, 0, width, x1 - x0 + dx * 2 + legendsHeight].join(",")
-  );
+  const svg = create("svg")
+    .attr("viewBox", [0, 0, width, x1 - x0 + dx * 2 + legendsHeight].join(","))
+    .attr("class", styles.svgRoot);
 
   const defs = svg.append("defs");
+  const arrowMarkerId = uniqueId("arrow-");
   const marker = defs
     .append("marker")
-    .attr("id", "arrow")
+    .attr("id", arrowMarkerId)
+    .attr("class", styles.arrowMarker)
     .attr("viewBox", "0 0 10 10")
     .attr("refX", 5)
     .attr("refY", 5)
@@ -44,20 +63,12 @@ export function render(storyboard: StoryboardTree): SVGSVGElement {
     .attr("markerHeight", 6)
     .attr("orient", "auto")
     .append("path")
-    .attr("d", "M 0 0 L 10 5 L 0 10 z")
-    .attr("fill", "#555")
-    .attr("fill-opacity", 0.8);
+    .attr("d", "M 0 0 L 10 5 L 0 10 z");
 
-  const legendsGroup = svg
-    .append("g")
-    .attr("stroke-linejoin", "round")
-    .attr("font-family", "sans-serif")
-    .attr("font-size", 12);
+  const legendsGroup = svg.append("g").attr("class", styles.legendsContainer);
 
   const g = svg
     .append("g")
-    .attr("font-family", "sans-serif")
-    .attr("font-size", 12)
     .attr("transform", `translate(${dy / 3},${dx - x0 + legendsHeight})`);
 
   const linkFactory = linkHorizontal<
@@ -69,40 +80,131 @@ export function render(storyboard: StoryboardTree): SVGSVGElement {
 
   const link = g
     .append("g")
-    .attr("fill", "none")
-    .attr("stroke", "#555")
-    .attr("stroke-opacity", 0.4)
-    .attr("stroke-width", 1)
-    .selectAll("path")
-    .data(root.links())
-    .join("path")
-    .attr("stroke-dasharray", d =>
-      d.target.data.type === "route" ? "3 2" : "none"
+    .selectAll("g")
+    .data(
+      root
+        .links()
+        .filter(
+          ({ target }) =>
+            target ===
+            target.parent.children.find(
+              item => item.data.groupIndex === target.data.groupIndex
+            )
+        )
+        .map(({ source, target }) => {
+          const offset = 20;
+          const lastSibling = findLast(
+            target.parent.children,
+            item => item.data.groupIndex === target.data.groupIndex
+          );
+          let targetX = target.x;
+          let targetY = target.y;
+          if (lastSibling !== target) {
+            targetX = (targetX + lastSibling.x) / 2;
+            targetY -= dy / 3 + 5;
+          } else {
+            targetY -= offset;
+          }
+          return {
+            source: {
+              ...source,
+              y: source.y + offset
+            },
+            target: {
+              ...target,
+              x: targetX,
+              y: targetY
+            }
+          };
+        })
     )
-    .attr("marker-end", "url(#arrow)")
-    .attr("d", ({ source, target }) => {
-      // 根据 depth 决定线往左边缩还是右边缩
-      const depthSign = source.depth <= target.depth ? 1 : -1;
-      const offset = 20;
-      return linkFactory({
-        source: {
-          ...source,
-          y: source.y + depthSign * offset
-        },
-        target: {
-          ...target,
-          y: target.y - depthSign * offset
+    .join("g")
+    .attr("class", d =>
+      classNames(
+        styles.link,
+        [d.target.data.type, (d.target.data as any).brickType]
+          .filter(Boolean)
+          .map(type => styles[type])
+      )
+    );
+
+  link
+    .append("path")
+    .attr("marker-end", `url(#${arrowMarkerId})`)
+    .attr("d", linkFactory);
+
+  link
+    .append("text")
+    .attr("dy", "0.31em")
+    .attr("x", d => d.target.y - 5)
+    .attr("y", d => {
+      const offset = 8;
+      if (d.target.x > d.source.x) {
+        return d.target.x + offset;
+      }
+      return d.target.x - offset;
+    })
+    .text(({ target }) => {
+      switch (target.data.type) {
+        case "brick":
+          return target.data.brickType === "routed"
+            ? [].concat(target.data.routeData.path)[0]
+            : target.data.slotName;
+        case "routes":
+          return target.data.slotName;
+      }
+    });
+
+  const group = g
+    .append("g")
+    .attr("class", styles.groupContainer)
+    .selectAll("path")
+    .data(
+      root.descendants().filter(d => {
+        if (!d.parent) {
+          return false;
         }
-      });
+        const siblings = d.parent.children.filter(
+          item => item.data.groupIndex === d.data.groupIndex
+        );
+        if (siblings.length > 1 && siblings[0] === d) {
+          return true;
+        }
+        return false;
+      })
+    )
+    .join("path")
+    .attr("d", d => {
+      const lastSibling = findLast(
+        d.parent.children,
+        item => item.data.groupIndex === d.data.groupIndex
+      );
+      const x0 = d.x;
+      const x1 = lastSibling.x;
+      return `M${d.y - dy / 3} ${x0 - (dx * 2) / 3}h${(dy * 2) / 3}V${x1 +
+        (dx * 2) / 3}h${(-dy * 2) / 3}z`;
     });
 
   const node = g
     .append("g")
-    .attr("stroke-linejoin", "round")
-    .attr("stroke-width", 3)
+    .attr("class", styles.nodesContainer)
     .selectAll("g")
     .data(root.descendants())
     .join("g")
+    .attr("class", d =>
+      classNames(
+        styles.node,
+        {
+          [styles.leaf]: !d.data.children,
+          [styles.template]:
+            d.data.type === "brick" && d.data.brickData.template,
+          [styles.provider]: d.data.type === "brick" && d.data.brickData.bg
+        },
+        [d.data.type, (d.data as any).brickType]
+          .filter(Boolean)
+          .map(type => styles[type])
+      )
+    )
     .attr("transform", d => `translate(${d.y},${d.x})`);
 
   const getSymbolType = (data: StoryboardNode): SymbolType => {
@@ -111,79 +213,45 @@ export function render(storyboard: StoryboardTree): SVGSVGElement {
         return symbolCircle;
       case "brick":
         return symbolSquare;
-      case "route":
-        return symbolTriangle;
-      case "slot":
+      case "routes":
         return symbolDiamond;
     }
   };
 
   const symbolGenerator = symbol().size(200);
+  const getBrickName = (brickData: BrickConf): string => {
+    const brickName = brickData.template || brickData.brick;
+    if (options.showFullBrickName) {
+      return brickName;
+    }
+    return brickName.split(".").slice(-1)[0];
+  };
 
   node
     .append("path")
-    .attr("fill", d =>
-      d.data.type === "slot" && d.data.slotType === "routes"
-        ? "#555"
-        : d.data.type === "brick"
-        ? "#999"
-        : "none"
-    )
-    .attr("stroke-width", 2)
-    .attr("stroke", d =>
-      d.data.type === "brick" && !d.data.children ? "#999" : "#555"
-    )
-    .attr("d", d => symbolGenerator.type(getSymbolType(d.data))())
-    .attr("transform", d =>
-      d.data.type === "slot"
-        ? "rotate(90)"
-        : d.data.type === "route"
-        ? "scale(0.66)"
-        : null
-    );
+    .attr("d", d => symbolGenerator.type(getSymbolType(d.data))());
 
   node
     .append("text")
     .attr("dy", "0.31em")
-    .attr("y", d =>
-      d.data.type === "route" || d.data.type === "slot" ? "-1.4em" : "1.4em"
-    )
-    .attr("text-anchor", "middle")
+    .attr("y", "1.6em")
     .text(d => {
       switch (d.data.type) {
         case "app":
           return d.data.appData.name;
-        case "route":
-          return (Array.isArray(d.data.routeData.path)
-            ? d.data.routeData.path[0]
-            : d.data.routeData.path
-          ).replace("${APP.homepage}", "/~");
         case "brick":
-          return d.data.brickData.template || d.data.brickData.brick;
-        case "slot":
-          return d.data.slotName;
+          return getBrickName(d.data.brickData);
+        // case "routes":
+        //   return d.data.slotName;
       }
-    })
-    .attr("fill", d => {
-      switch (d.data.type) {
-        case "app":
-          return "black";
-        case "route":
-          return d.data.routeData.exact ? "red" : "orange";
-        case "brick":
-          return d.data.brickData.template ? "blue" : "green";
-        case "slot":
-          return "gray";
-      }
-    })
-    .clone(true)
-    .lower()
-    .attr("stroke", "white");
+    });
 
   const legends = [
     {
       type: "brick",
       hasChildren: false,
+      isTemplate: false,
+      isProvider: false,
       name: "构件"
     },
     {
@@ -192,17 +260,21 @@ export function render(storyboard: StoryboardTree): SVGSVGElement {
       name: "容器构件"
     },
     {
-      type: "slot",
-      slotType: "routes",
-      name: "插槽：路由"
+      type: "brick",
+      hasChildren: false,
+      isTemplate: true,
+      isProvider: false,
+      name: "模板"
     },
     {
-      type: "slot",
-      slotType: "bricks",
-      name: "插槽：构件"
+      type: "brick",
+      hasChildren: false,
+      isTemplate: false,
+      isProvider: true,
+      name: "Provider"
     },
     {
-      type: "route",
+      type: "routes",
       name: "路由"
     }
   ];
@@ -212,6 +284,18 @@ export function render(storyboard: StoryboardTree): SVGSVGElement {
     .selectAll("g")
     .data(legends)
     .join("g")
+    .attr("class", d =>
+      classNames(
+        styles.node,
+        styles.legend,
+        {
+          [styles.leaf]: !d.hasChildren,
+          [styles.template]: d.isTemplate,
+          [styles.provider]: d.isProvider
+        },
+        [d.type].filter(Boolean).map(type => styles[type])
+      )
+    )
     .attr(
       "transform",
       (d, index) =>
@@ -220,25 +304,7 @@ export function render(storyboard: StoryboardTree): SVGSVGElement {
 
   legendNode
     .append("path")
-    .attr("fill", d =>
-      d.type === "slot" && d.slotType === "routes"
-        ? "#555"
-        : d.type === "brick"
-        ? "#999"
-        : "none"
-    )
-    .attr("stroke-width", 2)
-    .attr("stroke", d =>
-      d.type === "brick" && !d.hasChildren ? "#999" : "#555"
-    )
-    .attr("d", d => symbolGenerator.type(getSymbolType(d as any))())
-    .attr("transform", d =>
-      d.type === "slot"
-        ? "rotate(90)"
-        : d.type === "route"
-        ? "scale(0.66)"
-        : null
-    );
+    .attr("d", d => symbolGenerator.type(getSymbolType(d as any))());
 
   legendNode
     .append("text")

@@ -11,57 +11,45 @@ describe("render", () => {
       },
       children: [
         {
-          children: [
-            {
-              brickData: {
-                brick: "a.b-c"
-              },
-              children: undefined,
-              type: "brick"
-            }
-          ],
+          brickData: {
+            brick: "a.b-c"
+          },
+          brickType: "routed",
+          children: undefined,
+          groupIndex: 0,
           routeData: {
             path: "/a"
           },
-          type: "route"
+          type: "brick"
         },
         {
+          brickData: {
+            brick: "x.y-z",
+            slots: {
+              a: {
+                routes: [],
+                type: "routes"
+              },
+              b: {
+                bricks: [],
+                type: "bricks"
+              }
+            }
+          },
+          brickType: "routed",
           children: [
             {
-              brickData: {
-                brick: "x.y-z",
-                slots: {
-                  a: {
-                    routes: [],
-                    type: "routes"
-                  },
-                  b: {
-                    bricks: [],
-                    type: "bricks"
-                  }
-                }
-              },
-              children: [
-                {
-                  children: [],
-                  slotName: "a",
-                  slotType: "routes",
-                  type: "slot"
-                },
-                {
-                  children: [],
-                  slotName: "b",
-                  slotType: "bricks",
-                  type: "slot"
-                }
-              ],
-              type: "brick"
+              children: [],
+              groupIndex: 0,
+              slotName: "a",
+              type: "routes"
             }
           ],
+          groupIndex: 1,
           routeData: {
             path: "/x"
           },
-          type: "route"
+          type: "brick"
         }
       ],
       type: "app"
@@ -70,7 +58,11 @@ describe("render", () => {
     const containerG = Array.from(svg.children).filter(
       item => item.nodeName === "g"
     )[1];
-    expect(containerG.querySelector("g").childNodes.length).toBe(6);
-    expect(containerG.querySelectorAll("g").item(1).childNodes.length).toBe(7);
+    // links
+    expect(containerG.childNodes.item(0).childNodes.length).toBe(3);
+    // groups
+    expect(containerG.childNodes.item(1).childNodes.length).toBe(0);
+    // nodes
+    expect(containerG.childNodes.item(2).childNodes.length).toBe(4);
   });
 });
