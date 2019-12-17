@@ -181,8 +181,8 @@ export function render(
       );
       const x0 = d.x;
       const x1 = lastSibling.x;
-      return `M${d.y - dy / 3} ${x0 - (dx * 2) / 3}h${(dy * 2) / 3}V${x1 +
-        (dx * 2) / 3}h${(-dy * 2) / 3}z`;
+      return `M${d.y - dy / 3} ${x0 - dx / 2}h${(dy * 2) / 3}V${x1 +
+        dx}h${(-dy * 2) / 3}z`;
     });
 
   const node = g
