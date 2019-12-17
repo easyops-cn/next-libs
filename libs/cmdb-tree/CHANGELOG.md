@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.7.27](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-tree@0.7.26...@libs/cmdb-tree@0.7.27) (2019-12-17)
+
+**Note:** Version bump only for package @libs/cmdb-tree
+
 ## [0.7.26](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-tree@0.7.25...@libs/cmdb-tree@0.7.26) (2019-12-13)
 
 **Note:** Version bump only for package @libs/cmdb-tree
