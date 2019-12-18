@@ -1,8 +1,9 @@
-import { render } from "./render";
+import { Visualization } from "./Visualization";
 import { StoryboardTree } from "./interfaces";
 
-describe("render", () => {
+describe("Visualization", () => {
   it("should work", () => {
+    const visual = new Visualization();
     const tree: StoryboardTree = {
       appData: {
         homepage: "/a",
@@ -54,7 +55,9 @@ describe("render", () => {
       ],
       type: "app"
     };
-    const svg = render(tree);
+    const svg = visual.getDOMNode();
+    visual.render(tree);
+    visual.toggleBrickFullName(true);
     const containerG = Array.from(svg.children).filter(
       item => item.nodeName === "g"
     )[1];
