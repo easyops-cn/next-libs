@@ -32,4 +32,14 @@ describe("Link", () => {
       />
     `);
   });
+
+  it("should render with new href property", () => {
+    const wrapper = shallow(<Link href="http://192.168.100.163" />);
+    expect(wrapper).toMatchInlineSnapshot(`
+    <a
+      href="http://192.168.100.163"
+      onClick={[Function]}
+    />
+    `);
+  });
 });

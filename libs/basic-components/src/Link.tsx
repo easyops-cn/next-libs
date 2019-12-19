@@ -11,7 +11,8 @@ function isModifiedEvent(
 }
 
 export interface LinkProps {
-  to: LocationDescriptor<PluginHistoryState>;
+  to?: LocationDescriptor<PluginHistoryState>;
+  href?: string;
   innerRef?: string;
   replace?: boolean;
   target?: string;
@@ -32,6 +33,7 @@ export class Link extends React.Component<LinkProps> {
     history: PluginHistory
   ): void {
     if (this.props.onClick) this.props.onClick(event);
+    if (this.props.href) return;
 
     if (
       !event.defaultPrevented && // onClick prevented default
@@ -53,11 +55,16 @@ export class Link extends React.Component<LinkProps> {
     const { innerRef, replace, to, ...rest } = this.props; // eslint-disable-line no-unused-vars
     const history = getHistory();
 
-    const location =
-      typeof to === "string"
-        ? createLocation(to, null, null, history.location)
-        : to;
-    const href = location ? history.createHref(location) : "";
+    let href;
+    if (this.props.href) {
+      href = this.props.href;
+    } else {
+      const location =
+        typeof to === "string"
+          ? createLocation(to, null, null, history.location)
+          : to;
+      href = location ? history.createHref(location) : "";
+    }
 
     return (
       <a
