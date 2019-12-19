@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.3.0...@libs/cmdb-instances@0.4.0) (2019-12-19)
+
+### Features
+
+- **cmdb-instance:** instance-list-modal ([8242ac1](https://git.easyops.local/anyclouds/next-libs/commits/8242ac1))
+
 # [0.3.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.2.1...@libs/cmdb-instances@0.3.0) (2019-12-19)
 
 ### Features
