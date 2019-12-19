@@ -36,7 +36,8 @@ export class StructTable extends React.Component<
       title: item.name,
       className: styles.structTableTd,
       dataIndex: item.id,
-      render: (text: string, _record: any, _index: number) => text
+      render: (text: string, _record: any, _index: number) =>
+        item.type === "bool" ? String(text) : text
     }));
     if (this.props.isEditable) {
       columns.push({

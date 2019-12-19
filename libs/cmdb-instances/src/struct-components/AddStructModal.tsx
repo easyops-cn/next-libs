@@ -1,6 +1,7 @@
 import React, { ChangeEvent } from "react";
 import { DatePicker, Input, InputNumber, Modal, Radio, Select } from "antd";
 import { Attribute, Structkey } from "./interfaces";
+import { boolOptions } from "../model-attribute-form-control/ModelAttributeFormControl";
 import styles from "./index.module.css";
 import moment from "moment";
 import { RadioChangeEvent } from "antd/lib/radio";
@@ -117,6 +118,20 @@ export class AddStructModal extends React.Component<
         break;
       case "enum":
         formType = this.getEnumForm(define, defaultValue);
+        break;
+      case "bool":
+        formType = (
+          <Radio.Group
+            onChange={e => this.handleInputValueChange(e, define)}
+            defaultValue={defaultValue}
+          >
+            {boolOptions.map(item => (
+              <Radio value={item.id} key={item.text}>
+                {item.text}
+              </Radio>
+            ))}
+          </Radio.Group>
+        );
         break;
       case "arr":
         formType = (

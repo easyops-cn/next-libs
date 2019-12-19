@@ -85,6 +85,17 @@ export interface ModelAttributeFormControlState {
   errorMessage: string;
 }
 
+export const boolOptions: FormControlSelectItem[] = [
+  {
+    id: true,
+    text: "true"
+  },
+  {
+    id: false,
+    text: "false"
+  }
+];
+
 export class ModelAttributeFormControl extends Component<
   ModelAttributeFormControlProps,
   ModelAttributeFormControlState
@@ -230,16 +241,7 @@ export class ModelAttributeFormControl extends Component<
     let items = this.computeFormControlItems(attribute);
 
     if (attribute.value.type === ModelAttributeValueType.BOOLEAN) {
-      items = [
-        {
-          id: true,
-          text: "true"
-        },
-        {
-          id: false,
-          text: "false"
-        }
-      ];
+      items = boolOptions;
     }
 
     const result: FormControl = {

@@ -116,4 +116,33 @@ describe("AddStructModal", () => {
     const selectInstance = selectWrapper.instance();
     expect(selectWrapper).toMatchSnapshot();
   });
+
+  it("should render Radio base on bool type", () => {
+    const attribute = {
+      name: "结构体",
+      id: "struct",
+      value: {
+        type: "structs",
+        struct_define: [
+          {
+            id: "isShow",
+            name: "显示",
+            type: "bool"
+          }
+        ]
+      }
+    };
+
+    const wrapper2 = shallow<AddStructModalProps>(
+      <AddStructModal {...props} attribute={attribute} />
+    );
+    wrapper2.setProps({
+      visible: true
+    });
+
+    wrapper2.find(Radio.Group).invoke("onChange")({
+      target: { value: true }
+    } as RadioChangeEvent);
+    expect(wrapper2.find(Radio.Group).prop("defaultValue")).toEqual(true);
+  });
 });
