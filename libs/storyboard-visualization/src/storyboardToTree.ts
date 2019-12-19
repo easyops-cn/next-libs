@@ -1,4 +1,3 @@
-import { computeRealRoutePath } from "@easyops/brick-utils";
 import {
   Storyboard,
   RouteConf,
@@ -14,7 +13,7 @@ import {
   StoryboardNodeBrickChild
 } from "./interfaces";
 
-export function processStoryboard(storyboard: Storyboard): StoryboardTree {
+export function storyboardToTree(storyboard: Storyboard): StoryboardTree {
   return {
     type: "app",
     appData: storyboard.app,
@@ -28,11 +27,7 @@ function processRoutes(
 ): StoryboardNodeRoutedBrick[] {
   return routes.reduce<StoryboardNodeRoutedBrick[]>(
     (acc, routeConf, index: number) => {
-      const { bricks, ...rest } = routeConf;
-      const routeData = {
-        ...rest,
-        path: computeRealRoutePath(rest.path, appData)
-      };
+      const { bricks, ...routeData } = routeConf;
       bricks.forEach(brickConf => {
         acc.push(processRoutedBrick(brickConf, appData, routeData, index));
       });
@@ -75,13 +70,14 @@ function processSlottedBrick(
   slotName: string,
   groupIndex: number
 ): StoryboardNodeSlottedBrick {
+  const { slots, ...brickData } = brickConf;
   return {
     type: "brick",
     brickType: "slotted",
-    brickData: brickConf,
+    brickData,
     slotName,
     groupIndex,
-    children: processBrickChildren(brickConf.slots, appData)
+    children: processBrickChildren(slots, appData)
   };
 }
 
@@ -91,12 +87,13 @@ function processRoutedBrick(
   routeData: RouteData,
   groupIndex: number
 ): StoryboardNodeRoutedBrick {
+  const { slots, ...brickData } = brickConf;
   return {
     type: "brick",
     brickType: "routed",
-    brickData: brickConf,
+    brickData,
     routeData,
     groupIndex,
-    children: processBrickChildren(brickConf.slots, appData)
+    children: processBrickChildren(slots, appData)
   };
 }

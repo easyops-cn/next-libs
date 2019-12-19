@@ -25,17 +25,7 @@ describe("Visualization", () => {
         },
         {
           brickData: {
-            brick: "x.y-z",
-            slots: {
-              a: {
-                routes: [],
-                type: "routes"
-              },
-              b: {
-                bricks: [],
-                type: "bricks"
-              }
-            }
+            brick: "x.y-z"
           },
           brickType: "routed",
           children: [

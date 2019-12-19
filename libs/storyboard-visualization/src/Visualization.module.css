@@ -81,3 +81,7 @@
   stroke: #ccc;
   fill: rgba(0, 0, 0, 0.1);
 }
+
+.clickable {
+  cursor: pointer;
+}

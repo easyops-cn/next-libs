@@ -9,6 +9,7 @@ export type StoryboardNode =
   | StoryboardNodeSlottedBrick;
 
 export type RouteData = Omit<RouteConf, "bricks">;
+export type BrickData = Omit<BrickConf, "slots">;
 
 export interface AbstractStoryboardNode {
   type: "app" | "routes" | "brick";
@@ -16,7 +17,7 @@ export interface AbstractStoryboardNode {
   children?: AbstractStoryboardNode[];
   appData?: MicroApp;
   routeData?: RouteData;
-  brickData?: BrickConf;
+  brickData?: BrickData;
   slotName?: string;
   groupIndex?: number;
 }
@@ -39,10 +40,14 @@ export type StoryboardNodeBrickChild =
   | StoryboardNodeSlottedRoutes
   | StoryboardNodeSlottedBrick;
 
+export type StoryboardNodeBrick =
+  | StoryboardNodeRoutedBrick
+  | StoryboardNodeSlottedBrick;
+
 export interface StoryboardNodeBaseBrick {
   type: "brick";
   children?: StoryboardNodeBrickChild[];
-  brickData: BrickConf;
+  brickData: BrickData;
   groupIndex: number;
 }
 

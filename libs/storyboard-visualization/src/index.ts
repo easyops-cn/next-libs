@@ -1,5 +1,6 @@
 export * from "./computeRoutes";
 export * from "./filterStoryboardTree";
 export * from "./interfaces";
-export * from "./processStoryboard";
+export * from "./storyboardToTree";
+export * from "./treeToStoryboard";
 export * from "./Visualization";
