@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.3.2...@libs/storyboard-visualization@0.4.0) (2019-12-19)
+
+### Features
+
+- support process tree to storyboard ([6d30c62](https://git.easyops.local/anyclouds/next-libs/commits/6d30c62))
+
 ## [0.3.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.3.1...@libs/storyboard-visualization@0.3.2) (2019-12-19)
 
 **Note:** Version bump only for package @libs/storyboard-visualization
