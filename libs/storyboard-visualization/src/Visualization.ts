@@ -1,11 +1,10 @@
-import { BrickConf } from "@easyops/brick-types";
 import {
   hierarchy,
   tree,
   HierarchyPointNode,
   HierarchyPointLink
 } from "d3-hierarchy";
-import { create, Selection, select } from "d3-selection";
+import { create, Selection, select, ValueFn } from "d3-selection";
 import {
   linkHorizontal,
   symbol,
@@ -16,12 +15,19 @@ import {
 } from "d3-shape";
 import { findLast, uniqueId } from "lodash";
 import classNames from "classnames";
+import { computeRealRoutePath } from "@easyops/brick-utils";
+import { BrickConf } from "@easyops/brick-types";
 import { StoryboardTree, StoryboardNode } from "./interfaces";
 
-import styles from "./render.module.css";
+import styles from "./Visualization.module.css";
 
 interface RenderOptions {
   showFullBrickName?: boolean;
+  handleNodeClick?: ValueFn<
+    SVGPathElement,
+    HierarchyPointNode<StoryboardNode>,
+    void
+  >;
 }
 
 const getBrickName = (
@@ -124,8 +130,8 @@ export class Visualization {
     return this.svg.node();
   }
 
-  render(storyboard: StoryboardTree, options: RenderOptions = {}): void {
-    const hierarchyRoot = hierarchy(storyboard);
+  render(storyboardTree: StoryboardTree, options: RenderOptions = {}): void {
+    const hierarchyRoot = hierarchy(storyboardTree);
     const width = 1600;
     // x and y is swapped in horizontal tree layout.
     const dx = 40;
@@ -233,7 +239,12 @@ export class Visualization {
         switch (target.data.type) {
           case "brick":
             return target.data.brickType === "routed"
-              ? [].concat(target.data.routeData.path)[0]
+              ? [].concat(
+                  computeRealRoutePath(
+                    target.data.routeData.path,
+                    storyboardTree.appData
+                  )
+                )[0]
               : target.data.slotName;
           case "routes":
             return target.data.slotName;
@@ -299,9 +310,17 @@ export class Visualization {
 
     const symbolGenerator = symbol().size(200);
 
-    this.nodes
+    const nodePath = this.nodes
       .append("path")
       .attr("d", d => symbolGenerator.type(getSymbolType(d.data))());
+
+    if (options.handleNodeClick) {
+      nodePath.classed(styles.clickable, true);
+      nodePath.on("click", options.handleNodeClick);
+    } else {
+      nodePath.classed(styles.clickable, false);
+      nodePath.on("click", null);
+    }
 
     this.nodes
       .append("text")

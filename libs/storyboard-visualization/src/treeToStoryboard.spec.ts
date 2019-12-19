@@ -1,8 +1,8 @@
 import { Storyboard } from "@easyops/brick-types";
-import { processStoryboard } from "./processStoryboard";
+import { treeToStoryboard } from "./treeToStoryboard";
 import { StoryboardTree } from "./interfaces";
 
-describe("processStoryboard", () => {
+describe("treeToStoryboard", () => {
   it("should work", () => {
     const storyboard: Storyboard = {
       app: {
@@ -27,11 +27,24 @@ describe("processStoryboard", () => {
               slots: {
                 a: {
                   type: "routes",
-                  routes: []
+                  routes: [
+                    {
+                      path: "/y",
+                      bricks: [
+                        {
+                          brick: "x.y-a"
+                        }
+                      ]
+                    }
+                  ]
                 },
                 b: {
                   type: "bricks",
-                  bricks: []
+                  bricks: [
+                    {
+                      brick: "x.y-b"
+                    }
+                  ]
                 }
               }
             }
@@ -60,25 +73,38 @@ describe("processStoryboard", () => {
         },
         {
           brickData: {
-            brick: "x.y-z",
-            slots: {
-              a: {
-                routes: [],
-                type: "routes"
-              },
-              b: {
-                bricks: [],
-                type: "bricks"
-              }
-            }
+            brick: "x.y-z"
           },
           brickType: "routed",
           children: [
             {
-              children: [],
+              children: [
+                {
+                  brickData: {
+                    brick: "x.y-a"
+                  },
+                  brickType: "routed",
+                  children: undefined,
+                  groupIndex: 0,
+                  routeData: {
+                    path: "/y"
+                  },
+                  type: "brick"
+                }
+              ],
               groupIndex: 0,
               slotName: "a",
               type: "routes"
+            },
+            {
+              brickData: {
+                brick: "x.y-b"
+              },
+              brickType: "slotted",
+              children: undefined,
+              groupIndex: 1,
+              slotName: "b",
+              type: "brick"
             }
           ],
           groupIndex: 1,
@@ -90,6 +116,6 @@ describe("processStoryboard", () => {
       ],
       type: "app"
     };
-    expect(processStoryboard(storyboard)).toEqual(tree);
+    expect(treeToStoryboard(tree)).toEqual(storyboard);
   });
 });
