@@ -41,7 +41,7 @@
 }
 
 .node.app path {
-  fill: none;
+  fill: #fff;
 }
 
 .node.brick.leaf path {
