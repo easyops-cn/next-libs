@@ -28,7 +28,7 @@
   "sideEffects": false,
   "devDependencies": {
     "@dll/d3": "^1.1.0",
-    "@easyops/brick-dll": "^1.0.39"
+    "@easyops/brick-dll": "^1.0.40"
   },
   "peerDependencies": {
     "@dll/d3": "*",
