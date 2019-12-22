@@ -3999,6 +3999,11 @@ create-react-class@^15.5.3:
     loose-envify "^1.3.1"
     object-assign "^4.1.1"
 
+cronstrue@^1.85.0:
+  version "1.85.0"
+  resolved "https://registry.npm.taobao.org/cronstrue/download/cronstrue-1.85.0.tgz#e5ca1a9d551a6c2cb18ab5b43a472d5db1675f3e"
+  integrity sha1-5coanVUabCyxirW0OkctXbFnXz4=
+
 cross-env@^6.0.3:
   version "6.0.3"
   resolved "https://registry.npm.taobao.org/cross-env/download/cross-env-6.0.3.tgz?cache=0&sync_timestamp=1570033768127&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcross-env%2Fdownload%2Fcross-env-6.0.3.tgz#4256b71e49b3a40637a0ce70768a6ef5c72ae941"
