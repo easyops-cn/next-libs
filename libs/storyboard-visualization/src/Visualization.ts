@@ -209,7 +209,13 @@ export class Visualization {
             };
           })
       )
-      .join("g")
+      .join(enter => {
+        const link = enter.append("g");
+        link.append("path").attr("marker-end", `url(#${this.arrowMarkerId})`);
+
+        link.append("text").attr("dy", "0.31em");
+        return link;
+      })
       .attr("class", d =>
         classNames(
           styles.link,
@@ -219,14 +225,10 @@ export class Visualization {
         )
       );
 
-    this.links
-      .append("path")
-      .attr("marker-end", `url(#${this.arrowMarkerId})`)
-      .attr("d", linkFactory);
+    this.links.select("path").attr("d", linkFactory);
 
     this.links
-      .append("text")
-      .attr("dy", "0.31em")
+      .select("text")
       .attr("x", d => d.target.y - 5)
       .attr("y", d => {
         const offset = 8;
@@ -278,9 +280,39 @@ export class Visualization {
           dx}h${(-dy * 2) / 3}z`;
       });
 
+    const getSymbolType = (data: StoryboardNode): SymbolType => {
+      switch (data.type) {
+        case "app":
+          return symbolCircle;
+        case "brick":
+          return symbolSquare;
+        case "routes":
+          return symbolDiamond;
+      }
+    };
+
+    const symbolGenerator = symbol().size(200);
+
     this.nodes = this.nodes
       .data(root.descendants())
-      .join("g")
+      .join(enter => {
+        const node = enter.append("g");
+        const nodePath = node.append("path");
+
+        if (options.handleNodeClick) {
+          nodePath.classed(styles.clickable, true);
+          nodePath.on("click", options.handleNodeClick);
+        } else {
+          nodePath.classed(styles.clickable, false);
+          nodePath.on("click", null);
+        }
+
+        node
+          .append("text")
+          .attr("dy", "0.31em")
+          .attr("y", "1.6em");
+        return node;
+      })
       .attr("class", d =>
         classNames(
           styles.node,
@@ -297,45 +329,18 @@ export class Visualization {
       )
       .attr("transform", d => `translate(${d.y},${d.x})`);
 
-    const getSymbolType = (data: StoryboardNode): SymbolType => {
-      switch (data.type) {
-        case "app":
-          return symbolCircle;
-        case "brick":
-          return symbolSquare;
-        case "routes":
-          return symbolDiamond;
-      }
-    };
-
-    const symbolGenerator = symbol().size(200);
-
-    const nodePath = this.nodes
-      .append("path")
+    this.nodes
+      .select("path")
       .attr("d", d => symbolGenerator.type(getSymbolType(d.data))());
 
-    if (options.handleNodeClick) {
-      nodePath.classed(styles.clickable, true);
-      nodePath.on("click", options.handleNodeClick);
-    } else {
-      nodePath.classed(styles.clickable, false);
-      nodePath.on("click", null);
-    }
-
-    this.nodes
-      .append("text")
-      .attr("dy", "0.31em")
-      .attr("y", "1.6em")
-      .text(d => {
-        switch (d.data.type) {
-          case "app":
-            return d.data.appData.name;
-          case "brick":
-            return getBrickName(d.data.brickData, options.showFullBrickName);
-          // case "routes":
-          //   return d.data.slotName;
-        }
-      });
+    this.nodes.select("text").text(d => {
+      switch (d.data.type) {
+        case "app":
+          return d.data.appData.name;
+        case "brick":
+          return getBrickName(d.data.brickData, options.showFullBrickName);
+      }
+    });
 
     const legends = [
       {
@@ -371,10 +376,21 @@ export class Visualization {
     ];
 
     const legendWidth = width / (legends.length + 1);
-    const legendNode = this.legendsContainer
+    this.legendsContainer
       .selectAll("g")
-      .data(legends)
-      .join("g")
+      .data(legends, (_datum, index) => String(index))
+      .join(enter => {
+        const node = enter.append("g");
+        node
+          .append("path")
+          .attr("d", d => symbolGenerator.type(getSymbolType(d as any))());
+        node
+          .append("text")
+          .attr("dy", "0.31em")
+          .attr("x", 25)
+          .text(d => d.name);
+        return node;
+      })
       .attr("class", d =>
         classNames(
           styles.node,
@@ -392,25 +408,5 @@ export class Visualization {
         (d, index) =>
           `translate(${(index + 0.75) * legendWidth} ${legendsHeight / 2})`
       );
-
-    legendNode
-      .append("path")
-      .attr("d", d => symbolGenerator.type(getSymbolType(d as any))());
-
-    legendNode
-      .append("text")
-      .attr("dy", "0.31em")
-      .attr("x", 25)
-      .text(d => d.name);
-  }
-
-  toggleBrickFullName(showFullBrickName: boolean): void {
-    this.nodes.each(function(node) {
-      if (node.data.type === "brick") {
-        select(this)
-          .select("text")
-          .text(getBrickName(node.data.brickData, showFullBrickName));
-      }
-    });
   }
 }

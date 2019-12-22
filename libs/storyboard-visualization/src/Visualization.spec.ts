@@ -47,7 +47,6 @@ describe("Visualization", () => {
     };
     const svg = visual.getDOMNode();
     visual.render(tree);
-    visual.toggleBrickFullName(true);
     const containerG = Array.from(svg.children).filter(
       item => item.nodeName === "g"
     )[1];
