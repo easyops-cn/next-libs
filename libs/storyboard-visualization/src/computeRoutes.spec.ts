@@ -18,23 +18,14 @@ describe("computeRoutes", () => {
           children: undefined,
           groupIndex: 0,
           routeData: {
-            path: "/a"
+            path: "${APP.homepage}",
+            exact: true
           },
           type: "brick"
         },
         {
           brickData: {
-            brick: "x.y-z",
-            slots: {
-              a: {
-                routes: [],
-                type: "routes"
-              },
-              b: {
-                bricks: [],
-                type: "bricks"
-              }
-            }
+            brick: "x.y-z"
           },
           brickType: "routed",
           children: [
@@ -47,13 +38,13 @@ describe("computeRoutes", () => {
           ],
           groupIndex: 1,
           routeData: {
-            path: "/x"
+            path: ["${APP.homepage}/x", "${APP.homepage}/y"]
           },
           type: "brick"
         }
       ],
       type: "app"
     };
-    expect(computeRoutes(tree)).toEqual(["/a", "/x"]);
+    expect(computeRoutes(tree)).toEqual(["/a", "/a/x", "/a/y"]);
   });
 });

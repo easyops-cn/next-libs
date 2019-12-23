@@ -18,23 +18,14 @@ describe("filterStoryboardTree", () => {
           children: undefined,
           groupIndex: 0,
           routeData: {
-            path: "/a"
+            path: "${APP.homepage}",
+            exact: true
           },
           type: "brick"
         },
         {
           brickData: {
-            brick: "x.y-z",
-            slots: {
-              a: {
-                routes: [],
-                type: "routes"
-              },
-              b: {
-                bricks: [],
-                type: "bricks"
-              }
-            }
+            brick: "x.y-z"
           },
           brickType: "routed",
           children: [
@@ -47,7 +38,7 @@ describe("filterStoryboardTree", () => {
           ],
           groupIndex: 1,
           routeData: {
-            path: "/x"
+            path: "${APP.homepage}/x"
           },
           type: "brick"
         }
@@ -74,7 +65,8 @@ describe("filterStoryboardTree", () => {
           children: undefined,
           groupIndex: 0,
           routeData: {
-            path: "/a"
+            path: "${APP.homepage}",
+            exact: true
           },
           type: "brick"
         }
@@ -84,7 +76,7 @@ describe("filterStoryboardTree", () => {
 
     expect(
       filterStoryboardTree(tree, {
-        path: "/x"
+        path: "/a/x"
       })
     ).toEqual({
       appData: {
@@ -95,17 +87,7 @@ describe("filterStoryboardTree", () => {
       children: [
         {
           brickData: {
-            brick: "x.y-z",
-            slots: {
-              a: {
-                routes: [],
-                type: "routes"
-              },
-              b: {
-                bricks: [],
-                type: "bricks"
-              }
-            }
+            brick: "x.y-z"
           },
           brickType: "routed",
           children: [
@@ -118,7 +100,7 @@ describe("filterStoryboardTree", () => {
           ],
           groupIndex: 1,
           routeData: {
-            path: "/x"
+            path: "${APP.homepage}/x"
           },
           type: "brick"
         }
