@@ -106,6 +106,26 @@ export class VisitHistory {
 
   /**
    * @memberof VisitHistory
+   * @description 删除某条记录
+   * @param {string | number | string[] | number[]} 需要移除的key的值
+   */
+  remove(values: string | number | string[] | number[]) {
+    _.remove(this.history, v => {
+      if (_.isArray(values)) {
+        return _.includes(values, _.get(v, this.props));
+      }
+      return _.get(v, this.props) === values;
+    });
+    this.jsonLocalStorage.setItem(
+      GLOBAL_SPACE_NAME,
+      Object.assign(this.globalSpace, {
+        [this.namespace]: this.history
+      })
+    );
+  }
+
+  /**
+   * @memberof VisitHistory
    * @description 查询最常访问的某几次记录
    * @returns {Object[]}
    */
