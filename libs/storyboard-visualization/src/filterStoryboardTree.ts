@@ -1,4 +1,5 @@
-import { matchPath } from "@easyops/brick-utils";
+import { matchPath, computeRealRoutePath } from "@easyops/brick-utils";
+import { MicroApp } from "@easyops/brick-types";
 import {
   StoryboardTree,
   AbstractStoryboardNode,
@@ -9,10 +10,14 @@ export interface FilterOptions {
   path?: string;
 }
 
-function matchRoute(node: StoryboardNodeRoutedBrick, path: string): boolean {
+function matchRoute(
+  node: StoryboardNodeRoutedBrick,
+  appData: MicroApp,
+  path: string
+): boolean {
   return (
     matchPath(path, {
-      path: node.routeData.path,
+      path: computeRealRoutePath(node.routeData.path, appData),
       exact: node.routeData.exact
     }) !== null
   );
@@ -20,6 +25,7 @@ function matchRoute(node: StoryboardNodeRoutedBrick, path: string): boolean {
 
 function filterStoryboardNode(
   node: AbstractStoryboardNode,
+  appData: MicroApp,
   options: FilterOptions
 ): AbstractStoryboardNode {
   if (options.path && node.children) {
@@ -27,13 +33,15 @@ function filterStoryboardNode(
     if (node.type === "app" || node.type === "routes") {
       children = [
         children.find(child =>
-          matchRoute(child as StoryboardNodeRoutedBrick, options.path)
+          matchRoute(child as StoryboardNodeRoutedBrick, appData, options.path)
         )
       ].filter(Boolean);
     }
     node = {
       ...node,
-      children: children.map(child => filterStoryboardNode(child, options))
+      children: children.map(child =>
+        filterStoryboardNode(child, appData, options)
+      )
     };
   }
   return node;
@@ -43,5 +51,5 @@ export function filterStoryboardTree(
   tree: StoryboardTree,
   options: FilterOptions
 ): StoryboardTree {
-  return filterStoryboardNode(tree, options) as StoryboardTree;
+  return filterStoryboardNode(tree, tree.appData, options) as StoryboardTree;
 }

@@ -1,3 +1,4 @@
+import { computeRealRoutePath } from "@easyops/brick-utils";
 import { StoryboardTree, StoryboardNode } from "./interfaces";
 
 export function computeRoutes(tree: StoryboardTree): string[] {
@@ -5,9 +6,8 @@ export function computeRoutes(tree: StoryboardTree): string[] {
 
   function walk(node: StoryboardNode): void {
     if (node.type === "brick" && node.brickType === "routed") {
-      const paths = Array.isArray(node.routeData.path)
-        ? node.routeData.path
-        : [node.routeData.path];
+      const realPaths = computeRealRoutePath(node.routeData.path, tree.appData);
+      const paths = Array.isArray(realPaths) ? realPaths : [realPaths];
       paths.forEach(path => {
         routes.add(path);
       });
