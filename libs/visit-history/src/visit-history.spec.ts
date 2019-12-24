@@ -44,6 +44,27 @@ describe("VisitHistory", () => {
     history.clear();
     expect(history.all()).toEqual([]);
   });
+  it("test remove", () => {
+    history.remove("335cf42dd50ba8b9a6ba69cf000c2172");
+    expect(history.all()).toEqual([]);
+    const anotherHistory = new VisitHistory("namespace", "id", {});
+    anotherHistory.push({
+      id: "123"
+    });
+    anotherHistory.push({
+      id: "456"
+    });
+    anotherHistory.push({
+      id: "789"
+    });
+    anotherHistory.remove(["123", "789"]);
+    expect(anotherHistory.all()).toEqual([
+      {
+        id: "456",
+        visitedAt: time
+      }
+    ]);
+  });
   it("VisitHistory can call getNamespaceByCmdbObjectId", () => {
     expect(VisitHistory.getNamespaceByCmdbObjectId("APP")).toBe("apps");
     expect(VisitHistory.getNamespaceByCmdbObjectId("HOST")).toBe("devices");
