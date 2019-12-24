@@ -28,6 +28,7 @@ export interface StoryboardNodeApp {
   children: StoryboardNodeRoutedBrick[];
   appData: MicroApp;
   groupIndex?: number;
+  $$originalNode?: StoryboardNodeApp;
 }
 
 export interface StoryboardNodeSlottedRoutes {
@@ -35,6 +36,7 @@ export interface StoryboardNodeSlottedRoutes {
   slotName: string;
   children: StoryboardNodeRoutedBrick[];
   groupIndex: number;
+  $$originalNode?: StoryboardNodeSlottedRoutes;
 }
 
 export type StoryboardNodeBrickChild =

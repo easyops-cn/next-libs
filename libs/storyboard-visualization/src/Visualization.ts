@@ -4,7 +4,7 @@ import {
   HierarchyPointNode,
   HierarchyPointLink
 } from "d3-hierarchy";
-import { create, Selection, select, ValueFn } from "d3-selection";
+import { create, Selection, ValueFn } from "d3-selection";
 import {
   linkHorizontal,
   symbol,
