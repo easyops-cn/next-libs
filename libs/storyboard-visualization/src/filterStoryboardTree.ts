@@ -44,6 +44,7 @@ function filterStoryboardNode(
     }
     node = {
       ...node,
+      $$originalNode: node,
       children: children.map(child =>
         filterStoryboardNode(child, appData, options)
       )

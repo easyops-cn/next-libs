@@ -20,6 +20,7 @@ export interface AbstractStoryboardNode {
   brickData?: BrickData;
   slotName?: string;
   groupIndex?: number;
+  $$originalNode?: AbstractStoryboardNode;
 }
 
 export interface StoryboardNodeApp {
