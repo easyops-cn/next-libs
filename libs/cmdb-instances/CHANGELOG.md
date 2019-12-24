@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.4.3...@libs/cmdb-instances@0.5.0) (2019-12-24)
+
+### Features
+
+- support null can click refs ATM-574 ([841c581](https://git.easyops.local/anyclouds/next-libs/commits/841c581))
+
 ## [0.4.3](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.4.2...@libs/cmdb-instances@0.4.3) (2019-12-24)
 
 ### Bug Fixes
