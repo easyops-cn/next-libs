@@ -41,6 +41,17 @@ describe("filterStoryboardTree", () => {
             path: "${APP.homepage}/x"
           },
           type: "brick"
+        },
+        {
+          brickData: {
+            brick: "x.u-v"
+          },
+          brickType: "routed",
+          groupIndex: 1,
+          routeData: {
+            path: "${APP.homepage}/x"
+          },
+          type: "brick"
         }
       ],
       type: "app"
@@ -98,6 +109,17 @@ describe("filterStoryboardTree", () => {
               type: "routes"
             }
           ],
+          groupIndex: 1,
+          routeData: {
+            path: "${APP.homepage}/x"
+          },
+          type: "brick"
+        },
+        {
+          brickData: {
+            brick: "x.u-v"
+          },
+          brickType: "routed",
           groupIndex: 1,
           routeData: {
             path: "${APP.homepage}/x"

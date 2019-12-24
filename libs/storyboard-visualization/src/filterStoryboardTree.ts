@@ -31,11 +31,16 @@ function filterStoryboardNode(
   if (options.path && node.children) {
     let children = node.children;
     if (node.type === "app" || node.type === "routes") {
-      children = [
-        children.find(child =>
-          matchRoute(child as StoryboardNodeRoutedBrick, appData, options.path)
-        )
-      ].filter(Boolean);
+      const matchedNode = children.find(child =>
+        matchRoute(child as StoryboardNodeRoutedBrick, appData, options.path)
+      );
+      if (matchedNode) {
+        children = children.filter(
+          child => child.groupIndex === matchedNode.groupIndex
+        );
+      } else {
+        children = [];
+      }
     }
     node = {
       ...node,
