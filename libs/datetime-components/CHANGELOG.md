@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.29](https://git.easyops.local/anyclouds/next-libs/compare/@libs/datetime-components@0.5.28...@libs/datetime-components@0.5.29) (2019-12-24)
+
+**Note:** Version bump only for package @libs/datetime-components
+
 ## [0.5.28](https://git.easyops.local/anyclouds/next-libs/compare/@libs/datetime-components@0.5.27...@libs/datetime-components@0.5.28) (2019-12-22)
 
 **Note:** Version bump only for package @libs/datetime-components
