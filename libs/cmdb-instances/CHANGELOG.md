@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.3](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.4.2...@libs/cmdb-instances@0.4.3) (2019-12-24)
+
+### Bug Fixes
+
+- **instance-list-table:** pass "objectId" to custom brick refs IMPACT-28 ([5fde74a](https://git.easyops.local/anyclouds/next-libs/commits/5fde74a))
+
 ## [0.4.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.4.1...@libs/cmdb-instances@0.4.2) (2019-12-24)
 
 **Note:** Version bump only for package @libs/cmdb-instances
