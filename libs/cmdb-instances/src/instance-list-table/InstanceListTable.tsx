@@ -320,6 +320,18 @@ export class LegacyInstanceListTable extends React.Component<
                   </Link>
                 );
               };
+            } else if (detailUrlTemplate === null) {
+              column.render = (text: string, record: Record<string, any>) => {
+                return (
+                  <a
+                    role="button"
+                    onClick={e => this.handleClickItem(e, record.instanceId)}
+                    data-testid="instance-detail-link"
+                  >
+                    {text}
+                  </a>
+                );
+              };
             }
           }
       }
