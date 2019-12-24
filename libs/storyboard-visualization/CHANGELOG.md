@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.5.2...@libs/storyboard-visualization@0.6.0) (2019-12-24)
+
+### Features
+
+- move VisualStoryboard component to libs ([4016c4e](https://git.easyops.local/anyclouds/next-libs/commits/4016c4e))
+- remember original node when doing filter ([6b51c44](https://git.easyops.local/anyclouds/next-libs/commits/6b51c44))
+
 ## [0.5.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.5.1...@libs/storyboard-visualization@0.5.2) (2019-12-24)
 
 ### Bug Fixes
