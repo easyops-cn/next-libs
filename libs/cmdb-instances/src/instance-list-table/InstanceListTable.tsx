@@ -178,7 +178,8 @@ export class LegacyInstanceListTable extends React.Component<
                 Object.assign(
                   el,
                   {
-                    dataSource: record
+                    dataSource: record,
+                    objectId: this.props.modelData.objectId
                   },
                   config.properties
                 );
