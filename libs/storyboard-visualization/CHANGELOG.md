@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.7.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.6.0...@libs/storyboard-visualization@0.7.0) (2019-12-26)
+
+### Features
+
+- use ace to edit json ([5c3339d](https://git.easyops.local/anyclouds/next-libs/commits/5c3339d))
+
 # [0.6.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.5.2...@libs/storyboard-visualization@0.6.0) (2019-12-24)
 
 ### Features

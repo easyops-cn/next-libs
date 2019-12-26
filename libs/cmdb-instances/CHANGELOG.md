@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.5.0...@libs/cmdb-instances@0.6.0) (2019-12-26)
+
+### Features
+
+- props change should update refs ATM-579 ([652632f](https://git.easyops.local/anyclouds/next-libs/commits/652632f))
+
 # [0.5.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.4.3...@libs/cmdb-instances@0.5.0) (2019-12-24)
 
 ### Features
