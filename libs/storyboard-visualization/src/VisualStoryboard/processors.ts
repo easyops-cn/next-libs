@@ -1,4 +1,6 @@
 import { groupBy } from "lodash";
+import { Modal } from "antd";
+import { BrickLifeCycle, BrickEventsMap } from "@easyops/brick-types";
 import {
   StoryboardNodeBrick,
   StoryboardNodeBrickChild,
@@ -9,10 +11,13 @@ import {
   StoryboardNodeSlottedRoutes
 } from "../interfaces";
 
-interface BrickPatch {
+export interface BrickPatch {
   brick: string;
   properties: Record<string, any>;
-  slots: SlotsData;
+  events?: BrickEventsMap;
+  bg?: boolean;
+  slots?: SlotsData;
+  lifeCycle?: BrickLifeCycle;
 }
 
 interface SlotsData {
@@ -94,7 +99,8 @@ export function updateBrickNode(
           slotName,
           groupIndex: index,
           brickData: {
-            brick: "div"
+            brick: "div",
+            injectDeep: true
           }
         } as StoryboardNodeSlottedBrick);
       }
@@ -137,7 +143,8 @@ export function updateRoutesNode(
           brickType: "routed",
           routeData,
           brickData: {
-            brick: "div"
+            brick: "div",
+            injectDeep: true
           },
           groupIndex: index
         } as StoryboardNodeRoutedBrick);
@@ -147,3 +154,34 @@ export function updateRoutesNode(
     []
   );
 }
+
+// Todo(steve): refine
+export const jsonParse = (
+  value: string,
+  label: string,
+  type: "array" | "object" = "object"
+): any => {
+  if (!value) {
+    return;
+  }
+  let parsed: any;
+  try {
+    parsed = JSON.parse(value);
+  } catch (e) {
+    Modal.error({
+      content: `请填写有效的${label} JSON 串`
+    });
+    return false;
+  }
+  if (
+    type === "object"
+      ? typeof parsed !== "object" || Array.isArray(parsed)
+      : !Array.isArray(parsed)
+  ) {
+    Modal.error({
+      content: `请填写有效的${label}`
+    });
+    return false;
+  }
+  return parsed;
+};

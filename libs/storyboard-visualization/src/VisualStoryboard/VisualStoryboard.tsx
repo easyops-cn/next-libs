@@ -65,17 +65,10 @@ export function VisualStoryboard(
       props.path ? filterStoryboardTree(tree, { path: props.path }) : tree,
       {
         showFullBrickName: props.showFullBrickName,
-        handleNodeClick: props.editable ? handleNodeClick : null
+        handleNodeClick
       }
     );
-  }, [
-    props.path,
-    props.showFullBrickName,
-    props.editable,
-    tree,
-    visual,
-    handleNodeClick
-  ]);
+  }, [props.path, props.showFullBrickName, tree, visual, handleNodeClick]);
 
   React.useEffect(() => {
     handleRender();
@@ -109,12 +102,14 @@ export function VisualStoryboard(
       <EditBrickNode
         brickNode={activeBrickNode}
         visible={!!activeBrickNode}
+        editable={props.editable}
         onCancel={handleEditBrickNodeCancel}
         onOk={handleEditBrickNodeOk}
       />
       <EditRoutesNode
         routesNode={activeRoutesNode}
         visible={!!activeRoutesNode}
+        editable={props.editable}
         onCancel={handleEditRoutesNodeCancel}
         onOk={handleEditRoutesNodeOk}
       />
