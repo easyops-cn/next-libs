@@ -3,6 +3,7 @@ import { Modal, Form, Radio, Input } from "antd";
 import { RadioChangeEvent } from "antd/lib/radio";
 import { StoryboardNodeBrick } from "../interfaces";
 import { updateBrickNode, brickNodeChildrenToSlots } from "./processors";
+import { JsonEditor } from "./JsonEditor";
 
 interface EditBrickNodeProps {
   visible: boolean;
@@ -61,18 +62,16 @@ export function EditBrickNode(props: EditBrickNodeProps): React.ReactElement {
     setTemplateName(e.target.value);
   };
 
-  const handleSetProperties = (
-    e: React.ChangeEvent<HTMLTextAreaElement>
-  ): void => {
-    setPropertiesAsString(e.target.value);
+  const handleSetProperties = (value: string): void => {
+    setPropertiesAsString(value);
   };
 
-  const handleSetParams = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
-    setParamsAsString(e.target.value);
+  const handleSetParams = (value: string): void => {
+    setParamsAsString(value);
   };
 
-  const handleSetSlots = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
-    setSlotsAsString(e.target.value);
+  const handleSetSlots = (value: string): void => {
+    setSlotsAsString(value);
   };
 
   const jsonParse = (
@@ -154,18 +153,13 @@ export function EditBrickNode(props: EditBrickNodeProps): React.ReactElement {
                 <Input value={brickName} onChange={handleSetBrickName} />
               </Form.Item>
               <Form.Item label="构件属性">
-                <Input.TextArea
+                <JsonEditor
                   value={propertiesAsString}
                   onChange={handleSetProperties}
-                  rows={8}
                 />
               </Form.Item>
               <Form.Item label="插槽配置">
-                <Input.TextArea
-                  value={slotsAsString}
-                  onChange={handleSetSlots}
-                  rows={8}
-                />
+                <JsonEditor value={slotsAsString} onChange={handleSetSlots} />
               </Form.Item>
             </React.Fragment>
           ) : (
@@ -174,11 +168,7 @@ export function EditBrickNode(props: EditBrickNodeProps): React.ReactElement {
                 <Input value={templateName} onChange={handleSetTemplateName} />
               </Form.Item>
               <Form.Item label="模板参数">
-                <Input.TextArea
-                  value={paramsAsString}
-                  onChange={handleSetParams}
-                  rows={8}
-                />
+                <JsonEditor value={paramsAsString} onChange={handleSetParams} />
               </Form.Item>
             </React.Fragment>
           )}
