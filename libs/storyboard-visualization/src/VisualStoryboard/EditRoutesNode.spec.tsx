@@ -1,7 +1,8 @@
 import React from "react";
 import { shallow } from "enzyme";
-import { Modal, Form, Input } from "antd";
+import { Modal, Form } from "antd";
 import { EditRoutesNode } from "./EditRoutesNode";
+import { JsonEditor } from "./JsonEditor";
 
 describe("EditRoutesNode", () => {
   it("should work", () => {
@@ -20,11 +21,7 @@ describe("EditRoutesNode", () => {
     );
     expect(wrapper.find(Form.Item).length).toBe(1);
 
-    wrapper.find(Input.TextArea).invoke("onChange")({
-      target: {
-        value: "[]"
-      }
-    } as any);
+    wrapper.find(JsonEditor).invoke("onChange")("[]");
 
     wrapper.find(Modal).invoke("onOk")(null);
     wrapper.find(Modal).invoke("onCancel")(null);

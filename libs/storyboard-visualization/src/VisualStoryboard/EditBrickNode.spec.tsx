@@ -2,6 +2,7 @@ import React from "react";
 import { shallow } from "enzyme";
 import { Modal, Form, Radio, Input } from "antd";
 import { EditBrickNode } from "./EditBrickNode";
+import { JsonEditor } from "./JsonEditor";
 
 describe("EditBrickNode", () => {
   it("should work", () => {
@@ -38,21 +39,13 @@ describe("EditBrickNode", () => {
     wrapper
       .find(Form.Item)
       .at(2)
-      .find(Input.TextArea)
-      .invoke("onChange")({
-      target: {
-        value: "{}"
-      }
-    } as any);
+      .find(JsonEditor)
+      .invoke("onChange")("{}");
     wrapper
       .find(Form.Item)
       .at(3)
-      .find(Input.TextArea)
-      .invoke("onChange")({
-      target: {
-        value: "{}"
-      }
-    } as any);
+      .find(JsonEditor)
+      .invoke("onChange")("{}");
 
     wrapper.find(Modal).invoke("onOk")(null);
 
@@ -77,12 +70,8 @@ describe("EditBrickNode", () => {
     wrapper
       .find(Form.Item)
       .at(2)
-      .find(Input.TextArea)
-      .invoke("onChange")({
-      target: {
-        value: "{}"
-      }
-    } as any);
+      .find(JsonEditor)
+      .invoke("onChange")("{}");
 
     expect(
       wrapper

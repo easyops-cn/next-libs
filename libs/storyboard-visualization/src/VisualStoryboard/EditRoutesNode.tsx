@@ -1,11 +1,12 @@
 import React from "react";
-import { Modal, Form, Input } from "antd";
+import { Modal, Form } from "antd";
 import {
   StoryboardNodeApp,
   StoryboardNodeSlottedRoutes,
   RouteData
 } from "../interfaces";
 import { updateRoutesNode, routesNodeChildrenToRoutes } from "./processors";
+import { JsonEditor } from "./JsonEditor";
 
 interface EditRoutesNodeProps {
   visible: boolean;
@@ -38,8 +39,8 @@ export function EditRoutesNode(props: EditRoutesNodeProps): React.ReactElement {
     }
   }, [originalNode]);
 
-  const handleSetRoutes = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
-    setRoutesAsString(e.target.value);
+  const handleSetRoutes = (value: string): void => {
+    setRoutesAsString(value);
   };
 
   const jsonParse = (value: string, label: string): false | RouteData[] => {
@@ -91,16 +92,12 @@ export function EditRoutesNode(props: EditRoutesNodeProps): React.ReactElement {
           <Form.Item
             label="路由配置"
             extra={
-              <>
+              <div style={{ marginTop: 10 }}>
                 <code>&quot;_target&quot;</code> 字段表示已存在的路由目标 ID
-              </>
+              </div>
             }
           >
-            <Input.TextArea
-              value={routesAsString}
-              onChange={handleSetRoutes}
-              rows={16}
-            />
+            <JsonEditor value={routesAsString} onChange={handleSetRoutes} />
           </Form.Item>
         </Form>
       )}
