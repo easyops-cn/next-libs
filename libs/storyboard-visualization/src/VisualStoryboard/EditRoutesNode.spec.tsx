@@ -15,6 +15,7 @@ describe("EditRoutesNode", () => {
       <EditRoutesNode
         visible={true}
         routesNode={routesNode}
+        editable={true}
         onCancel={jest.fn()}
         onOk={jest.fn()}
       />
@@ -24,8 +25,15 @@ describe("EditRoutesNode", () => {
     wrapper.find(JsonEditor).invoke("onChange")("[]");
 
     wrapper.find(Modal).invoke("onOk")(null);
-    wrapper.find(Modal).invoke("onCancel")(null);
+
+    // Read only
+    wrapper.setProps({
+      editable: false
+    });
+    expect(wrapper.find(Modal).prop("footer")).toBe(null);
+
     // Todo(steve): refine tests
+    wrapper.find(Modal).invoke("onCancel")(null);
   });
 
   it("should work when visible is false", () => {

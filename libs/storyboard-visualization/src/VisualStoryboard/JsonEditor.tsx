@@ -6,11 +6,13 @@ import "brace/theme/monokai";
 
 interface JsonEditorProps {
   value: string;
+  readOnly?: boolean;
   onChange?: (value: string) => void;
 }
 
 export function JsonEditor(props: JsonEditorProps): React.ReactElement {
   const aceOptions: IAceOptions = {
+    readOnly: props.readOnly,
     showLineNumbers: true,
     maxLines: Infinity,
     minLines: 8,

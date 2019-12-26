@@ -6,6 +6,7 @@ import { JsonEditor } from "./JsonEditor";
 
 describe("EditBrickNode", () => {
   it("should work", () => {
+    // Brick
     const brickNode: any = {
       brickData: {
         brick: "a"
@@ -15,74 +16,104 @@ describe("EditBrickNode", () => {
       <EditBrickNode
         visible={true}
         brickNode={brickNode}
+        editable={true}
         onCancel={jest.fn()}
         onOk={jest.fn()}
       />
     );
-    expect(wrapper.find(Form.Item).length).toBe(4);
-    expect(
-      wrapper
-        .find(Form.Item)
-        .at(1)
-        .prop("label")
-    ).toBe("构件名");
+    expect(wrapper.find(Form.Item).length).toBe(6);
 
     wrapper
       .find(Form.Item)
-      .at(1)
+      .filter({ label: "构件名" })
       .find(Input)
       .invoke("onChange")({
       target: {
         value: "new-brick"
       }
     } as any);
+
     wrapper
       .find(Form.Item)
-      .at(2)
+      .filter({ label: "构件属性" })
       .find(JsonEditor)
       .invoke("onChange")("{}");
+
     wrapper
       .find(Form.Item)
-      .at(3)
+      .filter({ label: "构件事件" })
       .find(JsonEditor)
       .invoke("onChange")("{}");
+
+    wrapper
+      .find(Form.Item)
+      .filter({ label: "插槽配置" })
+      .find(JsonEditor)
+      .invoke("onChange")("{}");
+
+    wrapper
+      .find(Form.Item)
+      .filter({ label: "useResolves" })
+      .find(JsonEditor)
+      .invoke("onChange")("[]");
 
     wrapper.find(Modal).invoke("onOk")(null);
 
+    // Provider
     wrapper
       .find(Form.Item)
-      .at(0)
+      .filter({ label: "类型" })
+      .find(Radio.Group)
+      .invoke("onChange")({
+      target: {
+        value: "provider"
+      }
+    } as any);
+    expect(wrapper.find(Form.Item).length).toBe(5);
+
+    wrapper.find(Modal).invoke("onOk")(null);
+
+    // Template
+    wrapper
+      .find(Form.Item)
+      .filter({ label: "类型" })
       .find(Radio.Group)
       .invoke("onChange")({
       target: {
         value: "template"
       }
     } as any);
+    expect(wrapper.find(Form.Item).length).toBe(4);
+
     wrapper
       .find(Form.Item)
-      .at(1)
+      .filter({ label: "模板名" })
       .find(Input)
       .invoke("onChange")({
       target: {
         value: "new-template"
       }
     } as any);
+
     wrapper
       .find(Form.Item)
-      .at(2)
+      .filter({ label: "模板参数" })
       .find(JsonEditor)
       .invoke("onChange")("{}");
 
     expect(
-      wrapper
-        .find(Form.Item)
-        .at(1)
-        .prop("label")
-    ).toBe("模板名");
-
-    wrapper.find(Modal).invoke("onCancel")(null);
+      wrapper.find(Form.Item).filter({ label: "useResolves" }).length
+    ).toBe(1);
     wrapper.find(Modal).invoke("onOk")(null);
+
+    // Read only
+    wrapper.setProps({
+      editable: false
+    });
+    expect(wrapper.find(Modal).prop("footer")).toBe(null);
+
     // Todo(steve): refine tests
+    wrapper.find(Modal).invoke("onCancel")(null);
   });
 
   it("should work when visible is false", () => {

@@ -105,6 +105,7 @@ describe("updateBrickNode", () => {
           Object {
             "brickData": Object {
               "brick": "div",
+              "injectDeep": true,
             },
             "brickType": "slotted",
             "groupIndex": 1,
@@ -220,6 +221,7 @@ describe("updateRoutesNode", () => {
           Object {
             "brickData": Object {
               "brick": "div",
+              "injectDeep": true,
             },
             "brickType": "routed",
             "groupIndex": 1,

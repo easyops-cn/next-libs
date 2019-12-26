@@ -2,23 +2,31 @@ import React from "react";
 import { Modal, Form, Radio, Input } from "antd";
 import { RadioChangeEvent } from "antd/lib/radio";
 import { StoryboardNodeBrick } from "../interfaces";
-import { updateBrickNode, brickNodeChildrenToSlots } from "./processors";
+import {
+  updateBrickNode,
+  brickNodeChildrenToSlots,
+  BrickPatch,
+  jsonParse
+} from "./processors";
 import { JsonEditor } from "./JsonEditor";
 
 interface EditBrickNodeProps {
   visible: boolean;
   brickNode: StoryboardNodeBrick;
+  editable?: boolean;
   onCancel?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   onOk?: () => void;
 }
 
-type BrickType = "template" | "brick";
+type BrickType = "template" | "brick" | "provider";
 
 export function EditBrickNode(props: EditBrickNodeProps): React.ReactElement {
   const [type, setType] = React.useState<BrickType>("brick");
   const [brickName, setBrickName] = React.useState("");
   const [templateName, setTemplateName] = React.useState("");
   const [propertiesAsString, setPropertiesAsString] = React.useState("");
+  const [eventsAsString, setEventsAsString] = React.useState("");
+  const [resolvesAsString, setResolvesAsString] = React.useState("");
   const [paramsAsString, setParamsAsString] = React.useState("");
   const [slotsAsString, setSlotsAsString] = React.useState("");
 
@@ -29,12 +37,22 @@ export function EditBrickNode(props: EditBrickNodeProps): React.ReactElement {
   React.useEffect(() => {
     if (originalNode) {
       const brickData = originalNode.brickData;
-      setType(brickData.template ? "template" : "brick");
+      setType(
+        brickData.template ? "template" : brickData.bg ? "provider" : "brick"
+      );
       setBrickName(brickData.brick);
       setTemplateName(brickData.template);
-      setPropertiesAsString(
-        JSON.stringify(brickData.properties || undefined, null, 2)
-      );
+      if (brickData.properties) {
+        setPropertiesAsString(JSON.stringify(brickData.properties, null, 2));
+      }
+      if (brickData.events) {
+        setEventsAsString(JSON.stringify(brickData.events, null, 2));
+      }
+      if (brickData.lifeCycle && brickData.lifeCycle.useResolves) {
+        setResolvesAsString(
+          JSON.stringify(brickData.lifeCycle.useResolves, null, 2)
+        );
+      }
       setParamsAsString(JSON.stringify(brickData.params || undefined, null, 2));
       setSlotsAsString(
         originalNode.children
@@ -62,58 +80,40 @@ export function EditBrickNode(props: EditBrickNodeProps): React.ReactElement {
     setTemplateName(e.target.value);
   };
 
-  const handleSetProperties = (value: string): void => {
-    setPropertiesAsString(value);
-  };
-
-  const handleSetParams = (value: string): void => {
-    setParamsAsString(value);
-  };
-
-  const handleSetSlots = (value: string): void => {
-    setSlotsAsString(value);
-  };
-
-  const jsonParse = (
-    value: string,
-    label: string
-  ): false | Record<string, any> => {
-    if (!value) {
-      return;
-    }
-    let object: Record<any, string>;
-    try {
-      object = JSON.parse(value);
-    } catch (e) {
-      Modal.error({
-        content: `请填写有效的${label} JSON 串`
-      });
-      return false;
-    }
-    if (typeof object !== "object" || Array.isArray(object)) {
-      Modal.error({
-        content: `请填写有效的${label}`
-      });
-      return false;
-    }
-    return object;
-  };
-
   const handleOk = (): void => {
     if (!props.onOk) {
       return;
     }
     const brickData = originalNode.brickData;
-    if (type === "brick") {
+    if (type === "brick" || type === "provider") {
       const properties = jsonParse(propertiesAsString, "构件属性");
-      const slots = jsonParse(slotsAsString, "插槽配置");
-      if (properties !== false && slots !== false) {
-        updateBrickNode(originalNode, {
+      const events = jsonParse(eventsAsString, "构件事件");
+      const resolves = jsonParse(resolvesAsString, "useResolves", "array");
+      if (properties !== false && resolves !== false && events !== false) {
+        const brickPatch: BrickPatch = {
           brick: brickName,
           properties,
-          slots
-        });
-        props.onOk();
+          events,
+          lifeCycle: resolves ? { useResolves: resolves } : undefined
+        };
+
+        if (type === "brick") {
+          const slots = jsonParse(slotsAsString, "插槽配置");
+          if (slots !== false) {
+            updateBrickNode(originalNode, {
+              ...brickPatch,
+              slots,
+              bg: undefined
+            });
+            props.onOk();
+          }
+        } else {
+          updateBrickNode(originalNode, {
+            ...brickPatch,
+            bg: true
+          });
+          props.onOk();
+        }
       }
     } else {
       const params = jsonParse(paramsAsString, "模板参数");
@@ -135,43 +135,82 @@ export function EditBrickNode(props: EditBrickNodeProps): React.ReactElement {
       visible={props.visible}
       onCancel={props.onCancel}
       onOk={handleOk}
-      title="编辑构件"
+      title={props.editable ? "编辑构件" : "查看构件"}
       width={800}
       destroyOnClose={true}
+      footer={props.editable ? undefined : null}
     >
       {originalNode && (
         <Form>
           <Form.Item label="类型">
-            <Radio.Group value={type} onChange={handleSelectType}>
-              <Radio value="brick">构件</Radio>
+            <Radio.Group
+              value={type}
+              onChange={handleSelectType}
+              disabled={!props.editable}
+            >
+              <Radio value="brick">UI 构件</Radio>
+              <Radio value="provider">Provider 构件</Radio>
               <Radio value="template">模板</Radio>
             </Radio.Group>
           </Form.Item>
-          {type === "brick" ? (
+          {type === "brick" || type === "provider" ? (
             <React.Fragment key="brick">
               <Form.Item label="构件名">
-                <Input value={brickName} onChange={handleSetBrickName} />
+                <Input
+                  value={brickName}
+                  onChange={handleSetBrickName}
+                  readOnly={!props.editable}
+                />
               </Form.Item>
               <Form.Item label="构件属性">
                 <JsonEditor
                   value={propertiesAsString}
-                  onChange={handleSetProperties}
+                  onChange={setPropertiesAsString}
+                  readOnly={!props.editable}
                 />
               </Form.Item>
-              <Form.Item label="插槽配置">
-                <JsonEditor value={slotsAsString} onChange={handleSetSlots} />
+              <Form.Item label="构件事件">
+                <JsonEditor
+                  value={eventsAsString}
+                  onChange={setEventsAsString}
+                  readOnly={!props.editable}
+                />
               </Form.Item>
+              {type === "brick" && (
+                <Form.Item label="插槽配置">
+                  <JsonEditor
+                    value={slotsAsString}
+                    onChange={setSlotsAsString}
+                    readOnly={!props.editable}
+                  />
+                </Form.Item>
+              )}
             </React.Fragment>
           ) : (
             <React.Fragment key="template">
               <Form.Item label="模板名">
-                <Input value={templateName} onChange={handleSetTemplateName} />
+                <Input
+                  value={templateName}
+                  onChange={handleSetTemplateName}
+                  readOnly={!props.editable}
+                />
               </Form.Item>
               <Form.Item label="模板参数">
-                <JsonEditor value={paramsAsString} onChange={handleSetParams} />
+                <JsonEditor
+                  value={paramsAsString}
+                  onChange={setParamsAsString}
+                  readOnly={!props.editable}
+                />
               </Form.Item>
             </React.Fragment>
           )}
+          <Form.Item label="useResolves">
+            <JsonEditor
+              value={resolvesAsString}
+              onChange={setResolvesAsString}
+              readOnly={!props.editable}
+            />
+          </Form.Item>
         </Form>
       )}
     </Modal>

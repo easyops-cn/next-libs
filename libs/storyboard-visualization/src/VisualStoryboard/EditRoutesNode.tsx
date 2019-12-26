@@ -1,16 +1,17 @@
 import React from "react";
 import { Modal, Form } from "antd";
+import { StoryboardNodeApp, StoryboardNodeSlottedRoutes } from "../interfaces";
 import {
-  StoryboardNodeApp,
-  StoryboardNodeSlottedRoutes,
-  RouteData
-} from "../interfaces";
-import { updateRoutesNode, routesNodeChildrenToRoutes } from "./processors";
+  updateRoutesNode,
+  routesNodeChildrenToRoutes,
+  jsonParse
+} from "./processors";
 import { JsonEditor } from "./JsonEditor";
 
 interface EditRoutesNodeProps {
   visible: boolean;
   routesNode: StoryboardNodeApp | StoryboardNodeSlottedRoutes;
+  editable?: boolean;
   onCancel?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   onOk?: () => void;
 }
@@ -43,28 +44,6 @@ export function EditRoutesNode(props: EditRoutesNodeProps): React.ReactElement {
     setRoutesAsString(value);
   };
 
-  const jsonParse = (value: string, label: string): false | RouteData[] => {
-    if (!value) {
-      return;
-    }
-    let routes: RouteData[];
-    try {
-      routes = JSON.parse(value);
-    } catch (e) {
-      Modal.error({
-        content: `请填写有效的${label} JSON 串`
-      });
-      return false;
-    }
-    if (!Array.isArray(routes)) {
-      Modal.error({
-        content: `请填写有效的${label}`
-      });
-      return false;
-    }
-    return routes;
-  };
-
   const handleOk = (): void => {
     if (!props.onOk) {
       return;
@@ -83,9 +62,10 @@ export function EditRoutesNode(props: EditRoutesNodeProps): React.ReactElement {
       visible={props.visible}
       onCancel={props.onCancel}
       onOk={handleOk}
-      title="编辑路由"
+      title={props.editable ? "编辑路由" : "查看路由"}
       width={800}
       destroyOnClose={true}
+      footer={props.editable ? undefined : null}
     >
       {originalNode && (
         <Form>
@@ -97,7 +77,11 @@ export function EditRoutesNode(props: EditRoutesNodeProps): React.ReactElement {
               </div>
             }
           >
-            <JsonEditor value={routesAsString} onChange={handleSetRoutes} />
+            <JsonEditor
+              value={routesAsString}
+              onChange={handleSetRoutes}
+              readOnly={!props.editable}
+            />
           </Form.Item>
         </Form>
       )}
