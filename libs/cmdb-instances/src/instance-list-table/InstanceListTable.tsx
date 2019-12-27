@@ -53,6 +53,7 @@ export interface InstanceListTableProps extends WithTranslation {
   propertyDisplayConfigs?: PropertyDisplayConfig[];
   selectDisabled?: boolean;
   autoBreakLine?: boolean;
+  sortDisabled?: boolean;
   onClickItem?(
     evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
     id: string
@@ -211,7 +212,7 @@ export class LegacyInstanceListTable extends React.Component<
         column.sorter = false;
         break;
       default:
-        column.sorter = true;
+        column.sorter = !this.props.sortDisabled;
     }
 
     if (displayConfig) {
@@ -346,7 +347,7 @@ export class LegacyInstanceListTable extends React.Component<
     const column: ColumnProps<Record<string, any>> = {
       title: relation[`${sides.this}_name` as RelationNameKeys],
       dataIndex: key,
-      sorter: true,
+      sorter: !this.props.sortDisabled,
       className: styles.instanceListTableCell
     };
     const displayConfig = this.keyDisplayConfigMap[key];
