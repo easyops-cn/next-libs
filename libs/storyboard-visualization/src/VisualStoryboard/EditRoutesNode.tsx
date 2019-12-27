@@ -45,15 +45,12 @@ export function EditRoutesNode(props: EditRoutesNodeProps): React.ReactElement {
   };
 
   const handleOk = (): void => {
-    if (!props.onOk) {
-      return;
-    }
-    const routes = jsonParse(routesAsString, "路由配置");
+    const routes = jsonParse(routesAsString, "路由配置", "array");
     if (routes !== false) {
       updateRoutesNode(originalNode, {
         routes
       });
-      props.onOk();
+      props.onOk && props.onOk();
     }
   };
 

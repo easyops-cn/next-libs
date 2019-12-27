@@ -12,13 +12,13 @@ describe("EditBrickNode", () => {
         brick: "a"
       }
     };
+    const handleOk = jest.fn();
     const wrapper = shallow(
       <EditBrickNode
         visible={true}
         brickNode={brickNode}
         editable={true}
-        onCancel={jest.fn()}
-        onOk={jest.fn()}
+        onOk={handleOk}
       />
     );
     expect(wrapper.find(Form.Item).length).toBe(6);
@@ -51,13 +51,23 @@ describe("EditBrickNode", () => {
       .find(JsonEditor)
       .invoke("onChange")("{}");
 
+    // Invalid input
+    wrapper
+      .find(Form.Item)
+      .filter({ label: "useResolves" })
+      .find(JsonEditor)
+      .invoke("onChange")("{}");
+    wrapper.find(Modal).invoke("onOk")(null);
+    expect(handleOk).not.toBeCalled();
+
+    // Valid input
     wrapper
       .find(Form.Item)
       .filter({ label: "useResolves" })
       .find(JsonEditor)
       .invoke("onChange")("[]");
-
     wrapper.find(Modal).invoke("onOk")(null);
+    expect(handleOk).toBeCalled();
 
     // Provider
     wrapper
@@ -111,9 +121,6 @@ describe("EditBrickNode", () => {
       editable: false
     });
     expect(wrapper.find(Modal).prop("footer")).toBe(null);
-
-    // Todo(steve): refine tests
-    wrapper.find(Modal).invoke("onCancel")(null);
   });
 
   it("should work when visible is false", () => {

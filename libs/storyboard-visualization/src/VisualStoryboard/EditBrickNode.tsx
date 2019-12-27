@@ -81,9 +81,6 @@ export function EditBrickNode(props: EditBrickNodeProps): React.ReactElement {
   };
 
   const handleOk = (): void => {
-    if (!props.onOk) {
-      return;
-    }
     const brickData = originalNode.brickData;
     if (type === "brick" || type === "provider") {
       const properties = jsonParse(propertiesAsString, "构件属性");
@@ -105,14 +102,14 @@ export function EditBrickNode(props: EditBrickNodeProps): React.ReactElement {
               slots,
               bg: undefined
             });
-            props.onOk();
+            props.onOk && props.onOk();
           }
         } else {
           updateBrickNode(originalNode, {
             ...brickPatch,
             bg: true
           });
-          props.onOk();
+          props.onOk && props.onOk();
         }
       }
     } else {
@@ -125,7 +122,7 @@ export function EditBrickNode(props: EditBrickNodeProps): React.ReactElement {
           template: templateName,
           params
         });
-        props.onOk();
+        props.onOk && props.onOk();
       }
     }
   };

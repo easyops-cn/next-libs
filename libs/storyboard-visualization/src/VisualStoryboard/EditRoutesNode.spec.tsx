@@ -11,29 +11,32 @@ describe("EditRoutesNode", () => {
         brick: "a"
       }
     };
+    const handleOk = jest.fn();
     const wrapper = shallow(
       <EditRoutesNode
         visible={true}
         routesNode={routesNode}
         editable={true}
-        onCancel={jest.fn()}
-        onOk={jest.fn()}
+        onOk={handleOk}
       />
     );
     expect(wrapper.find(Form.Item).length).toBe(1);
 
-    wrapper.find(JsonEditor).invoke("onChange")("[]");
-
+    // Invalid input
+    wrapper.find(JsonEditor).invoke("onChange")("{}");
     wrapper.find(Modal).invoke("onOk")(null);
+    expect(handleOk).not.toBeCalled();
+
+    // Valid input
+    wrapper.find(JsonEditor).invoke("onChange")("[]");
+    wrapper.find(Modal).invoke("onOk")(null);
+    expect(handleOk).toBeCalled();
 
     // Read only
     wrapper.setProps({
       editable: false
     });
     expect(wrapper.find(Modal).prop("footer")).toBe(null);
-
-    // Todo(steve): refine tests
-    wrapper.find(Modal).invoke("onCancel")(null);
   });
 
   it("should work when visible is false", () => {
