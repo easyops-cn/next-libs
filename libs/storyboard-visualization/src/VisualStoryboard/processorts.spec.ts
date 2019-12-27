@@ -28,7 +28,10 @@ describe("brickNodeChildrenToSlots", () => {
       {
         groupIndex: 1,
         type: "brick",
-        slotName: "subMenu"
+        slotName: "subMenu",
+        brickData: {
+          brick: "sub-menu"
+        }
       }
     ];
     expect(brickNodeChildrenToSlots(nodes as any)).toEqual({
@@ -36,7 +39,14 @@ describe("brickNodeChildrenToSlots", () => {
         type: "routes"
       },
       subMenu: {
-        type: "bricks"
+        type: "bricks",
+        bricks: [
+          {
+            _target: 0,
+            brick: "sub-menu",
+            template: undefined
+          }
+        ]
       }
     });
   });
@@ -61,9 +71,22 @@ describe("updateBrickNode", () => {
           slotName: "content"
         },
         {
-          groupIndex: 0,
+          groupIndex: 1,
           type: "brick",
-          slotName: "subMenu"
+          slotName: "subMenu",
+          brickData: {
+            brick: "sub-menu",
+            properties: {}
+          }
+        },
+        {
+          groupIndex: 1,
+          type: "brick",
+          slotName: "subMenu",
+          brickData: {
+            brick: "sub-menu-second",
+            properties: {}
+          }
         }
       ] as any[]
     };
@@ -78,7 +101,28 @@ describe("updateBrickNode", () => {
           type: "bricks"
         },
         subMenu: {
-          type: "bricks"
+          type: "bricks",
+          bricks: [
+            {
+              brick: "page-title"
+            },
+            {
+              _target: 0,
+              template: "sub-menu-template"
+            },
+            {
+              _target: 1,
+              brick: "sub-menu-third"
+            }
+          ]
+        },
+        more: {
+          type: "bricks",
+          bricks: [
+            {},
+            { brick: "show-more" },
+            { template: "show-more-template" }
+          ]
         },
         footer: {
           type: "routes"
@@ -113,13 +157,65 @@ describe("updateBrickNode", () => {
             "type": "brick",
           },
           Object {
+            "brickData": Object {
+              "brick": "div",
+              "injectDeep": true,
+            },
+            "brickType": "slotted",
             "groupIndex": 2,
             "slotName": "subMenu",
             "type": "brick",
           },
           Object {
-            "children": Array [],
+            "brickData": Object {
+              "template": "sub-menu-template",
+            },
+            "groupIndex": 1,
+            "slotName": "subMenu",
+            "type": "brick",
+          },
+          Object {
+            "brickData": Object {
+              "brick": "sub-menu-third",
+              "properties": Object {},
+            },
+            "groupIndex": 1,
+            "slotName": "subMenu",
+            "type": "brick",
+          },
+          Object {
+            "brickData": Object {
+              "brick": "div",
+              "injectDeep": true,
+            },
+            "brickType": "slotted",
             "groupIndex": 3,
+            "slotName": "more",
+            "type": "brick",
+          },
+          Object {
+            "brickData": Object {
+              "brick": "show-more",
+              "injectDeep": true,
+            },
+            "brickType": "slotted",
+            "groupIndex": 3,
+            "slotName": "more",
+            "type": "brick",
+          },
+          Object {
+            "brickData": Object {
+              "injectDeep": true,
+              "template": "show-more-template",
+            },
+            "brickType": "slotted",
+            "groupIndex": 3,
+            "slotName": "more",
+            "type": "brick",
+          },
+          Object {
+            "children": Array [],
+            "groupIndex": 4,
             "slotName": "footer",
             "type": "routes",
           },

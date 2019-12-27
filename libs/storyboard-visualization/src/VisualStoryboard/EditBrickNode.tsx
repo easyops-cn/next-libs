@@ -81,9 +81,6 @@ export function EditBrickNode(props: EditBrickNodeProps): React.ReactElement {
   };
 
   const handleOk = (): void => {
-    if (!props.onOk) {
-      return;
-    }
     const brickData = originalNode.brickData;
     if (type === "brick" || type === "provider") {
       const properties = jsonParse(propertiesAsString, "构件属性");
@@ -105,14 +102,14 @@ export function EditBrickNode(props: EditBrickNodeProps): React.ReactElement {
               slots,
               bg: undefined
             });
-            props.onOk();
+            props.onOk && props.onOk();
           }
         } else {
           updateBrickNode(originalNode, {
             ...brickPatch,
             bg: true
           });
-          props.onOk();
+          props.onOk && props.onOk();
         }
       }
     } else {
@@ -120,12 +117,13 @@ export function EditBrickNode(props: EditBrickNodeProps): React.ReactElement {
       if (params !== false) {
         delete brickData.brick;
         delete brickData.properties;
+        delete brickData.bg;
         delete originalNode.children;
         Object.assign(brickData, {
           template: templateName,
           params
         });
-        props.onOk();
+        props.onOk && props.onOk();
       }
     }
   };
@@ -139,6 +137,7 @@ export function EditBrickNode(props: EditBrickNodeProps): React.ReactElement {
       width={800}
       destroyOnClose={true}
       footer={props.editable ? undefined : null}
+      keyboard={!props.editable}
     >
       {originalNode && (
         <Form>
@@ -177,7 +176,15 @@ export function EditBrickNode(props: EditBrickNodeProps): React.ReactElement {
                 />
               </Form.Item>
               {type === "brick" && (
-                <Form.Item label="插槽配置">
+                <Form.Item
+                  label="插槽配置"
+                  extra={
+                    <div style={{ marginTop: 10 }}>
+                      提示：<code>&quot;_target&quot;</code>{" "}
+                      字段表示已存在的构件目标 ID
+                    </div>
+                  }
+                >
                   <JsonEditor
                     value={slotsAsString}
                     onChange={setSlotsAsString}
