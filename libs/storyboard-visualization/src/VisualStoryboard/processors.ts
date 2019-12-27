@@ -26,6 +26,13 @@ interface SlotsData {
 
 interface SlotData {
   type: "routes" | "bricks";
+  bricks?: SlottedBrickData[];
+}
+
+interface SlottedBrickData {
+  _target?: number;
+  brick?: string;
+  template?: string;
 }
 
 interface RouteDataPatch extends RouteData {
@@ -47,13 +54,36 @@ export function brickNodeChildrenToSlots(
         };
       } else {
         acc[nodes[0].slotName] = {
-          type: "bricks"
+          type: "bricks",
+          bricks: (nodes as StoryboardNodeSlottedBrick[]).map(
+            (node, index) => ({
+              _target: index,
+              brick: node.brickData.brick,
+              template: node.brickData.template
+            })
+          )
         };
       }
       return acc;
     },
     {}
   );
+}
+
+function slottedBrickPlaceholder(
+  slotName: string,
+  groupIndex: number
+): StoryboardNodeSlottedBrick {
+  return {
+    type: "brick",
+    brickType: "slotted",
+    slotName,
+    groupIndex,
+    brickData: {
+      brick: "div",
+      injectDeep: true
+    }
+  };
 }
 
 export function updateBrickNode(
@@ -78,31 +108,68 @@ export function updateBrickNode(
         item.slotName === slotName
     );
     if (matchedChildren.length > 0) {
-      children.push(
-        ...matchedChildren.map(item => ({
-          ...item,
-          groupIndex: index
-        }))
-      );
+      if (slotData.type === "bricks" && Array.isArray(slotData.bricks)) {
+        children.push(
+          ...slotData.bricks
+            .map(item => {
+              const matchedNode = matchedChildren[
+                item._target
+              ] as StoryboardNodeSlottedBrick;
+              if (matchedNode) {
+                if (item.template) {
+                  delete matchedNode.brickData.brick;
+                  delete matchedNode.brickData.properties;
+                  delete matchedNode.brickData.bg;
+                  delete matchedNode.children;
+                  Object.assign(matchedNode.brickData, {
+                    template: item.template
+                  });
+                } else if (item.brick) {
+                  delete matchedNode.brickData.template;
+                  delete matchedNode.brickData.params;
+                  Object.assign(matchedNode.brickData, {
+                    brick: item.brick
+                  });
+                }
+                return matchedNode;
+              }
+              return slottedBrickPlaceholder(slotName, index);
+            })
+            .filter(Boolean)
+        );
+      } else {
+        children.push(
+          ...matchedChildren.map(item => ({
+            ...item,
+            groupIndex: index
+          }))
+        );
+      }
     } else {
-      if (slotData.type === "routes") {
+      if (slotData.type === "bricks") {
+        if (Array.isArray(slotData.bricks)) {
+          children.push(
+            ...slotData.bricks.map(item => {
+              const placeholder = slottedBrickPlaceholder(slotName, index);
+              if (item.brick) {
+                placeholder.brickData.brick = item.brick;
+              } else if (item.template) {
+                delete placeholder.brickData.brick;
+                placeholder.brickData.template = item.template;
+              }
+              return placeholder;
+            })
+          );
+        } else {
+          children.push(slottedBrickPlaceholder(slotName, index));
+        }
+      } else {
         children.push({
           type: "routes",
           slotName,
           groupIndex: index,
           children: []
         });
-      } else {
-        children.push({
-          type: "brick",
-          brickType: "slotted",
-          slotName,
-          groupIndex: index,
-          brickData: {
-            brick: "div",
-            injectDeep: true
-          }
-        } as StoryboardNodeSlottedBrick);
       }
     }
     index += 1;

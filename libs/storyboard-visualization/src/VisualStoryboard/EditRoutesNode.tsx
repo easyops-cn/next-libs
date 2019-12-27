@@ -63,6 +63,7 @@ export function EditRoutesNode(props: EditRoutesNodeProps): React.ReactElement {
       width={800}
       destroyOnClose={true}
       footer={props.editable ? undefined : null}
+      keyboard={!props.editable}
     >
       {originalNode && (
         <Form>
@@ -70,7 +71,8 @@ export function EditRoutesNode(props: EditRoutesNodeProps): React.ReactElement {
             label="路由配置"
             extra={
               <div style={{ marginTop: 10 }}>
-                <code>&quot;_target&quot;</code> 字段表示已存在的路由目标 ID
+                提示：<code>&quot;_target&quot;</code> 字段表示已存在的路由目标
+                ID
               </div>
             }
           >
