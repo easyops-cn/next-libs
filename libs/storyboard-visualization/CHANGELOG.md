@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.9.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.8.0...@libs/storyboard-visualization@0.9.0) (2019-12-27)
+
+### Bug Fixes
+
+- fix a bug that editing routes will raise an error ([5e8d3d8](https://git.easyops.local/anyclouds/next-libs/commits/5e8d3d8))
+
+### Features
+
+- support edit bricks of a slot ([4227e64](https://git.easyops.local/anyclouds/next-libs/commits/4227e64))
+
 # [0.8.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.7.0...@libs/storyboard-visualization@0.8.0) (2019-12-26)
 
 ### Features
