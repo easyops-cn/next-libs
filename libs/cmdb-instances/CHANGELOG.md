@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.7.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.6.0...@libs/cmdb-instances@0.7.0) (2019-12-27)
+
+### Features
+
+- **instance-list-table:** add "sortDisabled" property refs ATM-591 ([1362c8d](https://git.easyops.local/anyclouds/next-libs/commits/1362c8d))
+
 # [0.6.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.5.0...@libs/cmdb-instances@0.6.0) (2019-12-26)
 
 ### Features
