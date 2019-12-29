@@ -12,15 +12,17 @@ export interface FormItemWrapperProps {
   min?: number;
   max?: number;
   pattern?: string;
-  validator?: (rule: any, value: any, callback: Function) => void;
   message?: Record<string, string>;
   autofocus?: boolean;
+  validator?:
+    | ValidationRule["validator"]
+    | Array<{ validator: ValidationRule["validator"] }>;
 }
 
 export function getRules(props: FormItemWrapperProps): ValidationRule[] {
   const rules: ValidationRule[] = [];
 
-  ["required", "min", "max", "pattern", "validator"].forEach(attr => {
+  ["required", "min", "max", "pattern"].forEach(attr => {
     const value = props[attr as keyof FormItemWrapperProps];
     if (value) {
       rules.push({
@@ -29,6 +31,14 @@ export function getRules(props: FormItemWrapperProps): ValidationRule[] {
       });
     }
   });
+
+  if (props.validator) {
+    Array.isArray(props.validator)
+      ? rules.push(...props.validator)
+      : rules.push({
+          validator: props.validator
+        });
+  }
 
   return rules;
 }

@@ -101,5 +101,61 @@ describe("FormItemWrapper", () => {
 
       expect(result).toEqual([]);
     });
+
+    it("should support custom validated rule", () => {
+      const validatorFn = (rule: any, value: string, callback: Function) => {
+        if (value === "abc") {
+          callback("输入错误");
+        } else {
+          callback();
+        }
+      };
+
+      const resut = getRules({
+        validator: validatorFn
+      });
+
+      expect(resut).toEqual([
+        {
+          validator: validatorFn
+        }
+      ]);
+
+      const validatorFn2 = (rule: any, value: string, callback: Function) => {
+        if (value === "bcd") {
+          callback("输入错误");
+        } else {
+          callback();
+        }
+      };
+
+      const result2 = getRules({
+        required: true,
+        message: {
+          required: "此项为必填项"
+        },
+        validator: [
+          {
+            validator: validatorFn
+          },
+          {
+            validator: validatorFn2
+          }
+        ]
+      });
+
+      expect(result2).toEqual([
+        {
+          required: true,
+          message: "此项为必填项"
+        },
+        {
+          validator: validatorFn
+        },
+        {
+          validator: validatorFn2
+        }
+      ]);
+    });
   });
 });
