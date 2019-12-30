@@ -158,7 +158,7 @@ describe("updateBrickNode", () => {
           },
           Object {
             "brickData": Object {
-              "brick": "div",
+              "brick": "page-title",
               "injectDeep": true,
             },
             "brickType": "slotted",
@@ -170,7 +170,7 @@ describe("updateBrickNode", () => {
             "brickData": Object {
               "template": "sub-menu-template",
             },
-            "groupIndex": 1,
+            "groupIndex": 2,
             "slotName": "subMenu",
             "type": "brick",
           },
@@ -179,7 +179,7 @@ describe("updateBrickNode", () => {
               "brick": "sub-menu-third",
               "properties": Object {},
             },
-            "groupIndex": 1,
+            "groupIndex": 2,
             "slotName": "subMenu",
             "type": "brick",
           },
