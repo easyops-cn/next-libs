@@ -100,7 +100,7 @@ export function updateBrickNode(
     return;
   }
   const children: StoryboardNodeBrickChild[] = [];
-  let index = 0;
+  let groupIndex = 0;
   for (const [slotName, slotData] of Object.entries(slots)) {
     const matchedChildren = node.children.filter(
       item =>
@@ -116,6 +116,7 @@ export function updateBrickNode(
                 item._target
               ] as StoryboardNodeSlottedBrick;
               if (matchedNode) {
+                matchedNode.groupIndex = groupIndex;
                 if (item.template) {
                   delete matchedNode.brickData.brick;
                   delete matchedNode.brickData.properties;
@@ -133,7 +134,14 @@ export function updateBrickNode(
                 }
                 return matchedNode;
               }
-              return slottedBrickPlaceholder(slotName, index);
+              const placeholder = slottedBrickPlaceholder(slotName, groupIndex);
+              if (item.brick) {
+                placeholder.brickData.brick = item.brick;
+              } else if (item.template) {
+                delete placeholder.brickData.brick;
+                placeholder.brickData.template = item.template;
+              }
+              return placeholder;
             })
             .filter(Boolean)
         );
@@ -141,7 +149,7 @@ export function updateBrickNode(
         children.push(
           ...matchedChildren.map(item => ({
             ...item,
-            groupIndex: index
+            groupIndex: groupIndex
           }))
         );
       }
@@ -150,7 +158,7 @@ export function updateBrickNode(
         if (Array.isArray(slotData.bricks)) {
           children.push(
             ...slotData.bricks.map(item => {
-              const placeholder = slottedBrickPlaceholder(slotName, index);
+              const placeholder = slottedBrickPlaceholder(slotName, groupIndex);
               if (item.brick) {
                 placeholder.brickData.brick = item.brick;
               } else if (item.template) {
@@ -161,18 +169,18 @@ export function updateBrickNode(
             })
           );
         } else {
-          children.push(slottedBrickPlaceholder(slotName, index));
+          children.push(slottedBrickPlaceholder(slotName, groupIndex));
         }
       } else {
         children.push({
           type: "routes",
           slotName,
-          groupIndex: index,
+          groupIndex: groupIndex,
           children: []
         });
       }
     }
-    index += 1;
+    groupIndex += 1;
   }
   node.children = children;
 }

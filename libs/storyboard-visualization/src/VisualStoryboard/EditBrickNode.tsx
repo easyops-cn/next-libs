@@ -42,18 +42,22 @@ export function EditBrickNode(props: EditBrickNodeProps): React.ReactElement {
       );
       setBrickName(brickData.brick);
       setTemplateName(brickData.template);
-      if (brickData.properties) {
-        setPropertiesAsString(JSON.stringify(brickData.properties, null, 2));
-      }
-      if (brickData.events) {
-        setEventsAsString(JSON.stringify(brickData.events, null, 2));
-      }
-      if (brickData.lifeCycle && brickData.lifeCycle.useResolves) {
-        setResolvesAsString(
-          JSON.stringify(brickData.lifeCycle.useResolves, null, 2)
-        );
-      }
-      setParamsAsString(JSON.stringify(brickData.params || undefined, null, 2));
+      setPropertiesAsString(
+        brickData.properties
+          ? JSON.stringify(brickData.properties, null, 2)
+          : ""
+      );
+      setEventsAsString(
+        brickData.events ? JSON.stringify(brickData.events, null, 2) : ""
+      );
+      setResolvesAsString(
+        brickData.lifeCycle && brickData.lifeCycle.useResolves
+          ? JSON.stringify(brickData.lifeCycle.useResolves, null, 2)
+          : ""
+      );
+      setParamsAsString(
+        brickData.params ? JSON.stringify(brickData.params, null, 2) : ""
+      );
       setSlotsAsString(
         originalNode.children
           ? JSON.stringify(
