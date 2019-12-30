@@ -98,7 +98,12 @@ export function VisualStoryboard(
 
   return (
     <>
-      <div ref={callbackRef}></div>
+      <div>
+        <div
+          ref={callbackRef}
+          style={{ maxWidth: 1600, margin: "0 auto" }}
+        ></div>
+      </div>
       <EditBrickNode
         brickNode={activeBrickNode}
         visible={!!activeBrickNode}
