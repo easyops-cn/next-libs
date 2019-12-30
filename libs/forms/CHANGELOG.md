@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.2.0...@libs/forms@0.3.0) (2019-12-30)
+
+### Features
+
+- rules support custom validator ([76deb91](https://git.easyops.local/anyclouds/next-libs/commits/76deb91))
+
 # [0.2.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.1.6...@libs/forms@0.2.0) (2019-12-26)
 
 ### Features
