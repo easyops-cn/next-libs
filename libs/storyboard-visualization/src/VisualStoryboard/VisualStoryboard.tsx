@@ -20,6 +20,7 @@ export interface VisualStoryboardProps {
   path?: string;
   showFullBrickName?: boolean;
   editable?: boolean;
+  useYaml?: boolean;
   onStoryboardUpdate?: (value: Storyboard) => void;
 }
 
@@ -108,6 +109,7 @@ export function VisualStoryboard(
         brickNode={activeBrickNode}
         visible={!!activeBrickNode}
         editable={props.editable}
+        useYaml={props.useYaml}
         onCancel={handleEditBrickNodeCancel}
         onOk={handleEditBrickNodeOk}
       />
@@ -115,6 +117,7 @@ export function VisualStoryboard(
         routesNode={activeRoutesNode}
         visible={!!activeRoutesNode}
         editable={props.editable}
+        useYaml={props.useYaml}
         onCancel={handleEditRoutesNodeCancel}
         onOk={handleEditRoutesNodeOk}
       />
