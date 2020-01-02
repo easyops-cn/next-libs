@@ -37,7 +37,7 @@
     "@easyops/brick-dll": "*"
   },
   "dependencies": {
-    "@easyops/brick-types": "^1.4.0",
+    "@easyops/brick-types": "^1.4.1",
     "classnames": "^2.2.6"
   }
 }
