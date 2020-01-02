@@ -2,7 +2,7 @@ import React from "react";
 import { shallow } from "enzyme";
 import { Modal, Form } from "antd";
 import { EditRoutesNode } from "./EditRoutesNode";
-import { JsonEditor } from "./JsonEditor";
+import { GeneralEditor } from "./GeneralEditor";
 
 describe("EditRoutesNode", () => {
   it("should work", () => {
@@ -23,12 +23,12 @@ describe("EditRoutesNode", () => {
     expect(wrapper.find(Form.Item).length).toBe(1);
 
     // Invalid input
-    wrapper.find(JsonEditor).invoke("onChange")("{}");
+    wrapper.find(GeneralEditor).invoke("onChange")("{}");
     wrapper.find(Modal).invoke("onOk")(null);
     expect(handleOk).not.toBeCalled();
 
     // Valid input
-    wrapper.find(JsonEditor).invoke("onChange")("[]");
+    wrapper.find(GeneralEditor).invoke("onChange")("[]");
     wrapper.find(Modal).invoke("onOk")(null);
     expect(handleOk).toBeCalled();
 

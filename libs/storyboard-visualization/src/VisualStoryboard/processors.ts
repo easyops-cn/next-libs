@@ -1,6 +1,7 @@
 import { groupBy } from "lodash";
 import { Modal } from "antd";
 import { BrickLifeCycle, BrickEventsMap } from "@easyops/brick-types";
+import { safeDump, JSON_SCHEMA, safeLoad } from "js-yaml";
 import {
   StoryboardNodeBrick,
   StoryboardNodeBrickChild,
@@ -230,21 +231,39 @@ export function updateRoutesNode(
   );
 }
 
+export function generalStringify(data: any, useYaml?: boolean): string {
+  if (!data) {
+    return "";
+  }
+  if (useYaml) {
+    return safeDump(data, {
+      schema: JSON_SCHEMA,
+      skipInvalid: true,
+      noRefs: true,
+      noCompatMode: true
+    });
+  }
+  return JSON.stringify(data, null, 2);
+}
+
 // Todo(steve): refine
-export const jsonParse = (
+export function generalParse(
   value: string,
   label: string,
+  useYaml: boolean,
   type: "array" | "object" = "object"
-): any => {
+): any {
   if (!value) {
     return;
   }
   let parsed: any;
   try {
-    parsed = JSON.parse(value);
+    parsed = useYaml
+      ? safeLoad(value, { schema: JSON_SCHEMA, json: true })
+      : JSON.parse(value);
   } catch (e) {
     Modal.error({
-      content: `请填写有效的${label} JSON 串`
+      content: `请填写有效的${label} ${useYaml ? "YAML" : "JSON"} 串`
     });
     return false;
   }
@@ -259,4 +278,4 @@ export const jsonParse = (
     return false;
   }
   return parsed;
-};
+}

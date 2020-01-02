@@ -4,14 +4,16 @@ import { StoryboardNodeApp, StoryboardNodeSlottedRoutes } from "../interfaces";
 import {
   updateRoutesNode,
   routesNodeChildrenToRoutes,
-  jsonParse
+  generalParse,
+  generalStringify
 } from "./processors";
-import { JsonEditor } from "./JsonEditor";
+import { GeneralEditor } from "./GeneralEditor";
 
 interface EditRoutesNodeProps {
   visible: boolean;
   routesNode: StoryboardNodeApp | StoryboardNodeSlottedRoutes;
   editable?: boolean;
+  useYaml?: boolean;
   onCancel?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   onOk?: () => void;
 }
@@ -29,23 +31,26 @@ export function EditRoutesNode(props: EditRoutesNodeProps): React.ReactElement {
   React.useEffect(() => {
     if (originalNode) {
       setRoutesAsString(
-        originalNode.children
-          ? JSON.stringify(
-              routesNodeChildrenToRoutes(originalNode.children),
-              null,
-              2
-            )
-          : ""
+        generalStringify(
+          originalNode.children &&
+            routesNodeChildrenToRoutes(originalNode.children),
+          props.useYaml
+        )
       );
     }
-  }, [originalNode]);
+  }, [originalNode, props.useYaml]);
 
   const handleSetRoutes = (value: string): void => {
     setRoutesAsString(value);
   };
 
   const handleOk = (): void => {
-    const routes = jsonParse(routesAsString, "路由配置", "array");
+    const routes = generalParse(
+      routesAsString,
+      "路由配置",
+      props.useYaml,
+      "array"
+    );
     if (routes !== false) {
       updateRoutesNode(originalNode, {
         routes
@@ -76,8 +81,9 @@ export function EditRoutesNode(props: EditRoutesNodeProps): React.ReactElement {
               </div>
             }
           >
-            <JsonEditor
+            <GeneralEditor
               value={routesAsString}
+              useYaml={props.useYaml}
               onChange={handleSetRoutes}
               readOnly={!props.editable}
             />

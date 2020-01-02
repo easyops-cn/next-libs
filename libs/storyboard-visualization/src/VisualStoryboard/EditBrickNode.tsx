@@ -6,14 +6,16 @@ import {
   updateBrickNode,
   brickNodeChildrenToSlots,
   BrickPatch,
-  jsonParse
+  generalParse,
+  generalStringify
 } from "./processors";
-import { JsonEditor } from "./JsonEditor";
+import { GeneralEditor } from "./GeneralEditor";
 
 interface EditBrickNodeProps {
   visible: boolean;
   brickNode: StoryboardNodeBrick;
   editable?: boolean;
+  useYaml?: boolean;
   onCancel?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   onOk?: () => void;
 }
@@ -43,32 +45,25 @@ export function EditBrickNode(props: EditBrickNodeProps): React.ReactElement {
       setBrickName(brickData.brick);
       setTemplateName(brickData.template);
       setPropertiesAsString(
-        brickData.properties
-          ? JSON.stringify(brickData.properties, null, 2)
-          : ""
+        generalStringify(brickData.properties, props.useYaml)
       );
-      setEventsAsString(
-        brickData.events ? JSON.stringify(brickData.events, null, 2) : ""
-      );
+      setEventsAsString(generalStringify(brickData.events, props.useYaml));
       setResolvesAsString(
-        brickData.lifeCycle && brickData.lifeCycle.useResolves
-          ? JSON.stringify(brickData.lifeCycle.useResolves, null, 2)
-          : ""
+        generalStringify(
+          brickData.lifeCycle && brickData.lifeCycle.useResolves,
+          props.useYaml
+        )
       );
-      setParamsAsString(
-        brickData.params ? JSON.stringify(brickData.params, null, 2) : ""
-      );
+      setParamsAsString(generalStringify(brickData.params, props.useYaml));
       setSlotsAsString(
-        originalNode.children
-          ? JSON.stringify(
-              brickNodeChildrenToSlots(originalNode.children),
-              null,
-              2
-            )
-          : ""
+        generalStringify(
+          originalNode.children &&
+            brickNodeChildrenToSlots(originalNode.children),
+          props.useYaml
+        )
       );
     }
-  }, [originalNode]);
+  }, [originalNode, props.useYaml]);
 
   const handleSelectType = (e: RadioChangeEvent): void => {
     setType(e.target.value);
@@ -87,9 +82,18 @@ export function EditBrickNode(props: EditBrickNodeProps): React.ReactElement {
   const handleOk = (): void => {
     const brickData = originalNode.brickData;
     if (type === "brick" || type === "provider") {
-      const properties = jsonParse(propertiesAsString, "构件属性");
-      const events = jsonParse(eventsAsString, "构件事件");
-      const resolves = jsonParse(resolvesAsString, "useResolves", "array");
+      const properties = generalParse(
+        propertiesAsString,
+        "构件属性",
+        props.useYaml
+      );
+      const events = generalParse(eventsAsString, "构件事件", props.useYaml);
+      const resolves = generalParse(
+        resolvesAsString,
+        "useResolves",
+        props.useYaml,
+        "array"
+      );
       if (properties !== false && resolves !== false && events !== false) {
         const brickPatch: BrickPatch = {
           brick: brickName,
@@ -99,7 +103,7 @@ export function EditBrickNode(props: EditBrickNodeProps): React.ReactElement {
         };
 
         if (type === "brick") {
-          const slots = jsonParse(slotsAsString, "插槽配置");
+          const slots = generalParse(slotsAsString, "插槽配置", props.useYaml);
           if (slots !== false) {
             updateBrickNode(originalNode, {
               ...brickPatch,
@@ -117,7 +121,7 @@ export function EditBrickNode(props: EditBrickNodeProps): React.ReactElement {
         }
       }
     } else {
-      const params = jsonParse(paramsAsString, "模板参数");
+      const params = generalParse(paramsAsString, "模板参数", props.useYaml);
       if (params !== false) {
         delete brickData.brick;
         delete brickData.properties;
@@ -166,15 +170,17 @@ export function EditBrickNode(props: EditBrickNodeProps): React.ReactElement {
                 />
               </Form.Item>
               <Form.Item label="构件属性">
-                <JsonEditor
+                <GeneralEditor
                   value={propertiesAsString}
+                  useYaml={props.useYaml}
                   onChange={setPropertiesAsString}
                   readOnly={!props.editable}
                 />
               </Form.Item>
               <Form.Item label="构件事件">
-                <JsonEditor
+                <GeneralEditor
                   value={eventsAsString}
+                  useYaml={props.useYaml}
                   onChange={setEventsAsString}
                   readOnly={!props.editable}
                 />
@@ -189,8 +195,9 @@ export function EditBrickNode(props: EditBrickNodeProps): React.ReactElement {
                     </div>
                   }
                 >
-                  <JsonEditor
+                  <GeneralEditor
                     value={slotsAsString}
+                    useYaml={props.useYaml}
                     onChange={setSlotsAsString}
                     readOnly={!props.editable}
                   />
@@ -207,8 +214,9 @@ export function EditBrickNode(props: EditBrickNodeProps): React.ReactElement {
                 />
               </Form.Item>
               <Form.Item label="模板参数">
-                <JsonEditor
+                <GeneralEditor
                   value={paramsAsString}
+                  useYaml={props.useYaml}
                   onChange={setParamsAsString}
                   readOnly={!props.editable}
                 />
@@ -216,8 +224,9 @@ export function EditBrickNode(props: EditBrickNodeProps): React.ReactElement {
             </React.Fragment>
           )}
           <Form.Item label="useResolves">
-            <JsonEditor
+            <GeneralEditor
               value={resolvesAsString}
+              useYaml={props.useYaml}
               onChange={setResolvesAsString}
               readOnly={!props.editable}
             />
