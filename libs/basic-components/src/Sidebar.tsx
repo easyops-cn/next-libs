@@ -82,6 +82,7 @@ export function matchMenuItem(
   pathname: string,
   search: string
 ): boolean {
+  if (!item.to) return false;
   const to = typeof item.to === "object" ? item.to : parsePath(item.to);
 
   // Regex taken from: https://github.com/pillarjs/path-to-regexp/blob/master/index.js#L202
@@ -155,7 +156,7 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
   private renderSimpleMenuItem(item: SidebarMenuSimpleItem): React.ReactNode {
     return (
       <Menu.Item key={String(item.key)} title={item.text}>
-        <Link to={item.to} target={item.target}>
+        <Link to={item.to} href={item.href} target={item.target}>
           {item.icon && (
             <i className={style.menuItemIcon}>
               <GeneralIcon icon={item.icon} />
