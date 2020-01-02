@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.10.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.9.2...@libs/storyboard-visualization@0.10.0) (2020-01-02)
+
+### Features
+
+- support edit nodes using yaml ([2decac2](https://git.easyops.local/anyclouds/next-libs/commits/2decac2))
+
 ## [0.9.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.9.1...@libs/storyboard-visualization@0.9.2) (2019-12-31)
 
 ### Bug Fixes
