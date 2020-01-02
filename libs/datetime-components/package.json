@@ -27,7 +27,7 @@
   },
   "sideEffects": false,
   "devDependencies": {
-    "@easyops/brick-dll": "^1.0.42"
+    "@easyops/brick-dll": "^1.0.43"
   },
   "peerDependencies": {
     "@easyops/brick-dll": "^*"
