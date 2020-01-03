@@ -34,12 +34,20 @@ export function ModelRelationForm(
     fieldIds: oppositeModelData.attrList.map(attr => attr.id)
   };
 
+  const computeFields = () => {
+    // TODO(Cyril): compute custom fields
+    return {
+      "*": true
+    };
+  };
+
   const openSelectInstanceModel = async () => {
     const instanceListData = await InstanceApi.postSearch(
       oppositeModelData.objectId,
       {
         page: 1,
-        page_size: 10
+        page_size: 10,
+        fields: computeFields()
       }
     );
     setModalInstanceListData(instanceListData);
@@ -66,7 +74,8 @@ export function ModelRelationForm(
       oppositeModelData.objectId,
       {
         page: event.page,
-        page_size: event.pageSize
+        page_size: event.pageSize,
+        fields: computeFields()
       }
     );
     setModalInstanceListData(instanceListData);
