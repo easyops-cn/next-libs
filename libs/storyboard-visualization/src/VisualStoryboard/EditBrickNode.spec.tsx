@@ -68,6 +68,7 @@ describe("EditBrickNode", () => {
       .invoke("onChange")("[]");
     wrapper.find(Modal).invoke("onOk")(null);
     expect(handleOk).toBeCalled();
+    handleOk.mockClear();
 
     // Provider
     wrapper
@@ -82,6 +83,8 @@ describe("EditBrickNode", () => {
     expect(wrapper.find(Form.Item).length).toBe(5);
 
     wrapper.find(Modal).invoke("onOk")(null);
+    expect(handleOk).toBeCalled();
+    handleOk.mockClear();
 
     // Template
     wrapper
@@ -111,10 +114,28 @@ describe("EditBrickNode", () => {
       .find(GeneralEditor)
       .invoke("onChange")("{}");
 
-    expect(
-      wrapper.find(Form.Item).filter({ label: "useResolves" }).length
-    ).toBe(1);
+    // expect(
+    //   wrapper.find(Form.Item).filter({ label: "useResolves" }).length
+    // ).toBe(1);
+    // wrapper.find(Modal).invoke("onOk")(null);
+
+    // Invalid input
+    wrapper
+      .find(Form.Item)
+      .filter({ label: "useResolves" })
+      .find(GeneralEditor)
+      .invoke("onChange")("{}");
     wrapper.find(Modal).invoke("onOk")(null);
+    expect(handleOk).not.toBeCalled();
+
+    // Valid input
+    wrapper
+      .find(Form.Item)
+      .filter({ label: "useResolves" })
+      .find(GeneralEditor)
+      .invoke("onChange")("[]");
+    wrapper.find(Modal).invoke("onOk")(null);
+    expect(handleOk).toBeCalled();
 
     // Read only
     wrapper.setProps({

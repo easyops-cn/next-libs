@@ -122,14 +122,21 @@ export function EditBrickNode(props: EditBrickNodeProps): React.ReactElement {
       }
     } else {
       const params = generalParse(paramsAsString, "模板参数", props.useYaml);
-      if (params !== false) {
+      const resolves = generalParse(
+        resolvesAsString,
+        "useResolves",
+        props.useYaml,
+        "array"
+      );
+      if (params !== false && resolves !== false) {
         delete brickData.brick;
         delete brickData.properties;
         delete brickData.bg;
         delete originalNode.children;
         Object.assign(brickData, {
           template: templateName,
-          params
+          params,
+          lifeCycle: resolves ? { useResolves: resolves } : undefined
         });
         props.onOk && props.onOk();
       }
