@@ -4142,10 +4142,10 @@ css-declaration-sorter@^4.0.1:
     postcss "^7.0.1"
     timsort "^0.3.0"
 
-css-element-queries@^1.2.2:
-  version "1.2.2"
-  resolved "https://registry.npm.taobao.org/css-element-queries/download/css-element-queries-1.2.2.tgz#e80ce4c523e41079152b1a3a8ec5b7afb0b45c96"
-  integrity sha1-6AzkxSPkEHkVKxo6jsW3r7C0XJY=
+css-element-queries@^1.2.3:
+  version "1.2.3"
+  resolved "https://registry.npm.taobao.org/css-element-queries/download/css-element-queries-1.2.3.tgz#e14940b1fcd4bf0da60ea4145d05742d7172e516"
+  integrity sha1-4UlAsfzUvw2mDqQUXQV0LXFy5RY=
 
 css-modules-loader-core@^1.1.0:
   version "1.1.0"
