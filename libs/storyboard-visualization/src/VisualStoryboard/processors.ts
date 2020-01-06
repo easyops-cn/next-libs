@@ -103,7 +103,7 @@ export function updateBrickNode(
   const children: StoryboardNodeBrickChild[] = [];
   let groupIndex = 0;
   for (const [slotName, slotData] of Object.entries(slots)) {
-    const matchedChildren = node.children.filter(
+    const matchedChildren = (node.children ?? []).filter(
       item =>
         item.type === (slotData.type === "routes" ? "routes" : "brick") &&
         item.slotName === slotName
@@ -204,7 +204,7 @@ export function updateRoutesNode(
       const { _target, ...routeData } = routeDataPatch;
       const matchedChildren =
         _target !== undefined &&
-        node.children.filter(item => item.groupIndex === _target);
+        (node.children ?? []).filter(item => item.groupIndex === _target);
       if (matchedChildren && matchedChildren.length > 0) {
         acc.push(
           ...matchedChildren.map(item => ({
