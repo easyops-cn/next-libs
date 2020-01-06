@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.3](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.10.2...@libs/storyboard-visualization@0.10.3) (2020-01-06)
+
+### Bug Fixes
+
+- fix that cannot save a new bricks's config ([50b3f18](https://git.easyops.local/anyclouds/next-libs/commits/50b3f18))
+- fix that cannot save a template's `useResolves` ([dc268ea](https://git.easyops.local/anyclouds/next-libs/commits/dc268ea))
+
 ## [0.10.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.10.1...@libs/storyboard-visualization@0.10.2) (2020-01-03)
 
 **Note:** Version bump only for package @libs/storyboard-visualization
