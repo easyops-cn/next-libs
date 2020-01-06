@@ -31,10 +31,11 @@
     "@easyops/brick-dll": "^1.0.43"
   },
   "peerDependencies": {
+    "@dll/echarts": "^1.0.1",
     "@easyops/brick-dll": "*"
   },
   "dependencies": {
     "@types/echarts": "^4.4.2",
-    "css-element-queries": "^1.2.2"
+    "css-element-queries": "^1.2.3"
   }
 }
