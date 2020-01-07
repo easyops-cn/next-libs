@@ -5,6 +5,12 @@ import { get } from "lodash";
 import { FormComponentProps } from "antd/lib/form";
 import { ModelAttributeFormControl } from "../model-attribute-form-control/ModelAttributeFormControl";
 
+import i18n from "i18next";
+import { NS_CMDB_INSTANCES, K } from "./i18n/constants";
+
+import { addResourceBundle } from "./i18n";
+addResourceBundle();
+
 export interface InstanceAttributeFormProps extends FormComponentProps {
   basicInfoAttrList?: Partial<CmdbModels.ModelObjectAttr>[];
   attributeFormControlInitialValueMap?:
@@ -49,5 +55,8 @@ export class LegacyInstanceAttributeForm extends Component<
 }
 
 export const InstanceAttributeForm = Form.create<InstanceAttributeFormProps>({
-  name: "instanceAttributeForm"
+  name: "instanceAttributeForm",
+  validateMessages: {
+    required: i18n.t(`${NS_CMDB_INSTANCES}:${K.VALIDATE_MESSAGE_REQUIRED}`)
+  }
 })(LegacyInstanceAttributeForm);
