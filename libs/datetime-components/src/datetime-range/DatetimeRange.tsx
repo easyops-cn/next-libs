@@ -1,6 +1,6 @@
 import React from "react";
 import { Popover, Button, Radio, DatePicker, Icon } from "antd";
-import { find } from "lodash";
+import { find, get } from "lodash";
 import { RadioChangeEvent } from "antd/lib/radio";
 import moment from "moment";
 import { RangePickerValue } from "antd/lib/date-picker/interface";
@@ -24,10 +24,14 @@ export interface SpecifiedDateRange {
   value: SpecifiedDateValue;
 }
 
+export type RangeType = "default" | "custom";
+
 export interface DatatimeRangeProps {
   initDateRange?: DateRange | SpecifiedDateRange;
   onConfirm?(dateRange: DateRange | SpecifiedDateRange): void;
   format?: string;
+  type?: RangeType;
+  customTimeRange?: RangeText[];
 }
 
 export interface DatatimeRangeState {
@@ -44,21 +48,61 @@ export interface RangeText {
   text: string;
 }
 
+export const defaultRangeOptionList: RangeText[] = [
+  {
+    range: "now-1h",
+    text: "近1小时"
+  },
+  {
+    range: "now-1d",
+    text: "近24小时"
+  },
+  {
+    range: "now/d",
+    text: "今天"
+  },
+  {
+    range: "now-7d",
+    text: "近7天"
+  },
+  {
+    range: "now-30d",
+    text: "近30天"
+  }
+];
+
 export class DatetimeRange extends React.Component<
   DatatimeRangeProps,
   DatatimeRangeState
 > {
+  static defaultProps = {
+    type: "default",
+    customTimeRange: [] as RangeText[]
+  };
+
+  rangeOptionList: RangeText[];
   constructor(props: DatatimeRangeProps) {
     super(props);
 
-    const initDateRange: DateRange | SpecifiedDateRange = this.props
-      .initDateRange
-      ? this.props.initDateRange
-      : {
-          type: DATE_RANGE,
-          value: "now-7d"
-        };
+    const defaultInitRange = {
+      type: DATE_RANGE,
+      value: "now-7d"
+    };
 
+    const customInitRange = {
+      type: DATE_RANGE,
+      value: get(this.props.customTimeRange, "[0].range")
+    };
+    const initDateRange: DateRange | SpecifiedDateRange =
+      this.props.initDateRange ||
+      ((this.props.type === "default"
+        ? defaultInitRange
+        : customInitRange) as DateRange);
+
+    this.rangeOptionList =
+      this.props.type === "default"
+        ? defaultRangeOptionList
+        : this.props.customTimeRange;
     this.state = {
       dateRange: initDateRange,
       type: initDateRange.type,
@@ -74,10 +118,8 @@ export class DatetimeRange extends React.Component<
 
   getButtonText() {
     if (this.state.dateRange.type === DATE_RANGE) {
-      return find(this.defaultRangeOptionList, [
-        "range",
-        this.state.dateRange.value
-      ]).text;
+      return find(this.rangeOptionList, ["range", this.state.dateRange.value])
+        .text;
     } else {
       return (
         moment(this.state.dateRange.value.from).format(this.state.format) +
@@ -86,29 +128,6 @@ export class DatetimeRange extends React.Component<
       );
     }
   }
-
-  defaultRangeOptionList: RangeText[] = [
-    {
-      range: "now-1h",
-      text: "近1小时"
-    },
-    {
-      range: "now-1d",
-      text: "近24小时"
-    },
-    {
-      range: "now/d",
-      text: "今天"
-    },
-    {
-      range: "now-7d",
-      text: "近7天"
-    },
-    {
-      range: "now-30d",
-      text: "近30天"
-    }
-  ];
 
   handleRangeChange = (e: RadioChangeEvent) => {
     const dateRange: DateRange = {
@@ -195,7 +214,7 @@ export class DatetimeRange extends React.Component<
           style={radioGroupStyle}
           className="btnGroup"
         >
-          {this.defaultRangeOptionList.map(item => (
+          {this.rangeOptionList.map(item => (
             <Radio.Button
               value={item.range}
               key={item.range}
