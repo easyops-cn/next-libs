@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/datetime-components@0.5.31...@libs/datetime-components@0.6.0) (2020-01-07)
+
+### Features
+
+- support anytime parse ([0f759c5](https://git.easyops.local/anyclouds/next-libs/commits/0f759c5))
+- 时间选择器支持自定义配置时间范围 ([f8b8d6d](https://git.easyops.local/anyclouds/next-libs/commits/f8b8d6d))
+
 ## [0.5.31](https://git.easyops.local/anyclouds/next-libs/compare/@libs/datetime-components@0.5.30...@libs/datetime-components@0.5.31) (2020-01-03)
 
 **Note:** Version bump only for package @libs/datetime-components
