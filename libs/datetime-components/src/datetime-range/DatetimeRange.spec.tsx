@@ -1,5 +1,5 @@
 import React from "react";
-import { shallow } from "enzyme";
+import { shallow, mount } from "enzyme";
 import { DatetimeRange, DATE_RANGE, SPECIFIED_DATE } from "./DatetimeRange";
 import moment from "moment";
 
@@ -79,5 +79,39 @@ describe("DatetimeRange onConfirm", () => {
     component.save();
     expect(wrapper.state("dateRange")).toEqual(dateRange);
     expect(onConfirm).toHaveBeenCalled();
+  });
+
+  it("render custom time range", () => {
+    const wrapper = mount(
+      <DatetimeRange
+        type="custom"
+        customTimeRange={[
+          {
+            range: "now-30d",
+            text: "近30天"
+          },
+          {
+            range: "now-1y",
+            text: "近一年"
+          }
+        ]}
+      />
+    );
+
+    wrapper.find(".ant-btn").simulate("click");
+    wrapper.update();
+
+    expect(
+      wrapper
+        .find("Radio")
+        .at(0)
+        .text()
+    ).toEqual("近30天");
+    expect(
+      wrapper
+        .find("Radio")
+        .at(1)
+        .text()
+    ).toEqual("近一年");
   });
 });
