@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.7.5](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.7.4...@libs/cmdb-instances@0.7.5) (2020-01-07)
+
+### Bug Fixes
+
+- **cmdb-instances:** instance-attribute-form i18n refs BAD-46 ([928646f](https://git.easyops.local/anyclouds/next-libs/commits/928646f))
+
 ## [0.7.4](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.7.3...@libs/cmdb-instances@0.7.4) (2020-01-05)
 
 ### Bug Fixes
