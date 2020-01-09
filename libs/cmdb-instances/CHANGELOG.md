@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.8.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.7.5...@libs/cmdb-instances@0.8.0) (2020-01-09)
+
+### Features
+
+- **instance-list-modal:** singleSelect refs BRICK_STORE-856 ([9e713a7](https://git.easyops.local/anyclouds/next-libs/commits/9e713a7))
+
 ## [0.7.5](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.7.4...@libs/cmdb-instances@0.7.5) (2020-01-07)
 
 ### Bug Fixes
