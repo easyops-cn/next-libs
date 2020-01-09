@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Spin } from "antd";
+import { Modal, Button, Spin, Icon } from "antd";
 
 import { InstanceListTable } from "../instance-list-table/InstanceListTable";
 import { CmdbModels, InstanceApi } from "@sdk/cmdb-sdk";
@@ -11,6 +11,7 @@ export interface InstanceListModalProps {
   title: string;
   query?: any;
   selectDisabled?: boolean;
+  singleSelect?: boolean;
   onCancel: () => void;
   onSelected?: (instanceList: any[]) => void;
 }
@@ -23,7 +24,7 @@ export function InstanceListModal(
   const [instanceListData, setInstanceListData] = useState();
   const [fetching, setFetching] = useState(false);
 
-  let selectedInstanceListTemp: any[] = [];
+  const [selectedInstanceListTemp, setSelectedInstanceListTemp] = useState([]);
 
   const computeFields = () => {
     return { "*": true };
@@ -58,7 +59,7 @@ export function InstanceListModal(
   };
 
   const handleSelectionChange = (event: { selectedItems: any[] }) => {
-    selectedInstanceListTemp = event.selectedItems;
+    setSelectedInstanceListTemp(event.selectedItems);
   };
 
   const handlePaginationChange = async (event: {
@@ -78,6 +79,34 @@ export function InstanceListModal(
     fieldIds: modelData.attrList.map(attr => attr.id)
   };
 
+  const renderFooter = (): React.ReactElement => {
+    return (
+      <>
+        {props.singleSelect && selectedInstanceListTemp.length > 1 && (
+          <span style={{ color: "#ff0016", marginRight: "20px" }}>
+            <Icon
+              type="warning"
+              style={{ color: "#ff0016", marginRight: "10px" }}
+            />
+            只允许选择一个实例
+          </span>
+        )}
+        <Button key="back" onClick={props.onCancel}>
+          取消
+        </Button>
+        ,
+        <Button
+          key="submit"
+          type="primary"
+          onClick={handleOk}
+          disabled={props.singleSelect && selectedInstanceListTemp.length > 1}
+        >
+          确认
+        </Button>
+      </>
+    );
+  };
+
   return (
     <Modal
       title={props.title}
@@ -86,6 +115,7 @@ export function InstanceListModal(
       onOk={handleOk}
       onCancel={props.onCancel}
       destroyOnClose={true}
+      footer={renderFooter()}
     >
       {fetching ? (
         <Spin />
