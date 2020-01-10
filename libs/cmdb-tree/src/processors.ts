@@ -1,4 +1,5 @@
 import { isEmpty, cloneDeep } from "lodash";
+import { CmdbModels } from "@sdk/cmdb-sdk";
 import { TreeNode } from "./CMDBTree";
 
 export function transformToTreeData(objectList: any[]): TreeNode[] {
@@ -104,4 +105,77 @@ export function search(treeData: TreeNode[], q: string): TreeNode[] {
   }
 
   return result;
+}
+
+function getRelationObjectId(
+  relations: Partial<CmdbModels.ModelObjectRelation>[],
+  id: string
+): string {
+  let objectId = "";
+  for (const relation of relations) {
+    if (relation.left_id == id) {
+      objectId = relation.right_object_id;
+      break;
+    } else if (relation.right_id == id) {
+      objectId = relation.left_object_id;
+      break;
+    }
+  }
+
+  return objectId;
+}
+
+export function getRelation2ObjectId(
+  objectList: CmdbModels.ModelCmdbObject[],
+  request: CmdbModels.ModelInstanceTreeRootNode
+): Map<string, string> {
+  const ret = new Map<string, string>();
+  const objectId = request.object_id;
+  let map = new Map<string, CmdbModels.ModelInstanceTreeRootNode["child"]>();
+  map.set(objectId, request.child);
+  while (map.size > 0) {
+    const childMap = new Map<
+      string,
+      CmdbModels.ModelInstanceTreeRootNode["child"]
+    >();
+    for (const [objectId, child] of map) {
+      if (child?.length) {
+        const model = objectList.find(o => o.objectId == objectId);
+        if (!model) {
+          continue;
+        }
+        for (const c of child) {
+          const id = getRelationObjectId(
+            model.relation_list,
+            c.relation_field_id
+          );
+          ret.set(c.relation_field_id, objectId);
+          childMap.set(id, c.child);
+        }
+      }
+    }
+    map = childMap;
+  }
+
+  return ret;
+}
+
+export function updateChildren(
+  instanceId: string,
+  treeData: any,
+  nodes: any[]
+) {
+  let data = treeData;
+  while (data.length) {
+    const children = [];
+    for (const item of data) {
+      if (item.key === instanceId) {
+        item.children = nodes;
+      }
+      if (item.children) {
+        children.push(...item.children);
+      }
+    }
+    data = children;
+  }
 }
