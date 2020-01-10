@@ -98,6 +98,7 @@ export class LegacyInstanceListTable extends React.Component<
       columns: sortedColumns,
       pagination: {
         total: this.props.instanceListData.total,
+        showTotal: total => `共 ${total} 项`,
         current: this.props.instanceListData.page,
         pageSize: this.props.instanceListData.page_size
       },
