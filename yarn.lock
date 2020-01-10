@@ -984,10 +984,10 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@dll/ace@^1.0.43":
-  version "1.0.43"
-  resolved "http://registry.npm.easyops.local/@dll/ace/download/@dll/ace-1.0.43.tgz#c66317db50c176c4af9dd68193ee899f2c5fc496"
-  integrity sha1-xmMX21DBdsSvndaBk+6JnyxfxJY=
+"@dll/ace@^1.0.46":
+  version "1.0.46"
+  resolved "http://registry.npm.easyops.local/@dll/ace/download/@dll/ace-1.0.46.tgz#4df0be2a64117c1987db709867ce578f67028417"
+  integrity sha1-TfC+KmQRfBmH23CYZ85Xj2cChBc=
   dependencies:
     react-ace "^7.0.4"
 
@@ -1010,10 +1010,10 @@
   dependencies:
     echarts "^4.5.0"
 
-"@easyops/babel-preset-next@^0.2.0":
-  version "0.2.0"
-  resolved "http://registry.npm.easyops.local/@easyops/babel-preset-next/download/@easyops/babel-preset-next-0.2.0.tgz#e80868fda5e5b0273090efe7cfb18840391ea6d3"
-  integrity sha1-6Aho/aXlsCcwkO/nz7GIQDkeptM=
+"@easyops/babel-preset-next@^0.6.0":
+  version "0.6.0"
+  resolved "http://registry.npm.easyops.local/@easyops/babel-preset-next/download/@easyops/babel-preset-next-0.6.0.tgz#10a77a374499bb35eb0f3abf32befa2002f5a27b"
+  integrity sha1-EKd6N0SZuzXrDzq/Mr76IAL1ons=
   dependencies:
     "@babel/plugin-proposal-class-properties" "^7.7.4"
     "@babel/plugin-proposal-decorators" "^7.7.4"
@@ -1025,15 +1025,15 @@
     "@babel/preset-typescript" "^7.7.7"
     babel-plugin-import "^1.12.2"
 
-"@easyops/brick-dll@^1.0.43":
-  version "1.0.43"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-dll/download/@easyops/brick-dll-1.0.43.tgz#f14d124d9de61fb334a8f56ad6ac7ffe42c723cf"
-  integrity sha1-8U0STZ3mH7M0qPVq1qx//kLHI88=
+"@easyops/brick-dll@^1.0.46":
+  version "1.0.46"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-dll/download/@easyops/brick-dll-1.0.46.tgz#f7bb7d58b7355aeb2b288213dd504d88b7015376"
+  integrity sha1-97t9WLc1WusrKIIT3VBNiLcBU3Y=
   dependencies:
     "@easyops/brick-http" "^1.0.0"
-    "@easyops/brick-icons" "^1.8.1"
-    "@easyops/brick-kit" "^1.9.4"
-    "@easyops/brick-utils" "^1.3.4"
+    "@easyops/brick-icons" "^1.9.0"
+    "@easyops/brick-kit" "^1.10.1"
+    "@easyops/brick-utils" "^1.5.0"
     "@easyops/fontawesome-library" "^1.0.1"
     "@fortawesome/react-fontawesome" "^0.1.8"
     antd "^3.26.3"
@@ -1051,25 +1051,25 @@
   resolved "http://registry.npm.easyops.local/@easyops/brick-http/download/@easyops/brick-http-1.0.0.tgz#792c55a81f55aa8b9baf86fd1cc34c965c03abb3"
   integrity sha1-eSxVqB9Vqoubr4b9HMNMllwDq7M=
 
-"@easyops/brick-icons@^1.8.1":
-  version "1.8.1"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-icons/download/@easyops/brick-icons-1.8.1.tgz#185db5b3ea11db9e755a9f328148230d8d9b8903"
-  integrity sha1-GF21s+oR2551Wp8ygUgjDY2biQM=
+"@easyops/brick-icons@^1.9.0":
+  version "1.9.0"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-icons/download/@easyops/brick-icons-1.9.0.tgz#8d405c2a0c5bf49022829d5807f7ca02c150c787"
+  integrity sha1-jUBcKgxb9JAigp1YB/fKAsFQx4c=
 
-"@easyops/brick-kit@^1.9.4":
-  version "1.9.4"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-kit/download/@easyops/brick-kit-1.9.4.tgz#112dc3db70bdad9140cf98e9eaec874cd11c3a36"
-  integrity sha1-ES3D23C9rZFAz5jp6uyHTNEcOjY=
+"@easyops/brick-kit@^1.10.1":
+  version "1.10.1"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-kit/download/@easyops/brick-kit-1.10.1.tgz#b271b844e3c7cc277469949c8d2044b98625f60b"
+  integrity sha1-snG4ROPHzCd0aZScjSBEuYYl9gs=
   dependencies:
-    "@easyops/brick-types" "^1.4.1"
+    "@easyops/brick-types" "^1.5.0"
     "@sdk/auth-sdk" "^0.7.0"
     "@sdk/micro-app-sdk" "^0.5.0"
     "@sdk/user-service-sdk" "^0.1.0"
 
-"@easyops/brick-scripts@^1.3.1":
-  version "1.3.1"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-scripts/download/@easyops/brick-scripts-1.3.1.tgz#dc61bb1530d76b4e25f3d5a04fa6865e7dab3c91"
-  integrity sha1-3GG7FTDXa04l89WgT6aGXn2rPJE=
+"@easyops/brick-scripts@^1.3.4":
+  version "1.3.4"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-scripts/download/@easyops/brick-scripts-1.3.4.tgz#49922878c9c8bae4c39d745fb32e67055cccc9f6"
+  integrity sha1-SZIoeMnIuuTDnXRfsy5nBVzMyfY=
   dependencies:
     chalk "^3.0.0"
     change-case "^4.1.1"
@@ -1081,17 +1081,17 @@
     request "^2.88.0"
     request-promise-native "^1.0.8"
 
-"@easyops/brick-types@^1.4.1":
-  version "1.4.1"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-types/download/@easyops/brick-types-1.4.1.tgz#4b229dafecb3a12e348fd27f2457507f7a81364d"
-  integrity sha1-SyKdr+yzoS40j9J/JFdQf3qBNk0=
+"@easyops/brick-types@^1.5.0":
+  version "1.5.0"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-types/download/@easyops/brick-types-1.5.0.tgz#6c24fb31dde63b80a77a7b78501386ac59400008"
+  integrity sha1-bCT7Md3mO4Cnent4UBOGrFlAAAg=
 
-"@easyops/brick-utils@^1.3.4":
-  version "1.3.4"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-utils/download/@easyops/brick-utils-1.3.4.tgz#f0039d47be26729b266f44a54340236fa28843a6"
-  integrity sha1-8AOdR74mcpsmb0SlQ0Ajb6KIQ6Y=
+"@easyops/brick-utils@^1.5.0":
+  version "1.5.0"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-utils/download/@easyops/brick-utils-1.5.0.tgz#2f8b60d930648ca45fb20ecedc340d2d1f4cd916"
+  integrity sha1-L4tg2TBkjKRfsg7O3DQNLR9M2RY=
   dependencies:
-    "@easyops/brick-types" "^1.4.1"
+    "@easyops/brick-types" "^1.5.0"
     path-to-regexp "^6.1.0"
 
 "@easyops/browserslist-config-next@^0.1.0":
@@ -3288,14 +3288,6 @@ babel-plugin-import@^1.12.2:
   version "1.12.2"
   resolved "https://registry.npm.taobao.org/babel-plugin-import/download/babel-plugin-import-1.12.2.tgz?cache=0&sync_timestamp=1569211766587&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fbabel-plugin-import%2Fdownload%2Fbabel-plugin-import-1.12.2.tgz#bb8e11dabae68fbff4484c8e2bc2db1e086286a8"
   integrity sha1-u44R2rrmj7/0SEyOK8LbHghihqg=
-  dependencies:
-    "@babel/helper-module-imports" "^7.0.0"
-    "@babel/runtime" "^7.0.0"
-
-babel-plugin-import@^1.13.0:
-  version "1.13.0"
-  resolved "https://registry.npm.taobao.org/babel-plugin-import/download/babel-plugin-import-1.13.0.tgz?cache=0&sync_timestamp=1574676283725&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fbabel-plugin-import%2Fdownload%2Fbabel-plugin-import-1.13.0.tgz#c532fd533df9db53b47d4d4db3676090fc5c07a5"
-  integrity sha1-xTL9Uz3521O0fU1Ns2dgkPxcB6U=
   dependencies:
     "@babel/helper-module-imports" "^7.0.0"
     "@babel/runtime" "^7.0.0"
