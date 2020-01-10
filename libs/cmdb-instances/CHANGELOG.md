@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.8.0...@libs/cmdb-instances@0.8.1) (2020-01-10)
+
+### Bug Fixes
+
+- **instance-list-table:** show total refs DATA_QUALITY-34 ([adba26a](https://git.easyops.local/anyclouds/next-libs/commits/adba26a))
+
 # [0.8.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.7.5...@libs/cmdb-instances@0.8.0) (2020-01-09)
 
 ### Features
