@@ -302,8 +302,8 @@ export class LegacyInstanceListTable extends React.Component<
                 index: number
               ) => {
                 const data = {
-                  objectId: object.objectId,
-                  instanceId: record.instanceId
+                  ...record,
+                  objectId: object.objectId
                 };
                 const url = parseTemplate(detailUrlTemplate, data);
                 return (
@@ -389,8 +389,8 @@ export class LegacyInstanceListTable extends React.Component<
 
             if (detailUrlTemplate) {
               const url = parseTemplate(detailUrlTemplate, {
-                objectId,
-                instanceId: instance.instanceId
+                ...instance,
+                objectId
               });
               return (
                 <React.Fragment key={instance.instanceId}>
