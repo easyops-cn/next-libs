@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.8.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-tree@0.7.32...@libs/cmdb-tree@0.8.0) (2020-01-12)
+
+### Features
+
+- **cmdb-tree:** display tree node title with `show_key`, refs BRICK_STORE-794 ([883d850](https://git.easyops.local/anyclouds/next-libs/commits/883d850))
+- **cmdb-tree:** support general tree query, refs BRICK_STORE-794 ([93da474](https://git.easyops.local/anyclouds/next-libs/commits/93da474))
+
 ## [0.7.32](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-tree@0.7.31...@libs/cmdb-tree@0.7.32) (2020-01-10)
 
 **Note:** Version bump only for package @libs/cmdb-tree
