@@ -1,3 +1,5 @@
+// todo(ice): rewrite unit test
+/* istanbul ignore file */
 import React from "react";
 import { Tree, Spin, Empty, Tooltip } from "antd";
 import {
@@ -6,12 +8,20 @@ import {
   AntTreeNodeSelectedEvent,
   AntTreeNodeCheckedEvent
 } from "antd/lib/tree";
-import { sortBy, isEmpty, keyBy } from "lodash";
+import { sortBy, isEmpty, keyBy, get } from "lodash";
 
 import { handleHttpError } from "@easyops/brick-kit";
 import { CmdbObjectApi, InstanceTreeApi, CmdbModels } from "@sdk/cmdb-sdk";
 
-import { search, getRelation2ObjectId, updateChildren } from "./processors";
+import {
+  search,
+  getObjectId2ShowKeys,
+  getObjectIds,
+  getTitle,
+  fixRequestFields,
+  getRelation2ObjectId,
+  updateChildren
+} from "./processors";
 import style from "./style.module.css";
 
 export interface TreeNode {
@@ -32,13 +42,16 @@ interface CMDBTreeProps {
   handleOnDragStart?: (e: any) => void;
   handleOnDragEnd?: (e: any) => void;
   showIcon?: boolean;
-  checkable?: boolean;
   iconRenderer?: (type: string, y: number) => React.ReactNode;
   /* front end search props */
   treeData?: TreeNode[];
   /* back end search props */
   treeRequestBody?: { tree: CmdbModels.ModelInstanceTreeRootNode };
   onSelect?: (keys: string[], e: AntTreeNodeSelectedEvent) => void;
+  checkable?: boolean;
+  checkStrictly?: boolean;
+  defaultCheckedKeys?: string[];
+  checkIds?: string[];
   onCheck?: (
     keys: string[] | { checked: string[]; halfChecked: string[] },
     e: AntTreeNodeCheckedEvent
@@ -68,6 +81,8 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
   needScrollIntoView = true;
   backendSearch = true;
   relation2ObjectId: Map<string, string> = null;
+  fields: string[] = [];
+  objectId2ShowKeys: Map<string, string[]> = null;
   objectIds: string[] = ["BUSINESS", "APP"];
   objectMap: Record<string, CmdbModels.ModelCmdbObject> = null;
   relations: string[] = [];
@@ -139,10 +154,18 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
       return;
     }
 
-    const objectId = this.props.treeRequestBody.tree.object_id;
+    const treeRequest = this.props.treeRequestBody.tree;
+    const objectId = treeRequest.object_id;
+    const resp = await CmdbObjectApi.getObjectAll({});
+    const objectList = resp.data as CmdbModels.ModelCmdbObject[];
+    this.objectMap = keyBy(objectList, "objectId");
+    this.objectId2ShowKeys = getObjectId2ShowKeys(objectList);
+    this.objectIds = getObjectIds(objectList, treeRequest);
+    // inside `fixRequestFields`, treeRequestBody will be updated
+    this.fields = fixRequestFields(objectList, treeRequest);
+
     const promises: any[] = [];
     promises.push(this.expandTree());
-    promises.push(CmdbObjectApi.getObjectAll({}));
     if (this.props.selectedObjectId && this.props.selectedInstanceId) {
       promises.push(
         this.anchorTree(
@@ -151,23 +174,16 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
         )
       );
     }
-    const [data, objectListResp, anchorTree] = await Promise.all(promises);
-    this.objectMap = keyBy(objectListResp.data, "objectId");
-    this.relation2ObjectId = getRelation2ObjectId(
-      objectListResp.data,
-      this.props.treeRequestBody.tree
-    );
+    const [data, anchorTree] = await Promise.all(promises);
+    this.relation2ObjectId = getRelation2ObjectId(objectList, treeRequest);
     this.relations = Array.from(this.relation2ObjectId.keys());
-    const ids = Array.from(this.relation2ObjectId.values());
-    ids.unshift(objectId);
-    this.objectIds = [...new Set(ids)];
 
     const nodes = this.formatTreeNodes(data, this.objectIds);
     const expandKeys: string[] = [];
 
     if (anchorTree && anchorTree[objectId]) {
       this.convertTrees(anchorTree[objectId], this.relations);
-      const outermost = anchorTree.BUSINESS[0];
+      const outermost = anchorTree[this.props.selectedObjectId][0];
       const node = nodes.find(node => node.key === outermost.instanceId);
       node.children = outermost.children;
       this.findExpandKeys(node, expandKeys);
@@ -233,7 +249,7 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
       if (isEmpty(data[id])) {
         data[id] = [];
       }
-      data[id] = sortBy(data[id], ["name", "ip"]);
+      data[id] = sortBy(data[id], this.fields);
     }
 
     const totalKeys = [];
@@ -245,11 +261,14 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
       for (const instance of data[id]) {
         const isLeaf = !totalKeys.some(key => instance[key]);
 
+        const objectId = instance._object_id;
         const key = instance.instanceId;
+        const showKeys = this.objectId2ShowKeys.get(objectId);
+        const title = getTitle(instance, showKeys);
         const node: CustomTreeNode = {
           key,
-          title: instance.name || instance.ip,
-          objectId: instance._object_id,
+          title,
+          objectId,
           isLeaf
         };
         if (this.cacheOnLoad.has(key)) {
@@ -305,14 +324,15 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
       return;
     }
 
+    const or = [];
+    for (const field of this.fields) {
+      or.push({ [field]: { $like: `%${q}%` } });
+    }
+
     try {
       const data = {
         query: {
-          $or: [
-            { name: { $like: `%${q}%` } },
-            { hostname: { $like: `%${q}%` } },
-            { ip: { $like: `%${q}%` } }
-          ]
+          $or: or
         },
         // eslint-disable-next-line @typescript-eslint/camelcase
         ignore_single: false,
@@ -355,15 +375,16 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
     for (const instance of instances) {
       let isLeaf = true;
       instance.key = instance.instanceId;
-      instance.title = instance.name || instance.ip;
       instance.objectId = instance._object_id;
+      const showKeys = this.objectId2ShowKeys.get(instance.objectId);
+      instance.title = getTitle(instance, showKeys);
       for (const key of keys) {
         if (!isEmpty(instance[key])) {
           isLeaf = false;
           if (instance.children === undefined) {
             instance.children = [];
           }
-          instance[key] = sortBy(instance[key], ["name", "ip"]);
+          instance[key] = sortBy(instance[key], this.fields);
           instance.children = [...instance.children, ...instance[key]];
           this.convertTrees(instance[key], keys);
         }
@@ -495,11 +516,14 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
         key={this.state.key}
         selectedKeys={[this.props.selectedInstanceId]}
         draggable
-        checkable={this.props.checkable}
         showIcon={this.props.showIcon}
         showLine
         className="hide-file-icon"
         onSelect={this.props.onSelect}
+        checkable={this.props.checkable}
+        checkStrictly={this.props.checkStrictly}
+        defaultCheckedKeys={this.props.defaultCheckedKeys}
+        checkedKeys={this.props.checkIds}
         onCheck={this.props.onCheck}
         onDragStart={this.props.handleOnDragStart}
         onDragEnd={this.props.handleOnDragEnd}
