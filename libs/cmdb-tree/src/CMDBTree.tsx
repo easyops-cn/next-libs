@@ -1,19 +1,39 @@
+// todo(ice): rewrite unit test
+/* istanbul ignore file */
 import React from "react";
-import { Tree, Spin, Empty } from "antd";
-import { AntTreeNode } from "antd/lib/tree";
-import { sortBy, isEmpty } from "lodash";
+import { Tree, Spin, Empty, Tooltip } from "antd";
+import {
+  AntTreeNode,
+  AntTreeNodeExpandedEvent,
+  AntTreeNodeSelectedEvent,
+  AntTreeNodeCheckedEvent
+} from "antd/lib/tree";
+import { sortBy, isEmpty, keyBy, get } from "lodash";
 
 import { handleHttpError } from "@easyops/brick-kit";
-import { InstanceTreeApi } from "@sdk/cmdb-sdk";
+import { CmdbObjectApi, InstanceTreeApi, CmdbModels } from "@sdk/cmdb-sdk";
 
-import { search } from "./processors";
+import {
+  search,
+  getObjectId2ShowKeys,
+  getObjectIds,
+  getTitle,
+  fixRequestFields,
+  getRelation2ObjectId,
+  updateChildren
+} from "./processors";
 import style from "./style.module.css";
 
 export interface TreeNode {
   key: string;
   title: string;
   type?: string;
+  isLeaf?: boolean;
   children?: TreeNode[];
+}
+
+interface CustomTreeNode extends TreeNode {
+  objectId: string;
 }
 
 interface CMDBTreeProps {
@@ -26,8 +46,16 @@ interface CMDBTreeProps {
   /* front end search props */
   treeData?: TreeNode[];
   /* back end search props */
-  treeRequestBody?: any;
-  onSelect?: (keys: string[], e: any) => void;
+  treeRequestBody?: { tree: CmdbModels.ModelInstanceTreeRootNode };
+  onSelect?: (keys: string[], e: AntTreeNodeSelectedEvent) => void;
+  checkable?: boolean;
+  checkStrictly?: boolean;
+  defaultCheckedKeys?: string[];
+  checkIds?: string[];
+  onCheck?: (
+    keys: string[] | { checked: string[]; halfChecked: string[] },
+    e: AntTreeNodeCheckedEvent
+  ) => void;
   treeHead?: {
     key: string;
     objectId: string;
@@ -39,7 +67,7 @@ interface CMDBTreeProps {
 
 interface CMDBTreeState {
   key: string;
-  treeData: any[];
+  treeData: TreeNode[];
   expandAll: boolean;
   expandKeys: string[];
   autoExpandParent: boolean;
@@ -52,6 +80,13 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
   initializing = false;
   needScrollIntoView = true;
   backendSearch = true;
+  relation2ObjectId: Map<string, string> = null;
+  fields: string[] = [];
+  objectId2ShowKeys: Map<string, string[]> = null;
+  objectIds: string[] = ["BUSINESS", "APP"];
+  objectMap: Record<string, CmdbModels.ModelCmdbObject> = null;
+  relations: string[] = [];
+  cacheOnLoad: Map<string, CustomTreeNode[]> = new Map();
 
   constructor(props: CMDBTreeProps) {
     super(props);
@@ -119,6 +154,16 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
       return;
     }
 
+    const treeRequest = this.props.treeRequestBody.tree;
+    const objectId = treeRequest.object_id;
+    const resp = await CmdbObjectApi.getObjectAll({});
+    const objectList = resp.data as CmdbModels.ModelCmdbObject[];
+    this.objectMap = keyBy(objectList, "objectId");
+    this.objectId2ShowKeys = getObjectId2ShowKeys(objectList);
+    this.objectIds = getObjectIds(objectList, treeRequest);
+    // inside `fixRequestFields`, treeRequestBody will be updated
+    this.fields = fixRequestFields(objectList, treeRequest);
+
     const promises: any[] = [];
     promises.push(this.expandTree());
     if (this.props.selectedObjectId && this.props.selectedInstanceId) {
@@ -130,13 +175,15 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
       );
     }
     const [data, anchorTree] = await Promise.all(promises);
+    this.relation2ObjectId = getRelation2ObjectId(objectList, treeRequest);
+    this.relations = Array.from(this.relation2ObjectId.keys());
 
-    const nodes = this.formatTreeNodes(data, ["BUSINESS", "APP"]);
+    const nodes = this.formatTreeNodes(data, this.objectIds);
     const expandKeys: string[] = [];
 
-    if (anchorTree && anchorTree.BUSINESS) {
-      this.convertTrees(anchorTree.BUSINESS);
-      const outermost = anchorTree.BUSINESS[0];
+    if (anchorTree && anchorTree[objectId]) {
+      this.convertTrees(anchorTree[objectId], this.relations);
+      const outermost = anchorTree[this.props.selectedObjectId][0];
       const node = nodes.find(node => node.key === outermost.instanceId);
       node.children = outermost.children;
       this.findExpandKeys(node, expandKeys);
@@ -197,31 +244,36 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
     return treeData;
   }
 
-  formatTreeNodes(data: any, relations: string[]) {
-    for (const relation of relations) {
-      if (isEmpty(data[relation])) {
-        data[relation] = [];
+  formatTreeNodes(data: any, ids: string[]): CustomTreeNode[] {
+    for (const id of ids) {
+      if (isEmpty(data[id])) {
+        data[id] = [];
       }
-      data[relation] = sortBy(data[relation], item => item.name.toLowerCase());
+      data[id] = sortBy(data[id], this.fields);
     }
 
-    const nodes: any[] = [];
-    for (const relation of relations) {
-      for (const instance of data[relation]) {
-        let isLeaf = true;
-        if (
-          instance.___total_for_BUSINESS$_businesses_APP ||
-          instance.___total_for_BUSINESS$_sub_system
-        ) {
-          isLeaf = false;
-        }
+    const totalKeys = [];
+    for (const [relation, objectId] of this.relation2ObjectId) {
+      totalKeys.push(`___total_for_${objectId}$${relation}`);
+    }
+    const nodes: CustomTreeNode[] = [];
+    for (const id of ids) {
+      for (const instance of data[id]) {
+        const isLeaf = !totalKeys.some(key => instance[key]);
 
-        const node = {
-          key: instance.instanceId,
-          title: instance.name,
-          objectId: instance._object_id,
+        const objectId = instance._object_id;
+        const key = instance.instanceId;
+        const showKeys = this.objectId2ShowKeys.get(objectId);
+        const title = getTitle(instance, showKeys);
+        const node: CustomTreeNode = {
+          key,
+          title,
+          objectId,
           isLeaf
         };
+        if (this.cacheOnLoad.has(key)) {
+          node.children = this.cacheOnLoad.get(key);
+        }
         nodes.push(node);
       }
     }
@@ -272,9 +324,16 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
       return;
     }
 
+    const or = [];
+    for (const field of this.fields) {
+      or.push({ [field]: { $like: `%${q}%` } });
+    }
+
     try {
       const data = {
-        query: { name: { $like: `%${q}%` } },
+        query: {
+          $or: or
+        },
         // eslint-disable-next-line @typescript-eslint/camelcase
         ignore_single: false,
         ...this.props.treeRequestBody
@@ -300,32 +359,34 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
   }
 
   updateTreeNodes(resp: Record<string, any>) {
-    if (isEmpty(resp.BUSINESS)) resp.BUSINESS = [];
-    if (isEmpty(resp.APP)) resp.APP = [];
-    this.convertTrees(resp.BUSINESS);
-    this.convertTrees(resp.APP);
-    this.treeData = [...resp.BUSINESS, ...resp.APP];
+    this.treeData = [];
+    for (const objectId of this.objectIds) {
+      if (isEmpty(resp[objectId])) resp[objectId] = [];
+      this.convertTrees(resp[objectId], this.relations);
+      this.treeData.push(...resp[objectId]);
+    }
     const treeData = this.withHead(this.treeData, true);
     this.setExpandAll(treeData);
   }
 
-  convertTrees(instances: any[], keys = ["_sub_system", "_businesses_APP"]) {
+  convertTrees(instances: any[], keys: string[]) {
     if (isEmpty(instances)) return;
 
     for (const instance of instances) {
       let isLeaf = true;
       instance.key = instance.instanceId;
-      instance.title = instance.name;
       instance.objectId = instance._object_id;
+      const showKeys = this.objectId2ShowKeys.get(instance.objectId);
+      instance.title = getTitle(instance, showKeys);
       for (const key of keys) {
         if (!isEmpty(instance[key])) {
           isLeaf = false;
           if (instance.children === undefined) {
             instance.children = [];
           }
-          instance[key] = sortBy(instance[key], "name");
+          instance[key] = sortBy(instance[key], this.fields);
           instance.children = [...instance.children, ...instance[key]];
-          this.convertTrees(instance[key]);
+          this.convertTrees(instance[key], keys);
         }
       }
       instance.isLeaf = isLeaf;
@@ -348,20 +409,21 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
     const objectId = treeNode.props.dataRef.objectId;
     const instanceId = treeNode.props.dataRef.key;
     const data = await this.expandTree(objectId, instanceId);
-    // todo(ice): `BUSINESS[0]` ??
-    const nodes = this.formatTreeNodes(data.BUSINESS[0], [
-      "_sub_system",
-      "_businesses_APP"
-    ]);
+    const nodes = this.formatTreeNodes(data[objectId][0], this.relations);
+    this.cacheOnLoad.set(instanceId, nodes);
     // eslint-disable-next-line require-atomic-updates
-    treeNode.props.dataRef.children = nodes;
+    updateChildren(instanceId, this.state.treeData, nodes);
     this.setState({
       treeData: [...this.state.treeData],
       expandKeys: [instanceId, ...this.state.expandKeys]
     });
   }
 
-  renderTitle(title: string): React.ReactNode {
+  renderTitle(node: CustomTreeNode): React.ReactNode {
+    const title = node.title;
+    const objectId = node.objectId;
+    const objectName = this.objectMap[objectId].name;
+    let titleNode = <span className="ant-tree-title">{title}</span>;
     if (this.props.q) {
       const qLen = this.props.q.length;
       const color = "rgb(204, 121, 33)";
@@ -382,9 +444,13 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
         );
         count += qLen;
       });
-      return <span className="ant-tree-title">{nodes.slice(0, -1)}</span>;
+      titleNode = <span className="ant-tree-title">{nodes.slice(0, -1)}</span>;
     }
-    return <span className="ant-tree-title">{title}</span>;
+    return (
+      <Tooltip title={objectName} placement="right">
+        {titleNode}
+      </Tooltip>
+    );
   }
 
   renderTreeNodes(nodes: any[]) {
@@ -399,7 +465,7 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
           <Tree.TreeNode
             {...prop}
             key={node.key}
-            title={this.renderTitle(node.title)}
+            title={this.renderTitle(node)}
             isLeaf={hasData ? isEmpty(node.children) : node.isLeaf}
             disabled={node.disabled}
             dataRef={node}
@@ -412,7 +478,7 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
         <Tree.TreeNode
           {...prop}
           key={node.key}
-          title={this.renderTitle(node.title)}
+          title={this.renderTitle(node)}
           isLeaf={hasData ? isEmpty(node.children) : node.isLeaf}
           disabled={node.disabled}
           dataRef={node}
@@ -421,7 +487,11 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
     });
   }
 
-  onExpand(expandKeys: string[]) {
+  onExpand(expandKeys: string[], info: AntTreeNodeExpandedEvent) {
+    if (!info.expanded) {
+      const key = info.node.props.eventKey;
+      expandKeys = expandKeys.filter(k => k !== key);
+    }
     this.setState({
       expandKeys,
       autoExpandParent: false
@@ -440,7 +510,7 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
         }}
       />
     ) : isEmpty(this.state.treeData) ? (
-      <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="暂无数据" />
+      <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
     ) : (
       <Tree
         key={this.state.key}
@@ -450,6 +520,11 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
         showLine
         className="hide-file-icon"
         onSelect={this.props.onSelect}
+        checkable={this.props.checkable}
+        checkStrictly={this.props.checkStrictly}
+        defaultCheckedKeys={this.props.defaultCheckedKeys}
+        checkedKeys={this.props.checkIds}
+        onCheck={this.props.onCheck}
         onDragStart={this.props.handleOnDragStart}
         onDragEnd={this.props.handleOnDragEnd}
         loadData={this.onLoadData}
