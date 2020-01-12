@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.8.1...@libs/cmdb-instances@0.8.2) (2020-01-12)
+
+### Bug Fixes
+
+- **instance-list-table:** use instance data when parse url template refs BRICK_STORE-893 ([f202d99](https://git.easyops.local/anyclouds/next-libs/commits/f202d99))
+
 ## [0.8.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.8.0...@libs/cmdb-instances@0.8.1) (2020-01-10)
 
 ### Bug Fixes
