@@ -44,7 +44,7 @@
     "@types/lodash": "^4.14.149",
     "@types/react": "^16.9.17",
     "@types/react-dom": "^16.9.4",
-    "@typescript-eslint/eslint-plugin": "^2.15.0",
+    "@typescript-eslint/eslint-plugin": "^2.16.0",
     "babel-jest": "^24.9.0",
     "cross-env": "^6.0.3",
     "document-register-element": "^1.14.3",
