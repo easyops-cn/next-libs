@@ -1,8 +1,11 @@
 import React from "react";
-import { debounce, isEqual, remove, without } from "lodash";
+import { debounce, isEqual, remove, without, get, isEmpty } from "lodash";
 import { extraFieldAttrs, otherFieldIds } from "./constants";
 import { Button, Checkbox, Col, Input, Row, Typography } from "antd";
-import { getBatchEditableRelations } from "@libs/cmdb-utils";
+import {
+  getBatchEditableRelations,
+  CMDB_RESOURCE_FIELDS_SETTINGS
+} from "@libs/cmdb-utils";
 import { CmdbModels } from "@sdk/cmdb-sdk";
 
 interface SettingsProps {
@@ -46,8 +49,16 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
       ...relationList
     ];
 
-    if (this.props.modelData.view.hide_columns) {
-      this.props.modelData.view.hide_columns.forEach((hideColumn: string) => {
+    let hideColumns = this.props.modelData.view.hide_columns || [];
+    const ignoredFields = get(
+      CMDB_RESOURCE_FIELDS_SETTINGS,
+      `ignoredFields.${this.props.modelData.objectId}`,
+      []
+    );
+    hideColumns = [...hideColumns, ...ignoredFields];
+
+    if (!isEmpty(hideColumns)) {
+      hideColumns.forEach((hideColumn: string) => {
         remove(attrAndRelationList, attr => attr.id === hideColumn);
       });
     }
