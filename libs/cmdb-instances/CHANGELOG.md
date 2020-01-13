@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.3](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.8.2...@libs/cmdb-instances@0.8.3) (2020-01-13)
+
+### Bug Fixes
+
+- **settings-container:** remove attr from `hide_columns` and `ignoredFields`, refs ATM-572 ([c9de591](https://git.easyops.local/anyclouds/next-libs/commits/c9de591))
+
 ## [0.8.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.8.1...@libs/cmdb-instances@0.8.2) (2020-01-12)
 
 ### Bug Fixes
