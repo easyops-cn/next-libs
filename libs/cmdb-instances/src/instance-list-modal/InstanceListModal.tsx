@@ -11,6 +11,7 @@ export interface InstanceListModalProps {
   title: string;
   query?: any;
   selectDisabled?: boolean;
+  sortDisabled?: boolean;
   singleSelect?: boolean;
   onCancel: () => void;
   onSelected?: (instanceList: any[]) => void;
@@ -136,6 +137,7 @@ export function InstanceListModal(
           instanceListData={instanceListData || { list: [] }}
           presetConfigs={presetConfigs}
           selectDisabled={props.selectDisabled}
+          sortDisabled={props.sortDisabled}
           onSelectionChange={handleSelectionChange}
           onPaginationChange={handlePaginationChange}
         ></InstanceListTable>
