@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.4](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.8.3...@libs/cmdb-instances@0.8.4) (2020-01-14)
+
+### Bug Fixes
+
+- **instance-list-modal:** remove wrong comma refs BRICK_STORE-903 ([8e46c58](https://git.easyops.local/anyclouds/next-libs/commits/8e46c58))
+- **instance-list-table:** show selection total refs DATA_QUALITY-34 ([7c1aa51](https://git.easyops.local/anyclouds/next-libs/commits/7c1aa51))
+
 ## [0.8.3](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.8.2...@libs/cmdb-instances@0.8.3) (2020-01-13)
 
 ### Bug Fixes
