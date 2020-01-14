@@ -91,17 +91,28 @@ export function InstanceListModal(
             只允许选择一个实例
           </span>
         )}
-        <Button key="back" onClick={props.onCancel}>
-          取消
-        </Button>
-        <Button
-          key="submit"
-          type="primary"
-          onClick={handleOk}
-          disabled={props.singleSelect && selectedInstanceListTemp.length > 1}
-        >
-          确认
-        </Button>
+        {props.selectDisabled && (
+          <Button key="back" onClick={props.onCancel}>
+            关闭
+          </Button>
+        )}
+        {!props.selectDisabled && (
+          <>
+            <Button key="back" onClick={props.onCancel}>
+              取消
+            </Button>
+            <Button
+              key="submit"
+              type="primary"
+              onClick={handleOk}
+              disabled={
+                props.singleSelect && selectedInstanceListTemp.length > 1
+              }
+            >
+              确认
+            </Button>
+          </>
+        )}
       </>
     );
   };
