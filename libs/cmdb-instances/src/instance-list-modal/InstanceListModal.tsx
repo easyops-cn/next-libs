@@ -94,7 +94,6 @@ export function InstanceListModal(
         <Button key="back" onClick={props.onCancel}>
           取消
         </Button>
-        ,
         <Button
           key="submit"
           type="primary"
