@@ -11,6 +11,7 @@ export interface InstanceListModalProps {
   title: string;
   query?: any;
   selectDisabled?: boolean;
+  sortDisabled?: boolean;
   singleSelect?: boolean;
   onCancel: () => void;
   onSelected?: (instanceList: any[]) => void;
@@ -91,17 +92,28 @@ export function InstanceListModal(
             只允许选择一个实例
           </span>
         )}
-        <Button key="back" onClick={props.onCancel}>
-          取消
-        </Button>
-        <Button
-          key="submit"
-          type="primary"
-          onClick={handleOk}
-          disabled={props.singleSelect && selectedInstanceListTemp.length > 1}
-        >
-          确认
-        </Button>
+        {props.selectDisabled && (
+          <Button key="back" onClick={props.onCancel}>
+            关闭
+          </Button>
+        )}
+        {!props.selectDisabled && (
+          <>
+            <Button key="back" onClick={props.onCancel}>
+              取消
+            </Button>
+            <Button
+              key="submit"
+              type="primary"
+              onClick={handleOk}
+              disabled={
+                props.singleSelect && selectedInstanceListTemp.length > 1
+              }
+            >
+              确认
+            </Button>
+          </>
+        )}
       </>
     );
   };
@@ -125,6 +137,7 @@ export function InstanceListModal(
           instanceListData={instanceListData || { list: [] }}
           presetConfigs={presetConfigs}
           selectDisabled={props.selectDisabled}
+          sortDisabled={props.sortDisabled}
           onSelectionChange={handleSelectionChange}
           onPaginationChange={handlePaginationChange}
         ></InstanceListTable>
