@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.15.3](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@0.15.2...@libs/basic-components@0.15.3) (2020-01-15)
+
+**Note:** Version bump only for package @libs/basic-components
+
 ## [0.15.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@0.15.1...@libs/basic-components@0.15.2) (2020-01-10)
 
 **Note:** Version bump only for package @libs/basic-components

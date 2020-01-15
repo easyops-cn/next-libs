@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/datetime-components@0.6.1...@libs/datetime-components@0.6.2) (2020-01-15)
+
+### Bug Fixes
+
+- 修复图标未与文字居中的问题 ([3a425bb](https://git.easyops.local/anyclouds/next-libs/commits/3a425bb))
+
 ## [0.6.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/datetime-components@0.6.0...@libs/datetime-components@0.6.1) (2020-01-10)
 
 **Note:** Version bump only for package @libs/datetime-components

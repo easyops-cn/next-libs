@@ -1,6 +1,6 @@
 {
   "name": "@libs/basic-components",
-  "version": "0.15.2",
+  "version": "0.15.3",
   "description": "> TODO: description",
   "homepage": "https://git.easyops.local/anyclouds/next-libs/tree/master/libs/basic-components",
   "license": "UNLICENSED",
@@ -31,6 +31,6 @@
   },
   "dependencies": {
     "@easyops/brick-types": "^1.6.0",
-    "@libs/cmdb-utils": "^0.5.14"
+    "@libs/cmdb-utils": "^0.5.15"
   }
 }

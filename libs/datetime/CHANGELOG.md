@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.25](https://git.easyops.local/anyclouds/next-libs/compare/@libs/datetime@0.6.24...@libs/datetime@0.6.25) (2020-01-15)
+
+**Note:** Version bump only for package @libs/datetime
+
 ## [0.6.24](https://git.easyops.local/anyclouds/next-libs/compare/@libs/datetime@0.6.23...@libs/datetime@0.6.24) (2020-01-10)
 
 **Note:** Version bump only for package @libs/datetime
