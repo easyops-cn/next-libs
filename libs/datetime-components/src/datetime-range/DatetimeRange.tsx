@@ -255,7 +255,8 @@ export class DatetimeRange extends React.Component<
         onVisibleChange={this.handleVisibleChange}
       >
         <Button>
-          <Icon type="clock-circle" /> {this.getButtonText()}
+          <Icon type="clock-circle" style={{ verticalAlign: "middle" }} />{" "}
+          {this.getButtonText()}
         </Button>
       </Popover>
     );
