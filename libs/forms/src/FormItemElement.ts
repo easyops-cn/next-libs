@@ -27,9 +27,14 @@ export abstract class FormItemElement extends UpdatingElement {
 
   getFormElement(): AbstractGeneralFormElement {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
-    let element: HTMLElement = this;
+    let element: HTMLElement & { isFormElement?: boolean } = this;
     while ((element = element.parentNode as HTMLElement)) {
-      if (!element || element.nodeName.toLowerCase() === "forms.general-form") {
+      if (
+        !element ||
+        element.isFormElement ||
+        // 兼容老版本
+        element.nodeName.toLowerCase() === "forms.general-form"
+      ) {
         break;
       }
     }
