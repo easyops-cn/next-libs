@@ -26,10 +26,7 @@
     "test:ci": "cross-env NODE_ENV='test' CI=true jest"
   },
   "sideEffects": false,
-  "devDependencies": {
-    "@easyops/brick-dll": "^1.0.51"
-  },
   "peerDependencies": {
-    "@easyops/brick-dll": "^*"
+    "@easyops/brick-dll": "*"
   }
 }
