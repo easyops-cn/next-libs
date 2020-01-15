@@ -18,6 +18,7 @@ describe("form-item", () => {
   it("should create a custom element", async () => {
     const element = document.createElement("form-item") as TestFormItemElement;
     const form = document.createElement("forms.general-form");
+    form.isFormElement = true;
     document.body.appendChild(form);
 
     document.body.appendChild(element);
