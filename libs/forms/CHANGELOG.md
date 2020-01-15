@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.3.3...@libs/forms@0.4.0) (2020-01-15)
+
+### Features
+
+- **forms:** add isFormElement ([155af39](https://git.easyops.local/anyclouds/next-libs/commits/155af39))
+
 ## [0.3.3](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.3.2...@libs/forms@0.3.3) (2020-01-15)
 
 **Note:** Version bump only for package @libs/forms
