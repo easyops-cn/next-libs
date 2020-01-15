@@ -27,9 +27,6 @@
   },
   "sideEffects": false,
   "devDependencies": {
-    "@dll/ace": "^1.0.51",
-    "@dll/d3": "^1.1.0",
-    "@easyops/brick-dll": "^1.0.51",
     "js-yaml": "^3.13.1"
   },
   "peerDependencies": {
