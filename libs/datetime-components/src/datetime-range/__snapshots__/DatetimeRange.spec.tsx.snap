@@ -146,6 +146,11 @@ exports[`DatetimeRange should work 1`] = `
     loading={false}
   >
     <Icon
+      style={
+        Object {
+          "verticalAlign": "middle",
+        }
+      }
       type="clock-circle"
     />
      
