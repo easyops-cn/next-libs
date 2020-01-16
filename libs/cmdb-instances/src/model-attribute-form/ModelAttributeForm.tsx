@@ -1,5 +1,6 @@
 import React, { Component, FormEvent } from "react";
 import { Button, Checkbox, Collapse, Form } from "antd";
+import { ButtonType } from "antd/lib/button";
 import { CmdbModels, InstanceApi } from "@sdk/cmdb-sdk";
 import {
   FormComponentProps,
@@ -50,6 +51,10 @@ interface ModelAttributeFormProps extends FormComponentProps {
   attributeFormControlInitialValueMap:
     | InstanceApi.GetDefaultValueTemplateResponseBody
     | Partial<InstanceApi.GetDetailResponseBody>;
+  showCancelButton?: boolean;
+  cancelText?: string;
+  cancelType?: ButtonType;
+  onCancel?(): void;
 }
 
 export type attributesFieldsByTag = [string, ModifiedModelObjectField[]];
@@ -66,6 +71,12 @@ export class ModelAttributeForm extends Component<
 > {
   private modelMap: Record<string, Partial<CmdbModels.ModelCmdbObject>> = {};
   private modelData: Partial<CmdbModels.ModelCmdbObject> = null;
+
+  static defaultProps = {
+    showCancelButton: true,
+    cancelText: "取消",
+    cancelType: "default" as ButtonType
+  };
 
   formItemProps: FormItemProps = {
     labelCol: { span: 6 },
@@ -295,13 +306,20 @@ export class ModelAttributeForm extends Component<
     );
   };
 
+  handleCancel = () => {
+    this.props.onCancel?.();
+  };
+
   render(): React.ReactNode {
     const Panel = Collapse.Panel;
     const {
       form,
       attributeFormControlInitialValueMap,
       brickList,
-      allowContinueCreate
+      allowContinueCreate,
+      showCancelButton,
+      cancelText,
+      cancelType
     } = this.props;
     const { getFieldDecorator } = form;
 
@@ -377,6 +395,16 @@ export class ModelAttributeForm extends Component<
             <Button type="primary" htmlType="submit" disabled={this.disabled}>
               {this.submitBtnText}
             </Button>
+
+            {showCancelButton && (
+              <Button
+                type={cancelType}
+                style={{ marginLeft: 8 }}
+                onClick={this.handleCancel}
+              >
+                {cancelText}
+              </Button>
+            )}
           </Form.Item>
         </div>
       </div>
