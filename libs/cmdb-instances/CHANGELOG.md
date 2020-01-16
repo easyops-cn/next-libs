@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.9.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.8.6...@libs/cmdb-instances@0.9.0) (2020-01-16)
+
+### Bug Fixes
+
+- 修复实例列表高级搜索样式问题 ([ace3333](https://git.easyops.local/anyclouds/next-libs/commits/ace3333))
+
+### Features
+
+- 实例创建编辑构件增加取消按钮 ([a38029f](https://git.easyops.local/anyclouds/next-libs/commits/a38029f))
+
 ## [0.8.6](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.8.5...@libs/cmdb-instances@0.8.6) (2020-01-15)
 
 **Note:** Version bump only for package @libs/cmdb-instances
