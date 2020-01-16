@@ -68,7 +68,7 @@
     "prettier": "^1.19.1",
     "rimraf": "^3.0.0",
     "snapshot-diff": "^0.6.2",
-    "typescript": "~3.7.4"
+    "typescript": "~3.7.5"
   },
   "workspaces": [
     "libs/*"
