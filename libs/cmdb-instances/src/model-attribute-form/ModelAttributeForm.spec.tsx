@@ -36,7 +36,8 @@ describe("ModelAttributeForm", () => {
       }
     ],
     objectList: mockFetchCmdbObjectListReturnValue,
-    onSubmit: jest.fn()
+    onSubmit: jest.fn(),
+    onCancel: jest.fn()
   };
 
   describe("handleSubmit", () => {
@@ -141,6 +142,13 @@ describe("ModelAttributeForm", () => {
       .instance() as ModelAttributeForm;
     expect(instance.submitBtnText).toBe("修改");
     expect(instance.state.sending).toBeFalsy();
+
+    console.log(wrapper.debug());
+    wrapper
+      .find("Button")
+      .at(1)
+      .simulate("click");
+    expect(props.onCancel).toHaveBeenCalled();
   });
 
   it("test blackList", () => {

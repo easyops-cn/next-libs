@@ -5,21 +5,15 @@
   border-radius: 6px;
 }
 
-.advancedSearchForm {
-  :global(.ant-form-item-children) {
-    > .conditionInputGroup {
-      display: inline-flex;
-    }
-  }
+.advancedSearchForm :global(.ant-form-item-children) > .conditionInputGroup {
+  display: inline-flex;
 }
 
 .conditionInput {
   flex-grow: 1;
 }
 
-.conditionInputGroup {
-  .separatorInput {
-    width: 30px;
-    pointer-events: none;
-  }
+.conditionInputGroup .separatorInput {
+  width: 30px;
+  pointer-events: none;
 }
