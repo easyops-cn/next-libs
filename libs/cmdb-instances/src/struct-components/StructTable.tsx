@@ -131,12 +131,15 @@ export class StructTable extends React.Component<
       ? [structData]
       : structData;
     return (
-      <Table
-        columns={columns}
-        dataSource={dataSource}
-        pagination={false}
-        size={this.props.size}
-      />
+      <div style={{ overflowX: "hidden" }}>
+        <Table
+          scroll={{ x: "max-content" }}
+          columns={columns}
+          dataSource={dataSource}
+          pagination={false}
+          size={this.props.size}
+        />
+      </div>
     );
   }
 }
