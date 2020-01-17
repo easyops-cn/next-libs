@@ -268,6 +268,7 @@ export class LegacyInstanceListTable extends React.Component<
           ) => {
             return value ? (
               <Popover
+                overlayStyle={{ width: 500, height: 400, overflowY: "auto" }}
                 content={
                   <StructTable
                     attribute={attribute as Attribute}
