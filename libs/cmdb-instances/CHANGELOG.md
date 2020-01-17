@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.9.0...@libs/cmdb-instances@0.9.1) (2020-01-17)
+
+### Bug Fixes
+
+- **instance-list-table:** limit struct table size refs BRICK_STORE-916 ([711d0f7](https://git.easyops.local/anyclouds/next-libs/commits/711d0f7))
+
 # [0.9.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.8.6...@libs/cmdb-instances@0.9.0) (2020-01-16)
 
 ### Bug Fixes
