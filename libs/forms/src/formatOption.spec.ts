@@ -74,10 +74,14 @@ describe("formatOptions", () => {
     const result = formatOptions(optons, { label: "aaa", value: "bbb" });
     expect(result).toEqual([
       {
+        aaa: "a",
+        bbb: "a",
         label: "a",
         value: "a"
       },
       {
+        aaa: "b",
+        bbb: "b",
         label: "b",
         value: "b"
       }
