@@ -10,10 +10,11 @@ export function formatOptions(
     }
     if (fields) {
       return {
+        ...op,
         label: (op as any)[fields.label || "label"],
         value: (op as any)[fields.value || "value"]
       };
     }
-    return { label: op.label, value: op.value };
+    return { ...op, label: op.label, value: op.value };
   }) as GeneralComplexOption[];
 }
