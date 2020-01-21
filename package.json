@@ -48,7 +48,7 @@
     "@types/js-yaml": "^3.12.1",
     "@types/lodash": "^4.14.149",
     "@types/react": "^16.9.17",
-    "@types/react-dom": "^16.9.4",
+    "@types/react-dom": "^16.9.5",
     "@typescript-eslint/eslint-plugin": "^2.17.0",
     "babel-jest": "^24.9.0",
     "cross-env": "^6.0.3",
