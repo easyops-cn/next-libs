@@ -1,3 +1,7 @@
+.tableWrapper :global(.ant-pagination):global(.ant-table-pagination) {
+  margin-bottom: 3px;
+}
+
 .instanceListTableCell {
   max-width: 240px;
   overflow: hidden;

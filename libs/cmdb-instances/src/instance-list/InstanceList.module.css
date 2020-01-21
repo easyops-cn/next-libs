@@ -1,0 +1,16 @@
+.instanceListToolbar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 18px;
+  justify-content: space-between;
+}
+
+.searchRelated {
+  display: flex;
+  align-items: center;
+}
+
+.options {
+  display: flex;
+  align-items: center;
+}

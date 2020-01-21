@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { Modal, Button, Spin, Icon } from "antd";
+import React, { useState } from "react";
+import { Modal, Button, Icon } from "antd";
 
-import { InstanceListTable } from "../instance-list-table/InstanceListTable";
-import { CmdbModels, InstanceApi } from "@sdk/cmdb-sdk";
+import { InstanceList } from "../instance-list/InstanceList";
+import { CmdbModels } from "@sdk/cmdb-sdk";
 
 export interface InstanceListModalProps {
   objectMap: { [key: string]: Partial<CmdbModels.ModelCmdbObject> };
@@ -13,6 +13,7 @@ export interface InstanceListModalProps {
   selectDisabled?: boolean;
   sortDisabled?: boolean;
   singleSelect?: boolean;
+  selectedRowKeys?: string[];
   onCancel: () => void;
   onSelected?: (instanceList: any[]) => void;
 }
@@ -22,61 +23,18 @@ export function InstanceListModal(
 ): React.ReactElement {
   const modelData = props.objectMap[props.objectId];
 
-  const [instanceListData, setInstanceListData] = useState();
-  const [fetching, setFetching] = useState(false);
-
   const [selectedInstanceListTemp, setSelectedInstanceListTemp] = useState([]);
 
-  const computeFields = () => {
-    return { "*": true };
-  };
-
-  useEffect(() => {
-    const fetchInstanceListData = async () => {
-      setFetching(true);
-      const instanceListData = await InstanceApi.postSearch(
-        modelData.objectId,
-        {
-          query: props.query || {},
-          fields: computeFields(),
-          page: 1,
-          page_size: 10
-        }
-      );
-
-      setInstanceListData(instanceListData);
-      setFetching(false);
-    };
-
-    if (props.visible) {
-      fetchInstanceListData();
-    }
-  }, [props.visible, props.objectId]);
-
   const handleOk = () => {
-    if (props.onSelected) {
-      props.onSelected(selectedInstanceListTemp);
-    }
+    props.onSelected?.(selectedInstanceListTemp);
   };
 
   const handleSelectionChange = (event: { selectedItems: any[] }) => {
     setSelectedInstanceListTemp(event.selectedItems);
   };
 
-  const handlePaginationChange = async (event: {
-    page: number;
-    pageSize: number;
-  }) => {
-    const instanceListData = await InstanceApi.postSearch(props.objectId, {
-      query: props.query || {},
-      fields: computeFields(),
-      page: event.page,
-      page_size: event.pageSize
-    });
-    setInstanceListData(instanceListData);
-  };
-
   const presetConfigs = {
+    query: props.query,
     fieldIds: modelData.attrList.map(attr => attr.id)
   };
 
@@ -128,20 +86,18 @@ export function InstanceListModal(
       destroyOnClose={true}
       footer={renderFooter()}
     >
-      {fetching ? (
-        <Spin />
-      ) : (
-        <InstanceListTable
-          idObjectMap={props.objectMap}
-          modelData={modelData}
-          instanceListData={instanceListData || { list: [] }}
+      <div style={{ maxHeight: 700, overflow: "auto" }}>
+        <InstanceList
+          objectId={props.objectId}
+          objectList={Object.values(props.objectMap)}
           presetConfigs={presetConfigs}
           selectDisabled={props.selectDisabled}
+          selectedRowKeys={props.selectedRowKeys}
           sortDisabled={props.sortDisabled}
           onSelectionChange={handleSelectionChange}
-          onPaginationChange={handlePaginationChange}
-        ></InstanceListTable>
-      )}
+          pageSize={10}
+        />
+      </div>
     </Modal>
   );
 }

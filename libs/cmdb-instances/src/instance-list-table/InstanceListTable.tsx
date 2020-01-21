@@ -1,5 +1,6 @@
 import React from "react";
 import { withTranslation, WithTranslation } from "react-i18next";
+import classnames from "classnames";
 import { Button, Popover, Table, Tag } from "antd";
 import { isNil } from "lodash";
 import {
@@ -63,6 +64,9 @@ export interface InstanceListTableProps extends WithTranslation {
   onSelectionChange?(selection: ReadSelectionChangeDetail): void;
   relationLinkDisabled?: boolean;
   paginationDisabled?: boolean;
+  pageSizeOptions?: string[];
+  showSizeChanger?: boolean;
+  selectedRowKeys?: string[];
   configProps?: TableProps<Record<string, any>>;
 }
 
@@ -97,6 +101,9 @@ export class LegacyInstanceListTable extends React.Component<
       list: this.props.instanceListData.list,
       columns: sortedColumns,
       pagination: {
+        disabled: this.props.paginationDisabled,
+        pageSizeOptions: this.props.pageSizeOptions,
+        showSizeChanger: this.props.showSizeChanger,
         total: this.props.instanceListData.total,
         showTotal: total =>
           `共 ${total} 项${
@@ -107,7 +114,7 @@ export class LegacyInstanceListTable extends React.Component<
         current: this.props.instanceListData.page,
         pageSize: this.props.instanceListData.page_size
       },
-      selectedRowKeys: []
+      selectedRowKeys: this.props.selectedRowKeys || []
     };
   }
 
@@ -478,12 +485,10 @@ export class LegacyInstanceListTable extends React.Component<
     selectedRows: Record<string, any>[]
   ) => {
     this.setState({ selectedRowKeys: selectedRowKeys as string[] });
-    if (this.props.onSelectionChange) {
-      this.props.onSelectionChange({
-        selectedKeys: selectedRowKeys as string[],
-        selectedItems: selectedRows
-      });
-    }
+    this.props.onSelectionChange?.({
+      selectedKeys: selectedRowKeys as string[],
+      selectedItems: selectedRows
+    });
   };
 
   componentDidUpdate(prevProps: InstanceListTableProps) {
@@ -519,9 +524,14 @@ export class LegacyInstanceListTable extends React.Component<
           onChange: this.onSelectChange
         };
 
+    const classes = classnames({
+      [styles.shouldEllipsis]: this.props.autoBreakLine,
+      [styles.tableWrapper]: true
+    });
+
     return (
       <div
-        className={this.props.autoBreakLine ? styles.shouldEllipsis : ""}
+        className={classes}
         style={{ overflowX: "auto", overflowY: "hidden" }}
       >
         <Table
@@ -529,7 +539,7 @@ export class LegacyInstanceListTable extends React.Component<
           dataSource={this.props.instanceListData.list}
           rowKey="instanceId"
           scroll={{ x: "max-content" }}
-          pagination={!this.props.paginationDisabled && this.state.pagination}
+          pagination={this.state.pagination}
           rowSelection={rowSelection}
           onChange={this.onChange}
           {...this.props.configProps}

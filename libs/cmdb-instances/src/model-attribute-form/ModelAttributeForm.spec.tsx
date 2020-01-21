@@ -143,7 +143,6 @@ describe("ModelAttributeForm", () => {
     expect(instance.submitBtnText).toBe("修改");
     expect(instance.state.sending).toBeFalsy();
 
-    console.log(wrapper.debug());
     wrapper
       .find("Button")
       .at(1)
