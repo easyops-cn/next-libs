@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.10.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.9.1...@libs/cmdb-instances@0.10.0) (2020-01-21)
+
+### Features
+
+- **instance-list:** move from brick-next, refs BRICK_STORE-970 ([41ddcec](https://git.easyops.local/anyclouds/next-libs/commits/41ddcec))
+
 ## [0.9.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.9.0...@libs/cmdb-instances@0.9.1) (2020-01-17)
 
 ### Bug Fixes
