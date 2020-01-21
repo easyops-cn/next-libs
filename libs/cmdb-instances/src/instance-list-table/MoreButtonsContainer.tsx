@@ -76,7 +76,7 @@ export class MoreButtonsContainer extends React.Component<
             onHandleReset={this.props.onHandleReset}
             onToggleAutoBreakLine={this.props.onToggleAutoBreakLine}
             defaultFields={this.props.defaultFields}
-          ></Settings>
+          />
         </Modal>
       </div>
     );

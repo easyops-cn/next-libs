@@ -6,3 +6,4 @@ export * from "./model-attribute-form-control/ModelAttributeFormControl";
 export * from "./struct-components";
 export * from "./instance-list-table";
 export * from "./instance-list-modal/InstanceListModal";
+export * from "./instance-list/InstanceList";

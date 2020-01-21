@@ -126,18 +126,16 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
     const checked = this.state[fieldsKey].includes(attr.id);
 
     return (
-      <div key={attr.id}>
-        <Col span={8}>
-          <Checkbox
-            name={field}
-            style={{ margin: 5 }}
-            checked={checked}
-            onChange={event => this.handleChecked(event, attr)}
-          >
-            {attr.name}
-          </Checkbox>
-        </Col>
-      </div>
+      <Col key={attr.id} span={8}>
+        <Checkbox
+          name={field}
+          style={{ margin: 5 }}
+          checked={checked}
+          onChange={event => this.handleChecked(event, attr)}
+        >
+          {attr.name}
+        </Checkbox>
+      </Col>
     );
   }
 
@@ -152,9 +150,10 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
   filterColTag = () => {
     const { attrList } = this.props.modelData;
     let filterList = attrList;
-    if (this.state.q) {
+    const q = this.state.q.trim().toLocaleLowerCase();
+    if (q) {
       filterList = attrList.filter((attr: any) => {
-        return attr.name.includes(this.state.q);
+        return attr.name.toLocaleLowerCase().includes(q);
       });
     }
     this.setState({
@@ -162,9 +161,10 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
     });
   };
 
-  handleChange = (event: any) => {
+  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
     this.setState({
-      q: event.target.value
+      q: value
     });
     this.debounceHandleSearch();
   };
@@ -211,30 +211,27 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
             />
           </Row>
           <Row
-            style={{ marginTop: 15, marginBottom: 15 }}
+            style={{
+              marginTop: 15,
+              marginBottom: 15,
+              height: 200,
+              overflow: "auto"
+            }}
             className="nextFields"
           >
             {attrs.map((attr: any) => this.renderCheckbox(attr, "nextFields"))}
-          </Row>
-          <div>
             {extraAttrs.length > 0 ? (
-              <div>
-                <div
-                  style={{
-                    width: "100%",
-                    borderTop: "1px solid #000000",
-                    opacity: 0.05,
-                    margin: "20px 0"
-                  }}
+              <>
+                <Col
+                  span={24}
+                  style={{ borderTop: "1px solid #e9e9e9", margin: "10px 0" }}
                 />
-                <Row>
-                  {extraAttrs.map(attr =>
-                    this.renderCheckbox(attr, "nextFields")
-                  )}
-                </Row>
-              </div>
+                {extraAttrs.map(attr =>
+                  this.renderCheckbox(attr, "nextFields")
+                )}
+              </>
             ) : null}
-          </div>
+          </Row>
           <Row style={this.titleLineStyle}>
             <span style={this.titleLineSpanStyle}>其他设置</span>
           </Row>
