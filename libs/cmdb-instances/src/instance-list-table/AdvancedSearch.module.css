@@ -9,6 +9,19 @@
   display: inline-flex;
 }
 
+.advancedSearchForm :global(.ant-form-item) {
+  margin-bottom: 20px;
+}
+
+.advancedSearchForm :global(.ant-form-item-label) {
+  line-height: unset;
+}
+
+.advancedSearchForm :global(.ant-form-item) label {
+  display: inline-block;
+  margin-bottom: 4px;
+}
+
 .conditionInput {
   flex-grow: 1;
 }
