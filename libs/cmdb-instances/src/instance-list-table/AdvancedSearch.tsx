@@ -618,7 +618,7 @@ export class AdvancedSearchForm extends React.Component<
           className={styles.advancedSearchForm}
           onSubmit={this.handleSearch}
         >
-          <Row gutter={24}>{this.getFields()}</Row>
+          <Row gutter={90}>{this.getFields()}</Row>
           <Row>
             <Col span={24} style={{ textAlign: "right" }}>
               <Button
