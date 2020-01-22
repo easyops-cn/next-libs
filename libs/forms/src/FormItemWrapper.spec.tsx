@@ -1,7 +1,11 @@
 import React from "react";
 import { shallow } from "enzyme";
 import { Form } from "antd";
-import { FormItemWrapper, getRules } from "./FormItemWrapper";
+import {
+  FormItemWrapper,
+  getRules,
+  getCommonEventMap
+} from "./FormItemWrapper";
 
 describe("FormItemWrapper", () => {
   it("should work without formElement", () => {
@@ -156,6 +160,41 @@ describe("FormItemWrapper", () => {
           validator: validatorFn2
         }
       ]);
+    });
+
+    describe("getCommonEventMap test", () => {
+      it("should add onFocus event", () => {
+        const mockFn = jest.fn();
+        const props = {
+          onKeyDown: mockFn,
+          children: {
+            props: {}
+          }
+        };
+
+        const result = getCommonEventMap(props);
+
+        expect(result).toEqual({
+          onKeyDown: mockFn
+        });
+      });
+
+      it("should not add onFocus event if children props exist", () => {
+        const mockFn = jest.fn();
+        const childrenFn = jest.fn();
+        const props = {
+          onKeyDown: mockFn,
+          children: {
+            props: {
+              onKeyDown: childrenFn
+            }
+          }
+        };
+
+        const result = getCommonEventMap(props);
+
+        expect(result).toEqual({});
+      });
     });
   });
 });
