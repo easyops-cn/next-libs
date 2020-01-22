@@ -139,7 +139,7 @@ export class LegacyInstanceListTable extends React.Component<
     const idColumnMap = new Map<string, ColumnProps<Record<string, any>>>();
     columns.forEach(column => idColumnMap.set(column.dataIndex, column));
     let fieldIds: string[];
-    if (ids && ids.length) {
+    if (ids?.length) {
       fieldIds = ids;
     } else if (
       this.props.modelData.view &&
