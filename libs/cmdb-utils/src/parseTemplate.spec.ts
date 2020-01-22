@@ -28,6 +28,37 @@ describe("parseTemplate", () => {
     expect(result).toEqual("/next/product/hello-words");
   });
 
+  it("skip the key not found", () => {
+    const url = "/next/product/#{description.comment}";
+    const data = {
+      instanceId: "232bda",
+      name: "console",
+      description: {
+        title: "new-brick",
+        text: "hello-words"
+      }
+    };
+    const skipUndefined = true;
+    const result = parseTemplate(url, data, skipUndefined);
+
+    expect(result).toEqual("/next/product/#{description.comment}");
+  });
+
+  it("do not skip the key not found", () => {
+    const url = "/next/product/#{description.comment}";
+    const data = {
+      instanceId: "232bda",
+      name: "console",
+      description: {
+        title: "new-brick",
+        text: "hello-words"
+      }
+    };
+    const result = parseTemplate(url, data);
+
+    expect(result).toEqual("/next/product/");
+  });
+
   describe("getTemplateFromMap", () => {
     it("get the user value", () => {
       const data = { name: "console", text: "brick", default: "default" };
