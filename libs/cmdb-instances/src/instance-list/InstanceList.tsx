@@ -19,7 +19,7 @@ import {
   ReadSortingChangeDetail
 } from "@easyops/brick-types";
 import { CmdbModels, InstanceApi } from "@sdk/cmdb-sdk";
-import { Button, Checkbox, Icon, Spin, Input } from "antd";
+import { Button, Checkbox, Icon, Spin, Input, Tag } from "antd";
 import {
   forEachAvailableFields,
   getInstanceNameKeys,
@@ -31,6 +31,7 @@ import {
   LogicalOperators,
   Query,
   AdvancedSearch,
+  getFieldConditionsAndValues,
   MoreButtonsContainer,
   InstanceListTable
 } from "../instance-list-table";
@@ -44,6 +45,7 @@ import {
   MAX_DEFAULT_MODAL_FIELDS_COUNT
 } from "./constants";
 import { JsonStorage } from "@libs/storage";
+import { ModelAttributeValueType } from "../model-attribute-form-control/ModelAttributeFormControl";
 
 export interface InstanceListPresetConfigs {
   query?: Record<string, any>;
@@ -77,6 +79,30 @@ export function getQuery(
   );
 
   return query;
+}
+
+function translateConditions(
+  aq: Query[],
+  modelData: Partial<CmdbModels.ModelCmdbObject>
+): { attrId: string; condition: string }[] {
+  const conditions: { attrId: string; condition: string }[] = [];
+  if (!isEmpty(aq)) {
+    for (const query of aq) {
+      const key = Object.keys(query)[0];
+      const attr = modelData.attrList.find(attr => attr.id === key);
+      const info = getFieldConditionsAndValues(
+        query as any,
+        key,
+        attr.value.type as ModelAttributeValueType
+      );
+      const condition = `${attr.name}: ${
+        info.currentCondition.label
+      }"${info.values.join(" | ")}"`;
+      conditions.push({ attrId: key, condition });
+    }
+  }
+
+  return conditions;
 }
 
 interface InstanceListProps {
@@ -377,7 +403,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
 
   const handleDefaultFields = () => {
     let defaultFields: string[];
-    if (props.presetConfigs && !isEmpty(props.presetConfigs.fieldIds)) {
+    if (!isEmpty(props.presetConfigs?.fieldIds)) {
       defaultFields = props.presetConfigs.fieldIds;
     } else {
       defaultFields = computeDefaultFields().fieldIds;
@@ -391,9 +417,19 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
   };
 
   useEffect(() => {
-    props.notifyCurrentFields &&
-      props.notifyCurrentFields(state.presetConfigs.fieldIds);
+    props.notifyCurrentFields?.(state.presetConfigs?.fieldIds);
   }, [props.notifyCurrentFields]);
+
+  const onAdvancedSearchCloseGen = (attrId: string): Function => {
+    return () => {
+      const queries = state.aq.filter(
+        query => Object.keys(query)[0] !== attrId
+      );
+      setState({ aq: queries });
+      props.onAdvancedSearch?.(queries);
+    };
+  };
+  const conditions = translateConditions(state.aq, modelData);
 
   return (
     <Spin spinning={state.loading}>
@@ -481,6 +517,20 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
                 q={state.aq}
                 onSearch={onAdvancedSearch}
               />
+            </div>
+          )}
+          {!isEmpty(state.aq) && (
+            <div className={styles.searchConditions}>
+              <span>当前筛选条件：</span>
+              {conditions.map(condition => (
+                <Tag
+                  key={condition.attrId}
+                  closable
+                  onClose={onAdvancedSearchCloseGen(condition.attrId)}
+                >
+                  {condition.condition}
+                </Tag>
+              ))}
             </div>
           )}
           <InstanceListTable

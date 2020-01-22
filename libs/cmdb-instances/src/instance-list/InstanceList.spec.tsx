@@ -11,7 +11,7 @@ import { PropertyDisplayConfig } from "@easyops/brick-types";
 import { InstanceApi } from "@sdk/cmdb-sdk";
 import * as storage from "@libs/storage";
 
-import { InstanceList, getQuery } from "./InstanceList";
+import { InstanceList } from "./InstanceList";
 import { getInstanceListData } from "../__mocks__";
 import {
   AdvancedSearch,

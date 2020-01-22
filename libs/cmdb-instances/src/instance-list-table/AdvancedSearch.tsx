@@ -281,6 +281,68 @@ function getCondition(
   };
 }
 
+export function getFieldConditionsAndValues(
+  fieldQueryOperatorExpressionsMap: Record<string, QueryOperatorExpressions>,
+  id: string,
+  valueType: ModelAttributeValueType
+) {
+  const expressions = fieldQueryOperatorExpressionsMap[id];
+  let expressionsKeysStr: string;
+  if (expressions) {
+    expressionsKeysStr = Object.keys(expressions).join("");
+  }
+  let currentCondition: Condition;
+  const availableConditions = FieldTypeConditionTypesMap[valueType].map(
+    conditionType => {
+      const condition = getCondition(conditionType, valueType);
+
+      if (expressionsKeysStr) {
+        let operatorsStr = "";
+        const isFixedValueEqual = condition.operations.every(operation => {
+          operatorsStr += operation.operator;
+
+          if (operation.fixedValue !== undefined) {
+            return operation.fixedValue === expressions[operation.operator];
+          } else {
+            return true;
+          }
+        });
+        if (isFixedValueEqual && operatorsStr === expressionsKeysStr) {
+          currentCondition = condition;
+        }
+      }
+
+      return condition;
+    }
+  );
+  if (!currentCondition) {
+    currentCondition = availableConditions[0];
+  }
+  const values = currentCondition.operations.map(operation => {
+    let value: string;
+
+    if (expressions && expressions[operation.operator]) {
+      value = expressions[operation.operator];
+      if (operation.prefix && value.startsWith(operation.prefix)) {
+        value = value.slice(operation.prefix.length);
+      }
+      if (operation.suffix && value.endsWith(operation.suffix)) {
+        value = value.slice(0, value.length - operation.suffix.length);
+      }
+    } else {
+      value = operation.fixedValue !== undefined ? operation.fixedValue : null;
+    }
+
+    return value;
+  });
+
+  return {
+    availableConditions,
+    currentCondition,
+    values
+  };
+}
+
 interface Field {
   id: string;
   name: string;
@@ -347,7 +409,7 @@ export class AdvancedSearchForm extends React.Component<
           id: attr.id,
           name: attr.name,
           attrValue,
-          ...this.getFieldConditionsAndValues(
+          ...getFieldConditionsAndValues(
             fieldQueryOperatorExpressionsMap,
             attr.id,
             attr.value.type as ModelAttributeValueType
@@ -368,7 +430,7 @@ export class AdvancedSearchForm extends React.Component<
           id,
           name: relation[`${sides.this}_name` as RelationNameKeys],
           attrValue: { type },
-          ...this.getFieldConditionsAndValues(
+          ...getFieldConditionsAndValues(
             fieldQueryOperatorExpressionsMap,
             id,
             type
@@ -379,69 +441,6 @@ export class AdvancedSearchForm extends React.Component<
     );
 
     this.state = { fields };
-  }
-
-  getFieldConditionsAndValues(
-    fieldQueryOperatorExpressionsMap: Record<string, QueryOperatorExpressions>,
-    id: string,
-    valueType: ModelAttributeValueType
-  ) {
-    const expressions = fieldQueryOperatorExpressionsMap[id];
-    let expressionsKeysStr: string;
-    if (expressions) {
-      expressionsKeysStr = Object.keys(expressions).join("");
-    }
-    let currentCondition: Condition;
-    const availableConditions = FieldTypeConditionTypesMap[valueType].map(
-      conditionType => {
-        const condition = getCondition(conditionType, valueType);
-
-        if (expressionsKeysStr) {
-          let operatorsStr = "";
-          const isFixedValueEqual = condition.operations.every(operation => {
-            operatorsStr += operation.operator;
-
-            if (operation.fixedValue !== undefined) {
-              return operation.fixedValue === expressions[operation.operator];
-            } else {
-              return true;
-            }
-          });
-          if (isFixedValueEqual && operatorsStr === expressionsKeysStr) {
-            currentCondition = condition;
-          }
-        }
-
-        return condition;
-      }
-    );
-    if (!currentCondition) {
-      currentCondition = availableConditions[0];
-    }
-    const values = currentCondition.operations.map(operation => {
-      let value: string;
-
-      if (expressions && expressions[operation.operator]) {
-        value = expressions[operation.operator];
-        if (operation.prefix && value.startsWith(operation.prefix)) {
-          value = value.slice(operation.prefix.length);
-        }
-        if (operation.suffix && value.endsWith(operation.suffix)) {
-          value = value.slice(0, value.length - operation.suffix.length);
-        }
-      } else {
-        value =
-          operation.fixedValue !== undefined ? operation.fixedValue : null;
-      }
-
-      return value;
-    });
-
-    return {
-      availableConditions,
-      currentCondition,
-      values
-    };
   }
 
   onValueChange = (
