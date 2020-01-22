@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.16](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-utils@0.5.15...@libs/cmdb-utils@0.5.16) (2020-01-22)
+
+### Bug Fixes
+
+- **breadcrumb:** 修复多个 template-breadcrumb 中，模板变量被覆盖的问题 ([936cf5d](https://git.easyops.local/anyclouds/next-libs/commits/936cf5d))
+- **breadcrumb:** 补充单元测试 ([4116822](https://git.easyops.local/anyclouds/next-libs/commits/4116822))
+
 ## [0.5.15](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-utils@0.5.14...@libs/cmdb-utils@0.5.15) (2020-01-15)
 
 **Note:** Version bump only for package @libs/cmdb-utils
