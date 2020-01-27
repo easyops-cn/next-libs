@@ -4348,10 +4348,10 @@ create-react-class@^15.5.3:
     loose-envify "^1.3.1"
     object-assign "^4.1.1"
 
-cronstrue@^1.85.0:
-  version "1.85.0"
-  resolved "https://registry.npm.taobao.org/cronstrue/download/cronstrue-1.85.0.tgz#e5ca1a9d551a6c2cb18ab5b43a472d5db1675f3e"
-  integrity sha1-5coanVUabCyxirW0OkctXbFnXz4=
+cronstrue@^1.88.0:
+  version "1.88.0"
+  resolved "https://registry.npm.taobao.org/cronstrue/download/cronstrue-1.88.0.tgz#3f5fa733905683421b0acc45523b21e4a7742d8c"
+  integrity sha1-P1+nM5BWg0IbCsxFUjsh5Kd0LYw=
 
 cross-env@^7.0.0:
   version "7.0.0"
