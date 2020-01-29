@@ -1,10 +1,20 @@
 import React, { PropsWithChildren } from "react";
-import { get } from "lodash";
+import { get, isEmpty } from "lodash";
 import { Form } from "antd";
 import { ValidationRule } from "antd/lib/form";
 import { AbstractGeneralFormElement } from "./interfaces";
 
-export interface FormItemWrapperProps {
+export interface CommonEventProps {
+  onKeyDown?: (e: KeyboardEvent) => void;
+  onKeyUp?: (e: KeyboardEvent) => void;
+  onPressEnter?: (e: KeyboardEvent) => void;
+  onFocus?: () => void;
+  onBlur?: () => void;
+  onMouseEnter?: (e: MouseEvent) => void;
+  onMouseLeave?: (e: MouseEvent) => void;
+}
+
+export interface FormItemWrapperProps extends CommonEventProps {
   formElement?: AbstractGeneralFormElement;
   name?: string;
   label?: string;
@@ -43,10 +53,45 @@ export function getRules(props: FormItemWrapperProps): ValidationRule[] {
   return rules;
 }
 
+export function getCommonEventMap(
+  props: PropsWithChildren<FormItemWrapperProps>
+): CommonEventProps {
+  const supportEvent = [
+    "onKeyDown",
+    "onKeyUp",
+    "onFocus",
+    "onBlur",
+    "onPressEnter",
+    "onMouseEnter",
+    "onMouseLeave"
+  ];
+  const eventMap = {} as any;
+
+  const children = props.children as React.ReactElement;
+
+  supportEvent.forEach(eventName => {
+    const fn = props[eventName as keyof CommonEventProps];
+
+    // 过滤掉子组件存在已绑定的同名事件
+    if (fn && !children.props[eventName]) {
+      eventMap[eventName] = fn;
+    }
+  });
+
+  return eventMap;
+}
+
 export function FormItemWrapper(
   props: PropsWithChildren<FormItemWrapperProps>
 ): React.ReactElement {
-  let input = props.children;
+  const eventMap = getCommonEventMap(props);
+
+  let input = isEmpty(eventMap)
+    ? props.children
+    : (React.cloneElement(props.children as React.ReactElement, {
+        ...eventMap
+      }) as React.ReactNode);
+
   const formItemProps: Record<string, any> = {
     label: props.label
   };
