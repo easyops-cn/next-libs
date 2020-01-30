@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.4.1...@libs/forms@0.5.0) (2020-01-30)
+
+### Features
+
+- 增加通用的是事件绑定 ([2c1b62c](https://git.easyops.local/anyclouds/next-libs/commits/2c1b62c))
+
 ## [0.4.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.4.0...@libs/forms@0.4.1) (2020-01-21)
 
 ### Bug Fixes
