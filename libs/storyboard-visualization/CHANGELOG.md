@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.11.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.10.7...@libs/storyboard-visualization@0.11.0) (2020-02-03)
+
+### Features
+
+- support editing `onPageLoad` ([cb34afa](https://git.easyops.local/anyclouds/next-libs/commits/cb34afa))
+
 ## [0.10.7](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.10.6...@libs/storyboard-visualization@0.10.7) (2020-01-30)
 
 **Note:** Version bump only for package @libs/storyboard-visualization
