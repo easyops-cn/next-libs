@@ -1,6 +1,7 @@
 import { groupBy } from "lodash";
 import { Modal } from "antd";
 import { BrickLifeCycle, BrickEventsMap } from "@easyops/brick-types";
+import { isObject } from "@easyops/brick-utils";
 import { safeDump, JSON_SCHEMA, safeLoad } from "js-yaml";
 import {
   StoryboardNodeBrick,
@@ -251,7 +252,7 @@ export function generalParse(
   value: string,
   label: string,
   useYaml: boolean,
-  type: "array" | "object" = "object"
+  type: "array" | "object" | "arrayOrObject" = "object"
 ): any {
   if (!value) {
     return;
@@ -267,10 +268,14 @@ export function generalParse(
     });
     return false;
   }
+  const parsedIsArray = Array.isArray(parsed);
+  const parsedIsObject = isObject(parsed) && !parsedIsArray;
   if (
     type === "object"
-      ? typeof parsed !== "object" || Array.isArray(parsed)
-      : !Array.isArray(parsed)
+      ? !parsedIsObject
+      : type === "array"
+      ? !parsedIsArray
+      : !parsedIsArray && !parsedIsObject
   ) {
     Modal.error({
       content: `请填写有效的${label}`

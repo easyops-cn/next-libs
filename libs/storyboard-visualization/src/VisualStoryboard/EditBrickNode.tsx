@@ -29,6 +29,7 @@ export function EditBrickNode(props: EditBrickNodeProps): React.ReactElement {
   const [propertiesAsString, setPropertiesAsString] = React.useState("");
   const [eventsAsString, setEventsAsString] = React.useState("");
   const [resolvesAsString, setResolvesAsString] = React.useState("");
+  const [onPageLoadAsString, setOnPageLoadAsString] = React.useState("");
   const [paramsAsString, setParamsAsString] = React.useState("");
   const [slotsAsString, setSlotsAsString] = React.useState("");
 
@@ -49,10 +50,10 @@ export function EditBrickNode(props: EditBrickNodeProps): React.ReactElement {
       );
       setEventsAsString(generalStringify(brickData.events, props.useYaml));
       setResolvesAsString(
-        generalStringify(
-          brickData.lifeCycle && brickData.lifeCycle.useResolves,
-          props.useYaml
-        )
+        generalStringify(brickData.lifeCycle?.useResolves, props.useYaml)
+      );
+      setOnPageLoadAsString(
+        generalStringify(brickData.lifeCycle?.onPageLoad, props.useYaml)
       );
       setParamsAsString(generalStringify(brickData.params, props.useYaml));
       setSlotsAsString(
@@ -81,6 +82,20 @@ export function EditBrickNode(props: EditBrickNodeProps): React.ReactElement {
 
   const handleOk = (): void => {
     const brickData = originalNode.brickData;
+    const useResolves = generalParse(
+      resolvesAsString,
+      "useResolves",
+      props.useYaml,
+      "array"
+    );
+    const onPageLoad = generalParse(
+      onPageLoadAsString,
+      "onPageLoad",
+      props.useYaml,
+      "arrayOrObject"
+    );
+    const lifeCycle =
+      useResolves || onPageLoad ? { useResolves, onPageLoad } : undefined;
     if (type === "brick" || type === "provider") {
       const properties = generalParse(
         propertiesAsString,
@@ -88,18 +103,17 @@ export function EditBrickNode(props: EditBrickNodeProps): React.ReactElement {
         props.useYaml
       );
       const events = generalParse(eventsAsString, "构件事件", props.useYaml);
-      const resolves = generalParse(
-        resolvesAsString,
-        "useResolves",
-        props.useYaml,
-        "array"
-      );
-      if (properties !== false && resolves !== false && events !== false) {
+      if (
+        properties !== false &&
+        useResolves !== false &&
+        onPageLoad !== false &&
+        events !== false
+      ) {
         const brickPatch: BrickPatch = {
           brick: brickName,
           properties,
           events,
-          lifeCycle: resolves ? { useResolves: resolves } : undefined
+          lifeCycle
         };
 
         if (type === "brick") {
@@ -122,13 +136,7 @@ export function EditBrickNode(props: EditBrickNodeProps): React.ReactElement {
       }
     } else {
       const params = generalParse(paramsAsString, "模板参数", props.useYaml);
-      const resolves = generalParse(
-        resolvesAsString,
-        "useResolves",
-        props.useYaml,
-        "array"
-      );
-      if (params !== false && resolves !== false) {
+      if (params !== false && useResolves !== false && onPageLoad !== false) {
         delete brickData.brick;
         delete brickData.properties;
         delete brickData.bg;
@@ -136,7 +144,7 @@ export function EditBrickNode(props: EditBrickNodeProps): React.ReactElement {
         Object.assign(brickData, {
           template: templateName,
           params,
-          lifeCycle: resolves ? { useResolves: resolves } : undefined
+          lifeCycle
         });
         props.onOk && props.onOk();
       }
@@ -235,6 +243,14 @@ export function EditBrickNode(props: EditBrickNodeProps): React.ReactElement {
               value={resolvesAsString}
               useYaml={props.useYaml}
               onChange={setResolvesAsString}
+              readOnly={!props.editable}
+            />
+          </Form.Item>
+          <Form.Item label="onPageLoad">
+            <GeneralEditor
+              value={onPageLoadAsString}
+              useYaml={props.useYaml}
+              onChange={setOnPageLoadAsString}
               readOnly={!props.editable}
             />
           </Form.Item>

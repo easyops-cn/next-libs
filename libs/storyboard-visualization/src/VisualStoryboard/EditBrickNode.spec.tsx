@@ -21,7 +21,7 @@ describe("EditBrickNode", () => {
         onOk={handleOk}
       />
     );
-    expect(wrapper.find(Form.Item).length).toBe(6);
+    expect(wrapper.find(Form.Item).length).toBe(7);
 
     wrapper
       .find(Form.Item)
@@ -48,6 +48,12 @@ describe("EditBrickNode", () => {
     wrapper
       .find(Form.Item)
       .filter({ label: "插槽配置" })
+      .find(GeneralEditor)
+      .invoke("onChange")("{}");
+
+    wrapper
+      .find(Form.Item)
+      .filter({ label: "onPageLoad" })
       .find(GeneralEditor)
       .invoke("onChange")("{}");
 
@@ -80,7 +86,7 @@ describe("EditBrickNode", () => {
         value: "provider"
       }
     } as any);
-    expect(wrapper.find(Form.Item).length).toBe(5);
+    expect(wrapper.find(Form.Item).length).toBe(6);
 
     wrapper.find(Modal).invoke("onOk")(null);
     expect(handleOk).toBeCalled();
@@ -96,7 +102,7 @@ describe("EditBrickNode", () => {
         value: "template"
       }
     } as any);
-    expect(wrapper.find(Form.Item).length).toBe(4);
+    expect(wrapper.find(Form.Item).length).toBe(5);
 
     wrapper
       .find(Form.Item)
