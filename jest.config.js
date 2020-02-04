@@ -24,7 +24,8 @@ module.exports = {
   testPathIgnorePatterns: ["/node_modules/", "/dist/"],
   moduleNameMapper: {
     "\\.module\\.css$": "identity-obj-proxy",
-    "\\.css$": "<rootDir>/__mocks__/styleMock.js"
+    "\\.css$": "<rootDir>/__mocks__/styleMock.js",
+    "\\.svg": "<rootDir>/__mocks__/svgrMock.js"
   },
   // Ref https://github.com/facebook/jest/issues/2070#issuecomment-431706685
   // Todo(steve): remove next line when issue fixed.
