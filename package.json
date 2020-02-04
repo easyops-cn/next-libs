@@ -68,7 +68,7 @@
     "lint-staged": "^10.0.7",
     "prettier": "^1.19.1",
     "rimraf": "^3.0.1",
-    "snapshot-diff": "^0.6.2",
+    "snapshot-diff": "^0.7.0",
     "typescript": "~3.7.5"
   },
   "workspaces": [

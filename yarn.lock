@@ -5937,18 +5937,6 @@ expand-brackets@^2.1.4:
     snapdragon "^0.8.1"
     to-regex "^3.0.1"
 
-expect@^24.9.0:
-  version "24.9.0"
-  resolved "https://registry.npm.taobao.org/expect/download/expect-24.9.0.tgz#b75165b4817074fa4a157794f46fe9f1ba15b6ca"
-  integrity sha1-t1FltIFwdPpKFXeU9G/p8boVtso=
-  dependencies:
-    "@jest/types" "^24.9.0"
-    ansi-styles "^3.2.0"
-    jest-get-type "^24.9.0"
-    jest-matcher-utils "^24.9.0"
-    jest-message-util "^24.9.0"
-    jest-regex-util "^24.9.0"
-
 expect@^25.1.0:
   version "25.1.0"
   resolved "https://registry.npm.taobao.org/expect/download/expect-25.1.0.tgz?cache=0&sync_timestamp=1579655026045&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fexpect%2Fdownload%2Fexpect-25.1.0.tgz#7e8d7b06a53f7d66ec927278db3304254ee683ee"
@@ -7701,7 +7689,7 @@ jest-leak-detector@^25.1.0:
     jest-get-type "^25.1.0"
     pretty-format "^25.1.0"
 
-jest-matcher-utils@^24.0.0, jest-matcher-utils@^24.9.0:
+jest-matcher-utils@^24.0.0:
   version "24.9.0"
   resolved "https://registry.npm.taobao.org/jest-matcher-utils/download/jest-matcher-utils-24.9.0.tgz#f5b3661d5e628dffe6dd65251dfdae0e87c3a073"
   integrity sha1-9bNmHV5ijf/m3WUlHf2uDofDoHM=
@@ -7787,17 +7775,6 @@ jest-resolve-dependencies@^25.1.0:
     jest-regex-util "^25.1.0"
     jest-snapshot "^25.1.0"
 
-jest-resolve@^24.9.0:
-  version "24.9.0"
-  resolved "https://registry.npm.taobao.org/jest-resolve/download/jest-resolve-24.9.0.tgz#dff04c7687af34c4dd7e524892d9cf77e5d17321"
-  integrity sha1-3/BMdoevNMTdflJIktnPd+XRcyE=
-  dependencies:
-    "@jest/types" "^24.9.0"
-    browser-resolve "^1.11.3"
-    chalk "^2.0.1"
-    jest-pnp-resolver "^1.2.1"
-    realpath-native "^1.1.0"
-
 jest-resolve@^25.1.0:
   version "25.1.0"
   resolved "https://registry.npm.taobao.org/jest-resolve/download/jest-resolve-25.1.0.tgz?cache=0&sync_timestamp=1579655021799&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fjest-resolve%2Fdownload%2Fjest-resolve-25.1.0.tgz#23d8b6a4892362baf2662877c66aa241fa2eaea3"
@@ -7874,25 +7851,6 @@ jest-serializer@^25.1.0:
   version "25.1.0"
   resolved "https://registry.npm.taobao.org/jest-serializer/download/jest-serializer-25.1.0.tgz#73096ba90e07d19dec4a0c1dd89c355e2f129e5d"
   integrity sha1-cwlrqQ4H0Z3sSgwd2Jw1Xi8Snl0=
-
-jest-snapshot@^24.0.0:
-  version "24.9.0"
-  resolved "https://registry.npm.taobao.org/jest-snapshot/download/jest-snapshot-24.9.0.tgz?cache=0&sync_timestamp=1566444284405&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fjest-snapshot%2Fdownload%2Fjest-snapshot-24.9.0.tgz#ec8e9ca4f2ec0c5c87ae8f925cf97497b0e951ba"
-  integrity sha1-7I6cpPLsDFyHro+SXPl0l7DpUbo=
-  dependencies:
-    "@babel/types" "^7.0.0"
-    "@jest/types" "^24.9.0"
-    chalk "^2.0.1"
-    expect "^24.9.0"
-    jest-diff "^24.9.0"
-    jest-get-type "^24.9.0"
-    jest-matcher-utils "^24.9.0"
-    jest-message-util "^24.9.0"
-    jest-resolve "^24.9.0"
-    mkdirp "^0.5.1"
-    natural-compare "^1.4.0"
-    pretty-format "^24.9.0"
-    semver "^6.2.0"
 
 jest-snapshot@^25.1.0:
   version "25.1.0"
@@ -11809,14 +11767,14 @@ snapdragon@^0.8.1:
     source-map-resolve "^0.5.0"
     use "^3.1.0"
 
-snapshot-diff@^0.6.2:
-  version "0.6.2"
-  resolved "https://registry.npm.taobao.org/snapshot-diff/download/snapshot-diff-0.6.2.tgz#d4f4465b60e0942dcffa4d5fbafd0a6c58661741"
-  integrity sha1-1PRGW2DglC3P+k1fuv0KbFhmF0E=
+snapshot-diff@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.npm.taobao.org/snapshot-diff/download/snapshot-diff-0.7.0.tgz#a9e93e848a90c9d3e6ffe645dfb89350e041f15e"
+  integrity sha1-qek+hIqQydPm/+ZF37iTUOBB8V4=
   dependencies:
-    jest-diff "^24.0.0"
-    jest-snapshot "^24.0.0"
-    pretty-format "^24.0.0"
+    jest-diff "^25.1.0"
+    jest-snapshot "^25.1.0"
+    pretty-format "^25.1.0"
     strip-ansi "^6.0.0"
 
 socks-proxy-agent@^4.0.0:
