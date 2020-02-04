@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.16.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@0.15.6...@libs/basic-components@0.16.0) (2020-02-04)
+
+### Features
+
+- svg component of empty result ([0a67239](https://git.easyops.local/anyclouds/next-libs/commits/0a67239))
+
 ## [0.15.6](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@0.15.5...@libs/basic-components@0.15.6) (2020-01-30)
 
 **Note:** Version bump only for package @libs/basic-components
