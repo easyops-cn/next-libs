@@ -14,3 +14,11 @@ declare namespace JSX {
     className?: string;
   }
 }
+
+interface SvgrComponent
+  extends React.StatelessComponent<React.SVGAttributes<SVGElement>> {}
+
+declare module "*.svg" {
+  const svgValue: SvgrComponent;
+  export default svgValue;
+}
