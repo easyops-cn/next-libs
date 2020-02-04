@@ -275,7 +275,7 @@ export class LegacyInstanceListTable extends React.Component<
           ) => {
             return value ? (
               <Popover
-                overlayStyle={{ width: 500, height: 400, overflowY: "auto" }}
+                overlayStyle={{ width: 500, height: "auto", overflowY: "auto" }}
                 content={
                   <StructTable
                     attribute={attribute as Attribute}
@@ -284,6 +284,7 @@ export class LegacyInstanceListTable extends React.Component<
                     size="small"
                   />
                 }
+                placement="bottom"
               >
                 <Button type="link">查看</Button>
               </Popover>
