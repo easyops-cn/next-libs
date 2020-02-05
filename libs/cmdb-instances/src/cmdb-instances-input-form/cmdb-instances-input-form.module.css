@@ -1,0 +1,13 @@
+.cmdbInstancesInputFormWrapper {
+  display: flex;
+}
+
+.fieldInput {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.modalButton {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
