@@ -9,7 +9,7 @@ import {
   LegacyInstanceAttributeForm
 } from "./InstanceAttributeForm";
 
-jest.mock("./i18n");
+jest.mock("../i18n");
 
 import i18n from "i18next";
 jest.spyOn(i18n, "t").mockReturnValue("");
