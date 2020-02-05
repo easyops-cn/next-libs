@@ -1,6 +1,10 @@
 import React from "react";
 import { Modal, Form } from "antd";
-import { StoryboardNodeApp, StoryboardNodeSlottedRoutes } from "../interfaces";
+import {
+  StoryboardNodeApp,
+  StoryboardNodeSlottedRoutes,
+  StoryboardNodeSubRoutes
+} from "../interfaces";
 import {
   updateRoutesNode,
   routesNodeChildrenToRoutes,
@@ -11,7 +15,10 @@ import { GeneralEditor } from "./GeneralEditor";
 
 interface EditRoutesNodeProps {
   visible: boolean;
-  routesNode: StoryboardNodeApp | StoryboardNodeSlottedRoutes;
+  routesNode:
+    | StoryboardNodeApp
+    | StoryboardNodeSubRoutes
+    | StoryboardNodeSlottedRoutes;
   editable?: boolean;
   useYaml?: boolean;
   onCancel?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void;

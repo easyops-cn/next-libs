@@ -20,7 +20,7 @@
   stroke-width: 1;
 }
 
-.link.brick.routed path {
+.link.routed path {
   stroke-dasharray: 3 2;
 }
 

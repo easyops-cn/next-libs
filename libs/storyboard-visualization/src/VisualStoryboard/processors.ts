@@ -6,11 +6,12 @@ import { safeDump, JSON_SCHEMA, safeLoad } from "js-yaml";
 import {
   StoryboardNodeBrick,
   StoryboardNodeBrickChild,
-  StoryboardNodeRoutedBrick,
   StoryboardNodeSlottedBrick,
   RouteData,
   StoryboardNodeApp,
-  StoryboardNodeSlottedRoutes
+  StoryboardNodeSlottedRoutes,
+  StoryboardNodeRoutedChild,
+  StoryboardNodeSubRoutes
 } from "../interfaces";
 
 export interface BrickPatch {
@@ -39,6 +40,7 @@ interface SlottedBrickData {
 
 interface RouteDataPatch extends RouteData {
   _target?: number;
+  type?: "routes" | "bricks";
 }
 
 interface RoutesPatch {
@@ -82,8 +84,7 @@ function slottedBrickPlaceholder(
     slotName,
     groupIndex,
     brickData: {
-      brick: "div",
-      injectDeep: true
+      brick: "div"
     }
   };
 }
@@ -176,6 +177,7 @@ export function updateBrickNode(
       } else {
         children.push({
           type: "routes",
+          routeType: "slotted",
           slotName,
           groupIndex: groupIndex,
           children: []
@@ -188,7 +190,7 @@ export function updateBrickNode(
 }
 
 export function routesNodeChildrenToRoutes(
-  nodes: StoryboardNodeRoutedBrick[]
+  nodes: StoryboardNodeRoutedChild[]
 ): RouteDataPatch[] {
   return Object.values(groupBy(nodes, "groupIndex")).map(group => ({
     _target: group[0].groupIndex,
@@ -197,12 +199,16 @@ export function routesNodeChildrenToRoutes(
 }
 
 export function updateRoutesNode(
-  node: StoryboardNodeApp | StoryboardNodeSlottedRoutes,
+  node:
+    | StoryboardNodeApp
+    | StoryboardNodeSubRoutes
+    | StoryboardNodeSlottedRoutes,
   patch: RoutesPatch
 ): void {
-  node.children = patch.routes.reduce<StoryboardNodeRoutedBrick[]>(
+  node.children = patch.routes.reduce<StoryboardNodeRoutedChild[]>(
     (acc, routeDataPatch, index) => {
-      const { _target, ...routeData } = routeDataPatch;
+      const { _target, type, ...routeData } = routeDataPatch;
+      // Ensure `_target` and `type` match.
       const matchedChildren =
         _target !== undefined &&
         (node.children ?? []).filter(item => item.groupIndex === _target);
@@ -214,17 +220,24 @@ export function updateRoutesNode(
             groupIndex: index
           }))
         );
+      } else if (type === "routes") {
+        acc.push({
+          type: "routes",
+          routeType: "routed",
+          routeData,
+          children: [],
+          groupIndex: index
+        });
       } else {
         acc.push({
           type: "brick",
           brickType: "routed",
           routeData,
           brickData: {
-            brick: "div",
-            injectDeep: true
+            brick: "div"
           },
           groupIndex: index
-        } as StoryboardNodeRoutedBrick);
+        });
       }
       return acc;
     },

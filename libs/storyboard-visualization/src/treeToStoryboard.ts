@@ -9,7 +9,8 @@ import {
   StoryboardTree,
   StoryboardNodeRoutedBrick,
   StoryboardNodeBrickChild,
-  StoryboardNodeBrick
+  StoryboardNodeBrick,
+  StoryboardNodeRoutedChild
 } from "./interfaces";
 
 export function treeToStoryboard(tree: StoryboardTree): Storyboard {
@@ -19,12 +20,23 @@ export function treeToStoryboard(tree: StoryboardTree): Storyboard {
   };
 }
 
-function processRoutes(nodes: StoryboardNodeRoutedBrick[]): RouteConf[] {
-  return Object.values(groupBy(nodes, "groupIndex")).map(nodes => {
-    return {
-      ...nodes[0].routeData,
-      bricks: nodes.map(node => processBrick(node))
-    };
+function processRoutes(nodes: StoryboardNodeRoutedChild[]): RouteConf[] {
+  return Object.values(groupBy(nodes, "groupIndex")).map(group => {
+    const firstNode = group[0];
+    if (firstNode.type === "routes") {
+      return {
+        type: "routes",
+        ...firstNode.routeData,
+        routes: processRoutes(firstNode.children)
+      };
+    } else {
+      return {
+        ...firstNode.routeData,
+        bricks: group.map(node =>
+          processBrick(node as StoryboardNodeRoutedBrick)
+        )
+      };
+    }
   });
 }
 

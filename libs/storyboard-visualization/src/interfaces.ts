@@ -4,16 +4,18 @@ export type StoryboardTree = StoryboardNodeApp;
 
 export type StoryboardNode =
   | StoryboardNodeApp
+  | StoryboardNodeSubRoutes
   | StoryboardNodeSlottedRoutes
   | StoryboardNodeRoutedBrick
   | StoryboardNodeSlottedBrick;
 
-export type RouteData = Omit<RouteConf, "bricks">;
+export type RouteData = Omit<RouteConf, "type" | "bricks" | "routes">;
 export type BrickData = Omit<BrickConf, "slots">;
 
 export interface AbstractStoryboardNode {
   type: "app" | "routes" | "brick";
   brickType?: "routed" | "slotted";
+  routeType?: "routed" | "slotted";
   children?: AbstractStoryboardNode[];
   appData?: MicroApp;
   routeData?: RouteData;
@@ -25,16 +27,30 @@ export interface AbstractStoryboardNode {
 
 export interface StoryboardNodeApp {
   type: "app";
-  children: StoryboardNodeRoutedBrick[];
+  children: StoryboardNodeRoutedChild[];
   appData: MicroApp;
   groupIndex?: number;
   $$originalNode?: StoryboardNodeApp;
 }
 
+export type StoryboardNodeRoutedChild =
+  | StoryboardNodeSubRoutes
+  | StoryboardNodeRoutedBrick;
+
+export interface StoryboardNodeSubRoutes {
+  type: "routes";
+  routeType: "routed";
+  children: StoryboardNodeRoutedChild[];
+  routeData: RouteData;
+  groupIndex: number;
+  $$originalNode?: StoryboardNodeSubRoutes;
+}
+
 export interface StoryboardNodeSlottedRoutes {
   type: "routes";
+  routeType: "slotted";
   slotName: string;
-  children: StoryboardNodeRoutedBrick[];
+  children: StoryboardNodeRoutedChild[];
   groupIndex: number;
   $$originalNode?: StoryboardNodeSlottedRoutes;
 }

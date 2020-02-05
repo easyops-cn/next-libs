@@ -219,7 +219,11 @@ export class Visualization {
       .attr("class", d =>
         classNames(
           styles.link,
-          [d.target.data.type, (d.target.data as any).brickType]
+          [
+            d.target.data.type,
+            (d.target.data as any).brickType,
+            (d.target.data as any).routeType
+          ]
             .filter(Boolean)
             .map(type => styles[type])
         )
@@ -249,7 +253,14 @@ export class Visualization {
                 )[0]
               : target.data.slotName;
           case "routes":
-            return target.data.slotName;
+            return target.data.routeType === "routed"
+              ? [].concat(
+                  computeRealRoutePath(
+                    target.data.routeData.path,
+                    storyboardTree.appData
+                  )
+                )[0]
+              : target.data.slotName;
         }
       });
 
@@ -322,7 +333,7 @@ export class Visualization {
               d.data.type === "brick" && d.data.brickData.template,
             [styles.provider]: d.data.type === "brick" && d.data.brickData.bg
           },
-          [d.data.type, (d.data as any).brickType]
+          [d.data.type, (d.data as any).brickType, (d.data as any).routeType]
             .filter(Boolean)
             .map(type => styles[type])
         )

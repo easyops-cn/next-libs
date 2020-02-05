@@ -10,7 +10,8 @@ import {
   StoryboardNodeRoutedBrick,
   StoryboardNodeSlottedBrick,
   RouteData,
-  StoryboardNodeBrickChild
+  StoryboardNodeBrickChild,
+  StoryboardNodeRoutedChild
 } from "./interfaces";
 
 export function storyboardToTree(storyboard: Storyboard): StoryboardTree {
@@ -24,13 +25,24 @@ export function storyboardToTree(storyboard: Storyboard): StoryboardTree {
 function processRoutes(
   routes: RouteConf[],
   appData: MicroApp
-): StoryboardNodeRoutedBrick[] {
-  return routes.reduce<StoryboardNodeRoutedBrick[]>(
+): StoryboardNodeRoutedChild[] {
+  return routes.reduce<StoryboardNodeRoutedChild[]>(
     (acc, routeConf, index: number) => {
-      const { bricks, ...routeData } = routeConf;
-      bricks.forEach(brickConf => {
-        acc.push(processRoutedBrick(brickConf, appData, routeData, index));
-      });
+      if (routeConf.type === "routes") {
+        const { routes: subRoutes, type, ...routeData } = routeConf;
+        acc.push({
+          type: "routes",
+          routeType: "routed",
+          children: processRoutes(subRoutes, appData),
+          routeData,
+          groupIndex: index
+        });
+      } else {
+        const { bricks, ...routeData } = routeConf;
+        bricks.forEach(brickConf => {
+          acc.push(processRoutedBrick(brickConf, appData, routeData, index));
+        });
+      }
       return acc;
     },
     []
@@ -50,6 +62,7 @@ function processBrickChildren(
     if (slotConf.type === "routes") {
       children.push({
         type: "routes",
+        routeType: "slotted",
         slotName,
         groupIndex: index,
         children: processRoutes(slotConf.routes, appData)

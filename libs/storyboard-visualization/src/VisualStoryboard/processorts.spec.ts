@@ -149,7 +149,6 @@ describe("updateBrickNode", () => {
           Object {
             "brickData": Object {
               "brick": "div",
-              "injectDeep": true,
             },
             "brickType": "slotted",
             "groupIndex": 1,
@@ -159,7 +158,6 @@ describe("updateBrickNode", () => {
           Object {
             "brickData": Object {
               "brick": "page-title",
-              "injectDeep": true,
             },
             "brickType": "slotted",
             "groupIndex": 2,
@@ -186,7 +184,6 @@ describe("updateBrickNode", () => {
           Object {
             "brickData": Object {
               "brick": "div",
-              "injectDeep": true,
             },
             "brickType": "slotted",
             "groupIndex": 3,
@@ -196,7 +193,6 @@ describe("updateBrickNode", () => {
           Object {
             "brickData": Object {
               "brick": "show-more",
-              "injectDeep": true,
             },
             "brickType": "slotted",
             "groupIndex": 3,
@@ -205,7 +201,6 @@ describe("updateBrickNode", () => {
           },
           Object {
             "brickData": Object {
-              "injectDeep": true,
               "template": "show-more-template",
             },
             "brickType": "slotted",
@@ -216,6 +211,7 @@ describe("updateBrickNode", () => {
           Object {
             "children": Array [],
             "groupIndex": 4,
+            "routeType": "slotted",
             "slotName": "footer",
             "type": "routes",
           },
@@ -294,6 +290,10 @@ describe("updateRoutesNode", () => {
         {
           _target: 1,
           path: "/b"
+        },
+        {
+          path: "/c",
+          type: "routes"
         }
       ]
     });
@@ -317,7 +317,6 @@ describe("updateRoutesNode", () => {
           Object {
             "brickData": Object {
               "brick": "div",
-              "injectDeep": true,
             },
             "brickType": "routed",
             "groupIndex": 1,
@@ -332,6 +331,15 @@ describe("updateRoutesNode", () => {
               "path": "/b",
             },
             "type": "brick",
+          },
+          Object {
+            "children": Array [],
+            "groupIndex": 3,
+            "routeData": Object {
+              "path": "/c",
+            },
+            "routeType": "routed",
+            "type": "routes",
           },
         ],
       }
