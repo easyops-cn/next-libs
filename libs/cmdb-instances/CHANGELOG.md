@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.12.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.11.4...@libs/cmdb-instances@0.12.0) (2020-02-05)
+
+### Features
+
+- **cmdb-instances:** migrate "cmdb-instances-input-form" refs BRICK_STORE-1016 ([5202003](https://git.easyops.local/anyclouds/next-libs/commits/5202003))
+
 ## [0.11.4](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.11.3...@libs/cmdb-instances@0.11.4) (2020-02-05)
 
 **Note:** Version bump only for package @libs/cmdb-instances
