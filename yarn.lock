@@ -1275,10 +1275,10 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@dll/ace@^1.0.61":
-  version "1.0.61"
-  resolved "http://registry.npm.easyops.local/@dll/ace/download/@dll/ace-1.0.61.tgz#b214cc6015a1fc3490e491a67da27f6018a0cee8"
-  integrity sha1-shTMYBWh/DSQ5JGmfaJ/YBigzug=
+"@dll/ace@^1.0.63":
+  version "1.0.63"
+  resolved "http://registry.npm.easyops.local/@dll/ace/download/@dll/ace-1.0.63.tgz#f6dd20d4d58286f690a64dfb21430763e6c99f4c"
+  integrity sha1-9t0g1NWChvaQpk37IUMHY+bJn0w=
   dependencies:
     react-ace "^7.0.4"
 
@@ -1316,7 +1316,7 @@
     "@babel/preset-typescript" "^7.8.3"
     babel-plugin-import "^1.12.2"
 
-"@easyops/brick-dll@^1.0.61":
+"@easyops/brick-dll@^1.0.63":
   version "1.0.63"
   resolved "http://registry.npm.easyops.local/@easyops/brick-dll/download/@easyops/brick-dll-1.0.63.tgz#fae2518e059cd93fd90b417459f3e8efcad296e0"
   integrity sha1-+uJRjgWc2T/ZC0F0WfPo78rSluA=
@@ -1372,11 +1372,6 @@
     prettier "^1.19.1"
     request "^2.88.0"
     request-promise-native "^1.0.8"
-
-"@easyops/brick-types@^1.10.0":
-  version "1.10.0"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-types/download/@easyops/brick-types-1.10.0.tgz#95c5e1bcaa089adbf2119e495a1ded8f4b2d642f"
-  integrity sha1-lcXhvKoImtvyEZ5JWh3tj0stZC8=
 
 "@easyops/brick-types@^1.11.0":
   version "1.11.0"
