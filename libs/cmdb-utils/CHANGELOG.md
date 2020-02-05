@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.17](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-utils@0.5.16...@libs/cmdb-utils@0.5.17) (2020-02-05)
+
+### Bug Fixes
+
+- **cmdb-utils:** default instance name key of "HOST" model refs BRICK_STORE-999 ([57f7ac3](https://git.easyops.local/anyclouds/next-libs/commits/57f7ac3))
+
 ## [0.5.16](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-utils@0.5.15...@libs/cmdb-utils@0.5.16) (2020-01-22)
 
 ### Bug Fixes
