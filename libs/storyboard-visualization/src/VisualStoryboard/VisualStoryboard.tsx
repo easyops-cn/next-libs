@@ -11,7 +11,8 @@ import {
   StoryboardNodeBrick,
   StoryboardNodeApp,
   StoryboardNodeSlottedRoutes,
-  StoryboardNode
+  StoryboardNode,
+  StoryboardNodeSubRoutes
 } from "../interfaces";
 import { treeToStoryboard } from "../treeToStoryboard";
 
@@ -31,7 +32,7 @@ export function VisualStoryboard(
     StoryboardNodeBrick
   >(null);
   const [activeRoutesNode, setActiveRoutesNode] = React.useState<
-    StoryboardNodeApp | StoryboardNodeSlottedRoutes
+    StoryboardNodeApp | StoryboardNodeSubRoutes | StoryboardNodeSlottedRoutes
   >(null);
 
   const visual = React.useMemo(() => new Visualization(), []);

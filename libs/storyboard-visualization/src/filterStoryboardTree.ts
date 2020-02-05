@@ -3,7 +3,7 @@ import { MicroApp } from "@easyops/brick-types";
 import {
   StoryboardTree,
   AbstractStoryboardNode,
-  StoryboardNodeRoutedBrick
+  StoryboardNodeRoutedChild
 } from "./interfaces";
 
 export interface FilterOptions {
@@ -11,7 +11,7 @@ export interface FilterOptions {
 }
 
 function matchRoute(
-  node: StoryboardNodeRoutedBrick,
+  node: StoryboardNodeRoutedChild,
   appData: MicroApp,
   path: string
 ): boolean {
@@ -32,7 +32,7 @@ function filterStoryboardNode(
     let children = node.children;
     if (node.type === "app" || node.type === "routes") {
       const matchedNode = children.find(child =>
-        matchRoute(child as StoryboardNodeRoutedBrick, appData, options.path)
+        matchRoute(child as StoryboardNodeRoutedChild, appData, options.path)
       );
       if (matchedNode) {
         children = children.filter(
