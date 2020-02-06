@@ -1,6 +1,6 @@
 {
   "name": "@libs/cmdb-instances",
-  "version": "0.12.1",
+  "version": "0.12.2",
   "description": "> TODO: description",
   "homepage": "https://git.easyops.local/anyclouds/next-libs/tree/master/libs/cmdb-instances",
   "license": "UNLICENSED",
@@ -31,8 +31,8 @@
   },
   "dependencies": {
     "@easyops/brick-types": "^1.12.0",
-    "@libs/basic-components": "^0.16.2",
-    "@libs/cmdb-utils": "^0.5.17",
+    "@libs/basic-components": "^0.16.3",
+    "@libs/cmdb-utils": "^0.5.18",
     "@sdk/cmdb-sdk": "^0.7.4",
     "@sdk/permission-sdk": "^0.2.5",
     "immutability-helper": "^3.0.1"
