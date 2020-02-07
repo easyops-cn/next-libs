@@ -31,7 +31,7 @@
     "@easyops/brick-dll": "*"
   },
   "dependencies": {
-    "@types/echarts": "^4.4.2",
+    "@types/echarts": "^4.4.3",
     "css-element-queries": "^1.2.3"
   }
 }
