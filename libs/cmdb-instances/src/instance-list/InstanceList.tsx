@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import {
   difference,
   isEmpty,
@@ -10,7 +10,6 @@ import {
   sortBy,
   findIndex
 } from "lodash";
-import { useTranslation } from "react-i18next";
 import { handleHttpError } from "@easyops/brick-kit";
 import {
   PropertyDisplayConfig,
@@ -147,6 +146,8 @@ interface InstanceListProps {
 interface InstanceListState {
   q: string;
   aq: Query[];
+  asc: boolean;
+  sort: string;
   page: number;
   pageSize: number;
   aliveHosts: boolean;
@@ -248,6 +249,8 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
   const initState: InstanceListState = {
     q: props.q,
     aq: props.aq,
+    asc: props.asc,
+    sort: props.sort,
     page: props.page,
     pageSize: props.pageSize,
     aliveHosts: props.aliveHosts,
@@ -260,6 +263,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     autoBreakLine: false
   };
 
+  const [q, setQ] = useState(props.q);
   const [state, setState] = useReducer(reducer, initState);
 
   const getInstanceListData = async () => {
@@ -269,7 +273,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
 
       state.page && (searchParams.page = state.page);
       state.pageSize && (searchParams["page_size"] = state.pageSize);
-      props.sort && (searchParams.sort = { [props.sort]: props.asc ? 1 : -1 });
+      state.sort && (searchParams.sort = { [state.sort]: state.asc ? 1 : -1 });
       if (state.q) {
         query = getQuery(
           modelData,
@@ -352,10 +356,14 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     state.aliveHosts,
     state.relatedToMe,
     state.presetConfigs,
-    props.sort,
-    props.asc,
+    state.sort,
+    state.asc,
     props.objectId
   ]);
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQ(e.target.value);
+  };
 
   const onSearch = (value: string) => {
     const q = value.trim();
@@ -366,6 +374,15 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
   const onAdvancedSearch = (queries: Query[]) => {
     setState({ aq: queries });
     props.onAdvancedSearch?.(queries);
+  };
+
+  const onSortingChange = (info: ReadSortingChangeDetail) => {
+    if (info.asc === undefined) {
+      setState({ asc: undefined, sort: undefined });
+    } else {
+      setState({ asc: info.asc, sort: info.sort });
+    }
+    props.onSortingChange?.(info);
   };
 
   const onPaginationChange = (pagination: ReadPaginationChangeDetail) => {
@@ -442,7 +459,12 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
             <div className={styles.instanceListToolbar}>
               <div className={styles.searchRelated}>
                 {!props.searchDisabled && (
-                  <Input.Search enterButton onSearch={onSearch} />
+                  <Input.Search
+                    enterButton
+                    value={q}
+                    onChange={onChange}
+                    onSearch={onSearch}
+                  />
                 )}
                 {!props.advancedSearchDisabled && (
                   <Button
@@ -519,9 +541,20 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
               />
             </div>
           )}
-          {!isEmpty(state.aq) && (
+          {(state.q || !isEmpty(state.aq)) && (
             <div className={styles.searchConditions}>
               <span>当前筛选条件：</span>
+              {state.q && (
+                <Tag
+                  closable
+                  onClose={() => {
+                    setQ("");
+                    onSearch("");
+                  }}
+                >
+                  模糊搜索：{state.q}
+                </Tag>
+              )}
               {conditions.map(condition => (
                 <Tag
                   key={condition.attrId}
@@ -539,15 +572,15 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
             idObjectMap={state.idObjectMap}
             modelData={modelData}
             instanceListData={state.instanceListData}
-            sort={props.sort}
-            asc={props.asc}
+            sort={state.sort}
+            asc={state.asc}
             selectedRowKeys={props.selectedRowKeys}
             selectDisabled={props.selectDisabled}
             sortDisabled={props.sortDisabled}
             propertyDisplayConfigs={props.propertyDisplayConfigs}
             onClickItem={props.onClickItem}
             onPaginationChange={onPaginationChange}
-            onSortingChange={props.onSortingChange}
+            onSortingChange={onSortingChange}
             onSelectionChange={props.onSelectionChange}
             autoBreakLine={state.autoBreakLine}
             relationLinkDisabled={props.relationLinkDisabled}

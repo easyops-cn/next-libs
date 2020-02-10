@@ -174,7 +174,6 @@ describe("InstanceList", () => {
     );
     expect(instanceListTableProps.presetConfigs.fieldIds).toEqual(newFieldIds);
     expect(instanceListTableProps.onClickItem).toBe(onClickItem);
-    expect(instanceListTableProps.onSortingChange).toBe(onSortingChange);
     expect(instanceListTableProps.onSelectionChange).toBe(onSelectionChange);
   });
 

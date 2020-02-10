@@ -105,12 +105,20 @@ export class LegacyInstanceListTable extends React.Component<
         pageSizeOptions: this.props.pageSizeOptions,
         showSizeChanger: this.props.showSizeChanger,
         total: this.props.instanceListData.total,
-        showTotal: total =>
-          `共 ${total} 项${
-            this.state.selectedRowKeys.length > 0
-              ? `，已选择 ${this.state.selectedRowKeys.length} 项`
-              : ""
-          }`,
+        showTotal: total => (
+          <div>
+            <span>共 {total} 项</span>
+            {this.state.selectedRowKeys.length > 0 && (
+              <>
+                <span>，已选择 {this.state.selectedRowKeys.length} 项</span>
+                <a role="button" onClick={() => this.onSelectChange([], [])}>
+                  {" "}
+                  清空
+                </a>
+              </>
+            )}
+          </div>
+        ),
         current: this.props.instanceListData.page,
         pageSize: this.props.instanceListData.page_size
       },
@@ -464,20 +472,16 @@ export class LegacyInstanceListTable extends React.Component<
       pagination.current !== this.state.pagination.current ||
       pagination.pageSize !== this.state.pagination.pageSize
     ) {
-      if (this.props.onPaginationChange) {
-        this.props.onPaginationChange({
-          page: pagination.current,
-          pageSize: pagination.pageSize
-        });
-      }
+      this.props.onPaginationChange?.({
+        page: pagination.current,
+        pageSize: pagination.pageSize
+      });
     }
     const asc = { [SortOrder.Ascend]: true, [SortOrder.Descend]: false }[
       sorter.order
     ];
     if (sorter.columnKey !== this.props.sort || asc !== this.props.asc) {
-      if (this.props.onSortingChange) {
-        this.props.onSortingChange({ sort: sorter.columnKey, asc });
-      }
+      this.props.onSortingChange?.({ sort: sorter.columnKey, asc });
     }
   };
 
