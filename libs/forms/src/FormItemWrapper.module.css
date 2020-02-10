@@ -1,0 +1,8 @@
+/* 兼容表单项独立使用时，造成的样式排列问题  */
+.formItem {
+  margin-bottom: 0;
+}
+
+forms\.general-form .formItem {
+  margin-bottom: 24px;
+}

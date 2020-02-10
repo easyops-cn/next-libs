@@ -3,6 +3,7 @@ import { get, isEmpty } from "lodash";
 import { Form } from "antd";
 import { ValidationRule } from "antd/lib/form";
 import { AbstractGeneralFormElement } from "./interfaces";
+import style from "./FormItemWrapper.module.css";
 
 export interface CommonEventProps {
   onKeyDown?: (e: KeyboardEvent) => void;
@@ -116,5 +117,9 @@ export function FormItemWrapper(
     formItemProps.colon = !props.formElement.noColon;
   }
 
-  return <Form.Item {...formItemProps}>{input}</Form.Item>;
+  return (
+    <Form.Item className={style.formItem} {...formItemProps}>
+      {input}
+    </Form.Item>
+  );
 }
