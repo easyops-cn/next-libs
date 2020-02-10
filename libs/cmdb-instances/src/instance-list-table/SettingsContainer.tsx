@@ -33,6 +33,7 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
   titleLineStyle: any;
   titleLineSpanStyle: any;
   otherAttrs: any[];
+  attrAndRelationList: { id: string; name: string }[] = [];
 
   constructor(props: SettingsProps) {
     super(props);
@@ -63,18 +64,16 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
       });
     }
 
-    const processedAttrAndRelationsList = attrAndRelationList.map(
-      (attribute: any) => ({
-        id: attribute.id,
-        name: attribute.name
-      })
-    );
+    this.attrAndRelationList = attrAndRelationList.map((attribute: any) => ({
+      id: attribute.id,
+      name: attribute.name
+    }));
 
     this.state = {
       nextFields: props.currentFields.slice(),
       otherFields: [],
       q: "",
-      filterList: processedAttrAndRelationsList
+      filterList: this.attrAndRelationList
     };
     this.debounceHandleSearch = debounce(this.filterColTag, 300);
 
@@ -148,12 +147,14 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
   };
 
   filterColTag = () => {
-    const { attrList } = this.props.modelData;
-    let filterList = attrList;
-    const q = this.state.q.trim().toLocaleLowerCase();
+    let filterList = this.attrAndRelationList;
+    const q = this.state.q.trim().toLowerCase();
     if (q) {
-      filterList = attrList.filter((attr: any) => {
-        return attr.name.toLocaleLowerCase().includes(q);
+      filterList = filterList.filter(attr => {
+        return (
+          attr.id.toLowerCase().includes(q) ||
+          attr.name.toLowerCase().includes(q)
+        );
       });
     }
     this.setState({
