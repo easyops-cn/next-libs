@@ -464,20 +464,16 @@ export class LegacyInstanceListTable extends React.Component<
       pagination.current !== this.state.pagination.current ||
       pagination.pageSize !== this.state.pagination.pageSize
     ) {
-      if (this.props.onPaginationChange) {
-        this.props.onPaginationChange({
-          page: pagination.current,
-          pageSize: pagination.pageSize
-        });
-      }
+      this.props.onPaginationChange?.({
+        page: pagination.current,
+        pageSize: pagination.pageSize
+      });
     }
     const asc = { [SortOrder.Ascend]: true, [SortOrder.Descend]: false }[
       sorter.order
     ];
     if (sorter.columnKey !== this.props.sort || asc !== this.props.asc) {
-      if (this.props.onSortingChange) {
-        this.props.onSortingChange({ sort: sorter.columnKey, asc });
-      }
+      this.props.onSortingChange?.({ sort: sorter.columnKey, asc });
     }
   };
 

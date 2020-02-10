@@ -146,6 +146,8 @@ interface InstanceListProps {
 interface InstanceListState {
   q: string;
   aq: Query[];
+  asc: boolean;
+  sort: string;
   page: number;
   pageSize: number;
   aliveHosts: boolean;
@@ -247,6 +249,8 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
   const initState: InstanceListState = {
     q: props.q,
     aq: props.aq,
+    asc: props.asc,
+    sort: props.sort,
     page: props.page,
     pageSize: props.pageSize,
     aliveHosts: props.aliveHosts,
@@ -269,7 +273,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
 
       state.page && (searchParams.page = state.page);
       state.pageSize && (searchParams["page_size"] = state.pageSize);
-      props.sort && (searchParams.sort = { [props.sort]: props.asc ? 1 : -1 });
+      state.sort && (searchParams.sort = { [state.sort]: state.asc ? 1 : -1 });
       if (state.q) {
         query = getQuery(
           modelData,
@@ -352,8 +356,8 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     state.aliveHosts,
     state.relatedToMe,
     state.presetConfigs,
-    props.sort,
-    props.asc,
+    state.sort,
+    state.asc,
     props.objectId
   ]);
 
@@ -370,6 +374,15 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
   const onAdvancedSearch = (queries: Query[]) => {
     setState({ aq: queries });
     props.onAdvancedSearch?.(queries);
+  };
+
+  const onSortingChange = (info: ReadSortingChangeDetail) => {
+    if (info.asc === undefined) {
+      setState({ asc: undefined, sort: undefined });
+    } else {
+      setState({ asc: info.asc, sort: info.sort });
+    }
+    props.onSortingChange?.(info);
   };
 
   const onPaginationChange = (pagination: ReadPaginationChangeDetail) => {
@@ -559,15 +572,15 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
             idObjectMap={state.idObjectMap}
             modelData={modelData}
             instanceListData={state.instanceListData}
-            sort={props.sort}
-            asc={props.asc}
+            sort={state.sort}
+            asc={state.asc}
             selectedRowKeys={props.selectedRowKeys}
             selectDisabled={props.selectDisabled}
             sortDisabled={props.sortDisabled}
             propertyDisplayConfigs={props.propertyDisplayConfigs}
             onClickItem={props.onClickItem}
             onPaginationChange={onPaginationChange}
-            onSortingChange={props.onSortingChange}
+            onSortingChange={onSortingChange}
             onSelectionChange={props.onSelectionChange}
             autoBreakLine={state.autoBreakLine}
             relationLinkDisabled={props.relationLinkDisabled}
