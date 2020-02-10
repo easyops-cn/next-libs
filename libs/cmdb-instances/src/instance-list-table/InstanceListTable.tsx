@@ -43,6 +43,10 @@ enum SortOrder {
   Descend = "descend"
 }
 
+const SELF_RENDER_COLUMNS: { [objectId: string]: PropertyDisplayConfig[] } = {
+  HOST: [{ key: "_agentStatus", brick: "presentational-bricks.agent-status" }]
+};
+
 export interface InstanceListTableProps extends WithTranslation {
   detailUrlTemplates?: Record<string, string>;
   presetConfigs?: InstanceListPresetConfigs;
@@ -86,11 +90,13 @@ export class LegacyInstanceListTable extends React.Component<
   constructor(props: InstanceListTableProps) {
     super(props);
 
-    if (this.props.propertyDisplayConfigs) {
-      this.props.propertyDisplayConfigs.forEach(
-        config => (this.keyDisplayConfigMap[config.key] = config)
-      );
-    }
+    const objectId = this.props.modelData.objectId;
+    SELF_RENDER_COLUMNS[objectId]?.forEach(
+      config => (this.keyDisplayConfigMap[config.key] = config)
+    );
+    this.props.propertyDisplayConfigs?.forEach(
+      config => (this.keyDisplayConfigMap[config.key] = config)
+    );
 
     const fieldIds = this.props.presetConfigs
       ? this.props.presetConfigs.fieldIds
