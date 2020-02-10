@@ -105,12 +105,20 @@ export class LegacyInstanceListTable extends React.Component<
         pageSizeOptions: this.props.pageSizeOptions,
         showSizeChanger: this.props.showSizeChanger,
         total: this.props.instanceListData.total,
-        showTotal: total =>
-          `共 ${total} 项${
-            this.state.selectedRowKeys.length > 0
-              ? `，已选择 ${this.state.selectedRowKeys.length} 项`
-              : ""
-          }`,
+        showTotal: total => (
+          <div>
+            <span>共 {total} 项</span>
+            {this.state.selectedRowKeys.length > 0 && (
+              <>
+                <span>，已选择 {this.state.selectedRowKeys.length} 项</span>
+                <a role="button" onClick={() => this.onSelectChange([], [])}>
+                  {" "}
+                  清空
+                </a>
+              </>
+            )}
+          </div>
+        ),
         current: this.props.instanceListData.page,
         pageSize: this.props.instanceListData.page_size
       },
