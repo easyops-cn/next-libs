@@ -30,7 +30,7 @@
     "@easyops/brick-dll": "*"
   },
   "dependencies": {
-    "@easyops/brick-types": "^1.13.0",
+    "@easyops/brick-types": "^1.14.0",
     "@libs/cmdb-utils": "^0.5.18"
   }
 }
