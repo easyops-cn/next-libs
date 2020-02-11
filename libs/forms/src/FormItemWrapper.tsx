@@ -1,9 +1,12 @@
 import React, { PropsWithChildren } from "react";
 import { get, isEmpty } from "lodash";
 import { Form } from "antd";
+import { getDefaultMessage } from "./message";
 import { ValidationRule } from "antd/lib/form";
 import { AbstractGeneralFormElement } from "./interfaces";
 import style from "./FormItemWrapper.module.css";
+import { addResourceBundle } from "./i18n";
+addResourceBundle();
 
 export interface CommonEventProps {
   onKeyDown?: (e: KeyboardEvent) => void;
@@ -38,7 +41,7 @@ export function getRules(props: FormItemWrapperProps): ValidationRule[] {
     if (value) {
       rules.push({
         [attr]: attr === "pattern" ? new RegExp(value as string) : value,
-        message: get(props.message, attr)
+        message: get(props.message, attr, getDefaultMessage(attr, props))
       });
     }
   });
