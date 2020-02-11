@@ -223,7 +223,7 @@ export class ModelAttributeFormControl extends Component<
         }
         return FormControlTypeEnum.STRUCT;
       case ModelAttributeValueType.BOOLEAN:
-        return FormControlTypeEnum.RADIO;
+        return FormControlTypeEnum.SELECT;
       default:
         throw new Error(`unsupported type: ${attribute.value.type}`);
     }

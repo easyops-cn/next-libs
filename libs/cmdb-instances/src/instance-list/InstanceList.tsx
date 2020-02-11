@@ -20,13 +20,16 @@ import {
 import { CmdbModels, InstanceApi } from "@sdk/cmdb-sdk";
 import { Button, Checkbox, Icon, Spin, Input, Tag } from "antd";
 import {
+  getRelationObjectSides,
   forEachAvailableFields,
   getInstanceNameKeys,
   RelationIdKeys,
+  RelationNameKeys,
   RelationObjectIdKeys
 } from "@libs/cmdb-utils";
 
 import {
+  ConditionType,
   LogicalOperators,
   Query,
   AdvancedSearch,
@@ -82,26 +85,55 @@ export function getQuery(
 
 function translateConditions(
   aq: Query[],
+  idObjectMap: Record<string, Partial<CmdbModels.ModelCmdbObject>>,
   modelData: Partial<CmdbModels.ModelCmdbObject>
 ): { attrId: string; condition: string }[] {
   const conditions: { attrId: string; condition: string }[] = [];
+  const relations = modelData.relation_list.map(relation => {
+    const sides = getRelationObjectSides(relation, modelData);
+    const objectId = relation[`${sides.this}_id` as RelationIdKeys];
+    const nameKey = getInstanceNameKeys(
+      idObjectMap[relation[`${sides.that}_object_id` as RelationObjectIdKeys]]
+    );
+    const id = `${objectId}.${nameKey}`;
+    const name = relation[`${sides.this}_name` as RelationNameKeys];
+    return { id, name, value: { type: "str" } };
+  });
+  const attrAndRelationList = [...modelData.attrList, ...relations];
   if (!isEmpty(aq)) {
     for (const query of aq) {
       const key = Object.keys(query)[0];
-      const attr = modelData.attrList.find(attr => attr.id === key);
+      const attr = attrAndRelationList.find(attr => attr.id === key);
       const info = getFieldConditionsAndValues(
         query as any,
         key,
         attr.value.type as ModelAttributeValueType
       );
-      const condition = `${attr.name}: ${
-        info.currentCondition.label
-      }"${info.values.join(" | ")}"`;
+
+      let condition = `${attr.name}: ${info.currentCondition.label}`;
+      if (
+        ![ConditionType.Empty, ConditionType.NotEmpty].includes(
+          info.currentCondition.type
+        )
+      ) {
+        condition += `"${info.values.join(" ~ ")}"`;
+      }
       conditions.push({ attrId: key, condition });
     }
   }
 
   return conditions;
+}
+
+function newKey(fieldIds: string[], aq: Query[]): string {
+  let key = "";
+  if (!isEmpty(fieldIds)) {
+    key += fieldIds.join("-");
+  }
+  if (!isEmpty(aq)) {
+    key += `-${aq.length}`;
+  }
+  return key;
 }
 
 interface InstanceListProps {
@@ -446,7 +478,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
       props.onAdvancedSearch?.(queries);
     };
   };
-  const conditions = translateConditions(state.aq, modelData);
+  const conditions = translateConditions(state.aq, idObjectMap, modelData);
 
   return (
     <Spin spinning={state.loading}>
@@ -528,11 +560,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
               hidden={!state.isAdvancedSearchVisible}
             >
               <AdvancedSearch
-                key={
-                  state.presetConfigs.fieldIds
-                    ? state.presetConfigs.fieldIds.join("-")
-                    : ""
-                }
+                key={newKey(state.presetConfigs?.fieldIds, state.aq)}
                 presetConfigs={state.presetConfigs}
                 idObjectMap={state.idObjectMap}
                 modelData={modelData}
