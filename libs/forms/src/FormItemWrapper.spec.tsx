@@ -6,6 +6,10 @@ import {
   getRules,
   getCommonEventMap
 } from "./FormItemWrapper";
+import i18n from "i18next";
+
+jest.mock("./i18n");
+jest.spyOn(i18n, "t").mockReturnValue("default message");
 
 describe("FormItemWrapper", () => {
   it("should work without formElement", () => {
@@ -74,7 +78,8 @@ describe("FormItemWrapper", () => {
 
       expect(result).toEqual([
         {
-          min: 8
+          min: 8,
+          message: "default message"
         }
       ]);
     });
