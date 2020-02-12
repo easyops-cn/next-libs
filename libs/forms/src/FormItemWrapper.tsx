@@ -1,6 +1,8 @@
 import React, { PropsWithChildren } from "react";
 import { get, isEmpty } from "lodash";
-import { Form } from "antd";
+import { Form, Tooltip } from "antd";
+import { GeneralIcon } from "@libs/basic-components";
+import { MenuIcon } from "@easyops/brick-types";
 import { getDefaultMessage } from "./message";
 import { ValidationRule } from "antd/lib/form";
 import { AbstractGeneralFormElement } from "./interfaces";
@@ -22,6 +24,11 @@ export interface FormItemWrapperProps extends CommonEventProps {
   formElement?: AbstractGeneralFormElement;
   name?: string;
   label?: string;
+  labelTooltip?: {
+    content: string;
+    icon: MenuIcon;
+    style?: React.CSSProperties;
+  };
   required?: boolean;
   min?: number;
   max?: number;
@@ -88,6 +95,7 @@ export function getCommonEventMap(
 export function FormItemWrapper(
   props: PropsWithChildren<FormItemWrapperProps>
 ): React.ReactElement {
+  const { labelTooltip } = props;
   const eventMap = getCommonEventMap(props);
 
   let input = isEmpty(eventMap)
@@ -96,8 +104,21 @@ export function FormItemWrapper(
         ...eventMap
       }) as React.ReactNode);
 
+  const label = (
+    <span>
+      {props.label}{" "}
+      {labelTooltip && (
+        <Tooltip title={labelTooltip.content}>
+          <span style={labelTooltip.style}>
+            <GeneralIcon icon={labelTooltip.icon} />
+          </span>
+        </Tooltip>
+      )}
+    </span>
+  );
+
   const formItemProps: Record<string, any> = {
-    label: props.label
+    label
   };
   const { formElement } = props;
   if (formElement) {

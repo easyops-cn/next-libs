@@ -6,6 +6,7 @@ import {
   getRules,
   getCommonEventMap
 } from "./FormItemWrapper";
+import { MenuIcon } from "@easyops/brick-types";
 import i18n from "i18next";
 
 jest.mock("./i18n");
@@ -13,8 +14,29 @@ jest.spyOn(i18n, "t").mockReturnValue("default message");
 
 describe("FormItemWrapper", () => {
   it("should work without formElement", () => {
-    const wrapper = shallow(<FormItemWrapper name="username" label="hello" />);
-    expect(wrapper.find(Form.Item).prop("label")).toBe("hello");
+    const labelTooltip = {
+      content: "这是一个 tooltips",
+      icon: {
+        lib: "antd",
+        type: "question-circle-o"
+      } as MenuIcon
+    };
+    const wrapper = shallow(
+      <FormItemWrapper
+        name="username"
+        label="hello"
+        labelTooltip={labelTooltip}
+      />
+    );
+
+    const Label = () =>
+      wrapper.find(Form.Item).prop("label") as React.ReactElement;
+
+    const labelWrapper = shallow(<Label />);
+    expect(labelWrapper.text()).toEqual("hello <Tooltip />");
+    expect(labelWrapper.find("Tooltip").prop("title")).toEqual(
+      "这是一个 tooltips"
+    );
   });
 
   it("should work with formElement", () => {
@@ -38,16 +60,11 @@ describe("FormItemWrapper", () => {
         required={true}
       />
     );
-    expect(wrapper.find(Form.Item).props()).toMatchObject({
-      label: "hello",
-      colon: true,
-      labelCol: {
-        span: 4
-      },
-      wrapperCol: {
-        span: 14
-      }
-    });
+    const Label = () =>
+      wrapper.find(Form.Item).prop("label") as React.ReactElement;
+
+    const labelWrapper = shallow(<Label />);
+    expect(labelWrapper.text()).toEqual("hello ");
   });
 
   describe("getRules test", () => {
