@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.5.0...@libs/forms@0.5.1) (2020-02-12)
+
+### Bug Fixes
+
+- 修复表单项单独使用时样式对齐问题 ([39170e8](https://git.easyops.local/anyclouds/next-libs/commits/39170e8))
+- 表单校验设置默认信息 ([71d47ef](https://git.easyops.local/anyclouds/next-libs/commits/71d47ef))
+
 # [0.5.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.4.1...@libs/forms@0.5.0) (2020-01-30)
 
 ### Features

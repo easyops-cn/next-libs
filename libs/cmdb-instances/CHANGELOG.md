@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.13.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.12.2...@libs/cmdb-instances@0.13.0) (2020-02-12)
+
+### Bug Fixes
+
+- **instance-list:** init simple search and display it ([b822bb6](https://git.easyops.local/anyclouds/next-libs/commits/b822bb6))
+- **instance-list:** sort columns, refs BRICK_STORE-997 ([6735de1](https://git.easyops.local/anyclouds/next-libs/commits/6735de1))
+- **instance-list-table:** self render agent status column ([c3aaf18](https://git.easyops.local/anyclouds/next-libs/commits/c3aaf18))
+- **setting-container:** filter attr and relation list, refs BRICK_STORE-995 ([0c5a74c](https://git.easyops.local/anyclouds/next-libs/commits/0c5a74c))
+
+### Features
+
+- **instance-list-table:** add button to remove all selected rows ([fbac583](https://git.easyops.local/anyclouds/next-libs/commits/fbac583))
+
 ## [0.12.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.12.1...@libs/cmdb-instances@0.12.2) (2020-02-06)
 
 **Note:** Version bump only for package @libs/cmdb-instances
