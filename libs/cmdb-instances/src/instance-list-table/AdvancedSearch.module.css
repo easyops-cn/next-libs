@@ -30,3 +30,7 @@
   width: 30px;
   pointer-events: none;
 }
+
+.conditionInputGroup :global(.ant-select-selection-selected-value) {
+  margin-right: 4px;
+}

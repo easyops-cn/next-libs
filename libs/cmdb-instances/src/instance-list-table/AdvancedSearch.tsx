@@ -50,7 +50,7 @@ export interface Query {
   [fieldOrLogical: string]: QueryOperatorExpressions | Query[];
 }
 
-enum ConditionType {
+export enum ConditionType {
   Equal = "equal",
   NotEqual = "notEqual",
   Contain = "contain",
@@ -138,8 +138,8 @@ const FieldTypeConditionTypesMap: Record<string, ConditionType[]> = {
     ConditionType.NotEmpty
   ],
   [ModelAttributeValueType.BOOLEAN]: [
-    ConditionType.True,
-    ConditionType.False,
+    ConditionType.Equal,
+    ConditionType.NotEqual,
     ConditionType.Empty,
     ConditionType.NotEmpty
   ]
@@ -259,6 +259,7 @@ function getCondition(
       ];
       switch (fieldType) {
         case ModelAttributeValueType.INTEGER:
+        case ModelAttributeValueType.FLOAT:
           label = "在此区间";
           break;
         case ModelAttributeValueType.DATE:
@@ -321,7 +322,7 @@ export function getFieldConditionsAndValues(
   const values = currentCondition.operations.map(operation => {
     let value: string;
 
-    if (expressions && expressions[operation.operator]) {
+    if (expressions?.[operation.operator] !== undefined) {
       value = expressions[operation.operator];
       if (operation.prefix && value.startsWith(operation.prefix)) {
         value = value.slice(operation.prefix.length);
@@ -437,7 +438,7 @@ export class AdvancedSearchForm extends React.Component<
           )
         });
       },
-      this.props.presetConfigs && this.props.presetConfigs.fieldIds
+      this.props.presetConfigs?.fieldIds
     );
 
     this.state = { fields };
@@ -480,6 +481,13 @@ export class AdvancedSearchForm extends React.Component<
 
   getFields() {
     const { getFieldDecorator } = this.props.form;
+    const hasBetween = this.state.fields.some(field =>
+      [
+        ModelAttributeValueType.IP,
+        ModelAttributeValueType.DATE,
+        ModelAttributeValueType.DATETIME
+      ].includes(field.attrValue.type as ModelAttributeValueType)
+    );
     return this.state.fields.map((field, fieldIndex) => {
       let type: string;
       let style: React.CSSProperties;
@@ -492,7 +500,7 @@ export class AdvancedSearchForm extends React.Component<
           break;
       }
       return (
-        <Col span={8} key={field.id}>
+        <Col span={hasBetween ? 12 : 8} key={field.id}>
           <Form.Item label={field.name}>
             <Input.Group className={styles.conditionInputGroup} compact>
               <Select
@@ -523,7 +531,8 @@ export class AdvancedSearchForm extends React.Component<
                       />
                     )}
                     {getFieldDecorator(`${field.id}[${valueIndex}]`, {
-                      initialValue: value
+                      initialValue:
+                        operation.fixedValue === undefined ? value : ""
                     })(
                       operation.fixedValue === undefined ? (
                         <ModelAttributeFormControl
@@ -545,10 +554,7 @@ export class AdvancedSearchForm extends React.Component<
                           style={style}
                         />
                       ) : (
-                        <input
-                          type="hidden"
-                          key={`${field.currentCondition.type}-${operation.operator}`}
-                        />
+                        <Input disabled />
                       )
                     )}
                   </React.Fragment>
@@ -617,7 +623,7 @@ export class AdvancedSearchForm extends React.Component<
           className={styles.advancedSearchForm}
           onSubmit={this.handleSearch}
         >
-          <Row gutter={90}>{this.getFields()}</Row>
+          <Row gutter={50}>{this.getFields()}</Row>
           <Row>
             <Col span={24} style={{ textAlign: "right" }}>
               <Button

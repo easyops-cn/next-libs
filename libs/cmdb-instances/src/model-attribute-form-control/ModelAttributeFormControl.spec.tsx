@@ -22,7 +22,7 @@ describe("ModelAttributeFormControl", () => {
     mockFetchCmdbObjectDetailReturnValue.attrList[0];
 
   const Props: ModelAttributeFormControlProps = {
-    onChange: () => {},
+    onChange: () => null,
     attribute
   };
   const wrapper = shallow(<ModelAttributeFormControl {...Props} />);
@@ -197,7 +197,7 @@ describe("ModelAttributeFormControl", () => {
           type: "bool"
         }
       });
-      expect(result).toEqual(FormControlTypeEnum.RADIO);
+      expect(result).toEqual(FormControlTypeEnum.SELECT);
     });
 
     it("should return 'struct'", () => {
