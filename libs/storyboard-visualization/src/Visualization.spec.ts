@@ -10,10 +10,10 @@ describe("Visualization", () => {
       item => item.nodeName === "g"
     )[1];
     // links
-    expect(containerG.childNodes.item(0).childNodes.length).toBe(7);
+    expect(containerG.childNodes.item(0).childNodes.length).toBe(8);
     // groups
     expect(containerG.childNodes.item(1).childNodes.length).toBe(0);
     // nodes
-    expect(containerG.childNodes.item(2).childNodes.length).toBe(8);
+    expect(containerG.childNodes.item(2).childNodes.length).toBe(9);
   });
 });

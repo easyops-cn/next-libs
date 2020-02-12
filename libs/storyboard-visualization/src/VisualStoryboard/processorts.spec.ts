@@ -294,55 +294,68 @@ describe("updateRoutesNode", () => {
         {
           path: "/c",
           type: "routes"
+        },
+        {
+          path: "/m",
+          type: "redirect",
+          redirect: "/n"
         }
       ]
     });
     expect(node).toMatchInlineSnapshot(`
-      Object {
-        "children": Array [
-          Object {
-            "groupIndex": 0,
-            "routeData": Object {
-              "path": "/a",
-            },
-            "type": "brick",
-          },
-          Object {
-            "groupIndex": 0,
-            "routeData": Object {
-              "path": "/a",
-            },
-            "type": "brick",
-          },
-          Object {
-            "brickData": Object {
-              "brick": "div",
-            },
-            "brickType": "routed",
-            "groupIndex": 1,
-            "routeData": Object {
-              "path": "/x",
-            },
-            "type": "brick",
-          },
-          Object {
-            "groupIndex": 2,
-            "routeData": Object {
-              "path": "/b",
-            },
-            "type": "brick",
-          },
-          Object {
-            "children": Array [],
-            "groupIndex": 3,
-            "routeData": Object {
-              "path": "/c",
-            },
-            "routeType": "routed",
-            "type": "routes",
-          },
-        ],
-      }
-    `);
+Object {
+  "children": Array [
+    Object {
+      "groupIndex": 0,
+      "routeData": Object {
+        "path": "/a",
+      },
+      "type": "brick",
+    },
+    Object {
+      "groupIndex": 0,
+      "routeData": Object {
+        "path": "/a",
+      },
+      "type": "brick",
+    },
+    Object {
+      "brickData": Object {
+        "brick": "div",
+      },
+      "brickType": "routed",
+      "groupIndex": 1,
+      "routeData": Object {
+        "path": "/x",
+      },
+      "type": "brick",
+    },
+    Object {
+      "groupIndex": 2,
+      "routeData": Object {
+        "path": "/b",
+      },
+      "type": "brick",
+    },
+    Object {
+      "children": Array [],
+      "groupIndex": 3,
+      "routeData": Object {
+        "path": "/c",
+      },
+      "routeType": "routed",
+      "type": "routes",
+    },
+    Object {
+      "groupIndex": 4,
+      "routeData": Object {
+        "path": "/m",
+        "redirect": "/n",
+      },
+      "type": "redirect",
+    },
+  ],
+}
+`);
   });
 });

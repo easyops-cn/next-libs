@@ -3,7 +3,8 @@ import {
   RouteConf,
   BrickConf,
   MicroApp,
-  SlotsConf
+  SlotsConf,
+  RouteConfOfBricks
 } from "@easyops/brick-types";
 import {
   StoryboardTree,
@@ -38,10 +39,22 @@ function processRoutes(
           groupIndex: index
         });
       } else {
-        const { bricks, ...routeData } = routeConf;
-        bricks.forEach(brickConf => {
-          acc.push(processRoutedBrick(brickConf, appData, routeData, index));
-        });
+        const { bricks, ...routeData } = routeConf as RouteConfOfBricks;
+        if (Array.isArray(bricks)) {
+          bricks.forEach(brickConf => {
+            acc.push(processRoutedBrick(brickConf, appData, routeData, index));
+          });
+        } else if (routeData.redirect) {
+          acc.push({
+            type: "redirect",
+            routeData,
+            groupIndex: index
+          });
+        } else {
+          // eslint-disable-next-line no-console
+          console.error("Unexpected error in routeConf", routeConf);
+          throw new Error("Unexpected error in routeConf");
+        }
       }
       return acc;
     },

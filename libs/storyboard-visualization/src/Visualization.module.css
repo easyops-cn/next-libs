@@ -20,6 +20,7 @@
   stroke-width: 1;
 }
 
+.link.redirect path,
 .link.routed path {
   stroke-dasharray: 3 2;
 }
@@ -46,6 +47,11 @@
 
 .node.brick.leaf path {
   stroke: #999;
+}
+
+.node.redirect path {
+  fill: none;
+  transform: scale(0.85);
 }
 
 .node text {
@@ -84,4 +90,8 @@
 
 .clickable {
   cursor: pointer;
+}
+
+.node.redirect .clickable {
+  cursor: auto;
 }

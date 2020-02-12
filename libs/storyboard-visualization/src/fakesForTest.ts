@@ -62,6 +62,10 @@ export function fakeStoryboard(): Storyboard {
             ]
           }
         ]
+      },
+      {
+        path: "${APP.homepage}/m",
+        redirect: "${APP.homepage}/n"
       }
     ]
   };
@@ -152,6 +156,14 @@ export function fakeTree(): StoryboardTree {
         },
         routeType: "routed",
         type: "routes"
+      },
+      {
+        groupIndex: 3,
+        routeData: {
+          path: "${APP.homepage}/m",
+          redirect: "${APP.homepage}/n"
+        },
+        type: "redirect"
       }
     ],
     type: "app"

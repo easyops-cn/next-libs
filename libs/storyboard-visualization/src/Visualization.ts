@@ -11,7 +11,8 @@ import {
   symbolCircle,
   symbolDiamond,
   symbolSquare,
-  SymbolType
+  SymbolType,
+  symbolTriangle
 } from "d3-shape";
 import { findLast, uniqueId } from "lodash";
 import classNames from "classnames";
@@ -261,6 +262,13 @@ export class Visualization {
                   )
                 )[0]
               : target.data.slotName;
+          case "redirect":
+            return [].concat(
+              computeRealRoutePath(
+                target.data.routeData.path,
+                storyboardTree.appData
+              )
+            )[0];
         }
       });
 
@@ -295,6 +303,8 @@ export class Visualization {
       switch (data.type) {
         case "app":
           return symbolCircle;
+        case "redirect":
+          return symbolTriangle;
         case "brick":
           return symbolSquare;
         case "routes":
@@ -383,6 +393,10 @@ export class Visualization {
       {
         type: "routes",
         name: "路由"
+      },
+      {
+        type: "redirect",
+        name: "重定向"
       }
     ];
 

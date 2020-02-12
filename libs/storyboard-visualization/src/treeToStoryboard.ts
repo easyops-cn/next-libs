@@ -3,7 +3,8 @@ import {
   Storyboard,
   RouteConf,
   BrickConf,
-  SlotsConf
+  SlotsConf,
+  RouteConfOfRedirect
 } from "@easyops/brick-types";
 import {
   StoryboardTree,
@@ -29,6 +30,10 @@ function processRoutes(nodes: StoryboardNodeRoutedChild[]): RouteConf[] {
         ...firstNode.routeData,
         routes: processRoutes(firstNode.children)
       };
+    } else if (firstNode.type === "redirect") {
+      return {
+        ...firstNode.routeData
+      } as RouteConfOfRedirect;
     } else {
       return {
         ...firstNode.routeData,
