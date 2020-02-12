@@ -40,7 +40,7 @@ interface SlottedBrickData {
 
 interface RouteDataPatch extends RouteData {
   _target?: number;
-  type?: "routes" | "bricks";
+  type?: "routes" | "bricks" | "redirect";
 }
 
 interface RoutesPatch {
@@ -226,6 +226,12 @@ export function updateRoutesNode(
           routeType: "routed",
           routeData,
           children: [],
+          groupIndex: index
+        });
+      } else if (type === "redirect") {
+        acc.push({
+          type: "redirect",
+          routeData,
           groupIndex: index
         });
       } else {
