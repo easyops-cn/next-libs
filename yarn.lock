@@ -1275,10 +1275,10 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@dll/ace@^1.0.69":
-  version "1.0.69"
-  resolved "http://registry.npm.easyops.local/@dll/ace/download/@dll/ace-1.0.69.tgz#900a18efddcb5bde972cc2c402e4725849ead3fc"
-  integrity sha1-kAoY793LW96XLMLEAuRyWEnq0/w=
+"@dll/ace@^1.0.70":
+  version "1.0.70"
+  resolved "http://registry.npm.easyops.local/@dll/ace/download/@dll/ace-1.0.70.tgz#027a94e02e471da6cc0e0eab567189c2a5f9bbfb"
+  integrity sha1-AnqU4C5HHabMDg6rVnGJwqX5u/s=
   dependencies:
     react-ace "^7.0.4"
 
@@ -1316,15 +1316,15 @@
     "@babel/preset-typescript" "^7.8.3"
     babel-plugin-import "^1.12.2"
 
-"@easyops/brick-dll@^1.0.69":
-  version "1.0.69"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-dll/download/@easyops/brick-dll-1.0.69.tgz#b90a4d9ab6dce55b24b946f3813fd5fcdf6783e2"
-  integrity sha1-uQpNmrbc5VskuUbzgT/V/N9ng+I=
+"@easyops/brick-dll@^1.0.70":
+  version "1.0.70"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-dll/download/@easyops/brick-dll-1.0.70.tgz#d55a2ccd927d4cb773181bf4c149dac1bc89c6cf"
+  integrity sha1-1VoszZJ9TLdzGBv0wUnawbyJxs8=
   dependencies:
     "@easyops/brick-http" "^1.0.0"
     "@easyops/brick-icons" "^1.12.0"
-    "@easyops/brick-kit" "^1.21.1"
-    "@easyops/brick-utils" "^1.14.0"
+    "@easyops/brick-kit" "^1.22.0"
+    "@easyops/brick-utils" "^1.15.0"
     "@easyops/fontawesome-library" "^1.1.0"
     "@fortawesome/react-fontawesome" "^0.1.8"
     antd "^3.26.7"
@@ -1347,13 +1347,13 @@
   resolved "http://registry.npm.easyops.local/@easyops/brick-icons/download/@easyops/brick-icons-1.12.0.tgz#533325a55835b4459aad9b2be37dd1f8f0eeb26b"
   integrity sha1-UzMlpVg1tEWarZsr433R+PDusms=
 
-"@easyops/brick-kit@^1.21.1":
-  version "1.21.1"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-kit/download/@easyops/brick-kit-1.21.1.tgz#5ae9f225c8d092bb4967fa97104a8b38e5784a98"
-  integrity sha1-WunyJcjQkrtJZ/qXEEqLOOV4Spg=
+"@easyops/brick-kit@^1.22.0":
+  version "1.22.0"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-kit/download/@easyops/brick-kit-1.22.0.tgz#848ccc5377ce6f99f0879eebd5b556ced5244eb3"
+  integrity sha1-hIzMU3fOb5nwh57r1bVWztUkTrM=
   dependencies:
-    "@easyops/brick-types" "^1.15.0"
-    "@sdk/auth-sdk" "^0.7.0"
+    "@easyops/brick-types" "^1.16.0"
+    "@sdk/auth-sdk" "^0.7.4"
     "@sdk/cmdb-sdk" "^0.11.1"
     "@sdk/micro-app-sdk" "^0.5.0"
     "@sdk/user-service-sdk" "^0.1.0"
@@ -1373,17 +1373,17 @@
     request "^2.88.0"
     request-promise-native "^1.0.8"
 
-"@easyops/brick-types@^1.15.0":
-  version "1.15.0"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-types/download/@easyops/brick-types-1.15.0.tgz#0ba6b8a8ee64ff8d5c083f1355e961e07e6c5b29"
-  integrity sha1-C6a4qO5k/41cCD8TVelh4H5sWyk=
+"@easyops/brick-types@^1.16.0":
+  version "1.16.0"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-types/download/@easyops/brick-types-1.16.0.tgz#54b0445cdf8e8c2949cad3d6bd0122b91041b597"
+  integrity sha1-VLBEXN+OjClJytPWvQEiuRBBtZc=
 
-"@easyops/brick-utils@^1.14.0":
-  version "1.14.0"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-utils/download/@easyops/brick-utils-1.14.0.tgz#313c3a24dd2af4d8be36c8c3ce747ae0b5dafc93"
-  integrity sha1-MTw6JN0q9Ni+NsjDznR64LXa/JM=
+"@easyops/brick-utils@^1.15.0":
+  version "1.15.0"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-utils/download/@easyops/brick-utils-1.15.0.tgz#5ab5228d4d18a9f52306f384b5871161d2717237"
+  integrity sha1-WrUijU0YqfUjBvOEtYcRYdJxcjc=
   dependencies:
-    "@easyops/brick-types" "^1.15.0"
+    "@easyops/brick-types" "^1.16.0"
     path-to-regexp "^6.1.0"
 
 "@easyops/browserslist-config-next@^0.1.0":
@@ -2540,10 +2540,10 @@
   dependencies:
     any-observable "^0.3.0"
 
-"@sdk/auth-sdk@^0.7.0":
-  version "0.7.0"
-  resolved "http://registry.npm.easyops.local/@sdk/auth-sdk/download/@sdk/auth-sdk-0.7.0.tgz#d0ffeaa0bfb515e43def42b17bce97b58c4dc61b"
-  integrity sha1-0P/qoL+1FeQ970Kxe86XtYxNxhs=
+"@sdk/auth-sdk@^0.7.4":
+  version "0.7.4"
+  resolved "http://registry.npm.easyops.local/@sdk/auth-sdk/download/@sdk/auth-sdk-0.7.4.tgz#8b48adc3f742e7ba3337648b0361168001da5a14"
+  integrity sha1-i0itw/dC57ozN2SLA2EWgAHaWhQ=
 
 "@sdk/cmdb-sdk@^0.11.1":
   version "0.11.1"
