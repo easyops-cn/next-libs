@@ -461,7 +461,9 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
   };
 
   const handleReset = () => {
-    setState({ presetConfigs: { fieldIds: handleDefaultFields() } });
+    const fieldIds = handleDefaultFields();
+    const presetConfigs = Object.assign({}, state.presetConfigs, { fieldIds });
+    setState({ presetConfigs });
     jsonLocalStorage.removeItem(`${modelData.objectId}-selectAttrIds`);
   };
 
