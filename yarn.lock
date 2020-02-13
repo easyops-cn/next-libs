@@ -1358,10 +1358,10 @@
     "@sdk/micro-app-sdk" "^0.5.0"
     "@sdk/user-service-sdk" "^0.1.0"
 
-"@easyops/brick-scripts@^1.6.2":
-  version "1.6.2"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-scripts/download/@easyops/brick-scripts-1.6.2.tgz#08f9e5dafa3e1ff736f604a75fc5fef11c15f114"
-  integrity sha1-CPnl2vo+H/c29gSnX8X+8RwV8RQ=
+"@easyops/brick-scripts@^1.6.3":
+  version "1.6.3"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-scripts/download/@easyops/brick-scripts-1.6.3.tgz#156e7ebe2d7c6498169dcfdb6c8e6309ae63131d"
+  integrity sha1-FW5+vi18ZJgWnc/bbI5jCa5jEx0=
   dependencies:
     chalk "^3.0.0"
     change-case "^4.1.1"
