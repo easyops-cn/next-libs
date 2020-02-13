@@ -180,33 +180,25 @@ export const LegacyCmdbInstancesInputFormItem = (
   };
 
   const handleInstancesSelected = async (
-    selectedInstances: any[]
+    selectedKeys: string[]
   ): Promise<void> => {
     closeSelectInstancesModal();
 
-    if (
-      !selectedInstances.every(
-        selectedInstance => props.fieldId in selectedInstance
-      )
-    ) {
-      selectedInstances = (
-        await InstanceApi.postSearch(props.objectId, {
-          page: 1,
-          page_size: selectedInstances.length,
-          query: {
-            instanceId: {
-              $in: selectedInstances.map(
-                selectedInstance => selectedInstance.instanceId
-              )
-            }
-          },
-          fields: {
-            instanceId: true,
-            [props.fieldId]: true
+    const selectedInstances = (
+      await InstanceApi.postSearch(props.objectId, {
+        page: 1,
+        page_size: selectedKeys.length,
+        query: {
+          instanceId: {
+            $in: selectedKeys
           }
-        })
-      ).list;
-    }
+        },
+        fields: {
+          instanceId: true,
+          [props.fieldId]: true
+        }
+      })
+    ).list;
 
     setInputValue(
       selectedInstances.map(instance => instance[props.fieldId]).join(seperator)
