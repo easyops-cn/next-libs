@@ -104,6 +104,7 @@ function translateConditions(
     for (const query of aq) {
       const key = Object.keys(query)[0];
       const attr = attrAndRelationList.find(attr => attr.id === key);
+      if (!attr) continue;
       const info = getFieldConditionsAndValues(
         query as any,
         key,
@@ -315,7 +316,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
         );
       }
 
-      if (state.aq) {
+      if (!isEmpty(state.aq)) {
         query[LogicalOperators.And] = state.aq;
       }
 
@@ -323,7 +324,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
         searchParams.query = query;
       }
       if (state.presetConfigs) {
-        if (state.presetConfigs.query) {
+        if (!isEmpty(state.presetConfigs.query)) {
           if (searchParams.query) {
             searchParams.query = {
               $and: [searchParams.query, state.presetConfigs.query]
@@ -571,7 +572,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
               />
             </div>
           )}
-          {(state.q || !isEmpty(state.aq)) && (
+          {(state.q || !isEmpty(conditions)) && (
             <div className={styles.searchConditions}>
               <span>当前筛选条件：</span>
               {state.q && (
