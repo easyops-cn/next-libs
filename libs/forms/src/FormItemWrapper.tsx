@@ -2,10 +2,9 @@ import React, { PropsWithChildren } from "react";
 import { get, isEmpty } from "lodash";
 import { Form, Tooltip } from "antd";
 import { GeneralIcon } from "@libs/basic-components";
-import { MenuIcon } from "@easyops/brick-types";
 import { getDefaultMessage } from "./message";
 import { ValidationRule } from "antd/lib/form";
-import { AbstractGeneralFormElement } from "./interfaces";
+import { AbstractGeneralFormElement, LabelTooltipProps } from "./interfaces";
 import style from "./FormItemWrapper.module.css";
 import { addResourceBundle } from "./i18n";
 addResourceBundle();
@@ -24,11 +23,7 @@ export interface FormItemWrapperProps extends CommonEventProps {
   formElement?: AbstractGeneralFormElement;
   name?: string;
   label?: string;
-  labelTooltip?: {
-    content: string;
-    icon: MenuIcon;
-    style?: React.CSSProperties;
-  };
+  labelTooltip?: LabelTooltipProps;
   required?: boolean;
   min?: number;
   max?: number;
