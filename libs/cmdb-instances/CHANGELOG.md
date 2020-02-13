@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.14.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.13.3...@libs/cmdb-instances@0.14.0) (2020-02-13)
+
+### Bug Fixes
+
+- **cmdb-instances-input-form:** on selected, refs BRICK_STORE-1064 ([f32f476](https://git.easyops.local/anyclouds/next-libs/commits/f32f476))
+
+### Features
+
+- **input-form-item:** support `selectFromText` prop, refs CONTAINER-674 ([41b8f15](https://git.easyops.local/anyclouds/next-libs/commits/41b8f15))
+
 ## [0.13.3](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.13.2...@libs/cmdb-instances@0.13.3) (2020-02-13)
 
 ### Bug Fixes
