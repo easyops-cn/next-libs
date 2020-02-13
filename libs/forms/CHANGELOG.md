@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.6.0...@libs/forms@0.6.1) (2020-02-13)
+
+### Bug Fixes
+
+- labelTooltip inteface ([5e3421f](https://git.easyops.local/anyclouds/next-libs/commits/5e3421f))
+
 # [0.6.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.5.1...@libs/forms@0.6.0) (2020-02-13)
 
 ### Features
