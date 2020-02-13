@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.3](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.13.2...@libs/cmdb-instances@0.13.3) (2020-02-13)
+
+### Bug Fixes
+
+- **cmdb-instances-input-form:** add "inputDisabled" and "checkDisabled" properties refs CONTAINER-678 ([2025698](https://git.easyops.local/anyclouds/next-libs/commits/2025698))
+
 ## [0.13.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.13.1...@libs/cmdb-instances@0.13.2) (2020-02-12)
 
 **Note:** Version bump only for package @libs/cmdb-instances
