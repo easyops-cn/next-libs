@@ -13,6 +13,7 @@ import { NS_LIBS_CMDB_INSTANCES, K } from "../i18n/constants";
 import style from "./cmdb-instances-input-form.module.css";
 
 export interface CmdbInstancesInputFormItemProps {
+  selectFromText?: string;
   objectMap?: { [objectId: string]: Partial<CmdbModels.ModelCmdbObject> };
   objectId?: string;
   fieldId?: string;
@@ -275,6 +276,10 @@ export const LegacyCmdbInstancesInputFormItem = (
     }
   };
 
+  const text = props.selectFromText
+    ? props.selectFromText
+    : t(K.SELECT_FROM_CMDB);
+
   return (
     <div ref={ref}>
       <Modal
@@ -300,7 +305,7 @@ export const LegacyCmdbInstancesInputFormItem = (
         objectMap={props.objectMap}
         objectId={props.objectId}
         visible={visible}
-        title={`${t(K.SELECT_FROM_CMDB)}${modelData.name}`}
+        title={text}
         query={{}}
         onSelected={handleInstancesSelected}
         singleSelect={props.singleSelect}
@@ -319,7 +324,7 @@ export const LegacyCmdbInstancesInputFormItem = (
           className={style.modalButton}
           onClick={openSelectInstancesModal}
         >
-          {t(K.SELECT_FROM_CMDB)}
+          {text}
         </Button>
       </div>
     </div>
