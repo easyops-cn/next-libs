@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.6.1...@libs/forms@0.6.2) (2020-02-13)
+
+### Bug Fixes
+
+- change @libs/basic-components to peerDependencies ([20f55cc](https://git.easyops.local/anyclouds/next-libs/commits/20f55cc))
+
 ## [0.6.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.6.0...@libs/forms@0.6.1) (2020-02-13)
 
 ### Bug Fixes
