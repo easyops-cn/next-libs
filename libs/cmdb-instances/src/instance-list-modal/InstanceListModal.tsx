@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Modal, Button, Icon } from "antd";
 
 import { InstanceList } from "../instance-list/InstanceList";
+import { Query } from "../instance-list-table";
 import { CmdbModels } from "@sdk/cmdb-sdk";
 
 export interface InstanceListModalProps {
@@ -10,6 +11,7 @@ export interface InstanceListModalProps {
   visible: boolean;
   title: string;
   query?: any;
+  aq?: Query[];
   selectDisabled?: boolean;
   sortDisabled?: boolean;
   singleSelect?: boolean;
@@ -29,8 +31,11 @@ export function InstanceListModal(
     props.onSelected?.(selectedInstanceListTemp);
   };
 
-  const handleSelectionChange = (event: { selectedItems: any[] }) => {
-    setSelectedInstanceListTemp(event.selectedItems);
+  const handleSelectionChange = (event: {
+    selectedKeys: string[];
+    selectedItems: any[];
+  }) => {
+    setSelectedInstanceListTemp(event.selectedKeys);
   };
 
   const presetConfigs = {
@@ -88,6 +93,7 @@ export function InstanceListModal(
     >
       <div style={{ maxHeight: 700, overflow: "auto" }}>
         <InstanceList
+          aq={props.aq}
           objectId={props.objectId}
           objectList={Object.values(props.objectMap)}
           presetConfigs={presetConfigs}
