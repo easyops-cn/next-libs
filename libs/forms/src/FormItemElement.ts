@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom";
 import { UpdatingElement, property } from "@easyops/brick-kit";
-import { AbstractGeneralFormElement } from "./interfaces";
+import { AbstractGeneralFormElement, LabelTooltipProps } from "./interfaces";
 
 export abstract class FormItemElement extends UpdatingElement {
   @property()
@@ -24,6 +24,11 @@ export abstract class FormItemElement extends UpdatingElement {
     attribute: false
   })
   message: Record<string, string>;
+
+  @property({
+    attribute: false
+  })
+  labelTooltip: LabelTooltipProps;
 
   getFormElement(): AbstractGeneralFormElement {
     // eslint-disable-next-line @typescript-eslint/no-this-alias

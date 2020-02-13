@@ -1,5 +1,7 @@
 import { WrappedFormUtils } from "antd/lib/form/Form";
 import { ColProps } from "antd/lib/col";
+import React from "react";
+import { MenuIcon } from "@easyops/brick-types";
 
 export interface AbstractGeneralFormElement extends HTMLElement {
   formUtils: WrappedFormUtils;
@@ -18,4 +20,10 @@ export type GeneralOption =
 export interface GeneralComplexOption<T = string | number> {
   label: string;
   value: T;
+}
+
+export interface LabelTooltipProps {
+  content: string;
+  icon: MenuIcon;
+  style?: React.CSSProperties;
 }
