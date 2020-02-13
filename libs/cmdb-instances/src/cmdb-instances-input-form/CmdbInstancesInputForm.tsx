@@ -17,6 +17,8 @@ export interface CmdbInstancesInputFormItemProps {
   objectId?: string;
   fieldId?: string;
   singleSelect?: boolean;
+  inputDisabled?: boolean;
+  checkDisabled?: boolean;
   checkAgentStatus?: boolean;
   checkPermission?: boolean;
   value?: string[];
@@ -108,7 +110,9 @@ export const LegacyCmdbInstancesInputFormItem = (
       });
       if (props.onChange) {
         props.onChange(
-          selectedInstancesMap.true.map(instance => instance.instanceId)
+          selectedInstancesMap.true
+            ? selectedInstancesMap.true.map(instance => instance.instanceId)
+            : []
         );
       }
     }
@@ -209,7 +213,11 @@ export const LegacyCmdbInstancesInputFormItem = (
     );
 
     if (selectedInstances) {
-      await checkSelectedInstances(selectedInstances);
+      if (!props.checkDisabled) {
+        await checkSelectedInstances(selectedInstances);
+      } else if (props.onChange) {
+        props.onChange(selectedInstances.map(instance => instance.instanceId));
+      }
     }
   };
 
@@ -220,8 +228,41 @@ export const LegacyCmdbInstancesInputFormItem = (
   const handleInputBlur = async (event: {
     target: { value: string };
   }): Promise<void> => {
-    if (event.target.value) {
-      await checkInputValue(event.target.value);
+    const inputValue = event.target.value;
+    if (inputValue) {
+      if (!props.checkDisabled) {
+        await checkInputValue(inputValue);
+      } else {
+        const fieldValues =
+          props.fieldId === "ip"
+            ? inputValue.match(
+                /\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b(?:\[[^[\],;\s]*\])?/g
+              )
+            : inputValue.split(seperator);
+
+        const instances = (
+          await InstanceApi.postSearch(props.objectId, {
+            query: {
+              [props.fieldId]: {
+                $in: fieldValues
+              }
+            },
+            fields: {
+              instanceId: true,
+              [props.fieldId]: true
+            }
+          })
+        ).list;
+
+        setSelectedInstances({
+          valid: instances || [],
+          invalid: []
+        });
+
+        if (props.onChange) {
+          props.onChange(instances.map(instance => instance.instanceId));
+        }
+      }
     }
   };
 
@@ -280,6 +321,7 @@ export const LegacyCmdbInstancesInputFormItem = (
           onChange={handleInputChanged}
           value={inputValue}
           onBlur={handleInputBlur}
+          disabled={props.inputDisabled}
         />
         <Button
           className={style.modalButton}
