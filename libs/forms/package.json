@@ -27,9 +27,10 @@
   },
   "sideEffects": false,
   "peerDependencies": {
-    "@easyops/brick-dll": "*"
+    "@easyops/brick-dll": "*",
+    "@libs/basic-components": "*"
   },
-  "dependencies": {
-    "@libs/basic-components": "^0.16.6"
+  "devDependencies": {
+    "@libs/basic-components": "*"
   }
 }
