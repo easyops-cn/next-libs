@@ -60,11 +60,16 @@ describe("FormItemWrapper", () => {
         required={true}
       />
     );
-    const Label = () =>
-      wrapper.find(Form.Item).prop("label") as React.ReactElement;
-
-    const labelWrapper = shallow(<Label />);
-    expect(labelWrapper.text()).toEqual("hello ");
+    expect(wrapper.find(Form.Item).props()).toMatchObject({
+      label: "hello",
+      colon: true,
+      labelCol: {
+        span: 4
+      },
+      wrapperCol: {
+        span: 14
+      }
+    });
   });
 
   describe("getRules test", () => {
