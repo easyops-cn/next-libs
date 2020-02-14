@@ -99,17 +99,17 @@ export function FormItemWrapper(
         ...eventMap
       }) as React.ReactNode);
 
-  const label = (
+  const label = labelTooltip ? (
     <span>
       {props.label}{" "}
-      {labelTooltip && (
-        <Tooltip title={labelTooltip.content}>
-          <span style={labelTooltip.style}>
-            <GeneralIcon icon={labelTooltip.icon} />
-          </span>
-        </Tooltip>
-      )}
+      <Tooltip title={labelTooltip.content}>
+        <span style={labelTooltip.style}>
+          <GeneralIcon icon={labelTooltip.icon} />
+        </span>
+      </Tooltip>
     </span>
+  ) : (
+    props.label
   );
 
   const formItemProps: Record<string, any> = {
