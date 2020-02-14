@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.17.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@0.16.6...@libs/basic-components@0.17.0) (2020-02-14)
+
+### Features
+
+- remove BaseJump ([12d613d](https://git.easyops.local/anyclouds/next-libs/commits/12d613d))
+
 ## [0.16.6](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@0.16.5...@libs/basic-components@0.16.6) (2020-02-13)
 
 **Note:** Version bump only for package @libs/basic-components
