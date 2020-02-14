@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.4](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.6.3...@libs/forms@0.6.4) (2020-02-14)
+
+### Bug Fixes
+
+- 修复表单项没有配置 label 时也显示 : 的问题 ([fcf6834](https://git.easyops.local/anyclouds/next-libs/commits/fcf6834))
+
 ## [0.6.3](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.6.2...@libs/forms@0.6.3) (2020-02-14)
 
 **Note:** Version bump only for package @libs/forms
