@@ -78,6 +78,7 @@ export interface StoryboardNodeBaseBrick {
   children?: StoryboardNodeBrickChild[];
   brickData: BrickData;
   groupIndex: number;
+  $$originalNode?: StoryboardNodeBrick;
 }
 
 export interface StoryboardNodeRoutedBrick extends StoryboardNodeBaseBrick {

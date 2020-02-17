@@ -33,7 +33,10 @@ export function EditBrickNode(props: EditBrickNodeProps): React.ReactElement {
   const [paramsAsString, setParamsAsString] = React.useState("");
   const [slotsAsString, setSlotsAsString] = React.useState("");
 
-  const originalNode = props.brickNode;
+  const originalNode =
+    props.brickNode && props.brickNode.$$originalNode
+      ? props.brickNode.$$originalNode
+      : props.brickNode;
 
   // Todo(steve): refine tests
   /* istanbul ignore next */
