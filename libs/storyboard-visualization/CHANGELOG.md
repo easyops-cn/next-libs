@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.13.1...@libs/storyboard-visualization@0.13.2) (2020-02-17)
+
+### Bug Fixes
+
+- fix brick node editing ([cce0184](https://git.easyops.local/anyclouds/next-libs/commits/cce0184))
+
 ## [0.13.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.13.0...@libs/storyboard-visualization@0.13.1) (2020-02-13)
 
 **Note:** Version bump only for package @libs/storyboard-visualization
