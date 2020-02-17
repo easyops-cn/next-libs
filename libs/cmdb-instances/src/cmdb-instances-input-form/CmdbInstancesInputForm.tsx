@@ -24,6 +24,7 @@ export interface CmdbInstancesInputFormItemProps {
   checkPermission?: boolean;
   value?: string[];
   children?: React.ReactNode;
+  query?: any;
   onChange?: (value: string[]) => void;
 }
 
@@ -131,12 +132,17 @@ export const LegacyCmdbInstancesInputFormItem = (
       const instances = (
         await InstanceApi.postSearch(props.objectId, {
           query: {
-            [props.fieldId]: {
-              $in: fieldValues
-            },
-            ...(props.objectId === "HOST" && props.checkAgentStatus
-              ? { _agentStatus: "正常" }
-              : {})
+            $and: [
+              {
+                [props.fieldId]: {
+                  $in: fieldValues
+                },
+                ...(props.objectId === "HOST" && props.checkAgentStatus
+                  ? { _agentStatus: "正常" }
+                  : {})
+              },
+              ...(props.query ? [props.query] : [])
+            ]
           },
           ...(props.objectId === "HOST" && props.checkPermission
             ? { permission: ["operate"] }
@@ -236,9 +242,14 @@ export const LegacyCmdbInstancesInputFormItem = (
         const instances = (
           await InstanceApi.postSearch(props.objectId, {
             query: {
-              [props.fieldId]: {
-                $in: fieldValues
-              }
+              $and: [
+                {
+                  [props.fieldId]: {
+                    $in: fieldValues
+                  }
+                },
+                ...(props.query ? [props.query] : [])
+              ]
             },
             fields: {
               instanceId: true,
@@ -306,7 +317,7 @@ export const LegacyCmdbInstancesInputFormItem = (
         objectId={props.objectId}
         visible={visible}
         title={text}
-        query={{}}
+        query={props.query}
         onSelected={handleInstancesSelected}
         singleSelect={props.singleSelect}
         onCancel={closeSelectInstancesModal}
