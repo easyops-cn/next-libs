@@ -349,7 +349,12 @@ export class ModelAttributeForm extends Component<
                     rules: this.rules(attribute),
                     initialValue:
                       attributeFormControlInitialValueMap[attribute.id]
-                  })(<ModelAttributeFormControl attribute={attribute} />)}
+                  })(
+                    <ModelAttributeFormControl
+                      isCreate={this.props.isCreate}
+                      attribute={attribute}
+                    />
+                  )}
                 </Form.Item>
               )
             )}

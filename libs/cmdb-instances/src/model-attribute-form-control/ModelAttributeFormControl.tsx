@@ -72,6 +72,7 @@ export interface ModelAttributeFormControlProps {
   // ant-design initialValue
   id?: string;
   value?: any;
+  isCreate?: boolean;
   onChange?: (value: any) => void;
   attribute: Partial<CmdbModels.ModelObjectAttr>;
   type?: string;
@@ -251,7 +252,7 @@ export class ModelAttributeFormControl extends Component<
       name: attribute.id,
       label: attribute.name,
       required: attribute.required === "true",
-      readOnly: attribute.readonly === "true",
+      readOnly: !this.props.isCreate && attribute.readonly === "true",
       unique: attribute.unique === "true",
       pattern: ModelAttributeFormControl.computePattern(attribute)
     };
