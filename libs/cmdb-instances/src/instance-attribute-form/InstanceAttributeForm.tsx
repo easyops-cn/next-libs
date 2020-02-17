@@ -1,18 +1,28 @@
 import React, { Component } from "react";
 import { CmdbModels, InstanceApi } from "@sdk/cmdb-sdk";
 import { Form } from "antd";
-import { get } from "lodash";
+import { get, keyBy } from "lodash";
 import { FormComponentProps } from "antd/lib/form";
 import { ModelAttributeFormControl } from "../model-attribute-form-control/ModelAttributeFormControl";
 
 import i18n from "i18next";
 import { NS_LIBS_CMDB_INSTANCES, K } from "../i18n/constants";
 
+import {
+  ModifiedModelObjectAttr,
+  ModifiedModelObjectRelation,
+  ModifiedModelObjectField
+} from "@libs/cmdb-utils";
+
+import { ModelRelationForm } from "../model-relation-form/ModelRelationForm";
+
 import { addResourceBundle } from "../i18n";
 addResourceBundle();
 
 export interface InstanceAttributeFormProps extends FormComponentProps {
-  basicInfoAttrList?: Partial<CmdbModels.ModelObjectAttr>[];
+  isCreate?: boolean;
+  objectList?: Partial<CmdbModels.ModelCmdbObject>[];
+  basicInfoAttrList?: ModifiedModelObjectField[];
   attributeFormControlInitialValueMap?:
     | InstanceApi.GetDefaultValueTemplateResponseBody
     | Partial<InstanceApi.GetDetailResponseBody>;
@@ -22,34 +32,89 @@ export class LegacyInstanceAttributeForm extends Component<
   InstanceAttributeFormProps,
   {}
 > {
+  private modelMap: Record<string, Partial<CmdbModels.ModelCmdbObject>> = {};
+
   constructor(Props: InstanceAttributeFormProps) {
     super(Props);
+
+    if (this.props.objectList) {
+      this.modelMap = keyBy(this.props.objectList, "objectId");
+    }
   }
+
+  renderRelationFormControl = (
+    relation: Partial<ModifiedModelObjectRelation>
+  ) => {
+    const formItemLayout = {
+      labelCol: { span: 4 },
+      wrapperCol: { span: 18 }
+    };
+
+    const InitialRelationValue = get(
+      this.props.attributeFormControlInitialValueMap,
+      relation.left_id
+    );
+    const initialValue = InitialRelationValue
+      ? InitialRelationValue.map((instanceData: any) => instanceData.instanceId)
+      : [];
+
+    return (
+      <Form.Item
+        label={relation.left_description}
+        key={relation.left_id}
+        {...formItemLayout}
+      >
+        {this.props.form.getFieldDecorator(relation.left_id, { initialValue })(
+          <ModelRelationForm
+            modelMap={this.modelMap}
+            relation={relation}
+            instanceListData={
+              this.props.attributeFormControlInitialValueMap[relation.left_id]
+            }
+          />
+        )}
+      </Form.Item>
+    );
+  };
 
   render(): React.ReactNode {
     const { basicInfoAttrList, form } = this.props;
     const { getFieldDecorator } = form;
     const formItemLayout = {
-      labelCol: { span: 6 },
+      labelCol: { span: 4 },
       wrapperCol: { span: 18 }
     };
     const collapse =
       basicInfoAttrList &&
-      basicInfoAttrList.map(attribute => (
-        <Form.Item
-          label={attribute.name}
-          key={attribute.name}
-          {...formItemLayout}
-        >
-          {getFieldDecorator(attribute.id, {
-            rules: [{ required: attribute.required !== "false" }],
-            initialValue: get(
-              this.props.attributeFormControlInitialValueMap,
-              attribute.id
-            )
-          })(<ModelAttributeFormControl attribute={attribute} />)}
-        </Form.Item>
-      ));
+      basicInfoAttrList.map(attribute =>
+        attribute.__isRelation ? (
+          this.renderRelationFormControl(attribute)
+        ) : (
+          <Form.Item
+            label={attribute.name}
+            key={attribute.name}
+            {...formItemLayout}
+          >
+            {getFieldDecorator(attribute.__id, {
+              rules: [
+                {
+                  required:
+                    (attribute as ModifiedModelObjectAttr).required !== "false"
+                }
+              ],
+              initialValue: get(
+                this.props.attributeFormControlInitialValueMap,
+                attribute.__id
+              )
+            })(
+              <ModelAttributeFormControl
+                isCreate={this.props.isCreate}
+                attribute={attribute}
+              />
+            )}
+          </Form.Item>
+        )
+      );
     return <Form>{collapse}</Form>;
   }
 }
