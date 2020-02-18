@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.15.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.14.3...@libs/cmdb-instances@0.15.0) (2020-02-18)
+
+### Features
+
+- **cmdb-instances:** InstanceAttributeForm add relation field refs BRICK_STORE-1099 ([ed5f12f](https://git.easyops.local/anyclouds/next-libs/commits/ed5f12f))
+- **cmdb-instances-input-form:** add "query" property refs BRICK_STORE-1110 ([9b14164](https://git.easyops.local/anyclouds/next-libs/commits/9b14164))
+- **cmdb-instances-input-form:** add "selectedInstanceIds" property refs BRICK_STORE-1092 ([52480f2](https://git.easyops.local/anyclouds/next-libs/commits/52480f2))
+
 ## [0.14.3](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.14.2...@libs/cmdb-instances@0.14.3) (2020-02-17)
 
 **Note:** Version bump only for package @libs/cmdb-instances
