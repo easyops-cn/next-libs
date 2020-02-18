@@ -22,6 +22,7 @@ export interface CmdbInstancesInputFormItemProps {
   checkDisabled?: boolean;
   checkAgentStatus?: boolean;
   checkPermission?: boolean;
+  selectedInstanceIds?: string[];
   value?: string[];
   children?: React.ReactNode;
   query?: any;
@@ -44,35 +45,44 @@ export const LegacyCmdbInstancesInputFormItem = (
   });
   const [inputValue, setInputValue] = useState("");
 
-  useEffect(() => {
-    const computeInputValue = async (instanceIds: string[]): Promise<void> => {
-      const selectedInstances = (
-        await InstanceApi.postSearch(props.objectId, {
-          page: 1,
-          page_size: instanceIds.length,
-          query: {
-            instanceId: {
-              $in: instanceIds
-            }
-          },
-          fields: {
-            instanceId: true,
-            [props.fieldId]: true
+  const computeInputValue = async (instanceIds: string[]): Promise<void> => {
+    const selectedInstances = (
+      await InstanceApi.postSearch(props.objectId, {
+        page: 1,
+        page_size: instanceIds.length,
+        query: {
+          instanceId: {
+            $in: instanceIds
           }
-        })
-      ).list;
+        },
+        fields: {
+          instanceId: true,
+          [props.fieldId]: true
+        }
+      })
+    ).list;
 
-      setInputValue(
-        selectedInstances
-          .map(instanceData => instanceData[props.fieldId])
-          .join(seperator)
-      );
-    };
+    setInputValue(
+      selectedInstances
+        .map(instanceData => instanceData[props.fieldId])
+        .join(seperator)
+    );
+  };
 
+  useEffect(() => {
     if (props.value) {
       computeInputValue(props.value);
     }
   }, [props.value]);
+
+  useEffect(() => {
+    if (props.selectedInstanceIds) {
+      computeInputValue(props.selectedInstanceIds);
+      if (props.onChange) {
+        props.onChange(props.selectedInstanceIds);
+      }
+    }
+  }, [props.selectedInstanceIds]);
 
   const checkSelectedInstances = async (
     selectedInstances: any[]
