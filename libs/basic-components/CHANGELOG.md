@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.17.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@0.17.1...@libs/basic-components@0.17.2) (2020-02-19)
+
+### Bug Fixes
+
+- **general-icon:** return empty react component instead of null ([706a4f3](https://git.easyops.local/anyclouds/next-libs/commits/706a4f3))
+
 ## [0.17.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@0.17.0...@libs/basic-components@0.17.1) (2020-02-17)
 
 **Note:** Version bump only for package @libs/basic-components

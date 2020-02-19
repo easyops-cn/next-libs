@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.15.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.15.0...@libs/cmdb-instances@0.15.1) (2020-02-19)
+
+### Bug Fixes
+
+- **advanced-search:** remove aq conditions when reset form ([f8aefeb](https://git.easyops.local/anyclouds/next-libs/commits/f8aefeb))
+- **instance-list-modal:** increase max height, refs BRICK_STORE-1113 ([1bdd823](https://git.easyops.local/anyclouds/next-libs/commits/1bdd823))
+- **settings-container:** unchecked auto-break-line when reset, refs BRICK_STORE-1107 ([1c09228](https://git.easyops.local/anyclouds/next-libs/commits/1c09228))
+
 # [0.15.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.14.3...@libs/cmdb-instances@0.15.0) (2020-02-18)
 
 ### Features
