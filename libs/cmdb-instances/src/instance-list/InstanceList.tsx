@@ -552,6 +552,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
                     onToggleAutoBreakLine={toggleAutoBreakLine}
                     presetConfigs={state.presetConfigs}
                     defaultFields={handleDefaultFields()}
+                    autoBreakLine={state.autoBreakLine}
                   />
                 )}
               </div>

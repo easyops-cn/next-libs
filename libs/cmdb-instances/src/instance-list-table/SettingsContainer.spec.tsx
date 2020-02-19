@@ -59,6 +59,7 @@ describe("Settings", () => {
   });
 
   it("handleReset should work", () => {
+    onToggleAutoBreakLine.mockReset();
     const { getByText } = render(
       <Settings
         objectId={objectId}
@@ -69,15 +70,17 @@ describe("Settings", () => {
         onHideSettings={onHideSetting}
         options={options}
         defaultFields={presetConfigs.fieldIds}
+        onToggleAutoBreakLine={onToggleAutoBreakLine}
       />
     );
     fireEvent.click(getByText("恢复默认"));
     expect(onHideSetting).toBeCalled();
     expect(onHandleReset).toBeCalledWith(presetConfigs.fieldIds);
+    expect(onToggleAutoBreakLine).toBeCalledWith(false);
   });
 
   it("handleChecked should work", async () => {
-    const { getByText } = render(
+    const { getByText, getAllByText } = render(
       <Settings
         objectId={objectId}
         currentFields={modelData.attrList.map(attr => attr.id)}
@@ -89,7 +92,7 @@ describe("Settings", () => {
         defaultFields={presetConfigs.fieldIds}
       />
     );
-    const agentStatus = getByText("agent状态");
+    const agentStatus = getAllByText("agent状态")[0];
     const agentStatusCheckbox = agentStatus.parentElement.querySelector(
       "input"
     );

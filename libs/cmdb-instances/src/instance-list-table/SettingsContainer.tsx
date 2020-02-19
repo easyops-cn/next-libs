@@ -144,6 +144,7 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
     }
     this.props.onHideSettings();
     this.props.onHandleReset(this.props.defaultFields);
+    this.props.onToggleAutoBreakLine(false);
   };
 
   filterColTag = () => {

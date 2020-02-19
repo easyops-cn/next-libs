@@ -9,7 +9,7 @@ export interface InstanceListModalProps {
   objectMap: { [key: string]: Partial<CmdbModels.ModelCmdbObject> };
   objectId: string;
   visible: boolean;
-  title: string;
+  title: React.ReactNode | string;
   query?: any;
   aq?: Query[];
   selectDisabled?: boolean;
@@ -91,7 +91,7 @@ export function InstanceListModal(
       destroyOnClose={true}
       footer={renderFooter()}
     >
-      <div style={{ maxHeight: 700, overflow: "auto" }}>
+      <div style={{ maxHeight: 720, overflow: "auto" }}>
         <InstanceList
           aq={props.aq}
           objectId={props.objectId}

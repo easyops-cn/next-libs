@@ -13,6 +13,7 @@ interface MoreButtonsContainerProps {
   onHandleReset: (fields: string[]) => void;
   onToggleAutoBreakLine?: (autoBreakLine: boolean) => void;
   presetConfigs?: InstanceListPresetConfigs;
+  autoBreakLine: boolean;
 }
 
 interface MoreButtonsContainerState {
@@ -63,12 +64,13 @@ export class MoreButtonsContainer extends React.Component<
           visible={this.state.visible}
           footer={null}
           onCancel={this.handleCancel}
+          destroyOnClose={true}
           width={600}
           centered={true}
         >
           <Settings
             currentFields={this.props.presetConfigs.fieldIds}
-            options={{ autoBreakLine: false }}
+            options={{ autoBreakLine: this.props.autoBreakLine }}
             modelData={this.props.modelData}
             title={"显示设置"}
             onHideSettings={this.handleCancel}
