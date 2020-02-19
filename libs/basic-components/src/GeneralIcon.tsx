@@ -10,7 +10,7 @@ interface MenuIconProps {
 
 export function GeneralIcon({ icon }: MenuIconProps): React.ReactElement {
   if (!icon) {
-    return null;
+    return <></>;
   }
 
   if (icon.lib === "antd") {
@@ -34,5 +34,5 @@ export function GeneralIcon({ icon }: MenuIconProps): React.ReactElement {
     );
   }
 
-  return null;
+  return <></>;
 }
