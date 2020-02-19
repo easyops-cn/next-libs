@@ -34,6 +34,7 @@ describe("MoreButtonsContainer", () => {
         currentFields={modelData.attrList.map(attr => attr.id)}
         onHideSettings={onHideSettings}
         defaultFields={[]}
+        autoBreakLine={false}
       />
     );
     const moreSettingsButton = getByRole("button");
