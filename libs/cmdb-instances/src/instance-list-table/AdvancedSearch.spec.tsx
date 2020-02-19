@@ -6,7 +6,7 @@ import { AdvancedSearch } from "./AdvancedSearch";
 import { HOST } from "./data-providers/__mocks__/fetchCmdbObjectDetail";
 import { ModelAttributeValueType } from "../model-attribute-form-control/ModelAttributeFormControl";
 
-const mockOnSearch = jest.fn(query => {});
+const mockOnSearch = jest.fn(query => null);
 
 afterEach(() => {
   cleanup();
@@ -98,6 +98,6 @@ describe("AdvancedSearch", () => {
     fireEvent.change(input, { target: { value } });
     fireEvent.click(resetButton);
     fireEvent.click(submitButton);
-    expect(mockOnSearch).not.toBeCalled();
+    expect(mockOnSearch).toBeCalledWith([]);
   });
 });

@@ -606,13 +606,7 @@ export class AdvancedSearchForm extends React.Component<
   };
 
   handleReset = () => {
-    this.setState({
-      fields: this.state.fields.map(field =>
-        update(field, {
-          values: { $set: new Array(field.values.length).fill(null) }
-        })
-      )
-    });
+    this.props.onSearch([]);
     this.props.form.resetFields();
   };
 
