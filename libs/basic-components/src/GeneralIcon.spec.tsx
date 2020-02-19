@@ -7,7 +7,7 @@ import { GeneralIcon } from "./GeneralIcon";
 describe("GeneralIcon", () => {
   it("should render null if icon is falsy", () => {
     const wrapper = shallow(<GeneralIcon icon={null} />);
-    expect(wrapper.html()).toBe(null);
+    expect(wrapper.html()).toBe("");
   });
 
   it("should render antd icon", () => {
@@ -39,6 +39,6 @@ describe("GeneralIcon", () => {
 
   it("should render null if icon is invalid", () => {
     const wrapper = shallow(<GeneralIcon icon={{ lib: "invalid" } as any} />);
-    expect(wrapper.html()).toBe(null);
+    expect(wrapper.html()).toBe("");
   });
 });
