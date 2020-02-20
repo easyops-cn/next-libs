@@ -35,8 +35,17 @@ export const LegacyCmdbInstancesInputFormItem = (
 ): React.ReactElement => {
   const { t } = useTranslation(NS_LIBS_CMDB_INSTANCES);
 
-  const modelData = props.objectMap[props.objectId];
   const seperator = " ";
+  const presetQuery = {} as any;
+  const permission: string[] = [];
+  if (props.objectId === "HOST") {
+    if (props.checkAgentStatus) {
+      presetQuery._agentStatus = "正常";
+    }
+    if (props.checkPermission) {
+      permission.push("operate");
+    }
+  }
 
   const [visible, setVisible] = useState(false);
   const [selectedInstances, setSelectedInstances] = useState({
@@ -45,48 +54,9 @@ export const LegacyCmdbInstancesInputFormItem = (
   });
   const [inputValue, setInputValue] = useState("");
 
-  const computeInputValue = async (instanceIds: string[]): Promise<void> => {
-    const selectedInstances = (
-      await InstanceApi.postSearch(props.objectId, {
-        page: 1,
-        page_size: instanceIds.length,
-        query: {
-          instanceId: {
-            $in: instanceIds
-          }
-        },
-        fields: {
-          instanceId: true,
-          [props.fieldId]: true
-        }
-      })
-    ).list;
-
-    setInputValue(
-      selectedInstances
-        .map(instanceData => instanceData[props.fieldId])
-        .join(seperator)
-    );
-  };
-
-  useEffect(() => {
-    if (props.value) {
-      computeInputValue(props.value);
-    }
-  }, [props.value]);
-
-  useEffect(() => {
-    if (props.selectedInstanceIds) {
-      computeInputValue(props.selectedInstanceIds);
-      if (props.onChange) {
-        props.onChange(props.selectedInstanceIds);
-      }
-    }
-  }, [props.selectedInstanceIds]);
-
   const checkSelectedInstances = async (
     selectedInstances: any[]
-  ): Promise<void> => {
+  ): Promise<string[]> => {
     if (selectedInstances) {
       const instances = (
         await InstanceApi.postSearch(props.objectId, {
@@ -94,13 +64,9 @@ export const LegacyCmdbInstancesInputFormItem = (
             instanceId: {
               $in: selectedInstances.map(instance => instance.instanceId)
             },
-            ...(props.objectId === "HOST" && props.checkAgentStatus
-              ? { _agentStatus: "正常" }
-              : {})
+            ...presetQuery
           },
-          ...(props.objectId === "HOST" && props.checkPermission
-            ? { permission: ["operate"] }
-            : {}),
+          permission,
           fields: {
             instanceId: true,
             [props.fieldId]: true
@@ -120,15 +86,58 @@ export const LegacyCmdbInstancesInputFormItem = (
           invalidSelectedInstance => invalidSelectedInstance[props.fieldId]
         )
       });
-      if (props.onChange) {
-        props.onChange(
-          selectedInstancesMap.true
-            ? selectedInstancesMap.true.map(instance => instance.instanceId)
-            : []
-        );
-      }
+
+      return selectedInstancesMap.true
+        ? selectedInstancesMap.true.map(instance => instance.instanceId)
+        : [];
     }
   };
+
+  const updateSelected = async (instanceIds: string[]): Promise<string[]> => {
+    let selectedInstances: any[] = [];
+    if (instanceIds.length) {
+      selectedInstances = (
+        await InstanceApi.postSearch(props.objectId, {
+          page: 1,
+          page_size: instanceIds.length,
+          query: {
+            instanceId: {
+              $in: instanceIds
+            }
+          },
+          fields: {
+            instanceId: true,
+            [props.fieldId]: true
+          }
+        })
+      ).list;
+    }
+
+    setInputValue(
+      selectedInstances
+        .map(instanceData => instanceData[props.fieldId])
+        .join(seperator)
+    );
+
+    let keys: string[] = [];
+    if (selectedInstances.length) {
+      if (!props.checkDisabled) {
+        keys = await checkSelectedInstances(selectedInstances);
+      } else {
+        keys = selectedInstances.map(instance => instance.instanceId);
+      }
+    } else {
+      setSelectedInstances({ valid: [], invalid: [] });
+    }
+    return keys;
+  };
+
+  useEffect(() => {
+    if (props.value) {
+      updateSelected(props.value);
+    }
+    // todo(ice): how formItem to change its value??????
+  }, []);
 
   const checkInputValue = async (inputValue: string): Promise<void> => {
     const fieldValues =
@@ -147,16 +156,12 @@ export const LegacyCmdbInstancesInputFormItem = (
                 [props.fieldId]: {
                   $in: fieldValues
                 },
-                ...(props.objectId === "HOST" && props.checkAgentStatus
-                  ? { _agentStatus: "正常" }
-                  : {})
+                ...presetQuery
               },
               ...(props.query ? [props.query] : [])
             ]
           },
-          ...(props.objectId === "HOST" && props.checkPermission
-            ? { permission: ["operate"] }
-            : {}),
+          permission,
           fields: {
             instanceId: true,
             [props.fieldId]: true
@@ -180,11 +185,9 @@ export const LegacyCmdbInstancesInputFormItem = (
         invalid: invalidFieldValues || []
       });
 
-      if (props.onChange) {
-        props.onChange(
-          validSelectedInstances.map(instance => instance.instanceId)
-        );
-      }
+      props.onChange?.(
+        validSelectedInstances.map(instance => instance.instanceId)
+      );
     }
   };
 
@@ -201,33 +204,9 @@ export const LegacyCmdbInstancesInputFormItem = (
   ): Promise<void> => {
     closeSelectInstancesModal();
 
-    const selectedInstances = (
-      await InstanceApi.postSearch(props.objectId, {
-        page: 1,
-        page_size: selectedKeys.length,
-        query: {
-          instanceId: {
-            $in: selectedKeys
-          }
-        },
-        fields: {
-          instanceId: true,
-          [props.fieldId]: true
-        }
-      })
-    ).list;
+    const keys = await updateSelected(selectedKeys);
 
-    setInputValue(
-      selectedInstances.map(instance => instance[props.fieldId]).join(seperator)
-    );
-
-    if (selectedInstances) {
-      if (!props.checkDisabled) {
-        await checkSelectedInstances(selectedInstances);
-      } else if (props.onChange) {
-        props.onChange(selectedInstances.map(instance => instance.instanceId));
-      }
-    }
+    props.onChange?.(keys);
   };
 
   const handleInputChanged = (event: { target: { value: string } }): void => {
@@ -273,9 +252,7 @@ export const LegacyCmdbInstancesInputFormItem = (
           invalid: []
         });
 
-        if (props.onChange) {
-          props.onChange(instances.map(instance => instance.instanceId));
-        }
+        props.onChange?.(instances.map(instance => instance.instanceId));
       }
     }
   };
@@ -290,11 +267,9 @@ export const LegacyCmdbInstancesInputFormItem = (
         .map(instance => instance[props.fieldId])
         .join(seperator)
     );
-    if (props.onChange) {
-      props.onChange(
-        selectedInstances.valid.map(instance => instance.instanceId)
-      );
-    }
+    props.onChange?.(
+      selectedInstances.valid.map(instance => instance.instanceId)
+    );
   };
 
   const text = props.selectFromText
@@ -328,6 +303,11 @@ export const LegacyCmdbInstancesInputFormItem = (
         visible={visible}
         title={text}
         query={props.query}
+        presetConfigs={{ query: presetQuery }}
+        permission={permission}
+        selectedRowKeys={selectedInstances.valid.map(
+          instance => instance.instanceId
+        )}
         onSelected={handleInstancesSelected}
         singleSelect={props.singleSelect}
         onCancel={closeSelectInstancesModal}

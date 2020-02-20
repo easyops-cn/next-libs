@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Modal, Button, Icon } from "antd";
 
-import { InstanceList } from "../instance-list/InstanceList";
-import { Query } from "../instance-list-table";
 import { CmdbModels } from "@sdk/cmdb-sdk";
+import { InstanceList } from "../instance-list/InstanceList";
+import { InstanceListPresetConfigs } from "../instance-list-table/interfaces";
+import { Query } from "../instance-list-table";
 
 export interface InstanceListModalProps {
   objectMap: { [key: string]: Partial<CmdbModels.ModelCmdbObject> };
@@ -11,6 +12,8 @@ export interface InstanceListModalProps {
   visible: boolean;
   title: React.ReactNode | string;
   query?: any;
+  presetConfigs?: InstanceListPresetConfigs;
+  permission?: string[];
   aq?: Query[];
   selectDisabled?: boolean;
   sortDisabled?: boolean;
@@ -43,10 +46,12 @@ export function InstanceListModal(
     setSelectedInstanceListTemp(event.selectedKeys);
   };
 
-  const presetConfigs = {
+  const presetConfigs = props.presetConfigs ?? {
     query: props.query,
     fieldIds: modelData.attrList.map(attr => attr.id)
   };
+
+  const fixAliveHosts = presetConfigs.query?._agentStatus === "正常";
 
   const renderFooter = (): React.ReactElement => {
     return (
@@ -102,6 +107,9 @@ export function InstanceListModal(
           objectId={props.objectId}
           objectList={Object.values(props.objectMap)}
           presetConfigs={presetConfigs}
+          permission={props.permission}
+          aliveHosts={fixAliveHosts}
+          fixAliveHosts={fixAliveHosts}
           selectDisabled={props.selectDisabled}
           selectedRowKeys={props.selectedRowKeys}
           sortDisabled={props.sortDisabled}
