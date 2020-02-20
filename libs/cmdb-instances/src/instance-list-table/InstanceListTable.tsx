@@ -180,6 +180,9 @@ export class LegacyInstanceListTable extends React.Component<
 
   UNSAFE_componentWillReceiveProps(nextProps: InstanceListTableProps) {
     const columns = this.getChangeColumns(nextProps.presetConfigs.fieldIds);
+    if (this.props.modelData.objectId !== nextProps.modelData.objectId) {
+      this.setState({ selectedRowKeys: nextProps.selectedRowKeys ?? [] });
+    }
     this.setState({ columns });
   }
 

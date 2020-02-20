@@ -142,6 +142,7 @@ interface InstanceListProps {
   objectList: Partial<CmdbModels.ModelCmdbObject>[];
   detailUrlTemplates?: Record<string, string>;
   presetConfigs?: InstanceListPresetConfigs;
+  permission?: string[];
   q?: string;
   searchDisabled?: boolean;
   sortDisabled?: boolean;
@@ -155,6 +156,7 @@ interface InstanceListProps {
   relatedToMeDisabled?: boolean;
   moreButtonsDisabled?: boolean;
   aliveHosts?: boolean;
+  fixAliveHosts?: boolean;
   aliveHostsDisabled?: boolean;
   propertyDisplayConfigs?: PropertyDisplayConfig[];
   selectedRowKeys?: string[];
@@ -302,6 +304,10 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
   const getInstanceListData = async () => {
     try {
       const searchParams: InstanceApi.PostSearchRequestBody = {};
+      if (!isEmpty(props.permission)) {
+        searchParams.permission = props.permission;
+      }
+
       let query: Record<string, any> = {};
 
       state.page && (searchParams.page = state.page);
@@ -529,6 +535,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
                     checked={state.aliveHosts}
                     onChange={onAliveHostsChange}
                     style={{ marginLeft: "auto" }}
+                    disabled={props.fixAliveHosts}
                     data-testid="alive-hosts-checkbox"
                   >
                     正常主机

@@ -4,7 +4,7 @@ import { render, fireEvent } from "@testing-library/react";
 
 import { CmdbModels, InstanceApi } from "@sdk/cmdb-sdk";
 
-import { CmdbInstancesInputFormItem } from "./CmdbInstancesInputForm";
+import { CmdbInstancesInputFormItem } from "./CmdbInstancesInputFormItem";
 
 interface InstanceListModalProps {
   onSelected: (instanceList: any[]) => void;
