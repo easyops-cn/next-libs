@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.18.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@0.17.2...@libs/basic-components@0.18.0) (2020-02-20)
+
+### Features
+
+- add transform color processor ([fbfe79b](https://git.easyops.local/anyclouds/next-libs/commits/fbfe79b))
+
 ## [0.17.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@0.17.1...@libs/basic-components@0.17.2) (2020-02-19)
 
 ### Bug Fixes
