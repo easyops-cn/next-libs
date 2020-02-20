@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.15.4](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.15.3...@libs/cmdb-instances@0.15.4) (2020-02-20)
+
+### Bug Fixes
+
+- **cmdb-instance-input-form:** checkAgentStatus and checkPermission ([a736aa8](https://git.easyops.local/anyclouds/next-libs/commits/a736aa8))
+- **instance-list:** reset page to 1 when filter query change ([e0262eb](https://git.easyops.local/anyclouds/next-libs/commits/e0262eb))
+- **instance-list-modal:** reset selected rows when cancel ([752d991](https://git.easyops.local/anyclouds/next-libs/commits/752d991))
+- **instance-list-table:** row selected reset when objectId change ([745543b](https://git.easyops.local/anyclouds/next-libs/commits/745543b))
+
 ## [0.15.3](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.15.2...@libs/cmdb-instances@0.15.3) (2020-02-20)
 
 **Note:** Version bump only for package @libs/cmdb-instances
