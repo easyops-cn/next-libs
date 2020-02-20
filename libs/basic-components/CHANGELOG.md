@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@0.18.0...@libs/basic-components@0.18.1) (2020-02-20)
+
+### Bug Fixes
+
+- 导出相应的 utils 函数 ([679ac34](https://git.easyops.local/anyclouds/next-libs/commits/679ac34))
+
 # [0.18.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@0.17.2...@libs/basic-components@0.18.0) (2020-02-20)
 
 ### Features
