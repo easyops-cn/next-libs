@@ -301,7 +301,11 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
   const [q, setQ] = useState(props.q);
   const [state, setState] = useReducer(reducer, initState);
 
-  const getInstanceListData = async () => {
+  const getInstanceListData = async (
+    sort: string,
+    asc: boolean,
+    page: number
+  ) => {
     try {
       const searchParams: InstanceApi.PostSearchRequestBody = {};
       if (!isEmpty(props.permission)) {
@@ -310,9 +314,9 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
 
       let query: Record<string, any> = {};
 
-      state.page && (searchParams.page = state.page);
+      searchParams.page = page;
       state.pageSize && (searchParams["page_size"] = state.pageSize);
-      state.sort && (searchParams.sort = { [state.sort]: state.asc ? 1 : -1 });
+      sort && (searchParams.sort = { [sort]: asc ? 1 : -1 });
       if (state.q) {
         query = getQuery(
           modelData,
@@ -365,10 +369,14 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     }
   };
 
-  const refreshInstanceList = async () => {
+  const refreshInstanceList = async (
+    sort: string,
+    asc: boolean,
+    page: number
+  ) => {
     setState({ loading: true });
     try {
-      const instanceListData = await getInstanceListData();
+      const instanceListData = await getInstanceListData(sort, asc, page);
       setState({ idObjectMap: idObjectMap, instanceListData });
     } catch (e) {
       handleHttpError(e);
@@ -379,24 +387,22 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
   };
 
   useEffect(() => {
-    setState({ loading: true });
     setModelData();
     const fieldIds = getFields();
     setState({
+      page: 1,
       presetConfigs: Object.assign(state.presetConfigs || {}, { fieldIds })
     });
 
-    refreshInstanceList();
+    refreshInstanceList(state.sort, state.asc, 1);
+    props.onPaginationChange?.({ page: 1, pageSize: state.pageSize });
   }, [
     state.q,
     state.aq,
-    state.page,
     state.pageSize,
     state.aliveHosts,
     state.relatedToMe,
     state.presetConfigs,
-    state.sort,
-    state.asc,
     props.objectId
   ]);
 
@@ -416,17 +422,23 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
   };
 
   const onSortingChange = (info: ReadSortingChangeDetail) => {
+    let asc: boolean;
+    let sort: string;
     if (info.asc === undefined) {
       setState({ asc: undefined, sort: undefined });
     } else {
       setState({ asc: info.asc, sort: info.sort });
+      asc = info.asc;
+      sort = info.sort;
     }
     props.onSortingChange?.(info);
+    refreshInstanceList(sort, asc, state.page);
   };
 
   const onPaginationChange = (pagination: ReadPaginationChangeDetail) => {
     setState({ page: pagination.page, pageSize: pagination.pageSize });
     props.onPaginationChange?.(pagination);
+    refreshInstanceList(state.sort, state.asc, pagination.page);
   };
 
   const onRelatedToMeChange = (e: CheckboxChangeEvent) => {
