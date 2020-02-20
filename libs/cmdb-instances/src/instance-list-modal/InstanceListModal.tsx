@@ -31,6 +31,11 @@ export function InstanceListModal(
     props.onSelected?.(selectedInstanceListTemp);
   };
 
+  const handleCancel = () => {
+    setSelectedInstanceListTemp([]);
+    props.onCancel();
+  };
+
   const handleSelectionChange = (event: {
     selectedKeys: string[];
     selectedItems: any[];
@@ -62,7 +67,7 @@ export function InstanceListModal(
         )}
         {!props.selectDisabled && (
           <>
-            <Button key="back" onClick={props.onCancel}>
+            <Button key="back" onClick={handleCancel}>
               取消
             </Button>
             <Button
@@ -87,7 +92,7 @@ export function InstanceListModal(
       visible={props.visible}
       width={900}
       onOk={handleOk}
-      onCancel={props.onCancel}
+      onCancel={handleCancel}
       destroyOnClose={true}
       footer={renderFooter()}
     >
