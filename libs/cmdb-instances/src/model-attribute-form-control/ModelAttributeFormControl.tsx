@@ -337,7 +337,7 @@ export class ModelAttributeFormControl extends Component<
   };
 
   handleDateChange = (date: Moment, dateString: string) => {
-    dateString && this.onChange(dateString);
+    this.onChange(dateString || undefined);
   };
 
   FormControlTypeMap = (): ReactNode => {
