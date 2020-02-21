@@ -1275,10 +1275,10 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@dll/ace@^1.0.79":
-  version "1.0.79"
-  resolved "http://registry.npm.easyops.local/@dll/ace/download/@dll/ace-1.0.79.tgz#573b4b47bfb90890742d83990ef0af2aeefa6119"
-  integrity sha1-VztLR7+5CJB0LYOZDvCvKu76YRk=
+"@dll/ace@^1.0.80":
+  version "1.0.80"
+  resolved "http://registry.npm.easyops.local/@dll/ace/download/@dll/ace-1.0.80.tgz#89f5d968bff6fc6f23a75e56e6075e3da2f19e76"
+  integrity sha1-ifXZaL/2/G8jp15W5gdePaLxnnY=
   dependencies:
     react-ace "^7.0.4"
 
@@ -1316,13 +1316,13 @@
     "@babel/preset-typescript" "^7.8.3"
     babel-plugin-import "^1.12.2"
 
-"@easyops/brick-dll@^1.0.79":
-  version "1.0.79"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-dll/download/@easyops/brick-dll-1.0.79.tgz#4283f31f510d75294fcbc5917d9d9c1147535500"
-  integrity sha1-QoPzH1ENdSlPy8WRfZ2cEUdTVQA=
+"@easyops/brick-dll@^1.0.80":
+  version "1.0.80"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-dll/download/@easyops/brick-dll-1.0.80.tgz#6829fbb7c09eba4cf0c66af205766930b34258a3"
+  integrity sha1-aCn7t8CeukzwxmryBXZpMLNCWKM=
   dependencies:
     "@easyops/brick-http" "^1.0.0"
-    "@easyops/brick-icons" "^1.12.0"
+    "@easyops/brick-icons" "^1.13.0"
     "@easyops/brick-kit" "^1.26.0"
     "@easyops/brick-utils" "^1.20.1"
     "@easyops/fontawesome-library" "^1.1.0"
@@ -1342,10 +1342,10 @@
   resolved "http://registry.npm.easyops.local/@easyops/brick-http/download/@easyops/brick-http-1.0.0.tgz#792c55a81f55aa8b9baf86fd1cc34c965c03abb3"
   integrity sha1-eSxVqB9Vqoubr4b9HMNMllwDq7M=
 
-"@easyops/brick-icons@^1.12.0":
-  version "1.12.0"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-icons/download/@easyops/brick-icons-1.12.0.tgz#533325a55835b4459aad9b2be37dd1f8f0eeb26b"
-  integrity sha1-UzMlpVg1tEWarZsr433R+PDusms=
+"@easyops/brick-icons@^1.13.0":
+  version "1.13.0"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-icons/download/@easyops/brick-icons-1.13.0.tgz#5f29a2de95b15f4f61349fd707d04e2f3d504ea0"
+  integrity sha1-Xymi3pWxX09hNJ/XB9BOLz1QTqA=
 
 "@easyops/brick-kit@^1.26.0":
   version "1.26.0"
