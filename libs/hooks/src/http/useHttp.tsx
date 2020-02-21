@@ -23,7 +23,7 @@ export interface HttpOptions<T> {
   onError?: (err: HttpError) => any;
   // Default to false.
   catchError?: boolean;
-  onSuccess?: (data: T) => any;
+  onSuccess?: (data: ThenArg<T>) => any;
   onFinally?: () => any;
   // Gets the value at path of data.
   getter?: {
@@ -41,7 +41,7 @@ export function useHttp<T, U extends any[], V>(
 ): {
   reload: (params?: U) => void;
   loading: boolean;
-  data: ThenArg<typeof fn>;
+  data: ThenArg<V>;
   error: HttpError;
 } {
   const isMounted = useRef<boolean>(false);
@@ -66,7 +66,7 @@ export function useHttp<T, U extends any[], V>(
       }
 
       isMounted.current && setData(response);
-      onSuccess && onSuccess(response);
+      onSuccess && onSuccess(response as ThenArg<V>);
     } catch (e) {
       isMounted.current && setError(e);
       catchError && handleHttpError(e);
