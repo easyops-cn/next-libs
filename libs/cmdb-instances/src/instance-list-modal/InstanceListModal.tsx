@@ -53,6 +53,12 @@ export function InstanceListModal(
 
   const fixAliveHosts = presetConfigs.query?._agentStatus === "正常";
 
+  React.useEffect(() => {
+    if (props.selectedRowKeys) {
+      setSelectedInstanceListTemp(props.selectedRowKeys);
+    }
+  }, [props.selectedRowKeys]);
+
   const renderFooter = (): React.ReactElement => {
     return (
       <>
