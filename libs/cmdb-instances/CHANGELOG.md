@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.15.5](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.15.4...@libs/cmdb-instances@0.15.5) (2020-02-21)
+
+### Bug Fixes
+
+- **ModelAttributeFormControl:** allow to clear date and datetime input value refs BRICK_STORE-1137 ([d17412e](https://git.easyops.local/anyclouds/next-libs/commits/d17412e))
+
 ## [0.15.4](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.15.3...@libs/cmdb-instances@0.15.4) (2020-02-20)
 
 ### Bug Fixes
