@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.16.1...@libs/cmdb-instances@0.16.2) (2020-02-24)
+
+### Bug Fixes
+
+- **instance-list-modal:** reset selected when cancel, refs BRICK_STORE-1136 ([562618b](https://git.easyops.local/anyclouds/next-libs/commits/562618b))
+
 ## [0.16.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.16.0...@libs/cmdb-instances@0.16.1) (2020-02-24)
 
 ### Bug Fixes
