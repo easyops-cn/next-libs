@@ -15,7 +15,7 @@ import {
 import { AttributeFormControlUrl } from "../attribute-form-control-url/AttributeFormControlUrl";
 import { isNil, keyBy, get } from "lodash";
 
-import { ModelRelationForm } from "../model-relation-form/ModelRelationForm";
+import { CmdbInstancesSelectPanel } from "../cmdb-instances-select-panel/CmdbInstancesSelectPanel";
 import {
   ModifiedModelObjectAttr,
   ModifiedModelObjectRelation,
@@ -289,17 +289,16 @@ export class ModelAttributeForm extends Component<
 
     return (
       <Form.Item
-        label={relation.left_description}
+        label={relation.left_name}
         key={relation.left_id}
         {...this.formItemProps}
       >
         {this.props.form.getFieldDecorator(relation.left_id, { initialValue })(
-          <ModelRelationForm
-            modelMap={this.modelMap}
-            relation={relation}
-            instanceListData={
-              this.props.attributeFormControlInitialValueMap[relation.left_id]
-            }
+          <CmdbInstancesSelectPanel
+            objectId={relation.right_object_id}
+            objectMap={this.modelMap}
+            addTitle="添加"
+            singleSelect={relation.left_max === 1}
           />
         )}
       </Form.Item>
