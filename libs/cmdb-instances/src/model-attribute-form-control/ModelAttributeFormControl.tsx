@@ -267,6 +267,10 @@ export class ModelAttributeFormControl extends Component<
   };
 
   static computePlaceholder(formControl: FormControl): string {
+    if (formControl.id === "ip" && formControl.name === "ip") {
+      return "例如：192.168.100.1";
+    }
+
     const placeholders = [];
     if (formControl.type === FormControlTypeEnum.SELECT) {
       placeholders.push("单选");
