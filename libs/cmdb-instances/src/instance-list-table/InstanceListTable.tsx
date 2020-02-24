@@ -44,7 +44,19 @@ enum SortOrder {
 }
 
 const SELF_RENDER_COLUMNS: { [objectId: string]: PropertyDisplayConfig[] } = {
-  HOST: [{ key: "_agentStatus", brick: "presentational-bricks.agent-status" }]
+  HOST: [{ key: "_agentStatus", brick: "presentational-bricks.agent-status" }],
+  CLUSTER: [
+    {
+      key: "type",
+      brick: "presentational-bricks.brick-cluster-type",
+      properties: {
+        fields: {
+          value: "type"
+        },
+        showBg: true
+      }
+    }
+  ]
 };
 
 export interface InstanceListTableProps extends WithTranslation {

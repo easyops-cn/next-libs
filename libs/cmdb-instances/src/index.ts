@@ -8,3 +8,4 @@ export * from "./instance-list-table";
 export * from "./instance-list-modal/InstanceListModal";
 export * from "./instance-list/InstanceList";
 export * from "./cmdb-instances-input-form/CmdbInstancesInputFormItem";
+export * from "./cmdb-instances-select-panel/CmdbInstancesSelectPanel";
