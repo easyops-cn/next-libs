@@ -35,7 +35,8 @@ export function InstanceListModal(
   };
 
   const handleCancel = () => {
-    setSelectedInstanceListTemp([]);
+    // reset selected
+    setSelectedInstanceListTemp(props.selectedRowKeys ?? []);
     props.onCancel();
   };
 
