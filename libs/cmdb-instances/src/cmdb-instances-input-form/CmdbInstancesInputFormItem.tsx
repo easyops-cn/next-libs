@@ -25,7 +25,7 @@ export interface CmdbInstancesInputFormItemProps {
   selectedInstanceIds?: string[];
   value?: string[];
   children?: React.ReactNode;
-  query?: any;
+  query?: { [fieldId: string]: any }[];
   onChange?: (value: string[]) => void;
 }
 
@@ -158,7 +158,7 @@ export const LegacyCmdbInstancesInputFormItem = (
                 },
                 ...presetQuery
               },
-              ...(props.query ? [props.query] : [])
+              ...(props.query ? props.query : [])
             ]
           },
           permission,
@@ -237,7 +237,7 @@ export const LegacyCmdbInstancesInputFormItem = (
                     $in: fieldValues
                   }
                 },
-                ...(props.query ? [props.query] : [])
+                ...(props.query ? props.query : [])
               ]
             },
             fields: {
@@ -302,7 +302,7 @@ export const LegacyCmdbInstancesInputFormItem = (
         objectId={props.objectId}
         visible={visible}
         title={text}
-        query={props.query}
+        aq={props.query}
         presetConfigs={{ query: presetQuery }}
         permission={permission}
         selectedRowKeys={selectedInstances.valid.map(
