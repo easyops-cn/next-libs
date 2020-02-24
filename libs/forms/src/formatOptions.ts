@@ -1,3 +1,5 @@
+import { get } from "lodash";
+
 import { GeneralOption, GeneralComplexOption } from "./interfaces";
 
 export function formatOptions(
@@ -11,8 +13,8 @@ export function formatOptions(
     if (fields) {
       return {
         ...op,
-        label: (op as any)[fields.label || "label"],
-        value: (op as any)[fields.value || "value"]
+        label: get(op, fields.label || "label"),
+        value: get(op, fields.value || "value")
       };
     }
     return { ...op, label: op.label, value: op.value };
