@@ -87,4 +87,38 @@ describe("formatOptions", () => {
       }
     ]);
   });
+
+  it("should return fields set with nested path", () => {
+    const optons = [
+      {
+        aabb: {
+          aaa: "a",
+          bbb: "a"
+        }
+      },
+      {
+        aabb: {
+          aaa: "b",
+          bbb: "b"
+        }
+      }
+    ];
+
+    const result = formatOptions(optons, {
+      label: "aabb.aaa",
+      value: "aabb.bbb"
+    });
+    expect(result).toEqual([
+      {
+        aabb: { aaa: "a", bbb: "a" },
+        label: "a",
+        value: "a"
+      },
+      {
+        aabb: { aaa: "b", bbb: "b" },
+        label: "b",
+        value: "b"
+      }
+    ]);
+  });
 });
