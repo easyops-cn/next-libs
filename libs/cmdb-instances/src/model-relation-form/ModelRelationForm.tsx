@@ -20,6 +20,11 @@ export interface ModelRelationFormProps {
 export function ModelRelationForm(
   props: ModelRelationFormProps
 ): React.ReactElement {
+  // eslint-disable-next-line no-console
+  console.warn(
+    "deprecated component `ModelRelationForm`, please use `CmdbInstancesSelectPanel` instead"
+  );
+
   const oppositeModelData = props.modelMap[props.relation.right_object_id];
 
   const [visible, setVisible] = useState(false);
