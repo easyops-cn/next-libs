@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.16.0...@libs/cmdb-instances@0.16.1) (2020-02-24)
+
+### Bug Fixes
+
+- **cmdb-instances-input-form:** set "query" property to "aq" refs CONTAINER-773 ([ab65dba](https://git.easyops.local/anyclouds/next-libs/commits/ab65dba))
+
 # [0.16.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.15.6...@libs/cmdb-instances@0.16.0) (2020-02-24)
 
 ### Bug Fixes
