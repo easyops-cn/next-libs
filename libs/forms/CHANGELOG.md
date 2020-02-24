@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.7.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.6.10...@libs/forms@0.7.0) (2020-02-24)
+
+### Features
+
+- **forms:** formatOptions 在指定 fields 的时候，改用 lodash 的 get 取值 ([3d3e043](https://git.easyops.local/anyclouds/next-libs/commits/3d3e043))
+
 ## [0.6.10](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.6.9...@libs/forms@0.6.10) (2020-02-21)
 
 **Note:** Version bump only for package @libs/forms

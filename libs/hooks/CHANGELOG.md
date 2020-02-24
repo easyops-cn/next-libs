@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.6](https://git.easyops.local/anyclouds/next-libs/compare/@libs/hooks@0.1.5...@libs/hooks@0.1.6) (2020-02-24)
+
+### Bug Fixes
+
+- **hooks:** 修复 useHttp 中 onSuccess 传入的 data 类型错误 ([62b17c7](https://git.easyops.local/anyclouds/next-libs/commits/62b17c7))
+
 ## [0.1.5](https://git.easyops.local/anyclouds/next-libs/compare/@libs/hooks@0.1.4...@libs/hooks@0.1.5) (2020-01-15)
 
 **Note:** Version bump only for package @libs/hooks
