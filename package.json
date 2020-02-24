@@ -50,7 +50,7 @@
     "@types/lodash": "^4.14.149",
     "@types/react": "^16.9.22",
     "@types/react-dom": "^16.9.5",
-    "@typescript-eslint/eslint-plugin": "^2.20.0",
+    "@typescript-eslint/eslint-plugin": "^2.21.0",
     "babel-jest": "^25.1.0",
     "cross-env": "^7.0.0",
     "document-register-element": "^1.14.3",
