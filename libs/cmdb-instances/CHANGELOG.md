@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.16.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.15.6...@libs/cmdb-instances@0.16.0) (2020-02-24)
+
+### Bug Fixes
+
+- deprecate ModelRelationForm ([6176389](https://git.easyops.local/anyclouds/next-libs/commits/6176389))
+
+### Features
+
+- new component, `CmdbInstancesSelectPanel`, refs BRICK_STORE-1136 ([c2259ab](https://git.easyops.local/anyclouds/next-libs/commits/c2259ab))
+
 ## [0.15.6](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.15.5...@libs/cmdb-instances@0.15.6) (2020-02-21)
 
 ### Bug Fixes
