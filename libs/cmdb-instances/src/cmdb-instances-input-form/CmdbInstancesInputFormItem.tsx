@@ -5,6 +5,7 @@ import { Input, Button, Modal } from "antd";
 import { groupBy } from "lodash";
 
 import { InstanceListModal } from "../instance-list-modal/InstanceListModal";
+import { modifyModelData } from "@libs/cmdb-utils";
 import { CmdbModels, InstanceApi } from "@sdk/cmdb-sdk";
 
 import { useTranslation } from "react-i18next";
@@ -46,6 +47,11 @@ export const LegacyCmdbInstancesInputFormItem = (
       permission.push("operate");
     }
   }
+
+  const objectData = modifyModelData(props.objectMap[props.objectId]);
+  const fieldData = objectData.__fieldList.find(
+    field => field.__id === props.fieldId
+  );
 
   const [visible, setVisible] = useState(false);
   const [selectedInstances, setSelectedInstances] = useState({
@@ -294,8 +300,13 @@ export const LegacyCmdbInstancesInputFormItem = (
         ]}
         onCancel={closeInvalidFieldValuesModal}
       >
-        {t(K.INVALID_OR_FORBIDDEN_IPS)}
-        {selectedInstances.invalid.join(", ")}
+        {props.objectId === "HOST" && props.fieldId === "ip"
+          ? `${t(K.INVALID_OR_FORBIDDEN_IPS)}${selectedInstances.invalid.join(
+              ", "
+            )}`
+          : `${t(K.INVALID)}${fieldData.name}：${selectedInstances.invalid.join(
+              ", "
+            )}`}
       </Modal>
       <InstanceListModal
         objectMap={props.objectMap}

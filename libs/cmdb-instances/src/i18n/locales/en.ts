@@ -6,6 +6,7 @@ const locale: Locale = {
   [K.TIP]: "Tip",
   [K.DELETE]: "Delete",
   [K.INVALID_OR_FORBIDDEN_IPS]: "Invalid or forbidden IPs：",
+  [K.INVALID]: "Invalid ",
   [K.SELECT_FROM_CMDB]: "Select from CMDB"
 };
 
