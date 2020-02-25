@@ -15,8 +15,13 @@ export interface InstanceListModalProps {
   presetConfigs?: InstanceListPresetConfigs;
   permission?: string[];
   aq?: Query[];
-  selectDisabled?: boolean;
+  searchDisabled?: boolean;
+  advancedSearchDisabled?: boolean;
+  aliveHostsDisabled?: boolean;
+  relatedToMeDisabled?: boolean;
+  moreButtonsDisabled?: boolean;
   sortDisabled?: boolean;
+  selectDisabled?: boolean;
   singleSelect?: boolean;
   selectedRowKeys?: string[];
   onCancel: () => void;
@@ -117,9 +122,14 @@ export function InstanceListModal(
           permission={props.permission}
           aliveHosts={fixAliveHosts}
           fixAliveHosts={fixAliveHosts}
+          searchDisabled={props.searchDisabled}
+          advancedSearchDisabled={props.advancedSearchDisabled}
+          aliveHostsDisabled={props.aliveHostsDisabled}
+          relatedToMeDisabled={props.relatedToMeDisabled}
+          moreButtonsDisabled={props.moreButtonsDisabled}
+          sortDisabled={props.sortDisabled}
           selectDisabled={props.selectDisabled}
           selectedRowKeys={props.selectedRowKeys}
-          sortDisabled={props.sortDisabled}
           onSelectionChange={handleSelectionChange}
           pageSize={10}
         />
