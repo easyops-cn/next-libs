@@ -5,4 +5,5 @@ export enum FormatType {
   DATA_RATE = "data_rate"
 }
 
+export * from "./data";
 export * from "./dataRate";
