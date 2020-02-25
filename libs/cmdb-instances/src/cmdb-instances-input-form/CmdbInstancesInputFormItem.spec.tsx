@@ -48,7 +48,10 @@ describe("HostInstanceSelect", () => {
           }
         }
       ],
-      relation_list: []
+      relation_list: [],
+      view: {
+        attr_order: ["name"]
+      }
     }
   };
 
