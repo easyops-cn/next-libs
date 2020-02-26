@@ -33,5 +33,8 @@
   "dependencies": {
     "@types/echarts": "^4.4.3",
     "css-element-queries": "^1.2.3"
+  },
+  "devDependencies": {
+    "@libs/constants": "^0.3.1"
   }
 }

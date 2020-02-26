@@ -1,33 +1,7 @@
 import { DataFormatDisplay } from "../constants/format";
-import { Unit } from "./interface";
+import { bytes } from "@libs/constants";
 
-export const dataUnits: Unit[] = [
-  {
-    id: DataFormatDisplay.BITS,
-    divisor: 1,
-    display: DataFormatDisplay.BITS
-  },
-  {
-    id: DataFormatDisplay.BYTES,
-    divisor: 8,
-    display: DataFormatDisplay.BYTES
-  },
-  {
-    id: DataFormatDisplay.KILOBYTES,
-    divisor: 8 * 1024,
-    display: DataFormatDisplay.KILOBYTES
-  },
-  {
-    id: DataFormatDisplay.MEGABYTES,
-    divisor: 8 * 1024 * 1024,
-    display: DataFormatDisplay.MEGABYTES
-  },
-  {
-    id: DataFormatDisplay.GIGABYTES,
-    divisor: 8 * 1024 * 1024 * 1024,
-    display: DataFormatDisplay.GIGABYTES
-  }
-];
+export const dataUnits = bytes;
 
 export function humanizeDataValue(
   value: number,
