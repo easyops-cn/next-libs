@@ -26,4 +26,5 @@ export interface LabelTooltipProps {
   content: string;
   icon: MenuIcon;
   style?: React.CSSProperties;
+  iconStyle?: React.CSSProperties;
 }

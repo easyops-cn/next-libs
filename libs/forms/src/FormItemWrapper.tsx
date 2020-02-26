@@ -102,8 +102,8 @@ export function FormItemWrapper(
   const label = labelTooltip ? (
     <span>
       {props.label}{" "}
-      <Tooltip title={labelTooltip.content}>
-        <span style={labelTooltip.style}>
+      <Tooltip title={labelTooltip.content} overlayStyle={labelTooltip.style}>
+        <span style={labelTooltip.iconStyle}>
           <GeneralIcon icon={labelTooltip.icon} />
         </span>
       </Tooltip>
