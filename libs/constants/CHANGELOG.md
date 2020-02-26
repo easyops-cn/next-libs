@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/constants@0.3.1...@libs/constants@0.4.0) (2020-02-26)
+
+### Features
+
+- add byte, byteRate and time units, refs MONITOR-223 ([601fee2](https://git.easyops.local/anyclouds/next-libs/commits/601fee2))
+
 ## [0.3.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/constants@0.3.0...@libs/constants@0.3.1) (2019-11-28)
 
 **Note:** Version bump only for package @libs/constants
