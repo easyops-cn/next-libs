@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.7.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/datetime-components@0.6.2...@libs/datetime-components@0.7.0) (2020-02-26)
+
+### Features
+
+- **datetime-range:** support `placement` prop, refs BRICK_STORE-1145 ([bc4b9d3](https://git.easyops.local/anyclouds/next-libs/commits/bc4b9d3))
+
 ## [0.6.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/datetime-components@0.6.1...@libs/datetime-components@0.6.2) (2020-01-15)
 
 ### Bug Fixes
