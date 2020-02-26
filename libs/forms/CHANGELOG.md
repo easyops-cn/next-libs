@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.7.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.7.1...@libs/forms@0.7.2) (2020-02-26)
+
+### Bug Fixes
+
+- **form:** label style, Refs DATA_QUALITY-113 ([997d3f5](https://git.easyops.local/anyclouds/next-libs/commits/997d3f5))
+
 ## [0.7.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.7.0...@libs/forms@0.7.1) (2020-02-25)
 
 **Note:** Version bump only for package @libs/forms
