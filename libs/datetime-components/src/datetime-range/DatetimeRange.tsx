@@ -2,6 +2,7 @@ import React from "react";
 import { Popover, Button, Radio, DatePicker, Icon } from "antd";
 import { find, get } from "lodash";
 import { RadioChangeEvent } from "antd/lib/radio";
+import { TooltipPlacement } from "antd/lib/tooltip";
 import moment from "moment";
 import { RangePickerValue } from "antd/lib/date-picker/interface";
 
@@ -32,6 +33,7 @@ export interface DatatimeRangeProps {
   format?: string;
   type?: RangeType;
   customTimeRange?: RangeText[];
+  placement?: TooltipPlacement;
 }
 
 export interface DatatimeRangeState {
@@ -173,9 +175,7 @@ export class DatetimeRange extends React.Component<
       };
     }
     this.setState({ dateRange });
-    if (this.props.onConfirm) {
-      this.props.onConfirm(dateRange);
-    }
+    this.props.onConfirm?.(dateRange);
     this.hide();
   };
 
@@ -248,7 +248,7 @@ export class DatetimeRange extends React.Component<
     );
     return (
       <Popover
-        placement="bottom"
+        placement={this.props.placement ?? "bottom"}
         content={content}
         trigger="click"
         visible={this.state.visible}
