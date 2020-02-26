@@ -1415,10 +1415,10 @@
     "@fortawesome/free-brands-svg-icons" "^5.12.0"
     "@fortawesome/free-solid-svg-icons" "^5.12.0"
 
-"@easyops/rollup-config-factory@^1.0.6":
-  version "1.0.6"
-  resolved "http://registry.npm.easyops.local/@easyops/rollup-config-factory/download/@easyops/rollup-config-factory-1.0.6.tgz#3017a0f50082c0c62e0ec1de166403c51119e43d"
-  integrity sha1-MBeg9QCCwMYuDsHeFmQDxREZ5D0=
+"@easyops/rollup-config-factory@^1.0.7":
+  version "1.0.7"
+  resolved "http://registry.npm.easyops.local/@easyops/rollup-config-factory/download/@easyops/rollup-config-factory-1.0.7.tgz#5e7602850086f6e3e06a0fac636e0944f1585a9b"
+  integrity sha1-XnYChQCG9uPgag+sY24JRPFYWps=
   dependencies:
     rollup "^1.30.1"
     rollup-plugin-babel "^4.3.3"
