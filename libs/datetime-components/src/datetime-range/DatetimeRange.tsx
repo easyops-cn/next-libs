@@ -212,6 +212,7 @@ export class DatetimeRange extends React.Component<
           value={this.state.range}
           onChange={this.handleRangeChange}
           style={radioGroupStyle}
+          buttonStyle="solid"
           className="btnGroup"
         >
           {this.rangeOptionList.map(item => (
