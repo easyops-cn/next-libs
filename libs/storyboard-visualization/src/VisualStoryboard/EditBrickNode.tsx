@@ -1,4 +1,5 @@
 import React from "react";
+import { isEmpty } from "lodash";
 import { Modal, Form, Radio, Input } from "antd";
 import { RadioChangeEvent } from "antd/lib/radio";
 import { StoryboardNodeBrick } from "../interfaces";
@@ -10,6 +11,7 @@ import {
   generalStringify
 } from "./processors";
 import { GeneralEditor } from "./GeneralEditor";
+import { BrickLifeCycle } from "@easyops/brick-types";
 
 interface EditBrickNodeProps {
   visible: boolean;
@@ -30,6 +32,10 @@ export function EditBrickNode(props: EditBrickNodeProps): React.ReactElement {
   const [eventsAsString, setEventsAsString] = React.useState("");
   const [resolvesAsString, setResolvesAsString] = React.useState("");
   const [onPageLoadAsString, setOnPageLoadAsString] = React.useState("");
+  const [onAnchorLoadAsString, setOnAnchorLoadAsString] = React.useState("");
+  const [onAnchorUnloadAsString, setOnAnchorUnloadAsString] = React.useState(
+    ""
+  );
   const [paramsAsString, setParamsAsString] = React.useState("");
   const [slotsAsString, setSlotsAsString] = React.useState("");
 
@@ -58,6 +64,12 @@ export function EditBrickNode(props: EditBrickNodeProps): React.ReactElement {
       setOnPageLoadAsString(
         generalStringify(brickData.lifeCycle?.onPageLoad, props.useYaml)
       );
+      setOnAnchorLoadAsString(
+        generalStringify(brickData.lifeCycle?.onAnchorLoad, props.useYaml)
+      );
+      setOnAnchorUnloadAsString(
+        generalStringify(brickData.lifeCycle?.onAnchorUnload, props.useYaml)
+      );
       setParamsAsString(generalStringify(brickData.params, props.useYaml));
       setSlotsAsString(
         generalStringify(
@@ -85,20 +97,27 @@ export function EditBrickNode(props: EditBrickNodeProps): React.ReactElement {
 
   const handleOk = (): void => {
     const brickData = originalNode.brickData;
-    const useResolves = generalParse(
-      resolvesAsString,
-      "useResolves",
-      props.useYaml,
-      "array"
+    const lifeCycleMembers = [
+      ["useResolves", "array", resolvesAsString],
+      ["onPageLoad", "arrayOrObject", onPageLoadAsString],
+      ["onAnchorLoad", "arrayOrObject", onAnchorLoadAsString],
+      ["onAnchorUnload", "arrayOrObject", onAnchorUnloadAsString]
+    ];
+    if (type === "template") {
+      lifeCycleMembers.splice(1, 3);
+    }
+    let lifeCycle = lifeCycleMembers.reduce<BrickLifeCycle>(
+      (acc, [key, type, string]) => {
+        const value = generalParse(string, key, props.useYaml, type as any);
+        acc[key as keyof BrickLifeCycle] = value;
+        return acc;
+      },
+      {}
     );
-    const onPageLoad = generalParse(
-      onPageLoadAsString,
-      "onPageLoad",
-      props.useYaml,
-      "arrayOrObject"
-    );
-    const lifeCycle =
-      useResolves || onPageLoad ? { useResolves, onPageLoad } : undefined;
+    const invalidLifeCycle = Object.values(lifeCycle).includes(false);
+    if (invalidLifeCycle || isEmpty(lifeCycle)) {
+      lifeCycle = undefined;
+    }
     if (type === "brick" || type === "provider") {
       const properties = generalParse(
         propertiesAsString,
@@ -106,12 +125,7 @@ export function EditBrickNode(props: EditBrickNodeProps): React.ReactElement {
         props.useYaml
       );
       const events = generalParse(eventsAsString, "构件事件", props.useYaml);
-      if (
-        properties !== false &&
-        useResolves !== false &&
-        onPageLoad !== false &&
-        events !== false
-      ) {
+      if (properties !== false && !invalidLifeCycle && events !== false) {
         const brickPatch: BrickPatch = {
           brick: brickName,
           properties,
@@ -139,7 +153,7 @@ export function EditBrickNode(props: EditBrickNodeProps): React.ReactElement {
       }
     } else {
       const params = generalParse(paramsAsString, "模板参数", props.useYaml);
-      if (params !== false && useResolves !== false && onPageLoad !== false) {
+      if (params !== false && !invalidLifeCycle) {
         delete brickData.brick;
         delete brickData.properties;
         delete brickData.bg;
@@ -249,14 +263,34 @@ export function EditBrickNode(props: EditBrickNodeProps): React.ReactElement {
               readOnly={!props.editable}
             />
           </Form.Item>
-          <Form.Item label="onPageLoad">
-            <GeneralEditor
-              value={onPageLoadAsString}
-              useYaml={props.useYaml}
-              onChange={setOnPageLoadAsString}
-              readOnly={!props.editable}
-            />
-          </Form.Item>
+          {(type === "brick" || type === "provider") && (
+            <React.Fragment key="brick-only-lifeCycle">
+              <Form.Item label="onPageLoad">
+                <GeneralEditor
+                  value={onPageLoadAsString}
+                  useYaml={props.useYaml}
+                  onChange={setOnPageLoadAsString}
+                  readOnly={!props.editable}
+                />
+              </Form.Item>
+              <Form.Item label="onAnchorLoad">
+                <GeneralEditor
+                  value={onAnchorLoadAsString}
+                  useYaml={props.useYaml}
+                  onChange={setOnAnchorLoadAsString}
+                  readOnly={!props.editable}
+                />
+              </Form.Item>
+              <Form.Item label="onAnchorUnload">
+                <GeneralEditor
+                  value={onAnchorUnloadAsString}
+                  useYaml={props.useYaml}
+                  onChange={setOnAnchorUnloadAsString}
+                  readOnly={!props.editable}
+                />
+              </Form.Item>
+            </React.Fragment>
+          )}
         </Form>
       )}
     </Modal>
