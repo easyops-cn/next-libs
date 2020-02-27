@@ -21,7 +21,7 @@ describe("EditBrickNode", () => {
         onOk={handleOk}
       />
     );
-    expect(wrapper.find(Form.Item).length).toBe(7);
+    expect(wrapper.find(Form.Item).length).toBe(9);
 
     wrapper
       .find(Form.Item)
@@ -57,6 +57,18 @@ describe("EditBrickNode", () => {
       .find(GeneralEditor)
       .invoke("onChange")("{}");
 
+    wrapper
+      .find(Form.Item)
+      .filter({ label: "onAnchorLoad" })
+      .find(GeneralEditor)
+      .invoke("onChange")("{}");
+
+    wrapper
+      .find(Form.Item)
+      .filter({ label: "onAnchorUnload" })
+      .find(GeneralEditor)
+      .invoke("onChange")("{}");
+
     // Invalid input
     wrapper
       .find(Form.Item)
@@ -86,7 +98,7 @@ describe("EditBrickNode", () => {
         value: "provider"
       }
     } as any);
-    expect(wrapper.find(Form.Item).length).toBe(6);
+    expect(wrapper.find(Form.Item).length).toBe(8);
 
     wrapper.find(Modal).invoke("onOk")(null);
     expect(handleOk).toBeCalled();
@@ -102,7 +114,7 @@ describe("EditBrickNode", () => {
         value: "template"
       }
     } as any);
-    expect(wrapper.find(Form.Item).length).toBe(5);
+    expect(wrapper.find(Form.Item).length).toBe(4);
 
     wrapper
       .find(Form.Item)
