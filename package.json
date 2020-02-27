@@ -35,7 +35,7 @@
     "@easyops/brick-types": "^1.23.0",
     "@easyops/browserslist-config-next": "^0.1.0",
     "@easyops/eslint-config-next": "^0.1.4",
-    "@easyops/rollup-config-factory": "^1.0.7",
+    "@easyops/rollup-config-factory": "^1.0.8",
     "@svgr/rollup": "^5.2.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.1",
