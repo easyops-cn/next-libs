@@ -25,7 +25,7 @@ exports[`DatetimeRange should work 1`] = `
         快速选择：
       </div>
       <RadioGroup
-        buttonStyle="outline"
+        buttonStyle="solid"
         className="btnGroup"
         onChange={[Function]}
         style={
