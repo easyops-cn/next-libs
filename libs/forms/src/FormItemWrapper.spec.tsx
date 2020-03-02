@@ -4,10 +4,12 @@ import { Form } from "antd";
 import {
   FormItemWrapper,
   getRules,
-  getCommonEventMap
+  getCommonEventMap,
+  FormItemWrapperProps
 } from "./FormItemWrapper";
 import { MenuIcon } from "@easyops/brick-types";
 import i18n from "i18next";
+import { AbstractGeneralFormElement } from "./interfaces";
 
 jest.mock("./i18n");
 jest.spyOn(i18n, "t").mockReturnValue("default message");
@@ -52,9 +54,9 @@ describe("FormItemWrapper", () => {
         span: 14
       }
     };
-    const wrapper = shallow(
+    const wrapper = shallow<FormItemWrapperProps>(
       <FormItemWrapper
-        formElement={formElement as any}
+        formElement={(formElement as unknown) as AbstractGeneralFormElement}
         name="username"
         label="hello"
         required={true}
@@ -68,6 +70,35 @@ describe("FormItemWrapper", () => {
       },
       wrapperCol: {
         span: 14
+      }
+    });
+
+    // without label
+    wrapper.setProps({ label: undefined });
+    expect(wrapper.find(Form.Item).props()).toMatchObject({
+      label: undefined,
+      colon: true,
+      wrapperCol: {
+        span: 14,
+        offset: 4
+      }
+    });
+
+    // with responsive layout
+    wrapper.setProps({
+      formElement: ({
+        ...formElement,
+        labelCol: { xs: 24, md: { span: 12 }, xl: { span: 10, offset: 2 } },
+        wrapperCol: { xs: 24, md: { span: 12 }, xl: { span: 10, offset: 2 } }
+      } as unknown) as AbstractGeneralFormElement
+    });
+    expect(wrapper.find(Form.Item).props()).toMatchObject({
+      label: undefined,
+      colon: true,
+      wrapperCol: {
+        xs: { span: 24, offset: 0 },
+        md: { span: 12, offset: 12 },
+        xl: { span: 10, offset: 14 }
       }
     });
   });
