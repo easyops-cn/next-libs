@@ -2,10 +2,16 @@ import React, { PropsWithChildren } from "react";
 import { get, isEmpty } from "lodash";
 import { Form, Tooltip } from "antd";
 import { GeneralIcon } from "@libs/basic-components";
+import { BrickAsComponent } from "@easyops/brick-kit";
 import { getDefaultMessage } from "./message";
 import { ValidationRule } from "antd/lib/form";
 import { ColProps, ColSize } from "antd/lib/grid";
-import { AbstractGeneralFormElement, LabelTooltipProps } from "./interfaces";
+import {
+  AbstractGeneralFormElement,
+  LabelTooltipProps,
+  HelpBrickProps
+} from "./interfaces";
+import classNames from "classnames";
 import style from "./FormItemWrapper.module.css";
 import { addResourceBundle } from "./i18n";
 addResourceBundle();
@@ -34,6 +40,7 @@ export interface FormItemWrapperProps extends CommonEventProps {
   validator?:
     | ValidationRule["validator"]
     | Array<{ validator: ValidationRule["validator"] }>;
+  helpBrick?: HelpBrickProps;
 }
 
 export function getRules(props: FormItemWrapperProps): ValidationRule[] {
@@ -161,7 +168,7 @@ export function convertLabelSpanToWrapperOffset(
 export function FormItemWrapper(
   props: PropsWithChildren<FormItemWrapperProps>
 ): React.ReactElement {
-  const { labelTooltip } = props;
+  const { labelTooltip, helpBrick } = props;
   const eventMap = getCommonEventMap(props);
 
   let input = isEmpty(eventMap)
@@ -215,6 +222,19 @@ export function FormItemWrapper(
   return (
     <Form.Item className={style.formItem} {...formItemProps}>
       {input}
+      {helpBrick?.useBrick && (
+        <span
+          style={helpBrick.containerStyle}
+          className={classNames({
+            [style.bottomBrick]: ["bottom", undefined].includes(
+              helpBrick.Placement
+            ),
+            [style.rightBrick]: helpBrick.Placement === "right"
+          })}
+        >
+          <BrickAsComponent useBrick={helpBrick.useBrick} />
+        </span>
+      )}
     </Form.Item>
   );
 }

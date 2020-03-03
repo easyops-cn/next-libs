@@ -1,7 +1,7 @@
 import { WrappedFormUtils } from "antd/lib/form/Form";
 import { ColProps } from "antd/lib/col";
 import React from "react";
-import { MenuIcon } from "@easyops/brick-types";
+import { MenuIcon, UseBrickConf } from "@easyops/brick-types";
 
 export interface AbstractGeneralFormElement extends HTMLElement {
   formUtils: WrappedFormUtils;
@@ -27,4 +27,10 @@ export interface LabelTooltipProps {
   icon: MenuIcon;
   style?: React.CSSProperties;
   iconStyle?: React.CSSProperties;
+}
+
+export interface HelpBrickProps {
+  useBrick: UseBrickConf;
+  Placement?: "right" | "bottom";
+  containerStyle?: React.CSSProperties;
 }

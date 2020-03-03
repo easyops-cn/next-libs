@@ -6,3 +6,14 @@
 forms\.general-form .formItem {
   margin-bottom: 24px;
 }
+
+.rightBrick {
+  position: absolute;
+}
+
+.bottomBrick {
+  position: absolute;
+  right: 0;
+  bottom: -4px;
+  transform: translateY(100%);
+}
