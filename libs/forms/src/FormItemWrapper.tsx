@@ -4,6 +4,7 @@ import { Form, Tooltip } from "antd";
 import { GeneralIcon } from "@libs/basic-components";
 import { getDefaultMessage } from "./message";
 import { ValidationRule } from "antd/lib/form";
+import { ColProps, ColSize } from "antd/lib/grid";
 import { AbstractGeneralFormElement, LabelTooltipProps } from "./interfaces";
 import style from "./FormItemWrapper.module.css";
 import { addResourceBundle } from "./i18n";
@@ -87,6 +88,76 @@ export function getCommonEventMap(
   return eventMap;
 }
 
+interface FormItemLayout {
+  wrapperCol?: ColProps;
+  labelCol?: ColProps;
+}
+
+export function addLabelSizeToWrapperOffset(
+  wrapperCol: number | string | ColSize,
+  labelCol: number | string | ColSize
+): ColSize {
+  let wrapperSpan: number | string;
+  let wrapperOffset: number;
+
+  if (typeof wrapperCol === "number" || typeof wrapperCol === "string") {
+    wrapperSpan = wrapperCol;
+    wrapperOffset = 0;
+  } else {
+    wrapperSpan = wrapperCol.span;
+    wrapperOffset = +(wrapperCol.offset ?? 0);
+  }
+
+  let offset =
+    (typeof labelCol === "number" || typeof labelCol === "string"
+      ? +labelCol
+      : +(labelCol.span ?? 0) + +(labelCol.offset ?? 0)) + wrapperOffset;
+
+  if (+wrapperSpan + offset > 24) {
+    offset = wrapperOffset;
+  }
+
+  return {
+    span: wrapperSpan,
+    offset
+  };
+}
+
+export function convertLabelSpanToWrapperOffset(
+  layout: FormItemLayout
+): FormItemLayout {
+  const { wrapperCol, labelCol } = layout;
+  let convertedLayout: FormItemLayout;
+
+  if (wrapperCol && labelCol) {
+    if (wrapperCol.span !== undefined) {
+      convertedLayout = {
+        wrapperCol: addLabelSizeToWrapperOffset(wrapperCol, labelCol)
+      };
+    } else {
+      const convertedWrapperCol: ColProps = {};
+      (Object.entries(wrapperCol) as [
+        "xs" | "sm" | "md" | "lg" | "xl" | "xxl",
+        ColSize
+      ][]).forEach(([key, value]) => {
+        const labelColSpanOrSize = labelCol[key];
+
+        convertedWrapperCol[key] = labelColSpanOrSize
+          ? addLabelSizeToWrapperOffset(value, labelColSpanOrSize)
+          : value;
+      });
+
+      convertedLayout = {
+        wrapperCol: convertedWrapperCol
+      };
+    }
+  } else {
+    convertedLayout = layout;
+  }
+
+  return convertedLayout;
+}
+
 export function FormItemWrapper(
   props: PropsWithChildren<FormItemWrapperProps>
 ): React.ReactElement {
@@ -127,10 +198,15 @@ export function FormItemWrapper(
     }
 
     if (formElement.layout === "horizontal") {
-      Object.assign(formItemProps, {
+      const layout = {
         labelCol: formElement.labelCol,
         wrapperCol: formElement.wrapperCol
-      });
+      };
+
+      Object.assign(
+        formItemProps,
+        label ? layout : convertLabelSpanToWrapperOffset(layout)
+      );
     }
 
     formItemProps.colon = !props.formElement.noColon;
