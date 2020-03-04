@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.19.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.18.0...@libs/cmdb-instances@0.19.0) (2020-03-04)
+
+### Features
+
+- **cmdb-instances:** instanceListModal add modalZIndex ([6f80eba](https://git.easyops.local/anyclouds/next-libs/commits/6f80eba))
+
 # [0.18.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.17.3...@libs/cmdb-instances@0.18.0) (2020-03-04)
 
 ### Features
