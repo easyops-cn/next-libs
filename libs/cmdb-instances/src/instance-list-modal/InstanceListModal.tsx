@@ -26,6 +26,7 @@ export interface InstanceListModalProps {
   selectedRowKeys?: string[];
   onCancel: () => void;
   onSelected?: (instanceList: any[]) => void;
+  modalZIndex?: number;
 }
 
 export function InstanceListModal(
@@ -112,6 +113,7 @@ export function InstanceListModal(
       onCancel={handleCancel}
       destroyOnClose={true}
       footer={renderFooter()}
+      zIndex={props.modalZIndex ?? 1000}
     >
       <div style={{ maxHeight: 720, overflow: "auto" }}>
         <InstanceList
