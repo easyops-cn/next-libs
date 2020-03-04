@@ -36,7 +36,7 @@
     "js-yaml": "*"
   },
   "dependencies": {
-    "@easyops/brick-types": "^1.26.0",
+    "@easyops/brick-types": "^1.27.0",
     "classnames": "^2.2.6"
   }
 }
