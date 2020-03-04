@@ -1,6 +1,10 @@
 import ReactDOM from "react-dom";
 import { UpdatingElement, property } from "@easyops/brick-kit";
-import { AbstractGeneralFormElement, LabelTooltipProps } from "./interfaces";
+import {
+  AbstractGeneralFormElement,
+  LabelTooltipProps,
+  HelpBrickProps
+} from "./interfaces";
 
 export abstract class FormItemElement extends UpdatingElement {
   @property()
@@ -29,6 +33,11 @@ export abstract class FormItemElement extends UpdatingElement {
     attribute: false
   })
   labelTooltip: LabelTooltipProps;
+
+  @property({
+    attribute: false
+  })
+  helpBrick: HelpBrickProps;
 
   getFormElement(): AbstractGeneralFormElement {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
