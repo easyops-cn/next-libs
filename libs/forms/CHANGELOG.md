@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.9.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.8.0...@libs/forms@0.9.0) (2020-03-04)
+
+### Features
+
+- form 表单支持 help 描述 ([39b14c5](https://git.easyops.local/anyclouds/next-libs/commits/39b14c5))
+
 # [0.8.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.7.3...@libs/forms@0.8.0) (2020-03-03)
 
 ### Features
