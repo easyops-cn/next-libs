@@ -1,0 +1,114 @@
+.colorBlue {
+  color: #167be0;
+}
+.detailCard .basicInfoGroupLabel {
+  display: inline-block;
+  height: 26px;
+  background: #f5f5f5;
+  color: #333;
+  margin: 8px 5px;
+  border-radius: 13px;
+  line-height: 26px;
+  text-align: center;
+  padding: 0 12px;
+  cursor: pointer;
+}
+.detailCard .basicInfoGroupLabel:hover {
+  text-decoration: none;
+}
+.detailCard .basicInfoGroupLabel.active {
+  background: #167be0;
+  color: #fff;
+}
+.detailCard h6 {
+  line-height: 20px;
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: rgba(0, 0, 0, 0.85);
+  font-weight: 500;
+}
+.detailCard .groupName {
+  margin: 12px 0 0 20px;
+  padding: 0 0 12px 0;
+  font-size: 14px;
+  font-weight: bold;
+  color: #404143;
+  grid-column: 1 / 5;
+}
+.detailCard dl {
+  display: grid;
+  grid-template-columns: auto 1fr auto 1fr;
+  row-gap: 12px;
+  column-gap: 16px;
+  margin-bottom: 0;
+}
+.detailCard dt {
+  color: rgba(0, 0, 0, 0.65);
+  font-weight: normal;
+  text-align: right;
+}
+.detailCard dt .structAttr:nth-of-type(2n + 1) {
+  grid-column: 1;
+}
+.detailCard dt .structAttr:nth-of-type(2n) {
+  grid-column: 3;
+}
+.detailCard dt.structAttr {
+  grid-column: 1 / 2;
+}
+.detailCard dd {
+  margin-bottom: 0;
+  word-break: break-all;
+  color: rgba(0, 0, 0, 0.85);
+}
+.detailCard dd .structAttr:nth-of-type(2n + 1) {
+  grid-column: 2;
+}
+.detailCard dd .structAttr:nth-of-type(2n) {
+  grid-column: 4;
+}
+.detailCard dd.structAttr {
+  grid-column: 2 / 5;
+}
+.detailCard dd.structAttr + dt.basicAttr {
+  grid-column: 1;
+}
+.detailCard dd.structAttr + dt.basicAttr + dd {
+  grid-column: 2;
+}
+.detailCard .groupSeparator {
+  width: 100%;
+  margin-top: 12px;
+  border-top: 1px solid #000000;
+  opacity: 0.05;
+  grid-column: 1 / 5;
+}
+
+.tipInfoItem {
+  display: flex;
+}
+.tipInfoItem .tipInfoKey {
+  margin-right: 12px;
+  width: 52px;
+  line-height: 20px;
+  text-align: right;
+  font-size: 12px;
+  font-weight: 400;
+  color: #8c8c8c;
+}
+.tipInfoItem .tipInfoValue {
+  font-size: 12px;
+  font-weight: 400;
+  color: #595959;
+  line-height: 20px;
+}
+
+.instanceDetailActions {
+  > * + * {
+    margin-left: 12px;
+  }
+}
+
+.danger {
+  color: #fc5043;
+}

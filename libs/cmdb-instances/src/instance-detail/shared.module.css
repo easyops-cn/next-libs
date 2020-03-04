@@ -1,0 +1,4 @@
+/* TODO: 也许可用 Paragraph 组件代替 */
+.showMultipleLines .multipleLines {
+  white-space: pre-line;
+}
