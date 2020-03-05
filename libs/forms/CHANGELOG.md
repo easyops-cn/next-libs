@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.9.0...@libs/forms@0.9.1) (2020-03-05)
+
+### Bug Fixes
+
+- typo ([80e0433](https://git.easyops.local/anyclouds/next-libs/commits/80e0433))
+
 # [0.9.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.8.0...@libs/forms@0.9.0) (2020-03-04)
 
 ### Features
