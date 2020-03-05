@@ -41,6 +41,7 @@ export interface FormItemWrapperProps extends CommonEventProps {
     | ValidationRule["validator"]
     | Array<{ validator: ValidationRule["validator"] }>;
   helpBrick?: HelpBrickProps;
+  className?: string;
 }
 
 export function getRules(props: FormItemWrapperProps): ValidationRule[] {
@@ -168,7 +169,7 @@ export function convertLabelSpanToWrapperOffset(
 export function FormItemWrapper(
   props: PropsWithChildren<FormItemWrapperProps>
 ): React.ReactElement {
-  const { labelTooltip, helpBrick } = props;
+  const { labelTooltip, helpBrick, className } = props;
   const eventMap = getCommonEventMap(props);
 
   let input = isEmpty(eventMap)
@@ -220,7 +221,10 @@ export function FormItemWrapper(
   }
 
   return (
-    <Form.Item className={style.formItem} {...formItemProps}>
+    <Form.Item
+      className={`${style.formItem} ${className ?? ""}`}
+      {...formItemProps}
+    >
       {input}
       {helpBrick?.useBrick && (
         <span
