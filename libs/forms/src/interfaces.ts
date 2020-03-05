@@ -31,6 +31,6 @@ export interface LabelTooltipProps {
 
 export interface HelpBrickProps {
   useBrick: UseBrickConf;
-  Placement?: "right" | "bottom";
+  placement?: "right" | "bottom";
   containerStyle?: React.CSSProperties;
 }
