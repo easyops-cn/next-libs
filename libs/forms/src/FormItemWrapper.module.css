@@ -9,11 +9,12 @@ forms\.general-form .formItem {
 
 .rightBrick {
   position: absolute;
+  margin-left: 10px;
+  white-space: nowrap;
 }
 
 .bottomBrick {
-  position: absolute;
-  right: 0;
-  bottom: -4px;
-  transform: translateY(100%);
+  display: block;
+  position: relative;
+  line-height: 20px;
 }
