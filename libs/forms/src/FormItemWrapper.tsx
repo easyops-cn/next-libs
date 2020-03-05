@@ -215,7 +215,6 @@ export function FormItemWrapper(
         label ? layout : convertLabelSpanToWrapperOffset(layout)
       );
     }
-
     formItemProps.colon = !props.formElement.noColon;
   }
 
@@ -227,9 +226,9 @@ export function FormItemWrapper(
           style={helpBrick.containerStyle}
           className={classNames({
             [style.bottomBrick]: ["bottom", undefined].includes(
-              helpBrick.Placement
+              helpBrick.placement
             ),
-            [style.rightBrick]: helpBrick.Placement === "right"
+            [style.rightBrick]: helpBrick.placement === "right"
           })}
         >
           <BrickAsComponent useBrick={helpBrick.useBrick} />
