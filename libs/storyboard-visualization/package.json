@@ -26,14 +26,10 @@
     "test:ci": "cross-env NODE_ENV='test' CI=true jest"
   },
   "sideEffects": false,
-  "devDependencies": {
-    "js-yaml": "^3.13.1"
-  },
   "peerDependencies": {
     "@dll/ace": "*",
     "@dll/d3": "*",
-    "@easyops/brick-dll": "*",
-    "js-yaml": "*"
+    "@easyops/brick-dll": "*"
   },
   "dependencies": {
     "@easyops/brick-types": "^1.27.0",
