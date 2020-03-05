@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.10.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.9.1...@libs/forms@0.10.0) (2020-03-05)
+
+### Features
+
+- **forms:** FormItemWrapper 支持传递 className 给 Form.Item ([f77709b](https://git.easyops.local/anyclouds/next-libs/commits/f77709b))
+
 ## [0.9.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.9.0...@libs/forms@0.9.1) (2020-03-05)
 
 ### Bug Fixes
