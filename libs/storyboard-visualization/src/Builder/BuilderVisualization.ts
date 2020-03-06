@@ -16,33 +16,20 @@ import {
 } from "d3-shape";
 import { findLast, uniqueId } from "lodash";
 import classNames from "classnames";
-import { computeRealRoutePath } from "@easyops/brick-utils";
-import { BrickConf } from "@easyops/brick-types";
-import { StoryboardTree, StoryboardNode } from "./interfaces";
 
-import styles from "./shared/Visualization.module.css";
+import styles from "../shared/Visualization.module.css";
+import { BuilderNode, BuilderItem } from "./interfaces";
+import { builderToTree, getClassNameOfNodeType } from "./processors";
 
 interface RenderOptions {
-  showFullBrickName?: boolean;
   handleNodeClick?: ValueFn<
     SVGPathElement,
-    HierarchyPointNode<StoryboardNode>,
+    HierarchyPointNode<BuilderNode>,
     void
   >;
 }
 
-const getBrickName = (
-  brickData: BrickConf,
-  showFullBrickName?: boolean
-): string => {
-  const brickName = brickData.template || brickData.brick;
-  if (showFullBrickName) {
-    return brickName;
-  }
-  return brickName.split(".").slice(-1)[0];
-};
-
-export class Visualization {
+export class BuilderVisualization {
   private readonly svg: Selection<SVGSVGElement, undefined, null, undefined>;
   private readonly defs: Selection<SVGDefsElement, undefined, null, undefined>;
   private readonly arrowMarkerId: string;
@@ -78,19 +65,19 @@ export class Visualization {
   >;
   private links: Selection<
     SVGGElement,
-    HierarchyPointLink<StoryboardNode>,
+    HierarchyPointLink<BuilderNode>,
     SVGGElement,
     undefined
   >;
   private groups: Selection<
     SVGPathElement,
-    HierarchyPointNode<StoryboardNode>,
+    HierarchyPointNode<BuilderNode>,
     SVGGElement,
     undefined
   >;
   private nodes: Selection<
     SVGGElement,
-    HierarchyPointNode<StoryboardNode>,
+    HierarchyPointNode<BuilderNode>,
     SVGGElement,
     undefined
   >;
@@ -131,13 +118,13 @@ export class Visualization {
     return this.svg.node();
   }
 
-  render(storyboardTree: StoryboardTree, options: RenderOptions = {}): void {
-    const hierarchyRoot = hierarchy(storyboardTree);
+  render(builderData: BuilderItem[], options: RenderOptions = {}): void {
+    const hierarchyRoot = hierarchy(builderToTree(builderData));
     const width = 1600;
     // x and y is swapped in horizontal tree layout.
     const dx = 40;
     const dy = width / (hierarchyRoot.height + 1);
-    const root = tree<StoryboardNode>()
+    const root = tree<BuilderNode>()
       .nodeSize([dx, dy])
       .separation((a, b) => {
         // Make the different grouped bricks be separated.
@@ -167,7 +154,7 @@ export class Visualization {
 
     const linkFactory = linkHorizontal<
       unknown,
-      HierarchyPointNode<StoryboardNode>
+      HierarchyPointNode<BuilderNode>
     >()
       .x(d => d.y)
       .y(d => d.x);
@@ -214,25 +201,20 @@ export class Visualization {
         const link = enter.append("g");
         link.append("path").attr("marker-end", `url(#${this.arrowMarkerId})`);
 
-        link.append("text").attr("dy", "0.31em");
+        // link.append("text").attr("dy", "0.31em");
         return link;
       })
       .attr("class", d =>
-        classNames(
-          styles.link,
-          [
-            d.target.data.type,
-            (d.target.data as any).brickType,
-            (d.target.data as any).routeType
-          ]
-            .filter(Boolean)
-            .map(type => styles[type])
-        )
+        classNames(styles.link, {
+          [styles.routed]: ["routes", "bricks", "app"].includes(
+            d.source.data.nodeData.type
+          )
+        })
       );
 
     this.links.select("path").attr("d", linkFactory);
 
-    this.links
+    /* this.links
       .select("text")
       .attr("x", d => d.target.y - 5)
       .attr("y", d => {
@@ -270,7 +252,7 @@ export class Visualization {
               )
             )[0];
         }
-      });
+      }); */
 
     this.groups = this.groups
       .data(
@@ -299,16 +281,17 @@ export class Visualization {
           dx}h${(-dy * 2) / 3}z`;
       });
 
-    const getSymbolType = (data: StoryboardNode): SymbolType => {
-      switch (data.type) {
+    const getSymbolType = (data: BuilderNode): SymbolType => {
+      switch (data.nodeData.type) {
         case "app":
           return symbolCircle;
         case "redirect":
           return symbolTriangle;
-        case "brick":
-          return symbolSquare;
         case "routes":
+        case "bricks":
           return symbolDiamond;
+        default:
+          return symbolSquare;
       }
     };
 
@@ -338,14 +321,11 @@ export class Visualization {
         classNames(
           styles.node,
           {
-            [styles.leaf]: !d.data.children,
-            [styles.template]:
-              d.data.type === "brick" && d.data.brickData.template,
-            [styles.provider]: d.data.type === "brick" && d.data.brickData.bg
+            [styles.leaf]: !d.data.children || d.data.children.length === 0,
+            [styles.template]: d.data.nodeData.type === "template",
+            [styles.provider]: d.data.nodeData.type === "provider"
           },
-          [d.data.type, (d.data as any).brickType, (d.data as any).routeType]
-            .filter(Boolean)
-            .map(type => styles[type])
+          styles[getClassNameOfNodeType(d.data.nodeData.type)]
         )
       )
       .attr("transform", d => `translate(${d.y},${d.x})`);
@@ -354,49 +334,54 @@ export class Visualization {
       .select("path")
       .attr("d", d => symbolGenerator.type(getSymbolType(d.data))());
 
-    this.nodes.select("text").text(d => {
-      switch (d.data.type) {
-        case "app":
-          return d.data.appData.name;
-        case "brick":
-          return getBrickName(d.data.brickData, options.showFullBrickName);
-      }
-    });
+    this.nodes.select("text").text(d => d.data.nodeData.alias);
 
     const legends = [
       {
-        type: "brick",
+        nodeData: {
+          type: "brick",
+          alias: "构件"
+        },
         hasChildren: false,
         isTemplate: false,
-        isProvider: false,
-        name: "构件"
+        isProvider: false
       },
       {
-        type: "brick",
-        hasChildren: true,
-        name: "容器构件"
+        nodeData: {
+          type: "brick",
+          alias: "容器构件"
+        },
+        hasChildren: true
       },
       {
-        type: "brick",
+        nodeData: {
+          type: "brick",
+          alias: "模板"
+        },
         hasChildren: false,
         isTemplate: true,
-        isProvider: false,
-        name: "模板"
+        isProvider: false
       },
       {
-        type: "brick",
+        nodeData: {
+          type: "brick",
+          alias: "Provider"
+        },
         hasChildren: false,
         isTemplate: false,
-        isProvider: true,
-        name: "Provider"
+        isProvider: true
       },
       {
-        type: "routes",
-        name: "路由"
+        nodeData: {
+          type: "routes",
+          alias: "路由"
+        }
       },
       {
-        type: "redirect",
-        name: "重定向"
+        nodeData: {
+          type: "redirect",
+          alias: "重定向"
+        }
       }
     ];
 
@@ -413,7 +398,7 @@ export class Visualization {
           .append("text")
           .attr("dy", "0.31em")
           .attr("x", 25)
-          .text(d => d.name);
+          .text(d => d.nodeData.alias);
         return node;
       })
       .attr("class", d =>
@@ -425,7 +410,7 @@ export class Visualization {
             [styles.template]: d.isTemplate,
             [styles.provider]: d.isProvider
           },
-          [d.type].filter(Boolean).map(type => styles[type])
+          [d.nodeData.type].filter(Boolean).map(type => styles[type])
         )
       )
       .attr(

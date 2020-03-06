@@ -5,3 +5,4 @@ export * from "./storyboardToTree";
 export * from "./treeToStoryboard";
 export * from "./Visualization";
 export * from "./VisualStoryboard/VisualStoryboard";
+export * from "./Builder";

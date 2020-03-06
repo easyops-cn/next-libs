@@ -78,6 +78,10 @@
   fill: orange;
 }
 
+.node.node-type-unknown path {
+  stroke: red;
+}
+
 .legend text {
   text-anchor: start;
 }
