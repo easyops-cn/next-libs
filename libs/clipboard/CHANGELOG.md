@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/clipboard@0.2.33...@libs/clipboard@0.3.0) (2020-03-06)
+
+### Features
+
+- export the copy method, refs BRICK_STORE-1170 ([c8e298a](https://git.easyops.local/anyclouds/next-libs/commits/c8e298a))
+
 ## [0.2.33](https://git.easyops.local/anyclouds/next-libs/compare/@libs/clipboard@0.2.32...@libs/clipboard@0.2.33) (2020-01-15)
 
 **Note:** Version bump only for package @libs/clipboard
