@@ -8,6 +8,41 @@ export interface ClipboardProps {
   icon?: IconProps;
 }
 
+export const copyToClipboard = (text: string): boolean => {
+  let success = false;
+  try {
+    const listener = (e: ClipboardEvent) => {
+      e.stopPropagation();
+      const clipboard = e.clipboardData;
+      clipboard.clearData();
+      clipboard.setData("text", text);
+      e.preventDefault();
+    };
+
+    document.addEventListener("copy", listener);
+    success = document.execCommand("copy");
+
+    if (!success) {
+      throw new Error("copy command was unsuccessful!");
+    }
+    document.removeEventListener("copy", listener);
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.log("unable copy to using execCommand", err);
+
+    try {
+      //  for IE supported only
+      (window as any).clipboardData.setData("text", text);
+      success = true;
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error("unable to copy using clipboardData: ", e);
+    }
+  }
+
+  return success;
+};
+
 export function Clipboard(
   props: PropsWithChildren<ClipboardProps>
 ): React.ReactElement {
@@ -17,43 +52,8 @@ export function Clipboard(
     type: "copy"
   };
 
-  const listener = (e: ClipboardEvent) => {
-    e.stopPropagation();
-    const clipboard = e.clipboardData;
-    clipboard.clearData();
-    clipboard.setData("text", props.text);
-    e.preventDefault();
-  };
-
-  const copyToClipboard = () => {
-    let success = false;
-    try {
-      document.addEventListener("copy", listener);
-      const successful = document.execCommand("copy");
-
-      if (!successful) {
-        throw new Error("copy command was unsuccessful!");
-      }
-      success = true;
-      document.removeEventListener("copy", listener);
-      onCopy && onCopy(props.text, successful);
-      return;
-    } catch (err) {
-      // eslint-disable-next-line no-console
-      console.log("unable copy to using execCommand", err);
-
-      try {
-        //  for IE supported only
-        (window as any).clipboardData.setData("text", props.text);
-        success = true;
-        onCopy && onCopy(props.text, true);
-        return;
-      } catch (e) {
-        // eslint-disable-next-line no-console
-        console.error("unable to copy using clipboardData: ", e);
-      }
-    }
-
+  const onCopyButtonClick = () => {
+    const success = copyToClipboard(props.text);
     onCopy && onCopy(props.text, success);
   };
 
@@ -62,14 +62,14 @@ export function Clipboard(
       {!props.children ? (
         <Icon
           {...Object.assign({}, defaultIconProps, icon)}
-          onClick={copyToClipboard}
+          onClick={onCopyButtonClick}
         />
       ) : (
         React.cloneElement(
           React.Children.only(props.children) as ReactElement,
           {
             ...restProps,
-            onClick: copyToClipboard
+            onClick: onCopyButtonClick
           }
         )
       )}
