@@ -7,10 +7,11 @@ import { BuilderItem, BuilderNode } from "./interfaces";
 export interface VisualBuilderProps {
   data: BuilderItem[];
   onNodeClick?: (data: BuilderItem) => void;
+  onGroupClick?: (parent: BuilderItem, mountPoint: string) => void;
 }
 
 export function VisualBuilder(props: VisualBuilderProps): React.ReactElement {
-  const { data, onNodeClick } = props;
+  const { data, onNodeClick, onGroupClick } = props;
 
   const visual = React.useMemo(() => new BuilderVisualization(), []);
 
@@ -35,11 +36,24 @@ export function VisualBuilder(props: VisualBuilderProps): React.ReactElement {
     [onNodeClick]
   );
 
+  const handleGroupClick: ValueFn<
+    SVGPathElement,
+    HierarchyPointNode<BuilderNode>,
+    void
+  > = React.useCallback(
+    node => {
+      onGroupClick &&
+        onGroupClick(node.parent.data, node.data.nodeData.mountPoint);
+    },
+    [onGroupClick]
+  );
+
   const handleRender = React.useCallback(() => {
     visual.render(data, {
-      handleNodeClick
+      handleNodeClick,
+      handleGroupClick
     });
-  }, [visual, data, handleNodeClick]);
+  }, [visual, data, handleNodeClick, handleGroupClick]);
 
   React.useEffect(() => {
     handleRender();

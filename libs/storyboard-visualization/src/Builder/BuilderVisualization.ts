@@ -27,6 +27,11 @@ interface RenderOptions {
     HierarchyPointNode<BuilderNode>,
     void
   >;
+  handleGroupClick?: ValueFn<
+    SVGPathElement,
+    HierarchyPointNode<BuilderNode>,
+    void
+  >;
 }
 
 export class BuilderVisualization {
@@ -201,7 +206,7 @@ export class BuilderVisualization {
         const link = enter.append("g");
         link.append("path").attr("marker-end", `url(#${this.arrowMarkerId})`);
 
-        // link.append("text").attr("dy", "0.31em");
+        link.append("text").attr("dy", "0.31em");
         return link;
       })
       .attr("class", d =>
@@ -214,7 +219,7 @@ export class BuilderVisualization {
 
     this.links.select("path").attr("d", linkFactory);
 
-    /* this.links
+    this.links
       .select("text")
       .attr("x", d => d.target.y - 5)
       .attr("y", d => {
@@ -224,35 +229,15 @@ export class BuilderVisualization {
         }
         return d.target.x - offset;
       })
-      .text(({ target }) => {
-        switch (target.data.type) {
-          case "brick":
-            return target.data.brickType === "routed"
-              ? [].concat(
-                  computeRealRoutePath(
-                    target.data.routeData.path,
-                    storyboardTree.appData
-                  )
-                )[0]
-              : target.data.slotName;
-          case "routes":
-            return target.data.routeType === "routed"
-              ? [].concat(
-                  computeRealRoutePath(
-                    target.data.routeData.path,
-                    storyboardTree.appData
-                  )
-                )[0]
-              : target.data.slotName;
-          case "redirect":
-            return [].concat(
-              computeRealRoutePath(
-                target.data.routeData.path,
-                storyboardTree.appData
-              )
-            )[0];
+      .text(({ source, target }) => {
+        const brickTypes = ["brick", "provider", "template"];
+        if (
+          brickTypes.includes(source.data.nodeData.type) &&
+          brickTypes.includes(target.data.nodeData.type)
+        ) {
+          return target.data.nodeData.mountPoint;
         }
-      }); */
+      });
 
     this.groups = this.groups
       .data(
@@ -269,7 +254,19 @@ export class BuilderVisualization {
           return false;
         })
       )
-      .join("path")
+      .join(enter => {
+        const groupPath = enter.append("path");
+
+        if (options.handleGroupClick) {
+          groupPath.classed(styles.clickable, true);
+          groupPath.on("click", options.handleGroupClick);
+        } else {
+          groupPath.classed(styles.clickable, false);
+          groupPath.on("click", null);
+        }
+
+        return groupPath;
+      })
       .attr("d", d => {
         const lastSibling = findLast(
           d.parent.children,
