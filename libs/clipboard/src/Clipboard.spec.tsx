@@ -11,8 +11,12 @@ describe("Clipboard", () => {
     onCopy: jest.fn()
   };
 
-  const spyOnConsoleLog = jest.spyOn(console, "log");
-  const spyOnConsoleError = jest.spyOn(console, "error");
+  const spyOnConsoleLog = jest
+    .spyOn(console, "log")
+    .mockImplementation(() => null);
+  const spyOnConsoleError = jest
+    .spyOn(console, "error")
+    .mockImplementation(() => null);
 
   describe("test default icon", () => {
     let wrapper: ReactWrapper;
