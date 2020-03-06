@@ -1,5 +1,6 @@
 import { Storyboard } from "@easyops/brick-types";
 import { StoryboardTree } from "./interfaces";
+import { BuilderItem } from "./Builder";
 
 export function fakeStoryboard(): Storyboard {
   return {
@@ -168,4 +169,33 @@ export function fakeTree(): StoryboardTree {
     ],
     type: "app"
   };
+}
+
+export function fakeBuilder(): BuilderItem[] {
+  return [
+    {
+      alias: "b0",
+      type: "brick",
+      children: [
+        {
+          alias: "b1",
+          type: "brick",
+          mountPoint: "m1",
+          sort: 3
+        },
+        {
+          alias: "b2",
+          type: "provider",
+          mountPoint: "m2",
+          sort: 0
+        },
+        {
+          alias: "b3",
+          type: "template",
+          mountPoint: "m1",
+          sort: 1
+        }
+      ]
+    }
+  ];
 }
