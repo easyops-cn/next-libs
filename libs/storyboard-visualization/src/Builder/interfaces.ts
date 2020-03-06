@@ -1,7 +1,7 @@
 export interface BuilderNode {
-  children?: BuilderNode[];
-  nodeData?: BuilderItem;
+  nodeData: BuilderItem;
   groupIndex?: number;
+  children?: BuilderNode[];
 }
 
 export interface BuilderItem {
