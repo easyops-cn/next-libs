@@ -950,10 +950,10 @@
   dependencies:
     babel-plugin-prismjs "^2.0.1"
 
-"@easyops/brick-container@^1.15.32":
-  version "1.15.32"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-container/download/@easyops/brick-container-1.15.32.tgz#987544eefeebb13d081ad2d68e884dcc61c6c024"
-  integrity sha1-mHVE7v7rsT0IGtLWjohNzGHGwCQ=
+"@easyops/brick-container@^1.16.0":
+  version "1.16.0"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-container/download/@easyops/brick-container-1.16.0.tgz#7253005982847df63bb6c7475521e0e188a6d343"
+  integrity sha1-clMAWYKEffY7tsdHVSHg4Yim00M=
   dependencies:
     body-parser "^1.19.0"
     chalk "^3.0.0"
@@ -1076,10 +1076,10 @@
     prettier "^1.19.1"
     typedoc "^0.16.10"
 
-"@easyops/dev-dependencies@^0.4.1":
-  version "0.4.1"
-  resolved "http://registry.npm.easyops.local/@easyops/dev-dependencies/download/@easyops/dev-dependencies-0.4.1.tgz#085807a8385e457f022378fabb4e6d25c56f5a54"
-  integrity sha1-CFgHqDheRX8CI3j6u05tJcVvWlQ=
+"@easyops/dev-dependencies@^0.4.2":
+  version "0.4.2"
+  resolved "http://registry.npm.easyops.local/@easyops/dev-dependencies/download/@easyops/dev-dependencies-0.4.2.tgz#db042694fea17baa43854ee327e4e456837546f3"
+  integrity sha1-2wQmlP6he6pDhU7jJ+TkVoN1RvM=
   dependencies:
     "@babel/core" "^7.8.6"
     "@dll/ace" "^1.0.98"
@@ -1087,7 +1087,7 @@
     "@dll/echarts" "^1.0.2"
     "@easyops/babel-preset-next" "^0.6.2"
     "@easyops/babel-preset-prismjs" "^0.1.1"
-    "@easyops/brick-container" "^1.15.32"
+    "@easyops/brick-container" "^1.16.0"
     "@easyops/brick-dll" "^1.1.6"
     "@easyops/brick-scripts" "^1.8.1"
     "@easyops/browserslist-config-next" "^0.1.0"
