@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.10.1...@libs/forms@0.10.2) (2020-03-08)
+
+### Bug Fixes
+
+- **form:** form item margin bottom ([3cfc383](https://git.easyops.local/anyclouds/next-libs/commits/3cfc383))
+
 ## [0.10.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.10.0...@libs/forms@0.10.1) (2020-03-05)
 
 ### Bug Fixes
