@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/charts@0.2.1...@libs/charts@0.3.0) (2020-03-09)
+
+### Features
+
+- **charts:** support more units refs MONITOR-277 ([cd8a29b](https://git.easyops.local/anyclouds/next-libs/commits/cd8a29b))
+
 ## [0.2.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/charts@0.2.0...@libs/charts@0.2.1) (2020-02-26)
 
 **Note:** Version bump only for package @libs/charts
