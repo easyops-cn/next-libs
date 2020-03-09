@@ -231,7 +231,7 @@ export class BuilderVisualization {
       })
       .attr("class", d =>
         classNames(styles.link, {
-          [styles.routed]: ["routes", "bricks", "app"].includes(
+          [styles.routed]: ["routes", "app"].includes(
             d.source.data.nodeData.type
           )
         })
@@ -252,8 +252,7 @@ export class BuilderVisualization {
       .text(({ source, target }) => {
         const brickTypes = ["brick", "provider", "template"];
         if (
-          brickTypes.includes(source.data.nodeData.type) &&
-          brickTypes.includes(target.data.nodeData.type)
+          brickTypes.includes(source.data.nodeData.type)
         ) {
           return target.data.nodeData.mountPoint;
         }

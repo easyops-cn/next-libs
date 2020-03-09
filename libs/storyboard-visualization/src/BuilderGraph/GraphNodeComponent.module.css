@@ -1,0 +1,115 @@
+.node {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+}
+
+.alias,
+.contentDivider,
+.contentItem,
+.contentItemMain {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.alias {
+  color: #6d6d6d;
+  text-align: center;
+  position: relative;
+}
+
+.menuButton {
+  position: absolute;
+  right: 0;
+  top: 3px;
+  width: 24px;
+  height: 24px;
+  font-size: 14px;
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.menuButton:hover {
+  color: var(--text-color-link);
+}
+
+.node:hover .alias {
+  padding: 0 24px;
+}
+
+.node:hover .menuButton {
+  display: flex;
+}
+
+.contentDivider {
+  color: #696969;
+}
+
+.contentItem {
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 6px;
+}
+
+.contentItemIcon :global(.anticon) {
+  width: 1.4em;
+  margin-right: 8px;
+  vertical-align: middle;
+  color: rgba(148, 148, 148, 0.61);
+}
+
+.contentItemTypeRoute .contentItemIcon :global(.anticon) {
+  color: var(--theme-cyan-color);
+}
+
+.contentItemTypeBrick .contentItemIcon :global(.anticon) {
+  color: var(--theme-blue-color);
+}
+
+.contentItemTypeProvider .contentItemIcon :global(.anticon) {
+  color: var(--theme-orange-color);
+}
+
+.contentItemTypeTemplate .contentItemIcon :global(.anticon) {
+  color: var(--theme-purple-color);
+}
+
+.contentItemToolbar {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  padding: 0 8px;
+  align-items: center;
+  display: none;
+}
+
+.contentItem:hover {
+  padding-right: 68px;
+}
+
+.contentItem:hover .contentItemToolbar {
+  display: flex;
+}
+
+.contentItemMain {
+  padding: 0 8px;
+  color: #696969;
+  cursor: pointer;
+}
+
+.contentItemMain:hover {
+  background-color: var(--color-brand);
+}
+
+.contentItemMain:hover,
+.contentItemMain:hover .contentItemIcon :global(.anticon) {
+  color: #fff;
+}
+
+.contentItemToolbar :global(.ant-btn) + :global(.ant-btn) {
+  margin-left: 5px;
+}

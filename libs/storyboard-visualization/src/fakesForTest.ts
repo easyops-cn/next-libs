@@ -1,6 +1,7 @@
 import { Storyboard } from "@easyops/brick-types";
 import { StoryboardTree } from "./interfaces";
 import { BuilderItem } from "./Builder";
+import { ViewItem, GraphNode } from "./BuilderGraph";
 
 export function fakeStoryboard(): Storyboard {
   return {
@@ -198,4 +199,156 @@ export function fakeBuilder(): BuilderItem[] {
       ]
     }
   ];
+}
+
+export function fakeBuilderGraphSource(): ViewItem[] {
+  return [
+    {
+      alias: "brick: 2",
+      type: "brick",
+      children: [
+        {
+          alias: "brick: 3",
+          type: "brick",
+          mountPoint: "m1",
+          sort: 3,
+          children: [
+            {
+              alias: "brick: 4",
+              type: "brick",
+              mountPoint: "m11"
+            }
+          ]
+        },
+        {
+          alias: "provider: 1",
+          type: "provider",
+          mountPoint: "m2",
+          sort: 0
+        },
+        {
+          alias: "template: 1",
+          type: "template",
+          mountPoint: "m1",
+          sort: 1
+        }
+      ]
+    }
+  ];
+}
+
+export function fakeBuilderGraphNode(): GraphNode {
+  return {
+    nodeType: "brick",
+    content: {
+      type: "slots",
+      slots: [
+        {
+          name: "m2",
+          type: "bricks",
+          items: [
+            {
+              alias: "provider: 1",
+              type: "provider",
+              mountPoint: "m2",
+              sort: 0
+            }
+          ]
+        },
+        {
+          name: "m1",
+          type: "bricks",
+          items: [
+            {
+              alias: "template: 1",
+              type: "template",
+              mountPoint: "m1",
+              sort: 1
+            },
+            {
+              alias: "brick: 3",
+              type: "brick",
+              mountPoint: "m1",
+              sort: 3,
+              children: [
+                {
+                  alias: "brick: 4",
+                  type: "brick",
+                  mountPoint: "m11"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    originalData: {
+      alias: "brick: 2",
+      type: "brick",
+      children: [
+        {
+          alias: "brick: 3",
+          type: "brick",
+          mountPoint: "m1",
+          sort: 3,
+          children: [
+            {
+              alias: "brick: 4",
+              type: "brick",
+              mountPoint: "m11"
+            }
+          ]
+        },
+        {
+          alias: "provider: 1",
+          type: "provider",
+          mountPoint: "m2",
+          sort: 0
+        },
+        {
+          alias: "template: 1",
+          type: "template",
+          mountPoint: "m1",
+          sort: 1
+        }
+      ]
+    },
+    height: 234,
+    children: [
+      {
+        nodeType: "brick",
+        content: {
+          type: "slots",
+          slots: [
+            {
+              name: "m11",
+              type: "bricks",
+              items: [
+                {
+                  alias: "brick: 4",
+                  type: "brick",
+                  mountPoint: "m11"
+                }
+              ]
+            }
+          ]
+        },
+        originalData: {
+          alias: "brick: 3",
+          type: "brick",
+          mountPoint: "m1",
+          sort: 3,
+          children: [
+            {
+              alias: "brick: 4",
+              type: "brick",
+              mountPoint: "m11"
+            }
+          ]
+        },
+        height: 118,
+        children: []
+      }
+    ]
+  };
 }
