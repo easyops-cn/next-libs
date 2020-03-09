@@ -10,7 +10,7 @@ export interface Fields {
 }
 
 export interface Format {
-  type: FormatType;
+  type?: FormatType;
   precision?: number;
   unit?: string;
 }

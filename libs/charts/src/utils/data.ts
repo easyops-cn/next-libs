@@ -1,33 +1,40 @@
-import { DataFormatDisplay } from "../constants/format";
-import { bytes } from "@libs/constants";
-
-export const dataUnits = bytes;
+import { DataFormatUnitId, dataFormatUnits } from "../constants/format/data";
 
 export function humanizeDataValue(
   value: number,
-  unit?: string
-): [number, DataFormatDisplay] {
-  let baseDataUnitIndex = dataUnits.findIndex(
-    dataUnit => dataUnit.display === unit
-  );
-  if (baseDataUnitIndex === -1) {
-    baseDataUnitIndex = 0;
+  unit?: DataFormatUnitId
+): [number, string] {
+  let baseDataUnitGroupIndex = dataFormatUnits.length - 1;
+  let baseDataUnitIndex = 0;
+  for (let i = 0; i < dataFormatUnits.length; ++i) {
+    const dataUnitIndex = dataFormatUnits[i].findIndex(
+      dataUnit => dataUnit.id === unit
+    );
+    if (dataUnitIndex !== -1) {
+      baseDataUnitGroupIndex = i;
+      baseDataUnitIndex = dataUnitIndex;
+      break;
+    }
   }
+  const dataFormatUnitGroup = dataFormatUnits[baseDataUnitGroupIndex];
 
-  let dataUnit = dataUnits[baseDataUnitIndex];
-  for (let i = baseDataUnitIndex + 1; i < dataUnits.length; ++i) {
+  let dataFormatUnit = dataFormatUnitGroup[baseDataUnitIndex];
+  for (let i = baseDataUnitIndex + 1; i < dataFormatUnitGroup.length; ++i) {
     if (
-      value / (dataUnits[i].divisor / dataUnits[baseDataUnitIndex].divisor) >=
+      value /
+        (dataFormatUnitGroup[i].divisor /
+          dataFormatUnitGroup[baseDataUnitIndex].divisor) >=
       1
     ) {
-      dataUnit = dataUnits[i];
+      dataFormatUnit = dataFormatUnitGroup[i];
     } else {
       break;
     }
   }
 
   return [
-    value / (dataUnit.divisor / dataUnits[baseDataUnitIndex].divisor),
-    dataUnit.display as DataFormatDisplay
+    value /
+      (dataFormatUnit.divisor / dataFormatUnitGroup[baseDataUnitIndex].divisor),
+    dataFormatUnit.display
   ];
 }

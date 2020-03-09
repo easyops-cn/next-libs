@@ -1,28 +1,40 @@
-import { DataRateFormatDisplay } from "../constants/format";
-import { byteRates } from "@libs/constants";
-
-export const dataRateUnits = byteRates;
+import {
+  DataRateFormatUnitId,
+  dataRateFormatUnits
+} from "../constants/format/dataRate";
 
 export function humanizeDataRateValue(
   value: number,
-  unit?: string
-): [number, DataRateFormatDisplay] {
-  let baseDataRateUnitIndex = dataRateUnits.findIndex(
-    dataRateUnit => dataRateUnit.display === unit
-  );
-  if (baseDataRateUnitIndex === -1) {
-    baseDataRateUnitIndex = 0;
+  unit?: DataRateFormatUnitId
+): [number, string] {
+  let baseDataRateUnitGroupIndex = dataRateFormatUnits.length - 1;
+  let baseDataRateUnitIndex = 0;
+  for (let i = 0; i < dataRateFormatUnits.length; ++i) {
+    const dataRateUnitIndex = dataRateFormatUnits[i].findIndex(
+      dataRateUnit => dataRateUnit.id === unit
+    );
+    if (dataRateUnitIndex !== -1) {
+      baseDataRateUnitGroupIndex = i;
+      baseDataRateUnitIndex = dataRateUnitIndex;
+      break;
+    }
   }
+  const dataRateFormatUnitGroup =
+    dataRateFormatUnits[baseDataRateUnitGroupIndex];
 
-  let dataRateUnit = dataRateUnits[baseDataRateUnitIndex];
-  for (let i = baseDataRateUnitIndex + 1; i < dataRateUnits.length; ++i) {
+  let dataRateFormatUnit = dataRateFormatUnitGroup[baseDataRateUnitIndex];
+  for (
+    let i = baseDataRateUnitIndex + 1;
+    i < dataRateFormatUnitGroup.length;
+    ++i
+  ) {
     if (
       value /
-        (dataRateUnits[i].divisor /
-          dataRateUnits[baseDataRateUnitIndex].divisor) >=
+        (dataRateFormatUnitGroup[i].divisor /
+          dataRateFormatUnitGroup[baseDataRateUnitIndex].divisor) >=
       1
     ) {
-      dataRateUnit = dataRateUnits[i];
+      dataRateFormatUnit = dataRateFormatUnitGroup[i];
     } else {
       break;
     }
@@ -30,7 +42,8 @@ export function humanizeDataRateValue(
 
   return [
     value /
-      (dataRateUnit.divisor / dataRateUnits[baseDataRateUnitIndex].divisor),
-    dataRateUnit.display as DataRateFormatDisplay
+      (dataRateFormatUnit.divisor /
+        dataRateFormatUnitGroup[baseDataRateUnitIndex].divisor),
+    dataRateFormatUnit.display
   ];
 }
