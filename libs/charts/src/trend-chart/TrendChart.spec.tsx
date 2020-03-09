@@ -13,7 +13,7 @@ import {
 
 import { Format } from "../interfaces/panel";
 
-import { FormatType, DataRateFormatDisplay } from "../constants/format";
+import { FormatType } from "../constants/format";
 
 jest.mock("echarts");
 
@@ -60,7 +60,7 @@ describe("TrendChart", () => {
         title={title}
         data={data}
         option={{ type: "line" }}
-        clickHandler={jest.fn}
+        onChartClick={jest.fn}
       />
     );
     const asFragment = result.asFragment;
@@ -92,8 +92,8 @@ describe("TrendChart", () => {
       ]
     };
     const format: Format = {
-      type: FormatType.DATA_RATE,
-      unit: DataRateFormatDisplay.BYTES_PER_SECOND
+      type: FormatType.DataRate,
+      unit: "Bps"
     };
 
     const result = render(
@@ -110,72 +110,72 @@ describe("TrendChart", () => {
 
   it("should format label correctlly", () => {
     let label = formatLabel(200, {
-      type: FormatType.NONE
+      type: FormatType.None
     });
-    expect(label).toEqual("200");
+    expect(label).toEqual("200.00");
 
     label = formatLabel(200, null);
     expect(label).toEqual("200");
 
     label = formatLabel(0.5, {
-      type: FormatType.PERCENT,
+      type: FormatType.Percent,
       precision: 2
     });
     expect(label).toEqual("50.00%");
 
     label = formatLabel(0.5, {
-      type: FormatType.PERCENT
+      type: FormatType.Percent
     });
-    expect(label).toEqual("50%");
+    expect(label).toEqual("50.00%");
 
     label = formatLabel(0, {
-      type: FormatType.DATA
+      type: FormatType.Data
     });
     expect(label).toEqual("0");
 
     label = formatLabel(200, {
-      type: FormatType.DATA
+      type: FormatType.Data
     });
-    expect(label).toEqual("25 B");
+    expect(label).toEqual("25.00 B");
 
     label = formatLabel(200, {
-      type: FormatType.DATA,
+      type: FormatType.Data,
       precision: 2
     });
     expect(label).toEqual("25.00 B");
 
     label = formatLabel(null, {
-      type: FormatType.DATA
+      type: FormatType.Data
     });
     expect(label).toEqual(null);
 
     label = formatLabel(0, {
-      type: FormatType.DATA_RATE
+      type: FormatType.DataRate
     });
     expect(label).toEqual("0");
 
     label = formatLabel(200, {
-      type: FormatType.DATA_RATE
+      type: FormatType.DataRate
     });
-    expect(label).toEqual("25 Bps");
+    expect(label).toEqual("25.00 Bps");
 
     label = formatLabel(200, {
-      type: FormatType.DATA_RATE,
+      type: FormatType.DataRate,
       precision: 2
     });
     expect(label).toEqual("25.00 Bps");
 
     label = formatLabel(null, {
-      type: FormatType.DATA_RATE
+      type: FormatType.DataRate
     });
     expect(label).toEqual(null);
   });
 
   it("should format axis label correctlly", () => {
     const label = formatAxisLabel(200, {
-      type: FormatType.NONE
+      type: FormatType.None
     });
-    expect(label).toEqual("200");
+    expect(label).toEqual("200.00");
   });
 
   it("should format markLine label correctlly", () => {
@@ -184,43 +184,45 @@ describe("TrendChart", () => {
         value: 200
       },
       {
-        type: FormatType.NONE
+        type: FormatType.None
       }
     );
-    expect(label).toEqual("200");
+    expect(label).toEqual("200.00");
   });
 
   it("should format tooltip correctlly", () => {
     let toolTip = formatTooltip(
       {
-        type: FormatType.NONE
+        type: FormatType.None
       },
       [
         {
           seriesName: "host.net.bits_in__sum",
           marker: "<span></span>",
-          data: [new Date(1559750400 * 1000), 254]
+          data: [new Date(1559750400 * 1000), 254],
+          color: "green"
         }
       ]
     );
     expect(toolTip).toEqual(
-      "2019/06/06 0:00:00<br /><span></span>host.net.bits_in__sum: 254<br/>"
+      '2019/06/06 0:00:00<br /><svg width="15px" height="10px"><circle cx="10" cy="5" r="4" stroke="white" stroke-width="1" fill="green" /></svg> host.net.bits_in__sum: 254.00<br/>'
     );
 
     toolTip = formatTooltip(
       {
-        type: FormatType.NONE
+        type: FormatType.None
       },
       [
         {
           seriesName: "host.net.bits_in__sum",
           marker: "<span></span>",
-          data: [new Date(1559750400 * 1000), null]
+          data: [new Date(1559750400 * 1000), null],
+          color: "red"
         }
       ]
     );
     expect(toolTip).toEqual(
-      "2019/06/06 0:00:00<br /><span></span>host.net.bits_in__sum: 未知<br/>"
+      '2019/06/06 0:00:00<br /><svg width="15px" height="10px"><circle cx="10" cy="5" r="4" stroke="white" stroke-width="1" fill="red" /></svg> host.net.bits_in__sum: 未知<br/>'
     );
   });
 });

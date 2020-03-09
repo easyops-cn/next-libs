@@ -1,12 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
 import echarts from "echarts";
+import { ResizeSensor } from "css-element-queries";
+
 import { get, merge } from "lodash";
 import moment from "moment";
-import { ResizeSensor } from "css-element-queries";
 
 import { Format } from "../interfaces/panel";
 
 import { formatValue } from "../utils/valueFormatter";
+
+import { DataStatus } from "../constants/data";
 
 import style from "./TrendChart.module.css";
 
@@ -17,9 +20,11 @@ export interface TrendData {
 }
 
 export interface TrendChartData {
+  status?: DataStatus;
   timeSeries: number[];
   legendList: string[];
   trendDataList: TrendData[];
+  error?: string;
 }
 
 export interface YAxisProps {
@@ -31,11 +36,17 @@ export interface TrendChartOptionProps {
   yAxis?: {
     minInterval?: number;
   };
+  symbolSize?: number;
 }
 
 export interface TrendChartColor {
   lineColor: string;
   areaColor: string | [string, string];
+}
+
+export interface TrendChartClickEventParams {
+  dataIndex: number;
+  data: any;
 }
 
 export interface TrendChartProps {
@@ -46,10 +57,10 @@ export interface TrendChartProps {
   stack?: boolean;
   format?: Format;
   colorList?: TrendChartColor[];
-  clickHandler?: (e: any) => void;
+  onChartClick?: (e: TrendChartClickEventParams) => void;
 }
 
-export function formatLabel(value: number, format: Format) {
+export function formatLabel(value: number, format: Format): string {
   if (value === 0) {
     return "0";
   } else if (value) {
@@ -64,18 +75,21 @@ export function formatLabel(value: number, format: Format) {
   }
 }
 
-export function formatAxisLabel(value: number, format: Format) {
+export function formatAxisLabel(value: number, format: Format): string {
   return formatLabel(value, format);
 }
 
-export function formatMarkLineLabel(params: { value: number }, format: Format) {
+export function formatMarkLineLabel(
+  params: { value: number },
+  format: Format
+): string {
   return formatLabel(params.value, format);
 }
 
 export function formatTooltip(
   format: Format,
-  params: { seriesName: string; marker: string; data: any[] }[]
-) {
+  params: { seriesName: string; marker: string; data: any[]; color: string }[]
+): string {
   let tooltip = `${moment(params[0].data[0]).format(
     "YYYY/MM/DD H:mm:ss"
   )}<br />`;
@@ -90,16 +104,20 @@ export function formatTooltip(
         const [formattedValue, unit] = formatValue(param.data[1], format);
         label = `${formattedValue}${unit ? " " + unit : ""}`;
       } else {
-        label = param.data[1].toString();
+        label =
+          typeof param.data[1] === "number"
+            ? param.data[1].toFixed(2).toString()
+            : param.data[1].toString();
       }
     } else {
       label = null;
     }
 
+    const marker = `<svg width="15px" height="10px"><circle cx="10" cy="5" r="4" stroke="white" stroke-width="1" fill="${param.color}" /></svg>`;
     if (label) {
-      tooltip += `${param.marker}${name}: ${label}<br/>`;
+      tooltip += `${marker} ${name}: ${label}<br/>`;
     } else {
-      tooltip += `${param.marker}${name}: 未知<br/>`;
+      tooltip += `${marker} ${name}: 未知<br/>`;
     }
   });
   return tooltip;
@@ -233,6 +251,12 @@ export function TrendChart(props: TrendChartProps): React.ReactElement {
       series: props.data.trendDataList.map((trendData, index) => {
         const color = colorList[index % colorList.length];
 
+        trendData.data.forEach(data => {
+          if (!(data[0] instanceof Date)) {
+            data[0] = new Date(data[0]);
+          }
+        });
+
         return {
           id: trendData.id,
           name: trendData.name,
@@ -240,7 +264,8 @@ export function TrendChart(props: TrendChartProps): React.ReactElement {
           data: trendData.data,
           smoothMonotone: "y",
           stack: props.stack ? "true" : null,
-          symbol: "none",
+          symbol: `circle`,
+          symbolSize: props.option.symbolSize ?? 0,
           markLine: {
             label: {
               formatter: (params: any) =>
@@ -295,28 +320,33 @@ export function TrendChart(props: TrendChartProps): React.ReactElement {
     resizeSensor?: ResizeSensor;
   }>({});
 
-  const renderChart = (option: any) => {
+  const renderChart = (option: any): void => {
     if (!scope.echartsInstance) {
       scope.echartsInstance = echarts.init(chartRef.current);
       scope.resizeSensor = new ResizeSensor(chartRef.current, () => {
         scope.echartsInstance.resize();
       });
-      if (props.clickHandler) {
-        scope.echartsInstance.on("click", (e: any) => {
-          props.clickHandler(e);
-        });
+
+      if (props.onChartClick) {
+        scope.echartsInstance.on(
+          "click",
+          (params: TrendChartClickEventParams) => {
+            props.onChartClick(params);
+          }
+        );
       }
     }
     scope.echartsInstance.setOption(option);
   };
 
   useEffect(() => {
-    const option = computeOption();
-    renderChart(option);
+    if (get(props.data, "status", DataStatus.Normal) === DataStatus.Normal) {
+      renderChart(computeOption());
+    }
   }, [props.data]);
 
-  useEffect(() => {
-    return () => {
+  useEffect(
+    () => () => {
       if (scope.echartsInstance) {
         scope.echartsInstance.dispose();
       }
@@ -324,8 +354,41 @@ export function TrendChart(props: TrendChartProps): React.ReactElement {
       if (scope.resizeSensor) {
         scope.resizeSensor.detach();
       }
-    };
-  }, []);
+    },
+    []
+  );
 
-  return <div className={style.chart} ref={chartRef} />;
+  const render = (): React.ReactElement => {
+    const status = props.data
+      ? props.data.status || DataStatus.Normal
+      : DataStatus.Empty;
+    const title = props.title || "";
+    switch (status) {
+      case DataStatus.Normal:
+        return <div className={style.chart} ref={chartRef} />;
+      case DataStatus.Empty:
+        return (
+          <>
+            <div className={style.title}>{title}</div>
+            <div>暂无数据</div>
+          </>
+        );
+      case DataStatus.ApiError:
+        return (
+          <>
+            <div className={style.title}>{title}</div>
+            <div>获取数据失败</div>
+          </>
+        );
+      default:
+        return (
+          <>
+            <div className={style.title}>{title}</div>
+            <div>{props.data?.error || "未知错误"}</div>
+          </>
+        );
+    }
+  };
+
+  return render();
 }

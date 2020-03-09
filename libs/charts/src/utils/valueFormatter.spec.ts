@@ -1,6 +1,6 @@
 import { convertValueByPrecision, formatValue } from "./valueFormatter";
 
-import { FormatType, DataRateFormatDisplay } from "../constants/format";
+import { FormatType } from "../constants/format";
 
 describe("valueFormatter", () => {
   it("should convert value by precision correctly", () => {
@@ -10,19 +10,19 @@ describe("valueFormatter", () => {
 
   it("should format value correctly", () => {
     expect(formatValue(1)).toEqual(["1", null]);
-    expect(formatValue(1, { type: FormatType.NONE, unit: "个" })).toEqual([
-      "1",
+    expect(formatValue(1, { type: FormatType.None, unit: "个" })).toEqual([
+      "1.00",
       "个"
     ]);
-    expect(formatValue(0.5, { type: FormatType.PERCENT })).toEqual([
-      "50%",
+    expect(formatValue(0.5, { type: FormatType.Percent })).toEqual([
+      "50.00%",
       null
     ]);
     expect(
       formatValue(1024, {
-        type: FormatType.DATA_RATE,
-        unit: DataRateFormatDisplay.KILOBYTES_PER_SECOND
+        type: FormatType.DataRate,
+        unit: "KBps"
       })
-    ).toEqual(["1", DataRateFormatDisplay.MEGABYTES_PER_SECOND]);
+    ).toEqual(["1.00", "MBps"]);
   });
 });
