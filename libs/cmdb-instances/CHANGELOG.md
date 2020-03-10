@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.19.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.19.0...@libs/cmdb-instances@0.19.1) (2020-03-10)
+
+### Bug Fixes
+
+- **cmdb-instances:** not filter from attr id in display setting refs CMDB_BRICK-293 ([e35c799](https://git.easyops.local/anyclouds/next-libs/commits/e35c799))
+
 # [0.19.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.18.0...@libs/cmdb-instances@0.19.0) (2020-03-04)
 
 ### Features
