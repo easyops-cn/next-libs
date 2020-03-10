@@ -152,10 +152,7 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
     const q = this.state.q.trim().toLowerCase();
     if (q) {
       filterList = filterList.filter(attr => {
-        return (
-          attr.id.toLowerCase().includes(q) ||
-          attr.name.toLowerCase().includes(q)
-        );
+        return attr.name.toLowerCase().includes(q);
       });
     }
     this.setState({
