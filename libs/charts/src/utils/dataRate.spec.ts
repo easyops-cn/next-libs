@@ -1,5 +1,5 @@
 import { humanizeDataRateValue } from "./dataRate";
-import { DataRateFormatUnitId } from "../constants/format/dataRate";
+import { ByteRatesUnitId as DataRateFormatUnitId } from "@libs/constants";
 
 describe("dateRate", () => {
   it("should humanize data rate value correctly", () => {

@@ -1,4 +1,6 @@
-import { TimeFormatUnitId, timeFormatUnits } from "../constants/format/time";
+import { TimesUnitId as TimeFormatUnitId } from "@libs/constants";
+
+import { timeFormatUnits } from "../constants/format/time";
 
 export function humanizeTimeValue(
   value: number,

@@ -6,10 +6,12 @@ import { humanizeDataValue } from "./data";
 import { humanizeDataRateValue } from "./dataRate";
 
 import { FormatType, formatUnitIds } from "../constants/format";
-import { PercentFormatUnitId } from "../constants/format/percent";
-import { TimeFormatUnitId } from "../constants/format/time";
-import { DataFormatUnitId } from "../constants/format/data";
-import { DataRateFormatUnitId } from "../constants/format/dataRate";
+import {
+  PercentUnitId,
+  TimesUnitId,
+  BytesUnitId,
+  ByteRatesUnitId
+} from "@libs/constants";
 
 export const convertValueByPrecision = (
   value: number,
@@ -38,14 +40,14 @@ export const formatValue = (
       case FormatType.Percent: {
         const percentValue = humanizePercentValue(
           value,
-          format.unit as PercentFormatUnitId
+          format.unit as PercentUnitId
         );
         return [`${convertValueByPrecision(percentValue, precision)}%`, null];
       }
       case FormatType.Time: {
         const [timeValue, timeUnitDisplay] = humanizeTimeValue(
           value,
-          format.unit as TimeFormatUnitId
+          format.unit as TimesUnitId
         );
         return [
           `${convertValueByPrecision(
@@ -58,7 +60,7 @@ export const formatValue = (
       case FormatType.Data: {
         const [dataValue, dataUnitDisplay] = humanizeDataValue(
           value,
-          format.unit as DataFormatUnitId
+          format.unit as BytesUnitId
         );
         return [
           `${convertValueByPrecision(dataValue, precision)}`,
@@ -68,7 +70,7 @@ export const formatValue = (
       case FormatType.DataRate: {
         const [dataRateValue, dataRateUnitDisplay] = humanizeDataRateValue(
           value,
-          format.unit as DataRateFormatUnitId
+          format.unit as ByteRatesUnitId
         );
         return [
           `${convertValueByPrecision(dataRateValue, precision)}`,
