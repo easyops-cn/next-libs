@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/charts@0.4.0...@libs/charts@0.4.1) (2020-03-10)
+
+### Bug Fixes
+
+- **charts:** export utils refs MONITOR-277 ([7a3d461](https://git.easyops.local/anyclouds/next-libs/commits/7a3d461))
+- **charts:** export utils refs MONITOR-277 ([5eb15c7](https://git.easyops.local/anyclouds/next-libs/commits/5eb15c7))
+
 # [0.4.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/charts@0.3.0...@libs/charts@0.4.0) (2020-03-10)
 
 ### Features
