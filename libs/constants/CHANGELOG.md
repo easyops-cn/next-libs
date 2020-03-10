@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/constants@0.5.0...@libs/constants@0.6.0) (2020-03-10)
+
+### Features
+
+- **charts:** support more unit alias refs MONITOR-277 ([d72e1b7](https://git.easyops.local/anyclouds/next-libs/commits/d72e1b7))
+
 # [0.5.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/constants@0.4.0...@libs/constants@0.5.0) (2020-03-10)
 
 ### Features
