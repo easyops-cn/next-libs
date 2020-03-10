@@ -1,4 +1,6 @@
-import { DataFormatUnitId, dataFormatUnits } from "../constants/format/data";
+import { BytesUnitId as DataFormatUnitId } from "@libs/constants";
+
+import { dataFormatUnits } from "../constants/format/data";
 
 export function humanizeDataValue(
   value: number,

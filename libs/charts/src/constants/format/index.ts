@@ -1,4 +1,4 @@
-import { percentFormatUnitIds } from "./percent";
+import { percentFormatUnitIds } from "@libs/constants";
 import { timeFormatUnitIds } from "./time";
 import { dataFormatUnitIds } from "./data";
 import { dataRateFormatUnitIds } from "./dataRate";
@@ -19,7 +19,6 @@ export const formatUnitIds: { [type: string]: string[] } = {
   [FormatType.DataRate]: dataRateFormatUnitIds
 };
 
-export * from "./percent";
 export * from "./time";
 export * from "./data";
 export * from "./dataRate";

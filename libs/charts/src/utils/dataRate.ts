@@ -1,7 +1,6 @@
-import {
-  DataRateFormatUnitId,
-  dataRateFormatUnits
-} from "../constants/format/dataRate";
+import { ByteRatesUnitId as DataRateFormatUnitId } from "@libs/constants";
+
+import { dataRateFormatUnits } from "../constants/format/dataRate";
 
 export function humanizeDataRateValue(
   value: number,
