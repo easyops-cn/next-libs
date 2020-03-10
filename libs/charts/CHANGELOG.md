@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/charts@0.5.0...@libs/charts@0.5.1) (2020-03-10)
+
+### Bug Fixes
+
+- **trend-chart:** optimize styles refs BRICK_STORE-1224 ([33c168b](https://git.easyops.local/anyclouds/next-libs/commits/33c168b))
+
 # [0.5.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/charts@0.4.1...@libs/charts@0.5.0) (2020-03-10)
 
 ### Features
