@@ -26,10 +26,14 @@ export const formatValue = (
 ): [string, string] => {
   if (format) {
     let { type } = format;
-    if (!type) {
+    if (!type && format.unit) {
       type = FormatType.None;
       Object.entries(formatUnitIds).map(([formatType, units]) => {
-        if (units.includes(format.unit)) {
+        if (
+          units
+            .map(unit => unit.toLocaleLowerCase())
+            .includes(format.unit.toLocaleLowerCase())
+        ) {
           type = formatType as FormatType;
         }
       });

@@ -8,14 +8,22 @@ export function humanizeDataRateValue(
 ): [number, string] {
   let baseDataRateUnitGroupIndex = dataRateFormatUnits.length - 1;
   let baseDataRateUnitIndex = 0;
-  for (let i = 0; i < dataRateFormatUnits.length; ++i) {
-    const dataRateUnitIndex = dataRateFormatUnits[i].findIndex(
-      dataRateUnit => dataRateUnit.id === unit
-    );
-    if (dataRateUnitIndex !== -1) {
-      baseDataRateUnitGroupIndex = i;
-      baseDataRateUnitIndex = dataRateUnitIndex;
-      break;
+
+  if (unit) {
+    for (let i = 0; i < dataRateFormatUnits.length; ++i) {
+      const dataRateUnitIndex = dataRateFormatUnits[i].findIndex(
+        dataRateUnit =>
+          dataRateUnit.id.toLocaleLowerCase() === unit.toLocaleLowerCase() ||
+          (dataRateUnit.alias &&
+            dataRateUnit.alias
+              .map(alias => alias.toLocaleLowerCase())
+              .includes(unit))
+      );
+      if (dataRateUnitIndex !== -1) {
+        baseDataRateUnitGroupIndex = i;
+        baseDataRateUnitIndex = dataRateUnitIndex;
+        break;
+      }
     }
   }
   const dataRateFormatUnitGroup =

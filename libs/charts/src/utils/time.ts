@@ -8,14 +8,21 @@ export function humanizeTimeValue(
 ): [number, string] {
   let baseTimeUnitGroupIndex = 0;
   let baseTimeUnitIndex = 2;
-  for (let i = 0; i < timeFormatUnits.length; ++i) {
-    const timeUnitIndex = timeFormatUnits[i].findIndex(
-      timeUnit => timeUnit.id === unit
-    );
-    if (timeUnitIndex !== -1) {
-      baseTimeUnitGroupIndex = i;
-      baseTimeUnitIndex = timeUnitIndex;
-      break;
+  if (unit) {
+    for (let i = 0; i < timeFormatUnits.length; ++i) {
+      const timeUnitIndex = timeFormatUnits[i].findIndex(
+        timeUnit =>
+          timeUnit.id.toLocaleLowerCase() === unit.toLocaleLowerCase() ||
+          (timeUnit.alias &&
+            timeUnit.alias
+              .map(alias => alias.toLocaleLowerCase())
+              .includes(unit))
+      );
+      if (timeUnitIndex !== -1) {
+        baseTimeUnitGroupIndex = i;
+        baseTimeUnitIndex = timeUnitIndex;
+        break;
+      }
     }
   }
   const timeFormatUnitGroup = timeFormatUnits[baseTimeUnitGroupIndex];

@@ -8,14 +8,22 @@ export function humanizeDataValue(
 ): [number, string] {
   let baseDataUnitGroupIndex = dataFormatUnits.length - 1;
   let baseDataUnitIndex = 0;
-  for (let i = 0; i < dataFormatUnits.length; ++i) {
-    const dataUnitIndex = dataFormatUnits[i].findIndex(
-      dataUnit => dataUnit.id === unit
-    );
-    if (dataUnitIndex !== -1) {
-      baseDataUnitGroupIndex = i;
-      baseDataUnitIndex = dataUnitIndex;
-      break;
+
+  if (unit) {
+    for (let i = 0; i < dataFormatUnits.length; ++i) {
+      const dataUnitIndex = dataFormatUnits[i].findIndex(
+        dataUnit =>
+          dataUnit.id.toLocaleLowerCase() === unit.toLocaleLowerCase() ||
+          (dataUnit.alias &&
+            dataUnit.alias
+              .map(alias => alias.toLocaleLowerCase())
+              .includes(unit))
+      );
+      if (dataUnitIndex !== -1) {
+        baseDataUnitGroupIndex = i;
+        baseDataUnitIndex = dataUnitIndex;
+        break;
+      }
     }
   }
   const dataFormatUnitGroup = dataFormatUnits[baseDataUnitGroupIndex];
