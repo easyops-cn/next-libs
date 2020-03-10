@@ -1,22 +1,14 @@
 import { Unit } from "./interface";
 
 export enum ByteRatesUnitId {
-  ShortBitsPerSecond = "bits/secbps",
-  ShortKilobitsPerSecond = "kilobits/secKbps",
-  ShortMegabitsPerSecond = "megabits/secMbps",
-  ShortGigabitsPerSecond = "gigabits/secGbps",
-  ShortBytesPerSecond = "bytes/secBps",
-  ShortKilobytesPerSecond = "kilobytes/secKBps",
-  ShortMegabytesPerSecond = "megabytes/secMBps",
-  ShortGigabytesPerSecond = "gigabytes/secGBps",
-  BitsPerSecond = "bits/sec(bps)",
-  KilobitsPerSecond = "kilobits/sec(Kbps)",
-  MegabitsPerSecond = "megabits/sec(Mbps)",
-  GigabitsPerSecond = "gigabits/sec(Gbps)",
-  BytesPerSecond = "bytes/sec(Bps)",
-  KilobytesPerSecond = "kilobytes/sec(KBps)",
-  MegabytesPerSecond = "megabytes/sec(MBps)",
-  GigabytesPerSecond = "gigabytes/sec(GBps)",
+  BitsPerSecond = "bits/sec",
+  KilobitsPerSecond = "kilobits/sec",
+  MegabitsPerSecond = "megabits/sec",
+  GigabitsPerSecond = "gigabits/sec",
+  BytesPerSecond = "bytes/sec",
+  KilobytesPerSecond = "kilobytes/sec",
+  MegabytesPerSecond = "megabytes/sec",
+  GigabytesPerSecond = "gigabytes/sec",
   // deperated
   bps = "bps",
   Bps = "Bps",
@@ -25,70 +17,28 @@ export enum ByteRatesUnitId {
   GBps = "GBps"
 }
 
-export const shortBitRates: Unit[] = [
-  {
-    id: ByteRatesUnitId.ShortBitsPerSecond,
-    divisor: 1,
-    display: "bps"
-  },
-  {
-    id: ByteRatesUnitId.ShortKilobitsPerSecond,
-    divisor: 1024,
-    display: "Kbps"
-  },
-  {
-    id: ByteRatesUnitId.ShortMegabitsPerSecond,
-    divisor: 1024 * 1024,
-    display: "Mbps"
-  },
-  {
-    id: ByteRatesUnitId.ShortGigabitsPerSecond,
-    divisor: 1024 * 1024 * 1024,
-    display: "Gbps"
-  }
-];
-
-export const shortByteRates: Unit[] = [
-  {
-    id: ByteRatesUnitId.ShortBytesPerSecond,
-    divisor: 8,
-    display: "Bps"
-  },
-  {
-    id: ByteRatesUnitId.ShortKilobytesPerSecond,
-    divisor: 8 * 1024,
-    display: "KBps"
-  },
-  {
-    id: ByteRatesUnitId.ShortMegabytesPerSecond,
-    divisor: 8 * 1024 * 1024,
-    display: "MBps"
-  },
-  {
-    id: ByteRatesUnitId.ShortGigabytesPerSecond,
-    divisor: 8 * 1024 * 1024 * 1024,
-    display: "GBps"
-  }
-];
-
 export const bitRates: Unit[] = [
   {
     id: ByteRatesUnitId.BitsPerSecond,
+    alias: ["bps", "bits/sec(bps)"],
     divisor: 1,
     display: "bps"
   },
   {
     id: ByteRatesUnitId.KilobitsPerSecond,
+    alias: ["Kbps", "kilobits/sec(Kbps)"],
     divisor: 1024,
     display: "Kbps"
   },
   {
     id: ByteRatesUnitId.MegabitsPerSecond,
+    alias: ["Mbps", "megabits/sec(Mbps)"],
     divisor: 1024 * 1024,
     display: "Mbps"
   },
   {
     id: ByteRatesUnitId.GigabitsPerSecond,
+    alias: ["Gbps", "gigabits/sec(Gbps)"],
     divisor: 1024 * 1024 * 1024,
     display: "Gbps"
   }
@@ -97,21 +47,25 @@ export const bitRates: Unit[] = [
 export const byteRates: Unit[] = [
   {
     id: ByteRatesUnitId.BytesPerSecond,
+    alias: ["Bps", "bytes/sec(Bps)"],
     divisor: 8,
     display: "Bps"
   },
   {
     id: ByteRatesUnitId.KilobytesPerSecond,
+    alias: ["KBps", "kilobytes/sec(KBps)"],
     divisor: 8 * 1024,
     display: "KBps"
   },
   {
     id: ByteRatesUnitId.MegabytesPerSecond,
+    alias: ["MBps", "megabytes/sec(MBps)"],
     divisor: 8 * 1024 * 1024,
     display: "MBps"
   },
   {
     id: ByteRatesUnitId.GigabytesPerSecond,
+    alias: ["GBps", "gigabytes/sec(GBps)"],
     divisor: 8 * 1024 * 1024 * 1024,
     display: "GBps"
   }

@@ -1,22 +1,14 @@
 import { Unit } from "./interface";
 
 export enum TimesUnitId {
-  ShortNanosecond = "nanosecondsns",
-  ShortMicrosecond = "microsecondsμs",
-  ShortMilliseconds = "millisecondsms",
-  ShortSeconds = "secondss",
-  ShortMinutes = "minutesm",
-  ShortHours = "hoursh",
-  ShortDays = "daysd",
-  ShortWeeks = "weeksw",
-  Nanosecond = "nanoseconds(ns)",
-  Microsecond = "microseconds(μs)",
-  Milliseconds = "milliseconds(ms)",
-  Seconds = "seconds(s)",
-  Minutes = "minutes(m)",
-  Hours = "hours(h)",
-  Days = "days(d)",
-  Weeks = "weeks(w)",
+  Nanosecond = "nanoseconds",
+  Microsecond = "microseconds",
+  Milliseconds = "milliseconds",
+  Seconds = "seconds",
+  Minutes = "minutes",
+  Hours = "hours",
+  Days = "days",
+  Weeks = "weeks",
   // deperated
   ms = "ms",
   s = "s",
@@ -26,87 +18,52 @@ export enum TimesUnitId {
   week = "week"
 }
 
-export const shortTimes: Unit[] = [
-  {
-    id: TimesUnitId.ShortNanosecond,
-    divisor: 1,
-    display: "ns"
-  },
-  {
-    id: TimesUnitId.ShortMicrosecond,
-    divisor: 1000,
-    display: "μs"
-  },
-  {
-    id: TimesUnitId.ShortMilliseconds,
-    divisor: 1000 * 1000,
-    display: "ms"
-  },
-  {
-    id: TimesUnitId.ShortSeconds,
-    divisor: 1000 * 1000 * 1000,
-    display: "s"
-  },
-  {
-    id: TimesUnitId.ShortMinutes,
-    divisor: 1000 * 1000 * 1000 * 60,
-    display: "m"
-  },
-  {
-    id: TimesUnitId.ShortHours,
-    divisor: 1000 * 1000 * 1000 * 60 * 60,
-    display: "h"
-  },
-  {
-    id: TimesUnitId.ShortDays,
-    divisor: 1000 * 1000 * 1000 * 60 * 60 * 24,
-    display: "d"
-  },
-  {
-    id: TimesUnitId.ShortWeeks,
-    divisor: 1000 * 1000 * 1000 * 60 * 60 * 24 * 7,
-    display: "w"
-  }
-];
-
 export const times: Unit[] = [
   {
     id: TimesUnitId.Nanosecond,
+    alias: ["ns", "nanoseconds(ns)"],
     divisor: 1,
     display: "ns"
   },
   {
     id: TimesUnitId.Microsecond,
+    alias: ["μs", "microseconds(μs)"],
     divisor: 1000,
     display: "μs"
   },
   {
     id: TimesUnitId.Milliseconds,
+    alias: ["ms", "milliseconds(ms)"],
     divisor: 1000 * 1000,
     display: "ms"
   },
   {
     id: TimesUnitId.Seconds,
+    alias: ["s", "seconds(s)"],
     divisor: 1000 * 1000 * 1000,
     display: "s"
   },
   {
     id: TimesUnitId.Minutes,
+    alias: ["m", "minutes(m)"],
     divisor: 1000 * 1000 * 1000 * 60,
     display: "m"
   },
   {
     id: TimesUnitId.Hours,
+    alias: ["h", "hours(h)"],
     divisor: 1000 * 1000 * 1000 * 60 * 60,
     display: "h"
   },
   {
     id: TimesUnitId.Days,
+    alias: ["d", "days(d)"],
     divisor: 1000 * 1000 * 1000 * 60 * 60 * 24,
     display: "d"
   },
   {
     id: TimesUnitId.Weeks,
+    alias: ["w", "weeks(w)"],
     divisor: 1000 * 1000 * 1000 * 60 * 60 * 24 * 7,
     display: "w"
   }
