@@ -13,7 +13,7 @@ describe("viewsToGraph", () => {
           alias: "APP",
           type: "app"
         },
-        height: 56,
+        height: 46,
         children: []
       }
     ],
@@ -26,7 +26,7 @@ describe("viewsToGraph", () => {
           type: "app",
           children: []
         },
-        height: 56,
+        height: 46,
         children: []
       }
     ],
@@ -47,7 +47,7 @@ describe("viewsToGraph", () => {
           alias: "route: empty-routes",
           type: "routes"
         },
-        height: 49,
+        height: 39,
         children: []
       }
     ],
@@ -85,7 +85,7 @@ describe("viewsToGraph", () => {
             }
           ]
         },
-        height: 88,
+        height: 74,
         children: []
       }
     ],
@@ -189,7 +189,7 @@ describe("computeSourceX", () => {
           }
         }
       },
-      63
+      47
     ],
     [
       {
@@ -216,7 +216,7 @@ describe("computeSourceX", () => {
           }
         }
       },
-      170
+      133
     ]
   ] as any)("computeSourceX(%j) should return %j", (link, x) => {
     expect(computeSourceX(link)).toBe(x);

@@ -10,13 +10,13 @@ describe("GraphNodeComponent", () => {
   it("should work for brick node", () => {
     const node: GraphNode = fakeBuilderGraphNode();
 
-    const wrapper = shallow(<GraphNodeComponent node={node} nodeWidth={100} />);
+    const wrapper = shallow(<GraphNodeComponent node={node} />);
 
     expect(wrapper.prop("style")).toMatchObject({
-      left: -50,
-      top: -117,
-      width: 100,
-      height: 234
+      left: -100,
+      top: -97.5,
+      width: 200,
+      height: 195
     });
 
     expect(wrapper.find("ContentItem").length).toBe(3);
@@ -48,7 +48,7 @@ describe("GraphNodeComponent", () => {
       children: []
     };
 
-    const wrapper = shallow(<GraphNodeComponent node={node} nodeWidth={100} />);
+    const wrapper = shallow(<GraphNodeComponent node={node} />);
     expect(wrapper.find("ContentItem").length).toBe(1);
   });
 
@@ -63,7 +63,7 @@ describe("GraphNodeComponent", () => {
       children: []
     };
 
-    const wrapper = shallow(<GraphNodeComponent node={node} nodeWidth={100} />);
+    const wrapper = shallow(<GraphNodeComponent node={node} />);
     expect(wrapper.find("ContentItem").length).toBe(0);
   });
 });
@@ -80,7 +80,9 @@ describe("ContentItem", () => {
     expect((wrapper.find(GeneralIcon).prop("icon") as FaIcon).icon).toBe(
       "code-branch"
     );
-    expect(wrapper.prop("className")).toBe("contentItem contentItemTypeRoute");
+    expect(wrapper.prop("className")).toBe(
+      "contentItem contentItemTypeRoute contentItemToolbarButtons1"
+    );
 
     wrapper.setProps({
       isLast: true
@@ -91,9 +93,11 @@ describe("ContentItem", () => {
       type: "bricks"
     });
     expect((wrapper.find(GeneralIcon).prop("icon") as FaIcon).icon).toBe(
-      "table"
+      "puzzle-piece"
     );
-    expect(wrapper.prop("className")).toBe("contentItem contentItemTypeBrick");
+    expect(wrapper.prop("className")).toBe(
+      "contentItem contentItemTypeBrick contentItemToolbarButtons2"
+    );
 
     wrapper.setProps({
       type: "unknown"
@@ -101,6 +105,8 @@ describe("ContentItem", () => {
     expect((wrapper.find(GeneralIcon).prop("icon") as FaIcon).icon).toBe(
       "question"
     );
-    expect(wrapper.prop("className")).toBe("contentItem");
+    expect(wrapper.prop("className")).toBe(
+      "contentItem contentItemToolbarButtons1"
+    );
   });
 });
