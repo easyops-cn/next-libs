@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.17.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.16.0...@libs/storyboard-visualization@0.17.0) (2020-03-11)
+
+### Bug Fixes
+
+- support no alias ([436bb4f](https://git.easyops.local/anyclouds/next-libs/commits/436bb4f))
+
+### Features
+
+- new builder-graph ([11dc38f](https://git.easyops.local/anyclouds/next-libs/commits/11dc38f))
+
 # [0.16.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.15.0...@libs/storyboard-visualization@0.16.0) (2020-03-06)
 
 ### Features
