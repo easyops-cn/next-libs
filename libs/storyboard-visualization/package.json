@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "@easyops/brick-types": "^1.27.0",
+    "@libs/basic-components": "^0.18.7",
     "classnames": "^2.2.6"
   }
 }

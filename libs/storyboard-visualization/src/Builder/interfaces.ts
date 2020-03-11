@@ -11,5 +11,8 @@ export interface BuilderItem {
   mountPoint?: string;
   sort?: number;
   type?: string;
+  brick?: string;
+  template?: string;
+  path?: string;
   children?: BuilderItem[];
 }

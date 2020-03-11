@@ -34,6 +34,26 @@ interface RenderOptions {
   >;
 }
 
+function getName(data: BuilderItem): string {
+  if (data.alias) {
+    return data.alias;
+  }
+
+  if (["brick", "provider", "template"].includes(data.type)) {
+    return getBrickName(data);
+  }
+
+  return data.path;
+}
+
+function getBrickName(data: BuilderItem, showFullBrickName?: boolean): string {
+  const brickName = data.template || data.brick;
+  if (showFullBrickName) {
+    return brickName;
+  }
+  return brickName.split(".").slice(-1)[0];
+}
+
 export class BuilderVisualization {
   private readonly svg: Selection<SVGSVGElement, undefined, null, undefined>;
   private readonly defs: Selection<SVGDefsElement, undefined, null, undefined>;
@@ -211,7 +231,7 @@ export class BuilderVisualization {
       })
       .attr("class", d =>
         classNames(styles.link, {
-          [styles.routed]: ["routes", "bricks", "app"].includes(
+          [styles.routed]: ["routes", "app"].includes(
             d.source.data.nodeData.type
           )
         })
@@ -232,8 +252,7 @@ export class BuilderVisualization {
       .text(({ source, target }) => {
         const brickTypes = ["brick", "provider", "template"];
         if (
-          brickTypes.includes(source.data.nodeData.type) &&
-          brickTypes.includes(target.data.nodeData.type)
+          brickTypes.includes(source.data.nodeData.type)
         ) {
           return target.data.nodeData.mountPoint;
         }
@@ -331,7 +350,7 @@ export class BuilderVisualization {
       .select("path")
       .attr("d", d => symbolGenerator.type(getSymbolType(d.data))());
 
-    this.nodes.select("text").text(d => d.data.nodeData.alias);
+    this.nodes.select("text").text(d => getName(d.data.nodeData));
 
     const legends = [
       {

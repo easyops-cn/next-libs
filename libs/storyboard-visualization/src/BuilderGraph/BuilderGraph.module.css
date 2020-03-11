@@ -1,0 +1,21 @@
+.canvas {
+  position: relative;
+}
+
+.linksLayer,
+.nodesLayer,
+.nodesContainer,
+.nodeWrapper {
+  position: absolute;
+}
+
+/* svg */
+.arrowMarker path {
+  fill: #b9b9b9;
+}
+
+.link path {
+  fill: none;
+  stroke: #b9b9b9;
+  stroke-width: 1;
+}
