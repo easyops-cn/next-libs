@@ -1,22 +1,22 @@
 export const styleConfig = {
   node: {
+    width: 200,
     padding: 8
   },
   alias: {
-    height: 40,
-    lineHeight: "30px",
-    fontSize: 16
+    height: 30,
+    lineHeight: "24px"
   },
   contentGroup: {
-    marginBottom: 15
+    marginBottom: 10
   },
   contentDivider: {
-    height: 30,
-    lineHeight: "30px"
+    height: 24,
+    lineHeight: "24px"
   },
   contentItem: {
-    height: 32,
-    lineHeight: "32px",
+    height: 28,
+    lineHeight: "28px",
     marginBottom: 7
   }
 };

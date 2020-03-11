@@ -12,9 +12,10 @@ import { uniqueId } from "lodash";
 import classNames from "classnames";
 import { GraphNode, ViewItem } from "./interfaces";
 import { viewsToGraph, computeSourceX } from "./processors";
+import { GraphNodeComponent } from "./GraphNodeComponent";
+import { styleConfig } from "./constants";
 
 import styles from "./BuilderGraph.module.css";
-import { GraphNodeComponent } from "./GraphNodeComponent";
 
 interface RenderOptions {
   onReorderClick?: (node: ViewItem) => void;
@@ -105,10 +106,10 @@ export class BuilderGraph {
 
   render(builderData: ViewItem[], options?: RenderOptions): void {
     const hierarchyRoot = hierarchy(viewsToGraph(builderData));
-    const width = 1592;
+    const nodeWidth = styleConfig.node.width;
     // x and y is swapped in horizontal tree layout.
     const dx = 40;
-    const dy = width / (hierarchyRoot.height + 1);
+    const dy = nodeWidth + 60;
     const root = tree<GraphNode>()
       .nodeSize([dx, dy])
       .separation((a, b) => {
@@ -116,6 +117,8 @@ export class BuilderGraph {
         // Make extra one unit as spacing.
         return (a.data.height + b.data.height) / 2 / dx + 1;
       })(hierarchyRoot);
+
+    const width = dy * (root.height + 1);
 
     let x0 = Infinity;
     let x1 = -x0;
@@ -134,7 +137,6 @@ export class BuilderGraph {
 
     const offsetX = dy / 2;
     const offsetY = dx - x0;
-    const nodeWidth = dy - 80;
     this.linksContainer.attr("transform", `translate(${offsetX},${offsetY})`);
     this.nodesContainer
       .style("left", `${offsetX}px`)
@@ -178,10 +180,7 @@ export class BuilderGraph {
       .style("top", d => `${d.x}px`);
 
     this.nodes.each(function(d) {
-      ReactDOM.render(
-        <GraphNodeComponent node={d.data} nodeWidth={nodeWidth} {...options} />,
-        this
-      );
+      ReactDOM.render(<GraphNodeComponent node={d.data} {...options} />, this);
     });
   }
 }

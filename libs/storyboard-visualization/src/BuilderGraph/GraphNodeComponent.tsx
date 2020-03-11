@@ -10,7 +10,6 @@ import { getNodeDisplayName } from "./processors";
 
 export interface GraphNodeComponentProps {
   node: GraphNode;
-  nodeWidth: number;
   onReorderClick?: (node: ViewItem) => void;
   onNodeClick?: (node: ViewItem) => void;
   onBrickAdd?: (brick: ViewItem) => void;
@@ -20,14 +19,7 @@ export interface GraphNodeComponentProps {
 export function GraphNodeComponent(
   props: GraphNodeComponentProps
 ): React.ReactElement {
-  const {
-    node,
-    nodeWidth,
-    onReorderClick,
-    onNodeClick,
-    onBrickAdd,
-    onRouteAdd
-  } = props;
+  const { node, onReorderClick, onNodeClick, onBrickAdd, onRouteAdd } = props;
 
   /* istanbul ignore next */
   const handleReorderClick = React.useCallback((): void => {
@@ -94,9 +86,8 @@ export function GraphNodeComponent(
       className={styles.node}
       style={{
         ...styleConfig.node,
-        left: -nodeWidth / 2,
+        left: -styleConfig.node.width / 2,
         top: -node.height / 2,
-        width: nodeWidth,
         height: node.height
       }}
     >
@@ -129,7 +120,7 @@ type ContentItemSubtype =
 
 const contentItemSubtypeIconMap: Record<ContentItemSubtype, FaIcon["icon"]> = {
   route: "code-branch",
-  brick: "table",
+  brick: "puzzle-piece",
   provider: "database",
   template: "boxes",
   unknown: "question"
@@ -144,14 +135,22 @@ export function ContentItem(props: ContentItemProps): React.ReactElement {
   }, [onNodeClick, item]);
 
   /* istanbul ignore next */
-  const handleBrickAdd = React.useCallback((): void => {
-    onBrickAdd?.(item);
-  }, [onBrickAdd, item]);
+  const handleBrickAdd = React.useCallback(
+    (e: React.MouseEvent): void => {
+      e.stopPropagation();
+      onBrickAdd?.(item);
+    },
+    [onBrickAdd, item]
+  );
 
   /* istanbul ignore next */
-  const handleRouteAdd = React.useCallback((): void => {
-    onRouteAdd?.(item);
-  }, [onRouteAdd, item]);
+  const handleRouteAdd = React.useCallback(
+    (e: React.MouseEvent): void => {
+      e.stopPropagation();
+      onRouteAdd?.(item);
+    },
+    [onRouteAdd, item]
+  );
 
   let subtype: ContentItemSubtype = "unknown";
   if (type === "bricks") {
@@ -170,20 +169,25 @@ export function ContentItem(props: ContentItemProps): React.ReactElement {
   const canAddBrick = subtype === "brick" || item.type === "bricks";
   const canAddRoute = subtype === "brick" || item.type === "routes";
 
+  const buttons = Number(canAddBrick) + Number(canAddRoute);
+
   return (
     <div
       className={classNames(styles.contentItem, {
         [styles.contentItemTypeRoute]: subtype === "route",
         [styles.contentItemTypeBrick]: subtype === "brick",
         [styles.contentItemTypeProvider]: subtype === "provider",
-        [styles.contentItemTypeTemplate]: subtype === "template"
+        [styles.contentItemTypeTemplate]: subtype === "template",
+        [styles.contentItemToolbarButtons1]: buttons === 1,
+        [styles.contentItemToolbarButtons2]: buttons === 2
       })}
       style={{
         ...styleConfig.contentItem,
         marginBottom: isLast ? 0 : styleConfig.contentItem.marginBottom
       }}
+      onClick={handleNodeClick}
     >
-      <div className={styles.contentItemMain} onClick={handleNodeClick}>
+      <div className={styles.contentItemMain}>
         <span className={styles.contentItemIcon}>
           <GeneralIcon
             icon={{
@@ -192,24 +196,30 @@ export function ContentItem(props: ContentItemProps): React.ReactElement {
             }}
           />
         </span>
-        {getNodeDisplayName(item)}
+        <span className={styles.contentItemName}>
+          {getNodeDisplayName(item)}
+        </span>
       </div>
-      <div className={styles.contentItemToolbar}>
-        <Button
-          shape="circle"
-          size="small"
-          icon="picture"
-          disabled={!canAddBrick}
-          onClick={handleBrickAdd}
-        />
-        <Button
-          shape="circle"
-          size="small"
-          icon="branches"
-          disabled={!canAddRoute}
-          onClick={handleRouteAdd}
-        />
-      </div>
+      {buttons > 0 && (
+        <div className={styles.contentItemToolbar}>
+          {canAddBrick && (
+            <Button
+              type="link"
+              size="small"
+              icon="picture"
+              onClick={handleBrickAdd}
+            />
+          )}
+          {canAddRoute && (
+            <Button
+              type="link"
+              size="small"
+              icon="branches"
+              onClick={handleRouteAdd}
+            />
+          )}
+        </div>
+      )}
     </div>
   );
 }

@@ -313,7 +313,7 @@ export function fakeBuilderGraphNode(): GraphNode {
         }
       ]
     },
-    height: 234,
+    height: 195,
     children: [
       {
         nodeType: "brick",
@@ -346,7 +346,7 @@ export function fakeBuilderGraphNode(): GraphNode {
             }
           ]
         },
-        height: 118,
+        height: 98,
         children: []
       }
     ]

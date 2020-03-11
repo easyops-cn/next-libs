@@ -42,7 +42,7 @@ export function BuilderGraphComponent(
 
   return (
     <div>
-      <div ref={callbackRef} style={{ maxWidth: 1592, margin: "0 auto" }}></div>
+      <div ref={callbackRef} style={{ width: "100%", overflowX: "auto" }}></div>
     </div>
   );
 }
