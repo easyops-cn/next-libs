@@ -93,9 +93,11 @@ export function GraphNodeComponent(
     >
       <div className={styles.alias} style={styleConfig.alias}>
         {getNodeDisplayName(node.originalData)}
-        <div className={styles.menuButton} onClick={handleReorderClick}>
-          <Icon type="menu" />
-        </div>
+        {node.originalData.type !== "app" && (
+          <div className={styles.menuButton} onClick={handleReorderClick}>
+            <Icon type="menu" />
+          </div>
+        )}
       </div>
       {contentComponent}
     </div>
