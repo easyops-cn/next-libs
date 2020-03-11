@@ -20,11 +20,9 @@ export interface TrendData {
 }
 
 export interface TrendChartData {
-  status?: DataStatus;
   timeSeries: number[];
   legendList: string[];
   trendDataList: TrendData[];
-  error?: string;
 }
 
 export interface YAxisProps {
@@ -50,7 +48,9 @@ export interface TrendChartClickEventParams {
 }
 
 export interface TrendChartProps {
-  data: TrendChartData;
+  status?: DataStatus;
+  data?: TrendChartData;
+  error?: string;
   option: TrendChartOptionProps;
   title?: string;
   yAxis?: YAxisProps;
@@ -340,7 +340,7 @@ export function TrendChart(props: TrendChartProps): React.ReactElement {
   };
 
   useEffect(() => {
-    if (get(props.data, "status", DataStatus.Normal) === DataStatus.Normal) {
+    if (props.status === undefined || props.status === DataStatus.Normal) {
       renderChart(computeOption());
     }
   }, [props.data]);
@@ -359,9 +359,8 @@ export function TrendChart(props: TrendChartProps): React.ReactElement {
   );
 
   const render = (): React.ReactElement => {
-    const status = props.data
-      ? props.data.status || DataStatus.Normal
-      : DataStatus.Empty;
+    const status =
+      props.status === undefined ? DataStatus.Normal : props.status;
     const title = props.title || "";
     switch (status) {
       case DataStatus.Normal:
@@ -384,7 +383,7 @@ export function TrendChart(props: TrendChartProps): React.ReactElement {
         return (
           <>
             <div className={style.title}>{title}</div>
-            <div>{props.data?.error || "未知错误"}</div>
+            <div>{props.error || "未知错误"}</div>
           </>
         );
     }
