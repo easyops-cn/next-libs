@@ -11,7 +11,8 @@ describe("viewsToGraph", () => {
         nodeType: "route",
         originalData: {
           alias: "APP",
-          type: "app"
+          type: "app",
+          children: []
         },
         height: 46,
         children: []

@@ -6,7 +6,7 @@ import {
   HierarchyPointNode,
   HierarchyPointLink
 } from "d3-hierarchy";
-import { create, Selection } from "d3-selection";
+import { create, Selection, event as d3Event, select } from "d3-selection";
 import { linkHorizontal } from "d3-shape";
 import { uniqueId } from "lodash";
 import classNames from "classnames";
@@ -69,6 +69,12 @@ export class BuilderGraph {
     HTMLDivElement,
     undefined
   >;
+  private window: Selection<
+    Window & typeof globalThis,
+    undefined,
+    null,
+    undefined
+  >;
 
   constructor() {
     this.canvas = create("div").attr("class", styles.canvas);
@@ -98,6 +104,25 @@ export class BuilderGraph {
       .append("div")
       .attr("class", styles.nodesContainer);
     this.nodes = this.nodesContainer.selectAll(`.${styles.nodeWrapper}`);
+
+    // Grabbing to scroll.
+    const d3Window = select(window);
+    this.linksLayer.on("mousedown", () => {
+      this.linksLayer.classed(styles.grabbing, true);
+      d3Event.preventDefault();
+      const container = this.canvas.node().parentElement;
+      const x0 = d3Event.screenX + container.scrollLeft;
+      const y0 = d3Event.screenY + container.scrollTop;
+      d3Window
+        .on("mousemove", () => {
+          container.scrollLeft = x0 - d3Event.screenX;
+          container.scrollTop = y0 - d3Event.screenY;
+        })
+        .on("mouseup", () => {
+          this.linksLayer.classed(styles.grabbing, false);
+          d3Window.on("mousemove", null).on("mouseup", null);
+        });
+    });
   }
 
   getDOMNode(): HTMLDivElement {
@@ -105,11 +130,14 @@ export class BuilderGraph {
   }
 
   render(builderData: ViewItem[], options?: RenderOptions): void {
-    const hierarchyRoot = hierarchy(viewsToGraph(builderData));
     const nodeWidth = styleConfig.node.width;
     // x and y is swapped in horizontal tree layout.
     const dx = 40;
     const dy = nodeWidth + 60;
+    const markerOffset = 5;
+
+    const hierarchyRoot = hierarchy(viewsToGraph(builderData));
+
     const root = tree<GraphNode>()
       .nodeSize([dx, dy])
       .separation((a, b) => {
@@ -130,9 +158,9 @@ export class BuilderGraph {
     });
     const height = x1 - x0 + dx * 2;
 
-    this.canvas.style("width", `${width}px`);
+    this.canvas.style("min-width", `${width}px`);
     this.canvas.style("height", `${height}px`);
-    this.linksLayer.attr("width", width);
+    this.linksLayer.attr("width", "100%");
     this.linksLayer.attr("height", height);
 
     const offsetX = dy / 2;
@@ -158,7 +186,7 @@ export class BuilderGraph {
             },
             target: {
               ...target,
-              y: target.y - offset - 5
+              y: target.y - offset - 5 - markerOffset
             }
           };
         })
@@ -170,7 +198,10 @@ export class BuilderGraph {
       })
       .attr("class", classNames(styles.link));
 
-    this.links.select("path").attr("d", linkFactory);
+    // The extra marker offset makes it smoothy for steep links.
+    this.links
+      .select("path")
+      .attr("d", d => `${linkFactory(d)}h${markerOffset}`);
 
     this.nodes = this.nodes
       .data(root.descendants())

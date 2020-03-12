@@ -16,7 +16,7 @@ export function viewsToGraph(views: ViewItem[]): GraphNode {
     {
       alias: "APP",
       type: "app",
-      children: views
+      children: sortBy(views || [], "sort")
     }
   ]);
 }
