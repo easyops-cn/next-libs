@@ -1,6 +1,10 @@
 import { groupBy } from "lodash";
 import { Modal } from "antd";
-import { BrickLifeCycle, BrickEventsMap } from "@easyops/brick-types";
+import {
+  BrickLifeCycle,
+  BrickEventsMap,
+  BrickConf
+} from "@easyops/brick-types";
 import { isObject } from "@easyops/brick-utils";
 import { safeDump, JSON_SCHEMA, safeLoad } from "js-yaml";
 import {
@@ -32,11 +36,12 @@ interface SlotData {
   bricks?: SlottedBrickData[];
 }
 
-interface SlottedBrickData {
+type SlottedBrickData = Pick<
+  BrickConf,
+  "brick" | "template" | "internalUsedBricks" | "internalUsedTemplates" | "if"
+> & {
   _target?: number;
-  brick?: string;
-  template?: string;
-}
+};
 
 interface RouteDataPatch extends RouteData {
   _target?: number;
@@ -63,7 +68,10 @@ export function brickNodeChildrenToSlots(
             (node, index) => ({
               _target: index,
               brick: node.brickData.brick,
-              template: node.brickData.template
+              template: node.brickData.template,
+              internalUsedBricks: node.brickData.internalUsedBricks,
+              internalUsedTemplates: node.brickData.internalUsedTemplates,
+              if: node.brickData.if
             })
           )
         };
@@ -135,6 +143,11 @@ export function updateBrickNode(
                     brick: item.brick
                   });
                 }
+                Object.assign(matchedNode.brickData, {
+                  internalUsedBricks: item.internalUsedBricks,
+                  internalUsedTemplates: item.internalUsedTemplates,
+                  if: item.if
+                });
                 return matchedNode;
               }
               const placeholder = slottedBrickPlaceholder(slotName, groupIndex);

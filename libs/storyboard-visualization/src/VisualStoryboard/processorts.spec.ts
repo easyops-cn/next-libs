@@ -166,6 +166,9 @@ describe("updateBrickNode", () => {
           },
           Object {
             "brickData": Object {
+              "if": undefined,
+              "internalUsedBricks": undefined,
+              "internalUsedTemplates": undefined,
               "template": "sub-menu-template",
             },
             "groupIndex": 2,
@@ -175,6 +178,9 @@ describe("updateBrickNode", () => {
           Object {
             "brickData": Object {
               "brick": "sub-menu-third",
+              "if": undefined,
+              "internalUsedBricks": undefined,
+              "internalUsedTemplates": undefined,
               "properties": Object {},
             },
             "groupIndex": 2,
