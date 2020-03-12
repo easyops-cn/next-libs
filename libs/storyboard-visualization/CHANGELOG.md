@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.18.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.17.2...@libs/storyboard-visualization@0.18.0) (2020-03-12)
+
+### Bug Fixes
+
+- fix missing properties of BrickConf ([5ccf2b7](https://git.easyops.local/anyclouds/next-libs/commits/5ccf2b7))
+
+### Features
+
+- content item actions ([d6ea1e1](https://git.easyops.local/anyclouds/next-libs/commits/d6ea1e1))
+
 ## [0.17.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.17.1...@libs/storyboard-visualization@0.17.2) (2020-03-12)
 
 ### Bug Fixes
