@@ -1,25 +1,25 @@
 import React from "react";
-import { Icon, Button } from "antd";
+import { Icon, Button, Dropdown, Menu } from "antd";
 import classNames from "classnames";
+import { BrickAsComponent } from "@easyops/brick-kit";
 import { FaIcon } from "@easyops/brick-types";
 import { GeneralIcon } from "@libs/basic-components";
 import styles from "./GraphNodeComponent.module.css";
-import { GraphNode, ViewItem } from "./interfaces";
+import { GraphNode, ViewItem, ContentItemActions } from "./interfaces";
 import { styleConfig } from "./constants";
 import { getNodeDisplayName } from "./processors";
 
 export interface GraphNodeComponentProps {
   node: GraphNode;
+  contentItemActions?: ContentItemActions;
   onReorderClick?: (node: ViewItem) => void;
   onNodeClick?: (node: ViewItem) => void;
-  onBrickAdd?: (brick: ViewItem) => void;
-  onRouteAdd?: (route: ViewItem) => void;
 }
 
 export function GraphNodeComponent(
   props: GraphNodeComponentProps
 ): React.ReactElement {
-  const { node, onReorderClick, onNodeClick, onBrickAdd, onRouteAdd } = props;
+  const { node, onReorderClick, onNodeClick, contentItemActions } = props;
 
   /* istanbul ignore next */
   const handleReorderClick = React.useCallback((): void => {
@@ -39,9 +39,8 @@ export function GraphNodeComponent(
             type={content.type}
             item={item}
             isLast={index === content.items.length - 1}
+            contentItemActions={contentItemActions}
             onNodeClick={onNodeClick}
-            onBrickAdd={onBrickAdd}
-            onRouteAdd={onRouteAdd}
           />
         ));
         break;
@@ -70,9 +69,8 @@ export function GraphNodeComponent(
                 type={slot.type}
                 item={subitem}
                 isLast={subindex === slot.items.length - 1}
+                contentItemActions={contentItemActions}
                 onNodeClick={onNodeClick}
-                onBrickAdd={onBrickAdd}
-                onRouteAdd={onRouteAdd}
               />
             ))}
           </div>
@@ -108,9 +106,8 @@ interface ContentItemProps {
   type: "bricks" | "routes" | "unknown";
   item: ViewItem;
   isLast?: boolean;
+  contentItemActions?: ContentItemActions;
   onNodeClick?: (node: ViewItem) => void;
-  onBrickAdd?: (brick: ViewItem) => void;
-  onRouteAdd?: (route: ViewItem) => void;
 }
 
 type ContentItemSubtype =
@@ -129,30 +126,17 @@ const contentItemSubtypeIconMap: Record<ContentItemSubtype, FaIcon["icon"]> = {
 };
 
 export function ContentItem(props: ContentItemProps): React.ReactElement {
-  const { item, type, isLast, onNodeClick, onBrickAdd, onRouteAdd } = props;
+  const { item, type, isLast, onNodeClick, contentItemActions } = props;
 
   /* istanbul ignore next */
-  const handleNodeClick = React.useCallback((): void => {
+  const handleNodeClick = (): void => {
     onNodeClick?.(item);
-  }, [onNodeClick, item]);
+  };
 
   /* istanbul ignore next */
-  const handleBrickAdd = React.useCallback(
-    (e: React.MouseEvent): void => {
-      e.stopPropagation();
-      onBrickAdd?.(item);
-    },
-    [onBrickAdd, item]
-  );
-
-  /* istanbul ignore next */
-  const handleRouteAdd = React.useCallback(
-    (e: React.MouseEvent): void => {
-      e.stopPropagation();
-      onRouteAdd?.(item);
-    },
-    [onRouteAdd, item]
-  );
+  const handleToolBarClick = (e: React.MouseEvent): void => {
+    e.stopPropagation();
+  };
 
   let subtype: ContentItemSubtype = "unknown";
   if (type === "bricks") {
@@ -168,10 +152,7 @@ export function ContentItem(props: ContentItemProps): React.ReactElement {
     subtype = "route";
   }
 
-  const canAddBrick = subtype === "brick" || item.type === "bricks";
-  const canAddRoute = subtype === "brick" || item.type === "routes";
-
-  const buttons = Number(canAddBrick) + Number(canAddRoute);
+  const ellipsisButtonAvailable = !!contentItemActions?.useBrick;
 
   return (
     <div
@@ -180,8 +161,7 @@ export function ContentItem(props: ContentItemProps): React.ReactElement {
         [styles.contentItemTypeBrick]: subtype === "brick",
         [styles.contentItemTypeProvider]: subtype === "provider",
         [styles.contentItemTypeTemplate]: subtype === "template",
-        [styles.contentItemToolbarButtons1]: buttons === 1,
-        [styles.contentItemToolbarButtons2]: buttons === 2
+        [styles.contentItemEllipsisButtonAvailable]: ellipsisButtonAvailable
       })}
       style={{
         ...styleConfig.contentItem,
@@ -202,24 +182,24 @@ export function ContentItem(props: ContentItemProps): React.ReactElement {
           {getNodeDisplayName(item)}
         </span>
       </div>
-      {buttons > 0 && (
-        <div className={styles.contentItemToolbar}>
-          {canAddBrick && (
-            <Button
-              type="link"
-              size="small"
-              icon="picture"
-              onClick={handleBrickAdd}
-            />
-          )}
-          {canAddRoute && (
-            <Button
-              type="link"
-              size="small"
-              icon="branches"
-              onClick={handleRouteAdd}
-            />
-          )}
+      {ellipsisButtonAvailable && (
+        <div className={styles.contentItemToolbar} onClick={handleToolBarClick}>
+          <Dropdown
+            trigger={["click"]}
+            overlay={
+              <Menu>
+                {[].concat(contentItemActions.useBrick).map((action, index) => (
+                  <Menu.Item key={index}>
+                    <BrickAsComponent useBrick={action} data={{ item }} />
+                  </Menu.Item>
+                ))}
+              </Menu>
+            }
+          >
+            <Button type="link" size="small">
+              <GeneralIcon icon={{ lib: "fa", icon: "ellipsis-h" }} />
+            </Button>
+          </Dropdown>
         </div>
       )}
     </div>

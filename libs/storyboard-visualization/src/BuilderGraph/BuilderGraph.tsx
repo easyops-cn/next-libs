@@ -10,7 +10,7 @@ import { create, Selection, event as d3Event, select } from "d3-selection";
 import { linkHorizontal } from "d3-shape";
 import { uniqueId } from "lodash";
 import classNames from "classnames";
-import { GraphNode, ViewItem } from "./interfaces";
+import { GraphNode, ViewItem, ContentItemActions } from "./interfaces";
 import { viewsToGraph, computeSourceX } from "./processors";
 import { GraphNodeComponent } from "./GraphNodeComponent";
 import { styleConfig } from "./constants";
@@ -18,10 +18,9 @@ import { styleConfig } from "./constants";
 import styles from "./BuilderGraph.module.css";
 
 interface RenderOptions {
+  contentItemActions?: ContentItemActions;
   onReorderClick?: (node: ViewItem) => void;
   onNodeClick?: (node: ViewItem) => void;
-  onBrickAdd?: (brick: ViewItem) => void;
-  onRouteAdd?: (route: ViewItem) => void;
 }
 
 export class BuilderGraph {

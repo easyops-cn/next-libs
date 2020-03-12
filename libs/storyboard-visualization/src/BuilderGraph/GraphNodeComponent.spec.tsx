@@ -74,15 +74,19 @@ describe("ContentItem", () => {
       alias: "route: empty",
       type: "bricks"
     };
-
     const wrapper = shallow(<ContentItem type="routes" item={item} />);
+
+    function findItemIcon(): string {
+      return (wrapper
+        .find(".contentItemIcon")
+        .find(GeneralIcon)
+        .prop("icon") as FaIcon).icon;
+    }
+
     expect(wrapper.prop("style").marginBottom).toBe(7);
-    expect((wrapper.find(GeneralIcon).prop("icon") as FaIcon).icon).toBe(
-      "code-branch"
-    );
-    expect(wrapper.prop("className")).toBe(
-      "contentItem contentItemTypeRoute contentItemToolbarButtons1"
-    );
+    expect(findItemIcon()).toBe("code-branch");
+    expect(wrapper.prop("className")).toBe("contentItem contentItemTypeRoute");
+    expect(wrapper.find(".contentItemToolbar").length).toBe(0);
 
     wrapper.setProps({
       isLast: true
@@ -92,21 +96,47 @@ describe("ContentItem", () => {
     wrapper.setProps({
       type: "bricks"
     });
-    expect((wrapper.find(GeneralIcon).prop("icon") as FaIcon).icon).toBe(
-      "puzzle-piece"
-    );
-    expect(wrapper.prop("className")).toBe(
-      "contentItem contentItemTypeBrick contentItemToolbarButtons2"
-    );
+    expect(findItemIcon()).toBe("puzzle-piece");
 
     wrapper.setProps({
       type: "unknown"
     });
-    expect((wrapper.find(GeneralIcon).prop("icon") as FaIcon).icon).toBe(
-      "question"
-    );
+    expect(findItemIcon()).toBe("question");
+
+    wrapper.setProps({
+      contentItemActions: {
+        useBrick: [
+          {
+            brick: "div",
+            properties: {
+              textContent: "first"
+            },
+            events: {
+              click: {
+                action: "message.success",
+                args: ["good"]
+              }
+            }
+          },
+          {
+            brick: "div",
+            properties: {
+              textContent: "second"
+            },
+            events: {
+              click: {
+                action: "message.warn",
+                args: ["bad"]
+              }
+            }
+          }
+        ]
+      }
+    });
+
     expect(wrapper.prop("className")).toBe(
-      "contentItem contentItemToolbarButtons1"
+      "contentItem contentItemEllipsisButtonAvailable"
     );
+    expect(wrapper.find(".contentItemToolbar").length).toBe(1);
   });
 });
