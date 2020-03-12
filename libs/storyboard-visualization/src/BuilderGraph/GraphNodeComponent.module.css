@@ -105,18 +105,14 @@
   color: #696969;
 }
 
-.contentItemToolbar :global(.ant-btn) + :global(.ant-btn) {
-  margin-left: 3px;
+.contentItemToolbar :global(.ant-btn) {
+  vertical-align: middle;
 }
 
 .contentItemName {
   font-size: 12px;
 }
 
-.contentItemToolbarButtons1:hover {
+.contentItemEllipsisButtonAvailable:hover {
   padding-right: 38px;
-}
-
-.contentItemToolbarButtons2:hover {
-  padding-right: 68px;
 }

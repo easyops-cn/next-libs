@@ -1,19 +1,18 @@
 import React from "react";
 import { BuilderGraph } from "./BuilderGraph";
-import { ViewItem } from "./interfaces";
+import { ViewItem, ContentItemActions } from "./interfaces";
 
 export interface BuilderGraphComponentProps {
   data: ViewItem[];
+  contentItemActions?: ContentItemActions;
   onReorderClick?: (node: ViewItem) => void;
   onNodeClick?: (node: ViewItem) => void;
-  onBrickAdd?: (brick: ViewItem) => void;
-  onRouteAdd?: (route: ViewItem) => void;
 }
 
 export function BuilderGraphComponent(
   props: BuilderGraphComponentProps
 ): React.ReactElement {
-  const { data, onReorderClick, onNodeClick, onBrickAdd, onRouteAdd } = props;
+  const { data, contentItemActions, onReorderClick, onNodeClick } = props;
 
   const visual = React.useMemo(() => new BuilderGraph(), []);
 
@@ -56,12 +55,11 @@ export function BuilderGraphComponent(
 
   const handleRender = React.useCallback(() => {
     visual.render(data, {
+      contentItemActions,
       onReorderClick,
-      onNodeClick,
-      onBrickAdd,
-      onRouteAdd
+      onNodeClick
     });
-  }, [visual, data, onReorderClick, onNodeClick, onBrickAdd, onRouteAdd]);
+  }, [visual, data, contentItemActions, onReorderClick, onNodeClick]);
 
   React.useEffect(() => {
     handleRender();

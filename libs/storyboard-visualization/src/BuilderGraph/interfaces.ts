@@ -1,3 +1,5 @@
+import { UseBrickConf } from "@easyops/brick-types";
+
 export interface GraphNode {
   nodeType: "route" | "brick" | "unknown";
   originalData: ViewItem;
@@ -48,4 +50,8 @@ export interface GraphNodeContentRoutes {
 
 export interface GraphNodeContentRedirect {
   type: "redirect";
+}
+
+export interface ContentItemActions {
+  useBrick: UseBrickConf;
 }
