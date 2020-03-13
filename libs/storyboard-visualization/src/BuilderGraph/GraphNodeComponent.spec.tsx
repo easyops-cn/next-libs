@@ -120,6 +120,7 @@ describe("ContentItem", () => {
           },
           {
             brick: "div",
+            if: "@{item.type | equal : routes}",
             properties: {
               textContent: "second"
             },

@@ -8,6 +8,7 @@ import styles from "./GraphNodeComponent.module.css";
 import { GraphNode, ViewItem, ContentItemActions } from "./interfaces";
 import { styleConfig } from "./constants";
 import { getNodeDisplayName } from "./processors";
+import { isObject, doTransform } from "@easyops/brick-utils";
 
 export interface GraphNodeComponentProps {
   node: GraphNode;
@@ -152,7 +153,25 @@ export function ContentItem(props: ContentItemProps): React.ReactElement {
     subtype = "route";
   }
 
-  const ellipsisButtonAvailable = !!contentItemActions?.useBrick;
+  const filteredActions = []
+    .concat(contentItemActions?.useBrick ?? [])
+    .filter(action => {
+      if (isObject(action.if)) {
+        // eslint-disable-next-line
+        console.warn("Currently don't support resolvable-if in `useBrick`");
+      } else if (
+        typeof action.if === "boolean" ||
+        typeof action.if === "string"
+      ) {
+        const ifChecked = doTransform({ item }, action.if);
+        if (ifChecked === false) {
+          return false;
+        }
+      }
+      return true;
+    });
+
+  const ellipsisButtonAvailable = filteredActions.length > 0;
 
   return (
     <div
@@ -188,7 +207,7 @@ export function ContentItem(props: ContentItemProps): React.ReactElement {
             trigger={["click"]}
             overlay={
               <Menu>
-                {[].concat(contentItemActions.useBrick).map((action, index) => (
+                {filteredActions.map((action, index) => (
                   <Menu.Item key={index}>
                     <BrickAsComponent useBrick={action} data={{ item }} />
                   </Menu.Item>
