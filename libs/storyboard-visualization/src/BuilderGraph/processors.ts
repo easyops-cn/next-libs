@@ -1,4 +1,4 @@
-import { sortBy, groupBy } from "lodash";
+import { sortBy, groupBy, isEmpty } from "lodash";
 import {
   ViewItem,
   GraphNode,
@@ -32,7 +32,8 @@ function ViewItemToGraph(view: ViewItem): GraphNode {
     originalData: view,
     content: getNodeContent(view),
     children: sortBy(view.children || [], ["sort"])
-      .filter(child => (child.children || []).length > 0)
+      // Leave empty children for app only.
+      .filter(child => view.type === "app" || !isEmpty(child.children))
       .map(child => ViewItemToGraph(child))
   };
   node.height = computeNodeHeight(node);
