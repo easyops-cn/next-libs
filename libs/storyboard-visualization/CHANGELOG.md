@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.18.0...@libs/storyboard-visualization@0.18.1) (2020-03-13)
+
+### Bug Fixes
+
+- fix useBrick.if in GraphContentItem ([bdc7eb3](https://git.easyops.local/anyclouds/next-libs/commits/bdc7eb3))
+
 # [0.18.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.17.2...@libs/storyboard-visualization@0.18.0) (2020-03-12)
 
 ### Bug Fixes
