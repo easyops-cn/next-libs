@@ -64,12 +64,8 @@ export function formatLabel(value: number, format: Format): string {
   if (value === 0) {
     return "0";
   } else if (value) {
-    if (format) {
-      const [formattedValue, unit] = formatValue(value, format);
-      return `${formattedValue}${unit ? " " + unit : ""}`;
-    } else {
-      return value.toString();
-    }
+    const [formattedValue, unit] = formatValue(value, format);
+    return `${formattedValue}${unit ? " " + unit : ""}`;
   } else {
     return null;
   }
@@ -100,15 +96,8 @@ export function formatTooltip(
     if (param.data[1] === 0) {
       label = "0";
     } else if (param.data[1]) {
-      if (format) {
-        const [formattedValue, unit] = formatValue(param.data[1], format);
-        label = `${formattedValue}${unit ? " " + unit : ""}`;
-      } else {
-        label =
-          typeof param.data[1] === "number"
-            ? param.data[1].toFixed(2).toString()
-            : param.data[1].toString();
-      }
+      const [formattedValue, unit] = formatValue(param.data[1], format);
+      label = `${formattedValue}${unit ? " " + unit : ""}`;
     } else {
       label = null;
     }

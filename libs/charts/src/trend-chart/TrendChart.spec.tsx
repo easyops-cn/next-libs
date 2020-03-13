@@ -115,7 +115,7 @@ describe("TrendChart", () => {
     expect(label).toEqual("200.00");
 
     label = formatLabel(200, null);
-    expect(label).toEqual("200");
+    expect(label).toEqual("200.00");
 
     label = formatLabel(0.5, {
       type: FormatType.Percent,

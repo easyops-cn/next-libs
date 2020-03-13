@@ -9,7 +9,7 @@ describe("valueFormatter", () => {
   });
 
   it("should format value correctly", () => {
-    expect(formatValue(1)).toEqual(["1", null]);
+    expect(formatValue(1)).toEqual(["1.00", null]);
     expect(formatValue(1, { type: FormatType.None, unit: "个" })).toEqual([
       "1.00",
       "个"

@@ -9,6 +9,8 @@ export enum TimesUnitId {
   Hours = "hours",
   Days = "days",
   Weeks = "weeks",
+  Months = "months",
+  Years = "years",
   // deperated
   ms = "ms",
   s = "s",
@@ -45,27 +47,39 @@ export const times: Unit[] = [
   },
   {
     id: TimesUnitId.Minutes,
-    alias: ["m", "minutes(m)"],
+    alias: ["min", "minutes(min)"],
     divisor: 1000 * 1000 * 1000 * 60,
-    display: "m"
+    display: "min"
   },
   {
     id: TimesUnitId.Hours,
-    alias: ["h", "hours(h)"],
+    alias: ["hour", "hours(hour)"],
     divisor: 1000 * 1000 * 1000 * 60 * 60,
-    display: "h"
+    display: "hour"
   },
   {
     id: TimesUnitId.Days,
-    alias: ["d", "days(d)"],
+    alias: ["day", "days(day)"],
     divisor: 1000 * 1000 * 1000 * 60 * 60 * 24,
-    display: "d"
+    display: "day"
   },
   {
     id: TimesUnitId.Weeks,
-    alias: ["w", "weeks(w)"],
+    alias: ["week", "weeks(week)"],
     divisor: 1000 * 1000 * 1000 * 60 * 60 * 24 * 7,
-    display: "w"
+    display: "week"
+  },
+  {
+    id: TimesUnitId.Months,
+    alias: ["month", "months(month)"],
+    divisor: 1000 * 1000 * 1000 * 60 * 60 * 24 * 30,
+    display: "month"
+  },
+  {
+    id: TimesUnitId.Years,
+    alias: ["year", "years(year)"],
+    divisor: 1000 * 1000 * 1000 * 60 * 60 * 24 * 365,
+    display: "year"
   }
 ];
 
