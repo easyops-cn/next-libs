@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.3](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storage@0.2.2...@libs/storage@0.2.3) (2020-03-13)
+
+### Bug Fixes
+
+- refine scripts for concurrently process ([e4124ae](https://git.easyops.local/anyclouds/next-libs/commits/e4124ae))
+
 ## [0.2.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storage@0.2.1...@libs/storage@0.2.2) (2019-09-16)
 
 **Note:** Version bump only for package @libs/storage

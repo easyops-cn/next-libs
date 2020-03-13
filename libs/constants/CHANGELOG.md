@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/constants@0.6.0...@libs/constants@0.6.1) (2020-03-13)
+
+### Bug Fixes
+
+- **chart:** value formatter refs MONITOR-458 ([81d6121](https://git.easyops.local/anyclouds/next-libs/commits/81d6121))
+- refine scripts for concurrently process ([e4124ae](https://git.easyops.local/anyclouds/next-libs/commits/e4124ae))
+
 # [0.6.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/constants@0.5.0...@libs/constants@0.6.0) (2020-03-10)
 
 ### Features

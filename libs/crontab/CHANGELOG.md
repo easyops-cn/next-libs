@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/crontab@0.1.1...@libs/crontab@0.1.2) (2020-03-13)
+
+### Bug Fixes
+
+- refine scripts for concurrently process ([e4124ae](https://git.easyops.local/anyclouds/next-libs/commits/e4124ae))
+
 ## [0.1.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/crontab@0.1.0...@libs/crontab@0.1.1) (2020-01-30)
 
 **Note:** Version bump only for package @libs/crontab

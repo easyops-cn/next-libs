@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.26](https://git.easyops.local/anyclouds/next-libs/compare/@libs/datetime@0.6.25...@libs/datetime@0.6.26) (2020-03-13)
+
+### Bug Fixes
+
+- refine scripts for concurrently process ([e4124ae](https://git.easyops.local/anyclouds/next-libs/commits/e4124ae))
+
 ## [0.6.25](https://git.easyops.local/anyclouds/next-libs/compare/@libs/datetime@0.6.24...@libs/datetime@0.6.25) (2020-01-15)
 
 **Note:** Version bump only for package @libs/datetime

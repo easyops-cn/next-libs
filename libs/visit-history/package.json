@@ -1,6 +1,6 @@
 {
   "name": "@libs/visit-history",
-  "version": "0.4.5",
+  "version": "0.4.6",
   "description": "> TODO: description",
   "homepage": "https://git.easyops.local/anyclouds/next-libs/tree/master/libs/visit-history",
   "license": "UNLICENSED",
@@ -32,6 +32,6 @@
     "@easyops/brick-dll": "*"
   },
   "dependencies": {
-    "@libs/storage": "^0.2.2"
+    "@libs/storage": "^0.2.3"
   }
 }

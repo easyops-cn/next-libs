@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.3](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.10.2...@libs/forms@0.10.3) (2020-03-13)
+
+### Bug Fixes
+
+- refine scripts for concurrently process ([e4124ae](https://git.easyops.local/anyclouds/next-libs/commits/e4124ae))
+
 ## [0.10.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.10.1...@libs/forms@0.10.2) (2020-03-08)
 
 ### Bug Fixes

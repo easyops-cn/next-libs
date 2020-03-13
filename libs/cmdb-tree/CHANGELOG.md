@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-tree@0.8.1...@libs/cmdb-tree@0.8.2) (2020-03-13)
+
+### Bug Fixes
+
+- refine scripts for concurrently process ([e4124ae](https://git.easyops.local/anyclouds/next-libs/commits/e4124ae))
+
 ## [0.8.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-tree@0.8.0...@libs/cmdb-tree@0.8.1) (2020-01-15)
 
 **Note:** Version bump only for package @libs/cmdb-tree

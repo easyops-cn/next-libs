@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.7.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/datetime-components@0.7.1...@libs/datetime-components@0.7.2) (2020-03-13)
+
+### Bug Fixes
+
+- refine scripts for concurrently process ([e4124ae](https://git.easyops.local/anyclouds/next-libs/commits/e4124ae))
+
 ## [0.7.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/datetime-components@0.7.0...@libs/datetime-components@0.7.1) (2020-02-27)
 
 ### Bug Fixes

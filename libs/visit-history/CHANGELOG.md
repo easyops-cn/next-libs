@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.6](https://git.easyops.local/anyclouds/next-libs/compare/@libs/visit-history@0.4.5...@libs/visit-history@0.4.6) (2020-03-13)
+
+### Bug Fixes
+
+- refine scripts for concurrently process ([e4124ae](https://git.easyops.local/anyclouds/next-libs/commits/e4124ae))
+
 ## [0.4.5](https://git.easyops.local/anyclouds/next-libs/compare/@libs/visit-history@0.4.4...@libs/visit-history@0.4.5) (2020-01-15)
 
 **Note:** Version bump only for package @libs/visit-history
