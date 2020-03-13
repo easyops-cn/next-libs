@@ -4,13 +4,15 @@ import { humanizePercentValue } from "./percent";
 import { humanizeTimeValue } from "./time";
 import { humanizeDataValue } from "./data";
 import { humanizeDataRateValue } from "./dataRate";
+import { humanizeNumberValue } from "./number";
 
 import { FormatType, formatUnitIds } from "../constants/format";
 import {
   PercentUnitId,
   TimesUnitId,
   BytesUnitId,
-  ByteRatesUnitId
+  ByteRatesUnitId,
+  ShortUnitId
 } from "@libs/constants";
 
 export const convertValueByPrecision = (
@@ -82,10 +84,13 @@ export const formatValue = (
         ];
       }
       default: {
-        return [convertValueByPrecision(value, precision), format.unit];
+        return [
+          humanizeNumberValue(value, format.unit as ShortUnitId, precision),
+          format.unit
+        ];
       }
     }
   } else {
-    return [value.toString(), null];
+    return [humanizeNumberValue(value), null];
   }
 };
