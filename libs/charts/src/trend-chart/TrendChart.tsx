@@ -175,7 +175,7 @@ export function TrendChart(props: TrendChartProps): React.ReactElement {
         left: "center",
         bottom: 0,
         align: "left",
-        selectedMode: false,
+        selectedMode: true,
         icon: "path://L0,0 L5,0 M5,0 12,0 12,1 5,1",
         textStyle: {
           fontSize: 12,
