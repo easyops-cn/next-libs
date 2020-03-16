@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.5](https://git.easyops.local/anyclouds/next-libs/compare/@libs/charts@0.5.4...@libs/charts@0.5.5) (2020-03-16)
+
+### Bug Fixes
+
+- **charts:** use ResizeObserver refs MONITOR-400 ([d405746](https://git.easyops.local/anyclouds/next-libs/commits/d405746))
+
 ## [0.5.4](https://git.easyops.local/anyclouds/next-libs/compare/@libs/charts@0.5.3...@libs/charts@0.5.4) (2020-03-14)
 
 **Note:** Version bump only for package @libs/charts
