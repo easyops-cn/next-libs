@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import echarts from "echarts";
-import { ResizeSensor } from "css-element-queries";
+import ResizeObserver from "resize-observer-polyfill";
 
 import { get, merge } from "lodash";
 import moment from "moment";
@@ -306,15 +306,12 @@ export function TrendChart(props: TrendChartProps): React.ReactElement {
 
   const [scope] = useState<{
     echartsInstance?: echarts.ECharts;
-    resizeSensor?: ResizeSensor;
+    resizeObserver?: ResizeObserver;
   }>({});
 
   const renderChart = (option: any): void => {
     if (!scope.echartsInstance) {
       scope.echartsInstance = echarts.init(chartRef.current);
-      scope.resizeSensor = new ResizeSensor(chartRef.current, () => {
-        scope.echartsInstance.resize();
-      });
 
       if (props.onChartClick) {
         scope.echartsInstance.on(
@@ -324,6 +321,12 @@ export function TrendChart(props: TrendChartProps): React.ReactElement {
           }
         );
       }
+
+      scope.resizeObserver = new ResizeObserver(() => {
+        scope.echartsInstance.resize();
+      });
+
+      scope.resizeObserver.observe(chartRef.current);
     }
     scope.echartsInstance.setOption(option);
   };
@@ -338,10 +341,6 @@ export function TrendChart(props: TrendChartProps): React.ReactElement {
     () => () => {
       if (scope.echartsInstance) {
         scope.echartsInstance.dispose();
-      }
-
-      if (scope.resizeSensor) {
-        scope.resizeSensor.detach();
       }
     },
     []
