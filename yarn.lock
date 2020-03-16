@@ -5127,11 +5127,6 @@ css-declaration-sorter@^4.0.1:
     postcss "^7.0.1"
     timsort "^0.3.0"
 
-css-element-queries@^1.2.3:
-  version "1.2.3"
-  resolved "https://registry.npm.taobao.org/css-element-queries/download/css-element-queries-1.2.3.tgz#e14940b1fcd4bf0da60ea4145d05742d7172e516"
-  integrity sha1-4UlAsfzUvw2mDqQUXQV0LXFy5RY=
-
 css-has-pseudo@^0.10.0:
   version "0.10.0"
   resolved "https://registry.npm.taobao.org/css-has-pseudo/download/css-has-pseudo-0.10.0.tgz#3c642ab34ca242c59c41a125df9105841f6966ee"
