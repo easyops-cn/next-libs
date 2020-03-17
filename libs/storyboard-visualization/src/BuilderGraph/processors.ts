@@ -32,8 +32,8 @@ function ViewItemToGraph(view: ViewItem): GraphNode {
     originalData: view,
     content: getNodeContent(view),
     children: sortBy(view.children || [], ["sort"])
-      // Leave empty children for app only.
-      .filter(child => view.type === "app" || !isEmpty(child.children))
+      // Ignore nodes that has no children.
+      .filter(child => !isEmpty(child.children))
       .map(child => ViewItemToGraph(child))
   };
   node.height = computeNodeHeight(node);
@@ -52,8 +52,9 @@ function getNodeContent(view: ViewItem): GraphNodeContent {
   switch (view.type) {
     case "bricks":
     case "routes":
+    case "app":
       return {
-        type: view.type,
+        type: view.type === "app" ? "routes" : view.type,
         items: sortBy(view.children || [], ["sort"])
       };
     case "redirect":

@@ -14,7 +14,11 @@ describe("viewsToGraph", () => {
           type: "app",
           children: []
         },
-        height: 46,
+        height: 39,
+        content: {
+          type: "routes",
+          items: []
+        },
         children: []
       }
     ],
@@ -27,7 +31,11 @@ describe("viewsToGraph", () => {
           type: "app",
           children: []
         },
-        height: 46,
+        height: 39,
+        content: {
+          type: "routes",
+          items: []
+        },
         children: []
       }
     ],
