@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import echarts from "echarts";
 import ResizeObserver from "resize-observer-polyfill";
 
-import { get, merge } from "lodash";
+import { get, merge, uniqueId } from "lodash";
 import moment from "moment";
 
 import { Format } from "../interfaces/panel";
@@ -247,7 +247,7 @@ export function TrendChart(props: TrendChartProps): React.ReactElement {
         });
 
         return {
-          id: trendData.id,
+          id: uniqueId(),
           name: trendData.name,
           type: props.option.type || "line",
           data: trendData.data,
