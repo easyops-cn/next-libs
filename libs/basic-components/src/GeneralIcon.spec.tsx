@@ -3,6 +3,7 @@ import { shallow, mount } from "enzyme";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { BrickIcon } from "@easyops/brick-icons";
 import { GeneralIcon } from "./GeneralIcon";
+import { Icon } from "antd";
 
 describe("GeneralIcon", () => {
   it("should render null if icon is falsy", () => {
@@ -12,14 +13,13 @@ describe("GeneralIcon", () => {
 
   it("should render antd icon", () => {
     const wrapper = shallow(
-      <GeneralIcon icon={{ lib: "antd", type: "up", theme: "filled" }} />
-    );
-    expect(wrapper).toMatchInlineSnapshot(`
-      <Icon
-        theme="filled"
-        type="up"
+      <GeneralIcon
+        icon={{ lib: "antd", type: "up", theme: "filled", color: "#0071eb" }}
       />
-    `);
+    );
+    expect(wrapper.find(Icon).prop("style")).toEqual({
+      color: "#0071eb"
+    });
   });
 
   it("should render font-awesome icon", () => {
