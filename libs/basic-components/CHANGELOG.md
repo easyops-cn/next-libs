@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.19.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@0.18.8...@libs/basic-components@0.19.0) (2020-03-18)
+
+### Features
+
+- **general-icon:** support icon and color ([ca2da5b](https://git.easyops.local/anyclouds/next-libs/commits/ca2da5b))
+
 ## [0.18.8](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@0.18.7...@libs/basic-components@0.18.8) (2020-03-13)
 
 ### Bug Fixes
