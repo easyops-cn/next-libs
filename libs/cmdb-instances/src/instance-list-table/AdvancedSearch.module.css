@@ -9,7 +9,7 @@
 }
 
 .advancedSearchForm :global(.ant-form-item) {
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .advancedSearchForm :global(.ant-form-item-label) {
