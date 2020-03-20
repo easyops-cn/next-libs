@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.19.4](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.19.3...@libs/cmdb-instances@0.19.4) (2020-03-20)
+
+### Bug Fixes
+
+- **advanced-search:** remove border style, refs CONTAINER-786 ([033492b](https://git.easyops.local/anyclouds/next-libs/commits/033492b))
+- **advanced-search:** udpate margin-bottom style, refs CONTAINER-786 ([22b448f](https://git.easyops.local/anyclouds/next-libs/commits/22b448f))
+
 ## [0.19.3](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.19.2...@libs/cmdb-instances@0.19.3) (2020-03-18)
 
 **Note:** Version bump only for package @libs/cmdb-instances
