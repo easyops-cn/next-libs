@@ -223,8 +223,7 @@ export function fakeBuilderGraphSource(): ViewItem[] {
         {
           alias: "provider: 1",
           type: "provider",
-          mountPoint: "m2",
-          sort: 0
+          mountPoint: "m2"
         },
         {
           alias: "template: 1",
@@ -250,8 +249,7 @@ export function fakeBuilderGraphNode(): GraphNode {
             {
               alias: "provider: 1",
               type: "provider",
-              mountPoint: "m2",
-              sort: 0
+              mountPoint: "m2"
             }
           ]
         },
@@ -302,8 +300,7 @@ export function fakeBuilderGraphNode(): GraphNode {
         {
           alias: "provider: 1",
           type: "provider",
-          mountPoint: "m2",
-          sort: 0
+          mountPoint: "m2"
         },
         {
           alias: "template: 1",
