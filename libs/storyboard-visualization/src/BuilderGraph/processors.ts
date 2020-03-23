@@ -16,7 +16,7 @@ export function viewsToGraph(views: ViewItem[]): GraphNode {
     {
       alias: "APP",
       type: "app",
-      children: sortBy(views || [], "sort")
+      children: sortViews(views || [])
     }
   ]);
 }
@@ -31,7 +31,7 @@ function ViewItemToGraph(view: ViewItem): GraphNode {
     nodeType,
     originalData: view,
     content: getNodeContent(view),
-    children: sortBy(view.children || [], ["sort"])
+    children: sortViews(view.children)
       // Ignore nodes that has no children.
       .filter(child => !isEmpty(child.children))
       .map(child => ViewItemToGraph(child))
@@ -55,7 +55,7 @@ function getNodeContent(view: ViewItem): GraphNodeContent {
     case "app":
       return {
         type: view.type === "app" ? "routes" : view.type,
-        items: sortBy(view.children || [], ["sort"])
+        items: sortViews(view.children)
       };
     case "redirect":
       return {
@@ -74,7 +74,7 @@ function getNodeContent(view: ViewItem): GraphNodeContent {
 function getNodeContentSlotGroups(view: ViewItem): GraphNodeContentSlotGroup[] {
   let slotGroups: GraphNodeContentSlotGroup[] = [];
   if (Array.isArray(view.children)) {
-    const sortedChildren = sortBy(view.children, ["sort"]);
+    const sortedChildren = sortViews(view.children);
     slotGroups = Object.entries(
       groupBy(sortedChildren, item => item.mountPoint ?? "")
     ).map(([name, items]) => ({
@@ -191,4 +191,8 @@ export function computeSourceX({
   }
 
   return source.x;
+}
+
+function sortViews(views: ViewItem[]): ViewItem[] {
+  return sortBy(views || [], [item => item.sort ?? -Infinity]);
 }
