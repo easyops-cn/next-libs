@@ -1,5 +1,7 @@
 import ReactDOM from "react-dom";
 import { UpdatingElement, property } from "@easyops/brick-kit";
+import { ValidationRule } from "antd/lib/form";
+
 import {
   AbstractGeneralFormElement,
   LabelTooltipProps,
@@ -28,6 +30,13 @@ export abstract class FormItemElement extends UpdatingElement {
     attribute: false
   })
   message: Record<string, string>;
+
+  @property({
+    attribute: false
+  })
+  validator:
+    | Pick<ValidationRule, "validator" | "message">
+    | Pick<ValidationRule, "validator" | "message">[];
 
   @property({
     attribute: false
