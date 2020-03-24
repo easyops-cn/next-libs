@@ -38,8 +38,9 @@ export interface FormItemWrapperProps extends CommonEventProps {
   message?: Record<string, string>;
   autofocus?: boolean;
   validator?:
-    | ValidationRule["validator"]
-    | Array<{ validator: ValidationRule["validator"] }>;
+    | ValidationRule["validator"] // Deprecated
+    | Pick<ValidationRule, "validator" | "message">
+    | Pick<ValidationRule, "validator" | "message">[];
   helpBrick?: HelpBrickProps;
   className?: string;
 }
@@ -58,11 +59,19 @@ export function getRules(props: FormItemWrapperProps): ValidationRule[] {
   });
 
   if (props.validator) {
-    Array.isArray(props.validator)
-      ? rules.push(...props.validator)
-      : rules.push({
-          validator: props.validator
-        });
+    if (Array.isArray(props.validator)) {
+      rules.push(...props.validator);
+    } else {
+      if (typeof props.validator === "function") {
+        rules.push({ validator: props.validator });
+        // eslint-disable-next-line no-console
+        console.warn(
+          "Please wrap a validator function with { validator: ValidateFn, message: ... }"
+        );
+      } else {
+        rules.push(props.validator);
+      }
+    }
   }
 
   return rules;

@@ -173,11 +173,21 @@ describe("FormItemWrapper", () => {
         }
       };
 
-      const resut = getRules({
+      const result = getRules({
         validator: validatorFn
       });
 
-      expect(resut).toEqual([
+      expect(result).toEqual([
+        {
+          validator: validatorFn
+        }
+      ]);
+
+      const result2 = getRules({
+        validator: { validator: validatorFn }
+      });
+
+      expect(result2).toEqual([
         {
           validator: validatorFn
         }
@@ -191,7 +201,7 @@ describe("FormItemWrapper", () => {
         }
       };
 
-      const result2 = getRules({
+      const result3 = getRules({
         required: true,
         message: {
           required: "此项为必填项"
@@ -206,7 +216,7 @@ describe("FormItemWrapper", () => {
         ]
       });
 
-      expect(result2).toEqual([
+      expect(result3).toEqual([
         {
           required: true,
           message: "此项为必填项"
