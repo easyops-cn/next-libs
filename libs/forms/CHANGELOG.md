@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.11.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.10.4...@libs/forms@0.11.0) (2020-03-24)
+
+### Features
+
+- **forms:** FormItemElement 增加 validator 属性 ([9527131](https://git.easyops.local/anyclouds/next-libs/commits/9527131))
+
 ## [0.10.4](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.10.3...@libs/forms@0.10.4) (2020-03-18)
 
 **Note:** Version bump only for package @libs/forms
