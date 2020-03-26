@@ -14,6 +14,19 @@ import { AbstractGeneralFormElement } from "./interfaces";
 jest.mock("./i18n");
 jest.spyOn(i18n, "t").mockReturnValue("default message");
 
+const formElement = {
+  formUtils: {
+    getFieldDecorator: jest.fn().mockReturnValue(jest.fn())
+  },
+  layout: "horizontal",
+  labelCol: {
+    span: 4
+  },
+  wrapperCol: {
+    span: 14
+  }
+};
+
 describe("FormItemWrapper", () => {
   it("should work without formElement", () => {
     const labelTooltip = {
@@ -42,18 +55,6 @@ describe("FormItemWrapper", () => {
   });
 
   it("should work with formElement", () => {
-    const formElement = {
-      formUtils: {
-        getFieldDecorator: jest.fn().mockReturnValue(jest.fn())
-      },
-      layout: "horizontal",
-      labelCol: {
-        span: 4
-      },
-      wrapperCol: {
-        span: 14
-      }
-    };
     const wrapper = shallow<FormItemWrapperProps>(
       <FormItemWrapper
         formElement={(formElement as unknown) as AbstractGeneralFormElement}
@@ -101,6 +102,19 @@ describe("FormItemWrapper", () => {
         xl: { span: 10, offset: 14 }
       }
     });
+  });
+
+  it("should return null when hidden is true", () => {
+    const wrapper = shallow<FormItemWrapperProps>(
+      <FormItemWrapper
+        formElement={(formElement as unknown) as AbstractGeneralFormElement}
+        name="username"
+        label="hello"
+        required={true}
+        hidden={true}
+      />
+    );
+    expect(wrapper).toMatchInlineSnapshot(`""`);
   });
 
   describe("getRules test", () => {
