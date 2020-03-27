@@ -193,7 +193,7 @@ interface InstanceListState {
   idObjectMap?: Record<string, Partial<CmdbModels.ModelCmdbObject>>;
   instanceListData?: InstanceApi.PostSearchResponseBody;
   isAdvancedSearchVisible: boolean;
-  presetConfigs: InstanceListPresetConfigs;
+  fieldIds: string[];
   autoBreakLine: boolean;
 }
 
@@ -294,7 +294,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     loading: false,
     failed: false,
     isAdvancedSearchVisible: false,
-    presetConfigs: props.presetConfigs,
+    fieldIds: props.presetConfigs?.fieldIds,
     autoBreakLine: false
   };
 
@@ -318,12 +318,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
       state.pageSize && (searchParams["page_size"] = state.pageSize);
       sort && (searchParams.sort = { [sort]: asc ? 1 : -1 });
       if (state.q) {
-        query = getQuery(
-          modelData,
-          idObjectMap,
-          state.q,
-          state.presetConfigs?.fieldIds
-        );
+        query = getQuery(modelData, idObjectMap, state.q, state.fieldIds);
       }
 
       if (!isEmpty(state.aq)) {
@@ -333,19 +328,19 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
       if (!isEmpty(query)) {
         searchParams.query = query;
       }
-      if (state.presetConfigs) {
-        if (!isEmpty(state.presetConfigs.query)) {
+      if (props.presetConfigs) {
+        if (!isEmpty(props.presetConfigs.query)) {
           if (searchParams.query) {
             searchParams.query = {
-              $and: [searchParams.query, state.presetConfigs.query]
+              $and: [searchParams.query, props.presetConfigs.query]
             };
           } else {
-            searchParams.query = state.presetConfigs.query;
+            searchParams.query = props.presetConfigs.query;
           }
         }
-        if (state.presetConfigs.fieldIds) {
+        if (state.fieldIds) {
           const fields: Record<string, boolean> = {};
-          state.presetConfigs.fieldIds.forEach(id => (fields[id] = true));
+          state.fieldIds.forEach(id => (fields[id] = true));
           if (searchParams.fields) {
             searchParams.fields = Object.assign(
               {},
@@ -360,7 +355,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
       if (state.relatedToMe) {
         searchParams.only_my_instance = state.relatedToMe;
       }
-      if (state.aliveHosts) {
+      if (state.aliveHosts && props.objectId === "HOST") {
         searchParams.query = { ...searchParams.query, _agentStatus: "正常" };
       }
       return await InstanceApi.postSearch(props.objectId, searchParams);
@@ -387,13 +382,15 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
   };
 
   useEffect(() => {
-    setModelData();
     const fieldIds = getFields();
     setState({
-      page: 1,
-      presetConfigs: Object.assign(state.presetConfigs || {}, { fieldIds })
+      fieldIds
     });
+  }, [props.objectId, props.presetConfigs]);
 
+  useEffect(() => {
+    if (isEmpty(state.fieldIds)) return;
+    setState({ page: 1 });
     refreshInstanceList(state.sort, state.asc, 1);
     props.onPaginationChange?.({ page: 1, pageSize: state.pageSize });
   }, [
@@ -402,8 +399,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     state.pageSize,
     state.aliveHosts,
     state.relatedToMe,
-    state.presetConfigs,
-    props.objectId
+    state.fieldIds
   ]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -455,9 +451,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
 
   const handleConfirm = (selectAttrIds: string[]) => {
     setState({
-      presetConfigs: Object.assign({}, state.presetConfigs, {
-        fieldIds: _sortFieldIds(selectAttrIds)
-      })
+      fieldIds: _sortFieldIds(selectAttrIds)
     });
     jsonLocalStorage.setItem(
       `${modelData.objectId}-selectAttrIds`,
@@ -481,13 +475,12 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
 
   const handleReset = () => {
     const fieldIds = handleDefaultFields();
-    const presetConfigs = Object.assign({}, state.presetConfigs, { fieldIds });
-    setState({ presetConfigs });
+    setState({ fieldIds });
     jsonLocalStorage.removeItem(`${modelData.objectId}-selectAttrIds`);
   };
 
   useEffect(() => {
-    props.notifyCurrentFields?.(state.presetConfigs?.fieldIds);
+    props.notifyCurrentFields?.(state.fieldIds);
   }, [props.notifyCurrentFields]);
 
   const onAdvancedSearchCloseGen = (attrId: string): Function => {
@@ -569,7 +562,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
                     onHandleConfirm={handleConfirm}
                     onHandleReset={handleReset}
                     onToggleAutoBreakLine={toggleAutoBreakLine}
-                    presetConfigs={state.presetConfigs}
+                    fieldIds={state.fieldIds}
                     defaultFields={handleDefaultFields()}
                     autoBreakLine={state.autoBreakLine}
                   />
@@ -583,8 +576,8 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
               hidden={!state.isAdvancedSearchVisible}
             >
               <AdvancedSearch
-                key={newKey(state.presetConfigs?.fieldIds, state.aq)}
-                presetConfigs={state.presetConfigs}
+                key={newKey(state.fieldIds, state.aq)}
+                fieldIds={state.fieldIds}
                 idObjectMap={state.idObjectMap}
                 modelData={modelData}
                 q={state.aq}
@@ -619,7 +612,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
           )}
           <InstanceListTable
             detailUrlTemplates={props.detailUrlTemplates}
-            presetConfigs={state.presetConfigs}
+            fieldIds={state.fieldIds}
             idObjectMap={state.idObjectMap}
             modelData={modelData}
             instanceListData={state.instanceListData}
