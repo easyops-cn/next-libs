@@ -6,7 +6,13 @@
   color: rgba(79, 79, 79, 1);
 }
 
-.empty {
+.body {
+  display: flex;
+  align-items: center;
+}
+
+.emptyWrapper {
+  width: 100%;
   text-align: center;
   color: #8c8c8c;
 }
