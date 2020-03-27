@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.19.4...@libs/cmdb-instances@1.0.0) (2020-03-27)
+
+### Bug Fixes
+
+- **instance-list:** watch `presetConfigs`, refs ATM-606 ([a95534d](https://git.easyops.local/anyclouds/next-libs/commits/a95534d))
+
+### BREAKING CHANGES
+
+- **instance-list:** replace `presetConfigs` with `fieldIds` prop in instance-list-table
+
 ## [0.19.4](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@0.19.3...@libs/cmdb-instances@0.19.4) (2020-03-20)
 
 ### Bug Fixes
