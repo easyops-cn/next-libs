@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.20.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.19.0...@libs/storyboard-visualization@0.20.0) (2020-03-27)
+
+### Features
+
+- drop unused code `Builder/*` ([29d65df](https://git.easyops.local/anyclouds/next-libs/commits/29d65df))
+
 # [0.19.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.18.6...@libs/storyboard-visualization@0.19.0) (2020-03-27)
 
 ### Features
