@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.7](https://git.easyops.local/anyclouds/next-libs/compare/@libs/charts@0.5.6...@libs/charts@0.5.7) (2020-03-27)
+
+### Bug Fixes
+
+- **charts:** optimize empty display refs MONITOR-534 ([89e311d](https://git.easyops.local/anyclouds/next-libs/commits/89e311d))
+
 ## [0.5.6](https://git.easyops.local/anyclouds/next-libs/compare/@libs/charts@0.5.5...@libs/charts@0.5.6) (2020-03-17)
 
 ### Bug Fixes
