@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.12.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.11.0...@libs/forms@0.12.0) (2020-03-27)
+
+### Features
+
+- **forms:** FormItemElement 增加 isFormItemElement 属性和 setHidden 方法 ([bf29f7a](https://git.easyops.local/anyclouds/next-libs/commits/bf29f7a))
+- **forms:** FormItemWrapper 在 hidden 为 true 时，返回 null，以避免隐藏的表单项影响表单校验 ([7dd33ca](https://git.easyops.local/anyclouds/next-libs/commits/7dd33ca))
+
 # [0.11.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.10.4...@libs/forms@0.11.0) (2020-03-24)
 
 ### Features
