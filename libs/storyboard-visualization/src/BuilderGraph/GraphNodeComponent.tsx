@@ -24,7 +24,7 @@ export function GraphNodeComponent(
 
   /* istanbul ignore next */
   const handleReorderClick = React.useCallback((): void => {
-    onReorderClick?.(node);
+    onReorderClick?.(node.originalData);
   }, [onReorderClick, node]);
 
   let contentComponent: React.ReactNode;
@@ -34,6 +34,7 @@ export function GraphNodeComponent(
     switch (content.type) {
       case "bricks":
       case "routes":
+      case "custom-template":
         contentComponent = content.items.map((item, index) => (
           <ContentItem
             key={index}
@@ -92,11 +93,12 @@ export function GraphNodeComponent(
     >
       <div className={styles.alias} style={styleConfig.alias}>
         {getNodeDisplayName(node.originalData)}
-        {node.originalData.type !== "app" && (
-          <div className={styles.menuButton} onClick={handleReorderClick}>
-            <Icon type="menu" />
-          </div>
-        )}
+        {node.originalData.type !== "app-root" &&
+          node.originalData.type !== "tpl-root" && (
+            <div className={styles.menuButton} onClick={handleReorderClick}>
+              <Icon type="menu" />
+            </div>
+          )}
       </div>
       {contentComponent}
     </div>
@@ -104,7 +106,7 @@ export function GraphNodeComponent(
 }
 
 interface ContentItemProps {
-  type: "bricks" | "routes" | "unknown";
+  type: "bricks" | "routes" | "custom-template" | "unknown";
   item: ViewItem;
   isLast?: boolean;
   contentItemActions?: ContentItemActions;
@@ -116,6 +118,7 @@ type ContentItemSubtype =
   | "brick"
   | "provider"
   | "template"
+  | "custom-template"
   | "unknown";
 
 const contentItemSubtypeIconMap: Record<ContentItemSubtype, FaIcon["icon"]> = {
@@ -123,6 +126,7 @@ const contentItemSubtypeIconMap: Record<ContentItemSubtype, FaIcon["icon"]> = {
   brick: "puzzle-piece",
   provider: "database",
   template: "boxes",
+  "custom-template": "code",
   unknown: "question"
 };
 
@@ -149,6 +153,8 @@ export function ContentItem(props: ContentItemProps): React.ReactElement {
       default:
         subtype = "brick";
     }
+  } else if (type === "custom-template") {
+    subtype = type;
   } else if (type === "routes") {
     subtype = "route";
   }
@@ -180,6 +186,7 @@ export function ContentItem(props: ContentItemProps): React.ReactElement {
         [styles.contentItemTypeBrick]: subtype === "brick",
         [styles.contentItemTypeProvider]: subtype === "provider",
         [styles.contentItemTypeTemplate]: subtype === "template",
+        [styles.contentItemTypeCustomTemplate]: subtype === "custom-template",
         [styles.contentItemEllipsisButtonAvailable]: ellipsisButtonAvailable
       })}
       style={{

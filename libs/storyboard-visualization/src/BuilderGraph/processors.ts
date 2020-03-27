@@ -10,12 +10,19 @@ import { HierarchyPointLink } from "d3";
 
 export function viewsToGraph(views: ViewItem[]): GraphNode {
   if (views?.length === 1) {
+    if (views[0].type === "custom-template") {
+      return ViewItemToGraph({
+        alias: "Custom Template",
+        type: "tpl-root",
+        children: sortViews(views || [])
+      });
+    }
     return ViewItemToGraph(views[0]);
   }
   return viewsToGraph([
     {
       alias: "APP",
-      type: "app",
+      type: "app-root",
       children: sortViews(views || [])
     }
   ]);
@@ -41,20 +48,28 @@ function ViewItemToGraph(view: ViewItem): GraphNode {
 }
 
 export function isRouteNode(view: ViewItem): boolean {
-  return ["bricks", "routes", "redirect", "app"].includes(view.type);
+  return ["bricks", "routes", "redirect"].includes(view.type);
 }
 
 export function isBrickNode(view: ViewItem): boolean {
-  return ["brick", "provider", "template"].includes(view.type);
+  return ["brick", "provider", "template", "custom-template"].includes(
+    view.type
+  );
 }
 
 function getNodeContent(view: ViewItem): GraphNodeContent {
   switch (view.type) {
     case "bricks":
     case "routes":
-    case "app":
+    case "app-root":
+    case "tpl-root":
       return {
-        type: view.type === "app" ? "routes" : view.type,
+        type:
+          view.type === "app-root"
+            ? "routes"
+            : view.type === "tpl-root"
+            ? "custom-template"
+            : view.type,
         items: sortViews(view.children)
       };
     case "redirect":
@@ -62,6 +77,7 @@ function getNodeContent(view: ViewItem): GraphNodeContent {
         type: "redirect"
       };
     case "brick":
+    case "custom-template":
       return {
         type: "slots",
         slots: getNodeContentSlotGroups(view)
@@ -116,6 +132,7 @@ function computeNodeHeight(node: GraphNode): number {
     switch (node.content.type) {
       case "bricks":
       case "routes":
+      case "custom-template":
         height +=
           node.content.items.length * styleConfig.contentItem.height +
           (node.content.items.length - 1) *
@@ -161,6 +178,7 @@ export function computeSourceX({
   switch (content.type) {
     case "bricks":
     case "routes":
+    case "custom-template":
       for (item of content.items) {
         if (item === target.data.originalData) {
           return x + styleConfig.contentItem.height / 2;

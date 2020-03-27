@@ -82,6 +82,10 @@
   color: var(--theme-purple-color);
 }
 
+.contentItemTypeCustomTemplate .contentItemIcon :global(.anticon) {
+  color: var(--theme-green-color);
+}
+
 .contentItemToolbar {
   position: absolute;
   right: 0;
