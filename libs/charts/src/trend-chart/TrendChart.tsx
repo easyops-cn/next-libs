@@ -358,9 +358,11 @@ export function TrendChart(props: TrendChartProps): React.ReactElement {
         return (
           <>
             <div className={style.title}>{title}</div>
-            <div className={style.empty}>
-              <Empty className={style.emptyText}></Empty>
-              <div>暂无数据</div>
+            <div className={style.body}>
+              <div className={style.emptyWrapper}>
+                <Empty className={style.emptyText}></Empty>
+                <div>暂无数据</div>
+              </div>
             </div>
           </>
         );
