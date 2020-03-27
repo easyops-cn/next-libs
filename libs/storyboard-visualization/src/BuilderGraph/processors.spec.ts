@@ -8,10 +8,10 @@ describe("viewsToGraph", () => {
     [
       undefined,
       {
-        nodeType: "route",
+        nodeType: "unknown",
         originalData: {
           alias: "APP",
-          type: "app",
+          type: "app-root",
           children: []
         },
         height: 39,
@@ -25,10 +25,10 @@ describe("viewsToGraph", () => {
     [
       [],
       {
-        nodeType: "route",
+        nodeType: "unknown",
         originalData: {
           alias: "APP",
-          type: "app",
+          type: "app-root",
           children: []
         },
         height: 39,
