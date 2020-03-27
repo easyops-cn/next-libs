@@ -6,6 +6,15 @@
   color: rgba(79, 79, 79, 1);
 }
 
+.empty {
+  text-align: center;
+  color: #8c8c8c;
+}
+
+.emptyText {
+  margin-bottom: 10px;
+}
+
 .chart {
   height: 100%;
   min-height: 300px;
