@@ -28,7 +28,9 @@ export function ModelRelationForm(
   const oppositeModelData = props.modelMap[props.relation.right_object_id];
 
   const [visible, setVisible] = useState(false);
-  const [modalInstanceListData, setModalInstanceListData] = useState();
+  const [modalInstanceListData, setModalInstanceListData] = useState<
+    InstanceApi.PostSearchResponseBody
+  >();
 
   let selectedInstanceListTemp: any[] = [];
   const [selectedInstanceList, setSelectedInstanceList] = useState(
