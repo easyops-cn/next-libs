@@ -34,23 +34,19 @@ afterEach(() => {
 });
 
 describe("InstanceListTable", () => {
-  const presetConfigs = {};
-
   it("should init with passed data", () => {
     const page = 2;
     const instanceListData = getInstanceListData(3, page, 2);
     const { container } = render(
       <InstanceListTable
-        presetConfigs={{
-          fieldIds: [
-            "ip",
-            "cpu",
-            "status",
-            "hostname",
-            "owner",
-            "_deviceList_CLUSTER"
-          ]
-        }}
+        fieldIds={[
+          "ip",
+          "cpu",
+          "status",
+          "hostname",
+          "owner",
+          "_deviceList_CLUSTER"
+        ]}
         idObjectMap={idObjectMap}
         modelData={HOST}
         instanceListData={instanceListData}
@@ -76,7 +72,7 @@ describe("InstanceListTable", () => {
   it("should call function that is passed to the onClickItem property when click link", () => {
     const instanceListData = getInstanceListData();
     const mockOnClickItem = jest.fn(
-      (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, id: string) => {}
+      (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, id: string) => null
     );
     const { getAllByTestId } = render(
       <InstanceListTable
@@ -85,7 +81,6 @@ describe("InstanceListTable", () => {
         modelData={HOST}
         instanceListData={instanceListData}
         onClickItem={mockOnClickItem}
-        presetConfigs={presetConfigs}
       />
     );
     fireEvent.click(getAllByTestId("instance-detail-link")[0]);
@@ -104,7 +99,6 @@ describe("InstanceListTable", () => {
         idObjectMap={idObjectMap}
         modelData={HOST}
         instanceListData={instanceListData}
-        presetConfigs={presetConfigs}
       />
     );
     fireEvent.click(getAllByTestId("instance-detail-link")[0]);
@@ -122,7 +116,6 @@ describe("InstanceListTable", () => {
         modelData={HOST}
         instanceListData={instanceListData}
         onPaginationChange={mockOnPaginationChange}
-        presetConfigs={presetConfigs}
       />
     );
     mockOnPaginationChange.mockImplementationOnce(
@@ -150,7 +143,6 @@ describe("InstanceListTable", () => {
         modelData={HOST}
         instanceListData={instanceListData}
         onPaginationChange={mockOnPaginationChange}
-        presetConfigs={presetConfigs}
       />
     );
     expect(
@@ -186,7 +178,6 @@ describe("InstanceListTable", () => {
         instanceListData={instanceListData}
         onPaginationChange={mockOnPaginationChange}
         onSortingChange={mockOnSortingChange}
-        presetConfigs={presetConfigs}
       />
     );
     let sort: string;
@@ -218,7 +209,6 @@ describe("InstanceListTable", () => {
         asc={asc}
         onPaginationChange={mockOnPaginationChange}
         onSortingChange={mockOnSortingChange}
-        presetConfigs={presetConfigs}
       />
     );
     expect(
@@ -237,7 +227,6 @@ describe("InstanceListTable", () => {
         idObjectMap={idObjectMap}
         modelData={HOST}
         instanceListData={instanceListData}
-        presetConfigs={presetConfigs}
       />
     );
     fireEvent.click(
@@ -330,7 +319,6 @@ describe("InstanceListTable", () => {
         idObjectMap={idObjectMap}
         modelData={HOST}
         instanceListData={instanceListData}
-        presetConfigs={presetConfigs}
         propertyDisplayConfigs={[
           {
             key: attributeKey,

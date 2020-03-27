@@ -87,9 +87,7 @@ export function CmdbInstancesSelectPanel(
     props.onChange?.(selectedKeys);
   };
 
-  const presetConfigs = {
-    fieldIds: modelData.attrList.map(attr => attr.id)
-  };
+  const fieldIds = modelData.attrList.map(attr => attr.id);
 
   const showPreview =
     selectedInstanceIds.length > displayedSelectedInstancesMaxNumber;
@@ -135,7 +133,7 @@ export function CmdbInstancesSelectPanel(
           instanceListData={{
             list: partialSelectedInstances
           }}
-          presetConfigs={presetConfigs}
+          fieldIds={fieldIds}
           selectDisabled={true}
           sortDisabled={true}
           configProps={{

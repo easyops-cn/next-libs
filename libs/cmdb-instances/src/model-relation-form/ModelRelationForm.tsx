@@ -28,16 +28,16 @@ export function ModelRelationForm(
   const oppositeModelData = props.modelMap[props.relation.right_object_id];
 
   const [visible, setVisible] = useState(false);
-  const [modalInstanceListData, setModalInstanceListData] = useState();
+  const [modalInstanceListData, setModalInstanceListData] = useState<
+    InstanceApi.PostSearchResponseBody
+  >();
 
   let selectedInstanceListTemp: any[] = [];
   const [selectedInstanceList, setSelectedInstanceList] = useState(
     props.instanceListData || []
   );
 
-  const presetConfigs = {
-    fieldIds: oppositeModelData.attrList.map(attr => attr.id)
-  };
+  const fieldIds = oppositeModelData.attrList.map(attr => attr.id);
 
   const computeFields = () => {
     // TODO(Cyril): compute custom fields
@@ -123,7 +123,7 @@ export function ModelRelationForm(
         <InstanceListTable
           idObjectMap={props.modelMap}
           modelData={oppositeModelData}
-          presetConfigs={presetConfigs}
+          fieldIds={fieldIds}
           instanceListData={modalInstanceListData}
           onSelectionChange={handleSelectionChange}
           onPaginationChange={handlePaginationChange}

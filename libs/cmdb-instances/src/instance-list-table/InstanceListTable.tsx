@@ -33,7 +33,6 @@ import {
 } from "@libs/cmdb-utils";
 import { NS_CMDB_INSTANCES } from "./i18n/constants";
 
-import { InstanceListPresetConfigs } from "./interfaces";
 import { ModelAttributeValueType } from "../model-attribute-form-control/ModelAttributeFormControl";
 import { Attribute, StructTable } from "../struct-components";
 import styles from "./InstanceListTable.module.css";
@@ -61,7 +60,7 @@ const SELF_RENDER_COLUMNS: { [objectId: string]: PropertyDisplayConfig[] } = {
 
 export interface InstanceListTableProps extends WithTranslation {
   detailUrlTemplates?: Record<string, string>;
-  presetConfigs?: InstanceListPresetConfigs;
+  fieldIds?: string[];
   idObjectMap: Record<string, Partial<CmdbModels.ModelCmdbObject>>;
   modelData: Partial<CmdbModels.ModelCmdbObject>;
   instanceListData: InstanceApi.PostSearchResponseBody;
@@ -110,9 +109,7 @@ export class LegacyInstanceListTable extends React.Component<
       config => (this.keyDisplayConfigMap[config.key] = config)
     );
 
-    const fieldIds = this.props.presetConfigs
-      ? this.props.presetConfigs.fieldIds
-      : [];
+    const fieldIds = this.props.fieldIds;
     const sortedColumns = this.getChangeColumns(fieldIds);
 
     this.state = {
@@ -191,7 +188,7 @@ export class LegacyInstanceListTable extends React.Component<
   }
 
   UNSAFE_componentWillReceiveProps(nextProps: InstanceListTableProps) {
-    const columns = this.getChangeColumns(nextProps.presetConfigs.fieldIds);
+    const columns = this.getChangeColumns(nextProps.fieldIds);
     if (this.props.modelData.objectId !== nextProps.modelData.objectId) {
       this.setState({ selectedRowKeys: nextProps.selectedRowKeys ?? [] });
     }

@@ -172,7 +172,7 @@ describe("InstanceList", () => {
     expect(instanceListTableProps.propertyDisplayConfigs).toBe(
       propertyDisplayConfigs
     );
-    expect(instanceListTableProps.presetConfigs.fieldIds).toEqual(newFieldIds);
+    expect(instanceListTableProps.fieldIds).toEqual(newFieldIds);
     expect(instanceListTableProps.onClickItem).toBe(onClickItem);
     expect(instanceListTableProps.onSelectionChange).toBe(onSelectionChange);
   });

@@ -20,8 +20,6 @@ describe("MoreButtonsContainer", () => {
   const modelData = HOST;
   const onHandleConfirm = jest.fn();
   const onHandleReset = jest.fn();
-  const presetConfigs: InstanceListPresetConfigs = {};
-  const currentFields = presetConfigs.fieldIds;
   const onHideSettings = jest.fn();
 
   it("handleSettingButtonClick should work", () => {
@@ -30,7 +28,6 @@ describe("MoreButtonsContainer", () => {
         modelData={modelData}
         onHandleConfirm={onHandleConfirm}
         onHandleReset={onHandleReset}
-        presetConfigs={presetConfigs}
         currentFields={modelData.attrList.map(attr => attr.id)}
         onHideSettings={onHideSettings}
         defaultFields={[]}

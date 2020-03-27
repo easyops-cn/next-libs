@@ -12,7 +12,6 @@ import {
   RelationObjectIdKeys
 } from "@libs/cmdb-utils";
 
-import { InstanceListPresetConfigs } from "./interfaces";
 import styles from "./AdvancedSearch.module.css";
 import {
   FormControlTypeEnum,
@@ -354,7 +353,7 @@ interface Field {
 }
 
 export interface AdvancedSearchFormProps extends FormComponentProps {
-  presetConfigs?: InstanceListPresetConfigs;
+  fieldIds?: string[];
   idObjectMap: Record<string, Partial<CmdbModels.ModelCmdbObject>>;
   modelData: Partial<CmdbModels.ModelCmdbObject>;
   q?: Query[];
@@ -438,7 +437,7 @@ export class AdvancedSearchForm extends React.Component<
           )
         });
       },
-      this.props.presetConfigs?.fieldIds
+      this.props.fieldIds
     );
 
     this.state = { fields };
