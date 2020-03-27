@@ -9,6 +9,8 @@ import {
 } from "./interfaces";
 
 export abstract class FormItemElement extends UpdatingElement {
+  readonly isFormItemElement = true;
+
   @property()
   name: string;
 
@@ -62,6 +64,11 @@ export abstract class FormItemElement extends UpdatingElement {
       }
     }
     return element as AbstractGeneralFormElement;
+  }
+
+  setHidden(value: boolean): void {
+    this.hidden = value;
+    this._render();
   }
 
   connectedCallback(): void {
