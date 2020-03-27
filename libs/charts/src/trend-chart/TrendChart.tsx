@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import echarts from "echarts";
 import ResizeObserver from "resize-observer-polyfill";
-
 import { get, merge, uniqueId } from "lodash";
 import moment from "moment";
 
 import { Format } from "../interfaces/panel";
 
 import { formatValue } from "../utils/valueFormatter";
+
+import Empty from "../images/empty.svg";
 
 import { DataStatus } from "../constants/data";
 
@@ -357,7 +358,10 @@ export function TrendChart(props: TrendChartProps): React.ReactElement {
         return (
           <>
             <div className={style.title}>{title}</div>
-            <div>暂无数据</div>
+            <div className={style.empty}>
+              <Empty className={style.emptyText}></Empty>
+              <div>暂无数据</div>
+            </div>
           </>
         );
       case DataStatus.ApiError:
