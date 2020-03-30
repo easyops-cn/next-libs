@@ -104,14 +104,14 @@ describe("FormItemWrapper", () => {
     });
   });
 
-  it("should return null when hidden is true", () => {
+  it("should return null when notRender is true", () => {
     const wrapper = shallow<FormItemWrapperProps>(
       <FormItemWrapper
         formElement={(formElement as unknown) as AbstractGeneralFormElement}
         name="username"
         label="hello"
         required={true}
-        hidden={true}
+        notRender={true}
       />
     );
     expect(wrapper).toMatchInlineSnapshot(`""`);

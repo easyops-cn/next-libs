@@ -50,6 +50,11 @@ export abstract class FormItemElement extends UpdatingElement {
   })
   helpBrick: HelpBrickProps;
 
+  @property({
+    type: Boolean
+  })
+  notRender: boolean;
+
   getFormElement(): AbstractGeneralFormElement {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     let element: HTMLElement & { isFormElement?: boolean } = this;
@@ -66,9 +71,9 @@ export abstract class FormItemElement extends UpdatingElement {
     return element as AbstractGeneralFormElement;
   }
 
-  setHidden(value: boolean): void {
+  setNotRender(value: boolean): void {
     this.hidden = value;
-    this._render();
+    this.notRender = value;
   }
 
   connectedCallback(): void {
