@@ -1,14 +1,14 @@
 import React from "react";
 import { Icon, Button, Dropdown, Menu } from "antd";
 import classNames from "classnames";
-import { BrickAsComponent } from "@easyops/brick-kit";
+import { BrickAsComponent, doTransform } from "@easyops/brick-kit";
+import { isObject } from "@easyops/brick-utils";
 import { FaIcon } from "@easyops/brick-types";
 import { GeneralIcon } from "@libs/basic-components";
 import styles from "./GraphNodeComponent.module.css";
 import { GraphNode, ViewItem, ContentItemActions } from "./interfaces";
 import { styleConfig } from "./constants";
 import { getNodeDisplayName } from "./processors";
-import { isObject, doTransform } from "@easyops/brick-utils";
 
 export interface GraphNodeComponentProps {
   node: GraphNode;
