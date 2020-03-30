@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.12.0...@libs/forms@0.12.1) (2020-03-30)
+
+### Bug Fixes
+
+- **forms:** FormItem 用 notRender 替代 hidden 作为判断是否渲染的属性 ([f364c7a](https://git.easyops.local/anyclouds/next-libs/commits/f364c7a))
+
 # [0.12.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.11.0...@libs/forms@0.12.0) (2020-03-27)
 
 ### Features
