@@ -43,7 +43,7 @@ export interface FormItemWrapperProps extends CommonEventProps {
     | Pick<ValidationRule, "validator" | "message">[];
   helpBrick?: HelpBrickProps;
   className?: string;
-  hidden?: boolean;
+  notRender?: boolean;
 }
 
 export function getRules(props: FormItemWrapperProps): ValidationRule[] {
@@ -179,15 +179,14 @@ export function convertLabelSpanToWrapperOffset(
 export function FormItemWrapper(
   props: PropsWithChildren<FormItemWrapperProps>
 ): React.ReactElement {
-  const { labelTooltip, helpBrick, className, hidden } = props;
+  const { labelTooltip, helpBrick, className, notRender } = props;
 
-  if (hidden) {
-    // 返回 null，以避免隐藏的表单项影响表单校验
+  if (notRender) {
     return null;
   }
 
   const eventMap = getCommonEventMap(props);
-  let input = isEmpty(eventMap)
+  let input: React.ReactNode = isEmpty(eventMap)
     ? props.children
     : (React.cloneElement(props.children as React.ReactElement, {
         ...eventMap
