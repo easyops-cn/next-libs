@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from "react";
+import React, { PropsWithChildren, useState } from "react";
 import { get, isEmpty } from "lodash";
 import { Form, Tooltip } from "antd";
 import { GeneralIcon } from "@libs/basic-components";
@@ -44,6 +44,7 @@ export interface FormItemWrapperProps extends CommonEventProps {
   helpBrick?: HelpBrickProps;
   className?: string;
   notRender?: boolean;
+  trigger?: string;
 }
 
 export function getRules(props: FormItemWrapperProps): ValidationRule[] {
@@ -179,7 +180,14 @@ export function convertLabelSpanToWrapperOffset(
 export function FormItemWrapper(
   props: PropsWithChildren<FormItemWrapperProps>
 ): React.ReactElement {
-  const { labelTooltip, helpBrick, className, notRender } = props;
+  const {
+    labelTooltip,
+    helpBrick,
+    className,
+    notRender,
+    trigger = "onChange"
+  } = props;
+  const [, setId] = useState(0);
 
   if (notRender) {
     return null;
@@ -214,7 +222,19 @@ export function FormItemWrapper(
       const { getFieldDecorator } = formElement.formUtils;
       const rules = getRules(props);
 
+      if ((input as React.ReactElement)?.props) {
+        const originalOnChange = (input as React.ReactElement).props[trigger];
+        input = React.cloneElement(input as React.ReactElement, {
+          [trigger]: (...args: any[]) => {
+            // force rerender
+            setId(id => ++id);
+            originalOnChange?.(...args);
+          }
+        });
+      }
+
       input = getFieldDecorator(props.name, {
+        trigger,
         rules
       })(input);
     }

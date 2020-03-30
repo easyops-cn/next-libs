@@ -1,5 +1,5 @@
-import React from "react";
-import { shallow } from "enzyme";
+import React, { useRef } from "react";
+import { shallow, mount } from "enzyme";
 import { Form } from "antd";
 import {
   FormItemWrapper,
@@ -14,9 +14,10 @@ import { AbstractGeneralFormElement } from "./interfaces";
 jest.mock("./i18n");
 jest.spyOn(i18n, "t").mockReturnValue("default message");
 
+const mockFieldWrapperFn = jest.fn(element => element);
 const formElement = {
   formUtils: {
-    getFieldDecorator: jest.fn().mockReturnValue(jest.fn())
+    getFieldDecorator: jest.fn().mockReturnValue(mockFieldWrapperFn)
   },
   layout: "horizontal",
   labelCol: {
@@ -102,6 +103,39 @@ describe("FormItemWrapper", () => {
         xl: { span: 10, offset: 14 }
       }
     });
+  });
+
+  it("should force rerender after trigger function has been called when work in form", () => {
+    const MockComponent = () => {
+      const renderTimesRef = useRef(0);
+
+      renderTimesRef.current += 1;
+
+      return <>{renderTimesRef.current}</>;
+    };
+    const trigger = "onSomeChange";
+    const wrapper = mount<FormItemWrapperProps>(
+      <FormItemWrapper
+        formElement={(formElement as unknown) as AbstractGeneralFormElement}
+        name="username"
+        label="hello"
+        required={true}
+        trigger={trigger}
+      >
+        <MockComponent />
+      </FormItemWrapper>
+    );
+
+    expect(formElement.formUtils.getFieldDecorator).toBeCalledWith(
+      "username",
+      expect.objectContaining({ trigger })
+    );
+    expect(wrapper.find(MockComponent).text()).toBe("1");
+    mockFieldWrapperFn.mock.calls[
+      mockFieldWrapperFn.mock.calls.length - 1
+    ][0].props[trigger]();
+    wrapper.update();
+    expect(wrapper.find(MockComponent).text()).toBe("2");
   });
 
   it("should return null when notRender is true", () => {
