@@ -45,6 +45,8 @@ export interface FormItemWrapperProps extends CommonEventProps {
   className?: string;
   notRender?: boolean;
   trigger?: string;
+  validateTrigger?: string;
+  valuePropName?: string;
 }
 
 export function getRules(props: FormItemWrapperProps): ValidationRule[] {
@@ -185,7 +187,9 @@ export function FormItemWrapper(
     helpBrick,
     className,
     notRender,
-    trigger = "onChange"
+    trigger = "onChange",
+    validateTrigger = "onChange",
+    valuePropName = "value"
   } = props;
   const [, setId] = useState(0);
 
@@ -234,8 +238,10 @@ export function FormItemWrapper(
       }
 
       input = getFieldDecorator(props.name, {
+        rules,
         trigger,
-        rules
+        validateTrigger,
+        valuePropName
       })(input);
     }
 
