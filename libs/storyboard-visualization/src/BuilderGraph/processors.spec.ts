@@ -147,6 +147,13 @@ describe("getNodeDisplayName", () => {
         path: "/your-page-a"
       },
       "/your-page-a"
+    ],
+    [
+      {
+        type: "custom-template",
+        templateId: "tpl-test"
+      },
+      "tpl-test"
     ]
   ])("getNodeDisplayName(%j) should return %j", (data, displayName) => {
     expect(getNodeDisplayName(data)).toBe(displayName);

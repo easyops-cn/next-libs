@@ -111,6 +111,10 @@ export function getNodeDisplayName(data: ViewItem): string {
     return data.alias;
   }
 
+  if (data.type === "custom-template") {
+    return data.templateId;
+  }
+
   if (isBrickNode(data)) {
     return getBrickName(data);
   }
