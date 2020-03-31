@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.13.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.12.2...@libs/forms@0.13.0) (2020-03-31)
+
+### Features
+
+- **forms:** FormItemWrapper 支持指定 validateTrigger 和 valuePropName ([c4eb2be](https://git.easyops.local/anyclouds/next-libs/commits/c4eb2be))
+
 ## [0.12.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.12.1...@libs/forms@0.12.2) (2020-03-30)
 
 **Note:** Version bump only for package @libs/forms
