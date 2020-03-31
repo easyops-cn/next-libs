@@ -114,6 +114,8 @@ describe("FormItemWrapper", () => {
       return <>{renderTimesRef.current}</>;
     };
     const trigger = "onSomeChange";
+    const validateTrigger = "onSomeChange";
+    const valuePropName = "someValue";
     const wrapper = mount<FormItemWrapperProps>(
       <FormItemWrapper
         formElement={(formElement as unknown) as AbstractGeneralFormElement}
@@ -121,6 +123,8 @@ describe("FormItemWrapper", () => {
         label="hello"
         required={true}
         trigger={trigger}
+        validateTrigger={validateTrigger}
+        valuePropName={valuePropName}
       >
         <MockComponent />
       </FormItemWrapper>
@@ -128,7 +132,7 @@ describe("FormItemWrapper", () => {
 
     expect(formElement.formUtils.getFieldDecorator).toBeCalledWith(
       "username",
-      expect.objectContaining({ trigger })
+      expect.objectContaining({ trigger, validateTrigger, valuePropName })
     );
     expect(wrapper.find(MockComponent).text()).toBe("1");
     mockFieldWrapperFn.mock.calls[
