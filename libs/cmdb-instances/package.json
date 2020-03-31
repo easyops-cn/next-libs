@@ -37,6 +37,6 @@
     "@libs/cmdb-utils": "^0.5.19",
     "@sdk/cmdb-sdk": "^0.7.4",
     "@sdk/permission-sdk": "^0.2.5",
-    "immutability-helper": "^3.0.1"
+    "immutability-helper": "^3.0.2"
   }
 }

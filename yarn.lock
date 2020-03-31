@@ -7695,10 +7695,10 @@ image-size@~0.5.0:
   resolved "https://registry.npm.taobao.org/image-size/download/image-size-0.5.5.tgz#09dfd4ab9d20e29eb1c3e80b8990378df9e3cb9c"
   integrity sha1-Cd/Uq50g4p6xw+gLiZA3jfnjy5w=
 
-immutability-helper@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.npm.taobao.org/immutability-helper/download/immutability-helper-3.0.1.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fimmutability-helper%2Fdownload%2Fimmutability-helper-3.0.1.tgz#4f609c5afbf8d78cb297970e8af2fba8b0eda1d6"
-  integrity sha1-T2CcWvv414yyl5cOivL7qLDtodY=
+immutability-helper@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.npm.taobao.org/immutability-helper/download/immutability-helper-3.0.2.tgz?cache=0&sync_timestamp=1585606352636&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fimmutability-helper%2Fdownload%2Fimmutability-helper-3.0.2.tgz#e9187158b47c93368a92e84c31714c4b3dff30b0"
+  integrity sha1-6RhxWLR8kzaKkuhMMXFMSz3/MLA=
   dependencies:
     invariant "^2.2.4"
 

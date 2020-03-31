@@ -33,6 +33,6 @@
   },
   "dependencies": {
     "@sdk/cmdb-sdk": "^0.5.1",
-    "immutability-helper": "^3.0.1"
+    "immutability-helper": "^3.0.2"
   }
 }
