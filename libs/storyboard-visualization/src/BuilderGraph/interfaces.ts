@@ -18,6 +18,7 @@ export interface ViewItem {
   brick?: string;
   template?: string;
   path?: string;
+  templateId?: string;
   children?: ViewItem[];
 }
 
