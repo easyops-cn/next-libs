@@ -174,7 +174,6 @@ describe("InstanceList", () => {
     );
     expect(instanceListTableProps.fieldIds).toEqual(newFieldIds);
     expect(instanceListTableProps.onClickItem).toBe(onClickItem);
-    expect(instanceListTableProps.onSelectionChange).toBe(onSelectionChange);
   });
 
   it("should toggle advanced search when click advanced-search-toggle-btn", async () => {

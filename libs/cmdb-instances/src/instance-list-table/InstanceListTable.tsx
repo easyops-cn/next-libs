@@ -89,7 +89,6 @@ interface InstanceListTableState {
   list: Record<string, any>[];
   columns?: ColumnProps<Record<string, any>>[];
   pagination: PaginationConfig;
-  selectedRowKeys: string[];
 }
 
 export class LegacyInstanceListTable extends React.Component<
@@ -123,21 +122,11 @@ export class LegacyInstanceListTable extends React.Component<
         showTotal: total => (
           <div>
             <span>共 {total} 项</span>
-            {this.state.selectedRowKeys.length > 0 && (
-              <>
-                <span>，已选择 {this.state.selectedRowKeys.length} 项</span>
-                <a role="button" onClick={() => this.onSelectChange([], [])}>
-                  {" "}
-                  清空
-                </a>
-              </>
-            )}
           </div>
         ),
         current: this.props.instanceListData.page,
         pageSize: this.props.instanceListData.page_size
-      },
-      selectedRowKeys: this.props.selectedRowKeys || []
+      }
     };
   }
 
@@ -189,9 +178,6 @@ export class LegacyInstanceListTable extends React.Component<
 
   UNSAFE_componentWillReceiveProps(nextProps: InstanceListTableProps) {
     const columns = this.getChangeColumns(nextProps.fieldIds);
-    if (this.props.modelData.objectId !== nextProps.modelData.objectId) {
-      this.setState({ selectedRowKeys: nextProps.selectedRowKeys ?? [] });
-    }
     this.setState({ columns });
   }
 
@@ -507,7 +493,6 @@ export class LegacyInstanceListTable extends React.Component<
     selectedRowKeys: string[] | number[],
     selectedRows: Record<string, any>[]
   ) => {
-    this.setState({ selectedRowKeys: selectedRowKeys as string[] });
     this.props.onSelectionChange?.({
       selectedKeys: selectedRowKeys as string[],
       selectedItems: selectedRows
@@ -538,7 +523,7 @@ export class LegacyInstanceListTable extends React.Component<
   }
 
   render(): React.ReactNode {
-    const { selectedRowKeys } = this.state;
+    const { selectedRowKeys } = this.props;
     const rowSelection: TableRowSelection<Record<string, any>> = this.props
       .selectDisabled
       ? null
