@@ -300,6 +300,9 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
 
   const [q, setQ] = useState(props.q);
   const [state, setState] = useReducer(reducer, initState);
+  const [selectedRowKeys, setSelectedRowKeys] = useState(
+    props.selectedRowKeys ?? []
+  );
 
   const getInstanceListData = async (
     sort: string,
@@ -389,6 +392,10 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
   }, [props.objectId, props.presetConfigs]);
 
   useEffect(() => {
+    setSelectedRowKeys(props.selectedRowKeys ?? []);
+  }, [props.objectId, props.selectedRowKeys]);
+
+  useEffect(() => {
     if (isEmpty(state.fieldIds)) return;
     setState({ page: 1 });
     refreshInstanceList(state.sort, state.asc, 1);
@@ -404,6 +411,14 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQ(e.target.value);
+  };
+
+  const onSelectionChange = (selected: {
+    selectedKeys: string[];
+    selectedItems: any[];
+  }) => {
+    setSelectedRowKeys(selected.selectedKeys);
+    props.onSelectionChange?.(selected);
   };
 
   const onSearch = (value: string) => {
@@ -535,6 +550,15 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
                 )}
               </div>
               <div className={styles.options}>
+                {selectedRowKeys.length > 0 && (
+                  <div style={{ marginRight: 20 }}>
+                    <span>已选择 {selectedRowKeys.length} 项</span>
+                    <a role="button" onClick={() => setSelectedRowKeys([])}>
+                      {" "}
+                      清空
+                    </a>
+                  </div>
+                )}
                 {props.objectId === "HOST" && !props.aliveHostsDisabled && (
                   <Checkbox
                     checked={state.aliveHosts}
@@ -618,14 +642,14 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
             instanceListData={state.instanceListData}
             sort={state.sort}
             asc={state.asc}
-            selectedRowKeys={props.selectedRowKeys}
+            selectedRowKeys={selectedRowKeys}
             selectDisabled={props.selectDisabled}
             sortDisabled={props.sortDisabled}
             propertyDisplayConfigs={props.propertyDisplayConfigs}
             onClickItem={props.onClickItem}
             onPaginationChange={onPaginationChange}
             onSortingChange={onSortingChange}
-            onSelectionChange={props.onSelectionChange}
+            onSelectionChange={onSelectionChange}
             autoBreakLine={state.autoBreakLine}
             relationLinkDisabled={props.relationLinkDisabled}
             pageSizeOptions={props.pageSizeOptions}
