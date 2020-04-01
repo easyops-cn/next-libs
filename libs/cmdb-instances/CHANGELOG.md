@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@1.0.1...@libs/cmdb-instances@1.1.0) (2020-04-01)
+
+### Features
+
+- **instance-list:** hoist `selectedRowKeys` and controll it ([0b14ff1](https://git.easyops.local/anyclouds/next-libs/commits/0b14ff1))
+
 ## [1.0.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@1.0.0...@libs/cmdb-instances@1.0.1) (2020-03-31)
 
 **Note:** Version bump only for package @libs/cmdb-instances
