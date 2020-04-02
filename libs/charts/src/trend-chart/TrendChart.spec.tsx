@@ -23,7 +23,8 @@ describe("TrendChart", () => {
       setOption: jest.fn(),
       resize: jest.fn(),
       dispose: jest.fn(),
-      on: jest.fn()
+      on: jest.fn(),
+      clear: jest.fn()
     } as any);
   });
 
