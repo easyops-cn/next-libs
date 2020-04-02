@@ -329,6 +329,7 @@ export function TrendChart(props: TrendChartProps): React.ReactElement {
 
       scope.resizeObserver.observe(chartRef.current);
     }
+    scope.echartsInstance.clear();
     scope.echartsInstance.setOption(option);
   };
 
