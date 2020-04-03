@@ -62,10 +62,14 @@ export function getQuery(
 ) {
   const query: Record<string, any> = { $or: [] };
 
+  const queryValues = q.trim().split(/\s+/);
+
   forEachAvailableFields(
     modelData,
     attr => {
-      query.$or.push({ [attr.id]: { $like: `%${q}%` } });
+      queryValues.forEach(queryValue =>
+        query.$or.push({ [attr.id]: { $like: `%${queryValue}%` } })
+      );
     },
     (relation, sides) => {
       const id = relation[`${sides.this}_id` as RelationIdKeys];
@@ -73,9 +77,11 @@ export function getQuery(
         idObjectMap[relation[`${sides.that}_object_id` as RelationObjectIdKeys]]
       );
 
-      query.$or.push({
-        [`${id}.${nameKey}`]: { $like: `%${q}%` }
-      });
+      queryValues.forEach(queryValue =>
+        query.$or.push({
+          [`${id}.${nameKey}`]: { $like: `%${queryValue}%` }
+        })
+      );
     },
     fields
   );

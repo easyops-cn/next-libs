@@ -76,7 +76,7 @@ describe("AdvancedSearch", () => {
     fireEvent.change(input, { target: { value } });
     fireEvent.click(submitButton);
     expect(mockOnSearch).toBeCalledWith([
-      { [attr.id]: { $like: `%${value}%` } }
+      { $or: [{ [attr.id]: { $like: `%${value}%` } }] }
     ]);
   });
 

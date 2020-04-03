@@ -144,6 +144,24 @@ const FieldTypeConditionTypesMap: Record<string, ConditionType[]> = {
   ]
 };
 
+const multiValueSearchOperators = [
+  {
+    comparisonOperator: ComparisonOperators.Like,
+    logicalOperator: LogicalOperators.Or
+  },
+  {
+    comparisonOperator: ComparisonOperators.NotLike,
+    logicalOperator: LogicalOperators.And
+  },
+  {
+    comparisonOperator: ComparisonOperators.Equal,
+    logicalOperator: LogicalOperators.Or
+  },
+  {
+    comparisonOperator: ComparisonOperators.NotEqual,
+    logicalOperator: LogicalOperators.And
+  }
+];
 FieldTypeConditionTypesMap[ModelAttributeValueType.STRUCT_LIST] =
   FieldTypeConditionTypesMap[ModelAttributeValueType.STRUCT];
 
@@ -417,24 +435,30 @@ export class AdvancedSearchForm extends React.Component<
         });
       },
       (relation, sides) => {
-        const id = `${
-          relation[`${sides.this}_id` as RelationIdKeys]
-        }.${getInstanceNameKeys(
+        const showKeys = getInstanceNameKeys(
           this.props.idObjectMap[
             relation[`${sides.that}_object_id` as RelationObjectIdKeys]
           ]
-        )}`;
-        const type = ModelAttributeValueType.STRING;
+        );
 
-        fields.push({
-          id,
-          name: relation[`${sides.this}_name` as RelationNameKeys],
-          attrValue: { type },
-          ...getFieldConditionsAndValues(
-            fieldQueryOperatorExpressionsMap,
+        showKeys.forEach(showKey => {
+          const id = `${
+            relation[`${sides.this}_id` as RelationIdKeys]
+          }.${showKey}`;
+          const type = ModelAttributeValueType.STRING;
+
+          fields.push({
             id,
-            type
-          )
+            name: `${
+              relation[`${sides.this}_name` as RelationNameKeys]
+            }(${showKey})`,
+            attrValue: { type },
+            ...getFieldConditionsAndValues(
+              fieldQueryOperatorExpressionsMap,
+              id,
+              type
+            )
+          });
         });
       },
       this.props.fieldIds
@@ -490,9 +514,18 @@ export class AdvancedSearchForm extends React.Component<
     return this.state.fields.map((field, fieldIndex) => {
       let type: string;
       let style: React.CSSProperties;
+      let attrValue: any = field.attrValue;
+      let multiSelect = false;
       switch (field.attrValue.type) {
+        case ModelAttributeValueType.INTEGER:
+        case ModelAttributeValueType.FLOAT:
+          attrValue = {
+            type: ModelAttributeValueType.STRING
+          };
+          break;
         case ModelAttributeValueType.ENUM:
           type = FormControlTypeEnum.SELECT;
+          multiSelect = true;
           break;
         case ModelAttributeValueType.DATETIME:
           style = { minWidth: "auto" };
@@ -539,8 +572,9 @@ export class AdvancedSearchForm extends React.Component<
                           attribute={{
                             id: field.id,
                             name: field.name,
-                            value: field.attrValue
+                            value: attrValue
                           }}
+                          multiSelect={multiSelect}
                           onChange={(value: any) =>
                             this.onValueChange(
                               value,
@@ -566,13 +600,24 @@ export class AdvancedSearchForm extends React.Component<
     });
   }
 
+  convertValue = (field: Field, value: any): any => {
+    switch (field.attrValue.type) {
+      case ModelAttributeValueType.INTEGER:
+        return parseInt(value);
+      case ModelAttributeValueType.FLOAT:
+        return parseFloat(value);
+      default:
+        return value;
+    }
+  };
+
   handleSearch = (e: FormEvent<any>): void => {
     e.preventDefault();
     if (this.props.onSearch) {
       let queries: Query[] = [];
       this.state.fields.forEach(field => {
         const expressions: QueryOperatorExpressions = {};
-        const fieldQuery: Query = { [field.id]: expressions };
+        let fieldQuery: Query = { [field.id]: expressions };
         let hasValue = false;
         field.values.forEach((value, index) => {
           const operation = field.currentCondition.operations[index];
@@ -581,13 +626,49 @@ export class AdvancedSearchForm extends React.Component<
             value !== "" &&
             !(Array.isArray(value) && value.length === 0)
           ) {
-            if (operation.prefix) {
-              value = operation.prefix + value;
+            const multiValueSearchOperator = multiValueSearchOperators.find(
+              operator => operator.comparisonOperator === operation.operator
+            );
+            if (multiValueSearchOperator) {
+              let values: any[];
+              if (field.attrValue.type === ModelAttributeValueType.ENUM) {
+                values = value;
+              } else if (typeof value === "string") {
+                values = value
+                  .trim()
+                  .split(/\s+/)
+                  .map(value => this.convertValue(field, value));
+              } else {
+                values = [value];
+              }
+
+              fieldQuery = {
+                [multiValueSearchOperator.logicalOperator]: values.map(
+                  value => {
+                    if (operation.prefix) {
+                      value = operation.prefix + value;
+                    }
+                    if (operation.suffix) {
+                      value += operation.suffix;
+                    }
+                    return {
+                      [field.id]: {
+                        [operation.operator]: value
+                      }
+                    };
+                  }
+                )
+              };
+            } else {
+              value = this.convertValue(field, value);
+              if (operation.prefix) {
+                value = operation.prefix + value;
+              }
+              if (operation.suffix) {
+                value += operation.suffix;
+              }
+              expressions[operation.operator] = value;
             }
-            if (operation.suffix) {
-              value += operation.suffix;
-            }
-            expressions[operation.operator] = value;
             hasValue = true;
           }
         });
