@@ -76,6 +76,7 @@ export interface ModelAttributeFormControlProps {
   onChange?: (value: any) => void;
   attribute: Partial<CmdbModels.ModelObjectAttr>;
   type?: string;
+  multiSelect?: boolean;
   className?: string;
   style?: React.CSSProperties;
 }
@@ -503,6 +504,7 @@ export class ModelAttributeFormControl extends Component<
         const { readOnly } = restProps;
         return (
           <Select
+            mode={this.props.multiSelect ? "multiple" : undefined}
             defaultValue={value || []}
             onChange={(e: any) => this.onChange(e)}
             disabled={readOnly}
