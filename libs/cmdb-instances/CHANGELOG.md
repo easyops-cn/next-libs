@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@1.2.0...@libs/cmdb-instances@1.3.0) (2020-04-05)
+
+### Features
+
+- **instance-list:** add multi-value search refs BRICK_STROE-1359 ([e8a0d63](https://git.easyops.local/anyclouds/next-libs/commits/e8a0d63))
+
 # [1.2.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@1.1.0...@libs/cmdb-instances@1.2.0) (2020-04-03)
 
 ### Features
