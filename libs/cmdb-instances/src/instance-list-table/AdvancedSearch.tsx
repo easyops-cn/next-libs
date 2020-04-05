@@ -299,6 +299,17 @@ function getCondition(
   };
 }
 
+export function convertValue(valueType: string, value: any): any {
+  switch (valueType) {
+    case ModelAttributeValueType.INTEGER:
+      return parseInt(value);
+    case ModelAttributeValueType.FLOAT:
+      return parseFloat(value);
+    default:
+      return value;
+  }
+}
+
 export function getFieldConditionsAndValues(
   fieldQueryOperatorExpressionsMap: Record<string, QueryOperatorExpressions>,
   id: string,
@@ -336,16 +347,44 @@ export function getFieldConditionsAndValues(
   if (!currentCondition) {
     currentCondition = availableConditions[0];
   }
+  let queryValuesStr = "";
   const values = currentCondition.operations.map(operation => {
-    let value: string;
+    let value: any;
 
     if (expressions?.[operation.operator] !== undefined) {
       value = expressions[operation.operator];
-      if (operation.prefix && value.startsWith(operation.prefix)) {
-        value = value.slice(operation.prefix.length);
+      let values = [expressions[operation.operator]];
+      const i = multiValueSearchOperators.find(
+        multiValueSearchOperator =>
+          multiValueSearchOperator.comparisonOperator === operation.operator
+      );
+      if (i) {
+        if (
+          valueType === ModelAttributeValueType.ENUM ||
+          typeof expressions[operation.operator] === "string"
+        ) {
+          values = expressions[operation.operator]
+            .trim()
+            .split(/\s+/)
+            .map((value: string) => convertValue(valueType, value));
+        }
       }
-      if (operation.suffix && value.endsWith(operation.suffix)) {
-        value = value.slice(0, value.length - operation.suffix.length);
+
+      if (typeof values[0] === "string") {
+        queryValuesStr = values.join(" ");
+        values = values.map((value: string) => {
+          if (operation.prefix && value.startsWith(operation.prefix)) {
+            value = value.slice(operation.prefix.length);
+          }
+          if (operation.suffix && value.endsWith(operation.suffix)) {
+            value = value.slice(0, value.length - operation.suffix.length);
+          }
+          return value;
+        });
+        value =
+          valueType === ModelAttributeValueType.ENUM
+            ? values
+            : values.join(" ");
       }
     } else {
       value = operation.fixedValue !== undefined ? operation.fixedValue : null;
@@ -357,7 +396,8 @@ export function getFieldConditionsAndValues(
   return {
     availableConditions,
     currentCondition,
-    values
+    values,
+    queryValuesStr
   };
 }
 
@@ -391,6 +431,30 @@ export class AdvancedSearchForm extends React.Component<
   constructor(props: AdvancedSearchFormProps) {
     super(props);
 
+    this.state = this.computeFields();
+  }
+
+  componentDidUpdate(prevProps: Readonly<AdvancedSearchFormProps>) {
+    if (!isEqual(this.props.q, prevProps.q)) {
+      const newFields = this.computeFields();
+      this.setState(newFields);
+
+      const values = newFields.fields.reduce<{ [key: string]: any }>(
+        (acc, field) => {
+          field.values.map((value, valueIndex) => {
+            const operation = field.currentCondition.operations[valueIndex];
+            acc[`${field.id}[${valueIndex}]`] =
+              operation.fixedValue === undefined ? value : "";
+          });
+          return acc;
+        },
+        {}
+      );
+      this.props.form.setFieldsValue(values);
+    }
+  }
+
+  computeFields() {
     const fieldQueryOperatorExpressionsMap: Record<
       string,
       QueryOperatorExpressions
@@ -399,6 +463,23 @@ export class AdvancedSearchForm extends React.Component<
     if (this.props.q) {
       this.props.q.forEach(query => {
         Object.entries(query).forEach(([key, expressions]) => {
+          if (key === LogicalOperators.Or || key === LogicalOperators.And) {
+            const firstSubQuery = (expressions as Query[])[0];
+            const fieldId = Object.keys(firstSubQuery)[0];
+            const compareOperator = Object.keys(firstSubQuery[fieldId])[0];
+            const subQueryValue = (expressions as Query[])
+              .map(query => {
+                return (query[fieldId] as Record<ComparisonOperators, any>)[
+                  compareOperator as ComparisonOperators
+                ];
+              })
+              .join(" ");
+            key = fieldId;
+            expressions = {
+              [compareOperator]: subQueryValue
+            };
+          }
+
           fieldQueryOperatorExpressionsMap[
             key
           ] = expressions as QueryOperatorExpressions;
@@ -464,7 +545,7 @@ export class AdvancedSearchForm extends React.Component<
       this.props.fieldIds
     );
 
-    this.state = { fields };
+    return { fields };
   }
 
   onValueChange = (
@@ -600,17 +681,6 @@ export class AdvancedSearchForm extends React.Component<
     });
   }
 
-  convertValue = (field: Field, value: any): any => {
-    switch (field.attrValue.type) {
-      case ModelAttributeValueType.INTEGER:
-        return parseInt(value);
-      case ModelAttributeValueType.FLOAT:
-        return parseFloat(value);
-      default:
-        return value;
-    }
-  };
-
   handleSearch = (e: FormEvent<any>): void => {
     e.preventDefault();
     if (this.props.onSearch) {
@@ -637,7 +707,7 @@ export class AdvancedSearchForm extends React.Component<
                 values = value
                   .trim()
                   .split(/\s+/)
-                  .map(value => this.convertValue(field, value));
+                  .map(value => convertValue(field.attrValue.type, value));
               } else {
                 values = [value];
               }
@@ -660,7 +730,7 @@ export class AdvancedSearchForm extends React.Component<
                 )
               };
             } else {
-              value = this.convertValue(field, value);
+              value = convertValue(field.attrValue.type, value);
               if (operation.prefix) {
                 value = operation.prefix + value;
               }

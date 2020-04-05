@@ -8,6 +8,7 @@ import {
   filter,
   reject,
   sortBy,
+  uniqueId,
   findIndex
 } from "lodash";
 import { handleHttpError } from "@easyops/brick-kit";
@@ -93,39 +94,60 @@ function translateConditions(
   aq: Query[],
   idObjectMap: Record<string, Partial<CmdbModels.ModelCmdbObject>>,
   modelData: Partial<CmdbModels.ModelCmdbObject>
-): { attrId: string; condition: string }[] {
-  const conditions: { attrId: string; condition: string }[] = [];
-  const relations = modelData.relation_list.map(relation => {
+): { attrId: string; condition: string; valuesStr: string }[] {
+  const conditions: {
+    attrId: string;
+    condition: string;
+    valuesStr: string;
+  }[] = [];
+  const relations: any[] = [];
+  modelData.relation_list.forEach(relation => {
     const sides = getRelationObjectSides(relation, modelData);
     const objectId = relation[`${sides.this}_id` as RelationIdKeys];
-    const nameKey = getInstanceNameKeys(
+    const nameKeys = getInstanceNameKeys(
       idObjectMap[relation[`${sides.that}_object_id` as RelationObjectIdKeys]]
     );
-    const id = `${objectId}.${nameKey}`;
-    const name = relation[`${sides.this}_name` as RelationNameKeys];
-    return { id, name, value: { type: "str" } };
+    nameKeys.forEach(nameKey => {
+      const id = `${objectId}.${nameKey}`;
+      const name = `${
+        relation[`${sides.this}_name` as RelationNameKeys]
+      }(${nameKey})`;
+      relations.push({ id, name, value: { type: "str" } });
+    });
   });
   const attrAndRelationList = [...modelData.attrList, ...relations];
   if (!isEmpty(aq)) {
     for (const query of aq) {
-      const key = Object.keys(query)[0];
-      const attr = attrAndRelationList.find(attr => attr.id === key);
-      if (!attr) continue;
-      const info = getFieldConditionsAndValues(
-        query as any,
-        key,
-        attr.value.type as ModelAttributeValueType
-      );
-
-      let condition = `${attr.name}: ${info.currentCondition.label}`;
-      if (
-        ![ConditionType.Empty, ConditionType.NotEmpty].includes(
-          info.currentCondition.type
-        )
-      ) {
-        condition += `"${info.values.join(" ~ ")}"`;
+      let queries: Query[] = [query];
+      if (Object.keys(query)[0] === "$or" || Object.keys(query)[0] === "$and") {
+        queries = query[Object.keys(query)[0]] as Query[];
       }
-      conditions.push({ attrId: key, condition });
+
+      queries.forEach(query => {
+        const key = Object.keys(query)[0];
+        const attr = attrAndRelationList.find(attr => attr.id === key);
+        if (attr) {
+          const info = getFieldConditionsAndValues(
+            query as any,
+            key,
+            attr.value.type as ModelAttributeValueType
+          );
+
+          let condition = `${attr.name}: ${info.currentCondition.label}`;
+          if (
+            ![ConditionType.Empty, ConditionType.NotEmpty].includes(
+              info.currentCondition.type
+            )
+          ) {
+            condition += `"${info.values.join(" ~ ")}"`;
+          }
+          conditions.push({
+            attrId: key,
+            condition,
+            valuesStr: info.queryValuesStr
+          });
+        }
+      });
     }
   }
 
@@ -504,11 +526,30 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     props.notifyCurrentFields?.(state.fieldIds);
   }, [props.notifyCurrentFields]);
 
-  const onAdvancedSearchCloseGen = (attrId: string): Function => {
+  const onAdvancedSearchCloseGen = (
+    attrId: string,
+    valuesStr: string
+  ): Function => {
     return () => {
-      const queries = state.aq.filter(
-        query => Object.keys(query)[0] !== attrId
-      );
+      const queries: Query[] = [];
+      state.aq.forEach(query => {
+        const key = Object.keys(query)[0];
+        if (
+          (key === "$or" || key === "$and") &&
+          Object.keys((query[key] as Query[])[0])[0] === attrId
+        ) {
+          const filteredSubQueries = (query[key] as Query[]).filter(query => {
+            return Object.values(query[attrId]).join(" ") !== valuesStr;
+          });
+          if (filteredSubQueries.length > 0) {
+            queries.push({
+              [key]: filteredSubQueries
+            });
+          }
+        } else if (key !== attrId) {
+          queries.push(query);
+        }
+      });
       setState({ aq: queries });
       props.onAdvancedSearch?.(queries);
     };
@@ -631,9 +672,14 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
               )}
               {conditions.map(condition => (
                 <Tag
-                  key={condition.attrId}
+                  key={`${condition.attrId}${
+                    condition.valuesStr
+                  }-${uniqueId()}`}
                   closable
-                  onClose={onAdvancedSearchCloseGen(condition.attrId)}
+                  onClose={onAdvancedSearchCloseGen(
+                    condition.attrId,
+                    condition.valuesStr
+                  )}
                 >
                   {condition.condition}
                 </Tag>
