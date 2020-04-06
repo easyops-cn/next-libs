@@ -431,30 +431,19 @@ export class AdvancedSearchForm extends React.Component<
   constructor(props: AdvancedSearchFormProps) {
     super(props);
 
-    this.state = this.computeFields();
+    this.state = this.computeState();
   }
 
-  componentDidUpdate(prevProps: Readonly<AdvancedSearchFormProps>) {
+  componentDidUpdate(prevProps: Readonly<AdvancedSearchFormProps>): void {
     if (!isEqual(this.props.q, prevProps.q)) {
-      const newFields = this.computeFields();
-      this.setState(newFields);
+      const newState = this.computeState();
+      this.setState(newState);
 
-      const values = newFields.fields.reduce<{ [key: string]: any }>(
-        (acc, field) => {
-          field.values.map((value, valueIndex) => {
-            const operation = field.currentCondition.operations[valueIndex];
-            acc[`${field.id}[${valueIndex}]`] =
-              operation.fixedValue === undefined ? value : "";
-          });
-          return acc;
-        },
-        {}
-      );
-      this.props.form.setFieldsValue(values);
+      this.setFormFieldValues(newState.fields);
     }
   }
 
-  computeFields() {
+  computeState(): { fields: Field[] } {
     const fieldQueryOperatorExpressionsMap: Record<
       string,
       QueryOperatorExpressions
@@ -548,6 +537,18 @@ export class AdvancedSearchForm extends React.Component<
     return { fields };
   }
 
+  setFormFieldValues(fields: Field[]): void {
+    const values = fields.reduce<{ [key: string]: any }>((acc, field) => {
+      field.values.map((value, valueIndex) => {
+        const operation = field.currentCondition.operations[valueIndex];
+        acc[`${field.id}[${valueIndex}]`] =
+          operation.fixedValue === undefined ? value : "";
+      });
+      return acc;
+    }, {});
+    this.props.form.setFieldsValue(values);
+  }
+
   onValueChange = (
     value: any,
     valueIndex: number,
@@ -566,21 +567,35 @@ export class AdvancedSearchForm extends React.Component<
     field: Field,
     fieldIndex: number
   ) => {
+    const hasFixedValues = field.currentCondition.operations.some(
+      operation => operation.fixedValue !== undefined
+    );
+
     const condition = field.availableConditions.find(
       condition => condition.type === value
     );
-    this.setState({
-      fields: update(this.state.fields, {
-        [fieldIndex]: {
-          currentCondition: { $set: condition },
-          values: {
-            $set: condition.operations.map(operation =>
-              operation.fixedValue !== undefined ? operation.fixedValue : null
-            )
-          }
+    let newValues = condition.operations.map(operation =>
+      operation.fixedValue !== undefined ? operation.fixedValue : null
+    );
+    if (newValues.every(value => value === null)) {
+      newValues = hasFixedValues
+        ? [null]
+        : this.state.fields[fieldIndex].values;
+    }
+
+    const newFields = update(this.state.fields, {
+      [fieldIndex]: {
+        currentCondition: { $set: condition },
+        values: {
+          $set: newValues
         }
-      })
+      }
     });
+    this.setState({
+      fields: newFields
+    });
+
+    this.setFormFieldValues(newFields);
   };
 
   getFields() {
