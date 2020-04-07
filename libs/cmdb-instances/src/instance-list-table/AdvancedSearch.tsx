@@ -577,10 +577,12 @@ export class AdvancedSearchForm extends React.Component<
     let newValues = condition.operations.map(operation =>
       operation.fixedValue !== undefined ? operation.fixedValue : null
     );
-    if (newValues.every(value => value === null)) {
-      newValues = hasFixedValues
-        ? [null]
-        : this.state.fields[fieldIndex].values;
+    if (
+      newValues.every(value => value === null) &&
+      !hasFixedValues &&
+      this.state.fields[fieldIndex].values.length === newValues.length
+    ) {
+      newValues = this.state.fields[fieldIndex].values;
     }
 
     const newFields = update(this.state.fields, {
