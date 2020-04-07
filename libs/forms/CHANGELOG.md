@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.13.0...@libs/forms@0.13.1) (2020-04-07)
+
+### Bug Fixes
+
+- **forms:** 在 state 改变后，再触发强制渲染 ([7beede2](https://git.easyops.local/anyclouds/next-libs/commits/7beede2))
+
 # [0.13.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.12.2...@libs/forms@0.13.0) (2020-03-31)
 
 ### Features
