@@ -112,7 +112,12 @@ function translateConditions(
       const name = `${
         relation[`${sides.this}_name` as RelationNameKeys]
       }(${nameKey})`;
-      relations.push({ id, name, value: { type: "str" } });
+      relations.push({
+        id,
+        name,
+        value: { type: "str" },
+        relationSideId: relation[`${sides.this}_id` as RelationIdKeys]
+      });
     });
   });
   const attrAndRelationList = [...modelData.attrList, ...relations];
@@ -125,7 +130,9 @@ function translateConditions(
 
       queries.forEach(query => {
         const key = Object.keys(query)[0];
-        const attr = attrAndRelationList.find(attr => attr.id === key);
+        const attr = attrAndRelationList.find(
+          attr => attr.id === key || attr.relationSideId === key
+        );
         if (attr) {
           const info = getFieldConditionsAndValues(
             query as any,
