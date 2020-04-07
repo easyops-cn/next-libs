@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@1.3.1...@libs/cmdb-instances@1.3.2) (2020-04-07)
+
+### Bug Fixes
+
+- **instance-list:** between inputs refs BRICK_STROE-1359 ([819b896](https://git.easyops.local/anyclouds/next-libs/commits/819b896))
+- **instance-list:** float value exist error refs BRICK_STROE-1378 ([4bd6201](https://git.easyops.local/anyclouds/next-libs/commits/4bd6201))
+- **instance-list:** relation exist error refs BRICK_STROE-1379 ([1187758](https://git.easyops.local/anyclouds/next-libs/commits/1187758))
+
 ## [1.3.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@1.3.0...@libs/cmdb-instances@1.3.1) (2020-04-06)
 
 ### Bug Fixes
