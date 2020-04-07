@@ -13,7 +13,7 @@ module.exports = {
       statements: 87.34,
       branches: 76.73,
       functions: 81.77,
-      lines: 87.8
+      lines: 87.5
     }
   },
   coverageDirectory: "<rootDir>/.coverage",

@@ -314,10 +314,17 @@ export function convertValue(valueType: string, value: any): any {
 export function getFieldConditionsAndValues(
   fieldQueryOperatorExpressionsMap: Record<string, QueryOperatorExpressions>,
   id: string,
-  valueType: ModelAttributeValueType
+  valueType: ModelAttributeValueType,
+  isRelation?: boolean,
+  relationSideId?: string,
+  index?: number
 ) {
-  const expressions = fieldQueryOperatorExpressionsMap[id];
+  let expressions = fieldQueryOperatorExpressionsMap[id];
   let expressionsKeysStr: string;
+  if (!expressions && isRelation) {
+    expressions = fieldQueryOperatorExpressionsMap[relationSideId];
+  }
+
   if (expressions) {
     expressionsKeysStr = Object.keys(expressions).join("");
   }
@@ -349,7 +356,7 @@ export function getFieldConditionsAndValues(
     currentCondition = availableConditions[0];
   }
   let queryValuesStr = "";
-  const values = currentCondition.operations.map(operation => {
+  let values = currentCondition.operations.map(operation => {
     let value: any;
 
     if (expressions?.[operation.operator] !== undefined) {
@@ -394,11 +401,26 @@ export function getFieldConditionsAndValues(
     return value;
   });
 
+  let disabled = false;
+
+  if (
+    isRelation &&
+    expressions &&
+    currentCondition.operations[0].operator === ElementOperators.Exists &&
+    index !== 0
+  ) {
+    disabled = true;
+    currentCondition = availableConditions[0];
+    values = [null];
+    queryValuesStr = "";
+  }
+
   return {
     availableConditions,
     currentCondition,
     values,
-    queryValuesStr
+    queryValuesStr,
+    disabled
   };
 }
 
@@ -411,6 +433,7 @@ interface Field {
   currentCondition: Condition;
   isRelation: boolean;
   relationSideId?: string;
+  disabled?: boolean;
 }
 
 export interface AdvancedSearchFormProps extends FormComponentProps {
@@ -515,7 +538,7 @@ export class AdvancedSearchForm extends React.Component<
           ]
         );
 
-        showKeys.forEach(showKey => {
+        showKeys.forEach((showKey, index) => {
           const id = `${
             relation[`${sides.this}_id` as RelationIdKeys]
           }.${showKey}`;
@@ -532,7 +555,10 @@ export class AdvancedSearchForm extends React.Component<
             ...getFieldConditionsAndValues(
               fieldQueryOperatorExpressionsMap,
               id,
-              type
+              type,
+              true,
+              relation[`${sides.this}_id` as RelationNameKeys],
+              index
             )
           });
         });
@@ -591,7 +617,7 @@ export class AdvancedSearchForm extends React.Component<
       newValues = this.state.fields[fieldIndex].values;
     }
 
-    const newFields = update(this.state.fields, {
+    let newFields = update(this.state.fields, {
       [fieldIndex]: {
         currentCondition: { $set: condition },
         values: {
@@ -599,6 +625,38 @@ export class AdvancedSearchForm extends React.Component<
         }
       }
     });
+
+    const relatedFieldIndex = newFields.findIndex(
+      f =>
+        f.isRelation &&
+        f.relationSideId === field.relationSideId &&
+        f.id !== field.id
+    );
+    if (relatedFieldIndex !== -1) {
+      const relatedField = newFields[relatedFieldIndex];
+      if (condition.operations[0].operator === ElementOperators.Exists) {
+        newFields = update(newFields, {
+          [relatedFieldIndex]: {
+            currentCondition: { $set: relatedField.availableConditions[0] },
+            values: {
+              $set: [null]
+            },
+            disabled: {
+              $set: true
+            }
+          }
+        });
+      } else {
+        newFields = update(newFields, {
+          [relatedFieldIndex]: {
+            disabled: {
+              $set: false
+            }
+          }
+        });
+      }
+    }
+
     this.setState({
       fields: newFields
     });
@@ -645,6 +703,7 @@ export class AdvancedSearchForm extends React.Component<
                 onChange={(value: ConditionType) =>
                   this.onConditionChange(value, field, fieldIndex)
                 }
+                disabled={field.disabled}
               >
                 {field.availableConditions.map(condition => (
                   <Select.Option key={condition.type}>
@@ -670,7 +729,7 @@ export class AdvancedSearchForm extends React.Component<
                       initialValue:
                         operation.fixedValue === undefined ? value : ""
                     })(
-                      operation.fixedValue === undefined ? (
+                      operation.fixedValue === undefined && !field.disabled ? (
                         <ModelAttributeFormControl
                           type={type}
                           attribute={{
@@ -714,6 +773,13 @@ export class AdvancedSearchForm extends React.Component<
         let hasValue = false;
         field.values.forEach((value, index) => {
           const operation = field.currentCondition.operations[index];
+
+          const fieldId =
+            field.isRelation && ElementOperators.Exists === operation.operator
+              ? field.relationSideId
+              : field.id;
+          fieldQuery = { [fieldId]: expressions };
+
           if (
             value !== null &&
             value !== "" &&
@@ -734,13 +800,6 @@ export class AdvancedSearchForm extends React.Component<
               } else {
                 values = [value];
               }
-
-              const fieldId =
-                field.isRelation &&
-                ElementOperators.Exists === operation.operator
-                  ? field.relationSideId
-                  : field.id;
-
               fieldQuery = {
                 [multiValueSearchOperator.logicalOperator]: values.map(
                   value => {
