@@ -231,7 +231,9 @@ export function FormItemWrapper(
         input = React.cloneElement(input as React.ReactElement, {
           [trigger]: (...args: any[]) => {
             // force rerender
-            setId(id => ++id);
+            Promise.resolve().then(() => {
+              setId(id => ++id);
+            });
             originalOnChange?.(...args);
           }
         });

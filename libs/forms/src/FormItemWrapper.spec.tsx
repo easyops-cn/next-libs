@@ -105,7 +105,7 @@ describe("FormItemWrapper", () => {
     });
   });
 
-  it("should force rerender after trigger function has been called when work in form", () => {
+  it("should force rerender after trigger function has been called when work in form", async () => {
     const MockComponent = () => {
       const renderTimesRef = useRef(0);
 
@@ -138,6 +138,7 @@ describe("FormItemWrapper", () => {
     mockFieldWrapperFn.mock.calls[
       mockFieldWrapperFn.mock.calls.length - 1
     ][0].props[trigger]();
+    await (global as any).flushPromises();
     wrapper.update();
     expect(wrapper.find(MockComponent).text()).toBe("2");
   });
