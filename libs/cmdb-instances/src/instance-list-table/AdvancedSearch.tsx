@@ -300,14 +300,15 @@ function getCondition(
 }
 
 export function convertValue(valueType: string, value: any): any {
-  switch (valueType) {
-    case ModelAttributeValueType.INTEGER:
-      return parseInt(value);
-    case ModelAttributeValueType.FLOAT:
-      return parseFloat(value);
-    default:
-      return value;
+  if (typeof value !== "boolean") {
+    switch (valueType) {
+      case ModelAttributeValueType.INTEGER:
+        return parseInt(value);
+      case ModelAttributeValueType.FLOAT:
+        return parseFloat(value);
+    }
   }
+  return value;
 }
 
 export function getFieldConditionsAndValues(
@@ -408,6 +409,8 @@ interface Field {
   values: any[];
   availableConditions: Condition[];
   currentCondition: Condition;
+  isRelation: boolean;
+  relationSideId?: string;
 }
 
 export interface AdvancedSearchFormProps extends FormComponentProps {
@@ -497,6 +500,7 @@ export class AdvancedSearchForm extends React.Component<
           id: attr.id,
           name: attr.name,
           attrValue,
+          isRelation: false,
           ...getFieldConditionsAndValues(
             fieldQueryOperatorExpressionsMap,
             attr.id,
@@ -523,6 +527,8 @@ export class AdvancedSearchForm extends React.Component<
               relation[`${sides.this}_name` as RelationNameKeys]
             }(${showKey})`,
             attrValue: { type },
+            isRelation: true,
+            relationSideId: relation[`${sides.this}_id` as RelationIdKeys],
             ...getFieldConditionsAndValues(
               fieldQueryOperatorExpressionsMap,
               id,
@@ -577,10 +583,12 @@ export class AdvancedSearchForm extends React.Component<
     let newValues = condition.operations.map(operation =>
       operation.fixedValue !== undefined ? operation.fixedValue : null
     );
-    if (newValues.every(value => value === null)) {
-      newValues = hasFixedValues
-        ? [null]
-        : this.state.fields[fieldIndex].values;
+    if (
+      newValues.every(value => value === null) &&
+      !hasFixedValues &&
+      this.state.fields[fieldIndex].values.length === newValues.length
+    ) {
+      newValues = this.state.fields[fieldIndex].values;
     }
 
     const newFields = update(this.state.fields, {
@@ -727,6 +735,12 @@ export class AdvancedSearchForm extends React.Component<
                 values = [value];
               }
 
+              const fieldId =
+                field.isRelation &&
+                ElementOperators.Exists === operation.operator
+                  ? field.relationSideId
+                  : field.id;
+
               fieldQuery = {
                 [multiValueSearchOperator.logicalOperator]: values.map(
                   value => {
@@ -737,7 +751,7 @@ export class AdvancedSearchForm extends React.Component<
                       value += operation.suffix;
                     }
                     return {
-                      [field.id]: {
+                      [fieldId]: {
                         [operation.operator]: value
                       }
                     };
