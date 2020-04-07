@@ -300,14 +300,15 @@ function getCondition(
 }
 
 export function convertValue(valueType: string, value: any): any {
-  switch (valueType) {
-    case ModelAttributeValueType.INTEGER:
-      return parseInt(value);
-    case ModelAttributeValueType.FLOAT:
-      return parseFloat(value);
-    default:
-      return value;
+  if (typeof value !== "boolean") {
+    switch (valueType) {
+      case ModelAttributeValueType.INTEGER:
+        return parseInt(value);
+      case ModelAttributeValueType.FLOAT:
+        return parseFloat(value);
+    }
   }
+  return value;
 }
 
 export function getFieldConditionsAndValues(
