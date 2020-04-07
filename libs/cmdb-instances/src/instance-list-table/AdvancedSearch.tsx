@@ -409,6 +409,8 @@ interface Field {
   values: any[];
   availableConditions: Condition[];
   currentCondition: Condition;
+  isRelation: boolean;
+  relationSideId?: string;
 }
 
 export interface AdvancedSearchFormProps extends FormComponentProps {
@@ -498,6 +500,7 @@ export class AdvancedSearchForm extends React.Component<
           id: attr.id,
           name: attr.name,
           attrValue,
+          isRelation: false,
           ...getFieldConditionsAndValues(
             fieldQueryOperatorExpressionsMap,
             attr.id,
@@ -524,6 +527,8 @@ export class AdvancedSearchForm extends React.Component<
               relation[`${sides.this}_name` as RelationNameKeys]
             }(${showKey})`,
             attrValue: { type },
+            isRelation: true,
+            relationSideId: relation[`${sides.this}_id` as RelationIdKeys],
             ...getFieldConditionsAndValues(
               fieldQueryOperatorExpressionsMap,
               id,
@@ -730,6 +735,12 @@ export class AdvancedSearchForm extends React.Component<
                 values = [value];
               }
 
+              const fieldId =
+                field.isRelation &&
+                ElementOperators.Exists === operation.operator
+                  ? field.relationSideId
+                  : field.id;
+
               fieldQuery = {
                 [multiValueSearchOperator.logicalOperator]: values.map(
                   value => {
@@ -740,7 +751,7 @@ export class AdvancedSearchForm extends React.Component<
                       value += operation.suffix;
                     }
                     return {
-                      [field.id]: {
+                      [fieldId]: {
                         [operation.operator]: value
                       }
                     };
