@@ -1,0 +1,20 @@
+.routeNodeContainer {
+  border-radius: 6px;
+  padding: 14px;
+  width: 150px;
+  color: #6d6d6d;
+  font-weight: 600;
+  word-break: break-all;
+  cursor: pointer;
+}
+.routeNodeContainer:hover {
+  background-color: var(--theme-blue-background);
+}
+.routeTitle {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12px;
+  margin-bottom: 4px;
+  text-align: center;
+}

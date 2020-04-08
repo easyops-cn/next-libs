@@ -1,0 +1,18 @@
+.canvas {
+  position: relative;
+}
+
+.linksLayer,
+.nodesLayer,
+.nodesContainer,
+.nodeWrapper {
+  position: absolute;
+}
+
+.linksLayer {
+  cursor: grab;
+}
+
+.grabbing {
+  cursor: grabbing;
+}

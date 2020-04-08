@@ -1,4 +1,5 @@
 import { UseBrickConf } from "@easyops/brick-types";
+import { ViewItem } from "../shared/interfaces";
 
 export interface GraphNode {
   nodeType: "route" | "brick" | "unknown";
@@ -6,20 +7,6 @@ export interface GraphNode {
   content?: GraphNodeContent;
   height?: number;
   children?: GraphNode[];
-}
-
-export interface ViewItem {
-  alias?: string;
-  appId?: string;
-  id?: string;
-  mountPoint?: string;
-  sort?: number;
-  type?: string;
-  brick?: string;
-  template?: string;
-  path?: string;
-  templateId?: string;
-  children?: ViewItem[];
 }
 
 export type GraphNodeContent =

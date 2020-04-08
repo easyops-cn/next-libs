@@ -1,28 +1,22 @@
 import React from "react";
-import { BuilderGraph } from "./BuilderGraph";
-import { ContentItemActions } from "./interfaces";
+// import { RoutesGraph } from "./RoutesGraphOld";
+import { RoutesGraph } from "./RoutesGraph";
 import { ViewItem } from "../shared/interfaces";
 
-export interface BuilderGraphComponentProps {
-  data: ViewItem[];
-  contentItemActions?: ContentItemActions;
-  wrapAnApp?: boolean | "auto";
-  onReorderClick?: (node: ViewItem) => void;
-  onNodeClick?: (node: ViewItem) => void;
+export interface RoutesGraphComponentProps {
+  data?: ViewItem[];
+  // contentItemActions?: ContentItemActions;
+  // onReorderClick?: (node: ViewItem) => void;
+  // onNodeClick?: (node: ViewItem) => void;
+  id?: string;
 }
 
-export function BuilderGraphComponent(
-  props: BuilderGraphComponentProps
+export function RoutesGraphComponent(
+  props: RoutesGraphComponentProps
 ): React.ReactElement {
-  const {
-    data,
-    contentItemActions,
-    wrapAnApp,
-    onReorderClick,
-    onNodeClick
-  } = props;
+  const { data } = props;
 
-  const visual = React.useMemo(() => new BuilderGraph(), []);
+  const visual = React.useMemo(() => new RoutesGraph(), []);
 
   const ref = React.useRef<HTMLDivElement>(null);
 
@@ -62,20 +56,16 @@ export function BuilderGraphComponent(
   }, [resize]);
 
   const handleRender = React.useCallback(() => {
-    visual.render(data, {
-      contentItemActions,
-      wrapAnApp,
-      onReorderClick,
-      onNodeClick
-    });
-  }, [
-    visual,
-    data,
-    contentItemActions,
-    wrapAnApp,
-    onReorderClick,
-    onNodeClick
-  ]);
+    visual.render(data);
+  }, [data]);
+
+  // const handleRender = React.useCallback(() => {
+  //   visual.render(data, {
+  //     contentItemActions,
+  //     onReorderClick,
+  //     onNodeClick
+  //   });
+  // }, [visual, data, contentItemActions, onReorderClick, onNodeClick]);
 
   React.useEffect(() => {
     handleRender();

@@ -10,22 +10,24 @@ import { create, Selection, event as d3Event, select } from "d3-selection";
 import { linkHorizontal } from "d3-shape";
 import { uniqueId } from "lodash";
 import classNames from "classnames";
-import { GraphNode, ContentItemActions } from "./interfaces";
-import { ViewItem } from "../shared/interfaces";
-import { viewsToGraph, computeSourceX } from "./processors";
-import { GraphNodeComponent } from "./GraphNodeComponent";
-import { styleConfig } from "./constants";
+import { RouteNodeComponent } from "./RouteNodeComponent";
+// import { GraphNode, ViewItem, ContentItemActions } from "./interfaces";
+// import { viewsToGraph, computeSourceX } from "../BuilderGraph/processors";
+// import { GraphNodeComponent } from "./GraphNodeComponent";
+import { styleConfig } from "../BuilderGraph/constants";
+import { drag, dragDisable, dragEnable } from "d3-drag";
+import { viewsToGraph } from "./processors";
+import { GraphNode } from "./interfaces";
 
-import styles from "./BuilderGraph.module.css";
+import styles from "./RoutesGraph.module.css";
 
-interface RenderOptions {
-  contentItemActions?: ContentItemActions;
-  wrapAnApp?: boolean | "auto";
-  onReorderClick?: (node: ViewItem) => void;
-  onNodeClick?: (node: ViewItem) => void;
-}
+// interface RenderOptions {
+//   contentItemActions?: ContentItemActions;
+//   onReorderClick?: (node: ViewItem) => void;
+//   onNodeClick?: (node: ViewItem) => void;
+// }
 
-export class BuilderGraph {
+export class RoutesGraph {
   private readonly canvas: Selection<
     HTMLDivElement,
     undefined,
@@ -61,21 +63,34 @@ export class BuilderGraph {
   private links: Selection<
     SVGGElement,
     HierarchyPointLink<GraphNode>,
+    // HierarchyPointLink<any>,
     SVGGElement,
     undefined
   >;
   private nodes: Selection<
     HTMLDivElement,
     HierarchyPointNode<GraphNode>,
+    // HierarchyPointNode<any>,
     HTMLDivElement,
     undefined
   >;
-  private window: Selection<
-    Window & typeof globalThis,
-    undefined,
-    null,
-    undefined
-  >;
+  // private window: Selection<
+  //   Window & typeof globalThis,
+  //   undefined,
+  //   null,
+  //   undefined
+  // >;
+
+  onDragSvg(d) {
+    const { dx, dy } = d3Event;
+    d.x = this.offsetLeft + dx;
+    d.y = this.offsetTop + dy;
+    select(this)
+      .style("left", d => `${d.x}px`)
+      .style("top", (d, i) => {
+        return `${d.y}px`;
+      });
+  }
 
   constructor() {
     this.canvas = create("div").attr("class", styles.canvas);
@@ -106,7 +121,7 @@ export class BuilderGraph {
       .attr("class", styles.nodesContainer);
     this.nodes = this.nodesContainer.selectAll(`.${styles.nodeWrapper}`);
 
-    // Grabbing to scroll.
+    // // Grabbing to scroll.
     const d3Window = select(window);
     this.linksLayer.on("mousedown", () => {
       this.linksLayer.classed(styles.grabbing, true);
@@ -127,40 +142,21 @@ export class BuilderGraph {
   }
 
   getDOMNode(): HTMLDivElement {
-    // console.log(this.canvas.node(),'this.canvas.node()');
     return this.canvas.node();
   }
 
-  render(builderData: ViewItem[], options?: RenderOptions): void {
+  // render(builderData: ViewItem[], options?: RenderOptions): void {
+  render(builderData: any[], options?: any): void {
     const nodeWidth = styleConfig.node.width;
     // x and y is swapped in horizontal tree layout.
     const dx = 40;
-    const dy = nodeWidth + 60;
+    // const dy = nodeWidth + 60;
+    // const dy = nodeWidth;
+    const dy = 40;
     const markerOffset = 5;
 
-    const hierarchyRoot = hierarchy(
-      viewsToGraph(builderData, options?.wrapAnApp)
-    );
-
-    const root = tree<GraphNode>()
-      .nodeSize([dx, dy])
-      .separation((a, b) => {
-        // Separation should be relative to `dx`.
-        // Make extra one unit as spacing.
-        return (a.data.height + b.data.height) / 2 / dx + 1;
-      })(hierarchyRoot);
-
-    const width = dy * (root.height + 1);
-
-    let x0 = Infinity;
-    let x1 = -x0;
-    root.each(d => {
-      const xTop = d.x - d.data.height / 2;
-      const xBottom = xTop + d.data.height;
-      if (xBottom > x1) x1 = xBottom;
-      if (xTop < x0) x0 = xTop;
-    });
-    const height = x1 - x0 + dx * 2;
+    const width = 800;
+    const height = 800;
 
     this.canvas.style("min-width", `${width}px`);
     this.canvas.style("height", `${height}px`);
@@ -168,54 +164,32 @@ export class BuilderGraph {
     this.linksLayer.attr("height", height);
 
     const offsetX = dy / 2;
-    const offsetY = dx - x0;
+    const offsetY = dx;
     this.linksContainer.attr("transform", `translate(${offsetX},${offsetY})`);
     this.nodesContainer
       .style("left", `${offsetX}px`)
       .style("top", `${offsetY}px`);
 
-    const linkFactory = linkHorizontal<unknown, HierarchyPointNode<GraphNode>>()
-      .x(d => d.y)
-      .y(d => d.x);
-
-    this.links = this.links
-      .data(
-        root.links().map(({ source, target }) => {
-          const offset = nodeWidth / 2;
-          return {
-            source: {
-              ...source,
-              x: computeSourceX({ source, target }),
-              y: source.y + offset - 8
-            },
-            target: {
-              ...target,
-              y: target.y - offset - 5 - markerOffset
-            }
-          };
-        })
-      )
-      .join(enter => {
-        const link = enter.append("g");
-        link.append("path").attr("marker-end", `url(#${this.arrowMarkerId})`);
-        return link;
-      })
-      .attr("class", classNames(styles.link));
-
-    // The extra marker offset makes it smoothy for steep links.
-    this.links
-      .select("path")
-      .attr("d", d => `${linkFactory(d)}h${markerOffset}`);
+    if (!builderData) {
+      return;
+    }
 
     this.nodes = this.nodes
-      .data(root.descendants())
-      .join("div")
+      .data(viewsToGraph(builderData))
+      .enter()
+      .append("div")
       .attr("class", classNames(styles.nodeWrapper))
       .style("left", d => `${d.y}px`)
-      .style("top", d => `${d.x}px`);
+      .style("top", (d, i) => {
+        return `${200 * i}px`;
+      })
+      .call(drag().on("drag", this.onDragSvg));
 
     this.nodes.each(function(d) {
-      ReactDOM.render(<GraphNodeComponent node={d.data} {...options} />, this);
+      ReactDOM.render(
+        <RouteNodeComponent originalData={d.originalData} />,
+        this
+      );
     });
   }
 }

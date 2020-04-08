@@ -3,7 +3,8 @@ import { shallow } from "enzyme";
 import { GeneralIcon } from "@libs/basic-components";
 import { FaIcon } from "@easyops/brick-types";
 import { GraphNodeComponent, ContentItem } from "./GraphNodeComponent";
-import { GraphNode, ViewItem } from "./interfaces";
+import { GraphNode } from "./interfaces";
+import { ViewItem } from "../shared/interfaces";
 import { fakeBuilderGraphNode } from "../fakesForTest";
 
 describe("GraphNodeComponent", () => {

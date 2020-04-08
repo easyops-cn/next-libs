@@ -1,5 +1,6 @@
 import { viewsToGraph, getNodeDisplayName, computeSourceX } from "./processors";
-import { ViewItem, GraphNode } from "./interfaces";
+import { GraphNode } from "./interfaces";
+import { ViewItem } from "../shared/interfaces";
 import { fakeBuilderGraphSource, fakeBuilderGraphNode } from "../fakesForTest";
 import { HierarchyPointLink } from "d3";
 
