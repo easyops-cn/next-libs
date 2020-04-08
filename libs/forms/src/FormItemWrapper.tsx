@@ -47,6 +47,7 @@ export interface FormItemWrapperProps extends CommonEventProps {
   trigger?: string;
   validateTrigger?: string;
   valuePropName?: string;
+  asyncForceRerender?: boolean;
 }
 
 export function getRules(props: FormItemWrapperProps): ValidationRule[] {
@@ -189,7 +190,8 @@ export function FormItemWrapper(
     notRender,
     trigger = "onChange",
     validateTrigger = "onChange",
-    valuePropName = "value"
+    valuePropName = "value",
+    asyncForceRerender
   } = props;
   const [, setId] = useState(0);
 
@@ -230,11 +232,16 @@ export function FormItemWrapper(
         const originalOnChange = (input as React.ReactElement).props[trigger];
         input = React.cloneElement(input as React.ReactElement, {
           [trigger]: (...args: any[]) => {
-            // force rerender
-            Promise.resolve().then(() => {
-              setId(id => ++id);
-            });
             originalOnChange?.(...args);
+
+            // force rerender
+            if (asyncForceRerender) {
+              Promise.resolve().then(() => {
+                setId(id => ++id);
+              });
+            } else {
+              setId(id => ++id);
+            }
           }
         });
       }
