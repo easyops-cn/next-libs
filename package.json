@@ -11,6 +11,8 @@
     "prepare": "lerna bootstrap",
     "start": "lerna run start",
     "build": "lerna run build",
+    "postbuild": "npm run size-limit",
+    "size-limit": "size-limit",
     "test": "cross-env NODE_ENV='test' jest",
     "test:ci": "cross-env NODE_ENV='test' CI=true jest --ci",
     "yo": "brick-scripts -t libs",
