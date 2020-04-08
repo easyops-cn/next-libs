@@ -1,6 +1,6 @@
 {
   "name": "@libs/forms",
-  "version": "0.13.1",
+  "version": "0.13.2",
   "description": "> TODO: description",
   "homepage": "https://git.easyops.local/anyclouds/next-libs/tree/master/libs/forms",
   "license": "UNLICENSED",
@@ -33,6 +33,6 @@
     "@libs/basic-components": "*"
   },
   "devDependencies": {
-    "@libs/basic-components": "^0.19.0"
+    "@libs/basic-components": "^0.20.0"
   }
 }

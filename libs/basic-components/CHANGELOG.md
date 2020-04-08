@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.20.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@0.19.0...@libs/basic-components@0.20.0) (2020-04-08)
+
+### Features
+
+- **utils:** getIconList ([bee9696](https://git.easyops.local/anyclouds/next-libs/commits/bee9696))
+
 # [0.19.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@0.18.8...@libs/basic-components@0.19.0) (2020-03-18)
 
 ### Features
