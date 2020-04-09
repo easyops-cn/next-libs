@@ -138,9 +138,20 @@ describe("FormItemWrapper", () => {
     mockFieldWrapperFn.mock.calls[
       mockFieldWrapperFn.mock.calls.length - 1
     ][0].props[trigger]();
-    await (global as any).flushPromises();
     wrapper.update();
     expect(wrapper.find(MockComponent).text()).toBe("2");
+
+    // async force rerender
+    wrapper.setProps({ asyncForceRerender: true });
+    expect(wrapper.find(MockComponent).text()).toBe("3");
+    mockFieldWrapperFn.mock.calls[
+      mockFieldWrapperFn.mock.calls.length - 1
+    ][0].props[trigger]();
+    wrapper.update();
+    expect(wrapper.find(MockComponent).text()).toBe("3");
+    await (global as any).flushPromises();
+    wrapper.update();
+    expect(wrapper.find(MockComponent).text()).toBe("4");
   });
 
   it("should return null when notRender is true", () => {
