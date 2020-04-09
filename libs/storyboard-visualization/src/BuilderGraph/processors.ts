@@ -8,8 +8,11 @@ import {
 import { styleConfig } from "./constants";
 import { HierarchyPointLink } from "d3";
 
-export function viewsToGraph(views: ViewItem[]): GraphNode {
-  if (views?.length === 1) {
+export function viewsToGraph(
+  views: ViewItem[],
+  wrapAnApp?: boolean | "auto"
+): GraphNode {
+  if (wrapAnApp === false || (wrapAnApp !== true && views?.length === 1)) {
     if (views[0].type === "custom-template") {
       return ViewItemToGraph({
         alias: "Custom Template",
@@ -19,13 +22,16 @@ export function viewsToGraph(views: ViewItem[]): GraphNode {
     }
     return ViewItemToGraph(views[0]);
   }
-  return viewsToGraph([
-    {
-      alias: "APP",
-      type: "app-root",
-      children: sortViews(views || [])
-    }
-  ]);
+  return viewsToGraph(
+    [
+      {
+        alias: "APP",
+        type: "app-root",
+        children: sortViews(views || [])
+      }
+    ],
+    false
+  );
 }
 
 function ViewItemToGraph(view: ViewItem): GraphNode {

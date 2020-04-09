@@ -4,9 +4,10 @@ import { fakeBuilderGraphSource, fakeBuilderGraphNode } from "../fakesForTest";
 import { HierarchyPointLink } from "d3";
 
 describe("viewsToGraph", () => {
-  it.each<[ViewItem[], GraphNode]>([
+  it.each<[ViewItem[], boolean | "auto", GraphNode]>([
     [
       undefined,
+      "auto",
       {
         nodeType: "unknown",
         originalData: {
@@ -24,6 +25,7 @@ describe("viewsToGraph", () => {
     ],
     [
       [],
+      "auto",
       {
         nodeType: "unknown",
         originalData: {
@@ -46,6 +48,7 @@ describe("viewsToGraph", () => {
           type: "routes"
         }
       ],
+      "auto",
       {
         nodeType: "route",
         content: {
@@ -73,6 +76,7 @@ describe("viewsToGraph", () => {
           ]
         }
       ],
+      "auto",
       {
         nodeType: "route",
         content: {
@@ -98,9 +102,42 @@ describe("viewsToGraph", () => {
         children: []
       }
     ],
-    [fakeBuilderGraphSource(), fakeBuilderGraphNode()]
-  ])("viewsToGraph(%j) should return %j", (list, result) => {
-    expect(viewsToGraph(list)).toEqual(result);
+    [
+      [
+        {
+          alias: "route: empty-routes",
+          type: "routes"
+        }
+      ],
+      true,
+      {
+        nodeType: "unknown",
+        originalData: {
+          alias: "APP",
+          type: "app-root",
+          children: [
+            {
+              alias: "route: empty-routes",
+              type: "routes"
+            }
+          ]
+        },
+        height: 74,
+        content: {
+          type: "routes",
+          items: [
+            {
+              alias: "route: empty-routes",
+              type: "routes"
+            }
+          ]
+        },
+        children: []
+      }
+    ],
+    [fakeBuilderGraphSource(), "auto", fakeBuilderGraphNode()]
+  ])("viewsToGraph(%j, %j) should return %j", (list, wrapAnApp, result) => {
+    expect(viewsToGraph(list, wrapAnApp)).toEqual(result);
   });
 });
 
