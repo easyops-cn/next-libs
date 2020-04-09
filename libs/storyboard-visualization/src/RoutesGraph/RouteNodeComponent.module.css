@@ -1,11 +1,13 @@
 .routeNodeContainer {
   border-radius: 6px;
-  padding: 14px;
+  padding: 8px 14px;
+  margin: 5px;
   width: 150px;
   color: #6d6d6d;
   font-weight: 600;
   word-break: break-all;
   cursor: pointer;
+  background-color: white;
 }
 .routeNodeContainer:hover {
   background-color: var(--theme-blue-background);

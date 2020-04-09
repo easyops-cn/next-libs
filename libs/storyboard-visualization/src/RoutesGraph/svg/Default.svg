@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="121px" height="160px" viewBox="0 0 121 160" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 64 (93537) - https://sketch.com -->
+    <title>Default</title>
+    <desc>Created with Sketch.</desc>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="User-Flow-Elements-切图" transform="translate(-1255.000000, -86.000000)">
+            <g id="Default" transform="translate(1255.000000, 86.000000)">
+                <g id="Tabs备份">
+                    <rect id="矩形备份-10" stroke="#000000" opacity="0.15" x="0.5" y="0.5" width="120" height="159" rx="3"></rect>
+                    <line x1="1.5" y1="7.5" x2="119.5" y2="7.5" id="直线备份" stroke="#000000" opacity="0.15" stroke-linecap="square"></line>
+                    <rect id="矩形备份-11" fill="#000000" opacity="0.05" x="5" y="3" width="6" height="2" rx="1"></rect>
+                    <rect id="矩形备份-12" fill="#000000" opacity="0.05" x="13" y="3" width="6" height="2" rx="1"></rect>
+                    <rect id="矩形备份-13" fill="#000000" opacity="0.05" x="21" y="3" width="6" height="2" rx="1"></rect>
+                    <path d="M17,21 L104,21 C105.104569,21 106,21.8954305 106,23 L106,144 C106,145.104569 105.104569,146 104,146 L17,146 C15.8954305,146 15,145.104569 15,144 L15,23 C15,21.8954305 15.8954305,21 17,21 Z" id="矩形备份-18" fill-opacity="0.05" fill="#000000"></path>
+                </g>
+                <line x1="17.5" y1="22.5" x2="102.5" y2="142.5" id="直线-11" stroke="#FFFFFF" opacity="0.5" stroke-linecap="square"></line>
+                <line x1="17.5" y1="22.5" x2="102.5" y2="142.5" id="直线-11" stroke="#FFFFFF" opacity="0.5" stroke-linecap="square" transform="translate(60.000000, 82.500000) scale(-1, 1) translate(-60.000000, -82.500000) "></line>
+            </g>
+        </g>
+    </g>
+</svg>

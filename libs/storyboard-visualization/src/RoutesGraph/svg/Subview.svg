@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="121px" height="115px" viewBox="0 0 121 115" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 64 (93537) - https://sketch.com -->
+    <title>Subview</title>
+    <desc>Created with Sketch.</desc>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="User-Flow-Elements-切图" transform="translate(-1083.000000, -313.000000)">
+            <g id="Subview" transform="translate(1083.000000, 313.000000)">
+                <rect id="矩形备份-30" stroke="#000000" opacity="0.15" x="0.5" y="0.5" width="120" height="114" rx="3"></rect>
+                <rect id="矩形备份-36" fill="#000000" opacity="0.05" x="15" y="38" width="91" height="63" rx="1"></rect>
+                <rect id="矩形" fill="#000000" opacity="0.05" x="15" y="14" width="25" height="19" rx="1"></rect>
+                <rect id="矩形备份" fill="#000000" opacity="0.05" x="45" y="14" width="61" height="19" rx="1"></rect>
+                <circle id="椭圆形" fill="#000000" opacity="0.18" cx="27.5" cy="23.5" r="6.5"></circle>
+                <rect id="矩形" fill="#000000" opacity="0.18" x="51" y="18" width="49" height="3"></rect>
+                <rect id="矩形备份-2" fill="#000000" opacity="0.18" x="51" y="26" width="49" height="3"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,100 +1,68 @@
 import React from "react";
-import { Icon, Button, Dropdown, Menu } from "antd";
-import classNames from "classnames";
-import { BrickAsComponent, doTransform } from "@easyops/brick-kit";
-import { isObject } from "@easyops/brick-utils";
-import { FaIcon } from "@easyops/brick-types";
-import { GeneralIcon } from "@libs/basic-components";
 import styles from "./RouteNodeComponent.module.css";
 import { ViewItem } from "../shared/interfaces";
-// import { ReactComponent as Dashboard } from "./svg/Dashboard.svg";
+import CardListSvg from "./svg/CardList.svg";
 import DashboardSvg from "./svg/Dashboard.svg";
-// import { styleConfig } from "./constants";
-// import { getNodeDisplayName } from "./processors";
-
-// export interface GraphNodeComponentProps {
-//   node: GraphNode;
-//   contentItemActions?: ContentItemActions;
-//   onReorderClick?: (node: ViewItem) => void;
-//   onNodeClick?: (node: ViewItem) => void;
-// }
+import DefaultSvg from "./svg/Default.svg";
+import DialogSvg from "./svg/Dialog.svg";
+import DrawerSvg from "./svg/Drawer.svg";
+import FormSvg from "./svg/Form.svg";
+import GuideSvg from "./svg/Guide.svg";
+import KanbanSvg from "./svg/Kanban.svg";
+import MenuSvg from "./svg/Menu.svg";
+import MixedSvg from "./svg/Mixed.svg";
+import SubviewSvg from "./svg/Subview.svg";
+import TableListSvg from "./svg/TableList.svg";
+import TabsSvg from "./svg/Tabs.svg";
 
 export interface RouteNodeComponentProps {
   id?: string;
   originalData?: ViewItem;
 }
 
+const getPreviewSvg = (data: ViewItem): React.ReactElement => {
+  switch (data.viewType) {
+    case "cardList":
+      return <CardListSvg />;
+    case "dashboard":
+      return <DashboardSvg />;
+    case "dialog":
+      return <DialogSvg />;
+    case "drawer":
+      return <DrawerSvg />;
+    case "form":
+      return <FormSvg />;
+    case "guide":
+      return <GuideSvg />;
+    case "kanban":
+      return <KanbanSvg />;
+    case "menu":
+      return <MenuSvg />;
+    case "mixed":
+      return <MixedSvg />;
+    case "subview":
+      return <SubviewSvg />;
+    case "tableList":
+      return <TableListSvg />;
+    case "tabs":
+      return <TabsSvg />;
+    default:
+      return <DefaultSvg />;
+  }
+};
+
 export function RouteNodeComponent(
   props: RouteNodeComponentProps
 ): React.ReactElement {
   const { originalData } = props;
-  // const { node, onReorderClick, onNodeClick, contentItemActions } = props;
-
-  // /* istanbul ignore next */
-  // const handleReorderClick = React.useCallback((): void => {
-  //   onReorderClick?.(node.originalData);
-  // }, [onReorderClick, node]);
-
-  // let contentComponent: React.ReactNode;
-  // const content = node.content;
-
-  // if (content) {
-  //   switch (content.type) {
-  //     case "bricks":
-  //     case "routes":
-  //     case "custom-template":
-  //       contentComponent = content.items.map((item, index) => (
-  //         <ContentItem
-  //           key={index}
-  //           type={content.type}
-  //           item={item}
-  //           isLast={index === content.items.length - 1}
-  //           contentItemActions={contentItemActions}
-  //           onNodeClick={onNodeClick}
-  //         />
-  //       ));
-  //       break;
-  //     case "slots":
-  //       contentComponent = content.slots.map((slot, index) => (
-  //         <div
-  //           key={index}
-  //           className={styles.contentGroup}
-  //           style={{
-  //             ...styleConfig.contentGroup,
-  //             marginBottom:
-  //               index === content.slots.length - 1
-  //                 ? 0
-  //                 : styleConfig.contentGroup.marginBottom
-  //           }}
-  //         >
-  //           <div
-  //             className={styles.contentDivider}
-  //             style={styleConfig.contentDivider}
-  //           >
-  //             {slot.name}
-  //           </div>
-  //           {slot.items.map((subitem, subindex) => (
-  //             <ContentItem
-  //               key={subindex}
-  //               type={slot.type}
-  //               item={subitem}
-  //               isLast={subindex === slot.items.length - 1}
-  //               contentItemActions={contentItemActions}
-  //               onNodeClick={onNodeClick}
-  //             />
-  //           ))}
-  //         </div>
-  //       ));
-  //       break;
-  //   }
-  // }
 
   return (
     <div className={styles.routeNodeContainer}>
       <div className={styles.routeTitle}>
         {originalData.alias ?? originalData.path}
       </div>
-      <DashboardSvg />
+      {getPreviewSvg(originalData)}
+      {/* <DashboardSvg /> */}
     </div>
   );
 }

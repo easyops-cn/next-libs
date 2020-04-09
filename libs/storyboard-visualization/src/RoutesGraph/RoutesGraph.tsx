@@ -7,19 +7,17 @@ import {
   HierarchyPointLink
 } from "d3-hierarchy";
 import { create, Selection, event as d3Event, select } from "d3-selection";
-import { linkHorizontal } from "d3-shape";
-import { uniqueId } from "lodash";
+import { linkHorizontal, linkVertical } from "d3-shape";
+import { uniqueId, values, compact, find } from "lodash";
 import classNames from "classnames";
 import { RouteNodeComponent } from "./RouteNodeComponent";
-// import { GraphNode, ViewItem, ContentItemActions } from "./interfaces";
-// import { viewsToGraph, computeSourceX } from "../BuilderGraph/processors";
-// import { GraphNodeComponent } from "./GraphNodeComponent";
 import { styleConfig } from "../BuilderGraph/constants";
 import { drag, dragDisable, dragEnable } from "d3-drag";
 import { viewsToGraph } from "./processors";
 import { GraphNode } from "./interfaces";
 
 import styles from "./RoutesGraph.module.css";
+import { ViewItem } from "../shared/interfaces";
 
 // interface RenderOptions {
 //   contentItemActions?: ContentItemActions;
@@ -81,15 +79,16 @@ export class RoutesGraph {
   //   undefined
   // >;
 
-  onDragSvg(d) {
+  onDragSvg(d, k, nodeList) {
     const { dx, dy } = d3Event;
-    d.x = this.offsetLeft + dx;
-    d.y = this.offsetTop + dy;
-    select(this)
+    d.x = nodeList[k].offsetLeft + dx;
+    d.y = nodeList[k].offsetTop + dy;
+    select(nodeList[k])
       .style("left", d => `${d.x}px`)
       .style("top", (d, i) => {
         return `${d.y}px`;
       });
+    this.renderLink();
   }
 
   constructor() {
@@ -142,8 +141,113 @@ export class RoutesGraph {
   }
 
   getDOMNode(): HTMLDivElement {
+    this.renderLink();
     return this.canvas.node();
   }
+
+  getEdges(nodes: ViewItem[]) {
+    if (nodes) {
+      const edges = [];
+      nodes.forEach((node, index) => {
+        if (node.originalData?.segues) {
+          const targets = compact(
+            values(node.originalData.segues).map(targetItem => {
+              // 可能需要处理下没有alias只有path的情况
+              const target = find(
+                nodes,
+                n => n.originalData.alias === targetItem.target
+              );
+              if (!target) {
+                return null;
+              } else {
+                return {
+                  source: node,
+                  target
+                };
+              }
+            })
+          );
+          edges.push(...targets);
+        }
+      });
+      return edges;
+    }
+  }
+
+  getLinkPosition(d) {
+    // 暂定 后面根据节点类型写，或者找个办法知道所有节点render完成的时机
+    const nodeWidth = 160;
+    const nodeHeight = 213;
+
+    const [
+      sourceX,
+      sourceY,
+      sourceWidth,
+      sourceHeight,
+      targetX,
+      targetY,
+      targetWidth,
+      targetHeight
+    ] = [
+      d.source.x,
+      d.source.y,
+      // d.source.node.offsetWidth,
+      nodeWidth,
+      nodeHeight,
+      // d.source.node.offsetHeight,
+      d.target.x,
+      d.target.y,
+      nodeWidth,
+      nodeHeight
+      // d.target.node.offsetWidth,
+      // d.target.node.offsetHeight
+    ];
+    // 默认
+    d.source.linkX = sourceX + sourceWidth / 2;
+    d.source.linkY = sourceY;
+    d.target.linkX = targetX + targetWidth / 2;
+    d.target.linkY = targetY;
+    // S 高于 T
+    if (sourceY + sourceHeight < targetY) {
+      d.source.linkY = sourceY + sourceHeight;
+      return `${this.linkFactory(d)}`;
+      // T 高于 S
+    } else if (sourceY > targetY + targetHeight) {
+      d.target.linkY = targetY + targetHeight;
+      return `${this.linkFactory(d)}`;
+      // S.T 高度重合
+    } else if (sourceY + sourceHeight > targetY) {
+      // S 在 T 左侧
+      if (sourceX + sourceWidth < targetX) {
+        d.source.linkX = sourceX + sourceWidth;
+        d.source.linkY = sourceY + sourceHeight / 2;
+        d.target.linkX = targetX;
+        d.target.linkY = targetY + targetHeight / 2;
+        return `${this.linkHorizontalFactory(d)}`;
+        // S 在 T 右侧
+      } else if (sourceX > targetX + targetWidth) {
+        d.source.linkX = sourceX;
+        d.source.linkY = sourceY + sourceHeight / 2;
+        d.target.linkX = targetX + targetWidth;
+        d.target.linkY = targetY + targetHeight / 2;
+        return `${this.linkHorizontalFactory(d)}`;
+      }
+    }
+    return `${this.linkFactory(d)}`;
+  }
+
+  // 后面改成直接拿宽度
+  nodeWidth = 150;
+
+  linkFactory = linkVertical<unknown, HierarchyPointNode<GraphNode>>()
+    .x(d => d.linkX)
+    .y(d => d.linkY);
+  linkHorizontalFactory = linkHorizontal<
+    unknown,
+    HierarchyPointNode<GraphNode>
+  >()
+    .x(d => d.linkX)
+    .y(d => d.linkY);
 
   // render(builderData: ViewItem[], options?: RenderOptions): void {
   render(builderData: any[], options?: any): void {
@@ -153,10 +257,11 @@ export class RoutesGraph {
     // const dy = nodeWidth + 60;
     // const dy = nodeWidth;
     const dy = 40;
-    const markerOffset = 5;
+    // const markerOffset = 5;
+    // const markerOffset = 30;
 
-    const width = 800;
-    const height = 800;
+    const width = 2000;
+    const height = 2000;
 
     this.canvas.style("min-width", `${width}px`);
     this.canvas.style("height", `${height}px`);
@@ -174,22 +279,48 @@ export class RoutesGraph {
       return;
     }
 
+    const nodes = viewsToGraph(builderData);
+
     this.nodes = this.nodes
-      .data(viewsToGraph(builderData))
+      .data(nodes)
       .enter()
       .append("div")
       .attr("class", classNames(styles.nodeWrapper))
-      .style("left", d => `${d.y}px`)
-      .style("top", (d, i) => {
-        return `${200 * i}px`;
+      .style("left", (d, i) => {
+        d.x = d.x ?? d.originalData?.x;
+        return `${d.x}px`;
       })
-      .call(drag().on("drag", this.onDragSvg));
+      .style("top", (d, i) => {
+        d.y = d.y ?? d.originalData?.y;
+        return `${d.y}px`;
+      })
+      .call(drag().on("drag", this.onDragSvg.bind(this)));
+
+    const edges = this.getEdges(nodes);
+
+    this.links = this.links
+      .data(edges)
+      .join(enter => {
+        const link = enter.append("g");
+        link.append("path").attr("marker-end", `url(#${this.arrowMarkerId})`);
+        return link;
+      })
+      .attr("class", classNames(styles.link));
 
     this.nodes.each(function(d) {
+      d.node = this;
       ReactDOM.render(
         <RouteNodeComponent originalData={d.originalData} />,
         this
       );
+    });
+
+    this.renderLink();
+  }
+
+  renderLink() {
+    this.links?.selectAll("path").attr("d", d => {
+      return this.getLinkPosition(d);
     });
   }
 }

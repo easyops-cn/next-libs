@@ -16,3 +16,13 @@
 .grabbing {
   cursor: grabbing;
 }
+
+.link path {
+  fill: none;
+  stroke: #b9b9b9;
+  stroke-width: 1;
+}
+/* svg */
+.arrowMarker path {
+  fill: #b9b9b9;
+}

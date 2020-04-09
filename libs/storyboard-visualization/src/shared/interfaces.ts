@@ -11,4 +11,5 @@ export interface ViewItem {
   templateId?: string;
   children?: ViewItem[];
   segues?: any; //后面改成string
+  viewType?: string; // 看是否放这里还是放object里面
 }
