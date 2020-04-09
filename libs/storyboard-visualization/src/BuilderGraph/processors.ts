@@ -12,7 +12,10 @@ export function viewsToGraph(
   views: ViewItem[],
   wrapAnApp?: boolean | "auto"
 ): GraphNode {
-  if (wrapAnApp === false || (wrapAnApp !== true && views?.length === 1)) {
+  if (
+    (wrapAnApp === false && views?.length >= 1) ||
+    (wrapAnApp !== true && views?.length === 1)
+  ) {
     if (views[0].type === "custom-template") {
       return ViewItemToGraph({
         alias: "Custom Template",
