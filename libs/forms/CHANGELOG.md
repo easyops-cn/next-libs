@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.14.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.13.2...@libs/forms@0.14.0) (2020-04-09)
+
+### Features
+
+- **forms:** FormItemWrapper 增加 asyncForceR ([bc3bfa9](https://git.easyops.local/anyclouds/next-libs/commits/bc3bfa9))
+
 ## [0.13.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.13.1...@libs/forms@0.13.2) (2020-04-08)
 
 **Note:** Version bump only for package @libs/forms
