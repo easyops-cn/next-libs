@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.20.4](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.20.3...@libs/storyboard-visualization@0.20.4) (2020-04-09)
+
+### Bug Fixes
+
+- **builer-graph:** require to wrapAnApp ([832d944](https://git.easyops.local/anyclouds/next-libs/commits/832d944))
+
 ## [0.20.3](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.20.2...@libs/storyboard-visualization@0.20.3) (2020-04-08)
 
 **Note:** Version bump only for package @libs/storyboard-visualization
