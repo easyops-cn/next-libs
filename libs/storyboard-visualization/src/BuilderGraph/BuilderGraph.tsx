@@ -19,6 +19,7 @@ import styles from "./BuilderGraph.module.css";
 
 interface RenderOptions {
   contentItemActions?: ContentItemActions;
+  wrapAnApp?: boolean | "auto";
   onReorderClick?: (node: ViewItem) => void;
   onNodeClick?: (node: ViewItem) => void;
 }
@@ -135,7 +136,9 @@ export class BuilderGraph {
     const dy = nodeWidth + 60;
     const markerOffset = 5;
 
-    const hierarchyRoot = hierarchy(viewsToGraph(builderData));
+    const hierarchyRoot = hierarchy(
+      viewsToGraph(builderData, options?.wrapAnApp)
+    );
 
     const root = tree<GraphNode>()
       .nodeSize([dx, dy])

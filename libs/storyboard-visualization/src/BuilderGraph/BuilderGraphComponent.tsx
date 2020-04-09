@@ -5,6 +5,7 @@ import { ViewItem, ContentItemActions } from "./interfaces";
 export interface BuilderGraphComponentProps {
   data: ViewItem[];
   contentItemActions?: ContentItemActions;
+  wrapAnApp?: boolean | "auto";
   onReorderClick?: (node: ViewItem) => void;
   onNodeClick?: (node: ViewItem) => void;
 }
@@ -12,7 +13,13 @@ export interface BuilderGraphComponentProps {
 export function BuilderGraphComponent(
   props: BuilderGraphComponentProps
 ): React.ReactElement {
-  const { data, contentItemActions, onReorderClick, onNodeClick } = props;
+  const {
+    data,
+    contentItemActions,
+    wrapAnApp,
+    onReorderClick,
+    onNodeClick
+  } = props;
 
   const visual = React.useMemo(() => new BuilderGraph(), []);
 
@@ -56,10 +63,18 @@ export function BuilderGraphComponent(
   const handleRender = React.useCallback(() => {
     visual.render(data, {
       contentItemActions,
+      wrapAnApp,
       onReorderClick,
       onNodeClick
     });
-  }, [visual, data, contentItemActions, onReorderClick, onNodeClick]);
+  }, [
+    visual,
+    data,
+    contentItemActions,
+    wrapAnApp,
+    onReorderClick,
+    onNodeClick
+  ]);
 
   React.useEffect(() => {
     handleRender();
