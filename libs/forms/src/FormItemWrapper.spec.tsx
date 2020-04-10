@@ -106,7 +106,9 @@ describe("FormItemWrapper", () => {
   });
 
   it("should force rerender after trigger function has been called when work in form", async () => {
-    const MockComponent = () => {
+    const MockComponent = (props: {
+      onSomeChange?: () => void;
+    }): React.ReactElement => {
       const renderTimesRef = useRef(0);
 
       renderTimesRef.current += 1;
@@ -134,19 +136,17 @@ describe("FormItemWrapper", () => {
       "username",
       expect.objectContaining({ trigger, validateTrigger, valuePropName })
     );
-    expect(wrapper.find(MockComponent).text()).toBe("1");
-    mockFieldWrapperFn.mock.calls[
-      mockFieldWrapperFn.mock.calls.length - 1
-    ][0].props[trigger]();
+    let mockComponent = wrapper.find(MockComponent);
+    expect(mockComponent.text()).toBe("1");
+    mockComponent.invoke(trigger)();
     wrapper.update();
     expect(wrapper.find(MockComponent).text()).toBe("2");
 
     // async force rerender
     wrapper.setProps({ asyncForceRerender: true });
-    expect(wrapper.find(MockComponent).text()).toBe("3");
-    mockFieldWrapperFn.mock.calls[
-      mockFieldWrapperFn.mock.calls.length - 1
-    ][0].props[trigger]();
+    mockComponent = wrapper.find(MockComponent);
+    expect(mockComponent.text()).toBe("3");
+    mockComponent.invoke(trigger)();
     wrapper.update();
     expect(wrapper.find(MockComponent).text()).toBe("3");
     await (global as any).flushPromises();
