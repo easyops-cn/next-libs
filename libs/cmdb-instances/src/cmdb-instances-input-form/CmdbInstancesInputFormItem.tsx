@@ -12,7 +12,6 @@ import { useTranslation } from "react-i18next";
 import { NS_LIBS_CMDB_INSTANCES, K } from "../i18n/constants";
 
 import style from "./cmdb-instances-input-form.module.css";
-import { unstable_batchedUpdates } from "react-dom";
 
 export interface CmdbInstancesInputFormItemProps {
   selectFromText?: string;
@@ -187,16 +186,14 @@ export const LegacyCmdbInstancesInputFormItem = (
         fieldValue => !validFieldValues.includes(fieldValue)
       );
 
-      unstable_batchedUpdates(() => {
-        setSelectedInstances({
-          valid: validSelectedInstances || [],
-          invalid: invalidFieldValues || []
-        });
-
-        props.onChange?.(
-          validSelectedInstances.map(instance => instance.instanceId)
-        );
+      setSelectedInstances({
+        valid: validSelectedInstances || [],
+        invalid: invalidFieldValues || []
       });
+
+      props.onChange?.(
+        validSelectedInstances.map(instance => instance.instanceId)
+      );
     }
   };
 
@@ -215,9 +212,7 @@ export const LegacyCmdbInstancesInputFormItem = (
 
     const keys = await updateSelected(selectedKeys);
 
-    unstable_batchedUpdates(() => {
-      props.onChange?.(keys);
-    });
+    props.onChange?.(keys);
   };
 
   const handleInputChanged = (event: { target: { value: string } }): void => {
@@ -258,14 +253,12 @@ export const LegacyCmdbInstancesInputFormItem = (
           })
         ).list;
 
-        unstable_batchedUpdates(() => {
-          setSelectedInstances({
-            valid: instances || [],
-            invalid: []
-          });
-
-          props.onChange?.(instances.map(instance => instance.instanceId));
+        setSelectedInstances({
+          valid: instances || [],
+          invalid: []
         });
+
+        props.onChange?.(instances.map(instance => instance.instanceId));
       }
     }
   };
