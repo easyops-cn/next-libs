@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.14.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.14.0...@libs/forms@0.14.1) (2020-04-10)
+
+### Bug Fixes
+
+- **forms:** FormItemWrapper 用 unstable_batchedUpdates 包裹 onChange 和 setId ([8b2ad69](https://git.easyops.local/anyclouds/next-libs/commits/8b2ad69))
+
 # [0.14.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.13.2...@libs/forms@0.14.0) (2020-04-09)
 
 ### Features

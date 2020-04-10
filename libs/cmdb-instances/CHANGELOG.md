@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.6](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@1.3.5...@libs/cmdb-instances@1.3.6) (2020-04-10)
+
+**Note:** Version bump only for package @libs/cmdb-instances
+
 ## [1.3.5](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@1.3.4...@libs/cmdb-instances@1.3.5) (2020-04-10)
 
 **Note:** Version bump only for package @libs/cmdb-instances
