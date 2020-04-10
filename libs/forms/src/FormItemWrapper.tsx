@@ -1,4 +1,5 @@
 import React, { PropsWithChildren, useState } from "react";
+import { unstable_batchedUpdates } from "react-dom";
 import { get, isEmpty } from "lodash";
 import { Form, Tooltip } from "antd";
 import { GeneralIcon } from "@libs/basic-components";
@@ -228,30 +229,32 @@ export function FormItemWrapper(
       const { getFieldDecorator } = formElement.formUtils;
       const rules = getRules(props);
 
-      if ((input as React.ReactElement)?.props) {
-        const originalOnChange = (input as React.ReactElement).props[trigger];
-        input = React.cloneElement(input as React.ReactElement, {
-          [trigger]: (...args: any[]) => {
-            originalOnChange?.(...args);
-
-            // force rerender
-            if (asyncForceRerender) {
-              Promise.resolve().then(() => {
-                setId(id => ++id);
-              });
-            } else {
-              setId(id => ++id);
-            }
-          }
-        });
-      }
-
       input = getFieldDecorator(props.name, {
         rules,
         trigger,
         validateTrigger,
         valuePropName
       })(input);
+
+      if ((input as React.ReactElement)?.props) {
+        const originalOnChange = (input as React.ReactElement).props[trigger];
+        input = React.cloneElement(input as React.ReactElement, {
+          [trigger]: (...args: any[]) => {
+            unstable_batchedUpdates(() => {
+              originalOnChange?.(...args);
+
+              // force rerender
+              if (asyncForceRerender) {
+                Promise.resolve().then(() => {
+                  setId(id => ++id);
+                });
+              } else {
+                setId(id => ++id);
+              }
+            });
+          }
+        });
+      }
     }
 
     if (formElement.layout === "horizontal") {
