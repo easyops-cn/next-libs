@@ -8,6 +8,10 @@
   word-break: break-all;
   cursor: pointer;
   background-color: white;
+  display: grid;
+}
+.routeNodeContainer svg {
+  justify-self: center;
 }
 .routeNodeContainer:hover {
   background-color: var(--theme-blue-background);

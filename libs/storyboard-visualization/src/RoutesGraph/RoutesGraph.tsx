@@ -1,29 +1,25 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import {
-  hierarchy,
-  tree,
-  HierarchyPointNode,
-  HierarchyPointLink
-} from "d3-hierarchy";
 import { create, Selection, event as d3Event, select } from "d3-selection";
-import { linkHorizontal, linkVertical } from "d3-shape";
-import { uniqueId, values, compact, find } from "lodash";
+import {
+  uniqueId,
+  values,
+  compact,
+  find,
+  isNil,
+  filter,
+  reject,
+  findIndex,
+  maxBy
+} from "lodash";
 import classNames from "classnames";
 import { RouteNodeComponent } from "./RouteNodeComponent";
-import { styleConfig } from "../BuilderGraph/constants";
-import { drag, dragDisable, dragEnable } from "d3-drag";
-import { viewsToGraph } from "./processors";
-import { GraphNode } from "./interfaces";
-
+import { drag } from "d3-drag";
+import { RouteGraphNode, Edge } from "./interfaces";
+import { RoutesPreview } from "./RoutesPreview";
+import { XYCoord } from "react-dnd";
 import styles from "./RoutesGraph.module.css";
-import { ViewItem } from "../shared/interfaces";
-
-// interface RenderOptions {
-//   contentItemActions?: ContentItemActions;
-//   onReorderClick?: (node: ViewItem) => void;
-//   onNodeClick?: (node: ViewItem) => void;
-// }
+import { getLinkPath } from "./processors";
 
 export class RoutesGraph {
   private readonly canvas: Selection<
@@ -58,40 +54,43 @@ export class RoutesGraph {
     null,
     undefined
   >;
-  private links: Selection<
-    SVGGElement,
-    HierarchyPointLink<GraphNode>,
-    // HierarchyPointLink<any>,
-    SVGGElement,
+  private readonly routesPreviewContainer: Selection<
+    HTMLDivElement,
+    undefined,
+    null,
     undefined
   >;
+  private links: Selection<SVGGElement, Edge, SVGGElement, undefined>;
   private nodes: Selection<
     HTMLDivElement,
-    HierarchyPointNode<GraphNode>,
-    // HierarchyPointNode<any>,
+    RouteGraphNode,
     HTMLDivElement,
     undefined
   >;
-  // private window: Selection<
-  //   Window & typeof globalThis,
-  //   undefined,
-  //   null,
-  //   undefined
-  // >;
 
-  onDragSvg(d, k, nodeList) {
+  private routesData: any[];
+
+  /* istanbul ignore next */
+  onDragSvg(d: RouteGraphNode): void {
     const { dx, dy } = d3Event;
-    d.x = nodeList[k].offsetLeft + dx;
-    d.y = nodeList[k].offsetTop + dy;
-    select(nodeList[k])
+    const resultX = d.node.offsetLeft + dx;
+    const resultY = d.node.offsetTop + dy;
+    d.x = resultX < 0 ? 0 : resultX;
+    d.y = resultY < 0 ? 0 : resultY;
+    select<HTMLDivElement, RouteGraphNode>(d.node)
       .style("left", d => `${d.x}px`)
       .style("top", (d, i) => {
         return `${d.y}px`;
       });
     this.renderLink();
+    this.getCanvasSize();
   }
 
   constructor() {
+    this.routesPreviewContainer = create("div").attr(
+      "class",
+      styles.routesPreviewContainer
+    );
     this.canvas = create("div").attr("class", styles.canvas);
     this.linksLayer = this.canvas
       .append("svg")
@@ -120,12 +119,12 @@ export class RoutesGraph {
       .attr("class", styles.nodesContainer);
     this.nodes = this.nodesContainer.selectAll(`.${styles.nodeWrapper}`);
 
-    // // Grabbing to scroll.
+    // Grabbing to scroll.
     const d3Window = select(window);
     this.linksLayer.on("mousedown", () => {
       this.linksLayer.classed(styles.grabbing, true);
       d3Event.preventDefault();
-      const container = this.canvas.node().parentElement;
+      const container = this.canvas.node();
       const x0 = d3Event.screenX + container.scrollLeft;
       const y0 = d3Event.screenY + container.scrollTop;
       d3Window
@@ -145,14 +144,17 @@ export class RoutesGraph {
     return this.canvas.node();
   }
 
-  getEdges(nodes: ViewItem[]) {
+  getRoutesPreviewNode(): HTMLDivElement {
+    return this.routesPreviewContainer.node();
+  }
+
+  getEdges(nodes: RouteGraphNode[]): Edge[] {
     if (nodes) {
-      const edges = [];
+      const edges: Edge[] = [];
       nodes.forEach((node, index) => {
         if (node.originalData?.segues) {
           const targets = compact(
             values(node.originalData.segues).map(targetItem => {
-              // 可能需要处理下没有alias只有path的情况
               const target = find(
                 nodes,
                 n => n.originalData.alias === targetItem.target
@@ -174,129 +176,79 @@ export class RoutesGraph {
     }
   }
 
-  getLinkPosition(d) {
-    // 暂定 后面根据节点类型写，或者找个办法知道所有节点render完成的时机
-    const nodeWidth = 160;
-    const nodeHeight = 213;
-
-    const [
-      sourceX,
-      sourceY,
-      sourceWidth,
-      sourceHeight,
-      targetX,
-      targetY,
-      targetWidth,
-      targetHeight
-    ] = [
-      d.source.x,
-      d.source.y,
-      // d.source.node.offsetWidth,
-      nodeWidth,
-      nodeHeight,
-      // d.source.node.offsetHeight,
-      d.target.x,
-      d.target.y,
-      nodeWidth,
-      nodeHeight
-      // d.target.node.offsetWidth,
-      // d.target.node.offsetHeight
-    ];
-    // 默认
-    d.source.linkX = sourceX + sourceWidth / 2;
-    d.source.linkY = sourceY;
-    d.target.linkX = targetX + targetWidth / 2;
-    d.target.linkY = targetY;
-    // S 高于 T
-    if (sourceY + sourceHeight < targetY) {
-      d.source.linkY = sourceY + sourceHeight;
-      return `${this.linkFactory(d)}`;
-      // T 高于 S
-    } else if (sourceY > targetY + targetHeight) {
-      d.target.linkY = targetY + targetHeight;
-      return `${this.linkFactory(d)}`;
-      // S.T 高度重合
-    } else if (sourceY + sourceHeight > targetY) {
-      // S 在 T 左侧
-      if (sourceX + sourceWidth < targetX) {
-        d.source.linkX = sourceX + sourceWidth;
-        d.source.linkY = sourceY + sourceHeight / 2;
-        d.target.linkX = targetX;
-        d.target.linkY = targetY + targetHeight / 2;
-        return `${this.linkHorizontalFactory(d)}`;
-        // S 在 T 右侧
-      } else if (sourceX > targetX + targetWidth) {
-        d.source.linkX = sourceX;
-        d.source.linkY = sourceY + sourceHeight / 2;
-        d.target.linkX = targetX + targetWidth;
-        d.target.linkY = targetY + targetHeight / 2;
-        return `${this.linkHorizontalFactory(d)}`;
+  /* istanbul ignore next */
+  onDragEnd(value: XYCoord, item: RouteGraphNode): void {
+    if (value) {
+      const container = this.canvas.node();
+      const rect = container.getBoundingClientRect();
+      const targetX = value.x - rect.left + container.scrollLeft;
+      const targetY = value.y - rect.top + container.scrollTop;
+      if (targetX >= 0 && targetY >= 0) {
+        const index = findIndex(this.routesData, [
+          "originalData.id",
+          item.originalData.id
+        ]);
+        if (index !== -1) {
+          const newData = this.routesData;
+          newData[index].originalData.graphInfo = {
+            ...newData[index].originalData.graphInfo,
+            x: targetX,
+            y: targetY
+          };
+          this.updateElement(newData);
+        }
       }
     }
-    return `${this.linkFactory(d)}`;
   }
 
-  // 后面改成直接拿宽度
-  nodeWidth = 150;
+  updateElement(data: RouteGraphNode[]): void {
+    const [previewData, graphData] = [
+      filter(data, item => {
+        return (
+          isNil(item.originalData.graphInfo?.x) ||
+          isNil(item.originalData.graphInfo?.y)
+        );
+      }),
+      reject(data, item => {
+        return (
+          isNil(item.originalData.graphInfo?.x) ||
+          isNil(item.originalData.graphInfo?.y)
+        );
+      })
+    ];
+    const updateNode = this.nodes.data(graphData, d => {
+      const id = d.originalData.id;
+      return id;
+    });
+    const enterNode = updateNode.enter();
+    const exitNode = updateNode.exit();
 
-  linkFactory = linkVertical<unknown, HierarchyPointNode<GraphNode>>()
-    .x(d => d.linkX)
-    .y(d => d.linkY);
-  linkHorizontalFactory = linkHorizontal<
-    unknown,
-    HierarchyPointNode<GraphNode>
-  >()
-    .x(d => d.linkX)
-    .y(d => d.linkY);
-
-  // render(builderData: ViewItem[], options?: RenderOptions): void {
-  render(builderData: any[], options?: any): void {
-    const nodeWidth = styleConfig.node.width;
-    // x and y is swapped in horizontal tree layout.
-    const dx = 40;
-    // const dy = nodeWidth + 60;
-    // const dy = nodeWidth;
-    const dy = 40;
-    // const markerOffset = 5;
-    // const markerOffset = 30;
-
-    const width = 2000;
-    const height = 2000;
-
-    this.canvas.style("min-width", `${width}px`);
-    this.canvas.style("height", `${height}px`);
-    this.linksLayer.attr("width", "100%");
-    this.linksLayer.attr("height", height);
-
-    const offsetX = dy / 2;
-    const offsetY = dx;
-    this.linksContainer.attr("transform", `translate(${offsetX},${offsetY})`);
-    this.nodesContainer
-      .style("left", `${offsetX}px`)
-      .style("top", `${offsetY}px`);
-
-    if (!builderData) {
-      return;
-    }
-
-    const nodes = viewsToGraph(builderData);
-
-    this.nodes = this.nodes
-      .data(nodes)
-      .enter()
+    enterNode
       .append("div")
       .attr("class", classNames(styles.nodeWrapper))
       .style("left", (d, i) => {
-        d.x = d.x ?? d.originalData?.x;
+        d.x = d.x ?? d.originalData?.graphInfo?.x;
         return `${d.x}px`;
       })
       .style("top", (d, i) => {
-        d.y = d.y ?? d.originalData?.y;
+        d.y = d.y ?? d.originalData?.graphInfo?.y;
         return `${d.y}px`;
       })
-      .call(drag().on("drag", this.onDragSvg.bind(this)));
-
-    const edges = this.getEdges(nodes);
+      .call(
+        drag<HTMLDivElement, RouteGraphNode>().on(
+          "drag",
+          this.onDragSvg.bind(this)
+        )
+      );
+    this.nodes = this.nodesContainer.selectAll(`.${styles.nodeWrapper}`);
+    this.nodes.each(function(d) {
+      d.node = this;
+      ReactDOM.render(
+        <RouteNodeComponent originalData={d.originalData} />,
+        this
+      );
+    });
+    const edges = this.getEdges(graphData);
 
     this.links = this.links
       .data(edges)
@@ -307,20 +259,50 @@ export class RoutesGraph {
       })
       .attr("class", classNames(styles.link));
 
-    this.nodes.each(function(d) {
-      d.node = this;
-      ReactDOM.render(
-        <RouteNodeComponent originalData={d.originalData} />,
-        this
-      );
+    const onDragEnd = this.onDragEnd.bind(this);
+    this.routesPreviewContainer.datum(previewData).each(function(d) {
+      ReactDOM.render(<RoutesPreview routes={d} onDragEnd={onDragEnd} />, this);
     });
-
     this.renderLink();
   }
 
-  renderLink() {
-    this.links?.selectAll("path").attr("d", d => {
-      return this.getLinkPosition(d);
+  getCanvasSize(): void {
+    const graphNodesData = this.nodes.data();
+    const padding = 20;
+    const maxXItem = maxBy(graphNodesData, item => {
+      // 固定宽度
+      return item.x + 160 + padding;
+    });
+    const maxX = maxXItem ? maxXItem.x + 160 + padding : "100%";
+    const maxYItem = maxBy(graphNodesData, item => {
+      return item.y + item.nodeConfig?.height + padding + 52;
+    });
+    const maxY = maxYItem
+      ? maxYItem.y + maxYItem.nodeConfig?.height + padding + 52
+      : "100%";
+    this.linksLayer.attr("width", maxX);
+    this.linksLayer.attr("height", maxY);
+  }
+
+  render(builderData: any[], options?: any): void {
+    this.routesData = builderData;
+    const offsetX = 20;
+    const offsetY = 20;
+    this.linksContainer.attr("transform", `translate(${offsetX},${offsetY})`);
+    this.nodesContainer
+      .style("left", `${offsetX}px`)
+      .style("top", `${offsetY}px`);
+
+    if (!builderData) {
+      return;
+    }
+    this.updateElement(builderData);
+    this.getCanvasSize();
+  }
+
+  renderLink(): void {
+    this.links?.selectAll("path").attr("d", (d: any) => {
+      return getLinkPath(d);
     });
   }
 }

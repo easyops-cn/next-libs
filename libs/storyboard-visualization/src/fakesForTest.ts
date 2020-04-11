@@ -1,6 +1,8 @@
 import { Storyboard } from "@easyops/brick-types";
 import { StoryboardTree } from "./interfaces";
-import { ViewItem, GraphNode } from "./BuilderGraph";
+import { GraphNode } from "./BuilderGraph";
+import { RouteGraphNode } from "./RoutesGraph";
+import { ViewItem } from "./shared/interfaces";
 
 export function fakeStoryboard(): Storyboard {
   return {
@@ -318,4 +320,64 @@ export function fakeBuilderGraphNode(): GraphNode {
       }
     ]
   };
+}
+
+export function fakeRoutesGraphNodes(): RouteGraphNode[] {
+  return [
+    {
+      originalData: {
+        alias: "/list",
+        appId: "next-builder-dev",
+        id: "B-3712",
+        path: "${APP.homepage}/list",
+        type: "bricks",
+        graphInfo: {
+          x: 100,
+          y: 100
+        }
+      },
+      nodeConfig: {
+        width: 121,
+        height: 160
+      }
+    },
+    {
+      originalData: {
+        alias: "/create",
+        appId: "next-builder-dev",
+        id: "B-3721",
+        path: "${APP.homepage}/create",
+        type: "routes",
+        graphInfo: {
+          x: 300,
+          y: 300
+        },
+        segues: {
+          "go-to-list": {
+            target: "/list"
+          },
+          "go-to-detail": {
+            target: "/detail"
+          }
+        }
+      },
+      nodeConfig: {
+        width: 121,
+        height: 160
+      }
+    },
+    {
+      originalData: {
+        alias: "${APP.homepage}",
+        appId: "next-builder-dev",
+        id: "B-3884",
+        path: "${APP.homepage}",
+        type: "bricks"
+      },
+      nodeConfig: {
+        width: 121,
+        height: 160
+      }
+    }
+  ];
 }

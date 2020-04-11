@@ -127,7 +127,6 @@ export class BuilderGraph {
   }
 
   getDOMNode(): HTMLDivElement {
-    // console.log(this.canvas.node(),'this.canvas.node()');
     return this.canvas.node();
   }
 

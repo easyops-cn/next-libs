@@ -1,14 +1,10 @@
 import React from "react";
-// import { RoutesGraph } from "./RoutesGraphOld";
 import { RoutesGraph } from "./RoutesGraph";
 import { ViewItem } from "../shared/interfaces";
+import { viewsToGraph } from "./processors";
 
 export interface RoutesGraphComponentProps {
   data?: ViewItem[];
-  // contentItemActions?: ContentItemActions;
-  // onReorderClick?: (node: ViewItem) => void;
-  // onNodeClick?: (node: ViewItem) => void;
-  id?: string;
 }
 
 export function RoutesGraphComponent(
@@ -36,6 +32,7 @@ export function RoutesGraphComponent(
     const maxHeight =
       document.documentElement.clientHeight - top - bottomSpacing;
     node.style.maxHeight = `${maxHeight}px`;
+    node.style.height = `${maxHeight}px`;
   }, []);
 
   React.useEffect(() => {
@@ -43,8 +40,8 @@ export function RoutesGraphComponent(
     if (!node) {
       return;
     }
-
     resize();
+    node.appendChild(visual.getRoutesPreviewNode());
     node.appendChild(visual.getDOMNode());
   }, [visual, resize]);
 
@@ -56,16 +53,8 @@ export function RoutesGraphComponent(
   }, [resize]);
 
   const handleRender = React.useCallback(() => {
-    visual.render(data);
+    visual.render(viewsToGraph(data));
   }, [data]);
-
-  // const handleRender = React.useCallback(() => {
-  //   visual.render(data, {
-  //     contentItemActions,
-  //     onReorderClick,
-  //     onNodeClick
-  //   });
-  // }, [visual, data, contentItemActions, onReorderClick, onNodeClick]);
 
   React.useEffect(() => {
     handleRender();
@@ -73,7 +62,15 @@ export function RoutesGraphComponent(
 
   return (
     <div>
-      <div ref={ref} style={{ width: "100%", overflow: "auto" }}></div>
+      <div
+        ref={ref}
+        style={{
+          width: "100%",
+          overflow: "auto",
+          display: "grid",
+          gridTemplateColumns: "180px auto"
+        }}
+      ></div>
     </div>
   );
 }
