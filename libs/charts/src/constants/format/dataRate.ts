@@ -2,14 +2,14 @@ import {
   Unit as FormatUnit,
   bitRates,
   byteRates,
-  deperatedByteRates
+  deprecatedByteRates
 } from "@libs/constants";
 
 export const dataRateFormatUnits: FormatUnit[][] = [
   bitRates,
   byteRates,
-  // deperated
-  deperatedByteRates
+  // deprecated
+  deprecatedByteRates
 ];
 
 export const dataRateFormatUnitIds = ([] as string[]).concat.apply(

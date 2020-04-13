@@ -11,7 +11,7 @@ export enum TimesUnitId {
   Weeks = "weeks",
   Months = "months",
   Years = "years",
-  // deperated
+  // deprecated
   ms = "ms",
   s = "s",
   min = "min",
@@ -83,7 +83,7 @@ export const times: Unit[] = [
   }
 ];
 
-export const deperatedTimes: Unit[] = [
+export const deprecatedTimes: Unit[] = [
   {
     id: TimesUnitId.ms,
     divisor: 1,

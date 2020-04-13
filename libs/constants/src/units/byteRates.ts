@@ -9,7 +9,7 @@ export enum ByteRatesUnitId {
   KilobytesPerSecond = "kilobytes/sec",
   MegabytesPerSecond = "megabytes/sec",
   GigabytesPerSecond = "gigabytes/sec",
-  // deperated
+  // deprecated
   bps = "bps",
   Bps = "Bps",
   KBps = "KBps",
@@ -71,7 +71,7 @@ export const byteRates: Unit[] = [
   }
 ];
 
-export const deperatedByteRates: Unit[] = [
+export const deprecatedByteRates: Unit[] = [
   {
     id: ByteRatesUnitId.bps,
     divisor: 1,
