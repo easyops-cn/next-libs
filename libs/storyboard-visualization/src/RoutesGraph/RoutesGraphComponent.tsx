@@ -1,28 +1,18 @@
 import React from "react";
-import { BuilderGraph } from "./BuilderGraph";
-import { ContentItemActions } from "./interfaces";
+import { RoutesGraph } from "./RoutesGraph";
 import { ViewItem } from "../shared/interfaces";
+import { viewsToGraph } from "./processors";
 
-export interface BuilderGraphComponentProps {
-  data: ViewItem[];
-  contentItemActions?: ContentItemActions;
-  wrapAnApp?: boolean | "auto";
-  onReorderClick?: (node: ViewItem) => void;
-  onNodeClick?: (node: ViewItem) => void;
+export interface RoutesGraphComponentProps {
+  data?: ViewItem[];
 }
 
-export function BuilderGraphComponent(
-  props: BuilderGraphComponentProps
+export function RoutesGraphComponent(
+  props: RoutesGraphComponentProps
 ): React.ReactElement {
-  const {
-    data,
-    contentItemActions,
-    wrapAnApp,
-    onReorderClick,
-    onNodeClick
-  } = props;
+  const { data } = props;
 
-  const visual = React.useMemo(() => new BuilderGraph(), []);
+  const visual = React.useMemo(() => new RoutesGraph(), []);
 
   const ref = React.useRef<HTMLDivElement>(null);
 
@@ -42,6 +32,7 @@ export function BuilderGraphComponent(
     const maxHeight =
       document.documentElement.clientHeight - top - bottomSpacing;
     node.style.maxHeight = `${maxHeight}px`;
+    node.style.height = `${maxHeight}px`;
   }, []);
 
   React.useEffect(() => {
@@ -49,8 +40,8 @@ export function BuilderGraphComponent(
     if (!node) {
       return;
     }
-
     resize();
+    node.appendChild(visual.getRoutesPreviewNode());
     node.appendChild(visual.getDOMNode());
   }, [visual, resize]);
 
@@ -62,20 +53,8 @@ export function BuilderGraphComponent(
   }, [resize]);
 
   const handleRender = React.useCallback(() => {
-    visual.render(data, {
-      contentItemActions,
-      wrapAnApp,
-      onReorderClick,
-      onNodeClick
-    });
-  }, [
-    visual,
-    data,
-    contentItemActions,
-    wrapAnApp,
-    onReorderClick,
-    onNodeClick
-  ]);
+    visual.render(viewsToGraph(data));
+  }, [data]);
 
   React.useEffect(() => {
     handleRender();
@@ -83,7 +62,15 @@ export function BuilderGraphComponent(
 
   return (
     <div>
-      <div ref={ref} style={{ width: "100%", overflow: "auto" }}></div>
+      <div
+        ref={ref}
+        style={{
+          width: "100%",
+          overflow: "auto",
+          display: "grid",
+          gridTemplateColumns: "180px auto"
+        }}
+      ></div>
     </div>
   );
 }

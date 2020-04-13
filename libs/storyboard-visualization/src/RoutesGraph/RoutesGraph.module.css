@@ -1,0 +1,36 @@
+.canvas {
+  position: relative;
+  max-height: inherit;
+  overflow: auto;
+}
+
+.routesPreviewContainer {
+  max-height: inherit;
+  overflow: auto;
+  border-right: 1px solid #d7d7d9;
+}
+
+.linksLayer,
+.nodesLayer,
+.nodesContainer,
+.nodeWrapper {
+  position: absolute;
+}
+
+.linksLayer {
+  cursor: grab;
+}
+
+.grabbing {
+  cursor: grabbing;
+}
+
+.link path {
+  fill: none;
+  stroke: #b9b9b9;
+  stroke-width: 1;
+}
+
+.arrowMarker path {
+  fill: #b9b9b9;
+}

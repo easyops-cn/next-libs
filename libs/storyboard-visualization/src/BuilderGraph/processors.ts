@@ -1,10 +1,10 @@
 import { sortBy, groupBy, isEmpty } from "lodash";
 import {
-  ViewItem,
   GraphNode,
   GraphNodeContent,
   GraphNodeContentSlotGroup
 } from "./interfaces";
+import { ViewItem } from "../shared/interfaces";
 import { styleConfig } from "./constants";
 import { HierarchyPointLink } from "d3";
 

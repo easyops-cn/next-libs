@@ -36,6 +36,8 @@
   "dependencies": {
     "@easyops/brick-types": "^1.27.0",
     "@libs/basic-components": "^0.20.1",
-    "classnames": "^2.2.6"
+    "classnames": "^2.2.6",
+    "react-dnd": "^10.0.2",
+    "react-dnd-html5-backend": "^10.0.2"
   }
 }

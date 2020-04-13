@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="121px" height="160px" viewBox="0 0 121 160" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 64 (93537) - https://sketch.com -->
+    <title>Mixed</title>
+    <desc>Created with Sketch.</desc>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="User-Flow-Elements-切图" transform="translate(-674.000000, -86.000000)">
+            <g id="Mixed" transform="translate(674.000000, 86.000000)">
+                <rect id="矩形备份-10" stroke="#000000" opacity="0.15" x="0.5" y="0.5" width="120" height="159" rx="3"></rect>
+                <line x1="1.5" y1="7.5" x2="119.5" y2="7.5" id="直线备份" stroke="#000000" opacity="0.15" stroke-linecap="square"></line>
+                <rect id="矩形备份-11" fill="#000000" opacity="0.05" x="5" y="3" width="6" height="2" rx="1"></rect>
+                <rect id="矩形备份-12" fill="#000000" opacity="0.05" x="13" y="3" width="6" height="2" rx="1"></rect>
+                <rect id="矩形备份-13" fill="#000000" opacity="0.05" x="21" y="3" width="6" height="2" rx="1"></rect>
+                <rect id="矩形备份-14" fill="#000000" opacity="0.3" x="15" y="21" width="20" height="4" rx="1"></rect>
+                <circle id="椭圆形备份" fill="#000000" opacity="0.18" cx="86" cy="23" r="2"></circle>
+                <circle id="椭圆形备份-2" fill="#000000" opacity="0.18" cx="92" cy="23" r="2"></circle>
+                <circle id="椭圆形备份-3" fill="#000000" opacity="0.18" cx="98" cy="23" r="2"></circle>
+                <circle id="椭圆形备份-4" fill="#000000" opacity="0.18" cx="104" cy="23" r="2"></circle>
+                <rect id="矩形备份-15" fill="#000000" opacity="0.05" x="15" y="35" width="91" height="21" rx="2"></rect>
+                <rect id="矩形备份-18" fill="#000000" opacity="0.05" x="15" y="78" width="91" height="68" rx="2"></rect>
+                <rect id="矩形备份-19" fill="#000000" opacity="0.18" x="43" y="40" width="25" height="3"></rect>
+                <rect id="矩形备份-20" fill="#000000" opacity="0.18" x="76" y="40" width="25" height="3"></rect>
+                <rect id="矩形备份-19" fill="#000000" opacity="0.18" x="43" y="48" width="25" height="3"></rect>
+                <rect id="矩形备份-20" fill="#000000" opacity="0.18" x="76" y="48" width="25" height="3"></rect>
+                <g id="编组-2备份-13" transform="translate(15.000000, 61.000000)">
+                    <rect id="矩形备份-29" fill="#000000" opacity="0.05" x="0" y="0" width="27" height="12" rx="2"></rect>
+                    <rect id="矩形备份-32" fill="#000000" opacity="0.15" x="11" y="7" width="10" height="1" rx="0.5"></rect>
+                    <circle id="椭圆形" fill="#000000" opacity="0.15" cx="6" cy="6" r="3"></circle>
+                    <rect id="矩形" stroke="#000000" fill="#D8D8D8" opacity="0.4" x="11.5" y="4.5" width="12" height="1" rx="0.5"></rect>
+                </g>
+                <g id="编组-2备份-15" transform="translate(79.000000, 61.000000)">
+                    <rect id="矩形备份-29" fill="#000000" opacity="0.05" x="0" y="0" width="27" height="12" rx="2"></rect>
+                    <rect id="矩形备份-32" fill="#000000" opacity="0.15" x="11" y="7" width="10" height="1" rx="0.5"></rect>
+                    <circle id="椭圆形" fill="#000000" opacity="0.15" cx="6" cy="6" r="3"></circle>
+                    <rect id="矩形" stroke="#000000" fill="#D8D8D8" opacity="0.4" x="11.5" y="4.5" width="12" height="1" rx="0.5"></rect>
+                </g>
+                <g id="编组-2备份-17" transform="translate(47.000000, 61.000000)">
+                    <rect id="矩形备份-29" fill="#000000" opacity="0.05" x="0" y="0" width="27" height="12" rx="2"></rect>
+                    <rect id="矩形备份-32" fill="#000000" opacity="0.15" x="11" y="7" width="10" height="1" rx="0.5"></rect>
+                    <circle id="椭圆形" fill="#000000" opacity="0.15" cx="6" cy="6" r="3"></circle>
+                    <rect id="矩形" stroke="#000000" fill="#D8D8D8" opacity="0.4" x="11.5" y="4.5" width="12" height="1" rx="0.5"></rect>
+                </g>
+                <circle id="椭圆形" fill="#000000" opacity="0.15" cx="27.5" cy="45.5" r="7.5"></circle>
+            </g>
+        </g>
+    </g>
+</svg>

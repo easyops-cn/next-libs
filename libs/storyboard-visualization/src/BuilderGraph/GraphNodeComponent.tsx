@@ -6,7 +6,8 @@ import { isObject } from "@easyops/brick-utils";
 import { FaIcon } from "@easyops/brick-types";
 import { GeneralIcon } from "@libs/basic-components";
 import styles from "./GraphNodeComponent.module.css";
-import { GraphNode, ViewItem, ContentItemActions } from "./interfaces";
+import { GraphNode, ContentItemActions } from "./interfaces";
+import { ViewItem } from "../shared/interfaces";
 import { styleConfig } from "./constants";
 import { getNodeDisplayName } from "./processors";
 
