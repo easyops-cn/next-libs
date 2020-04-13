@@ -1,6 +1,6 @@
 {
   "name": "@libs/charts",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "> TODO: description",
   "homepage": "https://git.easyops.local/anyclouds/next-libs/tree/master/libs/charts",
   "license": "UNLICENSED",
@@ -37,6 +37,6 @@
     "resize-observer-polyfill": "^1.5.1"
   },
   "devDependencies": {
-    "@libs/constants": "^0.6.1"
+    "@libs/constants": "^0.7.0"
   }
 }

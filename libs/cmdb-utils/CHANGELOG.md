@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-utils@0.5.19...@libs/cmdb-utils@0.6.0) (2020-04-13)
+
+### Features
+
+- **cmdb-utils:** migrate conditionHelper refs MONITOR-570 ([bd30ac8](https://git.easyops.local/anyclouds/next-libs/commits/bd30ac8))
+
 ## [0.5.19](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-utils@0.5.18...@libs/cmdb-utils@0.5.19) (2020-03-13)
 
 ### Bug Fixes
