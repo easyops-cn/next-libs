@@ -10,16 +10,19 @@ export interface RoutesPreviewProps {
   routes?: RouteGraphNode[];
   onDragEnd?: (value: any, item: RouteGraphNode) => void;
   onNodeClick?: (node: ViewItem) => void;
+  readOnly?: boolean;
 }
 
 const Item = ({
   id,
   children,
-  getDraggingStatus
+  getDraggingStatus,
+  readOnly
 }: {
   id: string;
   children: any;
   getDraggingStatus: (dragging: boolean, currentOffset?: XYCoord) => void;
+  readOnly: boolean;
 }): React.ReactElement => {
   const ref = useRef(null);
   const [{ opacity }, drag, preview] = useDrag({
@@ -34,6 +37,9 @@ const Item = ({
     end: (item, monitor) => {
       const currentOffset = monitor.getSourceClientOffset();
       getDraggingStatus(false, currentOffset);
+    },
+    canDrag: () => {
+      return !readOnly;
     }
   });
 
@@ -88,7 +94,7 @@ const PreviewItem = ({ children }: { children: any }) => {
 };
 
 export function RoutesPreview(props: RoutesPreviewProps): React.ReactElement {
-  const { routes, onNodeClick } = props;
+  const { routes, onNodeClick, readOnly } = props;
   const [draggingItem, setDraggingItem] = useState<
     RouteGraphNode | undefined
   >();
@@ -120,6 +126,7 @@ export function RoutesPreview(props: RoutesPreviewProps): React.ReactElement {
             getDraggingStatus={(dragging: boolean, currentOffset?: XYCoord) =>
               getDraggingStatus(dragging, item, currentOffset)
             }
+            readOnly={readOnly}
           >
             <RouteNodeComponent
               key={item.originalData.id}
