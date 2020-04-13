@@ -13,7 +13,7 @@ export enum BytesUnitId {
   Gibibytes = "gibibytes",
   Tebibytes = "tebibytes",
   Pebibytes = "pebibytes",
-  // deperated
+  // deprecated
   b = "b",
   B = "B",
   KB = "KB",
@@ -99,7 +99,7 @@ export const bibytes: Unit[] = [
   }
 ];
 
-export const deperatedBytes: Unit[] = [
+export const deprecatedBytes: Unit[] = [
   {
     id: BytesUnitId.b,
     divisor: 1,

@@ -5,6 +5,7 @@ import { dataRateFormatUnitIds } from "./dataRate";
 
 export enum FormatType {
   None = "none",
+  Short = "short",
   Percent = "percent",
   Time = "time",
   Data = "data",
@@ -13,6 +14,7 @@ export enum FormatType {
 
 export const formatUnitIds: { [type: string]: string[] } = {
   [FormatType.None]: [],
+  [FormatType.Short]: [],
   [FormatType.Percent]: percentFormatUnitIds,
   [FormatType.Time]: timeFormatUnitIds,
   [FormatType.Data]: dataFormatUnitIds,

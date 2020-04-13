@@ -29,7 +29,7 @@ export const formatValue = (
   if (format) {
     let { type } = format;
     if (!type && format.unit) {
-      type = FormatType.None;
+      type = FormatType.Short;
       Object.entries(formatUnitIds).map(([formatType, units]) => {
         if (
           units
@@ -82,6 +82,9 @@ export const formatValue = (
           `${convertValueByPrecision(dataRateValue, precision)}`,
           dataRateUnitDisplay
         ];
+      }
+      case FormatType.None: {
+        return [convertValueByPrecision(value, precision), format.unit];
       }
       default: {
         return [

@@ -2,14 +2,14 @@ import {
   Unit as FormatUnit,
   bytes,
   bibytes,
-  deperatedBytes
+  deprecatedBytes
 } from "@libs/constants";
 
 export const dataFormatUnits: FormatUnit[][] = [
   bytes,
   bibytes,
-  // deperated
-  deperatedBytes
+  // deprecated
+  deprecatedBytes
 ];
 
 export const dataFormatUnitIds = ([] as string[]).concat.apply(
