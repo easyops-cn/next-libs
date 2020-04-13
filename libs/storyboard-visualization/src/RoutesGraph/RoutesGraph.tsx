@@ -24,6 +24,7 @@ import { ViewItem } from "../shared/interfaces";
 
 interface RenderOptions {
   onNodeClick?: (node: ViewItem) => void;
+  readOnly?: boolean;
 }
 
 export class RoutesGraph {
@@ -74,23 +75,26 @@ export class RoutesGraph {
   >;
 
   private onNodeClick: (node: ViewItem) => void;
+  private readOnly: boolean;
 
   private routesData: any[];
 
   /* istanbul ignore next */
   onDragSvg(d: RouteGraphNode): void {
-    const { dx, dy } = d3Event;
-    const resultX = d.node.offsetLeft + dx;
-    const resultY = d.node.offsetTop + dy;
-    d.x = resultX < 0 ? 0 : resultX;
-    d.y = resultY < 0 ? 0 : resultY;
-    select<HTMLDivElement, RouteGraphNode>(d.node)
-      .style("left", d => `${d.x}px`)
-      .style("top", (d, i) => {
-        return `${d.y}px`;
-      });
-    this.renderLink();
-    this.getCanvasSize();
+    if (!this.readOnly) {
+      const { dx, dy } = d3Event;
+      const resultX = d.node.offsetLeft + dx;
+      const resultY = d.node.offsetTop + dy;
+      d.x = resultX < 0 ? 0 : resultX;
+      d.y = resultY < 0 ? 0 : resultY;
+      select<HTMLDivElement, RouteGraphNode>(d.node)
+        .style("left", d => `${d.x}px`)
+        .style("top", (d, i) => {
+          return `${d.y}px`;
+        });
+      this.renderLink();
+      this.getCanvasSize();
+    }
   }
 
   constructor() {
@@ -271,12 +275,14 @@ export class RoutesGraph {
       .attr("class", classNames(styles.link));
 
     const onDragEnd = this.onDragEnd.bind(this);
+    const readOnly = this.readOnly;
     this.routesPreviewContainer.datum(previewData).each(function(d) {
       ReactDOM.render(
         <RoutesPreview
           routes={d}
           onDragEnd={onDragEnd}
           onNodeClick={onNodeClick}
+          readOnly={readOnly}
         />,
         this
       );
@@ -303,6 +309,7 @@ export class RoutesGraph {
   }
 
   render(builderData: any[], options?: RenderOptions): void {
+    this.readOnly = options?.readOnly;
     this.onNodeClick = options?.onNodeClick;
     this.routesData = builderData;
     const offsetX = 20;
