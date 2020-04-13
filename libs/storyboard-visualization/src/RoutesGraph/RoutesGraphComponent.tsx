@@ -6,13 +6,14 @@ import { viewsToGraph } from "./processors";
 export interface RoutesGraphComponentProps {
   data?: ViewItem[];
   onNodeClick?: (node: ViewItem) => void;
+  onNodeDrag?: (node: ViewItem) => void;
   readOnly?: boolean;
 }
 
 export function RoutesGraphComponent(
   props: RoutesGraphComponentProps
 ): React.ReactElement {
-  const { data, onNodeClick, readOnly } = props;
+  const { data, onNodeClick, readOnly, onNodeDrag } = props;
 
   const visual = React.useMemo(() => new RoutesGraph(), []);
 
@@ -57,9 +58,10 @@ export function RoutesGraphComponent(
   const handleRender = React.useCallback(() => {
     visual.render(viewsToGraph(data), {
       readOnly,
-      onNodeClick
+      onNodeClick,
+      onNodeDrag
     });
-  }, [data, onNodeClick, readOnly]);
+  }, [data, onNodeClick, readOnly, onNodeDrag]);
 
   React.useEffect(() => {
     handleRender();

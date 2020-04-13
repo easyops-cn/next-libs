@@ -2,6 +2,7 @@ export interface ViewItem {
   alias?: string;
   appId?: string;
   id?: string;
+  instanceId?: string;
   mountPoint?: string;
   sort?: number;
   type?: string;
