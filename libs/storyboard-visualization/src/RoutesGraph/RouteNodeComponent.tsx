@@ -6,6 +6,7 @@ import { get } from "lodash";
 
 export interface RouteNodeComponentProps {
   originalData?: ViewItem;
+  onNodeClick?: (node: ViewItem) => void;
 }
 
 const getPreviewSvg = (data: ViewItem): React.ReactElement => {
@@ -17,10 +18,15 @@ const getPreviewSvg = (data: ViewItem): React.ReactElement => {
 export function RouteNodeComponent(
   props: RouteNodeComponentProps
 ): React.ReactElement {
-  const { originalData } = props;
+  const { originalData, onNodeClick } = props;
+
+  /* istanbul ignore next */
+  const handleNodeClick = (): void => {
+    onNodeClick?.(originalData);
+  };
 
   return (
-    <div className={styles.routeNodeContainer}>
+    <div className={styles.routeNodeContainer} onClick={handleNodeClick}>
       <div className={styles.routeTitle}>
         {originalData.alias ?? originalData.path}
       </div>

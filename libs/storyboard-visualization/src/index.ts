@@ -7,3 +7,4 @@ export * from "./Visualization";
 export * from "./VisualStoryboard/VisualStoryboard";
 export * from "./BuilderGraph";
 export * from "./RoutesGraph";
+export * from "./shared/interfaces";

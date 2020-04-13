@@ -5,12 +5,13 @@ import { viewsToGraph } from "./processors";
 
 export interface RoutesGraphComponentProps {
   data?: ViewItem[];
+  onNodeClick?: (node: ViewItem) => void;
 }
 
 export function RoutesGraphComponent(
   props: RoutesGraphComponentProps
 ): React.ReactElement {
-  const { data } = props;
+  const { data, onNodeClick } = props;
 
   const visual = React.useMemo(() => new RoutesGraph(), []);
 
@@ -53,8 +54,10 @@ export function RoutesGraphComponent(
   }, [resize]);
 
   const handleRender = React.useCallback(() => {
-    visual.render(viewsToGraph(data));
-  }, [data]);
+    visual.render(viewsToGraph(data), {
+      onNodeClick
+    });
+  }, [data, onNodeClick]);
 
   React.useEffect(() => {
     handleRender();
