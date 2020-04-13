@@ -20,6 +20,11 @@ import { RoutesPreview } from "./RoutesPreview";
 import { XYCoord } from "react-dnd";
 import styles from "./RoutesGraph.module.css";
 import { getLinkPath } from "./processors";
+import { ViewItem } from "../shared/interfaces";
+
+interface RenderOptions {
+  onNodeClick?: (node: ViewItem) => void;
+}
 
 export class RoutesGraph {
   private readonly canvas: Selection<
@@ -67,6 +72,8 @@ export class RoutesGraph {
     HTMLDivElement,
     undefined
   >;
+
+  private onNodeClick: (node: ViewItem) => void;
 
   private routesData: any[];
 
@@ -241,10 +248,14 @@ export class RoutesGraph {
         )
       );
     this.nodes = this.nodesContainer.selectAll(`.${styles.nodeWrapper}`);
+    const onNodeClick = this.onNodeClick;
     this.nodes.each(function(d) {
       d.node = this;
       ReactDOM.render(
-        <RouteNodeComponent originalData={d.originalData} />,
+        <RouteNodeComponent
+          originalData={d.originalData}
+          onNodeClick={onNodeClick}
+        />,
         this
       );
     });
@@ -261,7 +272,14 @@ export class RoutesGraph {
 
     const onDragEnd = this.onDragEnd.bind(this);
     this.routesPreviewContainer.datum(previewData).each(function(d) {
-      ReactDOM.render(<RoutesPreview routes={d} onDragEnd={onDragEnd} />, this);
+      ReactDOM.render(
+        <RoutesPreview
+          routes={d}
+          onDragEnd={onDragEnd}
+          onNodeClick={onNodeClick}
+        />,
+        this
+      );
     });
     this.renderLink();
   }
@@ -284,7 +302,8 @@ export class RoutesGraph {
     this.linksLayer.attr("height", maxY);
   }
 
-  render(builderData: any[], options?: any): void {
+  render(builderData: any[], options?: RenderOptions): void {
+    this.onNodeClick = options?.onNodeClick;
     this.routesData = builderData;
     const offsetX = 20;
     const offsetY = 20;
