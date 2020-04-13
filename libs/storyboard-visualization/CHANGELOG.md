@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.21.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.20.6...@libs/storyboard-visualization@0.21.0) (2020-04-13)
+
+### Features
+
+- **routes-graph:** node click ([7433670](https://git.easyops.local/anyclouds/next-libs/commits/7433670))
+- drag ([6c4a129](https://git.easyops.local/anyclouds/next-libs/commits/6c4a129))
+- **storyboard-visualization:** routes graph ([3988543](https://git.easyops.local/anyclouds/next-libs/commits/3988543))
+- **storyboard-visualization:** routes graph line ([8f7da9a](https://git.easyops.local/anyclouds/next-libs/commits/8f7da9a))
+
 ## [0.20.6](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.20.5...@libs/storyboard-visualization@0.20.6) (2020-04-13)
 
 **Note:** Version bump only for package @libs/storyboard-visualization
