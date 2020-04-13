@@ -24,6 +24,7 @@ import { ViewItem } from "../shared/interfaces";
 
 interface RenderOptions {
   onNodeClick?: (node: ViewItem) => void;
+  onNodeDrag?: (node: ViewItem) => void;
   readOnly?: boolean;
 }
 
@@ -75,6 +76,7 @@ export class RoutesGraph {
   >;
 
   private onNodeClick: (node: ViewItem) => void;
+  private onNodeDrag: (node: ViewItem) => void;
   private readOnly: boolean;
 
   private routesData: any[];
@@ -94,6 +96,11 @@ export class RoutesGraph {
         });
       this.renderLink();
       this.getCanvasSize();
+      this.onNodeDrag?.({
+        id: d.originalData.id,
+        graphInfo: { ...d.originalData.graphInfo, x: d.x, y: d.y },
+        instanceId: d.originalData.instanceId
+      });
     }
   }
 
@@ -207,6 +214,11 @@ export class RoutesGraph {
             y: targetY
           };
           this.updateElement(newData);
+          this.onNodeDrag?.({
+            id: item.originalData.id,
+            graphInfo: newData[index].originalData.graphInfo,
+            instanceId: item.originalData.instanceId
+          });
         }
       }
     }
@@ -311,6 +323,7 @@ export class RoutesGraph {
   render(builderData: any[], options?: RenderOptions): void {
     this.readOnly = options?.readOnly;
     this.onNodeClick = options?.onNodeClick;
+    this.onNodeDrag = options?.onNodeDrag;
     this.routesData = builderData;
     const offsetX = 20;
     const offsetY = 20;
