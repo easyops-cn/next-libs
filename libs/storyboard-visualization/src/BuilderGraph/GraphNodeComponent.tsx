@@ -1,15 +1,15 @@
 import React from "react";
-import { Icon, Button, Dropdown, Menu } from "antd";
+import { Icon } from "antd";
 import classNames from "classnames";
-import { BrickAsComponent, doTransform } from "@easyops/brick-kit";
-import { isObject } from "@easyops/brick-utils";
 import { FaIcon } from "@easyops/brick-types";
 import { GeneralIcon } from "@libs/basic-components";
 import styles from "./GraphNodeComponent.module.css";
-import { GraphNode, ContentItemActions } from "./interfaces";
-import { ViewItem } from "../shared/interfaces";
+import { GraphNode } from "./interfaces";
+import { ViewItem, ContentItemActions } from "../shared/interfaces";
 import { styleConfig } from "./constants";
 import { getNodeDisplayName } from "./processors";
+import { ItemActionsComponent } from "../components/ItemActionsComponent";
+import { filterActions } from "../shared/processors";
 
 export interface GraphNodeComponentProps {
   node: GraphNode;
@@ -160,23 +160,7 @@ export function ContentItem(props: ContentItemProps): React.ReactElement {
     subtype = "route";
   }
 
-  const filteredActions = []
-    .concat(contentItemActions?.useBrick ?? [])
-    .filter(action => {
-      if (isObject(action.if)) {
-        // eslint-disable-next-line
-        console.warn("Currently don't support resolvable-if in `useBrick`");
-      } else if (
-        typeof action.if === "boolean" ||
-        typeof action.if === "string"
-      ) {
-        const ifChecked = doTransform({ item }, action.if);
-        if (ifChecked === false) {
-          return false;
-        }
-      }
-      return true;
-    });
+  const filteredActions = filterActions(contentItemActions, item);
 
   const ellipsisButtonAvailable = filteredActions.length > 0;
 
@@ -211,22 +195,7 @@ export function ContentItem(props: ContentItemProps): React.ReactElement {
       </div>
       {ellipsisButtonAvailable && (
         <div className={styles.contentItemToolbar} onClick={handleToolBarClick}>
-          <Dropdown
-            trigger={["click"]}
-            overlay={
-              <Menu>
-                {filteredActions.map((action, index) => (
-                  <Menu.Item key={index}>
-                    <BrickAsComponent useBrick={action} data={{ item }} />
-                  </Menu.Item>
-                ))}
-              </Menu>
-            }
-          >
-            <Button type="link" size="small">
-              <GeneralIcon icon={{ lib: "fa", icon: "ellipsis-h" }} />
-            </Button>
-          </Dropdown>
+          <ItemActionsComponent filteredActions={filteredActions} item={item} />
         </div>
       )}
     </div>

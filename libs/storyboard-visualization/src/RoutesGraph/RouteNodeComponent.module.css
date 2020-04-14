@@ -23,4 +23,23 @@
   font-size: 12px;
   margin-bottom: 4px;
   text-align: center;
+  position: relative;
+}
+.contentItemToolbar {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  align-items: center;
+  display: none;
+  background-color: var(--theme-blue-background);
+}
+.routeNodeContainer:hover .contentItemToolbar {
+  display: flex;
+}
+.routeNodeContainer:hover .contentItemEllipsisButtonAvailable {
+  padding-right: 30px;
+}
+.contentItemToolbar :global(.ant-btn) {
+  vertical-align: middle;
 }

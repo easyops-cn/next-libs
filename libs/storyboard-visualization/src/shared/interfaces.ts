@@ -1,3 +1,5 @@
+import { UseBrickConf } from "@easyops/brick-types";
+
 export interface ViewItem {
   alias?: string;
   appId?: string;
@@ -17,4 +19,8 @@ export interface ViewItem {
     y?: number;
     viewType?: string;
   };
+}
+
+export interface ContentItemActions {
+  useBrick: UseBrickConf;
 }
