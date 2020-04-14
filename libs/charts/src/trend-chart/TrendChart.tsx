@@ -255,6 +255,7 @@ export function TrendChart(props: TrendChartProps): React.ReactElement {
           smoothMonotone: "y",
           stack: props.stack ? "true" : null,
           symbol: "none",
+          connectNulls: true,
           symbolSize: props.option.symbolSize ?? 0,
           markLine: {
             label: {
