@@ -61,7 +61,7 @@ export function RoutesGraphComponent(
       readOnly,
       onNodeClick,
       onNodeDrag,
-      contentItemActions
+      contentItemActions,
     });
   }, [data, onNodeClick, readOnly, onNodeDrag, contentItemActions]);
 
@@ -77,7 +77,8 @@ export function RoutesGraphComponent(
           width: "100%",
           overflow: "auto",
           display: "grid",
-          gridTemplateColumns: "180px auto"
+          gridTemplateRows: "max-content",
+          gridGap: "10px",
         }}
       ></div>
     </div>

@@ -1,13 +1,15 @@
 .canvas {
   position: relative;
   max-height: inherit;
+  min-height: 200px;
   overflow: auto;
+  border: 1px dashed #d7d7d9;
+  border-radius: 5px;
 }
 
 .routesPreviewContainer {
   max-height: inherit;
   overflow: auto;
-  border-right: 1px solid #d7d7d9;
 }
 
 .linksLayer,

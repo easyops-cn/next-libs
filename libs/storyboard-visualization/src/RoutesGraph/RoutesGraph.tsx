@@ -10,7 +10,7 @@ import {
   filter,
   reject,
   findIndex,
-  maxBy
+  maxBy,
 } from "lodash";
 import classNames from "classnames";
 import { RouteNodeComponent } from "./RouteNodeComponent";
@@ -89,19 +89,43 @@ export class RoutesGraph {
       const { dx, dy } = d3Event;
       const resultX = d.node.offsetLeft + dx;
       const resultY = d.node.offsetTop + dy;
-      d.x = resultX < 0 ? 0 : resultX;
-      d.y = resultY < 0 ? 0 : resultY;
+      d.x = resultX;
+      d.y = resultY;
       select<HTMLDivElement, RouteGraphNode>(d.node)
-        .style("left", d => `${d.x}px`)
+        .style("left", (d) => `${d.x}px`)
         .style("top", (d, i) => {
           return `${d.y}px`;
         });
       this.renderLink();
       this.getCanvasSize();
+    }
+  }
+
+  /* istanbul ignore next */
+  onDragSvgEnd(d: RouteGraphNode): void {
+    if (!this.readOnly) {
+      if (d.x < 0 || d.y < 0) {
+        const index = findIndex(this.routesData, [
+          "originalData.id",
+          d.originalData.id,
+        ]);
+        const newData = this.routesData;
+        delete newData[index].originalData.graphInfo.x;
+        delete newData[index].originalData.graphInfo.y;
+        delete d.x;
+        delete d.y;
+        this.updateElement(newData);
+        this.onNodeDrag?.({
+          id: d.originalData.id,
+          graphInfo: newData[index].originalData.graphInfo,
+          instanceId: d.originalData.instanceId,
+        });
+        return;
+      }
       this.onNodeDrag?.({
         id: d.originalData.id,
         graphInfo: { ...d.originalData.graphInfo, x: d.x, y: d.y },
-        instanceId: d.originalData.instanceId
+        instanceId: d.originalData.instanceId,
       });
     }
   }
@@ -174,17 +198,17 @@ export class RoutesGraph {
       nodes.forEach((node, index) => {
         if (node.originalData?.segues) {
           const targets = compact(
-            values(node.originalData.segues).map(targetItem => {
+            values(node.originalData.segues).map((targetItem) => {
               const target = find(
                 nodes,
-                n => n.originalData.alias === targetItem.target
+                (n) => n.originalData.alias === targetItem.target
               );
               if (!target) {
                 return null;
               } else {
                 return {
                   source: node,
-                  target
+                  target,
                 };
               }
             })
@@ -206,20 +230,20 @@ export class RoutesGraph {
       if (targetX >= 0 && targetY >= 0) {
         const index = findIndex(this.routesData, [
           "originalData.id",
-          item.originalData.id
+          item.originalData.id,
         ]);
         if (index !== -1) {
           const newData = this.routesData;
           newData[index].originalData.graphInfo = {
             ...newData[index].originalData.graphInfo,
             x: targetX,
-            y: targetY
+            y: targetY,
           };
           this.updateElement(newData);
           this.onNodeDrag?.({
             id: item.originalData.id,
             graphInfo: newData[index].originalData.graphInfo,
-            instanceId: item.originalData.instanceId
+            instanceId: item.originalData.instanceId,
           });
         }
       }
@@ -228,25 +252,26 @@ export class RoutesGraph {
 
   updateElement(data: RouteGraphNode[]): void {
     const [previewData, graphData] = [
-      filter(data, item => {
+      filter(data, (item) => {
         return (
           isNil(item.originalData.graphInfo?.x) ||
           isNil(item.originalData.graphInfo?.y)
         );
       }),
-      reject(data, item => {
+      reject(data, (item) => {
         return (
           isNil(item.originalData.graphInfo?.x) ||
           isNil(item.originalData.graphInfo?.y)
         );
-      })
+      }),
     ];
-    const updateNode = this.nodes.data(graphData, d => {
+    const updateNode = this.nodes.data(graphData, (d) => {
       const id = d.originalData.id;
       return id;
     });
     const enterNode = updateNode.enter();
     const exitNode = updateNode.exit();
+    exitNode.remove();
 
     enterNode
       .append("div")
@@ -260,15 +285,14 @@ export class RoutesGraph {
         return `${d.y}px`;
       })
       .call(
-        drag<HTMLDivElement, RouteGraphNode>().on(
-          "drag",
-          this.onDragSvg.bind(this)
-        )
+        drag<HTMLDivElement, RouteGraphNode>()
+          .on("drag", this.onDragSvg.bind(this))
+          .on("end", this.onDragSvgEnd.bind(this))
       );
     this.nodes = this.nodesContainer.selectAll(`.${styles.nodeWrapper}`);
     const onNodeClick = this.onNodeClick;
     const contentItemActions = this.contentItemActions;
-    this.nodes.each(function(d) {
+    this.nodes.each(function (d) {
       d.node = this;
       ReactDOM.render(
         <RouteNodeComponent
@@ -283,7 +307,7 @@ export class RoutesGraph {
 
     this.links = this.links
       .data(edges)
-      .join(enter => {
+      .join((enter) => {
         const link = enter.append("g");
         link.append("path").attr("marker-end", `url(#${this.arrowMarkerId})`);
         return link;
@@ -292,7 +316,7 @@ export class RoutesGraph {
 
     const onDragEnd = this.onDragEnd.bind(this);
     const readOnly = this.readOnly;
-    this.routesPreviewContainer.datum(previewData).each(function(d) {
+    this.routesPreviewContainer.datum(previewData).each(function (d) {
       ReactDOM.render(
         <RoutesPreview
           routes={d}
@@ -310,12 +334,12 @@ export class RoutesGraph {
   getCanvasSize(): void {
     const graphNodesData = this.nodes.data();
     const padding = 20;
-    const maxXItem = maxBy(graphNodesData, item => {
+    const maxXItem = maxBy(graphNodesData, (item) => {
       // 固定宽度
       return item.x + 160 + padding;
     });
     const maxX = maxXItem ? maxXItem.x + 160 + padding : "100%";
-    const maxYItem = maxBy(graphNodesData, item => {
+    const maxYItem = maxBy(graphNodesData, (item) => {
       return item.y + item.nodeConfig?.height + padding + 52;
     });
     const maxY = maxYItem

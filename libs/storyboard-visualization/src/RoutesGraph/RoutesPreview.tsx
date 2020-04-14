@@ -5,6 +5,10 @@ import { DndProvider, useDrag, useDragLayer, XYCoord } from "react-dnd";
 import HTML5Backend, { getEmptyImage } from "react-dnd-html5-backend";
 import { RouteGraphNode } from "./interfaces";
 import { ViewItem, ContentItemActions } from "../shared/interfaces";
+import { Icon } from "antd";
+import { ItemActionsComponent } from "../components/ItemActionsComponent";
+import { filterActions } from "../shared/processors";
+import classNames from "classnames";
 
 export interface RoutesPreviewProps {
   routes?: RouteGraphNode[];
@@ -18,7 +22,7 @@ const Item = ({
   id,
   children,
   getDraggingStatus,
-  readOnly
+  readOnly,
 }: {
   id: string;
   children: any;
@@ -28,11 +32,11 @@ const Item = ({
   const ref = useRef(null);
   const [{ opacity }, drag, preview] = useDrag({
     item: { type: "route-item", id },
-    collect: monitor => ({
+    collect: (monitor) => ({
       isDragging: monitor.isDragging(),
-      opacity: monitor.isDragging() ? 0.5 : 1
+      opacity: monitor.isDragging() ? 0.5 : 1,
     }),
-    begin: monitor => {
+    begin: (monitor) => {
       getDraggingStatus(true);
     },
     end: (item, monitor) => {
@@ -41,7 +45,7 @@ const Item = ({
     },
     canDrag: () => {
       return !readOnly;
-    }
+    },
   });
 
   useEffect(() => {
@@ -50,7 +54,7 @@ const Item = ({
 
   drag(ref);
   return (
-    <div ref={ref} style={{ opacity }}>
+    <div ref={ref} style={{ opacity }} className={styles.item}>
       {children}
     </div>
   );
@@ -62,7 +66,7 @@ function getPreviewItemStyles(
 ) {
   if (!initialOffset || !currentOffset) {
     return {
-      display: "none"
+      display: "none",
     };
   }
 
@@ -71,17 +75,17 @@ function getPreviewItemStyles(
   const transform = `translate(${x}px, ${y}px)`;
   return {
     transform,
-    WebkitTransform: transform
+    WebkitTransform: transform,
   };
 }
 
 const PreviewItem = ({ children }: { children: any }) => {
   const { itemType, isDragging, initialOffset, currentOffset } = useDragLayer(
-    monitor => ({
+    (monitor) => ({
       itemType: monitor.getItemType(),
       initialOffset: monitor.getInitialSourceClientOffset(),
       currentOffset: monitor.getSourceClientOffset(),
-      isDragging: monitor.isDragging()
+      isDragging: monitor.isDragging(),
     })
   );
 
@@ -112,6 +116,16 @@ export function RoutesPreview(props: RoutesPreviewProps): React.ReactElement {
     }
   };
 
+  const handleClick = (value: ViewItem) => {
+    // console.log(value,'value');
+    onNodeClick?.(value);
+  };
+
+  /* istanbul ignore next */
+  const handleToolBarClick = (e: React.MouseEvent): void => {
+    e.stopPropagation();
+  };
+
   return (
     <DndProvider backend={HTML5Backend}>
       <PreviewItem>
@@ -119,7 +133,12 @@ export function RoutesPreview(props: RoutesPreviewProps): React.ReactElement {
           <RouteNodeComponent originalData={draggingItem.originalData} />
         )}
       </PreviewItem>
-      {routes?.map(item => {
+      {routes?.map((item) => {
+        const filteredActions = filterActions(
+          contentItemActions,
+          item.originalData
+        );
+        const ellipsisButtonAvailable = filteredActions.length > 0;
         return (
           <Item
             key={item.originalData.id}
@@ -129,15 +148,31 @@ export function RoutesPreview(props: RoutesPreviewProps): React.ReactElement {
             }
             readOnly={readOnly}
           >
-            <RouteNodeComponent
+            <span
               key={item.originalData.id}
-              originalData={item.originalData}
-              onNodeClick={onNodeClick}
-              contentItemActions={contentItemActions}
-            />
+              style={{ width: 200 }}
+              onClick={() => handleClick(item.originalData)}
+              className={classNames(styles.previewTag, {
+                [styles.contentItemEllipsisButtonAvailable]: ellipsisButtonAvailable,
+              })}
+            >
+              {item.originalData.alias ?? item.originalData.path}
+              {ellipsisButtonAvailable && (
+                <div
+                  className={styles.contentItemToolbar}
+                  onClick={handleToolBarClick}
+                >
+                  <ItemActionsComponent
+                    filteredActions={filteredActions}
+                    item={item.originalData}
+                  />
+                </div>
+              )}
+            </span>
           </Item>
         );
       })}
+      <Icon type="drag" className={styles.dragIcon} />
     </DndProvider>
   );
 }

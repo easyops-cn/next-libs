@@ -9,9 +9,7 @@ describe("RoutesGraph", () => {
     const routesPreviewNode = visual.getRoutesPreviewNode();
     const linksLayer = canvas.querySelector(".linksLayer");
     expect(linksLayer.querySelectorAll(".link").length).toBe(1);
-    expect(
-      routesPreviewNode.querySelectorAll(".routeNodeContainer").length
-    ).toBe(1);
+    expect(routesPreviewNode.querySelectorAll(".previewTag").length).toBe(1);
     const nodesLayer = canvas.querySelector(".nodesLayer");
     expect(nodesLayer.querySelectorAll(".nodeWrapper").length).toBe(2);
   });
