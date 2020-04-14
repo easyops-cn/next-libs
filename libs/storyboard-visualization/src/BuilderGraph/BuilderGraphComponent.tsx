@@ -1,7 +1,6 @@
 import React from "react";
 import { BuilderGraph } from "./BuilderGraph";
-import { ContentItemActions } from "./interfaces";
-import { ViewItem } from "../shared/interfaces";
+import { ViewItem, ContentItemActions } from "../shared/interfaces";
 
 export interface BuilderGraphComponentProps {
   data: ViewItem[];

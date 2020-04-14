@@ -1,4 +1,3 @@
-import { UseBrickConf } from "@easyops/brick-types";
 import { ViewItem } from "../shared/interfaces";
 
 export interface GraphNode {
@@ -44,8 +43,4 @@ export interface GraphNodeContentRedirect {
 export interface GraphNodeContentCustomTemplate {
   type: "custom-template";
   items: ViewItem[];
-}
-
-export interface ContentItemActions {
-  useBrick: UseBrickConf;
 }

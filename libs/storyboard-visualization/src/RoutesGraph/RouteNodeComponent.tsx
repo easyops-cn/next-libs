@@ -1,12 +1,16 @@
 import React from "react";
 import styles from "./RouteNodeComponent.module.css";
-import { ViewItem } from "../shared/interfaces";
+import { ViewItem, ContentItemActions } from "../shared/interfaces";
 import { viewTypeConfig } from "./constants";
 import { get } from "lodash";
+import { ItemActionsComponent } from "../components/ItemActionsComponent";
+import { filterActions } from "../shared/processors";
+import classNames from "classnames";
 
 export interface RouteNodeComponentProps {
   originalData?: ViewItem;
   onNodeClick?: (node: ViewItem) => void;
+  contentItemActions?: ContentItemActions;
 }
 
 const getPreviewSvg = (data: ViewItem): React.ReactElement => {
@@ -18,17 +22,41 @@ const getPreviewSvg = (data: ViewItem): React.ReactElement => {
 export function RouteNodeComponent(
   props: RouteNodeComponentProps
 ): React.ReactElement {
-  const { originalData, onNodeClick } = props;
+  const { originalData, onNodeClick, contentItemActions } = props;
 
   /* istanbul ignore next */
   const handleNodeClick = (): void => {
     onNodeClick?.(originalData);
   };
 
+  /* istanbul ignore next */
+  const handleToolBarClick = (e: React.MouseEvent): void => {
+    e.stopPropagation();
+  };
+
+  const filteredActions = filterActions(contentItemActions, originalData);
+
+  const ellipsisButtonAvailable = filteredActions.length > 0;
+
   return (
     <div className={styles.routeNodeContainer} onClick={handleNodeClick}>
-      <div className={styles.routeTitle}>
+      <div
+        className={classNames(styles.routeTitle, {
+          [styles.contentItemEllipsisButtonAvailable]: ellipsisButtonAvailable
+        })}
+      >
         {originalData.alias ?? originalData.path}
+        {ellipsisButtonAvailable && (
+          <div
+            className={styles.contentItemToolbar}
+            onClick={handleToolBarClick}
+          >
+            <ItemActionsComponent
+              filteredActions={filteredActions}
+              item={originalData}
+            />
+          </div>
+        )}
       </div>
       {getPreviewSvg(originalData)}
     </div>

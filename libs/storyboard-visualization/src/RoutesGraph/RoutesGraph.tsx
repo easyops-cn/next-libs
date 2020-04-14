@@ -20,9 +20,10 @@ import { RoutesPreview } from "./RoutesPreview";
 import { XYCoord } from "react-dnd";
 import styles from "./RoutesGraph.module.css";
 import { getLinkPath } from "./processors";
-import { ViewItem } from "../shared/interfaces";
+import { ViewItem, ContentItemActions } from "../shared/interfaces";
 
 interface RenderOptions {
+  contentItemActions?: ContentItemActions;
   onNodeClick?: (node: ViewItem) => void;
   onNodeDrag?: (node: ViewItem) => void;
   readOnly?: boolean;
@@ -78,6 +79,7 @@ export class RoutesGraph {
   private onNodeClick: (node: ViewItem) => void;
   private onNodeDrag: (node: ViewItem) => void;
   private readOnly: boolean;
+  private contentItemActions: ContentItemActions;
 
   private routesData: any[];
 
@@ -265,12 +267,14 @@ export class RoutesGraph {
       );
     this.nodes = this.nodesContainer.selectAll(`.${styles.nodeWrapper}`);
     const onNodeClick = this.onNodeClick;
+    const contentItemActions = this.contentItemActions;
     this.nodes.each(function(d) {
       d.node = this;
       ReactDOM.render(
         <RouteNodeComponent
           originalData={d.originalData}
           onNodeClick={onNodeClick}
+          contentItemActions={contentItemActions}
         />,
         this
       );
@@ -295,6 +299,7 @@ export class RoutesGraph {
           onDragEnd={onDragEnd}
           onNodeClick={onNodeClick}
           readOnly={readOnly}
+          contentItemActions={contentItemActions}
         />,
         this
       );
@@ -324,6 +329,7 @@ export class RoutesGraph {
     this.readOnly = options?.readOnly;
     this.onNodeClick = options?.onNodeClick;
     this.onNodeDrag = options?.onNodeDrag;
+    this.contentItemActions = options?.contentItemActions;
     this.routesData = builderData;
     const offsetX = 20;
     const offsetY = 20;

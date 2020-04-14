@@ -4,13 +4,14 @@ import { RouteNodeComponent } from "./RouteNodeComponent";
 import { DndProvider, useDrag, useDragLayer, XYCoord } from "react-dnd";
 import HTML5Backend, { getEmptyImage } from "react-dnd-html5-backend";
 import { RouteGraphNode } from "./interfaces";
-import { ViewItem } from "../shared/interfaces";
+import { ViewItem, ContentItemActions } from "../shared/interfaces";
 
 export interface RoutesPreviewProps {
   routes?: RouteGraphNode[];
   onDragEnd?: (value: any, item: RouteGraphNode) => void;
   onNodeClick?: (node: ViewItem) => void;
   readOnly?: boolean;
+  contentItemActions?: ContentItemActions;
 }
 
 const Item = ({
@@ -94,7 +95,7 @@ const PreviewItem = ({ children }: { children: any }) => {
 };
 
 export function RoutesPreview(props: RoutesPreviewProps): React.ReactElement {
-  const { routes, onNodeClick, readOnly } = props;
+  const { routes, onNodeClick, readOnly, contentItemActions } = props;
   const [draggingItem, setDraggingItem] = useState<
     RouteGraphNode | undefined
   >();
@@ -132,6 +133,7 @@ export function RoutesPreview(props: RoutesPreviewProps): React.ReactElement {
               key={item.originalData.id}
               originalData={item.originalData}
               onNodeClick={onNodeClick}
+              contentItemActions={contentItemActions}
             />
           </Item>
         );
