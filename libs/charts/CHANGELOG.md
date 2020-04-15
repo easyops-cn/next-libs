@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.7.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/charts@0.7.1...@libs/charts@0.7.2) (2020-04-15)
+
+### Bug Fixes
+
+- **trend-chart:** add "nullValue" property refs MONITOR-775 ([7d95335](https://git.easyops.local/anyclouds/next-libs/commits/7d95335))
+
 ## [0.7.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/charts@0.7.0...@libs/charts@0.7.1) (2020-04-14)
 
 ### Bug Fixes
