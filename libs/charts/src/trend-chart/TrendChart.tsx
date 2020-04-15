@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import echarts from "echarts";
 import ResizeObserver from "resize-observer-polyfill";
-import { get, merge, uniqueId } from "lodash";
+import { get, merge, uniqueId, isNil } from "lodash";
 import moment from "moment";
 
 import { Format } from "../interfaces/panel";
@@ -56,6 +56,7 @@ export interface TrendChartProps {
   title?: string;
   yAxis?: YAxisProps;
   stack?: boolean;
+  nullValue?: "null" | "zero" | "connect";
   format?: Format;
   colorList?: TrendChartColor[];
   onChartClick?: (e: TrendChartClickEventParams) => void;
@@ -245,6 +246,10 @@ export function TrendChart(props: TrendChartProps): React.ReactElement {
           if (!(data[0] instanceof Date)) {
             data[0] = new Date(data[0]);
           }
+
+          if (props.nullValue === "zero" && isNil(data[1])) {
+            data[1] = 0;
+          }
         });
 
         return {
@@ -255,7 +260,7 @@ export function TrendChart(props: TrendChartProps): React.ReactElement {
           smoothMonotone: "y",
           stack: props.stack ? "true" : null,
           symbol: "none",
-          connectNulls: true,
+          connectNulls: props.nullValue === "connect",
           symbolSize: props.option.symbolSize ?? 0,
           markLine: {
             label: {
