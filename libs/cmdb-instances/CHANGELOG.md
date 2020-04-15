@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.8](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@1.3.7...@libs/cmdb-instances@1.3.8) (2020-04-15)
+
+### Bug Fixes
+
+- **instance-list-table:** ignore undefined sort key when only pagination change ([ac47252](https://git.easyops.local/anyclouds/next-libs/commits/ac47252))
+
 ## [1.3.7](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@1.3.6...@libs/cmdb-instances@1.3.7) (2020-04-13)
 
 **Note:** Version bump only for package @libs/cmdb-instances
