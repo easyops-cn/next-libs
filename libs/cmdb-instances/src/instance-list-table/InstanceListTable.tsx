@@ -9,7 +9,7 @@ import {
   SorterResult,
   TableCurrentDataSource,
   TableRowSelection,
-  TableProps
+  TableProps,
 } from "antd/lib/table/interface";
 import {
   PropertyDisplay,
@@ -17,7 +17,7 @@ import {
   PropertyDisplayType,
   ReadPaginationChangeDetail,
   ReadSelectionChangeDetail,
-  ReadSortingChangeDetail
+  ReadSortingChangeDetail,
 } from "@easyops/brick-types";
 import { CmdbModels, InstanceApi } from "@sdk/cmdb-sdk";
 import { Link } from "@libs/basic-components";
@@ -29,7 +29,7 @@ import {
   RelationIdKeys,
   RelationNameKeys,
   RelationObjectIdKeys,
-  RelationObjectSides
+  RelationObjectSides,
 } from "@libs/cmdb-utils";
 import { NS_CMDB_INSTANCES } from "./i18n/constants";
 
@@ -39,7 +39,7 @@ import styles from "./InstanceListTable.module.css";
 
 enum SortOrder {
   Ascend = "ascend",
-  Descend = "descend"
+  Descend = "descend",
 }
 
 const SELF_RENDER_COLUMNS: { [objectId: string]: PropertyDisplayConfig[] } = {
@@ -50,12 +50,12 @@ const SELF_RENDER_COLUMNS: { [objectId: string]: PropertyDisplayConfig[] } = {
       brick: "presentational-bricks.brick-cluster-type",
       properties: {
         fields: {
-          value: "type"
+          value: "type",
         },
-        showBg: true
-      }
-    }
-  ]
+        showBg: true,
+      },
+    },
+  ],
 };
 
 export interface InstanceListTableProps extends WithTranslation {
@@ -102,10 +102,10 @@ export class LegacyInstanceListTable extends React.Component<
 
     const objectId = this.props.modelData.objectId;
     SELF_RENDER_COLUMNS[objectId]?.forEach(
-      config => (this.keyDisplayConfigMap[config.key] = config)
+      (config) => (this.keyDisplayConfigMap[config.key] = config)
     );
     this.props.propertyDisplayConfigs?.forEach(
-      config => (this.keyDisplayConfigMap[config.key] = config)
+      (config) => (this.keyDisplayConfigMap[config.key] = config)
     );
 
     const fieldIds = this.props.fieldIds;
@@ -119,14 +119,14 @@ export class LegacyInstanceListTable extends React.Component<
         pageSizeOptions: this.props.pageSizeOptions,
         showSizeChanger: this.props.showSizeChanger,
         total: this.props.instanceListData.total,
-        showTotal: total => (
+        showTotal: (total) => (
           <div>
             <span>共 {total} 项</span>
           </div>
         ),
         current: this.props.instanceListData.page,
-        pageSize: this.props.instanceListData.page_size
-      }
+        pageSize: this.props.instanceListData.page_size,
+      },
     };
   }
 
@@ -134,7 +134,7 @@ export class LegacyInstanceListTable extends React.Component<
     const columns: InstanceListTableState["columns"] = [];
     forEachAvailableFields(
       this.props.modelData,
-      attr =>
+      (attr) =>
         columns.push(
           this.setColumnSortOrder(
             this.getAttributeColumnData(attr, this.props.modelData)
@@ -149,7 +149,7 @@ export class LegacyInstanceListTable extends React.Component<
       ids
     );
     const idColumnMap = new Map<string, ColumnProps<Record<string, any>>>();
-    columns.forEach(column => idColumnMap.set(column.dataIndex, column));
+    columns.forEach((column) => idColumnMap.set(column.dataIndex, column));
     let fieldIds: string[];
     if (ids?.length) {
       fieldIds = ids;
@@ -162,14 +162,14 @@ export class LegacyInstanceListTable extends React.Component<
     let sortedColumns: InstanceListTableState["columns"];
     if (fieldIds) {
       sortedColumns = [];
-      fieldIds.forEach(id => {
+      fieldIds.forEach((id) => {
         const column = idColumnMap.get(id);
         if (column) {
           sortedColumns.push(column);
           idColumnMap.delete(id);
         }
       });
-      idColumnMap.forEach(column => sortedColumns.push(column));
+      idColumnMap.forEach((column) => sortedColumns.push(column));
     } else {
       sortedColumns = columns;
     }
@@ -201,7 +201,7 @@ export class LegacyInstanceListTable extends React.Component<
                   el,
                   {
                     dataSource: record,
-                    objectId: this.props.modelData.objectId
+                    objectId: this.props.modelData.objectId,
                   },
                   config.properties
                 );
@@ -209,7 +209,7 @@ export class LegacyInstanceListTable extends React.Component<
                 Object.assign(el, {
                   key: config.key,
                   value,
-                  isPrimary
+                  isPrimary,
                 });
               }
             }
@@ -226,7 +226,7 @@ export class LegacyInstanceListTable extends React.Component<
     const column: ColumnProps<Record<string, any>> = {
       title: attribute.name,
       dataIndex: attribute.id,
-      className: styles.instanceListTableCell
+      className: styles.instanceListTableCell,
     };
     const displayConfig = this.keyDisplayConfigMap[attribute.id];
     const isPrimary = attribute.id === getInstanceNameKeys(object)[0];
@@ -255,7 +255,7 @@ export class LegacyInstanceListTable extends React.Component<
                 if (!(values instanceof Array)) {
                   values = [values];
                 }
-                return values.map(value => {
+                return values.map((value) => {
                   let color: string;
                   if (displayConfig.valueColorMap) {
                     color = displayConfig.valueColorMap[value];
@@ -329,7 +329,7 @@ export class LegacyInstanceListTable extends React.Component<
               ) => {
                 const data = {
                   ...record,
-                  objectId: object.objectId
+                  objectId: object.objectId,
                 };
                 const url = parseTemplate(detailUrlTemplate, data);
                 return (
@@ -337,7 +337,7 @@ export class LegacyInstanceListTable extends React.Component<
                     // 使用 <Link> 以保持链接的原生能力
                     to={url}
                     // 自定义 onClick 以支持事件配置和拦截
-                    onClick={e => this.handleClickItem(e, record.instanceId)}
+                    onClick={(e) => this.handleClickItem(e, record.instanceId)}
                     data-testid="instance-detail-link"
                   >
                     {text}
@@ -349,7 +349,7 @@ export class LegacyInstanceListTable extends React.Component<
                 return (
                   <a
                     role="button"
-                    onClick={e => this.handleClickItem(e, record.instanceId)}
+                    onClick={(e) => this.handleClickItem(e, record.instanceId)}
                     data-testid="instance-detail-link"
                   >
                     {text}
@@ -375,7 +375,7 @@ export class LegacyInstanceListTable extends React.Component<
       title: relation[`${sides.this}_name` as RelationNameKeys],
       dataIndex: key,
       sorter: !this.props.sortDisabled,
-      className: styles.instanceListTableCell
+      className: styles.instanceListTableCell,
     };
     const displayConfig = this.keyDisplayConfigMap[key];
 
@@ -416,7 +416,7 @@ export class LegacyInstanceListTable extends React.Component<
             if (detailUrlTemplate) {
               const url = parseTemplate(detailUrlTemplate, {
                 ...instance,
-                objectId
+                objectId,
               });
               return (
                 <React.Fragment key={instance.instanceId}>
@@ -428,7 +428,9 @@ export class LegacyInstanceListTable extends React.Component<
                       // 使用 <Link> 以保持链接的原生能力
                       to={url}
                       // 自定义 onClick 以支持事件配置和拦截
-                      onClick={e => this.handleClickItem(e, record.instanceId)}
+                      onClick={(e) =>
+                        this.handleClickItem(e, record.instanceId)
+                      }
                     >
                       {instanceName}
                     </Link>
@@ -478,13 +480,16 @@ export class LegacyInstanceListTable extends React.Component<
     ) {
       this.props.onPaginationChange?.({
         page: pagination.current,
-        pageSize: pagination.pageSize
+        pageSize: pagination.pageSize,
       });
     }
     const asc = { [SortOrder.Ascend]: true, [SortOrder.Descend]: false }[
       sorter.order
     ];
-    if (sorter.columnKey !== this.props.sort || asc !== this.props.asc) {
+    if (
+      sorter.columnKey !== undefined &&
+      (sorter.columnKey !== this.props.sort || asc !== this.props.asc)
+    ) {
       this.props.onSortingChange?.({ sort: sorter.columnKey, asc });
     }
   };
@@ -495,7 +500,7 @@ export class LegacyInstanceListTable extends React.Component<
   ) => {
     this.props.onSelectionChange?.({
       selectedKeys: selectedRowKeys as string[],
-      selectedItems: selectedRows
+      selectedItems: selectedRows,
     });
   };
 
@@ -506,8 +511,8 @@ export class LegacyInstanceListTable extends React.Component<
         pagination: {
           total: this.props.instanceListData.total,
           current: this.props.instanceListData.page,
-          pageSize: this.props.instanceListData.page_size
-        }
+          pageSize: this.props.instanceListData.page_size,
+        },
       });
     }
     if (
@@ -515,7 +520,7 @@ export class LegacyInstanceListTable extends React.Component<
       this.props.asc !== prevProps.asc
     ) {
       const columns: ColumnProps<Record<string, any>>[] = [];
-      this.state.columns.forEach(column =>
+      this.state.columns.forEach((column) =>
         columns.push(this.setColumnSortOrder(column))
       );
       this.setState({ columns });
@@ -529,12 +534,12 @@ export class LegacyInstanceListTable extends React.Component<
       ? null
       : {
           selectedRowKeys,
-          onChange: this.onSelectChange
+          onChange: this.onSelectChange,
         };
 
     const classes = classnames({
       [styles.shouldEllipsis]: this.props.autoBreakLine,
-      [styles.tableWrapper]: true
+      [styles.tableWrapper]: true,
     });
 
     return (
