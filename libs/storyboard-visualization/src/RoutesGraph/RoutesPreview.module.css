@@ -20,11 +20,10 @@
   cursor: pointer;
   position: relative;
   display: inline-block;
-  width: 200px;
+  width: 160px;
   margin: 0 12px 4px 0;
   text-align: center;
   color: #6d6d6d;
-  font-weight: 600;
   font-size: 12px;
 }
 
@@ -47,10 +46,4 @@
 }
 .contentItemToolbar :global(.ant-btn) {
   vertical-align: middle;
-}
-.dragIcon {
-  line-height: 38px;
-  vertical-align: top;
-  font-size: 18px;
-  color: #888888;
 }

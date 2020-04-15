@@ -1,7 +1,7 @@
 import { ViewItem } from "../shared/interfaces";
 import { RouteGraphNode, Edge } from "./interfaces";
 import { get } from "lodash";
-import { viewTypeConfig } from "./constants";
+import { viewTypeConfig, nodeWidth } from "./constants";
 import { linkHorizontal, linkVertical } from "d3-shape";
 
 export function viewsToGraph(views: ViewItem[]): RouteGraphNode[] {
@@ -11,26 +11,23 @@ export function viewsToGraph(views: ViewItem[]): RouteGraphNode[] {
 
     return {
       originalData: item,
-      nodeConfig
+      nodeConfig,
     };
   });
 }
 
 export const linkVerticalFactory = linkVertical<Edge, RouteGraphNode>()
-  .x(d => d.linkX)
-  .y(d => d.linkY);
+  .x((d) => d.linkX)
+  .y((d) => d.linkY);
 export const linkHorizontalFactory = linkHorizontal<Edge, RouteGraphNode>()
-  .x(d => d.linkX)
-  .y(d => d.linkY);
+  .x((d) => d.linkX)
+  .y((d) => d.linkY);
 
 // TODO(Lynette): 后面再优化下
 export function getLinkPath(d: Edge): string {
   const sourceNodeConfig =
     get(viewTypeConfig, d.source.originalData?.graphInfo?.viewType) ??
     viewTypeConfig.default;
-  // 宽度固定
-  const sourceNodeWidth = 160;
-  const targetNodeWidth = 160;
   const sourceNodeHeight = sourceNodeConfig.height + 52;
   const targetNodeConfig =
     get(viewTypeConfig, d.target.originalData?.graphInfo?.viewType) ??
@@ -44,16 +41,16 @@ export function getLinkPath(d: Edge): string {
     targetX,
     targetY,
     targetWidth,
-    targetHeight
+    targetHeight,
   ] = [
     d.source.x,
     d.source.y,
-    sourceNodeWidth,
+    nodeWidth,
     sourceNodeHeight,
     d.target.x,
     d.target.y,
-    targetNodeWidth,
-    targetNodeHeight
+    nodeWidth,
+    targetNodeHeight,
   ];
   // 默认
   d.source.linkX = sourceX + sourceWidth / 2;

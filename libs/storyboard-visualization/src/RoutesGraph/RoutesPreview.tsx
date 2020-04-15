@@ -5,7 +5,6 @@ import { DndProvider, useDrag, useDragLayer, XYCoord } from "react-dnd";
 import HTML5Backend, { getEmptyImage } from "react-dnd-html5-backend";
 import { RouteGraphNode } from "./interfaces";
 import { ViewItem, ContentItemActions } from "../shared/interfaces";
-import { Icon } from "antd";
 import { ItemActionsComponent } from "../components/ItemActionsComponent";
 import { filterActions } from "../shared/processors";
 import classNames from "classnames";
@@ -117,11 +116,9 @@ export function RoutesPreview(props: RoutesPreviewProps): React.ReactElement {
   };
 
   const handleClick = (value: ViewItem) => {
-    // console.log(value,'value');
     onNodeClick?.(value);
   };
 
-  /* istanbul ignore next */
   const handleToolBarClick = (e: React.MouseEvent): void => {
     e.stopPropagation();
   };
@@ -150,7 +147,6 @@ export function RoutesPreview(props: RoutesPreviewProps): React.ReactElement {
           >
             <span
               key={item.originalData.id}
-              style={{ width: 200 }}
               onClick={() => handleClick(item.originalData)}
               className={classNames(styles.previewTag, {
                 [styles.contentItemEllipsisButtonAvailable]: ellipsisButtonAvailable,
@@ -172,7 +168,6 @@ export function RoutesPreview(props: RoutesPreviewProps): React.ReactElement {
           </Item>
         );
       })}
-      <Icon type="drag" className={styles.dragIcon} />
     </DndProvider>
   );
 }

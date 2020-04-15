@@ -24,66 +24,68 @@ export const viewTypeConfig: Record<
   cardList: {
     component: <CardListSvg />,
     width: 121,
-    height: 160
+    height: 160,
   },
   dashboard: {
     component: <DashboardSvg />,
     width: 121,
-    height: 160
+    height: 160,
   },
   dialog: {
     component: <DialogSvg />,
     width: 99,
-    height: 60
+    height: 60,
   },
   drawer: {
     component: <DrawerSvg />,
     width: 79,
-    height: 145
+    height: 145,
   },
   form: {
     component: <FormSvg />,
     width: 121,
-    height: 115
+    height: 115,
   },
   guide: {
     component: <GuideSvg />,
     width: 121,
-    height: 115
+    height: 115,
   },
   kanban: {
     component: <KanbanSvg />,
     width: 121,
-    height: 160
+    height: 160,
   },
   menu: {
     component: <MenuSvg />,
     width: 37,
-    height: 37
+    height: 37,
   },
   mixed: {
     component: <MixedSvg />,
     width: 121,
-    height: 160
+    height: 160,
   },
   subview: {
     component: <SubviewSvg />,
     width: 121,
-    height: 115
+    height: 115,
   },
   tableList: {
     component: <TableListSvg />,
     width: 121,
-    height: 160
+    height: 160,
   },
   tabs: {
     component: <TabsSvg />,
     width: 121,
-    height: 160
+    height: 160,
   },
   default: {
     component: <DefaultSvg />,
     width: 121,
-    height: 160
-  }
+    height: 160,
+  },
 };
+
+export const nodeWidth = 160;

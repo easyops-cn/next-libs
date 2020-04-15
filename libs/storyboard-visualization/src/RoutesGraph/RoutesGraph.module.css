@@ -33,6 +33,13 @@
   stroke-width: 1;
 }
 
+.referenceLine path {
+  fill: none;
+  stroke: var(--theme-red-color);
+  stroke-width: 1;
+  stroke-dasharray: 4;
+}
+
 .arrowMarker path {
   fill: #b9b9b9;
 }

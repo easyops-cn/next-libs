@@ -11,6 +11,9 @@ import {
   reject,
   findIndex,
   maxBy,
+  minBy,
+  sortBy,
+  map,
 } from "lodash";
 import classNames from "classnames";
 import { RouteNodeComponent } from "./RouteNodeComponent";
@@ -21,6 +24,7 @@ import { XYCoord } from "react-dnd";
 import styles from "./RoutesGraph.module.css";
 import { getLinkPath } from "./processors";
 import { ViewItem, ContentItemActions } from "../shared/interfaces";
+import { nodeWidth } from "./constants";
 
 interface RenderOptions {
   contentItemActions?: ContentItemActions;
@@ -56,6 +60,12 @@ export class RoutesGraph {
     null,
     undefined
   >;
+  private readonly referenceLinesContainer: Selection<
+    SVGGElement,
+    undefined,
+    null,
+    undefined
+  >;
   private readonly nodesContainer: Selection<
     HTMLDivElement,
     undefined,
@@ -75,6 +85,12 @@ export class RoutesGraph {
     HTMLDivElement,
     undefined
   >;
+  private referenceLines: Selection<
+    SVGGElement,
+    { x1: number; y1: number; x2: number; y2: number },
+    SVGGElement,
+    undefined
+  >;
 
   private onNodeClick: (node: ViewItem) => void;
   private onNodeDrag: (node: ViewItem) => void;
@@ -84,18 +100,168 @@ export class RoutesGraph {
   private routesData: any[];
 
   /* istanbul ignore next */
+  getReferenceLinesAndResultPosition(
+    resultX: number,
+    resultY: number,
+    d: RouteGraphNode
+  ): {
+    x: number;
+    y: number;
+    lines: { x1: number; y1: number; x2: number; y2: number }[];
+  } {
+    let x = resultX;
+    let y = resultY;
+    // 参考线阀值
+    const threshold = 6;
+    const nodesData = this.nodes.data();
+    // leftPoint
+    const leftPointXNode = minBy(nodesData, (item) => {
+      if (item.originalData.id !== d.originalData.id) {
+        return Math.abs(resultX - item.x);
+      }
+    });
+    const relativeX = Math.abs(resultX - leftPointXNode.x);
+    const lines = [];
+    if (relativeX < threshold) {
+      x = leftPointXNode.x;
+      const sortNodes = sortBy([d, leftPointXNode], (item) => item.y);
+      lines.push(
+        ...[
+          {
+            x1: x,
+            y1: sortNodes[0].y,
+            x2: x,
+            y2: sortNodes[1].node.offsetHeight + sortNodes[1].y,
+          },
+          {
+            x1: x + nodeWidth / 2,
+            y1: sortNodes[0].y + sortNodes[0].node.offsetHeight,
+            x2: x + nodeWidth / 2,
+            y2: sortNodes[1].y,
+          },
+          {
+            x1: x + nodeWidth,
+            y1: sortNodes[0].y,
+            x2: x + nodeWidth,
+            y2: sortNodes[1].node.offsetHeight + sortNodes[1].y,
+          },
+        ]
+      );
+    }
+    const options = [];
+    // topY
+    const topYNode = minBy(nodesData, (item) => {
+      if (item.originalData.id !== d.originalData.id) {
+        return Math.abs(resultY - item.y);
+      }
+    });
+    const relativeY = Math.abs(resultY - topYNode.y);
+    if (relativeY < threshold) {
+      const sortNodes = sortBy([d, topYNode], (item) => item.x);
+      options.push({
+        relativeY,
+        resultY: topYNode.y,
+        line: {
+          x1: sortNodes[0].x,
+          y1: topYNode.y,
+          x2: sortNodes[1].node.offsetWidth + sortNodes[1].x,
+          y2: topYNode.y,
+        },
+      });
+    }
+    // bottomY
+    const bottomYNode = minBy(nodesData, (item) => {
+      if (item.originalData.id !== d.originalData.id) {
+        return Math.abs(
+          resultY + d.node.offsetHeight - (item.y + item.node.offsetHeight)
+        );
+      }
+    });
+    const relativeYOfBottom = Math.abs(
+      resultY +
+        d.node.offsetHeight -
+        (bottomYNode.y + bottomYNode.node.offsetHeight)
+    );
+    if (relativeYOfBottom < threshold) {
+      const sortNodes = sortBy([d, bottomYNode], (item) => item.x);
+      options.push({
+        relativeY: relativeYOfBottom,
+        resultY:
+          bottomYNode.y + bottomYNode.node.offsetHeight - d.node.offsetHeight,
+        line: {
+          x1: sortNodes[0].x,
+          y1: bottomYNode.y + bottomYNode.node.offsetHeight,
+          x2: sortNodes[1].x + sortNodes[1].node.offsetWidth,
+          y2: bottomYNode.y + bottomYNode.node.offsetHeight,
+        },
+      });
+    }
+    // midY
+    const midYNode = minBy(nodesData, (item) => {
+      if (item.originalData.id !== d.originalData.id) {
+        return Math.abs(
+          resultY +
+            d.node.offsetHeight / 2 -
+            (item.y + item.node.offsetHeight / 2)
+        );
+      }
+    });
+    const relativeYOfMid = Math.abs(
+      resultY +
+        d.node.offsetHeight / 2 -
+        (midYNode.y + midYNode.node.offsetHeight / 2)
+    );
+    if (relativeYOfMid < threshold) {
+      const sortNodes = sortBy([d, midYNode], (item) => item.x);
+      options.push({
+        relativeY: relativeYOfMid,
+        resultY:
+          midYNode.y + midYNode.node.offsetHeight / 2 - d.node.offsetHeight / 2,
+        line: {
+          x1: sortNodes[0].x + sortNodes[0].node.offsetWidth,
+          y1: midYNode.y + midYNode.node.offsetHeight / 2,
+          x2: sortNodes[1].x,
+          y2: midYNode.y + midYNode.node.offsetHeight / 2,
+        },
+      });
+    }
+    if (options.length) {
+      const filteredOptions = filter(options, (option) => option.relativeY < 3);
+      if (filteredOptions.length > 0) {
+        lines.push(...map(filteredOptions, "line"));
+        y = filteredOptions[0].resultY;
+      } else {
+        const minOption = minBy(options, (option) => option.relativeY);
+        lines.push(minOption.line);
+        y = minOption.resultY;
+      }
+    }
+    return {
+      x,
+      y,
+      lines,
+    };
+  }
+
+  /* istanbul ignore next */
   onDragSvg(d: RouteGraphNode): void {
     if (!this.readOnly) {
       const { dx, dy } = d3Event;
-      const resultX = d.node.offsetLeft + dx;
-      const resultY = d.node.offsetTop + dy;
-      d.x = resultX;
-      d.y = resultY;
+      const targetX = d.node.offsetLeft + dx;
+      const targetY = d.node.offsetTop + dy;
+      const result = this.getReferenceLinesAndResultPosition(
+        targetX,
+        targetY,
+        d
+      );
+      d.x = result.x;
+      d.y = result.y;
       select<HTMLDivElement, RouteGraphNode>(d.node)
         .style("left", (d) => `${d.x}px`)
         .style("top", (d, i) => {
           return `${d.y}px`;
         });
+      this.updateReferenceLines(result.lines);
       this.renderLink();
       this.getCanvasSize();
     }
@@ -120,6 +286,7 @@ export class RoutesGraph {
           graphInfo: newData[index].originalData.graphInfo,
           instanceId: d.originalData.instanceId,
         });
+        this.updateReferenceLines([]);
         return;
       }
       this.onNodeDrag?.({
@@ -127,7 +294,25 @@ export class RoutesGraph {
         graphInfo: { ...d.originalData.graphInfo, x: d.x, y: d.y },
         instanceId: d.originalData.instanceId,
       });
+      this.updateReferenceLines([]);
     }
+  }
+
+  /* istanbul ignore next */
+  updateReferenceLines(
+    lines: { x1: number; y1: number; x2: number; y2: number }[]
+  ): void {
+    this.referenceLines = this.referenceLines
+      .data(lines, (d) => `M${d.x1},${d.y1}L${d.x2},${d.y2}`)
+      .join((enter) => {
+        const link = enter.append("g");
+        link.append("path");
+        return link;
+      })
+      .attr("class", classNames(styles.referenceLine));
+    this.referenceLines?.selectAll("path").attr("d", (d: any) => {
+      return `M${d.x1},${d.y1}L${d.x2},${d.y2}`;
+    });
   }
 
   constructor() {
@@ -158,6 +343,8 @@ export class RoutesGraph {
       .attr("d", "M 0 0 L 10 5 L 0 10 z");
     this.linksContainer = this.linksLayer.append("g");
     this.links = this.linksContainer.selectAll("g");
+    this.referenceLinesContainer = this.linksLayer.append("g");
+    this.referenceLines = this.referenceLinesContainer.selectAll("g");
     this.nodesContainer = this.nodesLayer
       .append("div")
       .attr("class", styles.nodesContainer);
@@ -306,7 +493,11 @@ export class RoutesGraph {
     const edges = this.getEdges(graphData);
 
     this.links = this.links
-      .data(edges)
+      .data(
+        edges,
+        (d) =>
+          `sourceId${d.source.originalData.id}targetId${d.target.originalData.id}`
+      )
       .join((enter) => {
         const link = enter.append("g");
         link.append("path").attr("marker-end", `url(#${this.arrowMarkerId})`);
@@ -334,16 +525,17 @@ export class RoutesGraph {
   getCanvasSize(): void {
     const graphNodesData = this.nodes.data();
     const padding = 20;
+    const margin = 20;
     const maxXItem = maxBy(graphNodesData, (item) => {
       // 固定宽度
-      return item.x + 160 + padding;
+      return item.x + nodeWidth + padding;
     });
-    const maxX = maxXItem ? maxXItem.x + 160 + padding : "100%";
+    const maxX = maxXItem ? maxXItem.x + nodeWidth + padding + margin : "100%";
     const maxYItem = maxBy(graphNodesData, (item) => {
       return item.y + item.nodeConfig?.height + padding + 52;
     });
     const maxY = maxYItem
-      ? maxYItem.y + maxYItem.nodeConfig?.height + padding + 52
+      ? maxYItem.y + maxYItem.nodeConfig?.height + padding + margin + 52
       : "100%";
     this.linksLayer.attr("width", maxX);
     this.linksLayer.attr("height", maxY);
@@ -358,6 +550,10 @@ export class RoutesGraph {
     const offsetX = 20;
     const offsetY = 20;
     this.linksContainer.attr("transform", `translate(${offsetX},${offsetY})`);
+    this.referenceLinesContainer.attr(
+      "transform",
+      `translate(${offsetX},${offsetY})`
+    );
     this.nodesContainer
       .style("left", `${offsetX}px`)
       .style("top", `${offsetY}px`);
