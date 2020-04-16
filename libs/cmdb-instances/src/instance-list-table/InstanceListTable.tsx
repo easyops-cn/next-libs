@@ -119,10 +119,12 @@ export class LegacyInstanceListTable extends React.Component<
         pageSizeOptions: this.props.pageSizeOptions,
         showSizeChanger: this.props.showSizeChanger,
         total: this.props.instanceListData.total,
-        showTotal: (total) => (
-          <div>
-            <span>共 {total} 项</span>
-          </div>
+        showTotal: totals => (
+          <span className={styles.totalText}>
+            共
+            <strong className={styles.total}>{totals}</strong>{" "}
+            项
+          </span>
         ),
         current: this.props.instanceListData.page,
         pageSize: this.props.instanceListData.page_size,

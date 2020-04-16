@@ -13,3 +13,13 @@
   white-space: unset;
   text-overflow: unset;
 }
+
+.totalText {
+  color: #bfbfbf;
+
+}
+
+.totalText .total {
+    font-weight: normal;
+    color: #595959;
+}
