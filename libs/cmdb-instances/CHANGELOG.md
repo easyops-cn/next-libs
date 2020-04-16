@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.9](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@1.3.8...@libs/cmdb-instances@1.3.9) (2020-04-16)
+
+### Bug Fixes
+
+- pagination style set refs CMDB_EXTEND-64 ([0dfa568](https://git.easyops.local/anyclouds/next-libs/commits/0dfa568))
+
 ## [1.3.8](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@1.3.7...@libs/cmdb-instances@1.3.8) (2020-04-15)
 
 ### Bug Fixes

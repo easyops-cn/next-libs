@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.15.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.14.3...@libs/forms@0.15.0) (2020-04-16)
+
+### Features
+
+- **forms:** formatOptions 支持布尔类型 ([37a070c](https://git.easyops.local/anyclouds/next-libs/commits/37a070c))
+
 ## [0.14.3](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.14.2...@libs/forms@0.14.3) (2020-04-14)
 
 **Note:** Version bump only for package @libs/forms
