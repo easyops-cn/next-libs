@@ -4,17 +4,20 @@ import { GeneralOption, GeneralComplexOption } from "./interfaces";
 
 export function formatOptions(
   options: GeneralOption[] = [],
-  fields?: Partial<GeneralComplexOption>
+  fields?: { label?: string; value?: string }
 ) {
-  return options.map(op => {
+  return options.map((op) => {
     if (typeof op === "number" || typeof op === "string") {
       return { label: op, value: op };
+    }
+    if (typeof op === "boolean") {
+      return { label: String(op), value: op };
     }
     if (fields) {
       return {
         ...op,
         label: get(op, fields.label || "label"),
-        value: get(op, fields.value || "value")
+        value: get(op, fields.value || "value"),
       };
     }
     return { ...op, label: op.label, value: op.value };

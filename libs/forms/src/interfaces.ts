@@ -14,10 +14,11 @@ export interface AbstractGeneralFormElement extends HTMLElement {
 export type GeneralOption =
   | string
   | number
+  | boolean
   | GeneralComplexOption
   | Record<string, any>;
 
-export interface GeneralComplexOption<T = string | number> {
+export interface GeneralComplexOption<T = string | number | boolean> {
   label: string;
   value: T;
 }

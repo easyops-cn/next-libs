@@ -9,46 +9,62 @@ describe("formatOptions", () => {
     expect(result).toEqual([
       {
         label: "a",
-        value: "a"
+        value: "a",
       },
       {
         label: "b",
-        value: "b"
+        value: "b",
       },
       {
         label: 3,
-        value: 3
+        value: 3,
       },
       {
         label: 4,
-        value: 4
-      }
+        value: 4,
+      },
+    ]);
+  });
+  it("should return format options if the input data is boolean type", () => {
+    const optons = [true, false];
+
+    const result = formatOptions(optons);
+
+    expect(result).toEqual([
+      {
+        label: "true",
+        value: true,
+      },
+      {
+        label: "false",
+        value: false,
+      },
     ]);
   });
 
   it.each([{}, ""])(
     "should return origin data if the input data is object type",
-    fields => {
+    (fields) => {
       const optons = [
         {
           label: "a",
-          value: "a"
+          value: "a",
         },
         {
           label: "b",
-          value: "b"
-        }
+          value: "b",
+        },
       ];
       const result = formatOptions(optons, fields);
       expect(result).toEqual([
         {
           label: "a",
-          value: "a"
+          value: "a",
         },
         {
           label: "b",
-          value: "b"
-        }
+          value: "b",
+        },
       ]);
     }
   );
@@ -63,12 +79,12 @@ describe("formatOptions", () => {
     const optons = [
       {
         aaa: "a",
-        bbb: "a"
+        bbb: "a",
       },
       {
         aaa: "b",
-        bbb: "b"
-      }
+        bbb: "b",
+      },
     ];
 
     const result = formatOptions(optons, { label: "aaa", value: "bbb" });
@@ -77,14 +93,14 @@ describe("formatOptions", () => {
         aaa: "a",
         bbb: "a",
         label: "a",
-        value: "a"
+        value: "a",
       },
       {
         aaa: "b",
         bbb: "b",
         label: "b",
-        value: "b"
-      }
+        value: "b",
+      },
     ]);
   });
 
@@ -93,32 +109,32 @@ describe("formatOptions", () => {
       {
         aabb: {
           aaa: "a",
-          bbb: "a"
-        }
+          bbb: "a",
+        },
       },
       {
         aabb: {
           aaa: "b",
-          bbb: "b"
-        }
-      }
+          bbb: "b",
+        },
+      },
     ];
 
     const result = formatOptions(optons, {
       label: "aabb.aaa",
-      value: "aabb.bbb"
+      value: "aabb.bbb",
     });
     expect(result).toEqual([
       {
         aabb: { aaa: "a", bbb: "a" },
         label: "a",
-        value: "a"
+        value: "a",
       },
       {
         aabb: { aaa: "b", bbb: "b" },
         label: "b",
-        value: "b"
-      }
+        value: "b",
+      },
     ]);
   });
 });
