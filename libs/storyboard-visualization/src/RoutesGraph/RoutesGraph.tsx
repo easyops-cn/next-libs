@@ -302,11 +302,16 @@ export class RoutesGraph {
         this.updateReferenceLines([]);
         return;
       }
-      this.onNodeDrag?.({
-        id: d.originalData.id,
-        graphInfo: { ...d.originalData.graphInfo, x: d.x, y: d.y },
-        instanceId: d.originalData.instanceId,
-      });
+      if (
+        d.originalData?.graphInfo?.x !== d.x ||
+        d.originalData?.graphInfo?.y !== d.y
+      ) {
+        this.onNodeDrag?.({
+          id: d.originalData.id,
+          graphInfo: { ...d.originalData.graphInfo, x: d.x, y: d.y },
+          instanceId: d.originalData.instanceId,
+        });
+      }
       this.updateReferenceLines([]);
     }
   }
