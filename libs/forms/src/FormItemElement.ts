@@ -1,13 +1,13 @@
 import ReactDOM from "react-dom";
 import { UpdatingElement, property } from "@easyops/brick-kit";
 import { ValidationRule } from "antd/lib/form";
+import { ColProps } from "antd/lib/col";
 
 import {
   AbstractGeneralFormElement,
   LabelTooltipProps,
   HelpBrickProps,
 } from "./interfaces";
-import { FormItemLayout } from "./FormItemWrapper";
 
 export abstract class FormItemElement extends UpdatingElement {
   readonly isFormItemElement = true;
@@ -59,7 +59,12 @@ export abstract class FormItemElement extends UpdatingElement {
   @property({
     attribute: false,
   })
-  layout: FormItemLayout;
+  labelCol: ColProps;
+
+  @property({
+    attribute: false,
+  })
+  wrapperCol: ColProps;
 
   getFormElement(): AbstractGeneralFormElement {
     // eslint-disable-next-line @typescript-eslint/no-this-alias

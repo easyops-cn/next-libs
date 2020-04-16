@@ -49,7 +49,8 @@ export interface FormItemWrapperProps extends CommonEventProps {
   validateTrigger?: string;
   valuePropName?: string;
   asyncForceRerender?: boolean;
-  layout?: FormItemLayout;
+  labelCol?: ColProps;
+  wrapperCol?: ColProps;
 }
 
 export function getRules(props: FormItemWrapperProps): ValidationRule[] {
@@ -194,6 +195,8 @@ export function FormItemWrapper(
     validateTrigger = "onChange",
     valuePropName = "value",
     asyncForceRerender,
+    wrapperCol,
+    labelCol,
   } = props;
   const [, setId] = useState(0);
 
@@ -259,10 +262,16 @@ export function FormItemWrapper(
     }
 
     if (formElement.layout === "horizontal") {
-      const layout = props.layout || {
-        labelCol: formElement.labelCol,
-        wrapperCol: formElement.wrapperCol,
-      };
+      const layout =
+        labelCol || wrapperCol
+          ? {
+              labelCol,
+              wrapperCol,
+            }
+          : {
+              labelCol: formElement.labelCol,
+              wrapperCol: formElement.wrapperCol,
+            };
 
       Object.assign(
         formItemProps,
