@@ -10,7 +10,7 @@ import { ColProps, ColSize } from "antd/lib/grid";
 import {
   AbstractGeneralFormElement,
   LabelTooltipProps,
-  HelpBrickProps
+  HelpBrickProps,
 } from "./interfaces";
 import classNames from "classnames";
 import style from "./FormItemWrapper.module.css";
@@ -49,17 +49,18 @@ export interface FormItemWrapperProps extends CommonEventProps {
   validateTrigger?: string;
   valuePropName?: string;
   asyncForceRerender?: boolean;
+  layout?: FormItemLayout;
 }
 
 export function getRules(props: FormItemWrapperProps): ValidationRule[] {
   const rules: ValidationRule[] = [];
 
-  ["required", "min", "max", "pattern"].forEach(attr => {
+  ["required", "min", "max", "pattern"].forEach((attr) => {
     const value = props[attr as keyof FormItemWrapperProps];
     if (value) {
       rules.push({
         [attr]: attr === "pattern" ? new RegExp(value as string) : value,
-        message: get(props.message, attr, getDefaultMessage(attr, props))
+        message: get(props.message, attr, getDefaultMessage(attr, props)),
       });
     }
   });
@@ -93,13 +94,13 @@ export function getCommonEventMap(
     "onBlur",
     "onPressEnter",
     "onMouseEnter",
-    "onMouseLeave"
+    "onMouseLeave",
   ];
   const eventMap = {} as any;
 
   const children = props.children as React.ReactElement;
 
-  supportEvent.forEach(eventName => {
+  supportEvent.forEach((eventName) => {
     const fn = props[eventName as keyof CommonEventProps];
 
     // 过滤掉子组件存在已绑定的同名事件
@@ -111,7 +112,7 @@ export function getCommonEventMap(
   return eventMap;
 }
 
-interface FormItemLayout {
+export interface FormItemLayout {
   wrapperCol?: ColProps;
   labelCol?: ColProps;
 }
@@ -142,7 +143,7 @@ export function addLabelSizeToWrapperOffset(
 
   return {
     span: wrapperSpan,
-    offset
+    offset,
   };
 }
 
@@ -155,7 +156,7 @@ export function convertLabelSpanToWrapperOffset(
   if (wrapperCol && labelCol) {
     if (wrapperCol.span !== undefined) {
       convertedLayout = {
-        wrapperCol: addLabelSizeToWrapperOffset(wrapperCol, labelCol)
+        wrapperCol: addLabelSizeToWrapperOffset(wrapperCol, labelCol),
       };
     } else {
       const convertedWrapperCol: ColProps = {};
@@ -171,7 +172,7 @@ export function convertLabelSpanToWrapperOffset(
       });
 
       convertedLayout = {
-        wrapperCol: convertedWrapperCol
+        wrapperCol: convertedWrapperCol,
       };
     }
   } else {
@@ -192,7 +193,7 @@ export function FormItemWrapper(
     trigger = "onChange",
     validateTrigger = "onChange",
     valuePropName = "value",
-    asyncForceRerender
+    asyncForceRerender,
   } = props;
   const [, setId] = useState(0);
 
@@ -204,7 +205,7 @@ export function FormItemWrapper(
   let input: React.ReactNode = isEmpty(eventMap)
     ? props.children
     : (React.cloneElement(props.children as React.ReactElement, {
-        ...eventMap
+        ...eventMap,
       }) as React.ReactNode);
 
   const label = labelTooltip ? (
@@ -221,7 +222,7 @@ export function FormItemWrapper(
   );
 
   const formItemProps: Record<string, any> = {
-    label
+    label,
   };
   const { formElement } = props;
   if (formElement) {
@@ -233,7 +234,7 @@ export function FormItemWrapper(
         rules,
         trigger,
         validateTrigger,
-        valuePropName
+        valuePropName,
       })(input);
 
       if ((input as React.ReactElement)?.props) {
@@ -246,21 +247,21 @@ export function FormItemWrapper(
               // force rerender
               if (asyncForceRerender) {
                 Promise.resolve().then(() => {
-                  setId(id => ++id);
+                  setId((id) => ++id);
                 });
               } else {
-                setId(id => ++id);
+                setId((id) => ++id);
               }
             });
-          }
+          },
         });
       }
     }
 
     if (formElement.layout === "horizontal") {
-      const layout = {
+      const layout = props.layout || {
         labelCol: formElement.labelCol,
-        wrapperCol: formElement.wrapperCol
+        wrapperCol: formElement.wrapperCol,
       };
 
       Object.assign(
@@ -284,7 +285,7 @@ export function FormItemWrapper(
             [style.bottomBrick]: ["bottom", undefined].includes(
               helpBrick.placement
             ),
-            [style.rightBrick]: helpBrick.placement === "right"
+            [style.rightBrick]: helpBrick.placement === "right",
           })}
         >
           <BrickAsComponent useBrick={helpBrick.useBrick} />

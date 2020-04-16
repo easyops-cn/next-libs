@@ -5,8 +5,9 @@ import { ValidationRule } from "antd/lib/form";
 import {
   AbstractGeneralFormElement,
   LabelTooltipProps,
-  HelpBrickProps
+  HelpBrickProps,
 } from "./interfaces";
+import { FormItemLayout } from "./FormItemWrapper";
 
 export abstract class FormItemElement extends UpdatingElement {
   readonly isFormItemElement = true;
@@ -18,7 +19,7 @@ export abstract class FormItemElement extends UpdatingElement {
   label: string;
 
   @property({
-    type: Boolean
+    type: Boolean,
   })
   required: boolean;
 
@@ -29,31 +30,36 @@ export abstract class FormItemElement extends UpdatingElement {
   pattern: string;
 
   @property({
-    attribute: false
+    attribute: false,
   })
   message: Record<string, string>;
 
   @property({
-    attribute: false
+    attribute: false,
   })
   validator:
     | Pick<ValidationRule, "validator" | "message">
     | Pick<ValidationRule, "validator" | "message">[];
 
   @property({
-    attribute: false
+    attribute: false,
   })
   labelTooltip: LabelTooltipProps;
 
   @property({
-    attribute: false
+    attribute: false,
   })
   helpBrick: HelpBrickProps;
 
   @property({
-    type: Boolean
+    type: Boolean,
   })
   notRender: boolean;
+
+  @property({
+    attribute: false,
+  })
+  layout: FormItemLayout;
 
   getFormElement(): AbstractGeneralFormElement {
     // eslint-disable-next-line @typescript-eslint/no-this-alias

@@ -5,7 +5,7 @@ import {
   FormItemWrapper,
   getRules,
   getCommonEventMap,
-  FormItemWrapperProps
+  FormItemWrapperProps,
 } from "./FormItemWrapper";
 import { MenuIcon } from "@easyops/brick-types";
 import i18n from "i18next";
@@ -14,18 +14,18 @@ import { AbstractGeneralFormElement } from "./interfaces";
 jest.mock("./i18n");
 jest.spyOn(i18n, "t").mockReturnValue("default message");
 
-const mockFieldWrapperFn = jest.fn(element => element);
+const mockFieldWrapperFn = jest.fn((element) => element);
 const formElement = {
   formUtils: {
-    getFieldDecorator: jest.fn().mockReturnValue(mockFieldWrapperFn)
+    getFieldDecorator: jest.fn().mockReturnValue(mockFieldWrapperFn),
   },
   layout: "horizontal",
   labelCol: {
-    span: 4
+    span: 4,
   },
   wrapperCol: {
-    span: 14
-  }
+    span: 14,
+  },
 };
 
 describe("FormItemWrapper", () => {
@@ -34,8 +34,8 @@ describe("FormItemWrapper", () => {
       content: "这是一个 tooltips",
       icon: {
         lib: "antd",
-        type: "question-circle-o"
-      } as MenuIcon
+        type: "question-circle-o",
+      } as MenuIcon,
     };
     const wrapper = shallow(
       <FormItemWrapper
@@ -68,11 +68,11 @@ describe("FormItemWrapper", () => {
       label: "hello",
       colon: true,
       labelCol: {
-        span: 4
+        span: 4,
       },
       wrapperCol: {
-        span: 14
-      }
+        span: 14,
+      },
     });
 
     // without label
@@ -82,8 +82,8 @@ describe("FormItemWrapper", () => {
       colon: true,
       wrapperCol: {
         span: 14,
-        offset: 4
-      }
+        offset: 4,
+      },
     });
 
     // with responsive layout
@@ -91,8 +91,8 @@ describe("FormItemWrapper", () => {
       formElement: ({
         ...formElement,
         labelCol: { xs: 24, md: { span: 12 }, xl: { span: 10, offset: 2 } },
-        wrapperCol: { xs: 24, md: { span: 12 }, xl: { span: 10, offset: 2 } }
-      } as unknown) as AbstractGeneralFormElement
+        wrapperCol: { xs: 24, md: { span: 12 }, xl: { span: 10, offset: 2 } },
+      } as unknown) as AbstractGeneralFormElement,
     });
     expect(wrapper.find(Form.Item).props()).toMatchObject({
       label: undefined,
@@ -100,8 +100,14 @@ describe("FormItemWrapper", () => {
       wrapperCol: {
         xs: { span: 24, offset: 0 },
         md: { span: 12, offset: 12 },
-        xl: { span: 10, offset: 14 }
-      }
+        xl: { span: 10, offset: 14 },
+      },
+    });
+
+    // override formElement
+    wrapper.setProps({ layout: { wrapperCol: { span: 24 } } });
+    expect(wrapper.find(Form.Item).props()).toMatchObject({
+      wrapperCol: { span: 24 },
     });
   });
 
@@ -172,8 +178,8 @@ describe("FormItemWrapper", () => {
       const props = {
         required: true,
         message: {
-          required: "为必填项"
-        }
+          required: "为必填项",
+        },
       };
 
       const result = getRules(props);
@@ -181,14 +187,14 @@ describe("FormItemWrapper", () => {
       expect(result).toEqual([
         {
           required: true,
-          message: "为必填项"
-        }
+          message: "为必填项",
+        },
       ]);
     });
 
     it("validate without message", () => {
       const props = {
-        min: 8
+        min: 8,
       };
 
       const result = getRules(props);
@@ -196,8 +202,8 @@ describe("FormItemWrapper", () => {
       expect(result).toEqual([
         {
           min: 8,
-          message: "default message"
-        }
+          message: "default message",
+        },
       ]);
     });
 
@@ -205,22 +211,22 @@ describe("FormItemWrapper", () => {
       const props = {
         pattern: "[\\w+]{6}",
         message: {
-          pattern: "至少超过6个字符"
-        }
+          pattern: "至少超过6个字符",
+        },
       };
       const result = getRules(props);
 
       expect(result).toEqual([
         {
           message: "至少超过6个字符",
-          pattern: /[\w+]{6}/
-        }
+          pattern: /[\w+]{6}/,
+        },
       ]);
     });
 
     it("return empty rule if don't support this validated attribute", () => {
       const props = {
-        autofocus: true
+        autofocus: true,
       };
 
       const result = getRules(props);
@@ -238,23 +244,23 @@ describe("FormItemWrapper", () => {
       };
 
       const result = getRules({
-        validator: validatorFn
+        validator: validatorFn,
       });
 
       expect(result).toEqual([
         {
-          validator: validatorFn
-        }
+          validator: validatorFn,
+        },
       ]);
 
       const result2 = getRules({
-        validator: { validator: validatorFn }
+        validator: { validator: validatorFn },
       });
 
       expect(result2).toEqual([
         {
-          validator: validatorFn
-        }
+          validator: validatorFn,
+        },
       ]);
 
       const validatorFn2 = (rule: any, value: string, callback: Function) => {
@@ -268,29 +274,29 @@ describe("FormItemWrapper", () => {
       const result3 = getRules({
         required: true,
         message: {
-          required: "此项为必填项"
+          required: "此项为必填项",
         },
         validator: [
           {
-            validator: validatorFn
+            validator: validatorFn,
           },
           {
-            validator: validatorFn2
-          }
-        ]
+            validator: validatorFn2,
+          },
+        ],
       });
 
       expect(result3).toEqual([
         {
           required: true,
-          message: "此项为必填项"
+          message: "此项为必填项",
         },
         {
-          validator: validatorFn
+          validator: validatorFn,
         },
         {
-          validator: validatorFn2
-        }
+          validator: validatorFn2,
+        },
       ]);
     });
 
@@ -300,14 +306,14 @@ describe("FormItemWrapper", () => {
         const props = {
           onKeyDown: mockFn,
           children: {
-            props: {}
-          }
+            props: {},
+          },
         };
 
         const result = getCommonEventMap(props);
 
         expect(result).toEqual({
-          onKeyDown: mockFn
+          onKeyDown: mockFn,
         });
       });
 
@@ -318,9 +324,9 @@ describe("FormItemWrapper", () => {
           onKeyDown: mockFn,
           children: {
             props: {
-              onKeyDown: childrenFn
-            }
-          }
+              onKeyDown: childrenFn,
+            },
+          },
         };
 
         const result = getCommonEventMap(props);
