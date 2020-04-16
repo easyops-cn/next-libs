@@ -114,6 +114,13 @@ export class RoutesGraph {
     // 参考线阀值
     const threshold = 6;
     const nodesData = this.nodes.data();
+    if (nodesData.length < 2) {
+      return {
+        x,
+        y,
+        lines: [],
+      };
+    }
     // leftPoint
     const leftPointXNode = minBy(nodesData, (item) => {
       if (item.originalData.id !== d.originalData.id) {
