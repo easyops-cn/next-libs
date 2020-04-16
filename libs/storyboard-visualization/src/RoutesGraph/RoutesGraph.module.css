@@ -1,13 +1,15 @@
 .canvas {
   position: relative;
   max-height: inherit;
+  min-height: 200px;
   overflow: auto;
+  border: 1px dashed #d7d7d9;
+  border-radius: 5px;
 }
 
 .routesPreviewContainer {
   max-height: inherit;
   overflow: auto;
-  border-right: 1px solid #d7d7d9;
 }
 
 .linksLayer,
@@ -29,6 +31,13 @@
   fill: none;
   stroke: #b9b9b9;
   stroke-width: 1;
+}
+
+.referenceLine path {
+  fill: none;
+  stroke: var(--theme-red-color);
+  stroke-width: 1;
+  stroke-dasharray: 4;
 }
 
 .arrowMarker path {

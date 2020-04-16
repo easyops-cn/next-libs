@@ -24,12 +24,10 @@ export function RouteNodeComponent(
 ): React.ReactElement {
   const { originalData, onNodeClick, contentItemActions } = props;
 
-  /* istanbul ignore next */
   const handleNodeClick = (): void => {
     onNodeClick?.(originalData);
   };
 
-  /* istanbul ignore next */
   const handleToolBarClick = (e: React.MouseEvent): void => {
     e.stopPropagation();
   };
@@ -42,7 +40,7 @@ export function RouteNodeComponent(
     <div className={styles.routeNodeContainer} onClick={handleNodeClick}>
       <div
         className={classNames(styles.routeTitle, {
-          [styles.contentItemEllipsisButtonAvailable]: ellipsisButtonAvailable
+          [styles.contentItemEllipsisButtonAvailable]: ellipsisButtonAvailable,
         })}
       >
         {originalData.alias ?? originalData.path}

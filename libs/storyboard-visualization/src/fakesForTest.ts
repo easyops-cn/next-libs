@@ -2,14 +2,14 @@ import { Storyboard } from "@easyops/brick-types";
 import { StoryboardTree } from "./interfaces";
 import { GraphNode } from "./BuilderGraph";
 import { RouteGraphNode } from "./RoutesGraph";
-import { ViewItem } from "./shared/interfaces";
+import { ViewItem, ContentItemActions } from "./shared/interfaces";
 
 export function fakeStoryboard(): Storyboard {
   return {
     app: {
       id: "a",
       name: "A",
-      homepage: "/a"
+      homepage: "/a",
     },
     routes: [
       {
@@ -17,9 +17,9 @@ export function fakeStoryboard(): Storyboard {
         exact: true,
         bricks: [
           {
-            brick: "a.b-c"
-          }
-        ]
+            brick: "a.b-c",
+          },
+        ],
       },
       {
         path: "${APP.homepage}/x",
@@ -34,23 +34,23 @@ export function fakeStoryboard(): Storyboard {
                     path: "${APP.homepage}/x/y",
                     bricks: [
                       {
-                        brick: "x.y-a"
-                      }
-                    ]
-                  }
-                ]
+                        brick: "x.y-a",
+                      },
+                    ],
+                  },
+                ],
               },
               b: {
                 type: "bricks",
                 bricks: [
                   {
-                    brick: "x.y-b"
-                  }
-                ]
-              }
-            }
-          }
-        ]
+                    brick: "x.y-b",
+                  },
+                ],
+              },
+            },
+          },
+        ],
       },
       {
         path: "${APP.homepage}/r",
@@ -60,17 +60,17 @@ export function fakeStoryboard(): Storyboard {
             path: "${APP.homepage}/r/o",
             bricks: [
               {
-                brick: "x.y-c"
-              }
-            ]
-          }
-        ]
+                brick: "x.y-c",
+              },
+            ],
+          },
+        ],
       },
       {
         path: "${APP.homepage}/m",
-        redirect: "${APP.homepage}/n"
-      }
-    ]
+        redirect: "${APP.homepage}/n",
+      },
+    ],
   };
 }
 
@@ -79,25 +79,25 @@ export function fakeTree(): StoryboardTree {
     appData: {
       homepage: "/a",
       id: "a",
-      name: "A"
+      name: "A",
     },
     children: [
       {
         brickData: {
-          brick: "a.b-c"
+          brick: "a.b-c",
         },
         brickType: "routed",
         children: undefined,
         groupIndex: 0,
         routeData: {
           path: "${APP.homepage}",
-          exact: true
+          exact: true,
         },
-        type: "brick"
+        type: "brick",
       },
       {
         brickData: {
-          brick: "x.y-z"
+          brick: "x.y-z",
         },
         brickType: "routed",
         children: [
@@ -105,71 +105,71 @@ export function fakeTree(): StoryboardTree {
             children: [
               {
                 brickData: {
-                  brick: "x.y-a"
+                  brick: "x.y-a",
                 },
                 brickType: "routed",
                 children: undefined,
                 groupIndex: 0,
                 routeData: {
-                  path: "${APP.homepage}/x/y"
+                  path: "${APP.homepage}/x/y",
                 },
-                type: "brick"
-              }
+                type: "brick",
+              },
             ],
             groupIndex: 0,
             routeType: "slotted",
             slotName: "a",
-            type: "routes"
+            type: "routes",
           },
           {
             brickData: {
-              brick: "x.y-b"
+              brick: "x.y-b",
             },
             brickType: "slotted",
             children: undefined,
             groupIndex: 1,
             slotName: "b",
-            type: "brick"
-          }
+            type: "brick",
+          },
         ],
         groupIndex: 1,
         routeData: {
-          path: "${APP.homepage}/x"
+          path: "${APP.homepage}/x",
         },
-        type: "brick"
+        type: "brick",
       },
       {
         children: [
           {
             brickData: {
-              brick: "x.y-c"
+              brick: "x.y-c",
             },
             brickType: "routed",
             children: undefined,
             groupIndex: 0,
             routeData: {
-              path: "${APP.homepage}/r/o"
+              path: "${APP.homepage}/r/o",
             },
-            type: "brick"
-          }
+            type: "brick",
+          },
         ],
         groupIndex: 2,
         routeData: {
-          path: "${APP.homepage}/r"
+          path: "${APP.homepage}/r",
         },
         routeType: "routed",
-        type: "routes"
+        type: "routes",
       },
       {
         groupIndex: 3,
         routeData: {
           path: "${APP.homepage}/m",
-          redirect: "${APP.homepage}/n"
+          redirect: "${APP.homepage}/n",
         },
-        type: "redirect"
-      }
+        type: "redirect",
+      },
     ],
-    type: "app"
+    type: "app",
   };
 }
 
@@ -188,23 +188,23 @@ export function fakeBuilderGraphSource(): ViewItem[] {
             {
               alias: "brick: 4",
               type: "brick",
-              mountPoint: "m11"
-            }
-          ]
+              mountPoint: "m11",
+            },
+          ],
         },
         {
           alias: "provider: 1",
           type: "provider",
-          mountPoint: "m2"
+          mountPoint: "m2",
         },
         {
           alias: "template: 1",
           type: "template",
           mountPoint: "m1",
-          sort: 1
-        }
-      ]
-    }
+          sort: 1,
+        },
+      ],
+    },
   ];
 }
 
@@ -221,9 +221,9 @@ export function fakeBuilderGraphNode(): GraphNode {
             {
               alias: "provider: 1",
               type: "provider",
-              mountPoint: "m2"
-            }
-          ]
+              mountPoint: "m2",
+            },
+          ],
         },
         {
           name: "m1",
@@ -233,7 +233,7 @@ export function fakeBuilderGraphNode(): GraphNode {
               alias: "template: 1",
               type: "template",
               mountPoint: "m1",
-              sort: 1
+              sort: 1,
             },
             {
               alias: "brick: 3",
@@ -244,13 +244,13 @@ export function fakeBuilderGraphNode(): GraphNode {
                 {
                   alias: "brick: 4",
                   type: "brick",
-                  mountPoint: "m11"
-                }
-              ]
-            }
-          ]
-        }
-      ]
+                  mountPoint: "m11",
+                },
+              ],
+            },
+          ],
+        },
+      ],
     },
     originalData: {
       alias: "brick: 2",
@@ -265,22 +265,22 @@ export function fakeBuilderGraphNode(): GraphNode {
             {
               alias: "brick: 4",
               type: "brick",
-              mountPoint: "m11"
-            }
-          ]
+              mountPoint: "m11",
+            },
+          ],
         },
         {
           alias: "provider: 1",
           type: "provider",
-          mountPoint: "m2"
+          mountPoint: "m2",
         },
         {
           alias: "template: 1",
           type: "template",
           mountPoint: "m1",
-          sort: 1
-        }
-      ]
+          sort: 1,
+        },
+      ],
     },
     height: 195,
     children: [
@@ -296,11 +296,11 @@ export function fakeBuilderGraphNode(): GraphNode {
                 {
                   alias: "brick: 4",
                   type: "brick",
-                  mountPoint: "m11"
-                }
-              ]
-            }
-          ]
+                  mountPoint: "m11",
+                },
+              ],
+            },
+          ],
         },
         originalData: {
           alias: "brick: 3",
@@ -311,14 +311,14 @@ export function fakeBuilderGraphNode(): GraphNode {
             {
               alias: "brick: 4",
               type: "brick",
-              mountPoint: "m11"
-            }
-          ]
+              mountPoint: "m11",
+            },
+          ],
         },
         height: 98,
-        children: []
-      }
-    ]
+        children: [],
+      },
+    ],
   };
 }
 
@@ -333,13 +333,13 @@ export function fakeRoutesGraphNodes(): RouteGraphNode[] {
         type: "bricks",
         graphInfo: {
           x: 100,
-          y: 100
-        }
+          y: 100,
+        },
       },
       nodeConfig: {
         width: 121,
-        height: 160
-      }
+        height: 160,
+      },
     },
     {
       originalData: {
@@ -350,21 +350,21 @@ export function fakeRoutesGraphNodes(): RouteGraphNode[] {
         type: "routes",
         graphInfo: {
           x: 300,
-          y: 300
+          y: 300,
         },
         segues: {
           "go-to-list": {
-            target: "/list"
+            target: "/list",
           },
           "go-to-detail": {
-            target: "/detail"
-          }
-        }
+            target: "/detail",
+          },
+        },
       },
       nodeConfig: {
         width: 121,
-        height: 160
-      }
+        height: 160,
+      },
     },
     {
       originalData: {
@@ -372,12 +372,32 @@ export function fakeRoutesGraphNodes(): RouteGraphNode[] {
         appId: "next-builder-dev",
         id: "B-3884",
         path: "${APP.homepage}",
-        type: "bricks"
+        type: "bricks",
       },
       nodeConfig: {
         width: 121,
-        height: 160
-      }
-    }
+        height: 160,
+      },
+    },
   ];
+}
+
+export function fakeContentItemActions(): ContentItemActions {
+  return {
+    useBrick: [
+      {
+        brick: "div",
+        properties: {
+          textContent: "Add View",
+        },
+        if: "@{item.type|equal:bricks}",
+      },
+      {
+        brick: "div",
+        properties: {
+          textContent: "Edit Route",
+        },
+      },
+    ],
+  };
 }
