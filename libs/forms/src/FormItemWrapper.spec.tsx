@@ -105,7 +105,7 @@ describe("FormItemWrapper", () => {
     });
 
     // override formElement
-    wrapper.setProps({ layout: { wrapperCol: { span: 24 } } });
+    wrapper.setProps({ wrapperCol: { span: 24 } });
     expect(wrapper.find(Form.Item).props()).toMatchObject({
       wrapperCol: { span: 24 },
     });
