@@ -114,6 +114,13 @@ export class RoutesGraph {
     // 参考线阀值
     const threshold = 6;
     const nodesData = this.nodes.data();
+    if (nodesData.length < 2) {
+      return {
+        x,
+        y,
+        lines: [],
+      };
+    }
     // leftPoint
     const leftPointXNode = minBy(nodesData, (item) => {
       if (item.originalData.id !== d.originalData.id) {
@@ -256,6 +263,11 @@ export class RoutesGraph {
       );
       d.x = result.x;
       d.y = result.y;
+      if (d.x < 0 || d.y < 0) {
+        this.canvas.node().style.borderColor = "red";
+      } else {
+        this.canvas.node().style.borderColor = "#d7d7d9";
+      }
       select<HTMLDivElement, RouteGraphNode>(d.node)
         .style("left", (d) => `${d.x}px`)
         .style("top", (d, i) => {
@@ -270,6 +282,7 @@ export class RoutesGraph {
   /* istanbul ignore next */
   onDragSvgEnd(d: RouteGraphNode): void {
     if (!this.readOnly) {
+      this.canvas.node().style.borderColor = "#d7d7d9";
       if (d.x < 0 || d.y < 0) {
         const index = findIndex(this.routesData, [
           "originalData.id",
