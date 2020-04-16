@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.16.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.15.0...@libs/forms@0.16.0) (2020-04-16)
+
+### Features
+
+- **forms:** FormItemWrapper 支持 layout 属性 ([bb224f9](https://git.easyops.local/anyclouds/next-libs/commits/bb224f9))
+
 # [0.15.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.14.3...@libs/forms@0.15.0) (2020-04-16)
 
 ### Features
