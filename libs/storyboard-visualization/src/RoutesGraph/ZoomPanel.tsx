@@ -1,22 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Slider, Icon } from "antd";
+import { Slider, Icon, Button } from "antd";
 import { SliderValue } from "antd/lib/slider";
-
-import style from "./style.module.css";
-// import { CustomIcon, CustomIconType } from "../../icons/CustomIcon";
+import style from "./ZoomPanel.module.css";
+import zoomIn from "./svg/zoom-in.svg";
+import zoomOut from "./svg/zoom-out.svg";
+import CenterSvg from "./svg/center.svg";
 
 interface ZoomPanelProps {
   scale: number;
   step: number;
   range: [number, number];
-  notifyScaleChange: (scale: number) => void;
-  style?: {
-    position?: "absolute" | "relative";
-    top?: number;
-    bottom?: number;
-    left?: number;
-    right?: number;
-  };
+  notifyScaleChange?: (scale: number) => void;
+  autoCenter?: () => void;
 }
 
 export function ZoomPanel(props: ZoomPanelProps): React.ReactElement {
@@ -54,33 +49,32 @@ export function ZoomPanel(props: ZoomPanelProps): React.ReactElement {
   };
 
   return (
-    <div
-      style={{ ...props.style, padding: "8px 0" }}
-      className={style.zoomPanel}
-    >
-      <Icon type="plus" onClick={zoomInClick} />
-      {/* <CustomIcon
-        type={CustomIconType.ZoomIn}
-        style={{ color: "#6C9CF9" }}
-        onClick={zoomInClick}
-      ></CustomIcon> */}
-
-      <Slider
-        vertical
-        tooltipPlacement="left"
-        tipFormatter={formatter}
-        min={min}
-        max={max}
-        step={step}
-        value={scale}
-        onChange={onChange}
-      ></Slider>
-      <Icon type="minus" onClick={zoomOutClick} />
-      {/* <CustomIcon
-        type={CustomIconType.ZoomOut}
-        style={{ color: "#6C9CF9", paddingTop: 4 }}
-        onClick={zoomOutClick}
-      ></CustomIcon> */}
-    </div>
+    <>
+      <Button className={style.centerIcon} onClick={props.autoCenter}>
+        <Icon component={CenterSvg as any} />
+      </Button>
+      <div className={style.zoomPanel}>
+        <Icon
+          style={{ color: "#6C9CF9" }}
+          component={zoomIn as any}
+          onClick={zoomInClick}
+        />
+        <Slider
+          vertical
+          tooltipPlacement="left"
+          tipFormatter={formatter}
+          min={min}
+          max={max}
+          step={step}
+          value={scale}
+          onChange={onChange}
+        ></Slider>
+        <Icon
+          style={{ color: "#6C9CF9" }}
+          component={zoomOut as any}
+          onClick={zoomOutClick}
+        />
+      </div>
+    </>
   );
 }

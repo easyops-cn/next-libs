@@ -32,11 +32,11 @@ import {
 } from "./constants";
 import { ZoomPanel } from "./ZoomPanel";
 import { zoomIdentity } from "d3-zoom";
-import { getHistory } from "@easyops/brick-kit";
 
 interface RenderOptions {
   contentItemActions?: ContentItemActions;
   onNodeClick?: (node: ViewItem) => void;
+  handleCancelLayout?: (node: ViewItem) => void;
   onNodeDrag?: (node: ViewItem) => void;
   readOnly?: boolean;
 }
@@ -106,6 +106,10 @@ export class RoutesGraph {
     undefined
   >;
   private scale = 1;
+  private width: number;
+  private height: number;
+  private offsetX = 0;
+  private offsetY = 0;
 
   private onNodeClick: (node: ViewItem) => void;
   private onNodeDrag: (node: ViewItem) => void;
@@ -269,8 +273,8 @@ export class RoutesGraph {
   onDragSvg(d: RouteGraphNode): void {
     if (!this.readOnly) {
       const { dx, dy } = d3Event;
-      const targetX = d.node.offsetLeft + dx;
-      const targetY = d.node.offsetTop + dy;
+      const targetX = d.node.offsetLeft + dx / this.scale;
+      const targetY = d.node.offsetTop + dy / this.scale;
       const result = this.getReferenceLinesAndResultPosition(
         targetX,
         targetY,
@@ -278,11 +282,6 @@ export class RoutesGraph {
       );
       d.x = result.x;
       d.y = result.y;
-      if (d.x < 0 || d.y < 0) {
-        this.canvas.node().style.borderColor = "red";
-      } else {
-        this.canvas.node().style.borderColor = "#d7d7d9";
-      }
       select<HTMLDivElement, RouteGraphNode>(d.node)
         .style("left", (d) => `${d.x}px`)
         .style("top", (d, i) => {
@@ -290,7 +289,6 @@ export class RoutesGraph {
         });
       this.updateReferenceLines(result.lines);
       this.renderLink();
-      this.getCanvasSize();
     }
   }
 
@@ -298,25 +296,6 @@ export class RoutesGraph {
   onDragSvgEnd(d: RouteGraphNode): void {
     if (!this.readOnly) {
       this.canvas.node().style.borderColor = "#d7d7d9";
-      if (d.x < 0 || d.y < 0) {
-        const index = findIndex(this.routesData, [
-          "originalData.id",
-          d.originalData.id,
-        ]);
-        const newData = this.routesData;
-        delete newData[index].originalData.graphInfo.x;
-        delete newData[index].originalData.graphInfo.y;
-        delete d.x;
-        delete d.y;
-        this.updateElement(newData);
-        this.onNodeDrag?.({
-          id: d.originalData.id,
-          graphInfo: newData[index].originalData.graphInfo,
-          instanceId: d.originalData.instanceId,
-        });
-        this.updateReferenceLines([]);
-        return;
-      }
       if (
         d.originalData?.graphInfo?.x !== d.x ||
         d.originalData?.graphInfo?.y !== d.y
@@ -386,22 +365,42 @@ export class RoutesGraph {
 
     // Grabbing to scroll.
     const d3Window = select(window);
-    this.linksLayer.on("mousedown", () => {
-      this.linksLayer.classed(styles.grabbing, true);
-      d3Event.preventDefault();
-      const container = this.canvas.node();
-      const x0 = d3Event.screenX + container.scrollLeft;
-      const y0 = d3Event.screenY + container.scrollTop;
-      d3Window
-        .on("mousemove", () => {
-          container.scrollLeft = x0 - d3Event.screenX;
-          container.scrollTop = y0 - d3Event.screenY;
-        })
-        .on("mouseup", () => {
-          this.linksLayer.classed(styles.grabbing, false);
-          d3Window.on("mousemove", null).on("mouseup", null);
-        });
+    d3Window.on("resize", () => {
+      this.getCanvasSize();
     });
+    this.canvas
+      .on("mousedown", () => {
+        this.linksLayer.classed(styles.grabbing, true);
+        d3Event.preventDefault();
+        const x0 = d3Event.screenX + this.offsetX;
+        const y0 = d3Event.screenY + this.offsetY;
+        d3Window
+          .on("mousemove", () => {
+            const dx = x0 - d3Event.screenX - this.offsetX;
+            const dy = y0 - d3Event.screenY - this.offsetY;
+            this.transform(dx, dy, this.scale);
+          })
+          .on("mouseup", () => {
+            this.linksLayer.classed(styles.grabbing, false);
+            d3Window.on("mousemove", null).on("mouseup", null);
+          });
+      })
+      .on("wheel", function () {
+        d3Event.preventDefault();
+      })
+      .on("wheel.zoom", () => {
+        d3Event.stopPropagation();
+        const { deltaX, deltaY, ctrlKey } = d3Event;
+        // macOS trackPad pinch event is emitted as a wheel.zoom and d3.event.ctrlKey set to true
+        if (ctrlKey) {
+          this.scale += ZOOM_STEP * (d3Event.wheelDelta > 0 ? 1 : -1);
+          this.scale = Math.min(ZOOM_SCALE_MAX, this.scale);
+          this.scale = Math.max(ZOOM_SCALE_MIN, this.scale);
+          this.transform(0, 0, this.scale);
+          return;
+        }
+        this.transform(deltaX, deltaY, this.scale);
+      });
   }
 
   getDOMNode(): HTMLDivElement {
@@ -414,7 +413,6 @@ export class RoutesGraph {
   }
 
   getZoomPanelNode(): HTMLDivElement {
-    // console.log(this.zoomPanel.node(),'this.zoomPanel.node()');
     return this.zoomPanel.node();
   }
 
@@ -451,9 +449,9 @@ export class RoutesGraph {
     if (value) {
       const container = this.canvas.node();
       const rect = container.getBoundingClientRect();
-      const targetX = value.x - rect.left + container.scrollLeft;
-      const targetY = value.y - rect.top + container.scrollTop;
-      if (targetX >= 0 && targetY >= 0) {
+      const targetX = (value.x - rect.left + this.offsetX) / this.scale;
+      const targetY = (value.y - rect.top + this.offsetY) / this.scale;
+      if (value.x > rect.left && value.y > rect.top) {
         const index = findIndex(this.routesData, [
           "originalData.id",
           item.originalData.id,
@@ -476,20 +474,88 @@ export class RoutesGraph {
     }
   }
 
+  /* istanbul ignore next */
+  handleCancelLayout(item: ViewItem): void {
+    const index = findIndex(this.routesData, ["originalData.id", item.id]);
+    if (index !== -1) {
+      const newData = this.routesData;
+      delete newData[index].originalData.graphInfo.x;
+      delete newData[index].originalData.graphInfo.y;
+      delete newData[index].x;
+      delete newData[index].y;
+      this.updateElement(newData);
+      this.onNodeDrag?.({
+        id: item.id,
+        graphInfo: newData[index].originalData.graphInfo,
+        instanceId: item.instanceId,
+      });
+      this.updateReferenceLines([]);
+    }
+  }
+
   transform(dx: number, dy: number, scale: number) {
-    const transform = zoomIdentity.scale(scale);
-    const transformLinks = zoomIdentity
-      .translate(20 * scale, 20 * scale)
+    this.offsetX += dx;
+    this.offsetY += dy;
+    const transformToNodes = `translate(${-this.offsetX}px, ${-this
+      .offsetY}px) scale(${scale})`;
+    const transform = zoomIdentity
+      .translate(-this.offsetX, -this.offsetY)
       .scale(scale);
     this.scale = scale;
-    this.linksContainer.attr("transform", transformLinks.toString());
-    this.referenceLinesContainer.attr("transform", transformLinks.toString());
-    this.nodesLayer.style("transform", transform.toString());
-    // const history = getHistory();
-    // const urlSearchParams = new URLSearchParams(history.location.search);
-    // urlSearchParams.set("scale", scale);
-    // history.push(`?${urlSearchParams}`, { notify: false });
-    // this.getCanvasSize();
+    this.linksContainer.attr("transform", transform.toString());
+    this.referenceLinesContainer.attr("transform", transform.toString());
+    this.nodesLayer.style("transform", transformToNodes);
+    this.renterZoomPanel();
+    this.getCanvasSize();
+  }
+
+  autoCenter() {
+    const graphNodesData = this.nodes.data();
+    const margin = 20;
+    if (graphNodesData?.length > 0) {
+      const elemContainerRect = this.canvas.node().getBoundingClientRect();
+      const minXItem = minBy(graphNodesData, (item) => {
+        return item.x;
+      });
+      const minX = minXItem.x * this.scale;
+      const maxXItem = maxBy(graphNodesData, (item) => {
+        return item.x + nodeWidth;
+      });
+      const maxX = (maxXItem.x + nodeWidth) * this.scale;
+      const minYItem = minBy(graphNodesData, (item) => {
+        return item.y;
+      });
+      const minY = (minYItem.y - margin) * this.scale;
+      const nodeCenterX = (minX + maxX) / 2;
+      const dx = nodeCenterX - elemContainerRect.width / 2 - this.offsetX;
+      const dy = minY - this.offsetY;
+      // x轴去到中心位置，y轴去到最顶部
+      this.transform(dx, dy, this.scale);
+    } else {
+      // 否则就恢复到画布的最顶部
+      this.transform(margin - this.offsetX, margin - this.offsetY, this.scale);
+    }
+  }
+
+  renterZoomPanel() {
+    const handleZoom = (scale: number) => {
+      this.transform(0, 0, scale);
+    };
+    const autoCenter = () => {
+      this.autoCenter();
+    };
+    this.zoomPanel.datum({ scale: this.scale }).each(function (d) {
+      ReactDOM.render(
+        <ZoomPanel
+          scale={d.scale}
+          step={ZOOM_STEP}
+          range={[ZOOM_SCALE_MIN, ZOOM_SCALE_MAX]}
+          notifyScaleChange={handleZoom}
+          autoCenter={autoCenter}
+        />,
+        this
+      );
+    });
   }
 
   updateElement(data: RouteGraphNode[]): void {
@@ -533,6 +599,7 @@ export class RoutesGraph {
       );
     this.nodes = this.nodesContainer.selectAll(`.${styles.nodeWrapper}`);
     const onNodeClick = this.onNodeClick;
+    const handleCancelLayout = this.handleCancelLayout.bind(this);
     const contentItemActions = this.contentItemActions;
     this.nodes.each(function (d) {
       d.node = this;
@@ -540,6 +607,7 @@ export class RoutesGraph {
         <RouteNodeComponent
           originalData={d.originalData}
           onNodeClick={onNodeClick}
+          handleCancelLayout={handleCancelLayout}
           contentItemActions={contentItemActions}
         />,
         this
@@ -574,53 +642,16 @@ export class RoutesGraph {
         this
       );
     });
-    const zoomData = {
-      scale: 1.2,
-    };
-    const handleZoom = (scale: number) => {
-      this.transform(0, 0, scale);
-    };
-    this.zoomPanel.datum(zoomData).each(function (d) {
-      ReactDOM.render(
-        <ZoomPanel
-          scale={d.scale}
-          step={ZOOM_STEP}
-          range={[ZOOM_SCALE_MIN, ZOOM_SCALE_MAX]}
-          notifyScaleChange={handleZoom}
-        />,
-        this
-      );
-    });
+    this.renterZoomPanel();
+    this.autoCenter();
     this.renderLink();
   }
 
   getCanvasSize(): void {
-    // console.log(this.scale,'this.scale');
-    const graphNodesData = this.nodes.data();
-    const padding = 20;
-    const margin = 20;
-    const maxXItem = maxBy(graphNodesData, (item) => {
-      // 固定宽度
-      return item.x + nodeWidth + padding;
-    });
-    // const maxX = maxXItem ? maxXItem.x + nodeWidth + padding + margin : "100%";
-    const maxX = maxXItem
-      ? (maxXItem.x + nodeWidth + padding + margin) * 2
-      : "100%";
-    const maxYItem = maxBy(graphNodesData, (item) => {
-      return item.y + item.nodeConfig?.height + padding + 52;
-    });
-    // const maxY = maxYItem
-    //   ? maxYItem.y + maxYItem.nodeConfig?.height + padding + margin + 52
-    //   : "100%";
-    const maxY = maxYItem
-      ? (maxYItem.y + maxYItem.nodeConfig?.height + padding + margin + 52) * 2
-      : "100%";
-    // this.linksLayer.attr("width", maxX);
-    // this.linksLayer.attr("height", maxY);
-    // 默认给2倍宽高
-    this.linksLayer.attr("width", maxX);
-    this.linksLayer.attr("height", maxY);
+    this.width = this.canvas.node().offsetWidth;
+    this.height = this.canvas.node().offsetHeight;
+    this.linksLayer.attr("width", this.width);
+    this.linksLayer.attr("height", this.height);
   }
 
   render(builderData: any[], options?: RenderOptions): void {
@@ -629,17 +660,6 @@ export class RoutesGraph {
     this.onNodeDrag = options?.onNodeDrag;
     this.contentItemActions = options?.contentItemActions;
     this.routesData = builderData;
-    const offsetX = 20;
-    const offsetY = 20;
-    this.linksContainer.attr("transform", `translate(${offsetX},${offsetY})`);
-    this.referenceLinesContainer.attr(
-      "transform",
-      `translate(${offsetX},${offsetY})`
-    );
-    this.nodesContainer
-      .style("left", `${offsetX}px`)
-      .style("top", `${offsetY}px`);
-
     if (!builderData) {
       return;
     }
@@ -648,7 +668,6 @@ export class RoutesGraph {
   }
 
   renderLink(): void {
-    // console.log('test')
     this.links?.selectAll("path").attr("d", (d: any) => {
       return getLinkPath(d);
     });

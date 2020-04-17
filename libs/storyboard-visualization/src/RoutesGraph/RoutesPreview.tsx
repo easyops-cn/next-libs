@@ -127,7 +127,9 @@ export function RoutesPreview(props: RoutesPreviewProps): React.ReactElement {
     <DndProvider backend={HTML5Backend}>
       <PreviewItem>
         {draggingItem && (
-          <RouteNodeComponent originalData={draggingItem.originalData} />
+          <span className={styles.previewTag}>
+            {draggingItem.originalData.alias ?? draggingItem.originalData.path}
+          </span>
         )}
       </PreviewItem>
       {routes?.map((item) => {
