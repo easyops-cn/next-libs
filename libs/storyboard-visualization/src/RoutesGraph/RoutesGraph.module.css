@@ -12,6 +12,13 @@
   overflow: auto;
 }
 
+.zoomPanel {
+  position: absolute;
+  bottom: 20px;
+  right: 40px;
+  z-index: 200;
+}
+
 .linksLayer,
 .nodesLayer,
 .nodesContainer,

@@ -89,3 +89,7 @@ export const viewTypeConfig: Record<
 };
 
 export const nodeWidth = 160;
+
+export const ZOOM_STEP = 0.05;
+export const ZOOM_SCALE_MIN = 0.5;
+export const ZOOM_SCALE_MAX = 1.5;

@@ -24,7 +24,15 @@ import { XYCoord } from "react-dnd";
 import styles from "./RoutesGraph.module.css";
 import { getLinkPath } from "./processors";
 import { ViewItem, ContentItemActions } from "../shared/interfaces";
-import { nodeWidth } from "./constants";
+import {
+  nodeWidth,
+  ZOOM_STEP,
+  ZOOM_SCALE_MIN,
+  ZOOM_SCALE_MAX,
+} from "./constants";
+import { ZoomPanel } from "./ZoomPanel";
+import { zoomIdentity } from "d3-zoom";
+import { getHistory } from "@easyops/brick-kit";
 
 interface RenderOptions {
   contentItemActions?: ContentItemActions;
@@ -78,6 +86,12 @@ export class RoutesGraph {
     null,
     undefined
   >;
+  private readonly zoomPanel: Selection<
+    HTMLDivElement,
+    undefined,
+    null,
+    undefined
+  >;
   private links: Selection<SVGGElement, Edge, SVGGElement, undefined>;
   private nodes: Selection<
     HTMLDivElement,
@@ -91,6 +105,7 @@ export class RoutesGraph {
     SVGGElement,
     undefined
   >;
+  private scale = 1;
 
   private onNodeClick: (node: ViewItem) => void;
   private onNodeDrag: (node: ViewItem) => void;
@@ -338,6 +353,7 @@ export class RoutesGraph {
       "class",
       styles.routesPreviewContainer
     );
+    this.zoomPanel = create("div").attr("class", styles.zoomPanel);
     this.canvas = create("div").attr("class", styles.canvas);
     this.linksLayer = this.canvas
       .append("svg")
@@ -397,6 +413,11 @@ export class RoutesGraph {
     return this.routesPreviewContainer.node();
   }
 
+  getZoomPanelNode(): HTMLDivElement {
+    // console.log(this.zoomPanel.node(),'this.zoomPanel.node()');
+    return this.zoomPanel.node();
+  }
+
   getEdges(nodes: RouteGraphNode[]): Edge[] {
     if (nodes) {
       const edges: Edge[] = [];
@@ -453,6 +474,22 @@ export class RoutesGraph {
         }
       }
     }
+  }
+
+  transform(dx: number, dy: number, scale: number) {
+    const transform = zoomIdentity.scale(scale);
+    const transformLinks = zoomIdentity
+      .translate(20 * scale, 20 * scale)
+      .scale(scale);
+    this.scale = scale;
+    this.linksContainer.attr("transform", transformLinks.toString());
+    this.referenceLinesContainer.attr("transform", transformLinks.toString());
+    this.nodesLayer.style("transform", transform.toString());
+    // const history = getHistory();
+    // const urlSearchParams = new URLSearchParams(history.location.search);
+    // urlSearchParams.set("scale", scale);
+    // history.push(`?${urlSearchParams}`, { notify: false });
+    // this.getCanvasSize();
   }
 
   updateElement(data: RouteGraphNode[]): void {
@@ -537,10 +574,28 @@ export class RoutesGraph {
         this
       );
     });
+    const zoomData = {
+      scale: 1.2,
+    };
+    const handleZoom = (scale: number) => {
+      this.transform(0, 0, scale);
+    };
+    this.zoomPanel.datum(zoomData).each(function (d) {
+      ReactDOM.render(
+        <ZoomPanel
+          scale={d.scale}
+          step={ZOOM_STEP}
+          range={[ZOOM_SCALE_MIN, ZOOM_SCALE_MAX]}
+          notifyScaleChange={handleZoom}
+        />,
+        this
+      );
+    });
     this.renderLink();
   }
 
   getCanvasSize(): void {
+    // console.log(this.scale,'this.scale');
     const graphNodesData = this.nodes.data();
     const padding = 20;
     const margin = 20;
@@ -548,13 +603,22 @@ export class RoutesGraph {
       // 固定宽度
       return item.x + nodeWidth + padding;
     });
-    const maxX = maxXItem ? maxXItem.x + nodeWidth + padding + margin : "100%";
+    // const maxX = maxXItem ? maxXItem.x + nodeWidth + padding + margin : "100%";
+    const maxX = maxXItem
+      ? (maxXItem.x + nodeWidth + padding + margin) * 2
+      : "100%";
     const maxYItem = maxBy(graphNodesData, (item) => {
       return item.y + item.nodeConfig?.height + padding + 52;
     });
+    // const maxY = maxYItem
+    //   ? maxYItem.y + maxYItem.nodeConfig?.height + padding + margin + 52
+    //   : "100%";
     const maxY = maxYItem
-      ? maxYItem.y + maxYItem.nodeConfig?.height + padding + margin + 52
+      ? (maxYItem.y + maxYItem.nodeConfig?.height + padding + margin + 52) * 2
       : "100%";
+    // this.linksLayer.attr("width", maxX);
+    // this.linksLayer.attr("height", maxY);
+    // 默认给2倍宽高
     this.linksLayer.attr("width", maxX);
     this.linksLayer.attr("height", maxY);
   }
@@ -584,6 +648,7 @@ export class RoutesGraph {
   }
 
   renderLink(): void {
+    // console.log('test')
     this.links?.selectAll("path").attr("d", (d: any) => {
       return getLinkPath(d);
     });
