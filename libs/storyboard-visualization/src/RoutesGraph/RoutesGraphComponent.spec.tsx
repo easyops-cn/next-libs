@@ -11,7 +11,9 @@ const render = jest.fn();
     document.createElementNS("http://www.w3.org/2000/svg", "svg"),
   getRoutesPreviewNode: () =>
     document.createElementNS("http://www.w3.org/2000/svg", "svg"),
-  render
+  getZoomPanelNode: () =>
+    document.createElementNS("http://www.w3.org/2000/svg", "svg"),
+  render,
 }));
 
 describe("RoutesGraphComponent", () => {
@@ -20,7 +22,7 @@ describe("RoutesGraphComponent", () => {
     expect(render).toBeCalledTimes(1);
 
     wrapper.setProps({
-      data: []
+      data: [],
     });
     expect(render).toBeCalledTimes(2);
   });

@@ -45,6 +45,7 @@ export function RoutesGraphComponent(
       return;
     }
     resize();
+    node.appendChild(visual.getZoomPanelNode());
     node.appendChild(visual.getRoutesPreviewNode());
     node.appendChild(visual.getDOMNode());
   }, [visual, resize]);
@@ -79,6 +80,7 @@ export function RoutesGraphComponent(
           display: "grid",
           gridTemplateRows: "max-content",
           gridGap: "10px",
+          position: "relative",
         }}
       ></div>
     </div>
