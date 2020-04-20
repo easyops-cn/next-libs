@@ -41,7 +41,7 @@ export function RouteNodeComponent(
   const menu = (
     <Menu>
       <Menu.Item onClick={(e) => props.handleCancelLayout?.(originalData)}>
-        Cancel layout
+        Remove
       </Menu.Item>
     </Menu>
   );
