@@ -25,6 +25,7 @@
   text-align: center;
   color: #6d6d6d;
   font-size: 12px;
+  white-space: nowrap;
 }
 
 .contentItemToolbar {
