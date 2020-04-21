@@ -28,7 +28,7 @@ export class StructTable extends React.Component<
     this.state = {
       structData: props.structData,
       currentIndex: 0,
-      showEditModal: false
+      showEditModal: false,
     };
   }
   getColumns(defines: Structkey[]) {
@@ -36,8 +36,16 @@ export class StructTable extends React.Component<
       title: item.name,
       className: styles.structTableTd,
       dataIndex: item.id,
-      render: (text: string, _record: any, _index: number) =>
-        item.type === "bool" ? String(text) : text
+      render: (text: any, _record: any, _index: number) => {
+        switch (item.type) {
+          case "bool":
+            return String(text);
+          case "arr":
+            return text?.join?.("; ");
+          default:
+            return text;
+        }
+      },
     }));
     if (this.props.isEditable) {
       columns.push({
@@ -46,7 +54,7 @@ export class StructTable extends React.Component<
         dataIndex: "operation",
         render: (_text: string, record: any, index: number): any => {
           return this.renderOperation(record, index);
-        }
+        },
       });
     }
     return columns;
@@ -61,7 +69,7 @@ export class StructTable extends React.Component<
       cancelText: "取消",
       onOk: () => {
         this.remove(index);
-      }
+      },
     });
   }
   remove(index: number) {
@@ -85,7 +93,7 @@ export class StructTable extends React.Component<
   handleOpenEditModal = (index: number) => {
     this.setState({
       showEditModal: true,
-      currentIndex: index
+      currentIndex: index,
     });
   };
   handleCloseModal = () => {
