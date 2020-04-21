@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.10](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@1.3.9...@libs/cmdb-instances@1.3.10) (2020-04-21)
+
+### Bug Fixes
+
+- **struct-components:** join `;` to display `arr` type, refs DATA_QUALITY-177 ([b9b92b5](https://git.easyops.local/anyclouds/next-libs/commits/b9b92b5))
+
 ## [1.3.9](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@1.3.8...@libs/cmdb-instances@1.3.9) (2020-04-16)
 
 ### Bug Fixes
