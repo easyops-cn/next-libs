@@ -7,6 +7,7 @@ import { ItemActionsComponent } from "../components/ItemActionsComponent";
 import { filterActions } from "../shared/processors";
 import classNames from "classnames";
 import { Dropdown, Menu } from "antd";
+import { RouteTypeIcon } from "./RouteTypeIcon";
 
 export interface RouteNodeComponentProps {
   originalData?: ViewItem;
@@ -54,6 +55,16 @@ export function RouteNodeComponent(
             [styles.contentItemEllipsisButtonAvailable]: ellipsisButtonAvailable,
           })}
         >
+          <RouteTypeIcon
+            item={originalData}
+            customStyle={{
+              verticalAlign: undefined,
+              fontSize: "12px",
+              marginRight: "6px",
+              color: "inherit",
+              opacity: 0.8,
+            }}
+          />
           {originalData.alias ?? originalData.path}
           {ellipsisButtonAvailable && (
             <div

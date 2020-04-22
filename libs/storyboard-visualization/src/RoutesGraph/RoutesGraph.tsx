@@ -643,7 +643,6 @@ export class RoutesGraph {
       );
     });
     this.renterZoomPanel();
-    this.autoCenter();
     this.renderLink();
   }
 
@@ -664,6 +663,7 @@ export class RoutesGraph {
       return;
     }
     this.updateElement(builderData);
+    this.autoCenter();
     this.getCanvasSize();
   }
 

@@ -8,6 +8,7 @@ export interface ViewItem {
   mountPoint?: string;
   sort?: number;
   type?: string;
+  redirect?: string;
   brick?: string;
   template?: string;
   path?: string;
