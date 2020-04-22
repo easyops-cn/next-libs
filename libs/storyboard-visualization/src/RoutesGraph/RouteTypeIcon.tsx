@@ -15,10 +15,10 @@ export function RouteTypeIcon({
   let color;
   if (item.type === "routes") {
     icon = "branches";
-    color = "var(--theme-cyan-color)";
+    color = "var(--theme-orange-color)";
   } else if (item.type === "bricks") {
     icon = "desktop";
-    color = "var(--theme-orange-color)";
+    color = "var(--theme-green-color)";
   } else if (item.type === "redirect" || item.redirect) {
     icon = "arrow-right";
     color = "var(--theme-purple-color)";
