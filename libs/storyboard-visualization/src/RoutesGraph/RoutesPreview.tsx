@@ -1,6 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
 import styles from "./RoutesPreview.module.css";
-import { RouteNodeComponent } from "./RouteNodeComponent";
 import { DndProvider, useDrag, useDragLayer, XYCoord } from "react-dnd";
 import HTML5Backend, { getEmptyImage } from "react-dnd-html5-backend";
 import { RouteGraphNode } from "./interfaces";
@@ -8,6 +7,7 @@ import { ViewItem, ContentItemActions } from "../shared/interfaces";
 import { ItemActionsComponent } from "../components/ItemActionsComponent";
 import { filterActions } from "../shared/processors";
 import classNames from "classnames";
+import { RouteTypeIcon } from "./RouteTypeIcon";
 
 export interface RoutesPreviewProps {
   routes?: RouteGraphNode[];
@@ -128,6 +128,7 @@ export function RoutesPreview(props: RoutesPreviewProps): React.ReactElement {
       <PreviewItem>
         {draggingItem && (
           <span className={styles.previewTag}>
+            <RouteTypeIcon item={draggingItem.originalData} />
             {draggingItem.originalData.alias ?? draggingItem.originalData.path}
           </span>
         )}
@@ -154,6 +155,7 @@ export function RoutesPreview(props: RoutesPreviewProps): React.ReactElement {
                 [styles.contentItemEllipsisButtonAvailable]: ellipsisButtonAvailable,
               })}
             >
+              <RouteTypeIcon item={item.originalData} />
               {item.originalData.alias ?? item.originalData.path}
               {ellipsisButtonAvailable && (
                 <div
