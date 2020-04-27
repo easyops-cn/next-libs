@@ -2,7 +2,7 @@ import { sortBy, groupBy, isEmpty } from "lodash";
 import {
   GraphNode,
   GraphNodeContent,
-  GraphNodeContentSlotGroup
+  GraphNodeContentSlotGroup,
 } from "./interfaces";
 import { ViewItem } from "../shared/interfaces";
 import { styleConfig } from "./constants";
@@ -20,7 +20,7 @@ export function viewsToGraph(
       return ViewItemToGraph({
         alias: "Custom Template",
         type: "tpl-root",
-        children: sortViews(views || [])
+        children: sortViews(views || []),
       });
     }
     return ViewItemToGraph(views[0]);
@@ -30,8 +30,8 @@ export function viewsToGraph(
       {
         alias: "APP",
         type: "app-root",
-        children: sortViews(views || [])
-      }
+        children: sortViews(views || []),
+      },
     ],
     false
   );
@@ -49,8 +49,8 @@ function ViewItemToGraph(view: ViewItem): GraphNode {
     content: getNodeContent(view),
     children: sortViews(view.children)
       // Ignore nodes that has no children.
-      .filter(child => !isEmpty(child.children))
-      .map(child => ViewItemToGraph(child))
+      .filter((child) => !isEmpty(child.children))
+      .map((child) => ViewItemToGraph(child)),
   };
   node.height = computeNodeHeight(node);
   return node;
@@ -72,6 +72,7 @@ function getNodeContent(view: ViewItem): GraphNodeContent {
     case "routes":
     case "app-root":
     case "tpl-root":
+    case "custom-template":
       return {
         type:
           view.type === "app-root"
@@ -79,17 +80,16 @@ function getNodeContent(view: ViewItem): GraphNodeContent {
             : view.type === "tpl-root"
             ? "custom-template"
             : view.type,
-        items: sortViews(view.children)
+        items: sortViews(view.children),
       };
     case "redirect":
       return {
-        type: "redirect"
+        type: "redirect",
       };
     case "brick":
-    case "custom-template":
       return {
         type: "slots",
-        slots: getNodeContentSlotGroups(view)
+        slots: getNodeContentSlotGroups(view),
       };
     default:
       return;
@@ -101,7 +101,7 @@ function getNodeContentSlotGroups(view: ViewItem): GraphNodeContentSlotGroup[] {
   if (Array.isArray(view.children)) {
     const sortedChildren = sortViews(view.children);
     slotGroups = Object.entries(
-      groupBy(sortedChildren, item => item.mountPoint ?? "")
+      groupBy(sortedChildren, (item) => item.mountPoint ?? "")
     ).map(([name, items]) => ({
       name,
       type: isRouteNode(items[0])
@@ -109,7 +109,7 @@ function getNodeContentSlotGroups(view: ViewItem): GraphNodeContentSlotGroup[] {
         : isBrickNode(items[0])
         ? "bricks"
         : "unknown",
-      items
+      items,
     }));
   }
   return slotGroups;
@@ -171,7 +171,7 @@ function computeNodeHeight(node: GraphNode): number {
 
 export function computeSourceX({
   source,
-  target
+  target,
 }: HierarchyPointLink<GraphNode>): number {
   const content = source.data.content;
 
@@ -225,5 +225,5 @@ export function computeSourceX({
 }
 
 function sortViews(views: ViewItem[]): ViewItem[] {
-  return sortBy(views || [], [item => item.sort ?? -Infinity]);
+  return sortBy(views || [], [(item) => item.sort ?? -Infinity]);
 }
