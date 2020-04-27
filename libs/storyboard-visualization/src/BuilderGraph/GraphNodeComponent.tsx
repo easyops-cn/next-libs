@@ -57,7 +57,7 @@ export function GraphNodeComponent(
               marginBottom:
                 index === content.slots.length - 1
                   ? 0
-                  : styleConfig.contentGroup.marginBottom
+                  : styleConfig.contentGroup.marginBottom,
             }}
           >
             <div
@@ -89,7 +89,7 @@ export function GraphNodeComponent(
         ...styleConfig.node,
         left: -styleConfig.node.width / 2,
         top: -node.height / 2,
-        height: node.height
+        height: node.height,
       }}
     >
       <div className={styles.alias} style={styleConfig.alias}>
@@ -128,7 +128,7 @@ const contentItemSubtypeIconMap: Record<ContentItemSubtype, FaIcon["icon"]> = {
   provider: "database",
   template: "boxes",
   "custom-template": "code",
-  unknown: "question"
+  unknown: "question",
 };
 
 export function ContentItem(props: ContentItemProps): React.ReactElement {
@@ -155,7 +155,7 @@ export function ContentItem(props: ContentItemProps): React.ReactElement {
         subtype = "brick";
     }
   } else if (type === "custom-template") {
-    subtype = type;
+    subtype = item.type as ContentItemSubtype;
   } else if (type === "routes") {
     subtype = "route";
   }
@@ -172,11 +172,11 @@ export function ContentItem(props: ContentItemProps): React.ReactElement {
         [styles.contentItemTypeProvider]: subtype === "provider",
         [styles.contentItemTypeTemplate]: subtype === "template",
         [styles.contentItemTypeCustomTemplate]: subtype === "custom-template",
-        [styles.contentItemEllipsisButtonAvailable]: ellipsisButtonAvailable
+        [styles.contentItemEllipsisButtonAvailable]: ellipsisButtonAvailable,
       })}
       style={{
         ...styleConfig.contentItem,
-        marginBottom: isLast ? 0 : styleConfig.contentItem.marginBottom
+        marginBottom: isLast ? 0 : styleConfig.contentItem.marginBottom,
       }}
       onClick={handleNodeClick}
     >
@@ -185,7 +185,7 @@ export function ContentItem(props: ContentItemProps): React.ReactElement {
           <GeneralIcon
             icon={{
               lib: "fa",
-              icon: contentItemSubtypeIconMap[subtype]
+              icon: contentItemSubtypeIconMap[subtype],
             }}
           />
         </span>
