@@ -2,6 +2,7 @@ import React, { useEffect, useReducer, useState } from "react";
 import {
   difference,
   isEmpty,
+  isEqual,
   map,
   uniq,
   union,
@@ -9,14 +10,14 @@ import {
   reject,
   sortBy,
   uniqueId,
-  findIndex
+  findIndex,
 } from "lodash";
 import { handleHttpError } from "@easyops/brick-kit";
 import {
   PropertyDisplayConfig,
   ReadPaginationChangeDetail,
   ReadSelectionChangeDetail,
-  ReadSortingChangeDetail
+  ReadSortingChangeDetail,
 } from "@easyops/brick-types";
 import { CmdbModels, InstanceApi } from "@sdk/cmdb-sdk";
 import { Button, Checkbox, Icon, Spin, Input, Tag } from "antd";
@@ -26,7 +27,7 @@ import {
   getInstanceNameKeys,
   RelationIdKeys,
   RelationNameKeys,
-  RelationObjectIdKeys
+  RelationObjectIdKeys,
 } from "@libs/cmdb-utils";
 
 import {
@@ -36,7 +37,7 @@ import {
   AdvancedSearch,
   getFieldConditionsAndValues,
   MoreButtonsContainer,
-  InstanceListTable
+  InstanceListTable,
 } from "../instance-list-table";
 import styles from "./InstanceList.module.css";
 import { CheckboxChangeEvent } from "antd/lib/checkbox";
@@ -45,7 +46,7 @@ import {
   CMDB_MODAL_FIELDS_SETTINGS,
   CMDB_RESOURCE_FIELDS_SETTINGS,
   MAX_DEFAULT_FIELDS_COUNT,
-  MAX_DEFAULT_MODAL_FIELDS_COUNT
+  MAX_DEFAULT_MODAL_FIELDS_COUNT,
 } from "./constants";
 import { JsonStorage } from "@libs/storage";
 import { ModelAttributeValueType } from "../model-attribute-form-control/ModelAttributeFormControl";
@@ -67,8 +68,8 @@ export function getQuery(
 
   forEachAvailableFields(
     modelData,
-    attr => {
-      queryValues.forEach(queryValue =>
+    (attr) => {
+      queryValues.forEach((queryValue) =>
         query.$or.push({ [attr.id]: { $like: `%${queryValue}%` } })
       );
     },
@@ -78,9 +79,9 @@ export function getQuery(
         idObjectMap[relation[`${sides.that}_object_id` as RelationObjectIdKeys]]
       );
 
-      queryValues.forEach(queryValue =>
+      queryValues.forEach((queryValue) =>
         query.$or.push({
-          [`${id}.${nameKey}`]: { $like: `%${queryValue}%` }
+          [`${id}.${nameKey}`]: { $like: `%${queryValue}%` },
         })
       );
     },
@@ -101,13 +102,13 @@ function translateConditions(
     valuesStr: string;
   }[] = [];
   const relations: any[] = [];
-  modelData.relation_list.forEach(relation => {
+  modelData.relation_list.forEach((relation) => {
     const sides = getRelationObjectSides(relation, modelData);
     const objectId = relation[`${sides.this}_id` as RelationIdKeys];
     const nameKeys = getInstanceNameKeys(
       idObjectMap[relation[`${sides.that}_object_id` as RelationObjectIdKeys]]
     );
-    nameKeys.forEach(nameKey => {
+    nameKeys.forEach((nameKey) => {
       const id = `${objectId}.${nameKey}`;
       const name = `${
         relation[`${sides.this}_name` as RelationNameKeys]
@@ -116,7 +117,7 @@ function translateConditions(
         id,
         name,
         value: { type: "str" },
-        relationSideId: relation[`${sides.this}_id` as RelationIdKeys]
+        relationSideId: relation[`${sides.this}_id` as RelationIdKeys],
       });
     });
   });
@@ -128,10 +129,10 @@ function translateConditions(
         queries = query[Object.keys(query)[0]] as Query[];
       }
 
-      queries.forEach(query => {
+      queries.forEach((query) => {
         const key = Object.keys(query)[0];
         const attr = attrAndRelationList.find(
-          attr => attr.id === key || attr.relationSideId === key
+          (attr) => attr.id === key || attr.relationSideId === key
         );
         if (attr) {
           const info = getFieldConditionsAndValues(
@@ -151,7 +152,7 @@ function translateConditions(
           conditions.push({
             attrId: key,
             condition,
-            valuesStr: info.queryValuesStr
+            valuesStr: info.queryValuesStr,
           });
         }
       });
@@ -243,12 +244,12 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
   ) => {
     return {
       ...prevState,
-      ...updatedProperty
+      ...updatedProperty,
     };
   };
 
   const setModelData = () => {
-    props.objectList.forEach(object => {
+    props.objectList.forEach((object) => {
       idObjectMap[object.objectId] = object;
       if (object.objectId === props.objectId) {
         modelData = object;
@@ -279,16 +280,16 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     let frontFields: any[] = [];
     let restFields: any[] = [];
     if (props.presetConfigs?.fieldIds) {
-      frontFields = filter(props.presetConfigs.fieldIds, id =>
+      frontFields = filter(props.presetConfigs.fieldIds, (id) =>
         fieldIds.includes(id)
       );
     }
     restFields = sortBy(
-      reject(fieldIds, id => frontFields.includes(id)),
-      fieldId => {
+      reject(fieldIds, (id) => frontFields.includes(id)),
+      (fieldId) => {
         const foundIndex = findIndex(
           modelData.view.attr_order,
-          orderId => orderId === fieldId
+          (orderId) => orderId === fieldId
         );
         if (foundIndex === -1) {
           return null;
@@ -330,7 +331,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     failed: false,
     isAdvancedSearchVisible: false,
     fieldIds: props.presetConfigs?.fieldIds,
-    autoBreakLine: false
+    autoBreakLine: false,
   };
 
   const [q, setQ] = useState(props.q);
@@ -370,7 +371,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
         if (!isEmpty(props.presetConfigs.query)) {
           if (searchParams.query) {
             searchParams.query = {
-              $and: [searchParams.query, props.presetConfigs.query]
+              $and: [searchParams.query, props.presetConfigs.query],
             };
           } else {
             searchParams.query = props.presetConfigs.query;
@@ -378,7 +379,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
         }
         if (state.fieldIds) {
           const fields: Record<string, boolean> = {};
-          state.fieldIds.forEach(id => (fields[id] = true));
+          state.fieldIds.forEach((id) => (fields[id] = true));
           if (searchParams.fields) {
             searchParams.fields = Object.assign(
               {},
@@ -421,9 +422,11 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
 
   useEffect(() => {
     const fieldIds = getFields();
-    setState({
-      fieldIds
-    });
+    if (!isEqual(fieldIds, state.fieldIds)) {
+      setState({
+        fieldIds,
+      });
+    }
   }, [props.objectId, props.presetConfigs]);
 
   useEffect(() => {
@@ -441,7 +444,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     state.pageSize,
     state.aliveHosts,
     state.relatedToMe,
-    state.fieldIds
+    state.fieldIds,
   ]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -501,7 +504,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
 
   const handleConfirm = (selectAttrIds: string[]) => {
     setState({
-      fieldIds: _sortFieldIds(selectAttrIds)
+      fieldIds: _sortFieldIds(selectAttrIds),
     });
     jsonLocalStorage.setItem(
       `${modelData.objectId}-selectAttrIds`,
@@ -539,18 +542,18 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
   ): Function => {
     return () => {
       const queries: Query[] = [];
-      state.aq.forEach(query => {
+      state.aq.forEach((query) => {
         const key = Object.keys(query)[0];
         if (
           (key === "$or" || key === "$and") &&
           Object.keys((query[key] as Query[])[0])[0] === attrId
         ) {
-          const filteredSubQueries = (query[key] as Query[]).filter(query => {
+          const filteredSubQueries = (query[key] as Query[]).filter((query) => {
             return Object.values(query[attrId]).join(" ") !== valuesStr;
           });
           if (filteredSubQueries.length > 0) {
             queries.push({
-              [key]: filteredSubQueries
+              [key]: filteredSubQueries,
             });
           }
         } else if (key !== attrId) {
@@ -587,11 +590,11 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
                     size="small"
                     style={{
                       marginLeft: "8px",
-                      marginRight: "auto"
+                      marginRight: "auto",
                     }}
                     onClick={() =>
                       setState({
-                        isAdvancedSearchVisible: !state.isAdvancedSearchVisible
+                        isAdvancedSearchVisible: !state.isAdvancedSearchVisible,
                       })
                     }
                     data-testid="advanced-search-toggle-btn"
@@ -677,7 +680,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
                   模糊搜索：{state.q}
                 </Tag>
               )}
-              {conditions.map(condition => (
+              {conditions.map((condition) => (
                 <Tag
                   key={`${condition.attrId}${
                     condition.valuesStr
