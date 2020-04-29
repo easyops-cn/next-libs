@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.11](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@1.3.10...@libs/cmdb-instances@1.3.11) (2020-04-29)
+
+### Bug Fixes
+
+- **instance-list:** update state only when `fieldId` is not equal ([a279321](https://git.easyops.local/anyclouds/next-libs/commits/a279321))
+
 ## [1.3.10](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@1.3.9...@libs/cmdb-instances@1.3.10) (2020-04-21)
 
 ### Bug Fixes
