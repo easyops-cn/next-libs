@@ -52,11 +52,6 @@ export abstract class FormItemElement extends UpdatingElement {
   helpBrick: HelpBrickProps;
 
   @property({
-    type: Boolean,
-  })
-  notRender: boolean;
-
-  @property({
     attribute: false,
   })
   labelCol: ColProps;
@@ -65,6 +60,8 @@ export abstract class FormItemElement extends UpdatingElement {
     attribute: false,
   })
   wrapperCol: ColProps;
+
+  notRender = false;
 
   getFormElement(): AbstractGeneralFormElement {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
@@ -85,6 +82,7 @@ export abstract class FormItemElement extends UpdatingElement {
   setNotRender(value: boolean): void {
     this.hidden = value;
     this.notRender = value;
+    this._render();
   }
 
   connectedCallback(): void {
