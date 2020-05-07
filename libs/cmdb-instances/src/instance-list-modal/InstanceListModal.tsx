@@ -55,7 +55,6 @@ export function InstanceListModal(
 
   const presetConfigs = props.presetConfigs ?? {
     query: props.query,
-    fieldIds: modelData.attrList.map(attr => attr.id)
   };
 
   const fixAliveHosts = presetConfigs.query?._agentStatus === "正常";
