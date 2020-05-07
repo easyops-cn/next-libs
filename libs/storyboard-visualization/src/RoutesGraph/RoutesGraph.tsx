@@ -510,31 +510,72 @@ export class RoutesGraph {
   }
 
   autoCenter() {
+    const elemContainerRect = this.canvas.node().getBoundingClientRect();
+    const { minX, maxX, minY, maxY } = this.getNodesPositionInfo();
+    this.autoScale(minX, maxX, minY, maxY);
+    const nodeCenterX = (minX * this.scale + maxX * this.scale) / 2;
+    const dx =
+      minX === 0 && maxX === 0
+        ? -this.offsetX
+        : nodeCenterX - elemContainerRect.width / 2 - this.offsetX;
+    const dy = minY * this.scale - this.offsetY;
+    // x轴去到中心位置，y轴去到最顶部
+    this.transform(dx, dy, this.scale);
+  }
+
+  getNodesPositionInfo(): {
+    minX: number;
+    maxX: number;
+    minY: number;
+    maxY: number;
+  } {
     const graphNodesData = this.nodes.data();
-    const margin = 20;
+    const margin = 38;
+    let [minX, maxX, minY, maxY] = [0, 0, 0, 0];
     if (graphNodesData?.length > 0) {
-      const elemContainerRect = this.canvas.node().getBoundingClientRect();
       const minXItem = minBy(graphNodesData, (item) => {
         return item.x;
       });
-      const minX = minXItem.x * this.scale;
+      minX = minXItem.x;
       const maxXItem = maxBy(graphNodesData, (item) => {
         return item.x + nodeWidth;
       });
-      const maxX = (maxXItem.x + nodeWidth) * this.scale;
+      maxX = maxXItem.x + nodeWidth;
       const minYItem = minBy(graphNodesData, (item) => {
         return item.y;
       });
-      const minY = (minYItem.y - margin) * this.scale;
-      const nodeCenterX = (minX + maxX) / 2;
-      const dx = nodeCenterX - elemContainerRect.width / 2 - this.offsetX;
-      const dy = minY - this.offsetY;
-      // x轴去到中心位置，y轴去到最顶部
-      this.transform(dx, dy, this.scale);
-    } else {
-      // 否则就恢复到画布的最顶部
-      this.transform(margin - this.offsetX, margin - this.offsetY, this.scale);
+      minY = minYItem.y;
+      const maxYItem = maxBy(graphNodesData, (item) => {
+        return item.y + item.nodeConfig.height + margin;
+      });
+      maxY = maxYItem.y + maxYItem.nodeConfig.height + margin;
     }
+    return {
+      minX,
+      maxX,
+      minY,
+      maxY,
+    };
+  }
+
+  autoScale(minX: number, maxX: number, minY: number, maxY: number): void {
+    const elemContainerRect = this.canvas.node().getBoundingClientRect();
+    let scale = 1;
+    const oriWidth = maxX - minX;
+    const oriHeight = maxY - minY;
+    let scaleWidth = (maxX - minX) * scale;
+    let scaleHeight = (maxY - minY) * scale;
+    const width = elemContainerRect.width;
+    const height = elemContainerRect.height;
+    while (scale > ZOOM_SCALE_MIN) {
+      if (scaleWidth < width && scaleHeight < height) {
+        break;
+      }
+      scale -= ZOOM_STEP;
+      scaleWidth = oriWidth * scale;
+      scaleHeight = oriHeight * scale;
+    }
+    this.scale = scale;
   }
 
   renterZoomPanel() {
