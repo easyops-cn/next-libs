@@ -302,12 +302,12 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
   };
 
   const getFields = () => {
-    const selectAttrIds = jsonLocalStorage.getItem(
-      `${modelData.objectId}-selectAttrIds`
-    );
-    let fieldIds = isEmpty(selectAttrIds)
-      ? props.presetConfigs?.fieldIds
-      : selectAttrIds;
+    let fieldIds = props.presetConfigs?.fieldIds;
+    if (isEmpty(fieldIds)) {
+      fieldIds = jsonLocalStorage.getItem(
+        `${modelData.objectId}-selectAttrIds`
+      );
+    }
 
     if (isEmpty(fieldIds)) {
       fieldIds = computeDefaultFields().fieldIds;
@@ -330,7 +330,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     loading: false,
     failed: false,
     isAdvancedSearchVisible: false,
-    fieldIds: props.presetConfigs?.fieldIds,
+    fieldIds: getFields(),
     autoBreakLine: false,
   };
 

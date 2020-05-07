@@ -4,7 +4,7 @@ import {
   cleanup,
   render,
   waitForElement,
-  fireEvent
+  fireEvent,
 } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 import { PropertyDisplayConfig } from "@easyops/brick-types";
@@ -17,7 +17,7 @@ import {
   AdvancedSearch,
   InstanceListTable,
   MoreButtonsContainer,
-  InstanceListTableProps
+  InstanceListTableProps,
 } from "../instance-list-table";
 import { InstanceListPresetConfigs } from "../instance-list/InstanceList";
 
@@ -32,7 +32,7 @@ jest.mock("../instance-list-table", () => ({
   }),
   MoreButtonsContainer: jest.fn(() => {
     return "<div>Fake more buttons container loaded!</div>";
-  })
+  }),
 }));
 
 const instanceListData = getInstanceListData();
@@ -53,15 +53,15 @@ const HOST: any = {
       "cpuHz",
       "cpuModel",
       "cpus",
-      "diskSize"
-    ]
+      "diskSize",
+    ],
   },
   attrList: [
     {
       id: "__pipeline",
       name: "流水线信息",
-      protected: true
-    }
+      protected: true,
+    },
   ],
   relation_list: [
     {
@@ -84,9 +84,9 @@ const HOST: any = {
       right_name: "负责备份的主机",
       right_object_id: "USER",
       right_tags: [],
-      _version: 0
-    }
-  ]
+      _version: 0,
+    },
+  ],
 };
 
 afterEach(cleanup);
@@ -100,11 +100,11 @@ describe("InstanceList", () => {
           "_agentStatus",
           "memSize",
           "hostname",
-          "_deviceList_CLUSTER"
-        ])
+          "_deviceList_CLUSTER",
+        ]),
       }))
       .mockImplementationOnce(() => ({
-        getItem: () => [] as any
+        getItem: () => [] as any,
       }));
   });
 
@@ -114,7 +114,7 @@ describe("InstanceList", () => {
     const idObjectMap = { [objectId]: modelData };
     const presetConfigs: InstanceListPresetConfigs = {
       query: { status: "运营中" },
-      fieldIds: ["hostname", "ip", "_deviceList_CLUSTER"]
+      fieldIds: ["hostname", "ip", "_deviceList_CLUSTER"],
     };
     const page = 1;
     const pageSize = 20;
@@ -149,14 +149,8 @@ describe("InstanceList", () => {
     await waitForElement(() => queryByText(mockInstanceListTableContent));
 
     const fields: Record<string, boolean> = {};
-    const newFieldIds = [
-      "hostname",
-      "ip",
-      "_deviceList_CLUSTER",
-      "_agentStatus",
-      "memSize"
-    ];
-    newFieldIds.forEach(id => (fields[id] = true));
+    const newFieldIds = ["hostname", "ip", "_deviceList_CLUSTER"];
+    newFieldIds.forEach((id) => (fields[id] = true));
 
     expect(mockInstanceListTable).toBeCalled();
     expect(mockMoreButtonsContainer).toBeCalled();
@@ -213,7 +207,7 @@ describe("InstanceList", () => {
     const mockOnAliveHostsChange = jest.fn();
     const presetConfigs: InstanceListPresetConfigs = {
       query: { status: "运营中" },
-      fieldIds: ["hostname", "ip", "_deviceList_CLUSTER"]
+      fieldIds: ["hostname", "ip", "_deviceList_CLUSTER"],
     };
     const { queryByTestId } = render(
       <InstanceList
