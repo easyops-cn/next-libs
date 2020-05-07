@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.28.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.27.3...@libs/storyboard-visualization@0.28.0) (2020-05-07)
+
+### Features
+
+- **route-graph:** auto scale ([50d24b3](https://git.easyops.local/anyclouds/next-libs/commits/50d24b3))
+
 ## [0.27.3](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.27.2...@libs/storyboard-visualization@0.27.3) (2020-04-27)
 
 ### Bug Fixes
