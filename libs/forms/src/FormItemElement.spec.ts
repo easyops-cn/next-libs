@@ -2,8 +2,10 @@ import ReactDOM from "react-dom";
 import { FormItemElement } from "./FormItemElement";
 
 class TestFormItemElement extends FormItemElement {
+  renderedTimes = 0;
+
   protected _render(): void {
-    // test only
+    this.renderedTimes++;
   }
 }
 customElements.define("form-item", TestFormItemElement);
@@ -30,5 +32,13 @@ describe("form-item", () => {
 
     form.removeChild(element);
     expect(unmountComponentAtNode).toBeCalled();
+
+    expect(element.hidden).toBe(false);
+    expect(element.notRender).toBe(false);
+    expect(element.renderedTimes).toBe(2);
+    element.setNotRender(true);
+    expect(element.hidden).toBe(true);
+    expect(element.notRender).toBe(true);
+    expect(element.renderedTimes).toBe(3);
   });
 });
