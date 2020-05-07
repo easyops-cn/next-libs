@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.16.1...@libs/forms@0.16.2) (2020-05-07)
+
+### Bug Fixes
+
+- **forms:** FormItemElement 在调用 setNotRender 之后立刻调用 \_render ([28cd3a2](https://git.easyops.local/anyclouds/next-libs/commits/28cd3a2))
+
 ## [0.16.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.16.0...@libs/forms@0.16.1) (2020-04-16)
 
 **Note:** Version bump only for package @libs/forms
