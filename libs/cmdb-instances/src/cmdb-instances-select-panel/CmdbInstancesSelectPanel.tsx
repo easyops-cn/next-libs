@@ -12,7 +12,8 @@ export interface CmdbInstancesSelectPanelProps {
   objectId: string;
   value?: string[];
   onChange?: (instanceIdList: string[]) => void;
-
+  instanceQuery?: any;
+  fields?: string[];
   singleSelect?: boolean;
   addTitle?: React.ReactNode | string;
   modalTitle?: React.ReactNode | string;
@@ -30,10 +31,10 @@ export function CmdbInstancesSelectPanel(
   const [selectedInstanceIds, setSelectedInstanceIds] = useState([]);
   const [partialSelectedInstances, setPartialSelectedInstances] = useState([]);
   const [addInstancesModal, setAddInstancesModal] = useState({
-    visible: false
+    visible: false,
   });
   const [allSelectedInstancesModal, setAllSelectedInstancesModal] = useState({
-    visible: false
+    visible: false,
   });
 
   useEffect(() => {
@@ -44,18 +45,18 @@ export function CmdbInstancesSelectPanel(
           await InstanceApi.postSearch(props.objectId, {
             query: {
               instanceId: {
-                $in: props.value
-              }
+                $in: props.value,
+              },
             },
             page: 1,
             page_size: props.value.length,
             // todo(ice): selected confirm with instances
-            fields: { "*": true }
+            fields: { "*": true },
           })
         ).list;
       }
 
-      setSelectedInstanceIds(instances.map(i => i.instanceId));
+      setSelectedInstanceIds(instances.map((i) => i.instanceId));
       setPartialSelectedInstances(
         instances.slice(0, displayedSelectedInstancesMaxNumber)
       );
@@ -87,13 +88,13 @@ export function CmdbInstancesSelectPanel(
     props.onChange?.(selectedKeys);
   };
 
-  const fieldIds = modelData.attrList.map(attr => attr.id);
+  const fieldIds = modelData.attrList.map((attr) => attr.id);
 
   const showPreview =
     selectedInstanceIds.length > displayedSelectedInstancesMaxNumber;
   const cs = classnames({
     [style.selectedInstancesTableWrapper]: true,
-    [style.withPreview]: showPreview
+    [style.withPreview]: showPreview,
   });
 
   return (
@@ -107,6 +108,10 @@ export function CmdbInstancesSelectPanel(
         onSelected={handleInstancesSelected}
         onCancel={closeAddInstancesModal}
         singleSelect={props.singleSelect}
+        presetConfigs={{
+          query: props.instanceQuery,
+          fieldIds: props.fields,
+        }}
       />
       <InstanceListModal
         objectMap={props.objectMap}
@@ -116,9 +121,9 @@ export function CmdbInstancesSelectPanel(
         presetConfigs={{
           query: {
             instanceId: {
-              $in: selectedInstanceIds
-            }
-          }
+              $in: selectedInstanceIds,
+            },
+          },
         }}
         selectDisabled={true}
         onCancel={closeAllSelectedInstancesModal}
@@ -131,14 +136,14 @@ export function CmdbInstancesSelectPanel(
           idObjectMap={props.objectMap}
           modelData={modelData}
           instanceListData={{
-            list: partialSelectedInstances
+            list: partialSelectedInstances,
           }}
-          fieldIds={fieldIds}
+          fieldIds={props.fields || fieldIds}
           selectDisabled={true}
           sortDisabled={true}
           configProps={{
             bodyStyle: { borderRadius: 6, backgroundColor: "white" },
-            pagination: false
+            pagination: false,
           }}
         ></InstanceListTable>
         {showPreview && (
