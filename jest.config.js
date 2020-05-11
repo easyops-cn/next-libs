@@ -31,6 +31,5 @@ module.exports = {
   // Todo(steve): remove next line when issue fixed.
   modulePathIgnorePatterns: ["<rootDir>/.*/__mocks__"],
   // Use jsdom@14 which supports MutationObserver
-  testEnvironment: "jest-environment-jsdom-sixteen",
   timers: "fake",
 };
