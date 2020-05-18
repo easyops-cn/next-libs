@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.21.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@0.20.1...@libs/basic-components@0.21.0) (2020-05-18)
+
+### Features
+
+- **basic-components:** ItemActionsComponent ([b68300f](https://git.easyops.local/anyclouds/next-libs/commits/b68300f))
+
 ## [0.20.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@0.20.0...@libs/basic-components@0.20.1) (2020-04-13)
 
 **Note:** Version bump only for package @libs/basic-components
