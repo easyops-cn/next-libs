@@ -1,10 +1,13 @@
 import React from "react";
 import styles from "./RouteNodeComponent.module.css";
-import { ViewItem, ContentItemActions } from "../shared/interfaces";
+import { ViewItem } from "../shared/interfaces";
 import { viewTypeConfig } from "./constants";
 import { get } from "lodash";
-import { ItemActionsComponent } from "../components/ItemActionsComponent";
-import { filterActions } from "../shared/processors";
+import {
+  ItemActionsComponent,
+  filterActions,
+  ContentItemActions,
+} from "@libs/basic-components";
 import classNames from "classnames";
 import { Dropdown, Menu } from "antd";
 import { RouteTypeIcon } from "./RouteTypeIcon";

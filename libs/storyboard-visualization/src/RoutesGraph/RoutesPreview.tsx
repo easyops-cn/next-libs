@@ -3,9 +3,12 @@ import styles from "./RoutesPreview.module.css";
 import { DndProvider, useDrag, useDragLayer, XYCoord } from "react-dnd";
 import HTML5Backend, { getEmptyImage } from "react-dnd-html5-backend";
 import { RouteGraphNode } from "./interfaces";
-import { ViewItem, ContentItemActions } from "../shared/interfaces";
-import { ItemActionsComponent } from "../components/ItemActionsComponent";
-import { filterActions } from "../shared/processors";
+import { ViewItem } from "../shared/interfaces";
+import {
+  ItemActionsComponent,
+  filterActions,
+  ContentItemActions,
+} from "@libs/basic-components";
 import classNames from "classnames";
 import { RouteTypeIcon } from "./RouteTypeIcon";
 

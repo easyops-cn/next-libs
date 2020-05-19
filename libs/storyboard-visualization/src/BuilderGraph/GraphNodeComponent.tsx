@@ -5,11 +5,14 @@ import { FaIcon } from "@easyops/brick-types";
 import { GeneralIcon } from "@libs/basic-components";
 import styles from "./GraphNodeComponent.module.css";
 import { GraphNode } from "./interfaces";
-import { ViewItem, ContentItemActions } from "../shared/interfaces";
+import { ViewItem } from "../shared/interfaces";
 import { styleConfig } from "./constants";
 import { getNodeDisplayName } from "./processors";
-import { ItemActionsComponent } from "../components/ItemActionsComponent";
-import { filterActions } from "../shared/processors";
+import {
+  ItemActionsComponent,
+  filterActions,
+  ContentItemActions,
+} from "@libs/basic-components";
 
 export interface GraphNodeComponentProps {
   node: GraphNode;

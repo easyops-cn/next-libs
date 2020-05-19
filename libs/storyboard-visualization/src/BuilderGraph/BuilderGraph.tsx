@@ -4,17 +4,18 @@ import {
   hierarchy,
   tree,
   HierarchyPointNode,
-  HierarchyPointLink
+  HierarchyPointLink,
 } from "d3-hierarchy";
 import { create, Selection, event as d3Event, select } from "d3-selection";
 import { linkHorizontal } from "d3-shape";
 import { uniqueId } from "lodash";
 import classNames from "classnames";
 import { GraphNode } from "./interfaces";
-import { ViewItem, ContentItemActions } from "../shared/interfaces";
+import { ViewItem } from "../shared/interfaces";
 import { viewsToGraph, computeSourceX } from "./processors";
 import { GraphNodeComponent } from "./GraphNodeComponent";
 import { styleConfig } from "./constants";
+import { ContentItemActions } from "@libs/basic-components";
 
 import styles from "./BuilderGraph.module.css";
 
@@ -153,7 +154,7 @@ export class BuilderGraph {
 
     let x0 = Infinity;
     let x1 = -x0;
-    root.each(d => {
+    root.each((d) => {
       const xTop = d.x - d.data.height / 2;
       const xBottom = xTop + d.data.height;
       if (xBottom > x1) x1 = xBottom;
@@ -174,8 +175,8 @@ export class BuilderGraph {
       .style("top", `${offsetY}px`);
 
     const linkFactory = linkHorizontal<unknown, HierarchyPointNode<GraphNode>>()
-      .x(d => d.y)
-      .y(d => d.x);
+      .x((d) => d.y)
+      .y((d) => d.x);
 
     this.links = this.links
       .data(
@@ -185,16 +186,16 @@ export class BuilderGraph {
             source: {
               ...source,
               x: computeSourceX({ source, target }),
-              y: source.y + offset - 8
+              y: source.y + offset - 8,
             },
             target: {
               ...target,
-              y: target.y - offset - 5 - markerOffset
-            }
+              y: target.y - offset - 5 - markerOffset,
+            },
           };
         })
       )
-      .join(enter => {
+      .join((enter) => {
         const link = enter.append("g");
         link.append("path").attr("marker-end", `url(#${this.arrowMarkerId})`);
         return link;
@@ -204,16 +205,16 @@ export class BuilderGraph {
     // The extra marker offset makes it smoothy for steep links.
     this.links
       .select("path")
-      .attr("d", d => `${linkFactory(d)}h${markerOffset}`);
+      .attr("d", (d) => `${linkFactory(d)}h${markerOffset}`);
 
     this.nodes = this.nodes
       .data(root.descendants())
       .join("div")
       .attr("class", classNames(styles.nodeWrapper))
-      .style("left", d => `${d.y}px`)
-      .style("top", d => `${d.x}px`);
+      .style("left", (d) => `${d.y}px`)
+      .style("top", (d) => `${d.x}px`);
 
-    this.nodes.each(function(d) {
+    this.nodes.each(function (d) {
       ReactDOM.render(<GraphNodeComponent node={d.data} {...options} />, this);
     });
   }

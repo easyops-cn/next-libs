@@ -1,6 +1,7 @@
 import React from "react";
 import { BuilderGraph } from "./BuilderGraph";
-import { ViewItem, ContentItemActions } from "../shared/interfaces";
+import { ViewItem } from "../shared/interfaces";
+import { ContentItemActions } from "@libs/basic-components";
 
 export interface BuilderGraphComponentProps {
   data: ViewItem[];
@@ -18,7 +19,7 @@ export function BuilderGraphComponent(
     contentItemActions,
     wrapAnApp,
     onReorderClick,
-    onNodeClick
+    onNodeClick,
   } = props;
 
   const visual = React.useMemo(() => new BuilderGraph(), []);
@@ -65,7 +66,7 @@ export function BuilderGraphComponent(
       contentItemActions,
       wrapAnApp,
       onReorderClick,
-      onNodeClick
+      onNodeClick,
     });
   }, [
     visual,
@@ -73,7 +74,7 @@ export function BuilderGraphComponent(
     contentItemActions,
     wrapAnApp,
     onReorderClick,
-    onNodeClick
+    onNodeClick,
   ]);
 
   React.useEffect(() => {
