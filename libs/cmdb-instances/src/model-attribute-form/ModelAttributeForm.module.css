@@ -1,0 +1,9 @@
+.formPanelContainer {
+  padding-top: 20px;
+}
+.formPanelContainer :global(.ant-collapse-content) {
+  padding-top: 4px;
+}
+.formPanelContainer :global(.ant-collapse-content-box) {
+  padding-bottom: 12px;
+}
