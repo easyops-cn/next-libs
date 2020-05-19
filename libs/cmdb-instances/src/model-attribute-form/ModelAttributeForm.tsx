@@ -5,12 +5,12 @@ import { CmdbModels, InstanceApi } from "@sdk/cmdb-sdk";
 import {
   FormComponentProps,
   ValidationRule,
-  FormItemProps
+  FormItemProps,
 } from "antd/lib/form";
 import {
   FormControlTypeEnum,
   ModelAttributeFormControl,
-  ModelAttributeValueType
+  ModelAttributeValueType,
 } from "../model-attribute-form-control/ModelAttributeFormControl";
 import { AttributeFormControlUrl } from "../attribute-form-control-url/AttributeFormControlUrl";
 import { isNil, keyBy, get } from "lodash";
@@ -21,9 +21,9 @@ import {
   ModifiedModelObjectRelation,
   ModifiedModelObjectField,
   ModifiedModelCmdbObject,
-  modifyModelData
+  modifyModelData,
 } from "@libs/cmdb-utils";
-
+import styles from "./ModelAttributeForm.module.css";
 export interface ModelAttributeFormChildren {
   header: string;
   name: string;
@@ -75,12 +75,12 @@ export class ModelAttributeForm extends Component<
   static defaultProps = {
     showCancelButton: true,
     cancelText: "取消",
-    cancelType: "default" as ButtonType
+    cancelType: "default" as ButtonType,
   };
 
   formItemProps: FormItemProps = {
     labelCol: { span: 6 },
-    wrapperCol: { span: 18 }
+    wrapperCol: { span: 18 },
   };
 
   constructor(props: ModelAttributeFormProps) {
@@ -103,7 +103,7 @@ export class ModelAttributeForm extends Component<
         this.modelData
       );
     } else {
-      props.basicInfoAttrList.forEach(basicInfoAttr => {
+      props.basicInfoAttrList.forEach((basicInfoAttr) => {
         const groupTag = basicInfoAttr.tag[0] || "默认属性";
 
         const attrs = AttrListGroupByTag.find(([key]) => key === groupTag);
@@ -124,7 +124,7 @@ export class ModelAttributeForm extends Component<
     this.state = {
       sending: false,
       attrListGroupByTag: AttrListGroupByTag,
-      continueCreating: false
+      continueCreating: false,
     };
   }
 
@@ -138,12 +138,12 @@ export class ModelAttributeForm extends Component<
     fieldsByTag.forEach(({ name, fields }) => {
       if (!map.has(name)) {
         map.set(name, []);
-        fields.forEach(field => {
+        fields.forEach((field) => {
           map.set(name, [
             ...map.get(name),
             modelData
-              ? modelData.__fieldList.find(__field => __field.__id === field)
-              : attributeList.find(({ id }) => id === field)
+              ? modelData.__fieldList.find((__field) => __field.__id === field)
+              : attributeList.find(({ id }) => id === field),
           ]);
         });
       }
@@ -163,8 +163,8 @@ export class ModelAttributeForm extends Component<
         store[tag] = [];
       }
 
-      tagList[tag].forEach(prop => {
-        const result = attributeList[tag].find(v => v.id === prop);
+      tagList[tag].forEach((prop) => {
+        const result = attributeList[tag].find((v) => v.id === prop);
         store[tag].push(result);
       });
     }
@@ -173,7 +173,7 @@ export class ModelAttributeForm extends Component<
   }
 
   handleFormErrors(fieldsError: Record<string, string[] | undefined>) {
-    return Object.keys(fieldsError).some(field => fieldsError[field]);
+    return Object.keys(fieldsError).some((field) => fieldsError[field]);
   }
 
   handleSubmit = (e: FormEvent) => {
@@ -191,7 +191,7 @@ export class ModelAttributeForm extends Component<
         this.setState({ sending: true });
         const result = await this.props.onSubmit({
           continueCreating: this.state.continueCreating,
-          values
+          values,
         });
         if (result !== "error") {
           this.props.form.resetFields();
@@ -219,7 +219,7 @@ export class ModelAttributeForm extends Component<
         return callback("不满足预设的正则表达式，请修改");
       }
 
-      const isValidAll = value.every(v =>
+      const isValidAll = value.every((v) =>
         ModelAttributeFormControl.computePattern(attribute).test(v)
       );
 
@@ -252,14 +252,14 @@ export class ModelAttributeForm extends Component<
     if (type === FormControlTypeEnum.URL) {
       return [
         required,
-        { validator: ModelAttributeForm.urlValidator(attribute) }
+        { validator: ModelAttributeForm.urlValidator(attribute) },
       ];
     }
 
     if (type === FormControlTypeEnum.TAGS) {
       return [
         required,
-        { validator: ModelAttributeForm.tagsValidator(attribute) }
+        { validator: ModelAttributeForm.tagsValidator(attribute) },
       ];
     }
 
@@ -267,8 +267,8 @@ export class ModelAttributeForm extends Component<
       required,
       {
         pattern: ModelAttributeFormControl.computePattern(attribute),
-        message: "不满足预设的正则表达式，请修改"
-      }
+        message: "不满足预设的正则表达式，请修改",
+      },
     ];
   }
 
@@ -318,7 +318,7 @@ export class ModelAttributeForm extends Component<
       allowContinueCreate,
       showCancelButton,
       cancelText,
-      cancelType
+      cancelType,
     } = this.props;
     const { getFieldDecorator } = form;
 
@@ -327,14 +327,14 @@ export class ModelAttributeForm extends Component<
     if (Array.isArray(brickList)) {
       defaultActiveKey = [
         ...defaultActiveKey,
-        ...brickList.map(brick => brick.name)
+        ...brickList.map((brick) => brick.name),
       ];
     }
 
     const collapse = this.state.attrListGroupByTag && (
       <Collapse bordered={false} defaultActiveKey={defaultActiveKey}>
         {this.state.attrListGroupByTag.map(([tag, list]) => (
-          <Panel header={tag} key={tag}>
+          <Panel header={tag} key={tag} className={styles.formPanelContainer}>
             {list.map((attribute: Partial<ModifiedModelObjectAttr>) =>
               attribute.__isRelation ? (
                 this.renderRelationFormControl(attribute)
@@ -347,7 +347,7 @@ export class ModelAttributeForm extends Component<
                   {getFieldDecorator(attribute.id, {
                     rules: this.rules(attribute),
                     initialValue:
-                      attributeFormControlInitialValueMap[attribute.id]
+                      attributeFormControlInitialValueMap[attribute.id],
                   })(
                     <ModelAttributeFormControl
                       isCreate={this.props.isCreate}
@@ -361,7 +361,7 @@ export class ModelAttributeForm extends Component<
         ))}
 
         {brickList &&
-          brickList.map(brick => (
+          brickList.map((brick) => (
             <Panel header={brick.header} key={brick.name}>
               <Form.Item
                 label={brick.label}
@@ -382,13 +382,16 @@ export class ModelAttributeForm extends Component<
     );
 
     const submitContainer = (
-      <div className="ant-collapse-content" style={{ borderTop: "none" }}>
+      <div
+        className="ant-collapse-content"
+        style={{ borderTop: "none", paddingTop: "16px" }}
+      >
         <div className="ant-collapse-content-box">
           <Form.Item>
             <div
               className={[
                 "ant-col",
-                `ant-col-${this.formItemProps.labelCol.span}`
+                `ant-col-${this.formItemProps.labelCol.span}`,
               ].join(" ")}
             />
             {allowContinueCreate && (
@@ -415,7 +418,7 @@ export class ModelAttributeForm extends Component<
     );
 
     return (
-      <Form onSubmit={e => this.handleSubmit(e)}>
+      <Form onSubmit={(e) => this.handleSubmit(e)}>
         {collapse}
         {submitContainer}
       </Form>
