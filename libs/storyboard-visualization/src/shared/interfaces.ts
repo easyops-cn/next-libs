@@ -21,7 +21,3 @@ export interface ViewItem {
     viewType?: string;
   };
 }
-
-export interface ContentItemActions {
-  useBrick: UseBrickConf;
-}

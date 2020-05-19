@@ -23,7 +23,8 @@ import { RoutesPreview } from "./RoutesPreview";
 import { XYCoord } from "react-dnd";
 import styles from "./RoutesGraph.module.css";
 import { getLinkPath } from "./processors";
-import { ViewItem, ContentItemActions } from "../shared/interfaces";
+import { ViewItem } from "../shared/interfaces";
+import { ContentItemActions } from "@libs/basic-components";
 import {
   nodeWidth,
   ZOOM_STEP,
