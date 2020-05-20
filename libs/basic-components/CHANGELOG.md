@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.22.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@0.21.0...@libs/basic-components@0.22.0) (2020-05-20)
+
+### Features
+
+- **basic-components:** zoom panel ([06a8c06](https://git.easyops.local/anyclouds/next-libs/commits/06a8c06))
+
 # [0.21.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@0.20.1...@libs/basic-components@0.21.0) (2020-05-18)
 
 ### Features

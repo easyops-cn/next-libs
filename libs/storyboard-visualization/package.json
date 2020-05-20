@@ -1,6 +1,6 @@
 {
   "name": "@libs/storyboard-visualization",
-  "version": "0.29.0",
+  "version": "0.29.1",
   "description": "> TODO: description",
   "homepage": "https://git.easyops.local/anyclouds/next-libs/tree/master/libs/storyboard-visualization",
   "license": "UNLICENSED",
@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "@easyops/brick-types": "^1.27.0",
-    "@libs/basic-components": "^0.21.0",
+    "@libs/basic-components": "^0.22.0",
     "classnames": "^2.2.6",
     "react-dnd": "^10.0.2",
     "react-dnd-html5-backend": "^10.0.2"
