@@ -11,7 +11,6 @@ describe("RoutesGraph", () => {
     const linksLayer = canvas.querySelector(".linksLayer");
     expect(linksLayer.querySelectorAll(".link").length).toBe(1);
     expect(routesPreviewNode.querySelectorAll(".previewTag").length).toBe(1);
-    expect(zoomPanelNode.querySelectorAll(".centerIcon").length).toBe(1);
     const nodesLayer = canvas.querySelector(".nodesLayer");
     expect(nodesLayer.querySelectorAll(".nodeWrapper").length).toBe(2);
   });

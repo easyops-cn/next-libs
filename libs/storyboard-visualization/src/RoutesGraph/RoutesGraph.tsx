@@ -24,14 +24,13 @@ import { XYCoord } from "react-dnd";
 import styles from "./RoutesGraph.module.css";
 import { getLinkPath } from "./processors";
 import { ViewItem } from "../shared/interfaces";
-import { ContentItemActions } from "@libs/basic-components";
+import { ContentItemActions, ZoomPanel } from "@libs/basic-components";
 import {
   nodeWidth,
   ZOOM_STEP,
   ZOOM_SCALE_MIN,
   ZOOM_SCALE_MAX,
 } from "./constants";
-import { ZoomPanel } from "./ZoomPanel";
 import { zoomIdentity } from "d3-zoom";
 
 interface RenderOptions {
