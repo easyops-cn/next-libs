@@ -5,4 +5,6 @@ configure({ adapter: new Adapter() });
 
 // Ref https://github.com/facebook/jest/issues/2157#issuecomment-279171856
 (global as any).flushPromises = () =>
-  new Promise(resolve => setImmediate(resolve));
+  new Promise((resolve) => setImmediate(resolve));
+
+Element.prototype.scrollIntoView = jest.fn();
