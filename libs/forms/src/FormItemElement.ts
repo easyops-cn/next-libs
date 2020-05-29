@@ -7,6 +7,7 @@ import {
   AbstractGeneralFormElement,
   LabelTooltipProps,
   HelpBrickProps,
+  LabelBrick,
 } from "./interfaces";
 
 export abstract class FormItemElement extends UpdatingElement {
@@ -50,6 +51,11 @@ export abstract class FormItemElement extends UpdatingElement {
     attribute: false,
   })
   helpBrick: HelpBrickProps;
+
+  @property({
+    attribute: false,
+  })
+  labelBrick: LabelBrick;
 
   @property({
     attribute: false,
