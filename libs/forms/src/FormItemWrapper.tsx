@@ -11,6 +11,7 @@ import {
   AbstractGeneralFormElement,
   LabelTooltipProps,
   HelpBrickProps,
+  LabelBrick,
 } from "./interfaces";
 import classNames from "classnames";
 import style from "./FormItemWrapper.module.css";
@@ -32,6 +33,7 @@ export interface FormItemWrapperProps extends CommonEventProps {
   name?: string;
   label?: string;
   labelTooltip?: LabelTooltipProps;
+  labelBrick?: LabelBrick;
   required?: boolean;
   min?: number;
   max?: number;
@@ -188,6 +190,7 @@ export function FormItemWrapper(
 ): React.ReactElement {
   const {
     labelTooltip,
+    labelBrick,
     helpBrick,
     className,
     notRender,
@@ -211,18 +214,34 @@ export function FormItemWrapper(
         ...eventMap,
       }) as React.ReactNode);
 
-  const label = labelTooltip ? (
-    <span>
-      {props.label}{" "}
-      <Tooltip title={labelTooltip.content} overlayStyle={labelTooltip.style}>
-        <span style={labelTooltip.iconStyle}>
-          <GeneralIcon icon={labelTooltip.icon} />
-        </span>
-      </Tooltip>
-    </span>
-  ) : (
-    props.label
-  );
+  const label =
+    labelTooltip || labelBrick?.useBrick ? (
+      <span>
+        {props.label}{" "}
+        {labelTooltip && (
+          <Tooltip
+            title={labelTooltip.content}
+            overlayStyle={labelTooltip.style}
+          >
+            <span style={labelTooltip.iconStyle}>
+              <GeneralIcon icon={labelTooltip.icon} />
+            </span>
+          </Tooltip>
+        )}
+        {labelBrick?.useBrick && (
+          <span
+            style={{
+              display: "inline-grid",
+              gridAutoFlow: "column",
+            }}
+          >
+            <BrickAsComponent useBrick={labelBrick.useBrick} />
+          </span>
+        )}
+      </span>
+    ) : (
+      props.label
+    );
 
   const formItemProps: Record<string, any> = {
     label,

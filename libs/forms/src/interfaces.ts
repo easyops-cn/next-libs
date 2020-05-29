@@ -30,6 +30,10 @@ export interface LabelTooltipProps {
   iconStyle?: React.CSSProperties;
 }
 
+export interface LabelBrick {
+  useBrick: UseBrickConf;
+}
+
 export interface HelpBrickProps {
   useBrick: UseBrickConf;
   placement?: "right" | "bottom";
