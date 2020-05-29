@@ -216,7 +216,14 @@ export function FormItemWrapper(
 
   const label =
     labelTooltip || labelBrick?.useBrick ? (
-      <span>
+      <span
+        style={{
+          display: "inline-grid",
+          gridAutoFlow: "column",
+          alignItems: "center",
+          gridGap: "2px",
+        }}
+      >
         {props.label}{" "}
         {labelTooltip && (
           <Tooltip
