@@ -11,7 +11,7 @@ export interface CmdbInstancesSelectPanelProps {
   objectMap: { [key: string]: Partial<CmdbModels.ModelCmdbObject> };
   objectId: string;
   value?: string[];
-  onChange?: (instanceIdList: string[]) => void;
+  onChange?: (instanceList: any[]) => void;
   instanceQuery?: any;
   fields?: string[];
   singleSelect?: boolean;
@@ -28,7 +28,7 @@ export function CmdbInstancesSelectPanel(
 
   const displayedSelectedInstancesMaxNumber = props.previewMaxNumber ?? 5;
 
-  const [selectedInstanceIds, setSelectedInstanceIds] = useState([]);
+  const [selectedInstanceList, setSelectedInstanceList] = useState([]);
   const [partialSelectedInstances, setPartialSelectedInstances] = useState([]);
   const [addInstancesModal, setAddInstancesModal] = useState({
     visible: false,
@@ -37,33 +37,39 @@ export function CmdbInstancesSelectPanel(
     visible: false,
   });
 
-  useEffect(() => {
-    const fetchInstances = async () => {
-      let instances: any[] = [];
-      if (props.value?.length) {
-        instances = (
-          await InstanceApi.postSearch(props.objectId, {
-            query: {
-              instanceId: {
-                $in: props.value,
-              },
+  const fetchInstances = async (instanceIdList: string[]): Promise<any[]> => {
+    let instances: any[] = [];
+    if (instanceIdList?.length) {
+      instances = (
+        await InstanceApi.postSearch(props.objectId, {
+          query: {
+            instanceId: {
+              $in: instanceIdList,
             },
-            page: 1,
-            page_size: props.value.length,
-            // todo(ice): selected confirm with instances
-            fields: { "*": true },
-          })
-        ).list;
-      }
+          },
+          page: 1,
+          page_size: instanceIdList.length,
+          // todo(ice): selected confirm with instances
+          fields: { "*": true },
+        })
+      ).list;
+    }
 
-      setSelectedInstanceIds(instances.map((i) => i.instanceId));
+    return instances;
+  };
+
+  useEffect(() => {
+    const initInstances = async (): Promise<void> => {
+      const instances = await fetchInstances(props.value);
+
+      setSelectedInstanceList(instances);
       setPartialSelectedInstances(
         instances.slice(0, displayedSelectedInstancesMaxNumber)
       );
     };
 
-    fetchInstances();
-  }, [props.objectId, props.value]);
+    initInstances();
+  }, [props.objectId]);
 
   const openAddInstancesModal = () => {
     setAddInstancesModal({ visible: true });
@@ -81,17 +87,22 @@ export function CmdbInstancesSelectPanel(
     setAllSelectedInstancesModal({ visible: false });
   };
 
-  const handleInstancesSelected = (selectedKeys: string[]) => {
+  const handleInstancesSelected = async (selectedKeys: string[]) => {
     closeAddInstancesModal();
 
-    setSelectedInstanceIds(selectedKeys);
-    props.onChange?.(selectedKeys);
+    const instances = await fetchInstances(selectedKeys);
+    setSelectedInstanceList(instances);
+    setPartialSelectedInstances(
+      instances.slice(0, displayedSelectedInstancesMaxNumber)
+    );
+
+    props.onChange?.(instances);
   };
 
   const fieldIds = modelData.attrList.map((attr) => attr.id);
 
   const showPreview =
-    selectedInstanceIds.length > displayedSelectedInstancesMaxNumber;
+    selectedInstanceList.length > displayedSelectedInstancesMaxNumber;
   const cs = classnames({
     [style.selectedInstancesTableWrapper]: true,
     [style.withPreview]: showPreview,
@@ -104,7 +115,9 @@ export function CmdbInstancesSelectPanel(
         objectId={props.objectId}
         visible={addInstancesModal.visible}
         title={props.modalTitle ?? `从 CMDB 中筛选${modelData.name}`}
-        selectedRowKeys={selectedInstanceIds}
+        selectedRowKeys={selectedInstanceList.map(
+          (instance) => instance.instanceId
+        )}
         onSelected={handleInstancesSelected}
         onCancel={closeAddInstancesModal}
         singleSelect={props.singleSelect}
@@ -121,7 +134,7 @@ export function CmdbInstancesSelectPanel(
         presetConfigs={{
           query: {
             instanceId: {
-              $in: selectedInstanceIds,
+              $in: selectedInstanceList.map((instance) => instance.instanceId),
             },
           },
         }}
@@ -151,7 +164,7 @@ export function CmdbInstancesSelectPanel(
             className={style.showAllSelectedInstancesButton}
             onClick={openAllSelectedInstancesModal}
           >
-            <a>查看全部 {selectedInstanceIds.length} 条数据</a>
+            <a>查看全部 {selectedInstanceList.length} 条数据</a>
           </div>
         )}
       </div>
