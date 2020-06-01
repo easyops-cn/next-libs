@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.17.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.17.0...@libs/forms@0.17.1) (2020-06-01)
+
+### Bug Fixes
+
+- **forms:** labelBrick style ([a062048](https://git.easyops.local/anyclouds/next-libs/commits/a062048))
+
 # [0.17.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.16.4...@libs/forms@0.17.0) (2020-05-29)
 
 ### Features
