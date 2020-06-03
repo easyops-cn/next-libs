@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.6.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@1.5.0...@libs/cmdb-instances@1.6.0) (2020-06-03)
+
+### Features
+
+- **cmdb-instances-select-panel:** add "showSizeChanger" and "pageSizeOptions" refs BRICK_STORE-1136 ([aacbfdd](https://git.easyops.local/anyclouds/next-libs/commits/aacbfdd))
+
 # [1.5.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@1.4.3...@libs/cmdb-instances@1.5.0) (2020-05-31)
 
 ### Features
