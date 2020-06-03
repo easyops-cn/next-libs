@@ -18,6 +18,9 @@ export interface CmdbInstancesSelectPanelProps {
   addTitle?: React.ReactNode | string;
   modalTitle?: React.ReactNode | string;
   previewMaxNumber?: number;
+  addInstancesModalPageSize?: number;
+  showSizeChanger?: boolean;
+  pageSizeOptions?: string[];
 }
 
 export function CmdbInstancesSelectPanel(
@@ -125,6 +128,9 @@ export function CmdbInstancesSelectPanel(
           query: props.instanceQuery,
           fieldIds: props.fields,
         }}
+        pageSize={props.addInstancesModalPageSize}
+        showSizeChanger={props.showSizeChanger}
+        pageSizeOptions={props.pageSizeOptions}
       />
       <InstanceListModal
         objectMap={props.objectMap}
