@@ -27,6 +27,9 @@ export interface InstanceListModalProps {
   onCancel: () => void;
   onSelected?: (instanceList: any[]) => void;
   modalZIndex?: number;
+  pageSize?: number;
+  showSizeChanger?: boolean;
+  pageSizeOptions?: string[];
 }
 
 export function InstanceListModal(
@@ -132,7 +135,9 @@ export function InstanceListModal(
           selectDisabled={props.selectDisabled}
           selectedRowKeys={props.selectedRowKeys}
           onSelectionChange={handleSelectionChange}
-          pageSize={10}
+          showSizeChanger={props.showSizeChanger}
+          pageSizeOptions={props.pageSizeOptions}
+          pageSize={props.pageSize || 10}
         />
       </div>
     </Modal>
