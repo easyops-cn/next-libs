@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/searchable-tree@0.1.0...@libs/searchable-tree@0.1.1) (2020-06-05)
+
+**Note:** Version bump only for package @libs/searchable-tree
+
 # 0.1.0 (2020-05-27)
 
 ### Features
