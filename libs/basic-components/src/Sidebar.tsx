@@ -1,5 +1,5 @@
 import React from "react";
-import { Menu } from "antd";
+import { Menu, Icon } from "antd";
 import { uniq } from "lodash";
 import { UnregisterCallback, Location, parsePath } from "history";
 import { getHistory } from "@easyops/brick-kit";
@@ -10,7 +10,7 @@ import { GeneralIcon } from "./GeneralIcon";
 import {
   SidebarMenuSimpleItem,
   SidebarMenuItem,
-  SidebarMenuGroup
+  SidebarMenuGroup,
 } from "@easyops/brick-types";
 import style from "./Sidebar.module.css";
 
@@ -46,7 +46,7 @@ export function initMenuItemAndMatchCurrentPathKeys(
   const openedKeys: string[] = [];
 
   let cursor = 0;
-  menuItems.forEach(item => {
+  menuItems.forEach((item) => {
     // key的格式最终为0,1,2,0.1,0.2,0.1.1,0.1.2
     item.key = parentCursor === "" ? `${cursor}` : `${parentCursor}.${cursor}`;
     if (isGroup(item) || isSubMenu(item)) {
@@ -73,7 +73,7 @@ export function initMenuItemAndMatchCurrentPathKeys(
   }
   return {
     selectedKeys: selectedKeys,
-    openedKeys: openedKeys
+    openedKeys: openedKeys,
   };
 }
 
@@ -90,14 +90,14 @@ export function matchMenuItem(
 
   let match = !!matchPath(pathname, {
     path: escapedPath,
-    exact: item.exact
+    exact: item.exact,
   });
 
   if (!match && Array.isArray(item.activeIncludes)) {
     for (const include of item.activeIncludes) {
       match = !!matchPath(pathname, {
         path: include,
-        exact: true
+        exact: true,
       });
       if (match) {
         break;
@@ -109,7 +109,7 @@ export function matchMenuItem(
     for (const include of item.activeExcludes) {
       match = !matchPath(pathname, {
         path: include,
-        exact: true
+        exact: true,
       });
       if (!match) {
         break;
@@ -139,12 +139,12 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
     const history = getHistory();
 
     this.state = {
-      location: history.location
+      location: history.location,
     };
 
-    this.unlisten = history.listen(location => {
+    this.unlisten = history.listen((location) => {
       this.setState({
-        location
+        location,
       });
     });
   }
@@ -171,15 +171,27 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
   private renderGroupMenu(item: SidebarMenuGroup): React.ReactNode {
     return (
       <Menu.ItemGroup key={item.key} title={item.title}>
-        {item.items.map(innerItem => this.renderMenuItem(innerItem))}
+        {item.items.map((innerItem) => this.renderMenuItem(innerItem))}
       </Menu.ItemGroup>
     );
   }
 
   private renderSubMenu(item: SidebarMenuGroup): React.ReactNode {
     return (
-      <Menu.SubMenu key={item.key} title={item.title}>
-        {item.items.map(innerItem => this.renderMenuItem(innerItem))}
+      <Menu.SubMenu
+        key={item.key}
+        title={
+          item.icon ? (
+            <span>
+              <GeneralIcon icon={item.icon} />
+              <span>{item.title}</span>
+            </span>
+          ) : (
+            item.title
+          )
+        }
+      >
+        {item.items.map((innerItem) => this.renderMenuItem(innerItem))}
       </Menu.SubMenu>
     );
   }
@@ -212,7 +224,7 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
         className={style.menuContainer}
         inlineCollapsed={this.props.collapsed}
       >
-        {this.props.menuItems.map(item => this.renderMenuItem(item))}
+        {this.props.menuItems.map((item) => this.renderMenuItem(item))}
       </Menu>
     );
   }

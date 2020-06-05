@@ -23,5 +23,5 @@
 }
 
 .menuItemText {
-  transition: all 250ms ease-out;
+  transition: margin-left 250ms ease-out;
 }

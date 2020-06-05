@@ -4,7 +4,7 @@ import { createHistory } from "@easyops/brick-kit";
 import {
   Sidebar,
   initMenuItemAndMatchCurrentPathKeys,
-  matchMenuItem
+  matchMenuItem,
 } from "./Sidebar";
 import { SidebarMenuItem, SidebarMenuGroup } from "@easyops/brick-types";
 
@@ -15,15 +15,15 @@ describe("Sidebar", () => {
     const menuItems: SidebarMenuItem[] = [
       {
         text: "for-good",
-        to: "/for/good"
+        to: "/for/good",
       },
       {
         type: "default",
         text: "for-better",
         to: {
           pathname: "for-better",
-          search: "?even-more"
-        }
+          search: "?even-more",
+        },
       },
       {
         type: "group",
@@ -31,20 +31,24 @@ describe("Sidebar", () => {
         items: [
           {
             text: "for-perfect",
-            to: "/for/perfect"
+            to: "/for/perfect",
           },
           {
             type: "subMenu",
             title: "subMenu",
+            icon: {
+              lib: "fa",
+              icon: "bug",
+            },
             items: [
               {
                 text: "for-submenu",
-                to: "/for/submenu"
-              }
-            ]
-          }
-        ]
-      }
+                to: "/for/submenu",
+              },
+            ],
+          },
+        ],
+      },
     ];
     const wrapper = shallow(<Sidebar menuItems={menuItems} />);
     expect(wrapper).toMatchSnapshot();
@@ -54,7 +58,7 @@ describe("Sidebar", () => {
     const item = {
       text: "mysql资源管理",
       to: "/mysql-resource/detail",
-      exact: true
+      exact: true,
     };
     const pathname = "/mysql-resource/detail";
     expect(matchMenuItem(item, pathname, "")).toBe(true);
@@ -64,7 +68,7 @@ describe("Sidebar", () => {
     const item = {
       text: "mysql资源管理",
       to: "/mysql-resource/detail",
-      exact: true
+      exact: true,
     };
     const pathname = "/mysql-resource/detail/xxxxx";
     expect(matchMenuItem(item, pathname, "")).toBe(false);
@@ -75,7 +79,7 @@ describe("Sidebar", () => {
       text: "mysql资源管理",
       to: "/mysql-resource/detail",
       exact: true,
-      activeIncludes: ["/home", "/home/aaa"]
+      activeIncludes: ["/home", "/home/aaa"],
     };
     const pathname = "/home";
     expect(matchMenuItem(item, pathname, "")).toBe(true);
@@ -86,7 +90,7 @@ describe("Sidebar", () => {
       text: "mysql资源管理",
       to: "/mysql-resource/detail",
       exact: false,
-      activeExcludes: ["/mysql-resource/detail/monitor/xxx"]
+      activeExcludes: ["/mysql-resource/detail/monitor/xxx"],
     };
     const pathname = "/mysql-resource/detail/aaaa";
     expect(matchMenuItem(item, pathname, "")).toBe(true);
@@ -99,7 +103,7 @@ describe("Sidebar", () => {
       text: "mysql资源管理",
       to: "/mysql-resource/detail?appId=abc",
       exact: false,
-      activeMatchSearch: true
+      activeMatchSearch: true,
     };
     const pathname = "/mysql-resource/detail";
     expect(matchMenuItem(item, pathname, "")).toBe(false);
@@ -115,7 +119,7 @@ describe("Sidebar", () => {
       {
         text: "for-good",
         to: "/for/good",
-        activeIncludes: ["/for/good"]
+        activeIncludes: ["/for/good"],
       },
       {
         type: "group",
@@ -124,7 +128,7 @@ describe("Sidebar", () => {
           {
             text: "for-perfect",
             to: "/for/perfect",
-            activeExcludes: ["/for/perfect/aaa"]
+            activeExcludes: ["/for/perfect/aaa"],
           },
           {
             type: "subMenu",
@@ -132,12 +136,12 @@ describe("Sidebar", () => {
             items: [
               {
                 text: "for-submenu",
-                to: "/for/submenu"
-              }
-            ]
-          }
-        ]
-      }
+                to: "/for/submenu",
+              },
+            ],
+          },
+        ],
+      },
     ];
     const { selectedKeys, openedKeys } = initMenuItemAndMatchCurrentPathKeys(
       menuItems,
@@ -157,7 +161,7 @@ describe("Sidebar", () => {
     expect(openedKeys).toContain("1.1");
     const {
       selectedKeys: selectedKeys2,
-      openedKeys: openedKeys2
+      openedKeys: openedKeys2,
     } = initMenuItemAndMatchCurrentPathKeys(
       menuItems,
       "/for/perfect",
