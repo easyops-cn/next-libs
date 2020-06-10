@@ -39,6 +39,7 @@ export function GraphNodeComponent(
       case "bricks":
       case "routes":
       case "custom-template":
+      case "view-template":
         contentComponent = content.items.map((item, index) => (
           <ContentItem
             key={index}
@@ -98,7 +99,8 @@ export function GraphNodeComponent(
       <div className={styles.alias} style={styleConfig.alias}>
         {getNodeDisplayName(node.originalData)}
         {node.originalData.type !== "app-root" &&
-          node.originalData.type !== "tpl-root" && (
+          node.originalData.type !== "tpl-root" &&
+          node.originalData.type !== "view-tpl-root" && (
             <div className={styles.menuButton} onClick={handleReorderClick}>
               <Icon type="menu" />
             </div>
@@ -110,7 +112,7 @@ export function GraphNodeComponent(
 }
 
 interface ContentItemProps {
-  type: "bricks" | "routes" | "custom-template" | "unknown";
+  type: "bricks" | "routes" | "custom-template" | "view-template" | "unknown";
   item: ViewItem;
   isLast?: boolean;
   contentItemActions?: ContentItemActions;
@@ -123,6 +125,7 @@ type ContentItemSubtype =
   | "provider"
   | "template"
   | "custom-template"
+  | "view-template"
   | "unknown";
 
 const contentItemSubtypeIconMap: Record<ContentItemSubtype, FaIcon["icon"]> = {
@@ -131,6 +134,7 @@ const contentItemSubtypeIconMap: Record<ContentItemSubtype, FaIcon["icon"]> = {
   provider: "database",
   template: "boxes",
   "custom-template": "code",
+  "view-template": "code",
   unknown: "question",
 };
 
@@ -157,7 +161,7 @@ export function ContentItem(props: ContentItemProps): React.ReactElement {
       default:
         subtype = "brick";
     }
-  } else if (type === "custom-template") {
+  } else if (type === "custom-template" || type === "view-template") {
     subtype = item.type as ContentItemSubtype;
   } else if (type === "routes") {
     subtype = "route";
@@ -175,6 +179,7 @@ export function ContentItem(props: ContentItemProps): React.ReactElement {
         [styles.contentItemTypeProvider]: subtype === "provider",
         [styles.contentItemTypeTemplate]: subtype === "template",
         [styles.contentItemTypeCustomTemplate]: subtype === "custom-template",
+        [styles.contentItemTypeViewTemplate]: subtype === "view-template",
         [styles.contentItemEllipsisButtonAvailable]: ellipsisButtonAvailable,
       })}
       style={{
