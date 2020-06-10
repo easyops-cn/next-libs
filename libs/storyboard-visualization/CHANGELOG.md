@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.31.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.30.1...@libs/storyboard-visualization@0.31.0) (2020-06-10)
+
+### Features
+
+- **storyboard-visualization:** support view-template ([95a6274](https://git.easyops.local/anyclouds/next-libs/commits/95a6274))
+
 ## [0.30.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.30.0...@libs/storyboard-visualization@0.30.1) (2020-06-05)
 
 **Note:** Version bump only for package @libs/storyboard-visualization
