@@ -14,15 +14,15 @@ describe("viewsToGraph", () => {
         originalData: {
           alias: "APP",
           type: "app-root",
-          children: []
+          children: [],
         },
         height: 39,
         content: {
           type: "routes",
-          items: []
+          items: [],
         },
-        children: []
-      }
+        children: [],
+      },
     ],
     [
       [],
@@ -32,37 +32,37 @@ describe("viewsToGraph", () => {
         originalData: {
           alias: "APP",
           type: "app-root",
-          children: []
+          children: [],
         },
         height: 39,
         content: {
           type: "routes",
-          items: []
+          items: [],
         },
-        children: []
-      }
+        children: [],
+      },
     ],
     [
       [
         {
           alias: "route: empty-routes",
-          type: "routes"
-        }
+          type: "routes",
+        },
       ],
       "auto",
       {
         nodeType: "route",
         content: {
           type: "routes",
-          items: []
+          items: [],
         },
         originalData: {
           alias: "route: empty-routes",
-          type: "routes"
+          type: "routes",
         },
         height: 39,
-        children: []
-      }
+        children: [],
+      },
     ],
     [
       [
@@ -72,10 +72,10 @@ describe("viewsToGraph", () => {
           children: [
             {
               alias: "brick: 1",
-              type: "brick"
-            }
-          ]
-        }
+              type: "brick",
+            },
+          ],
+        },
       ],
       "auto",
       {
@@ -85,9 +85,9 @@ describe("viewsToGraph", () => {
           items: [
             {
               alias: "brick: 1",
-              type: "brick"
-            }
-          ]
+              type: "brick",
+            },
+          ],
         },
         originalData: {
           alias: "route: bricks",
@@ -95,20 +95,20 @@ describe("viewsToGraph", () => {
           children: [
             {
               alias: "brick: 1",
-              type: "brick"
-            }
-          ]
+              type: "brick",
+            },
+          ],
         },
         height: 74,
-        children: []
-      }
+        children: [],
+      },
     ],
     [
       [
         {
           alias: "route: empty-routes",
-          type: "routes"
-        }
+          type: "routes",
+        },
       ],
       true,
       {
@@ -119,9 +119,9 @@ describe("viewsToGraph", () => {
           children: [
             {
               alias: "route: empty-routes",
-              type: "routes"
-            }
-          ]
+              type: "routes",
+            },
+          ],
         },
         height: 74,
         content: {
@@ -129,14 +129,14 @@ describe("viewsToGraph", () => {
           items: [
             {
               alias: "route: empty-routes",
-              type: "routes"
-            }
-          ]
+              type: "routes",
+            },
+          ],
         },
-        children: []
-      }
+        children: [],
+      },
     ],
-    [fakeBuilderGraphSource(), "auto", fakeBuilderGraphNode()]
+    [fakeBuilderGraphSource(), "auto", fakeBuilderGraphNode()],
   ])("viewsToGraph(%j, %j) should return %j", (list, wrapAnApp, result) => {
     expect(viewsToGraph(list, wrapAnApp)).toEqual(result);
   });
@@ -146,53 +146,60 @@ describe("getNodeDisplayName", () => {
   it.each<[ViewItem, string]>([
     [
       {
-        alias: "alias-a"
+        alias: "alias-a",
       },
-      "alias-a"
+      "alias-a",
     ],
     [
       {
         type: "brick",
-        brick: "brick-a"
+        brick: "brick-a",
       },
-      "brick-a"
+      "brick-a",
     ],
     [
       {
         alias: "alias-b",
         type: "brick",
-        brick: "brick-a"
+        brick: "brick-a",
       },
-      "alias-b"
+      "alias-b",
     ],
     [
       {
         type: "brick",
-        brick: "your.brick-b"
+        brick: "your.brick-b",
       },
-      "brick-b"
+      "brick-b",
     ],
     [
       {
         type: "template",
-        template: "your.template-a"
+        template: "your.template-a",
       },
-      "template-a"
+      "template-a",
     ],
     [
       {
         type: "routes",
-        path: "/your-page-a"
+        path: "/your-page-a",
       },
-      "/your-page-a"
+      "/your-page-a",
     ],
     [
       {
         type: "custom-template",
-        templateId: "tpl-test"
+        templateId: "tpl-test",
       },
-      "tpl-test"
-    ]
+      "tpl-test",
+    ],
+    [
+      {
+        type: "view-template",
+        templateId: "tpl-test",
+      },
+      "tpl-test",
+    ],
   ])("getNodeDisplayName(%j) should return %j", (data, displayName) => {
     expect(getNodeDisplayName(data)).toBe(displayName);
   });
@@ -205,25 +212,25 @@ describe("computeSourceX", () => {
       {
         source: {
           data: {},
-          x: 10
+          x: 10,
         },
-        target: {}
+        target: {},
       },
-      10
+      10,
     ],
     [
       {
         source: {
           data: {
             content: {
-              type: "unknown"
-            }
+              type: "unknown",
+            },
           },
-          x: 10
+          x: 10,
         },
-        target: {}
+        target: {},
       },
-      10
+      10,
     ],
     [
       {
@@ -231,19 +238,19 @@ describe("computeSourceX", () => {
           data: {
             content: {
               type: "bricks",
-              items: [{}, nodeA]
+              items: [{}, nodeA],
             },
-            height: 100
+            height: 100,
           },
-          x: 10
+          x: 10,
         },
         target: {
           data: {
-            originalData: nodeA
-          }
-        }
+            originalData: nodeA,
+          },
+        },
       },
-      47
+      47,
     ],
     [
       {
@@ -253,25 +260,25 @@ describe("computeSourceX", () => {
               type: "slots",
               slots: [
                 {
-                  items: [{}]
+                  items: [{}],
                 },
                 {
-                  items: [{}, nodeA]
-                }
-              ]
+                  items: [{}, nodeA],
+                },
+              ],
             },
-            height: 100
+            height: 100,
           },
-          x: 10
+          x: 10,
         },
         target: {
           data: {
-            originalData: nodeA
-          }
-        }
+            originalData: nodeA,
+          },
+        },
       },
-      133
-    ]
+      133,
+    ],
   ] as any)("computeSourceX(%j) should return %j", (link, x) => {
     expect(computeSourceX(link)).toBe(x);
   });

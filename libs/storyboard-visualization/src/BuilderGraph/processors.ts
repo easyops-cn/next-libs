@@ -23,6 +23,13 @@ export function viewsToGraph(
         children: sortViews(views || []),
       });
     }
+    if (views[0].type === "view-template") {
+      return ViewItemToGraph({
+        alias: "View Template",
+        type: "view-tpl-root",
+        children: sortViews(views || []),
+      });
+    }
     return ViewItemToGraph(views[0]);
   }
   return viewsToGraph(
@@ -61,9 +68,13 @@ export function isRouteNode(view: ViewItem): boolean {
 }
 
 export function isBrickNode(view: ViewItem): boolean {
-  return ["brick", "provider", "template", "custom-template"].includes(
-    view.type
-  );
+  return [
+    "brick",
+    "provider",
+    "template",
+    "custom-template",
+    "view-template",
+  ].includes(view.type);
 }
 
 function getNodeContent(view: ViewItem): GraphNodeContent {
@@ -72,13 +83,17 @@ function getNodeContent(view: ViewItem): GraphNodeContent {
     case "routes":
     case "app-root":
     case "tpl-root":
+    case "view-tpl-root":
     case "custom-template":
+    case "view-template":
       return {
         type:
           view.type === "app-root"
             ? "routes"
             : view.type === "tpl-root"
             ? "custom-template"
+            : view.type === "view-tpl-root"
+            ? "view-template"
             : view.type,
         items: sortViews(view.children),
       };
@@ -120,7 +135,7 @@ export function getNodeDisplayName(data: ViewItem): string {
     return data.alias;
   }
 
-  if (data.type === "custom-template") {
+  if (data.type === "custom-template" || data.type === "view-template") {
     return data.templateId;
   }
 
@@ -146,6 +161,7 @@ function computeNodeHeight(node: GraphNode): number {
       case "bricks":
       case "routes":
       case "custom-template":
+      case "view-template":
         height +=
           node.content.items.length * styleConfig.contentItem.height +
           (node.content.items.length - 1) *
@@ -192,6 +208,7 @@ export function computeSourceX({
     case "bricks":
     case "routes":
     case "custom-template":
+    case "view-template":
       for (item of content.items) {
         if (item === target.data.originalData) {
           return x + styleConfig.contentItem.height / 2;

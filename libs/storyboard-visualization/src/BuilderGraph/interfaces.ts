@@ -13,7 +13,8 @@ export type GraphNodeContent =
   | GraphNodeContentBricks
   | GraphNodeContentRoutes
   | GraphNodeContentRedirect
-  | GraphNodeContentCustomTemplate;
+  | GraphNodeContentCustomTemplate
+  | GraphNodeContentViewTemplate;
 
 export interface GraphNodeContentSlots {
   type: "slots";
@@ -42,5 +43,10 @@ export interface GraphNodeContentRedirect {
 
 export interface GraphNodeContentCustomTemplate {
   type: "custom-template";
+  items: ViewItem[];
+}
+
+export interface GraphNodeContentViewTemplate {
+  type: "view-template";
   items: ViewItem[];
 }
