@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.7.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@1.6.1...@libs/cmdb-instances@1.7.0) (2020-06-17)
+
+### Features
+
+- **cmdb-instances:** 实例列表构件将“显示省略信息”外置，且修改为 icon 样式 ([76c9a5b](https://git.easyops.local/anyclouds/next-libs/commits/76c9a5b))
+
 ## [1.6.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@1.6.0...@libs/cmdb-instances@1.6.1) (2020-06-05)
 
 **Note:** Version bump only for package @libs/cmdb-instances
