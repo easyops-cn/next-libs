@@ -13,7 +13,7 @@ jest.mock("./SettingsContainer", () => ({
         <button onClick={props.onHideSettings}>取 消</button>
       </div>
     );
-  })
+  }),
 }));
 
 describe("MoreButtonsContainer", () => {
@@ -28,10 +28,9 @@ describe("MoreButtonsContainer", () => {
         modelData={modelData}
         onHandleConfirm={onHandleConfirm}
         onHandleReset={onHandleReset}
-        currentFields={modelData.attrList.map(attr => attr.id)}
+        currentFields={modelData.attrList.map((attr) => attr.id)}
         onHideSettings={onHideSettings}
         defaultFields={[]}
-        autoBreakLine={false}
       />
     );
     const moreSettingsButton = getByRole("button");

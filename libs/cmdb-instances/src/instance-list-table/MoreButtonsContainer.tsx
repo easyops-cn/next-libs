@@ -3,7 +3,7 @@ import { Dropdown, Menu, Icon, Modal, Button } from "antd";
 import { CmdbModels } from "@sdk/cmdb-sdk";
 import { Settings } from "./SettingsContainer";
 import { InstanceListPresetConfigs } from "./interfaces";
-
+import styles from "./InstanceListTable.module.css";
 interface MoreButtonsContainerProps {
   modelData: Partial<CmdbModels.ModelCmdbObject>;
   currentFields?: string[];
@@ -11,9 +11,7 @@ interface MoreButtonsContainerProps {
   onHandleConfirm: (attrIds: string[]) => void;
   onHideSettings?: () => void;
   onHandleReset: (fields: string[]) => void;
-  onToggleAutoBreakLine?: (autoBreakLine: boolean) => void;
   fieldIds?: string[];
-  autoBreakLine: boolean;
 }
 
 interface MoreButtonsContainerState {
@@ -30,19 +28,19 @@ export class MoreButtonsContainer extends React.Component<
     this.handleSettingButtonClick = this.handleSettingButtonClick.bind(this);
 
     this.state = {
-      visible: false
+      visible: false,
     };
   }
 
   handleSettingButtonClick = () => {
     this.setState({
-      visible: true
+      visible: true,
     });
   };
 
   handleCancel = () => {
     this.setState({
-      visible: false
+      visible: false,
     });
   };
 
@@ -57,7 +55,11 @@ export class MoreButtonsContainer extends React.Component<
 
     return (
       <div>
-        <Dropdown overlay={menu} trigger={["click"]}>
+        <Dropdown
+          overlay={menu}
+          trigger={["click"]}
+          className={styles.moreButtonsContainer}
+        >
           <Button shape="circle" icon="ellipsis" />
         </Dropdown>
         <Modal
@@ -70,13 +72,11 @@ export class MoreButtonsContainer extends React.Component<
         >
           <Settings
             currentFields={this.props.fieldIds}
-            options={{ autoBreakLine: this.props.autoBreakLine }}
             modelData={this.props.modelData}
             title={"显示设置"}
             onHideSettings={this.handleCancel}
             onHandleConfirm={this.props.onHandleConfirm}
             onHandleReset={this.props.onHandleReset}
-            onToggleAutoBreakLine={this.props.onToggleAutoBreakLine}
             defaultFields={this.props.defaultFields}
           />
         </Modal>

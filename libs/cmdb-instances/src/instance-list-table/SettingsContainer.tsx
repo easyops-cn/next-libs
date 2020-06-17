@@ -4,7 +4,7 @@ import { extraFieldAttrs, otherFieldIds } from "./constants";
 import { Button, Checkbox, Col, Input, Row, Typography } from "antd";
 import {
   getBatchEditableRelations,
-  CMDB_RESOURCE_FIELDS_SETTINGS
+  CMDB_RESOURCE_FIELDS_SETTINGS,
 } from "@libs/cmdb-utils";
 import { CmdbModels } from "@sdk/cmdb-sdk";
 
@@ -14,8 +14,6 @@ interface SettingsProps {
   defaultFields?: string[];
   modelData: Partial<CmdbModels.ModelCmdbObject>;
   onHideSettings: () => void;
-  onToggleAutoBreakLine?: (autoBreakLine: boolean) => void;
-  options: { autoBreakLine: boolean };
   objectId?: string;
   onHandleConfirm: (attrIds: string[]) => void;
   onHandleReset: (fields: string[]) => void;
@@ -23,21 +21,18 @@ interface SettingsProps {
 
 interface SettingsState {
   nextFields: string[];
-  otherFields: any[];
   q: string;
-  filterList: object[];
+  filterList: any;
 }
 
 export class Settings extends React.Component<SettingsProps, SettingsState> {
   debounceHandleSearch: () => void;
   titleLineStyle: any;
   titleLineSpanStyle: any;
-  otherAttrs: any[];
   attrAndRelationList: { id: string; name: string }[] = [];
 
   constructor(props: SettingsProps) {
     super(props);
-
     this.handleChecked = this.handleChecked.bind(this);
     this.handleReset = this.handleReset.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -47,7 +42,7 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
     const relationList = getBatchEditableRelations(this.props.modelData);
     const attrAndRelationList = [
       ...this.props.modelData.attrList,
-      ...relationList
+      ...relationList,
     ];
 
     let hideColumns = this.props.modelData.view.hide_columns || [];
@@ -60,20 +55,19 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
 
     if (!isEmpty(hideColumns)) {
       hideColumns.forEach((hideColumn: string) => {
-        remove(attrAndRelationList, attr => attr.id === hideColumn);
+        remove(attrAndRelationList, (attr) => attr.id === hideColumn);
       });
     }
 
     this.attrAndRelationList = attrAndRelationList.map((attribute: any) => ({
       id: attribute.id,
-      name: attribute.name
+      name: attribute.name,
     }));
 
     this.state = {
       nextFields: props.currentFields.slice(),
-      otherFields: [],
       q: "",
-      filterList: this.attrAndRelationList
+      filterList: this.attrAndRelationList,
     };
     this.debounceHandleSearch = debounce(this.filterColTag, 300);
 
@@ -81,7 +75,7 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
       height: "1px",
       borderTop: "1px solid #ddd",
       marginTop: "24px",
-      marginBottom: "24px"
+      marginBottom: "24px",
     };
 
     this.titleLineSpanStyle = {
@@ -89,24 +83,12 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
       top: "-14px",
       fontSize: "16px",
       background: "#fff",
-      paddingRight: "10px"
+      paddingRight: "10px",
     };
-
-    this.otherAttrs = [
-      {
-        id: otherFieldIds.autoBreakLine,
-        name: "显示省略信息"
-      }
-    ];
-    if (props.options.autoBreakLine) {
-      this.state.otherFields.push(otherFieldIds.autoBreakLine);
-    }
   }
 
   handleChecked(event: any, attr: any) {
-    const fieldsKey = this.otherAttrs.map(attr => attr.id).includes(attr.id)
-      ? "otherFields"
-      : "nextFields";
+    const fieldsKey = "nextFields";
     if (event.target.checked) {
       // eslint-disable-next-line
       // @ts-ignore
@@ -119,9 +101,7 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
   }
 
   renderCheckbox(attr: any, field: "nextFields" | "otherFields") {
-    const fieldsKey = this.otherAttrs.map(attr => attr.id).includes(attr.id)
-      ? "otherFields"
-      : "nextFields";
+    const fieldsKey = "nextFields";
     const checked = this.state[fieldsKey].includes(attr.id);
 
     return (
@@ -130,7 +110,7 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
           name={field}
           style={{ margin: 5 }}
           checked={checked}
-          onChange={event => this.handleChecked(event, attr)}
+          onChange={(event) => this.handleChecked(event, attr)}
         >
           {attr.name}
         </Checkbox>
@@ -144,26 +124,25 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
     }
     this.props.onHideSettings();
     this.props.onHandleReset(this.props.defaultFields);
-    this.props.onToggleAutoBreakLine(false);
   };
 
   filterColTag = () => {
     let filterList = this.attrAndRelationList;
     const q = this.state.q.trim().toLowerCase();
     if (q) {
-      filterList = filterList.filter(attr => {
+      filterList = filterList.filter((attr) => {
         return attr.name.toLowerCase().includes(q);
       });
     }
     this.setState({
-      filterList
+      filterList,
     });
   };
 
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     this.setState({
-      q: value
+      q: value,
     });
     this.debounceHandleSearch();
   };
@@ -175,9 +154,6 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
   handleConfirm = () => {
     this.props.onHideSettings();
     this.props.onHandleConfirm(this.state.nextFields);
-    this.props.onToggleAutoBreakLine(
-      this.state.otherFields.includes(otherFieldIds.autoBreakLine)
-    );
   };
 
   render() {
@@ -185,7 +161,7 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
     const filterList = this.state.filterList;
     const count = this.state.nextFields.length;
     const extraAttrIds = extraFieldAttrs.map(
-      extraFieldAttr => extraFieldAttr.id
+      (extraFieldAttr) => extraFieldAttr.id
     );
     const attrs = filterList.filter(
       (attr: any) => !extraAttrIds.includes(attr.id)
@@ -214,7 +190,7 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
               marginTop: 15,
               marginBottom: 15,
               height: 200,
-              overflow: "auto"
+              overflow: "auto",
             }}
             className="nextFields"
           >
@@ -225,19 +201,11 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
                   span={24}
                   style={{ borderTop: "1px solid #e9e9e9", margin: "10px 0" }}
                 />
-                {extraAttrs.map(attr =>
+                {extraAttrs.map((attr: any) =>
                   this.renderCheckbox(attr, "nextFields")
                 )}
               </>
             ) : null}
-          </Row>
-          <Row style={this.titleLineStyle}>
-            <span style={this.titleLineSpanStyle}>其他设置</span>
-          </Row>
-          <Row>
-            {this.otherAttrs.map(attr =>
-              this.renderCheckbox(attr, "otherFields")
-            )}
           </Row>
           <Row style={this.titleLineStyle}>
             <Col span={8}>

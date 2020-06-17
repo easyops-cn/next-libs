@@ -50,6 +50,7 @@ import {
 } from "./constants";
 import { JsonStorage } from "@libs/storage";
 import { ModelAttributeValueType } from "../model-attribute-form-control/ModelAttributeFormControl";
+import { IconButton } from "./IconButton";
 
 export interface InstanceListPresetConfigs {
   query?: Record<string, any>;
@@ -490,14 +491,12 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     refreshInstanceList(state.sort, state.asc, pagination.page);
   };
 
-  const onRelatedToMeChange = (e: CheckboxChangeEvent) => {
-    const checked = e.target.checked;
+  const onRelatedToMeChange = (checked: boolean) => {
     setState({ relatedToMe: checked });
     props.onRelatedToMeChange?.(checked);
   };
 
-  const onAliveHostsChange = (e: CheckboxChangeEvent) => {
-    const checked = e.target.checked;
+  const onAliveHostsChange = (checked: boolean) => {
     setState({ aliveHosts: checked });
     props.onAliveHostsChange?.(checked);
   };
@@ -536,10 +535,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     props.notifyCurrentFields?.(state.fieldIds);
   }, [props.notifyCurrentFields]);
 
-  const onAdvancedSearchCloseGen = (
-    attrId: string,
-    valuesStr: string
-  ): Function => {
+  const onAdvancedSearchCloseGen = (attrId: string, valuesStr: string) => {
     return () => {
       const queries: Query[] = [];
       state.aq.forEach((query) => {
@@ -617,35 +613,41 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
                   </div>
                 )}
                 {props.objectId === "HOST" && !props.aliveHostsDisabled && (
-                  <Checkbox
+                  <IconButton
                     checked={state.aliveHosts}
                     onChange={onAliveHostsChange}
-                    style={{ marginLeft: "auto" }}
+                    style={{ marginRight: 10 }}
                     disabled={props.fixAliveHosts}
-                    data-testid="alive-hosts-checkbox"
-                  >
-                    正常主机
-                  </Checkbox>
+                    type="normalHost"
+                    label="正常主机"
+                    data-testid="alive-hosts"
+                  />
                 )}
                 {!props.relatedToMeDisabled && (
-                  <Checkbox
+                  <IconButton
                     checked={state.relatedToMe}
                     onChange={onRelatedToMeChange}
-                    data-testid="related-to-me-checkbox"
                     style={{ marginRight: 10 }}
-                  >
-                    与我有关
-                  </Checkbox>
+                    type="relateToMe"
+                    label="与我有关"
+                    data-testid="related-to-me"
+                  />
                 )}
+                <IconButton
+                  checked={state.autoBreakLine}
+                  onChange={toggleAutoBreakLine}
+                  style={{ marginRight: 10 }}
+                  type="showHiddenInfo"
+                  label="省略信息"
+                  data-testid="show-hidden-info"
+                />
                 {!props.moreButtonsDisabled && (
                   <MoreButtonsContainer
                     modelData={modelData}
                     onHandleConfirm={handleConfirm}
                     onHandleReset={handleReset}
-                    onToggleAutoBreakLine={toggleAutoBreakLine}
                     fieldIds={state.fieldIds}
                     defaultFields={handleDefaultFields()}
-                    autoBreakLine={state.autoBreakLine}
                   />
                 )}
               </div>
