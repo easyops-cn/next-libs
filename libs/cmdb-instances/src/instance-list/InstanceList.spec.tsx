@@ -10,6 +10,7 @@ import { act } from "react-dom/test-utils";
 import { PropertyDisplayConfig } from "@easyops/brick-types";
 import { InstanceApi } from "@sdk/cmdb-sdk";
 import * as storage from "@libs/storage";
+import { IconButton } from "./IconButton";
 
 import { InstanceList } from "./InstanceList";
 import { getInstanceListData } from "../__mocks__";
@@ -20,6 +21,7 @@ import {
   InstanceListTableProps,
 } from "../instance-list-table";
 import { InstanceListPresetConfigs } from "../instance-list/InstanceList";
+import { mount, shallow } from "enzyme";
 
 jest.mock("@libs/storage");
 jest.mock("@sdk/cmdb-sdk");
@@ -183,9 +185,9 @@ describe("InstanceList", () => {
     expect(mockAdvancedSearchElement).toBeVisible();
   });
 
-  it("should call onRelatedToMeChange when change relatedToMe checkbox", async () => {
+  it("should call onRelatedToMeChange when change relatedToMe ", async () => {
     const mockOnRelatedToMeChange = jest.fn();
-    const { queryByTestId } = render(
+    const wrapper = mount(
       <InstanceList
         objectId="HOST"
         objectList={[HOST]}
@@ -194,22 +196,22 @@ describe("InstanceList", () => {
         relationLinkDisabled={true}
       />
     );
-    await waitForElement(() => queryByTestId("related-to-me-checkbox"));
-    const relatedToMeCheckbox = queryByTestId("related-to-me-checkbox");
-    expect((relatedToMeCheckbox as HTMLInputElement).checked).toBe(true);
-    await act(async () => {
-      fireEvent.click(relatedToMeCheckbox.closest("label"));
-    });
+    await (global as any).flushPromises();
+    await jest.runAllTimers();
+    wrapper.update();
+    const relatedToMe = wrapper.find("IconButton").get(1);
+    expect(relatedToMe.props["checked"]).toBeTruthy();
+    wrapper.find(IconButton).at(1).invoke("onChange")(false);
     expect(mockOnRelatedToMeChange).toBeCalledWith(false);
   });
 
-  it("should call onAliveHostsChange when change aliveHosts checkbox", async () => {
+  it("should call onAliveHostsChange when change aliveHosts", async () => {
     const mockOnAliveHostsChange = jest.fn();
     const presetConfigs: InstanceListPresetConfigs = {
       query: { status: "运营中" },
       fieldIds: ["hostname", "ip", "_deviceList_CLUSTER"],
     };
-    const { queryByTestId } = render(
+    const wrapper = mount(
       <InstanceList
         objectId="HOST"
         objectList={[HOST]}
@@ -224,12 +226,13 @@ describe("InstanceList", () => {
         notifyCurrentFields={jest.fn()}
       />
     );
-    await waitForElement(() => queryByTestId("alive-hosts-checkbox"));
-    const aliveHostsCheckbox = queryByTestId("alive-hosts-checkbox");
-    expect((aliveHostsCheckbox as HTMLInputElement).checked).toBe(true);
-    await act(async () => {
-      fireEvent.click(aliveHostsCheckbox.closest("label"));
-    });
+    await (global as any).flushPromises();
+    await jest.runAllTimers();
+    wrapper.update();
+
+    const aliveHosts = wrapper.find("IconButton").get(0);
+    expect(aliveHosts.props["checked"]).toBeTruthy();
+    wrapper.find(IconButton).at(0).invoke("onChange")(false);
     expect(mockOnAliveHostsChange).toBeCalledWith(false);
   });
 });

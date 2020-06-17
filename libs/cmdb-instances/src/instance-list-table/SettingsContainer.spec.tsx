@@ -4,7 +4,7 @@ import {
   render,
   fireEvent,
   waitForElement,
-  wait
+  wait,
 } from "@testing-library/react";
 import { Settings } from "./SettingsContainer";
 import { HOST } from "./data-providers/__mocks__";
@@ -17,41 +17,35 @@ describe("Settings", () => {
   const onHandleConfirm = jest.fn();
   const onHandleReset = jest.fn();
   const onHideSetting = jest.fn();
-  const options = { autoBreakLine: false };
-  const onToggleAutoBreakLine = jest.fn();
   const presetConfigs: InstanceListPresetConfigs = { fieldIds: [] };
 
   it("handleConfirm should work", () => {
     const { getByText } = render(
       <Settings
         objectId={objectId}
-        currentFields={modelData.attrList.map(attr => attr.id)}
+        currentFields={modelData.attrList.map((attr) => attr.id)}
         modelData={modelData}
         onHandleConfirm={onHandleConfirm}
         onHandleReset={onHandleReset}
         onHideSettings={onHideSetting}
-        options={options}
-        onToggleAutoBreakLine={onToggleAutoBreakLine}
       />
     );
     fireEvent.click(getByText("确 定"));
     expect(onHideSetting).toBeCalled();
     expect(onHandleConfirm).toBeCalledWith(
-      modelData.attrList.map(attr => attr.id)
+      modelData.attrList.map((attr) => attr.id)
     );
-    expect(onToggleAutoBreakLine).toBeCalledWith(options.autoBreakLine);
   });
 
   it("handleCancel should work", () => {
     const { getByText } = render(
       <Settings
         objectId={objectId}
-        currentFields={modelData.attrList.map(attr => attr.id)}
+        currentFields={modelData.attrList.map((attr) => attr.id)}
         modelData={modelData}
         onHandleConfirm={onHandleConfirm}
         onHandleReset={onHandleReset}
         onHideSettings={onHideSetting}
-        options={options}
       />
     );
     fireEvent.click(getByText("取 消"));
@@ -59,36 +53,31 @@ describe("Settings", () => {
   });
 
   it("handleReset should work", () => {
-    onToggleAutoBreakLine.mockReset();
     const { getByText } = render(
       <Settings
         objectId={objectId}
-        currentFields={modelData.attrList.map(attr => attr.id)}
+        currentFields={modelData.attrList.map((attr) => attr.id)}
         modelData={modelData}
         onHandleConfirm={onHandleConfirm}
         onHandleReset={onHandleReset}
         onHideSettings={onHideSetting}
-        options={options}
         defaultFields={presetConfigs.fieldIds}
-        onToggleAutoBreakLine={onToggleAutoBreakLine}
       />
     );
     fireEvent.click(getByText("恢复默认"));
     expect(onHideSetting).toBeCalled();
     expect(onHandleReset).toBeCalledWith(presetConfigs.fieldIds);
-    expect(onToggleAutoBreakLine).toBeCalledWith(false);
   });
 
   it("handleChecked should work", async () => {
     const { getByText, getAllByText } = render(
       <Settings
         objectId={objectId}
-        currentFields={modelData.attrList.map(attr => attr.id)}
+        currentFields={modelData.attrList.map((attr) => attr.id)}
         modelData={modelData}
         onHandleConfirm={onHandleConfirm}
         onHandleReset={onHandleReset}
         onHideSettings={onHideSetting}
-        options={options}
         defaultFields={presetConfigs.fieldIds}
       />
     );
@@ -99,26 +88,17 @@ describe("Settings", () => {
     expect(agentStatusCheckbox.checked).toBe(true);
     fireEvent.click(agentStatus);
     expect(agentStatusCheckbox.checked).toBe(false);
-
-    const autoBreakLine = getByText("显示省略信息");
-    const autoBreakLineCheckBox = autoBreakLine.parentElement.querySelector(
-      "input"
-    );
-    expect(autoBreakLineCheckBox.checked).toBe(false);
-    fireEvent.click(autoBreakLine);
-    expect(autoBreakLineCheckBox.checked).toBe(true);
   });
 
   it("handleChange should work", async () => {
     const { getByPlaceholderText, container } = render(
       <Settings
         objectId={objectId}
-        currentFields={modelData.attrList.map(attr => attr.id)}
+        currentFields={modelData.attrList.map((attr) => attr.id)}
         modelData={modelData}
         onHandleConfirm={onHandleConfirm}
         onHandleReset={onHandleReset}
         onHideSettings={onHideSetting}
-        options={{ autoBreakLine: true }}
         defaultFields={presetConfigs.fieldIds}
       />
     );
