@@ -57,7 +57,7 @@ export function initMenuItemAndMatchCurrentPathKeys(
         item.key
       );
       selectedKeys.push(...tmp.selectedKeys);
-      if (tmp.selectedKeys.length) {
+      if (tmp.selectedKeys.length || item.defaultExpanded) {
         openedKeys.push(item.key);
       }
       openedKeys.push(...tmp.openedKeys);
