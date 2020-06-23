@@ -25,7 +25,8 @@ export interface InstanceListModalProps {
   singleSelect?: boolean;
   selectedRowKeys?: string[];
   onCancel: () => void;
-  onSelected?: (instanceList: any[]) => void;
+  onSelected?: (instanceIds: any[]) => void;
+  onSelectedV2?: (instanceDataList: any[]) => void;
   modalZIndex?: number;
   pageSize?: number;
   showSizeChanger?: boolean;
@@ -40,7 +41,12 @@ export function InstanceListModal(
   const [selectedInstanceListTemp, setSelectedInstanceListTemp] = useState([]);
 
   const handleOk = () => {
-    props.onSelected?.(selectedInstanceListTemp);
+    props.onSelected?.(
+      selectedInstanceListTemp.map(
+        (selectedInstance) => selectedInstance.instanceId
+      )
+    );
+    props.onSelectedV2?.(selectedInstanceListTemp);
   };
 
   const handleCancel = () => {
@@ -53,7 +59,7 @@ export function InstanceListModal(
     selectedKeys: string[];
     selectedItems: any[];
   }) => {
-    setSelectedInstanceListTemp(event.selectedKeys);
+    setSelectedInstanceListTemp(event.selectedItems);
   };
 
   const presetConfigs = props.presetConfigs ?? {
