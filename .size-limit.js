@@ -5,9 +5,9 @@ module.exports = sizeLimit({
     "*": "10 KB",
     "basic-components": "30 KB",
     charts: "20 KB",
-    "cmdb-instances": "65 KB",
+    "cmdb-instances": "66 KB",
     crontab: "25 KB",
     "permission-utils": "15 KB",
-    "storyboard-visualization": "95 KB",
+    "storyboard-visualization": "96 KB",
   },
 });
