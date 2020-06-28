@@ -77,7 +77,7 @@
     "react-dom": "^16.13.1",
     "react-i18next": "^11.5.0",
     "react-transition-group": "^4.4.1",
-    "snapshot-diff": "^0.7.0"
+    "snapshot-diff": "^0.8.1"
   },
   "workspaces": [
     "libs/*"
