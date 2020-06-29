@@ -18,7 +18,7 @@ describe("GeneralIcon", () => {
       />
     );
     expect(wrapper.find(Icon).prop("style")).toEqual({
-      color: "#0071eb"
+      color: "#0071eb",
     });
   });
 
@@ -33,12 +33,32 @@ describe("GeneralIcon", () => {
     );
     expect(wrapper.find(BrickIcon).props()).toMatchObject({
       icon: "idc",
-      category: "app"
+      category: "app",
     });
   });
 
   it("should render null if icon is invalid", () => {
     const wrapper = shallow(<GeneralIcon icon={{ lib: "invalid" } as any} />);
     expect(wrapper.html()).toBe("");
+  });
+
+  it("should render Avatar when bg is true", () => {
+    const wrapper = shallow(
+      <GeneralIcon
+        icon={{ lib: "antd", type: "up", theme: "filled", color: "#0071eb" }}
+        bg={true}
+      />
+    );
+    expect(wrapper.find("Avatar").length).toBe(1);
+    wrapper.setProps({
+      icon: {
+        lib: "fa",
+        icon: "accusoft",
+        prefix: "fab",
+        color: "green",
+      },
+    });
+    expect(wrapper.find(".green").length).toBe(1);
+    expect(wrapper.find(".faIcon").length).toBe(1);
   });
 });
