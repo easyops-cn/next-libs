@@ -69,7 +69,7 @@ export function GeneralIcon({
     const faIcon = icon.prefix ? [icon.prefix, icon.icon] : icon.icon;
     iconNode = (
       <Icon
-        style={iconStyle}
+        style={{ ...iconStyle, verticalAlign: 0 }}
         component={() => <FontAwesomeIcon icon={faIcon} />}
       />
     );
