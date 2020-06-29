@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.23.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@0.22.2...@libs/basic-components@0.23.0) (2020-06-29)
+
+### Features
+
+- **general-icon:** bg size shape ([b56049c](https://git.easyops.local/anyclouds/next-libs/commits/b56049c))
+
 ## [0.22.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@0.22.1...@libs/basic-components@0.22.2) (2020-06-22)
 
 ### Bug Fixes
