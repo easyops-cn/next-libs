@@ -1,4 +1,4 @@
-const colors: Record<
+export const COLORS_MAP: Record<
   string,
   { color: string; background: string; borderColor: string }
 > = {
@@ -52,5 +52,5 @@ const colors: Record<
 export function getColor(
   color: string
 ): { color: string; background: string; borderColor: string } {
-  return colors[color] ?? { color, background: color, borderColor: color };
+  return COLORS_MAP[color] ?? { color, background: color, borderColor: color };
 }
