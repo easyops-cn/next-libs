@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.26.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@0.25.0...@libs/basic-components@0.26.0) (2020-06-30)
+
+### Features
+
+- **basic-component:** export COLORS_MAP ([58d898c](https://git.easyops.local/anyclouds/next-libs/commits/58d898c))
+
 # [0.25.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@0.24.0...@libs/basic-components@0.25.0) (2020-06-30)
 
 ### Bug Fixes
