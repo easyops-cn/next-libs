@@ -58,7 +58,11 @@ describe("GeneralIcon", () => {
         color: "green",
       },
     });
-    expect(wrapper.find(".green").length).toBe(1);
-    expect(wrapper.find(".faIcon").length).toBe(1);
+    wrapper.update();
+    expect(wrapper.find("Avatar").prop("style")).toEqual({
+      color: "var(--theme-green-color)",
+      background: "var(--theme-green-background)",
+      borderColor: "var(--theme-green-border-color)",
+    });
   });
 });

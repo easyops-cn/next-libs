@@ -7,14 +7,14 @@ import {
   LegacyAntdIcon,
 } from "@easyops/brick-types";
 import { BrickIcon } from "@easyops/brick-icons";
-import classNames from "classnames";
-import styles from "./GeneralIcon.module.css";
+import { getColor } from "./utils/getColor";
 
 interface MenuIconProps {
   icon: MenuIcon;
   bg?: boolean;
   size?: number | "large" | "small" | "default";
   shape?: "circle" | "square";
+  reverseBgColor?: boolean;
 }
 
 export enum Colors {
@@ -33,6 +33,7 @@ export function GeneralIcon({
   bg,
   size,
   shape,
+  reverseBgColor,
 }: MenuIconProps): React.ReactElement {
   let iconNode = <></>;
   if (!icon) {
@@ -46,6 +47,14 @@ export function GeneralIcon({
     if (bg) {
       if (Object.keys(Colors).includes(icon.color)) {
         iconColorClassName = icon.color;
+        if (reverseBgColor) {
+          avatarStyle = {
+            color: "#ffffff",
+            backgroundColor: getColor(icon.color).color,
+          };
+        } else {
+          avatarStyle = getColor(icon.color);
+        }
       } else {
         avatarStyle = {
           color: "#ffffff",
@@ -93,9 +102,6 @@ export function GeneralIcon({
         size={size ?? "default"}
         shape={shape ?? "circle"}
         style={avatarStyle}
-        className={classNames(styles[iconColorClassName], {
-          [styles.faIcon]: icon.lib === "fa",
-        })}
       ></Avatar>
     );
   }
