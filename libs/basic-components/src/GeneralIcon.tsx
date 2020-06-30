@@ -37,16 +37,22 @@ export function GeneralIcon({
 }: MenuIconProps): React.ReactElement {
   let iconNode = <></>;
   if (!icon) {
-    return iconNode;
+    return bg ? (
+      <Avatar
+        icon={iconNode}
+        size={size ?? "default"}
+        shape={shape ?? "circle"}
+      ></Avatar>
+    ) : (
+      iconNode
+    );
   }
 
   let iconStyle: Record<string, any> = {};
   let avatarStyle: Record<string, any> = {};
-  let iconColorClassName = "";
   if (icon.color) {
     if (bg) {
       if (Object.keys(Colors).includes(icon.color)) {
-        iconColorClassName = icon.color;
         if (reverseBgColor) {
           avatarStyle = {
             color: "#ffffff",
