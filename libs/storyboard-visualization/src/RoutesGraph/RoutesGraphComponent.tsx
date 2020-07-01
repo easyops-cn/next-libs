@@ -10,12 +10,22 @@ export interface RoutesGraphComponentProps {
   onNodeDrag?: (node: ViewItem) => void;
   readOnly?: boolean;
   contentItemActions?: ContentItemActions;
+  showReferenceLines?: boolean;
+  alignSize?: number;
 }
 
 export function RoutesGraphComponent(
   props: RoutesGraphComponentProps
 ): React.ReactElement {
-  const { data, onNodeClick, readOnly, onNodeDrag, contentItemActions } = props;
+  const {
+    data,
+    onNodeClick,
+    readOnly,
+    onNodeDrag,
+    contentItemActions,
+    showReferenceLines,
+    alignSize,
+  } = props;
 
   const visual = React.useMemo(() => new RoutesGraph(), []);
 
@@ -64,8 +74,18 @@ export function RoutesGraphComponent(
       onNodeClick,
       onNodeDrag,
       contentItemActions,
+      showReferenceLines,
+      alignSize,
     });
-  }, [data, onNodeClick, readOnly, onNodeDrag, contentItemActions]);
+  }, [
+    data,
+    onNodeClick,
+    readOnly,
+    onNodeDrag,
+    contentItemActions,
+    showReferenceLines,
+    alignSize,
+  ]);
 
   React.useEffect(() => {
     handleRender();

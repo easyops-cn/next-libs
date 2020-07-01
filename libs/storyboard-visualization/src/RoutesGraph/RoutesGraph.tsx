@@ -39,7 +39,16 @@ interface RenderOptions {
   handleCancelLayout?: (node: ViewItem) => void;
   onNodeDrag?: (node: ViewItem) => void;
   readOnly?: boolean;
+  showReferenceLines?: boolean;
+  alignSize?: number;
 }
+
+const roundSize = (value: number, size: number): number => {
+  if (!size) {
+    return value;
+  }
+  return Math.round(value / size) * size;
+};
 
 export class RoutesGraph {
   private readonly canvas: Selection<
@@ -115,6 +124,8 @@ export class RoutesGraph {
   private onNodeDrag: (node: ViewItem) => void;
   private readOnly: boolean;
   private contentItemActions: ContentItemActions;
+  private showReferenceLines: boolean;
+  private alignSize = 10;
 
   private routesData: any[];
 
@@ -275,19 +286,27 @@ export class RoutesGraph {
       const { dx, dy } = d3Event;
       const targetX = d.node.offsetLeft + dx / this.scale;
       const targetY = d.node.offsetTop + dy / this.scale;
-      const result = this.getReferenceLinesAndResultPosition(
-        targetX,
-        targetY,
-        d
-      );
-      d.x = result.x;
-      d.y = result.y;
+      let result: {
+        x: number;
+        y: number;
+        lines: { x1: number; y1: number; x2: number; y2: number }[];
+      };
+      if (this.showReferenceLines) {
+        result = this.getReferenceLinesAndResultPosition(targetX, targetY, d);
+        d.x = result.x;
+        d.y = result.y;
+      } else {
+        d.x = targetX;
+        d.y = targetY;
+      }
       select<HTMLDivElement, RouteGraphNode>(d.node)
         .style("left", (d) => `${d.x}px`)
         .style("top", (d, i) => {
           return `${d.y}px`;
         });
-      this.updateReferenceLines(result.lines);
+      if (this.showReferenceLines) {
+        this.updateReferenceLines(result.lines);
+      }
       this.renderLink();
     }
   }
@@ -296,6 +315,16 @@ export class RoutesGraph {
   onDragSvgEnd(d: RouteGraphNode): void {
     if (!this.readOnly) {
       this.canvas.node().style.borderColor = "#d7d7d9";
+      const targetX = roundSize(d.x, this.alignSize);
+      const targetY = roundSize(d.y, this.alignSize);
+      d.x = targetX;
+      d.y = targetY;
+      select<HTMLDivElement, RouteGraphNode>(d.node)
+        .style("left", (d) => `${d.x}px`)
+        .style("top", (d, i) => {
+          return `${d.y}px`;
+        });
+      this.renderLink();
       if (
         d.originalData?.graphInfo?.x !== d.x ||
         d.originalData?.graphInfo?.y !== d.y
@@ -306,7 +335,9 @@ export class RoutesGraph {
           instanceId: d.originalData.instanceId,
         });
       }
-      this.updateReferenceLines([]);
+      if (this.showReferenceLines) {
+        this.updateReferenceLines([]);
+      }
     }
   }
 
@@ -489,7 +520,9 @@ export class RoutesGraph {
         graphInfo: newData[index].originalData.graphInfo,
         instanceId: item.instanceId,
       });
-      this.updateReferenceLines([]);
+      if (this.showReferenceLines) {
+        this.updateReferenceLines([]);
+      }
     }
   }
 
