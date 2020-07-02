@@ -729,6 +729,8 @@ export class RoutesGraph {
 
   render(builderData: any[], options?: RenderOptions): void {
     this.readOnly = options?.readOnly;
+    this.showReferenceLines = options?.showReferenceLines;
+    this.alignSize = options?.alignSize;
     this.onNodeClick = options?.onNodeClick;
     this.onNodeDrag = options?.onNodeDrag;
     this.contentItemActions = options?.contentItemActions;
