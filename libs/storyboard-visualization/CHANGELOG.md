@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.33.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.32.0...@libs/storyboard-visualization@0.33.0) (2020-07-02)
+
+### Features
+
+- **storyboard-visualization:** alignSize and showReferenceLines ([df74d74](https://git.easyops.local/anyclouds/next-libs/commits/df74d74))
+
 # [0.32.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.31.5...@libs/storyboard-visualization@0.32.0) (2020-07-01)
 
 ### Features
