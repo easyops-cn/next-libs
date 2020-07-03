@@ -26,6 +26,12 @@
   position: absolute;
 }
 
+.positionAnchorIcon {
+  position: absolute;
+  color: var(--bg-color-button-link-hover);
+  font-size: 20px;
+}
+
 .linksLayer {
   cursor: grab;
 }
