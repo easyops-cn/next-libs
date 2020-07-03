@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.34.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.33.0...@libs/storyboard-visualization@0.34.0) (2020-07-03)
+
+### Features
+
+- **route-graph:** position anchor ([f6ec681](https://git.easyops.local/anyclouds/next-libs/commits/f6ec681))
+
 # [0.33.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.32.0...@libs/storyboard-visualization@0.33.0) (2020-07-02)
 
 ### Features
