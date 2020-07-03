@@ -32,6 +32,7 @@ import {
   ZOOM_SCALE_MAX,
 } from "./constants";
 import { zoomIdentity } from "d3-zoom";
+import { Icon } from "antd";
 
 interface RenderOptions {
   contentItemActions?: ContentItemActions;
@@ -83,6 +84,12 @@ export class RoutesGraph {
     null,
     undefined
   >;
+  private finalPositionAnchorContainer: Selection<
+    HTMLDivElement,
+    undefined,
+    null,
+    undefined
+  >;
   private readonly nodesContainer: Selection<
     HTMLDivElement,
     undefined,
@@ -114,6 +121,7 @@ export class RoutesGraph {
     SVGGElement,
     undefined
   >;
+
   private scale = 1;
   private width: number;
   private height: number;
@@ -299,6 +307,13 @@ export class RoutesGraph {
         d.x = targetX;
         d.y = targetY;
       }
+
+      const finalX = roundSize(d.x, this.alignSize);
+      const finalY = roundSize(d.y, this.alignSize);
+      this.finalPositionAnchorContainer
+        .style("left", `${finalX - 5}px`)
+        .style("top", `${finalY - 10}px`)
+        .style("display", "block");
       select<HTMLDivElement, RouteGraphNode>(d.node)
         .style("left", (d) => `${d.x}px`)
         .style("top", (d, i) => {
@@ -338,6 +353,7 @@ export class RoutesGraph {
       if (this.showReferenceLines) {
         this.updateReferenceLines([]);
       }
+      this.finalPositionAnchorContainer.style("display", "none");
     }
   }
 
@@ -392,6 +408,11 @@ export class RoutesGraph {
     this.nodesContainer = this.nodesLayer
       .append("div")
       .attr("class", styles.nodesContainer);
+    this.finalPositionAnchorContainer = this.nodesLayer
+      .append("div")
+      .attr("class", styles.positionAnchorIcon)
+      .style("display", "none");
+    this.finalPositionAnchorContainer.append("div");
     this.nodes = this.nodesContainer.selectAll(`.${styles.nodeWrapper}`);
 
     // Grabbing to scroll.
@@ -686,6 +707,9 @@ export class RoutesGraph {
         />,
         this
       );
+    });
+    this.finalPositionAnchorContainer.each(function (d) {
+      ReactDOM.render(<Icon type="plus" />, this);
     });
     const edges = this.getEdges(graphData);
 
