@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.26.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@0.26.0...@libs/basic-components@0.26.1) (2020-07-06)
+
+### Bug Fixes
+
+- 品牌类的图标放到最后 ([8f5b0a4](https://git.easyops.local/anyclouds/next-libs/commits/8f5b0a4))
+
 # [0.26.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@0.25.0...@libs/basic-components@0.26.0) (2020-06-30)
 
 ### Features
