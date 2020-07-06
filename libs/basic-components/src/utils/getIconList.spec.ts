@@ -190,24 +190,6 @@ describe("GetIconList", () => {
       {
         list: [
           {
-            title: "500px",
-            descriptionList: ["prefix: fab", "icon: 500px"],
-            icon: {
-              icon: "500px",
-              lib: "fa",
-              prefix: "fab"
-            }
-          },
-          {
-            title: "accusoft",
-            descriptionList: ["prefix: fab", "icon: accusoft"],
-            icon: {
-              icon: "accusoft",
-              lib: "fa",
-              prefix: "fab"
-            }
-          },
-          {
             title: "ad",
             descriptionList: ["prefix: fas", "icon: ad"],
             icon: {
@@ -223,6 +205,24 @@ describe("GetIconList", () => {
               icon: "address-book",
               lib: "fa",
               prefix: "fas"
+            }
+          },
+          {
+            title: "500px",
+            descriptionList: ["prefix: fab", "icon: 500px"],
+            icon: {
+              icon: "500px",
+              lib: "fa",
+              prefix: "fab"
+            }
+          },
+          {
+            title: "accusoft",
+            descriptionList: ["prefix: fab", "icon: accusoft"],
+            icon: {
+              icon: "accusoft",
+              lib: "fa",
+              prefix: "fab"
             }
           }
         ],

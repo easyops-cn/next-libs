@@ -52,7 +52,7 @@ export function getIconList(params: GetIconListParams) {
       iconList.push(...list);
     }
   } else if (type === "fa") {
-    const faByCategory = { ...fab, ...fas };
+    const faByCategory = { ...fas, ...fab };
 
     for (const [, iconObj] of Object.entries(faByCategory)) {
       iconList.push({
