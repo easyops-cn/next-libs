@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useReducer, useState, useRef } from "react";
 import {
   difference,
   isEmpty,
@@ -340,6 +340,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
   const [selectedRowKeys, setSelectedRowKeys] = useState(
     props.selectedRowKeys ?? []
   );
+  const cache = useRef(new Map<string, InstanceApi.PostSearchResponseBody>());
 
   const getInstanceListData = async (
     sort: string,
@@ -412,6 +413,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     setState({ loading: true });
     try {
       const instanceListData = await getInstanceListData(sort, asc, page);
+      instanceListData.list.forEach((i) => cache.current.set(i.instanceId, i));
       setState({ idObjectMap: idObjectMap, instanceListData });
     } catch (e) {
       handleHttpError(e);
@@ -452,12 +454,29 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     setQ(e.target.value);
   };
 
-  const onSelectionChange = (selected: {
+  // istanbul ignore next
+  const onSelectionChange = async (selected: {
     selectedKeys: string[];
     selectedItems: any[];
   }) => {
-    setSelectedRowKeys(selected.selectedKeys);
-    props.onSelectionChange?.(selected);
+    let { selectedItems, selectedKeys } = selected;
+    setSelectedRowKeys(selectedKeys);
+    if (selectedKeys.length > selectedItems.length) {
+      const ids = selectedKeys.filter((id) => !cache.current.has(id));
+      if (ids.length) {
+        const resp = await InstanceApi.postSearch(props.objectId, {
+          query: {
+            instanceId: {
+              $in: ids,
+            },
+          },
+          page_size: ids.length,
+        });
+        resp.list.forEach((i) => cache.current.set(i.instanceId, i));
+      }
+      selectedItems = selectedKeys.map((id) => cache.current.get(id));
+    }
+    props.onSelectionChange?.({ selectedItems, selectedKeys });
   };
 
   const onSearch = (value: string) => {
@@ -606,7 +625,15 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
                 {selectedRowKeys.length > 0 && (
                   <div style={{ marginRight: 20 }}>
                     <span>已选择 {selectedRowKeys.length} 项</span>
-                    <a role="button" onClick={() => setSelectedRowKeys([])}>
+                    <a
+                      role="button"
+                      onClick={() =>
+                        onSelectionChange({
+                          selectedKeys: [],
+                          selectedItems: [],
+                        })
+                      }
+                    >
                       {" "}
                       清空
                     </a>

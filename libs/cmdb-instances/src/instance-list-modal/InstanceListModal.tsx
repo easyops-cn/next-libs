@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Modal, Button, Icon } from "antd";
 
-import { CmdbModels } from "@sdk/cmdb-sdk";
+import { CmdbModels, InstanceApi } from "@sdk/cmdb-sdk";
 import { InstanceList } from "../instance-list/InstanceList";
 import { InstanceListPresetConfigs } from "../instance-list-table/interfaces";
 import { Query } from "../instance-list-table";
@@ -40,7 +40,25 @@ export function InstanceListModal(
 
   const [selectedInstanceListTemp, setSelectedInstanceListTemp] = useState([]);
 
-  const handleOk = () => {
+  // istanbul ignore next
+  const handleOk = async () => {
+    if (
+      selectedInstanceListTemp.length &&
+      selectedInstanceListTemp.every((i) => typeof i === "string")
+    ) {
+      const resp = await InstanceApi.postSearch(props.objectId, {
+        query: {
+          instanceId: {
+            $in: selectedInstanceListTemp,
+          },
+        },
+        page_size: selectedInstanceListTemp.length,
+      });
+      props.onSelected?.(selectedInstanceListTemp);
+      props.onSelectedV2?.(resp.list);
+      return;
+    }
+
     props.onSelected?.(
       selectedInstanceListTemp.map(
         (selectedInstance) => selectedInstance.instanceId
@@ -59,7 +77,11 @@ export function InstanceListModal(
     selectedKeys: string[];
     selectedItems: any[];
   }) => {
-    setSelectedInstanceListTemp(event.selectedItems);
+    if (event.selectedItems.length < event.selectedKeys.length) {
+      setSelectedInstanceListTemp(event.selectedKeys);
+    } else {
+      setSelectedInstanceListTemp(event.selectedItems);
+    }
   };
 
   const presetConfigs = props.presetConfigs ?? {
@@ -70,7 +92,7 @@ export function InstanceListModal(
 
   React.useEffect(() => {
     if (props.selectedRowKeys) {
-      setSelectedInstanceListTemp(props.selectedRowKeys);
+      setSelectedInstanceListTemp(props.selectedRowKeys.filter(Boolean));
     }
   }, [props.selectedRowKeys]);
 
