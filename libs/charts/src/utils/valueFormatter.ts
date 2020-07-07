@@ -12,7 +12,7 @@ import {
   TimesUnitId,
   BytesUnitId,
   ByteRatesUnitId,
-  ShortUnitId
+  ShortUnitId,
 } from "@libs/constants";
 
 export const convertValueByPrecision = (
@@ -33,7 +33,7 @@ export const formatValue = (
       Object.entries(formatUnitIds).map(([formatType, units]) => {
         if (
           units
-            .map(unit => unit.toLocaleLowerCase())
+            .map((unit) => unit.toLocaleLowerCase())
             .includes(format.unit.toLocaleLowerCase())
         ) {
           type = formatType as FormatType;
@@ -60,7 +60,7 @@ export const formatValue = (
             timeValue,
             format?.precision === undefined ? 1 : format.precision
           )}`,
-          timeUnitDisplay
+          timeUnitDisplay,
         ];
       }
       case FormatType.Data: {
@@ -70,7 +70,7 @@ export const formatValue = (
         );
         return [
           `${convertValueByPrecision(dataValue, precision)}`,
-          dataUnitDisplay
+          dataUnitDisplay,
         ];
       }
       case FormatType.DataRate: {
@@ -80,16 +80,16 @@ export const formatValue = (
         );
         return [
           `${convertValueByPrecision(dataRateValue, precision)}`,
-          dataRateUnitDisplay
+          dataRateUnitDisplay,
         ];
       }
       case FormatType.None: {
-        return [convertValueByPrecision(value, precision), format.unit];
+        return [convertValueByPrecision(value, precision), ""];
       }
       default: {
         return [
           humanizeNumberValue(value, format.unit as ShortUnitId, precision),
-          format.unit
+          format.unit,
         ];
       }
     }

@@ -9,16 +9,16 @@ export enum FormatType {
   Percent = "percent",
   Time = "time",
   Data = "data",
-  DataRate = "data_rate"
+  DataRate = "data_rate",
 }
 
 export const formatUnitIds: { [type: string]: string[] } = {
-  [FormatType.None]: [],
+  [FormatType.None]: ["none"],
   [FormatType.Short]: [],
   [FormatType.Percent]: percentFormatUnitIds,
   [FormatType.Time]: timeFormatUnitIds,
   [FormatType.Data]: dataFormatUnitIds,
-  [FormatType.DataRate]: dataRateFormatUnitIds
+  [FormatType.DataRate]: dataRateFormatUnitIds,
 };
 
 export * from "./time";
