@@ -12,16 +12,16 @@ describe("valueFormatter", () => {
     expect(formatValue(1)).toEqual(["1.00", null]);
     expect(formatValue(1, { type: FormatType.None, unit: "个" })).toEqual([
       "1.00",
-      "个"
+      "",
     ]);
     expect(formatValue(0.5, { type: FormatType.Percent })).toEqual([
       "50.00%",
-      null
+      null,
     ]);
     expect(
       formatValue(1024, {
         type: FormatType.DataRate,
-        unit: "KBps"
+        unit: "KBps",
       })
     ).toEqual(["1.00", "MBps"]);
   });
