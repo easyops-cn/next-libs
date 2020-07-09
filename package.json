@@ -34,7 +34,7 @@
     "@easyops/brick-kit": "^1.49.0",
     "@easyops/brick-types": "^1.41.0",
     "@easyops/brick-utils": "^1.49.0",
-    "@easyops/dev-dependencies": "^0.6.42",
+    "@easyops/dev-dependencies": "^0.6.43",
     "@easyops/fontawesome-library": "^1.1.4",
     "@fortawesome/react-fontawesome": "^0.1.9",
     "@size-limit/file": "^4.5.0",
