@@ -10,11 +10,11 @@ function isMenuIcon(icon: TreeIcon): icon is MenuIcon {
   return (icon as MenuIcon).lib !== undefined;
 }
 
-export interface SearchableTreeNodeProps extends AntTreeNodeProps {
+export type SearchableTreeNodeProps = Omit<AntTreeNodeProps, "children"> & {
   title?: string;
   icon?: TreeIcon;
   children?: SearchableTreeNodeProps[];
-}
+};
 
 export interface SearchableTreeProps {
   selectedKeys?: string[];
