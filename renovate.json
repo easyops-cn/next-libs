@@ -59,9 +59,18 @@
       ]
     },
     {
-      "packagePatterns": ["^@dll/", "^@easyops/"],
+      "packagePatterns": ["^@easyops/"],
       "automerge": false,
-      "groupName": "next-core packages"
+      "groupName": "next-core packages",
+      "postUpdateOptions": ["yarnDedupeHighest"],
+      "postUpgradeTasks": {
+        "commands": [
+          "yarn renew",
+          "yarn extract",
+          "./node_modules/.bin/prettier --write package.json"
+        ],
+        "fileFilters": ["**/*"]
+      }
     }
   ]
 }
