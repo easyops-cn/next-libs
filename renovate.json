@@ -12,6 +12,7 @@
       "packagePatterns": ["^@bricks/", "^@libs/", "^@micro-apps/", "^@sdk/"],
       "enabled": false,
       "packageNames": [
+        "@easyops/babel-runtime-helpers",
         "@easyops/brick-http",
         "@easyops/brick-icons",
         "@easyops/brick-kit",
