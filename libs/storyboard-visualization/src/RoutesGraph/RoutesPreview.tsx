@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import styles from "./RoutesPreview.module.css";
 import { DndProvider, useDrag, useDragLayer, XYCoord } from "react-dnd";
-import HTML5Backend, { getEmptyImage } from "react-dnd-html5-backend";
+import { HTML5Backend, getEmptyImage } from "react-dnd-html5-backend";
 import { RouteGraphNode } from "./interfaces";
 import { ViewItem } from "../shared/interfaces";
 import {
