@@ -32,10 +32,10 @@
     "@easyops/babel-runtime-helpers": "^0.1.2",
     "@easyops/brick-http": "^1.1.4",
     "@easyops/brick-icons": "^1.18.0",
-    "@easyops/brick-kit": "^1.55.2",
-    "@easyops/brick-types": "^1.46.0",
-    "@easyops/brick-utils": "^1.50.1",
-    "@easyops/dev-dependencies": "^0.6.56",
+    "@easyops/brick-kit": "^1.57.0",
+    "@easyops/brick-types": "^1.47.0",
+    "@easyops/brick-utils": "^1.50.2",
+    "@easyops/dev-dependencies": "^0.6.58",
     "@easyops/fontawesome-library": "^1.1.7",
     "@fortawesome/react-fontawesome": "^0.1.11",
     "@size-limit/file": "^4.5.5",
@@ -85,11 +85,11 @@
   ],
   "easyops": {
     "create-next-repo": "0.10.1",
-    "dev-dependencies": "0.6.56"
+    "dev-dependencies": "0.6.58"
   },
   "resolutions": {
     "lodash": "^4.17.19",
-    "@easyops/brick-types": "^1.46.0",
+    "@easyops/brick-types": "^1.47.0",
     "@types/react": "^16.9.43"
   }
 }
