@@ -42,6 +42,7 @@ export function BuilderGraphComponent(
     const maxHeight =
       document.documentElement.clientHeight - top - bottomSpacing;
     node.style.maxHeight = `${maxHeight}px`;
+    node.style.height = `${maxHeight}px`;
   }, []);
 
   React.useEffect(() => {

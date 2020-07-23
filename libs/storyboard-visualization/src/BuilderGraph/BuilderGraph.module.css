@@ -1,5 +1,6 @@
 .canvas {
   position: relative;
+  cursor: grab;
 }
 
 .linksLayer,
@@ -18,10 +19,6 @@
   fill: none;
   stroke: #b9b9b9;
   stroke-width: 1;
-}
-
-.linksLayer {
-  cursor: grab;
 }
 
 .grabbing {

@@ -109,8 +109,8 @@ export class BuilderGraph {
 
     // Grabbing to scroll.
     const d3Window = select(window);
-    this.linksLayer.on("mousedown", () => {
-      this.linksLayer.classed(styles.grabbing, true);
+    this.canvas.on("mousedown", () => {
+      this.canvas.classed(styles.grabbing, true);
       d3Event.preventDefault();
       const container = this.canvas.node().parentElement;
       const x0 = d3Event.screenX + container.scrollLeft;
@@ -121,7 +121,7 @@ export class BuilderGraph {
           container.scrollTop = y0 - d3Event.screenY;
         })
         .on("mouseup", () => {
-          this.linksLayer.classed(styles.grabbing, false);
+          this.canvas.classed(styles.grabbing, false);
           d3Window.on("mousemove", null).on("mouseup", null);
         });
     });
@@ -163,7 +163,7 @@ export class BuilderGraph {
     const height = x1 - x0 + dx * 2;
 
     this.canvas.style("min-width", `${width}px`);
-    this.canvas.style("height", `${height}px`);
+    this.canvas.style("height", `100%`);
     this.linksLayer.attr("width", "100%");
     this.linksLayer.attr("height", height);
 
