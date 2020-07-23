@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.7.3](https://git.easyops.local/anyclouds/next-libs/compare/@libs/charts@0.7.2...@libs/charts@0.7.3) (2020-07-23)
+
+### Bug Fixes
+
+- **charts:** use "none" unit refs BRICK_STORE-1613 ([061946d](https://git.easyops.local/anyclouds/next-libs/commits/061946d))
+
 ## [0.7.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/charts@0.7.1...@libs/charts@0.7.2) (2020-04-15)
 
 ### Bug Fixes

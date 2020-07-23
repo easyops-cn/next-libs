@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.8](https://git.easyops.local/anyclouds/next-libs/compare/@libs/searchable-tree@0.1.7...@libs/searchable-tree@0.1.8) (2020-07-23)
+
+### Bug Fixes
+
+- fix types after upgrade antd ([e74871e](https://git.easyops.local/anyclouds/next-libs/commits/e74871e))
+
 ## [0.1.7](https://git.easyops.local/anyclouds/next-libs/compare/@libs/searchable-tree@0.1.6...@libs/searchable-tree@0.1.7) (2020-07-06)
 
 **Note:** Version bump only for package @libs/searchable-tree

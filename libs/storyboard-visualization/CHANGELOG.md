@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.35.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.34.1...@libs/storyboard-visualization@0.35.0) (2020-07-23)
+
+### Features
+
+- **builder-graph:** height and grab ([b97a934](https://git.easyops.local/anyclouds/next-libs/commits/b97a934))
+- import HTML5Backend ([a9ecfe1](https://git.easyops.local/anyclouds/next-libs/commits/a9ecfe1))
+
 ## [0.34.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.34.0...@libs/storyboard-visualization@0.34.1) (2020-07-06)
 
 **Note:** Version bump only for package @libs/storyboard-visualization
