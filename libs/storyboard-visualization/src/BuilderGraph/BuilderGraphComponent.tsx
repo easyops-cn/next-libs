@@ -84,7 +84,7 @@ export function BuilderGraphComponent(
 
   return (
     <div>
-      <div ref={ref} style={{ width: "100%", overflow: "auto" }}></div>
+      <div ref={ref} style={{ width: "100%", overflow: "hidden" }}></div>
     </div>
   );
 }

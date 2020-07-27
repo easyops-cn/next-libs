@@ -16,6 +16,7 @@ import { viewsToGraph, computeSourceX } from "./processors";
 import { GraphNodeComponent } from "./GraphNodeComponent";
 import { styleConfig } from "./constants";
 import { ContentItemActions } from "@libs/basic-components";
+import { zoomIdentity } from "d3-zoom";
 
 import styles from "./BuilderGraph.module.css";
 
@@ -77,6 +78,10 @@ export class BuilderGraph {
     null,
     undefined
   >;
+  private offsetX = 0;
+  private offsetY = 0;
+  private nodesContainerWidth: number;
+  private nodesContainerHeight: number;
 
   constructor() {
     this.canvas = create("div").attr("class", styles.canvas);
@@ -109,22 +114,68 @@ export class BuilderGraph {
 
     // Grabbing to scroll.
     const d3Window = select(window);
-    this.canvas.on("mousedown", () => {
-      this.canvas.classed(styles.grabbing, true);
-      d3Event.preventDefault();
-      const container = this.canvas.node().parentElement;
-      const x0 = d3Event.screenX + container.scrollLeft;
-      const y0 = d3Event.screenY + container.scrollTop;
-      d3Window
-        .on("mousemove", () => {
-          container.scrollLeft = x0 - d3Event.screenX;
-          container.scrollTop = y0 - d3Event.screenY;
-        })
-        .on("mouseup", () => {
-          this.canvas.classed(styles.grabbing, false);
-          d3Window.on("mousemove", null).on("mouseup", null);
-        });
-    });
+    /* istanbul ignore next */
+    this.canvas
+      .on("mousedown", () => {
+        this.canvas.classed(styles.grabbing, true);
+        d3Event.preventDefault();
+        const container = this.canvas.node().parentElement;
+        const x0 = d3Event.screenX + this.offsetX;
+        const y0 = d3Event.screenY + this.offsetY;
+        d3Window
+          .on("mousemove", () => {
+            const dx = x0 - d3Event.screenX - this.offsetX;
+            const dy = y0 - d3Event.screenY - this.offsetY;
+            this.transform(dx, dy);
+          })
+          .on("mouseup", () => {
+            this.canvas.classed(styles.grabbing, false);
+            d3Window.on("mousemove", null).on("mouseup", null);
+          });
+      })
+      .on("wheel", function () {
+        d3Event.preventDefault();
+      })
+      .on("wheel.zoom", () => {
+        d3Event.stopPropagation();
+        const { deltaX, deltaY, ctrlKey } = d3Event;
+        // macOS trackPad pinch event is emitted as a wheel.zoom and d3.event.ctrlKey set to true
+        if (ctrlKey) {
+          return;
+        }
+        this.transform(deltaX, deltaY);
+      });
+  }
+
+  /* istanbul ignore next */
+  transform(dx: number, dy: number): void {
+    const nodeWidth = styleConfig.node.width;
+    const maxOffsetX = this.nodesContainerWidth - nodeWidth / 2;
+    const maxOffsetY = this.nodesContainerHeight - nodeWidth / 2;
+    const minOffsetX = -this.canvas.node().offsetWidth + nodeWidth / 2;
+    const minOffsetY = -this.canvas.node().offsetHeight + nodeWidth / 2;
+    const resultX = this.offsetX + dx;
+    const resultY = this.offsetY + dy;
+    if (resultX > maxOffsetX) {
+      this.offsetX = maxOffsetX;
+    } else if (resultX < minOffsetX) {
+      this.offsetX = minOffsetX;
+    } else {
+      this.offsetX = resultX;
+    }
+
+    if (resultY > maxOffsetY) {
+      this.offsetY = maxOffsetY;
+    } else if (resultY < minOffsetY) {
+      this.offsetY = minOffsetY;
+    } else {
+      this.offsetY = resultY;
+    }
+    const transformToNodes = `translate(${-this.offsetX}px, ${-this
+      .offsetY}px)`;
+    const transform = zoomIdentity.translate(-this.offsetX, -this.offsetY);
+    this.linksLayer.attr("transform", transform.toString());
+    this.nodesLayer.style("transform", transformToNodes);
   }
 
   getDOMNode(): HTMLDivElement {
@@ -151,6 +202,7 @@ export class BuilderGraph {
       })(hierarchyRoot);
 
     const width = dy * (root.height + 1);
+    this.nodesContainerWidth = width;
 
     let x0 = Infinity;
     let x1 = -x0;
@@ -161,6 +213,7 @@ export class BuilderGraph {
       if (xTop < x0) x0 = xTop;
     });
     const height = x1 - x0 + dx * 2;
+    this.nodesContainerHeight = height;
 
     this.canvas.style("min-width", `${width}px`);
     this.canvas.style("height", `100%`);
