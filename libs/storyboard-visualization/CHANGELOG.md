@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.36.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.35.0...@libs/storyboard-visualization@0.36.0) (2020-07-27)
+
+### Features
+
+- **builder-graph:** transform ([e981913](https://git.easyops.local/anyclouds/next-libs/commits/e981913))
+
 # [0.35.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.34.1...@libs/storyboard-visualization@0.35.0) (2020-07-23)
 
 ### Features
