@@ -12,5 +12,10 @@ describe("BuilderGraph", () => {
 
     const nodesLayer = canvas.querySelector(".nodesLayer");
     expect(nodesLayer.querySelectorAll(".nodeWrapper").length).toBe(2);
+    visual.render(fakeBuilderGraphSource(), {
+      onDragEnd: jest.fn(),
+      initialOffsetX: 100,
+      initialOffsetY: 100,
+    });
   });
 });
