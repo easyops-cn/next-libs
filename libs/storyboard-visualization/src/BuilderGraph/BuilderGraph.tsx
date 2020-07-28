@@ -87,7 +87,8 @@ export class BuilderGraph {
     this.canvas = create("div").attr("class", styles.canvas);
     this.linksLayer = this.canvas
       .append("svg")
-      .attr("class", styles.linksLayer);
+      .attr("class", styles.linksLayer)
+      .style("overflow", "visible");
     this.nodesLayer = this.canvas
       .append("div")
       .attr("class", styles.nodesLayer);
@@ -214,7 +215,7 @@ export class BuilderGraph {
     const height = x1 - x0 + dx * 2;
     this.nodesContainerHeight = height;
 
-    this.canvas.style("min-width", `${width}px`);
+    this.canvas.attr("width", "100%");
     this.canvas.style("height", `100%`);
     this.linksLayer.attr("width", "100%");
     this.linksLayer.attr("height", height);
