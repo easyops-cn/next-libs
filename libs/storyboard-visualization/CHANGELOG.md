@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.37.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.36.0...@libs/storyboard-visualization@0.37.0) (2020-07-28)
+
+### Features
+
+- **builder:** onDragEnd && initialOffsetX && initialOffsetY ([9310798](https://git.easyops.local/anyclouds/next-libs/commits/9310798))
+- **builder-graph:** do not render node when the type is app-root and there are no child nodes ([a8d9675](https://git.easyops.local/anyclouds/next-libs/commits/a8d9675))
+- **builder-graph:** wrap route ([eb0e72d](https://git.easyops.local/anyclouds/next-libs/commits/eb0e72d))
+
 # [0.36.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.35.0...@libs/storyboard-visualization@0.36.0) (2020-07-27)
 
 ### Features
