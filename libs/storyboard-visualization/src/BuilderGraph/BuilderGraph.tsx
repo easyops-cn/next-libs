@@ -8,7 +8,7 @@ import {
 } from "d3-hierarchy";
 import { create, Selection, event as d3Event, select } from "d3-selection";
 import { linkHorizontal } from "d3-shape";
-import { uniqueId } from "lodash";
+import { uniqueId, isNil } from "lodash";
 import classNames from "classnames";
 import { GraphNode } from "./interfaces";
 import { ViewItem } from "../shared/interfaces";
@@ -25,6 +25,9 @@ interface RenderOptions {
   wrapAnApp?: boolean | "auto";
   onReorderClick?: (node: ViewItem) => void;
   onNodeClick?: (node: ViewItem) => void;
+  onDragEnd?: (offsetX: number, offsetY: number) => void;
+  initialOffsetX?: number;
+  initialOffsetY?: number;
 }
 
 export class BuilderGraph {
@@ -72,12 +75,9 @@ export class BuilderGraph {
     HTMLDivElement,
     undefined
   >;
-  private window: Selection<
-    Window & typeof globalThis,
-    undefined,
-    null,
-    undefined
-  >;
+
+  private onDragEnd: (offsetX: number, offsetY: number) => void;
+
   private offsetX = 0;
   private offsetY = 0;
   private nodesContainerWidth: number;
@@ -129,6 +129,10 @@ export class BuilderGraph {
             this.transform(dx, dy);
           })
           .on("mouseup", () => {
+            this.onDragEnd?.(
+              Math.floor(this.offsetX),
+              Math.floor(this.offsetY)
+            );
             this.canvas.classed(styles.grabbing, false);
             d3Window.on("mousemove", null).on("mouseup", null);
           });
@@ -183,6 +187,9 @@ export class BuilderGraph {
   }
 
   render(builderData: ViewItem[], options?: RenderOptions): void {
+    this.onDragEnd = options?.onDragEnd;
+    const initialOffsetX = options?.initialOffsetX;
+    const initialOffsetY = options?.initialOffsetY;
     const nodeWidth = styleConfig.node.width;
     // x and y is swapped in horizontal tree layout.
     const dx = 40;
@@ -271,6 +278,12 @@ export class BuilderGraph {
       ReactDOM.render(<GraphNodeComponent node={d.data} {...options} />, this);
     });
 
+    if (!isNil(initialOffsetX) && !isNil(initialOffsetY)) {
+      this.offsetX = initialOffsetX;
+      this.offsetY = initialOffsetY;
+      this.transform(0, 0);
+      return;
+    }
     // When the nodesContainer width or height is smaller than the canvas width or height, transform the nodesContainer to the middle of the x-axis or y-axis.
     const canvasWidth = this.canvas.node().offsetWidth;
     const canvasHeight = this.canvas.node().offsetHeight;

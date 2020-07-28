@@ -9,6 +9,9 @@ export interface BuilderGraphComponentProps {
   wrapAnApp?: boolean | "auto";
   onReorderClick?: (node: ViewItem) => void;
   onNodeClick?: (node: ViewItem) => void;
+  onDragEnd?: (offsetX: number, offsetY: number) => void;
+  initialOffsetX?: number;
+  initialOffsetY?: number;
 }
 
 export function BuilderGraphComponent(
@@ -20,6 +23,9 @@ export function BuilderGraphComponent(
     wrapAnApp,
     onReorderClick,
     onNodeClick,
+    onDragEnd,
+    initialOffsetX,
+    initialOffsetY,
   } = props;
 
   const visual = React.useMemo(() => new BuilderGraph(), []);
@@ -68,6 +74,9 @@ export function BuilderGraphComponent(
       wrapAnApp,
       onReorderClick,
       onNodeClick,
+      onDragEnd,
+      initialOffsetX,
+      initialOffsetY,
     });
   }, [
     visual,
@@ -76,6 +85,9 @@ export function BuilderGraphComponent(
     wrapAnApp,
     onReorderClick,
     onNodeClick,
+    onDragEnd,
+    initialOffsetX,
+    initialOffsetY,
   ]);
 
   React.useEffect(() => {
