@@ -8,7 +8,7 @@ import {
 } from "d3-hierarchy";
 import { create, Selection, event as d3Event, select } from "d3-selection";
 import { linkHorizontal } from "d3-shape";
-import { uniqueId, isNil } from "lodash";
+import { uniqueId, isNil, debounce } from "lodash";
 import classNames from "classnames";
 import { GraphNode } from "./interfaces";
 import { ViewItem } from "../shared/interfaces";
@@ -148,6 +148,7 @@ export class BuilderGraph {
           return;
         }
         this.transform(deltaX, deltaY);
+        this.onDragEnd?.(Math.floor(this.offsetX), Math.floor(this.offsetY));
       });
   }
 
@@ -187,7 +188,9 @@ export class BuilderGraph {
   }
 
   render(builderData: ViewItem[], options?: RenderOptions): void {
-    this.onDragEnd = options?.onDragEnd;
+    this.onDragEnd = options?.onDragEnd
+      ? debounce(options?.onDragEnd, 500)
+      : undefined;
     const initialOffsetX = options?.initialOffsetX;
     const initialOffsetY = options?.initialOffsetY;
     const nodeWidth = styleConfig.node.width;
@@ -278,23 +281,30 @@ export class BuilderGraph {
       ReactDOM.render(<GraphNodeComponent node={d.data} {...options} />, this);
     });
 
-    if (!isNil(initialOffsetX) && !isNil(initialOffsetY)) {
-      this.offsetX = initialOffsetX;
-      this.offsetY = initialOffsetY;
-      this.transform(0, 0);
-      return;
-    }
+    let dx0, dy0;
+
     // When the nodesContainer width or height is smaller than the canvas width or height, transform the nodesContainer to the middle of the x-axis or y-axis.
-    const canvasWidth = this.canvas.node().offsetWidth;
-    const canvasHeight = this.canvas.node().offsetHeight;
-    const dx0 =
-      this.nodesContainerWidth < canvasWidth
-        ? this.nodesContainerWidth / 2 - canvasWidth / 2 - this.offsetX
-        : -this.offsetX;
-    const dy0 =
-      this.nodesContainerHeight < canvasHeight
-        ? this.nodesContainerHeight / 2 - canvasHeight / 2 - this.offsetY
-        : -this.offsetY;
+    if (!isNil(initialOffsetX)) {
+      this.offsetX = initialOffsetX;
+      dx0 = 0;
+    } else {
+      const canvasWidth = this.canvas.node().offsetWidth;
+      dx0 =
+        this.nodesContainerWidth < canvasWidth
+          ? this.nodesContainerWidth / 2 - canvasWidth / 2 - this.offsetX
+          : -this.offsetX;
+    }
+
+    if (!isNil(initialOffsetY)) {
+      this.offsetY = initialOffsetY;
+      dy0 = 0;
+    } else {
+      const canvasHeight = this.canvas.node().offsetHeight;
+      dy0 =
+        this.nodesContainerHeight < canvasHeight
+          ? this.nodesContainerHeight / 2 - canvasHeight / 2 - this.offsetY
+          : -this.offsetY;
+    }
     this.transform(dx0, dy0);
   }
 }
