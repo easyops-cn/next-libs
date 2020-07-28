@@ -51,17 +51,28 @@ describe("viewsToGraph", () => {
       ],
       "auto",
       {
-        nodeType: "route",
         content: {
           type: "routes",
-          items: [],
+          items: [
+            {
+              alias: "route: empty-routes",
+              type: "routes",
+            },
+          ],
         },
         originalData: {
-          alias: "route: empty-routes",
-          type: "routes",
+          alias: "Route",
+          type: "route-root",
+          children: [
+            {
+              alias: "route: empty-routes",
+              type: "routes",
+            },
+          ],
         },
-        height: 39,
+        height: 74,
         children: [],
+        nodeType: "unknown",
       },
     ],
     [
@@ -79,28 +90,65 @@ describe("viewsToGraph", () => {
       ],
       "auto",
       {
-        nodeType: "route",
         content: {
-          type: "bricks",
           items: [
             {
-              alias: "brick: 1",
-              type: "brick",
+              alias: "route: bricks",
+              children: [
+                {
+                  alias: "brick: 1",
+                  type: "brick",
+                },
+              ],
+              type: "bricks",
             },
           ],
+          type: "routes",
         },
         originalData: {
-          alias: "route: bricks",
-          type: "bricks",
+          alias: "Route",
+          type: "route-root",
           children: [
             {
-              alias: "brick: 1",
-              type: "brick",
+              alias: "route: bricks",
+              type: "bricks",
+              children: [
+                {
+                  alias: "brick: 1",
+                  type: "brick",
+                },
+              ],
             },
           ],
         },
         height: 74,
-        children: [],
+        children: [
+          {
+            height: 74,
+            nodeType: "route",
+            originalData: {
+              alias: "route: bricks",
+              children: [
+                {
+                  alias: "brick: 1",
+                  type: "brick",
+                },
+              ],
+              type: "bricks",
+            },
+            children: [],
+            content: {
+              type: "bricks",
+              items: [
+                {
+                  alias: "brick: 1",
+                  type: "brick",
+                },
+              ],
+            },
+          },
+        ],
+        nodeType: "unknown",
       },
     ],
     [
@@ -134,6 +182,40 @@ describe("viewsToGraph", () => {
           ],
         },
         children: [],
+      },
+    ],
+
+    [
+      [
+        {
+          alias: "custom-template: empty-custom-template",
+          type: "custom-template",
+        },
+      ],
+      "auto",
+      {
+        content: {
+          type: "custom-template",
+          items: [
+            {
+              alias: "custom-template: empty-custom-template",
+              type: "custom-template",
+            },
+          ],
+        },
+        originalData: {
+          alias: "Custom Template",
+          type: "tpl-root",
+          children: [
+            {
+              alias: "custom-template: empty-custom-template",
+              type: "custom-template",
+            },
+          ],
+        },
+        height: 74,
+        children: [],
+        nodeType: "unknown",
       },
     ],
     [fakeBuilderGraphSource(), "auto", fakeBuilderGraphNode()],

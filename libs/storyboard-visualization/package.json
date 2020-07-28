@@ -31,7 +31,8 @@
   "peerDependencies": {
     "@dll/ace": "*",
     "@dll/d3": "*",
-    "@easyops/brick-dll": "*"
+    "@easyops/brick-dll": "*",
+    "@libs/basic-components": "*"
   },
   "dependencies": {
     "@easyops/brick-types": "^1.27.0",
