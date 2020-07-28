@@ -31,6 +31,13 @@ export function GraphNodeComponent(
     onReorderClick?.(node.originalData);
   }, [onReorderClick, node]);
 
+  if (
+    node.originalData.type === "app-root" &&
+    !node.originalData.children?.length
+  ) {
+    return <></>;
+  }
+
   let contentComponent: React.ReactNode;
   const content = node.content;
 
