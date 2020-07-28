@@ -119,7 +119,6 @@ export class BuilderGraph {
       .on("mousedown", () => {
         this.canvas.classed(styles.grabbing, true);
         d3Event.preventDefault();
-        const container = this.canvas.node().parentElement;
         const x0 = d3Event.screenX + this.offsetX;
         const y0 = d3Event.screenY + this.offsetY;
         d3Window
@@ -270,5 +269,18 @@ export class BuilderGraph {
     this.nodes.each(function (d) {
       ReactDOM.render(<GraphNodeComponent node={d.data} {...options} />, this);
     });
+
+    // When the nodesContainer width or height is smaller than the canvas width or height, transform the nodesContainer to the middle of the x-axis or y-axis.
+    const canvasWidth = this.canvas.node().offsetWidth;
+    const canvasHeight = this.canvas.node().offsetHeight;
+    const dx0 =
+      this.nodesContainerWidth < canvasWidth
+        ? this.nodesContainerWidth / 2 - canvasWidth / 2 - this.offsetX
+        : -this.offsetX;
+    const dy0 =
+      this.nodesContainerHeight < canvasHeight
+        ? this.nodesContainerHeight / 2 - canvasHeight / 2 - this.offsetY
+        : -this.offsetY;
+    this.transform(dx0, dy0);
   }
 }

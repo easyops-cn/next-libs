@@ -100,7 +100,8 @@ export function GraphNodeComponent(
         {getNodeDisplayName(node.originalData)}
         {node.originalData.type !== "app-root" &&
           node.originalData.type !== "tpl-root" &&
-          node.originalData.type !== "view-tpl-root" && (
+          node.originalData.type !== "view-tpl-root" &&
+          node.originalData.type !== "route-root" && (
             <div className={styles.menuButton} onClick={handleReorderClick}>
               <Icon type="menu" />
             </div>

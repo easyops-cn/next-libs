@@ -30,6 +30,13 @@ export function viewsToGraph(
         children: sortViews(views || []),
       });
     }
+    if (isRouteNode(views[0])) {
+      return ViewItemToGraph({
+        alias: "Route",
+        type: "route-root",
+        children: sortViews(views || []),
+      });
+    }
     return ViewItemToGraph(views[0]);
   }
   return viewsToGraph(
@@ -83,12 +90,13 @@ function getNodeContent(view: ViewItem): GraphNodeContent {
     case "routes":
     case "app-root":
     case "tpl-root":
+    case "route-root":
     case "view-tpl-root":
     case "custom-template":
     case "view-template":
       return {
         type:
-          view.type === "app-root"
+          view.type === "app-root" || view.type === "route-root"
             ? "routes"
             : view.type === "tpl-root"
             ? "custom-template"
