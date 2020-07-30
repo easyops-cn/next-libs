@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.8.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/datetime-components@0.7.2...@libs/datetime-components@0.8.0) (2020-07-30)
+
+### Features
+
+- **datetime-components:** DatatimeRange 组件新增 size 属性 ([156fa3e](https://git.easyops.local/anyclouds/next-libs/commits/156fa3e))
+
 ## [0.7.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/datetime-components@0.7.1...@libs/datetime-components@0.7.2) (2020-03-13)
 
 ### Bug Fixes
