@@ -5,6 +5,7 @@ import { RadioChangeEvent } from "antd/lib/radio";
 import { TooltipPlacement } from "antd/lib/tooltip";
 import moment from "moment";
 import { RangePickerValue } from "antd/lib/date-picker/interface";
+import { ButtonSize } from "antd/lib/button";
 
 export type DateRangeType = "dateRange";
 export const DATE_RANGE = "dateRange";
@@ -34,6 +35,7 @@ export interface DatatimeRangeProps {
   type?: RangeType;
   customTimeRange?: RangeText[];
   placement?: TooltipPlacement;
+  size?: ButtonSize;
 }
 
 export interface DatatimeRangeState {
@@ -53,24 +55,24 @@ export interface RangeText {
 export const defaultRangeOptionList: RangeText[] = [
   {
     range: "now-1h",
-    text: "近1小时"
+    text: "近1小时",
   },
   {
     range: "now-1d",
-    text: "近24小时"
+    text: "近24小时",
   },
   {
     range: "now/d",
-    text: "今天"
+    text: "今天",
   },
   {
     range: "now-7d",
-    text: "近7天"
+    text: "近7天",
   },
   {
     range: "now-30d",
-    text: "近30天"
-  }
+    text: "近30天",
+  },
 ];
 
 export class DatetimeRange extends React.Component<
@@ -79,7 +81,7 @@ export class DatetimeRange extends React.Component<
 > {
   static defaultProps = {
     type: "default",
-    customTimeRange: [] as RangeText[]
+    customTimeRange: [] as RangeText[],
   };
 
   rangeOptionList: RangeText[];
@@ -88,12 +90,12 @@ export class DatetimeRange extends React.Component<
 
     const defaultInitRange = {
       type: DATE_RANGE,
-      value: "now-7d"
+      value: "now-7d",
     };
 
     const customInitRange = {
       type: DATE_RANGE,
-      value: get(this.props.customTimeRange, "[0].range")
+      value: get(this.props.customTimeRange, "[0].range"),
     };
     const initDateRange: DateRange | SpecifiedDateRange =
       this.props.initDateRange ||
@@ -114,7 +116,7 @@ export class DatetimeRange extends React.Component<
           ? [moment(initDateRange.value.from), moment(initDateRange.value.to)]
           : null,
       visible: false,
-      format: this.props.format || "YYYY-MM-DD HH:mm:ss"
+      format: this.props.format || "YYYY-MM-DD HH:mm:ss",
     };
   }
 
@@ -134,13 +136,13 @@ export class DatetimeRange extends React.Component<
   handleRangeChange = (e: RadioChangeEvent) => {
     const dateRange: DateRange = {
       type: DATE_RANGE,
-      value: e.target.value
+      value: e.target.value,
     };
     this.setState({
       dateRange,
       type: DATE_RANGE,
       range: e.target.value,
-      specifiedDate: null
+      specifiedDate: null,
     });
     if (this.props.onConfirm) {
       this.props.onConfirm(dateRange);
@@ -154,7 +156,7 @@ export class DatetimeRange extends React.Component<
 
   hide = () => {
     this.setState({
-      visible: false
+      visible: false,
     });
   };
 
@@ -163,15 +165,15 @@ export class DatetimeRange extends React.Component<
     if (this.state.type === DATE_RANGE) {
       dateRange = {
         type: this.state.type,
-        value: this.state.range
+        value: this.state.range,
       };
     } else {
       dateRange = {
         type: this.state.type,
         value: {
           from: +this.state.specifiedDate[0],
-          to: +this.state.specifiedDate[1]
-        }
+          to: +this.state.specifiedDate[1],
+        },
       };
     }
     this.setState({ dateRange });
@@ -183,7 +185,7 @@ export class DatetimeRange extends React.Component<
     this.setState({
       type: SPECIFIED_DATE,
       range: null,
-      specifiedDate: v
+      specifiedDate: v,
     });
   };
 
@@ -194,16 +196,16 @@ export class DatetimeRange extends React.Component<
       lineHeight: "24px",
       fontSize: "16px",
       fontWeight: 500,
-      marginBottom: "10px"
+      marginBottom: "10px",
     };
     const radioGroupStyle = {
-      marginBottom: "20px"
+      marginBottom: "20px",
     };
     const datePickerStyle = {
-      marginBottom: "30px"
+      marginBottom: "30px",
     };
     const contentStyle = {
-      margin: "16px"
+      margin: "16px",
     };
     const content = (
       <div style={contentStyle}>
@@ -215,7 +217,7 @@ export class DatetimeRange extends React.Component<
           buttonStyle="solid"
           className="btnGroup"
         >
-          {this.rangeOptionList.map(item => (
+          {this.rangeOptionList.map((item) => (
             <Radio.Button
               value={item.range}
               key={item.range}
@@ -231,8 +233,8 @@ export class DatetimeRange extends React.Component<
             showTime={{
               defaultValue: [
                 moment(this.state.format),
-                moment(this.state.format)
-              ]
+                moment(this.state.format),
+              ],
             }}
             format={this.state.format}
             style={{ width: "380px" }}
@@ -255,7 +257,7 @@ export class DatetimeRange extends React.Component<
         visible={this.state.visible}
         onVisibleChange={this.handleVisibleChange}
       >
-        <Button>
+        <Button size={this.props.size}>
           <Icon type="clock-circle" style={{ verticalAlign: "middle" }} />{" "}
           {this.getButtonText()}
         </Button>
