@@ -1,12 +1,16 @@
 .addStructBtnContainer {
   display: inline-block;
 }
+
 .formItem {
   margin: 10px 0;
 }
+
 .formLabel {
   display: block;
 }
+
 .structTableTd {
   word-break: break-all;
+  padding: 8px 16px !important;
 }

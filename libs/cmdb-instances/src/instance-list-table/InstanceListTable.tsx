@@ -119,11 +119,9 @@ export class LegacyInstanceListTable extends React.Component<
         pageSizeOptions: this.props.pageSizeOptions,
         showSizeChanger: this.props.showSizeChanger,
         total: this.props.instanceListData.total,
-        showTotal: totals => (
+        showTotal: (totals) => (
           <span className={styles.totalText}>
-            共
-            <strong className={styles.total}>{totals}</strong>{" "}
-            项
+            共<strong className={styles.total}>{totals}</strong> 项
           </span>
         ),
         current: this.props.instanceListData.page,
@@ -289,13 +287,12 @@ export class LegacyInstanceListTable extends React.Component<
           ) => {
             return value ? (
               <Popover
-                overlayStyle={{ width: 500, height: "auto", overflowY: "auto" }}
+                overlayStyle={{ maxWidth: 800, width: "100%", height: "auto" }}
                 content={
                   <StructTable
                     attribute={attribute as Attribute}
                     structData={value}
                     isLegacy={isLegacy}
-                    size="small"
                   />
                 }
                 placement="bottom"
