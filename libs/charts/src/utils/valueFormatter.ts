@@ -28,17 +28,21 @@ export const formatValue = (
 ): [string, string] => {
   if (format) {
     let { type } = format;
-    if (!type && format.unit) {
-      type = FormatType.Short;
-      Object.entries(formatUnitIds).map(([formatType, units]) => {
-        if (
-          units
-            .map((unit) => unit.toLocaleLowerCase())
-            .includes(format.unit.toLocaleLowerCase())
-        ) {
-          type = formatType as FormatType;
-        }
-      });
+    if (!type) {
+      if (format.unit) {
+        type = FormatType.Short;
+        Object.entries(formatUnitIds).map(([formatType, units]) => {
+          if (
+            units
+              .map((unit) => unit.toLocaleLowerCase())
+              .includes(format.unit.toLocaleLowerCase())
+          ) {
+            type = formatType as FormatType;
+          }
+        });
+      } else {
+        type = FormatType.None;
+      }
     }
 
     const precision = format?.precision === undefined ? 2 : format.precision;
