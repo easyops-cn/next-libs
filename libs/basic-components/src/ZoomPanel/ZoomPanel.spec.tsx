@@ -1,5 +1,6 @@
 import React from "react";
 import { mount, ReactWrapper } from "enzyme";
+import Icon from "@ant-design/icons";
 import { ZoomPanel } from "./ZoomPanel";
 
 describe("ZoomPanel", () => {
@@ -16,7 +17,7 @@ describe("ZoomPanel", () => {
       />
     );
 
-    const zoomInIcon = wrapper.find("Icon").at(1);
+    const zoomInIcon = wrapper.find(Icon).at(1);
     zoomInIcon.simulate("click");
     expect(onChange).toBeCalledWith(1.5);
     zoomInIcon.simulate("click");
@@ -34,7 +35,7 @@ describe("ZoomPanel", () => {
       />
     );
 
-    const zoomOutIcon = wrapper.find("Icon").at(2);
+    const zoomOutIcon = wrapper.find(Icon).at(2);
     zoomOutIcon.simulate("click");
     expect(onChange).toBeCalledWith(0.5);
     zoomOutIcon.simulate("click");

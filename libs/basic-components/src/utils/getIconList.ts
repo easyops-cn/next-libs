@@ -1,8 +1,11 @@
 import { iconsByCategory as easyopsByCategory } from "@easyops/brick-icons";
 import { fab, fas } from "@easyops/fontawesome-library";
-import antdByCategory from "@ant-design/icons/lib/manifest";
+import { kebabCase } from "lodash";
+import { antdIconKeys } from './antdIcons';
 
 export type IconType = "easyops" | "antd" | "fa";
+
+const antdIconKeyPattern = /^([A-Za-z0-9]+)(Filled|Outlined|TwoTone)$/;
 
 export interface GetIconListParams {
   q?: string;
@@ -14,7 +17,7 @@ export interface GetIconListParams {
 export const antedThemeMap = {
   outline: "outlined",
   fill: "filled",
-  twotone: "twoTone"
+  twotone: "twoTone",
 };
 
 export function getIconList(params: GetIconListParams) {
@@ -24,33 +27,45 @@ export function getIconList(params: GetIconListParams) {
 
   if (type === "easyops") {
     for (const [key, icons] of Object.entries(easyopsByCategory)) {
-      const list = icons.map(name => ({
+      const list = icons.map((name) => ({
         title: name,
         descriptionList: [`category: ${key}`, `icon: ${name}`],
         icon: {
           lib: type,
           category: key,
-          icon: name
-        }
+          icon: name,
+        },
       }));
       iconList.push(...list);
     }
   } else if (type === "antd") {
-    for (const [key, icons] of Object.entries(antdByCategory)) {
-      const list = icons.map(name => ({
+    antdIconKeys.forEach((key) => {
+      let [, name, theme] = key.match(antdIconKeyPattern);
+
+      name = kebabCase(name);
+
+      switch (theme) {
+        case "Filled":
+          theme = "filled";
+          break;
+        case "Outlined":
+          theme = "outlined";
+          break;
+        case "TwoTone":
+          theme = "twoTone";
+          break;
+      }
+
+      iconList.push({
         title: name,
-        descriptionList: [
-          `theme: ${antedThemeMap[key as keyof typeof antedThemeMap]}`,
-          `icon: ${name}`
-        ],
+        descriptionList: [`theme: ${theme}`, `icon: ${name}`],
         icon: {
           lib: type,
           icon: name,
-          theme: antedThemeMap[key as keyof typeof antedThemeMap]
-        }
-      }));
-      iconList.push(...list);
-    }
+          theme,
+        },
+      });
+    });
   } else if (type === "fa") {
     const faByCategory = { ...fas, ...fab };
 
@@ -59,13 +74,13 @@ export function getIconList(params: GetIconListParams) {
         title: iconObj.iconName,
         descriptionList: [
           `prefix: ${iconObj.prefix}`,
-          `icon: ${iconObj.iconName}`
+          `icon: ${iconObj.iconName}`,
         ],
         icon: {
           lib: "fa",
           icon: iconObj.iconName,
-          prefix: iconObj.prefix
-        }
+          prefix: iconObj.prefix,
+        },
       });
     }
   }
@@ -77,7 +92,7 @@ export function getIconList(params: GetIconListParams) {
   } else {
     const query = q.toLocaleLowerCase().trim();
     filters = iconList.filter(
-      item =>
+      (item) =>
         item.title.toLowerCase().includes(query) ||
         item.descriptionList.find((i: string) =>
           i.toLowerCase().includes(query)
@@ -89,6 +104,6 @@ export function getIconList(params: GetIconListParams) {
   const pageList = filters.slice((page - 1) * pageSize, page * pageSize);
   return {
     list: pageList,
-    total: filters.length
+    total: filters.length,
   };
 }
