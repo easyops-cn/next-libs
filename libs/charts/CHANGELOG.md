@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.7.4](https://git.easyops.local/anyclouds/next-libs/compare/@libs/charts@0.7.3...@libs/charts@0.7.4) (2020-08-10)
+
+### Bug Fixes
+
+- **charts:** formatValue 当没有 unit 时，type 默认为 none ([2fb8ff9](https://git.easyops.local/anyclouds/next-libs/commits/2fb8ff9))
+
 ## [0.7.3](https://git.easyops.local/anyclouds/next-libs/compare/@libs/charts@0.7.2...@libs/charts@0.7.3) (2020-07-23)
 
 ### Bug Fixes
