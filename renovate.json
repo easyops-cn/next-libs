@@ -12,6 +12,8 @@
       "packagePatterns": ["^@bricks/", "^@libs/", "^@micro-apps/", "^@sdk/"],
       "enabled": false,
       "packageNames": [
+        "@ant-design/compatible",
+        "@ant-design/icons",
         "@easyops/babel-runtime-helpers",
         "@easyops/brick-http",
         "@easyops/brick-icons",
