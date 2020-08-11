@@ -1,14 +1,15 @@
 import React from "react";
 import { mount, ReactWrapper } from "enzyme";
 import { Clipboard, ClipboardProps } from "./Clipboard";
-import { Icon } from "antd";
+import { Icon as LegacyIcon } from "@ant-design/compatible";
+import { HeartFilled } from "@ant-design/icons";
 
 describe("Clipboard", () => {
   const TEXT = "copy was successful!";
 
   const props: ClipboardProps = {
     text: TEXT,
-    onCopy: jest.fn()
+    onCopy: jest.fn(),
   };
 
   const spyOnConsoleLog = jest
@@ -31,7 +32,7 @@ describe("Clipboard", () => {
     it("should work", () => {
       document.execCommand = jest.fn().mockReturnValue(true);
       document.removeEventListener = jest.fn();
-      const icon = wrapper.find(Icon);
+      const icon = wrapper.find(LegacyIcon);
       expect(icon.length).toBe(1);
       icon.simulate("click");
       expect(document.execCommand).toBeCalledWith("copy");
@@ -45,7 +46,7 @@ describe("Clipboard", () => {
     it("should catch error when document.execCommand return false", () => {
       document.execCommand = jest.fn().mockReturnValue(false);
 
-      const icon = wrapper.find(Icon);
+      const icon = wrapper.find(LegacyIcon);
       expect(icon.length).toBe(1);
       icon.simulate("click");
       expect(document.execCommand).toBeCalledWith("copy");
@@ -63,10 +64,10 @@ describe("Clipboard", () => {
 
       Object.defineProperty(window, "clipboardData", {
         value: {
-          setData: jest.fn()
-        }
+          setData: jest.fn(),
+        },
       });
-      const icon = wrapper.find(Icon);
+      const icon = wrapper.find(LegacyIcon);
 
       icon.simulate("click");
       expect(document.execCommand).toBeCalledWith("copy");
@@ -78,15 +79,14 @@ describe("Clipboard", () => {
   it("should use children instead of default icon ", () => {
     const wrapper = mount(
       <Clipboard {...props}>
-        <Icon type="heart" theme="filled" />
+        <HeartFilled />
       </Clipboard>
     );
 
     jest.spyOn(document, "execCommand").mockReturnValueOnce(true);
 
-    const icon = wrapper.find(Icon);
-    expect(icon.length).toBe(1);
-    expect(icon.prop("type")).toBe("heart");
+    const icon = wrapper.find(HeartFilled);
+    expect(icon).toHaveLength(1);
     icon.simulate("click");
     expect(document.execCommand).toBeCalledWith("copy");
     expect(props.onCopy).toBeCalledWith(TEXT, true);
