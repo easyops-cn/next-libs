@@ -1,17 +1,17 @@
 import React from "react";
-import { Menu, Icon } from "antd";
+import { Menu } from "antd";
+import { MenuTheme } from "antd/lib/menu/MenuContext";
 import { uniq } from "lodash";
 import { UnregisterCallback, Location, parsePath } from "history";
 import { getHistory } from "@easyops/brick-kit";
 import { matchPath } from "@easyops/brick-utils";
-import { Link } from "./Link";
-import { MenuTheme } from "antd/lib/menu/MenuContext";
-import { GeneralIcon } from "./GeneralIcon";
 import {
   SidebarMenuSimpleItem,
   SidebarMenuItem,
   SidebarMenuGroup,
 } from "@easyops/brick-types";
+import { Link } from "./Link";
+import { GeneralIcon } from "./GeneralIcon";
 import style from "./Sidebar.module.css";
 
 interface SidebarProps {
@@ -181,14 +181,14 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
       <Menu.SubMenu
         key={item.key}
         title={
-          item.icon ? (
-            <span>
-              <GeneralIcon icon={item.icon} />
-              <span>{item.title}</span>
-            </span>
-          ) : (
-            item.title
-          )
+          <span>
+            {item.icon && (
+              <i className={style.menuItemIcon}>
+                <GeneralIcon icon={item.icon} />
+              </i>
+            )}
+            <span className={style.menuItemText}>{item.title}</span>
+          </span>
         }
       >
         {item.items.map((innerItem) => this.renderMenuItem(innerItem))}
