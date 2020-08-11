@@ -1,10 +1,11 @@
 import React from "react";
-import { Popover, Button, Radio, DatePicker, Icon } from "antd";
+import { ClockCircleOutlined } from "@ant-design/icons";
+import { Popover, Button, Radio, DatePicker } from "antd";
 import { find, get } from "lodash";
 import { RadioChangeEvent } from "antd/lib/radio";
 import { TooltipPlacement } from "antd/lib/tooltip";
 import moment from "moment";
-import { RangePickerValue } from "antd/lib/date-picker/interface";
+import { RangeValue } from "rc-picker/lib/interface";
 import { ButtonSize } from "antd/lib/button";
 
 export type DateRangeType = "dateRange";
@@ -42,7 +43,7 @@ export interface DatatimeRangeState {
   dateRange: DateRange | SpecifiedDateRange;
   type: SpecifiedDateType | DateRangeType;
   range: string | null;
-  specifiedDate: RangePickerValue | null;
+  specifiedDate: RangeValue<moment.Moment> | null;
   visible: boolean;
   format: string;
 }
@@ -181,7 +182,7 @@ export class DatetimeRange extends React.Component<
     this.hide();
   };
 
-  onDateChange = (v: RangePickerValue) => {
+  onDateChange = (v: RangeValue<moment.Moment>) => {
     this.setState({
       type: SPECIFIED_DATE,
       range: null,
@@ -258,7 +259,7 @@ export class DatetimeRange extends React.Component<
         onVisibleChange={this.handleVisibleChange}
       >
         <Button size={this.props.size}>
-          <Icon type="clock-circle" style={{ verticalAlign: "middle" }} />{" "}
+          <ClockCircleOutlined style={{ verticalAlign: "middle" }} />{" "}
           {this.getButtonText()}
         </Button>
       </Popover>
