@@ -1,11 +1,12 @@
 import React, { PropsWithChildren, useState } from "react";
 import { unstable_batchedUpdates } from "react-dom";
 import { get, isEmpty } from "lodash";
-import { Form, Tooltip } from "antd";
+import { Form } from "@ant-design/compatible";
+import { Tooltip } from "antd";
 import { GeneralIcon } from "@libs/basic-components";
 import { BrickAsComponent } from "@easyops/brick-kit";
 import { getDefaultMessage } from "./message";
-import { ValidationRule } from "antd/lib/form";
+import { ValidationRule } from "@ant-design/compatible/lib/form";
 import { ColProps, ColSize } from "antd/lib/grid";
 import {
   AbstractGeneralFormElement,
