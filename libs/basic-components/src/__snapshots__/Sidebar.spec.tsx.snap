@@ -70,15 +70,21 @@ exports[`Sidebar should work 1`] = `
       key="2.1"
       title={
         <span>
-          <GeneralIcon
-            icon={
-              Object {
-                "icon": "bug",
-                "lib": "fa",
+          <i
+            className="menuItemIcon"
+          >
+            <GeneralIcon
+              icon={
+                Object {
+                  "icon": "bug",
+                  "lib": "fa",
+                }
               }
-            }
-          />
-          <span>
+            />
+          </i>
+          <span
+            className="menuItemText"
+          >
             subMenu
           </span>
         </span>
