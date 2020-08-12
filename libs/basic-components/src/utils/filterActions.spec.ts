@@ -10,8 +10,16 @@ describe("filterActions processor", () => {
             if: "@{item.type}",
           },
           {
-            brick: "div",
+            brick: "del",
             if: "@{item.type|not}",
+          },
+          {
+            brick: "a",
+            if: "@{item.quality}",
+          },
+          {
+            brick: "b",
+            if: "@{item.quality|not}",
           },
         ],
       },
@@ -23,6 +31,10 @@ describe("filterActions processor", () => {
       {
         brick: "div",
         if: "@{item.type}",
+      },
+      {
+        brick: "b",
+        if: "@{item.quality|not}",
       },
     ]);
   });
