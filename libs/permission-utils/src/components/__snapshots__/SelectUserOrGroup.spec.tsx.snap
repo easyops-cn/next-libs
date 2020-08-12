@@ -2,12 +2,12 @@
 
 exports[`SelectUserOrGroup should render 1`] = `
 <Select
-  choiceTransitionName="zoom"
+  bordered={true}
+  choiceTransitionName=""
   labelInValue={true}
   mode="multiple"
   onChange={[Function]}
   placeholder="选择用户（组）"
-  showSearch={false}
   style={
     Object {
       "width": "100%",

@@ -82,9 +82,7 @@ exports[`BatchSetting should work 1`] = `
             title="白名单必定包含当前用户"
             transitionName="zoom-big-fast"
           >
-            <Icon
-              type="question-circle"
-            />
+            <ForwardRef(QuestionCircleOutlined) />
           </Tooltip>
         </label>
         <div>

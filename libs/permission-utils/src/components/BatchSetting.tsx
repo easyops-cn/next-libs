@@ -1,4 +1,5 @@
 import React from "react";
+import { QuestionCircleOutlined } from "@ant-design/icons";
 import {
   Button,
   Modal,
@@ -9,7 +10,6 @@ import {
   Row,
   Col,
   Tooltip,
-  Icon
 } from "antd";
 import { SelectUserOrGroup } from "./SelectUserOrGroup";
 import { initPermissionOptions } from "../processors";
@@ -19,7 +19,12 @@ export interface BatchSettingProps {
   modelData?: any;
   instanceIds: string[];
   permissionList: any;
-  updateFunction: Function;
+  updateFunction(data: {
+    authorizers: string[];
+    method: string;
+    permissions: [];
+    packageIds: string[];
+  }): void;
 }
 export interface BatchSettingState {
   visible: boolean;
@@ -42,8 +47,8 @@ export class BatchSetting extends React.Component<
         enableWhiteList: false,
         method: "overwrite",
         authorizers: [],
-        perm: []
-      }
+        perm: [],
+      },
     };
   }
   // 弹出
@@ -61,16 +66,16 @@ export class BatchSetting extends React.Component<
       visible: false,
       formData: {
         ...prevState.formData,
-        enableWhiteList: false
-      }
+        enableWhiteList: false,
+      },
     }));
   };
   handleSwitchWhiteList = (checked: boolean) => {
     this.setState((prevState: BatchSettingState) => ({
       formData: {
         ...prevState.formData,
-        enableWhiteList: true
-      }
+        enableWhiteList: true,
+      },
     }));
   };
   handleUsersChange = (value: { key: string; label: string }[]) => {
@@ -78,17 +83,17 @@ export class BatchSetting extends React.Component<
       (item: { key: string; label: string }) => item.label
     );
     this.setState((prevState: BatchSettingState) => ({
-      formData: { ...prevState.formData, authorizers }
+      formData: { ...prevState.formData, authorizers },
     }));
   };
   handleChangeAction = (e: any) => {
     this.setState((prevState: BatchSettingState) => ({
-      formData: { ...prevState.formData, method: e.target.value }
+      formData: { ...prevState.formData, method: e.target.value },
     }));
   };
   handleCheckPerm = (checkedValue: any) => {
     this.setState((prevState: BatchSettingState) => ({
-      formData: { ...prevState.formData, perm: checkedValue }
+      formData: { ...prevState.formData, perm: checkedValue },
     }));
   };
   renderWhiteListForm() {
@@ -99,20 +104,20 @@ export class BatchSetting extends React.Component<
       {
         label: "重置",
         value: "overwrite",
-        message: "重置白名单为："
+        message: "重置白名单为：",
       },
       {
         label: "添加",
         value: "append",
-        message: "向白名单添加："
+        message: "向白名单添加：",
       },
       {
         label: "移除",
         value: "remove",
-        message: "从白名单移除："
-      }
+        message: "从白名单移除：",
+      },
     ];
-    const message = operations.find(item => item.value === method).message;
+    const message = operations.find((item) => item.value === method).message;
 
     return (
       <div className={styles.whiteListFormContainer}>
@@ -121,7 +126,7 @@ export class BatchSetting extends React.Component<
             onChange={this.handleChangeAction}
             defaultValue="overwrite"
           >
-            {operations.map(operation => (
+            {operations.map((operation) => (
               <RadioButton value={operation.value} key={operation.value}>
                 {operation.label}
               </RadioButton>
@@ -184,7 +189,7 @@ export class BatchSetting extends React.Component<
               <label className={styles.formLabel}>
                 白名单：
                 <Tooltip title="白名单必定包含当前用户">
-                  <Icon type="question-circle" />
+                  <QuestionCircleOutlined />
                 </Tooltip>
               </label>
               <div>

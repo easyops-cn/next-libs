@@ -15,37 +15,39 @@ describe("SelectUserOrGroup", () => {
 
   it("should handle change", () => {
     const spy = jest.spyOn(props, "handleUsersChange");
-    instance.handleUsersChange([{ label: "user", key: "12345" }]);
+    instance.handleUsersChange([
+      { label: "user", value: "12345", key: "12345" },
+    ]);
     expect(spy).toHaveBeenCalled();
   });
   it("should work when call filterOpts function", () => {
     const allUsers = [
       {
         instanceId: "abc",
-        name: "lightjiao"
+        name: "lightjiao",
       },
       {
         instanceId: "easyops",
-        name: "easyops"
+        name: "easyops",
       },
       {
         instanceId: "willniu",
-        name: "1234567"
+        name: "1234567",
       },
       {
         instanceId: "test",
-        name: "12345678"
-      }
+        name: "12345678",
+      },
     ];
     expect(instance.filterOpts(["lightjiao", "easyops"], allUsers)).toEqual([
       {
         instanceId: "abc",
-        name: "lightjiao"
+        name: "lightjiao",
       },
       {
         instanceId: "easyops",
-        name: "easyops"
-      }
+        name: "easyops",
+      },
     ]);
   });
 });

@@ -4,10 +4,11 @@ import { filter, isEmpty } from "lodash";
 import {
   SelectUserOrGroupProps,
   SelectUserOrGroupState,
-  User
+  User,
 } from "../interfaces";
 import * as CmdbSdk from "@sdk/cmdb-sdk";
 import { handleHttpError } from "@easyops/brick-kit";
+import { LabeledValue } from "antd/lib/select";
 
 export class SelectUserOrGroup extends React.Component<
   SelectUserOrGroupProps,
@@ -17,7 +18,7 @@ export class SelectUserOrGroup extends React.Component<
     super(props);
     this.state = {
       users: [],
-      userGroups: []
+      userGroups: [],
     };
   }
   fetchUser() {
@@ -25,8 +26,8 @@ export class SelectUserOrGroup extends React.Component<
       query: {},
       fields: {
         instanceId: true,
-        name: true
-      }
+        name: true,
+      },
     });
   }
   fetchUserGroup() {
@@ -34,29 +35,29 @@ export class SelectUserOrGroup extends React.Component<
       query: {},
       fields: {
         instanceId: true,
-        name: true
-      }
+        name: true,
+      },
     });
   }
   async componentDidMount() {
     try {
       const [users, groups] = await Promise.all([
         this.fetchUser(),
-        this.fetchUserGroup()
+        this.fetchUserGroup(),
       ]);
       this.setState({
         users: users.list as User[],
-        userGroups: groups.list as User[]
+        userGroups: groups.list as User[],
       });
     } catch (e) {
       handleHttpError(e);
     }
   }
-  handleUsersChange = (e: { key: string; label: string }[]) => {
-    this.props.handleUsersChange(e);
+  handleUsersChange = (value: LabeledValue[]) => {
+    this.props.handleUsersChange(value);
   };
   filterOpts = (currentUsers: string[], allUsers: User[]) => {
-    return filter(allUsers, item => currentUsers.includes(item.name));
+    return filter(allUsers, (item) => currentUsers.includes(item.name));
   };
   render(): React.ReactNode {
     const { currentUsers } = this.props;
@@ -77,12 +78,16 @@ export class SelectUserOrGroup extends React.Component<
       >
         <Select.OptGroup label="用户">
           {users.map((item: any) => (
-            <Select.Option key={item.instanceId}>{item.name}</Select.Option>
+            <Select.Option value={item.instanceId} key={item.instanceId}>
+              {item.name}
+            </Select.Option>
           ))}
         </Select.OptGroup>
         <Select.OptGroup label="用户组">
           {userGroups.map((item: any) => (
-            <Select.Option key={item.instanceId}>{item.name}</Select.Option>
+            <Select.Option value={item.instanceId} key={item.instanceId}>
+              {item.name}
+            </Select.Option>
           ))}
         </Select.OptGroup>
       </Select>
