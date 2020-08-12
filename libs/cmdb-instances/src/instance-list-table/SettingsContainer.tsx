@@ -218,7 +218,7 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
               </Button>
             </Col>
             <Col span={16}>
-              <Row type="flex" justify="end">
+              <Row justify="end">
                 <Button
                   type="default"
                   onClick={this.handleCancel}

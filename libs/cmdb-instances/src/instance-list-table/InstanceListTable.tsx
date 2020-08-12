@@ -3,13 +3,11 @@ import { withTranslation, WithTranslation } from "react-i18next";
 import classnames from "classnames";
 import { Button, Popover, Table, Tag } from "antd";
 import { isNil } from "lodash";
+import { ColumnType, TablePaginationConfig, TableProps } from "antd/lib/table";
 import {
-  ColumnProps,
-  PaginationConfig,
   SorterResult,
   TableCurrentDataSource,
   TableRowSelection,
-  TableProps,
 } from "antd/lib/table/interface";
 import {
   PropertyDisplay,
@@ -87,8 +85,8 @@ export interface InstanceListTableProps extends WithTranslation {
 
 interface InstanceListTableState {
   list: Record<string, any>[];
-  columns?: ColumnProps<Record<string, any>>[];
-  pagination: PaginationConfig;
+  columns?: ColumnType<Record<string, any>>[];
+  pagination: TablePaginationConfig;
 }
 
 export class LegacyInstanceListTable extends React.Component<
@@ -148,8 +146,10 @@ export class LegacyInstanceListTable extends React.Component<
         ),
       ids
     );
-    const idColumnMap = new Map<string, ColumnProps<Record<string, any>>>();
-    columns.forEach((column) => idColumnMap.set(column.dataIndex, column));
+    const idColumnMap = new Map<string, ColumnType<Record<string, any>>>();
+    columns.forEach((column) =>
+      idColumnMap.set(column.dataIndex as string, column)
+    );
     let fieldIds: string[];
     if (ids?.length) {
       fieldIds = ids;
@@ -222,8 +222,8 @@ export class LegacyInstanceListTable extends React.Component<
   getAttributeColumnData(
     attribute: Partial<CmdbModels.ModelObjectAttr>,
     object: Partial<CmdbModels.ModelCmdbObject>
-  ): ColumnProps<Record<string, any>> {
-    const column: ColumnProps<Record<string, any>> = {
+  ): ColumnType<Record<string, any>> {
+    const column: ColumnType<Record<string, any>> = {
       title: attribute.name,
       dataIndex: attribute.id,
       className: styles.instanceListTableCell,
@@ -367,10 +367,10 @@ export class LegacyInstanceListTable extends React.Component<
     relation: Partial<CmdbModels.ModelObjectRelation>,
     object: Partial<CmdbModels.ModelCmdbObject>,
     sides: RelationObjectSides
-  ): ColumnProps<Record<string, any>> {
+  ): ColumnType<Record<string, any>> {
     const key = relation[`${sides.this}_id` as RelationIdKeys];
 
-    const column: ColumnProps<Record<string, any>> = {
+    const column: ColumnType<Record<string, any>> = {
       title: relation[`${sides.this}_name` as RelationNameKeys],
       dataIndex: key,
       sorter: !this.props.sortDisabled,
@@ -454,7 +454,7 @@ export class LegacyInstanceListTable extends React.Component<
     return column;
   }
 
-  setColumnSortOrder<T = any>(column: ColumnProps<T>) {
+  setColumnSortOrder<T = any>(column: ColumnType<T>) {
     if (
       (column.dataIndex !== undefined &&
         column.dataIndex === this.props.sort) ||
@@ -462,15 +462,17 @@ export class LegacyInstanceListTable extends React.Component<
     ) {
       column.sortOrder = this.props.asc ? SortOrder.Ascend : SortOrder.Descend;
     } else {
-      column.sortOrder = false;
+      column.sortOrder = null;
     }
     return column;
   }
 
   onChange = (
-    pagination: PaginationConfig,
-    filters: Record<string, string[]>,
-    sorter: SorterResult<Record<string, any>>,
+    pagination: TablePaginationConfig,
+    filters: Record<string, React.Key[]>,
+    sorter:
+      | SorterResult<Record<string, any>>
+      | SorterResult<Record<string, any>>[],
     extra: TableCurrentDataSource<Record<string, any>>
   ) => {
     if (
@@ -482,19 +484,21 @@ export class LegacyInstanceListTable extends React.Component<
         pageSize: pagination.pageSize,
       });
     }
-    const asc = { [SortOrder.Ascend]: true, [SortOrder.Descend]: false }[
-      sorter.order
-    ];
-    if (
-      sorter.columnKey !== undefined &&
-      (sorter.columnKey !== this.props.sort || asc !== this.props.asc)
-    ) {
-      this.props.onSortingChange?.({ sort: sorter.columnKey, asc });
+    if (!Array.isArray(sorter)) {
+      const asc = { [SortOrder.Ascend]: true, [SortOrder.Descend]: false }[
+        sorter.order
+      ];
+      if (
+        sorter.field !== undefined &&
+        (sorter.field !== this.props.sort || asc !== this.props.asc)
+      ) {
+        this.props.onSortingChange?.({ sort: sorter.field as string, asc });
+      }
     }
   };
 
   onSelectChange = (
-    selectedRowKeys: string[] | number[],
+    selectedRowKeys: (string | number)[],
     selectedRows: Record<string, any>[]
   ) => {
     this.props.onSelectionChange?.({
@@ -518,7 +522,7 @@ export class LegacyInstanceListTable extends React.Component<
       this.props.sort !== prevProps.sort ||
       this.props.asc !== prevProps.asc
     ) {
-      const columns: ColumnProps<Record<string, any>>[] = [];
+      const columns: ColumnType<Record<string, any>>[] = [];
       this.state.columns.forEach((column) =>
         columns.push(this.setColumnSortOrder(column))
       );

@@ -1,22 +1,23 @@
 import React, { ChangeEvent, FormEvent } from "react";
 import update from "immutability-helper";
 import { isEqual } from "lodash";
-import { Button, Col, Form, Input, Row, Select } from "antd";
-import { FormComponentProps } from "antd/lib/form";
+import { Form } from "@ant-design/compatible";
+import { Button, Col, Input, Row, Select } from "antd";
+import { FormComponentProps } from "@ant-design/compatible/lib/form";
 import { CmdbModels } from "@sdk/cmdb-sdk";
 import {
   forEachAvailableFields,
   getInstanceNameKeys,
   RelationIdKeys,
   RelationNameKeys,
-  RelationObjectIdKeys
+  RelationObjectIdKeys,
 } from "@libs/cmdb-utils";
 
 import styles from "./AdvancedSearch.module.css";
 import {
   FormControlTypeEnum,
   ModelAttributeFormControl,
-  ModelAttributeValueType
+  ModelAttributeValueType,
 } from "../model-attribute-form-control/ModelAttributeFormControl";
 
 enum ComparisonOperators {
@@ -29,16 +30,16 @@ enum ComparisonOperators {
   LessThan = "$lt",
   LessThanOrEqual = "$lte",
   In = "$in",
-  NotIn = "$nin"
+  NotIn = "$nin",
 }
 
 enum ElementOperators {
-  Exists = "$exists"
+  Exists = "$exists",
 }
 
 export enum LogicalOperators {
   And = "$and",
-  Or = "$or"
+  Or = "$or",
 }
 
 export type QueryOperatorExpressions = Partial<
@@ -58,7 +59,7 @@ export enum ConditionType {
   NotEmpty = "notEmpty",
   Between = "between",
   True = "true",
-  False = "false"
+  False = "false",
 }
 
 interface ConditionOperation {
@@ -81,51 +82,51 @@ const FieldTypeConditionTypesMap: Record<string, ConditionType[]> = {
     ConditionType.Equal,
     ConditionType.NotEqual,
     ConditionType.Empty,
-    ConditionType.NotEmpty
+    ConditionType.NotEmpty,
   ],
   [ModelAttributeValueType.INTEGER]: [
     ConditionType.Equal,
     ConditionType.NotEqual,
     ConditionType.Between,
     ConditionType.Empty,
-    ConditionType.NotEmpty
+    ConditionType.NotEmpty,
   ],
   [ModelAttributeValueType.FLOAT]: [
     ConditionType.Equal,
     ConditionType.NotEqual,
     ConditionType.Between,
     ConditionType.Empty,
-    ConditionType.NotEmpty
+    ConditionType.NotEmpty,
   ],
   [ModelAttributeValueType.DATE]: [
     ConditionType.Equal,
     ConditionType.NotEqual,
     ConditionType.Between,
     ConditionType.Empty,
-    ConditionType.NotEmpty
+    ConditionType.NotEmpty,
   ],
   [ModelAttributeValueType.DATETIME]: [
     ConditionType.Between,
     ConditionType.Empty,
-    ConditionType.NotEmpty
+    ConditionType.NotEmpty,
   ],
   [ModelAttributeValueType.ENUM]: [
     ConditionType.Equal,
     ConditionType.NotEqual,
     ConditionType.Empty,
-    ConditionType.NotEmpty
+    ConditionType.NotEmpty,
   ],
   [ModelAttributeValueType.ARR]: [
     ConditionType.Contain,
     ConditionType.NotContain,
     ConditionType.Empty,
-    ConditionType.NotEmpty
+    ConditionType.NotEmpty,
   ],
   [ModelAttributeValueType.STRUCT]: [
     ConditionType.Contain,
     ConditionType.NotContain,
     ConditionType.Empty,
-    ConditionType.NotEmpty
+    ConditionType.NotEmpty,
   ],
   [ModelAttributeValueType.IP]: [
     ConditionType.Contain,
@@ -134,33 +135,33 @@ const FieldTypeConditionTypesMap: Record<string, ConditionType[]> = {
     ConditionType.NotEqual,
     ConditionType.Between,
     ConditionType.Empty,
-    ConditionType.NotEmpty
+    ConditionType.NotEmpty,
   ],
   [ModelAttributeValueType.BOOLEAN]: [
     ConditionType.Equal,
     ConditionType.NotEqual,
     ConditionType.Empty,
-    ConditionType.NotEmpty
-  ]
+    ConditionType.NotEmpty,
+  ],
 };
 
 const multiValueSearchOperators = [
   {
     comparisonOperator: ComparisonOperators.Like,
-    logicalOperator: LogicalOperators.Or
+    logicalOperator: LogicalOperators.Or,
   },
   {
     comparisonOperator: ComparisonOperators.NotLike,
-    logicalOperator: LogicalOperators.And
+    logicalOperator: LogicalOperators.And,
   },
   {
     comparisonOperator: ComparisonOperators.Equal,
-    logicalOperator: LogicalOperators.Or
+    logicalOperator: LogicalOperators.Or,
   },
   {
     comparisonOperator: ComparisonOperators.NotEqual,
-    logicalOperator: LogicalOperators.And
-  }
+    logicalOperator: LogicalOperators.And,
+  },
 ];
 FieldTypeConditionTypesMap[ModelAttributeValueType.STRUCT_LIST] =
   FieldTypeConditionTypesMap[ModelAttributeValueType.STRUCT];
@@ -177,16 +178,16 @@ function getCondition(
       label = "等于";
       operations = [
         {
-          operator: ComparisonOperators.Equal
-        }
+          operator: ComparisonOperators.Equal,
+        },
       ];
       break;
     case ConditionType.NotEqual:
       label = "不等于";
       operations = [
         {
-          operator: ComparisonOperators.NotEqual
-        }
+          operator: ComparisonOperators.NotEqual,
+        },
       ];
       break;
     case ConditionType.Contain:
@@ -195,8 +196,8 @@ function getCondition(
         case ModelAttributeValueType.ARR:
           operations = [
             {
-              operator: ComparisonOperators.In
-            }
+              operator: ComparisonOperators.In,
+            },
           ];
           break;
         default:
@@ -204,8 +205,8 @@ function getCondition(
             {
               operator: ComparisonOperators.Like,
               prefix: "%",
-              suffix: "%"
-            }
+              suffix: "%",
+            },
           ];
       }
       break;
@@ -215,8 +216,8 @@ function getCondition(
         case ModelAttributeValueType.ARR:
           operations = [
             {
-              operator: ComparisonOperators.NotIn
-            }
+              operator: ComparisonOperators.NotIn,
+            },
           ];
           break;
         default:
@@ -224,8 +225,8 @@ function getCondition(
             {
               operator: ComparisonOperators.NotLike,
               prefix: "%",
-              suffix: "%"
-            }
+              suffix: "%",
+            },
           ];
       }
       break;
@@ -234,8 +235,8 @@ function getCondition(
       operations = [
         {
           operator: ElementOperators.Exists,
-          fixedValue: false
-        }
+          fixedValue: false,
+        },
       ];
       break;
     case ConditionType.NotEmpty:
@@ -243,8 +244,8 @@ function getCondition(
       operations = [
         {
           operator: ElementOperators.Exists,
-          fixedValue: true
-        }
+          fixedValue: true,
+        },
       ];
       break;
     case ConditionType.True:
@@ -252,8 +253,8 @@ function getCondition(
       operations = [
         {
           operator: ComparisonOperators.Equal,
-          fixedValue: true
-        }
+          fixedValue: true,
+        },
       ];
       break;
     case ConditionType.False:
@@ -261,18 +262,18 @@ function getCondition(
       operations = [
         {
           operator: ComparisonOperators.Equal,
-          fixedValue: false
-        }
+          fixedValue: false,
+        },
       ];
       break;
     case ConditionType.Between:
       operations = [
         {
-          operator: ComparisonOperators.GreaterThanOrEqual
+          operator: ComparisonOperators.GreaterThanOrEqual,
         },
         {
-          operator: ComparisonOperators.LessThanOrEqual
-        }
+          operator: ComparisonOperators.LessThanOrEqual,
+        },
       ];
       switch (fieldType) {
         case ModelAttributeValueType.INTEGER:
@@ -295,7 +296,7 @@ function getCondition(
   return {
     type: conditionType,
     label,
-    operations
+    operations,
   };
 }
 
@@ -330,12 +331,12 @@ export function getFieldConditionsAndValues(
   }
   let currentCondition: Condition;
   const availableConditions = FieldTypeConditionTypesMap[valueType].map(
-    conditionType => {
+    (conditionType) => {
       const condition = getCondition(conditionType, valueType);
 
       if (expressionsKeysStr) {
         let operatorsStr = "";
-        const isFixedValueEqual = condition.operations.every(operation => {
+        const isFixedValueEqual = condition.operations.every((operation) => {
           operatorsStr += operation.operator;
 
           if (operation.fixedValue !== undefined) {
@@ -356,14 +357,14 @@ export function getFieldConditionsAndValues(
     currentCondition = availableConditions[0];
   }
   let queryValuesStr = "";
-  let values = currentCondition.operations.map(operation => {
+  let values = currentCondition.operations.map((operation) => {
     let value: any;
 
     if (expressions?.[operation.operator] !== undefined) {
       value = expressions[operation.operator];
       let values = [expressions[operation.operator]];
       const i = multiValueSearchOperators.find(
-        multiValueSearchOperator =>
+        (multiValueSearchOperator) =>
           multiValueSearchOperator.comparisonOperator === operation.operator
       );
       if (i) {
@@ -420,7 +421,7 @@ export function getFieldConditionsAndValues(
     currentCondition,
     values,
     queryValuesStr,
-    disabled
+    disabled,
   };
 }
 
@@ -476,14 +477,14 @@ export class AdvancedSearchForm extends React.Component<
     > = {};
     const fields: Field[] = [];
     if (this.props.q) {
-      this.props.q.forEach(query => {
+      this.props.q.forEach((query) => {
         Object.entries(query).forEach(([key, expressions]) => {
           if (key === LogicalOperators.Or || key === LogicalOperators.And) {
             const firstSubQuery = (expressions as Query[])[0];
             const fieldId = Object.keys(firstSubQuery)[0];
             const compareOperator = Object.keys(firstSubQuery[fieldId])[0];
             const subQueryValue = (expressions as Query[])
-              .map(query => {
+              .map((query) => {
                 return (query[fieldId] as Record<ComparisonOperators, any>)[
                   compareOperator as ComparisonOperators
                 ];
@@ -491,7 +492,7 @@ export class AdvancedSearchForm extends React.Component<
               .join(" ");
             key = fieldId;
             expressions = {
-              [compareOperator]: subQueryValue
+              [compareOperator]: subQueryValue,
             };
           }
 
@@ -503,7 +504,7 @@ export class AdvancedSearchForm extends React.Component<
     }
     forEachAvailableFields(
       this.props.modelData,
-      attr => {
+      (attr) => {
         const attrValue: Partial<CmdbModels.ModelObjectAttrValue> = {};
 
         switch (attr.value.type) {
@@ -528,7 +529,7 @@ export class AdvancedSearchForm extends React.Component<
             fieldQueryOperatorExpressionsMap,
             attr.id,
             attr.value.type as ModelAttributeValueType
-          )
+          ),
         });
       },
       (relation, sides) => {
@@ -559,7 +560,7 @@ export class AdvancedSearchForm extends React.Component<
               true,
               relation[`${sides.this}_id` as RelationNameKeys],
               index
-            )
+            ),
           });
         });
       },
@@ -589,8 +590,8 @@ export class AdvancedSearchForm extends React.Component<
   ) => {
     this.setState({
       fields: update(this.state.fields, {
-        [fieldIndex]: { values: { [valueIndex]: { $set: value } } }
-      })
+        [fieldIndex]: { values: { [valueIndex]: { $set: value } } },
+      }),
     });
   };
 
@@ -600,17 +601,17 @@ export class AdvancedSearchForm extends React.Component<
     fieldIndex: number
   ) => {
     const hasFixedValues = field.currentCondition.operations.some(
-      operation => operation.fixedValue !== undefined
+      (operation) => operation.fixedValue !== undefined
     );
 
     const condition = field.availableConditions.find(
-      condition => condition.type === value
+      (condition) => condition.type === value
     );
-    let newValues = condition.operations.map(operation =>
+    let newValues = condition.operations.map((operation) =>
       operation.fixedValue !== undefined ? operation.fixedValue : null
     );
     if (
-      newValues.every(value => value === null) &&
+      newValues.every((value) => value === null) &&
       !hasFixedValues &&
       this.state.fields[fieldIndex].values.length === newValues.length
     ) {
@@ -621,13 +622,13 @@ export class AdvancedSearchForm extends React.Component<
       [fieldIndex]: {
         currentCondition: { $set: condition },
         values: {
-          $set: newValues
-        }
-      }
+          $set: newValues,
+        },
+      },
     });
 
     const relatedFieldIndex = newFields.findIndex(
-      f =>
+      (f) =>
         f.isRelation &&
         f.relationSideId === field.relationSideId &&
         f.id !== field.id
@@ -639,26 +640,26 @@ export class AdvancedSearchForm extends React.Component<
           [relatedFieldIndex]: {
             currentCondition: { $set: relatedField.availableConditions[0] },
             values: {
-              $set: [null]
+              $set: [null],
             },
             disabled: {
-              $set: true
-            }
-          }
+              $set: true,
+            },
+          },
         });
       } else {
         newFields = update(newFields, {
           [relatedFieldIndex]: {
             disabled: {
-              $set: false
-            }
-          }
+              $set: false,
+            },
+          },
         });
       }
     }
 
     this.setState({
-      fields: newFields
+      fields: newFields,
     });
 
     this.setFormFieldValues(newFields);
@@ -666,11 +667,11 @@ export class AdvancedSearchForm extends React.Component<
 
   getFields() {
     const { getFieldDecorator } = this.props.form;
-    const hasBetween = this.state.fields.some(field =>
+    const hasBetween = this.state.fields.some((field) =>
       [
         ModelAttributeValueType.IP,
         ModelAttributeValueType.DATE,
-        ModelAttributeValueType.DATETIME
+        ModelAttributeValueType.DATETIME,
       ].includes(field.attrValue.type as ModelAttributeValueType)
     );
     return this.state.fields.map((field, fieldIndex) => {
@@ -682,7 +683,7 @@ export class AdvancedSearchForm extends React.Component<
         case ModelAttributeValueType.INTEGER:
         case ModelAttributeValueType.FLOAT:
           attrValue = {
-            type: ModelAttributeValueType.STRING
+            type: ModelAttributeValueType.STRING,
           };
           break;
         case ModelAttributeValueType.ENUM:
@@ -705,8 +706,8 @@ export class AdvancedSearchForm extends React.Component<
                 }
                 disabled={field.disabled}
               >
-                {field.availableConditions.map(condition => (
-                  <Select.Option key={condition.type}>
+                {field.availableConditions.map((condition) => (
+                  <Select.Option value={condition.type} key={condition.type}>
                     {condition.label}
                   </Select.Option>
                 ))}
@@ -727,7 +728,7 @@ export class AdvancedSearchForm extends React.Component<
                     )}
                     {getFieldDecorator(`${field.id}[${valueIndex}]`, {
                       initialValue:
-                        operation.fixedValue === undefined ? value : ""
+                        operation.fixedValue === undefined ? value : "",
                     })(
                       operation.fixedValue === undefined && !field.disabled ? (
                         <ModelAttributeFormControl
@@ -735,7 +736,7 @@ export class AdvancedSearchForm extends React.Component<
                           attribute={{
                             id: field.id,
                             name: field.name,
-                            value: attrValue
+                            value: attrValue,
                           }}
                           multiSelect={multiSelect}
                           onChange={(value: any) =>
@@ -767,7 +768,7 @@ export class AdvancedSearchForm extends React.Component<
     e.preventDefault();
     if (this.props.onSearch) {
       let queries: Query[] = [];
-      this.state.fields.forEach(field => {
+      this.state.fields.forEach((field) => {
         const expressions: QueryOperatorExpressions = {};
         let fieldQuery: Query = { [field.id]: expressions };
         let hasValue = false;
@@ -786,7 +787,7 @@ export class AdvancedSearchForm extends React.Component<
             !(Array.isArray(value) && value.length === 0)
           ) {
             const multiValueSearchOperator = multiValueSearchOperators.find(
-              operator => operator.comparisonOperator === operation.operator
+              (operator) => operator.comparisonOperator === operation.operator
             );
             if (multiValueSearchOperator) {
               let values: any[];
@@ -796,13 +797,13 @@ export class AdvancedSearchForm extends React.Component<
                 values = value
                   .trim()
                   .split(/\s+/)
-                  .map(value => convertValue(field.attrValue.type, value));
+                  .map((value) => convertValue(field.attrValue.type, value));
               } else {
                 values = [value];
               }
               fieldQuery = {
                 [multiValueSearchOperator.logicalOperator]: values.map(
-                  value => {
+                  (value) => {
                     if (operation.prefix) {
                       value = operation.prefix + value;
                     }
@@ -811,11 +812,11 @@ export class AdvancedSearchForm extends React.Component<
                     }
                     return {
                       [fieldId]: {
-                        [operation.operator]: value
-                      }
+                        [operation.operator]: value,
+                      },
                     };
                   }
-                )
+                ),
               };
             } else {
               value = convertValue(field.attrValue.type, value);
@@ -881,5 +882,5 @@ export class AdvancedSearchForm extends React.Component<
 }
 
 export const AdvancedSearch = Form.create<AdvancedSearchFormProps>({
-  name: "advanced_search"
+  name: "advanced_search",
 })(AdvancedSearchForm);

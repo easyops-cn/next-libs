@@ -24,11 +24,13 @@ exports[`AttributeFormControlUrl should work 1`] = `
         value="http://www.baidu.com"
       >
         <ClearableLabeledInput
+          bordered={true}
           element={
             <input
               className="ant-input"
               onBlur={[Function]}
               onChange={[Function]}
+              onFocus={[Function]}
               onKeyDown={[Function]}
               placeholder="请输入链接"
               readOnly={true}
@@ -36,6 +38,7 @@ exports[`AttributeFormControlUrl should work 1`] = `
               value="http://www.baidu.com"
             />
           }
+          focused={false}
           handleReset={[Function]}
           inputType="input"
           onBlur={[Function]}
@@ -43,6 +46,7 @@ exports[`AttributeFormControlUrl should work 1`] = `
           placeholder="请输入链接"
           prefixCls="ant-input"
           readOnly={true}
+          triggerFocus={[Function]}
           type="url"
           value="http://www.baidu.com"
         >
@@ -50,6 +54,7 @@ exports[`AttributeFormControlUrl should work 1`] = `
             className="ant-input"
             onBlur={[Function]}
             onChange={[Function]}
+            onFocus={[Function]}
             onKeyDown={[Function]}
             placeholder="请输入链接"
             readOnly={true}
@@ -75,23 +80,27 @@ exports[`AttributeFormControlUrl should work 1`] = `
         type="text"
       >
         <ClearableLabeledInput
+          bordered={true}
           defaultValue="百度"
           element={
             <input
               className="ant-input"
               onBlur={[Function]}
               onChange={[Function]}
+              onFocus={[Function]}
               onKeyDown={[Function]}
               placeholder="选填，请输入显示的标题"
               type="text"
             />
           }
+          focused={false}
           handleReset={[Function]}
           inputType="input"
           onBlur={[Function]}
           onChange={[Function]}
           placeholder="选填，请输入显示的标题"
           prefixCls="ant-input"
+          triggerFocus={[Function]}
           type="text"
           value="百度"
         >
@@ -99,6 +108,7 @@ exports[`AttributeFormControlUrl should work 1`] = `
             className="ant-input"
             onBlur={[Function]}
             onChange={[Function]}
+            onFocus={[Function]}
             onKeyDown={[Function]}
             placeholder="选填，请输入显示的标题"
             type="text"

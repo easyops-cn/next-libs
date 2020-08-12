@@ -1,5 +1,6 @@
 import React from "react";
-import { Card, Icon, Popover, Spin, Button, Menu, Dropdown } from "antd";
+import { DownOutlined, InfoCircleFilled } from "@ant-design/icons";
+import { Card, Popover, Spin, Button, Menu, Dropdown } from "antd";
 import { withTranslation, WithTranslation } from "react-i18next";
 import {
   get,
@@ -9,7 +10,7 @@ import {
   isString,
   cloneDeep,
   map,
-  compact
+  compact,
 } from "lodash";
 import { handleHttpError, BrickAsComponent } from "@easyops/brick-kit";
 import {
@@ -17,7 +18,7 @@ import {
   CustomBrickConfig,
   CustomDisplay,
   InstanceDisplay,
-  BrickAction
+  BrickAction,
 } from "@easyops/brick-types";
 import { getInstanceNameKeys, IGNORED_FIELDS } from "@libs/cmdb-utils";
 import { CmdbModels } from "@sdk/cmdb-sdk";
@@ -31,7 +32,7 @@ import shared from "./shared.module.css";
 
 import {
   fetchCmdbObjectDetail,
-  fetchCmdbInstanceDetail
+  fetchCmdbInstanceDetail,
 } from "../data-providers";
 import { BASIC_INFORMATION_RELATION_GROUP_ID } from "./constants";
 import { isArray } from "util";
@@ -90,25 +91,25 @@ export class LegacyInstanceDetail extends React.Component<
       helpTips: [
         {
           value: "creator",
-          label: "创建者"
+          label: "创建者",
         },
         {
           value: "ctime",
-          label: "创建时间"
+          label: "创建时间",
         },
         {
           value: "modifier",
-          label: "修改者"
+          label: "修改者",
         },
         {
           value: "mtime",
-          label: "修改时间"
-        }
+          label: "修改时间",
+        },
       ],
       basicInfoGroupList: [],
       basicInfoGroupListShow: [],
       formattedInstanceData: null,
-      loaded: false
+      loaded: false,
     };
   }
 
@@ -132,7 +133,7 @@ export class LegacyInstanceDetail extends React.Component<
             ) : (
               this.getCardContent()
             )}
-            {this.props.brickConfigList?.map(config => (
+            {this.props.brickConfigList?.map((config) => (
               <Card
                 bordered={false}
                 title={config.label}
@@ -188,7 +189,7 @@ export class LegacyInstanceDetail extends React.Component<
           placement="bottom"
           content={
             instanceData &&
-            helpTips.map(item => (
+            helpTips.map((item) => (
               <div className={style.tipInfoItem} key={item}>
                 <span className={style.tipInfoKey}>{item.label}:</span>
                 <span className={style.tipInfoValue}>
@@ -198,9 +199,7 @@ export class LegacyInstanceDetail extends React.Component<
             ))
           }
         >
-          <Icon
-            type="info-circle"
-            theme="filled"
+          <InfoCircleFilled
             className={style.colorBlue}
             style={{ marginLeft: "6px" }}
           />
@@ -222,7 +221,7 @@ export class LegacyInstanceDetail extends React.Component<
     if (dropdownActions && dropdownActions.length > 0) {
       menu = (
         <Menu>
-          {dropdownActions.map(action => {
+          {dropdownActions.map((action) => {
             if (action.url) {
               return (
                 <Menu.Item>
@@ -235,7 +234,7 @@ export class LegacyInstanceDetail extends React.Component<
               );
             } else if (action.event) {
               return (
-                <Menu.Item onClick={e => this.onActionClick(action.event)}>
+                <Menu.Item onClick={(e) => this.onActionClick(action.event)}>
                   <span className={action.isDanger ? style.danger : ""}>
                     {action.label}
                   </span>
@@ -250,7 +249,7 @@ export class LegacyInstanceDetail extends React.Component<
     return (
       <div className={style.instanceDetailActions}>
         {buttonActions &&
-          buttonActions.map(action => {
+          buttonActions.map((action) => {
             if (action.url) {
               return (
                 <Button>
@@ -259,7 +258,7 @@ export class LegacyInstanceDetail extends React.Component<
               );
             } else if (action.event) {
               return (
-                <Button onClick={e => this.onActionClick(action.event)}>
+                <Button onClick={(e) => this.onActionClick(action.event)}>
                   {action.label}
                 </Button>
               );
@@ -268,7 +267,7 @@ export class LegacyInstanceDetail extends React.Component<
         {menu && (
           <Dropdown overlay={menu}>
             <a>
-              更多 <Icon type="down" />
+              更多 <DownOutlined />
             </a>
           </Dropdown>
         )}
@@ -282,12 +281,12 @@ export class LegacyInstanceDetail extends React.Component<
       <div className={`${style.detailCard} ${shared.showMultipleLines}`}>
         {basicInfoGroupList.length > 1 && (
           <div>
-            {basicInfoGroupList.map(basicInfoGroup => (
+            {basicInfoGroupList.map((basicInfoGroup) => (
               <a
                 key={basicInfoGroup}
                 className={[
                   style.basicInfoGroupLabel,
-                  basicInfoGroup.active ? style.active : ""
+                  basicInfoGroup.active ? style.active : "",
                 ].join(" ")}
                 onClick={() => this.toggleBasicInfoGroupFilter(basicInfoGroup)}
               >
@@ -317,7 +316,7 @@ export class LegacyInstanceDetail extends React.Component<
     oldProperties: Record<string, any>,
     field: keyof LegacyInstanceDetailState
   ): any {
-    return mapValues(oldProperties, propValue => {
+    return mapValues(oldProperties, (propValue) => {
       // 这个封装的有点过了感觉，他支持所有的字段都支持注入，但感觉应该是只有dataSource支持就ok了，没必要那么复杂，故这里对于array直接返回
       if (isArray(propValue)) {
         return propValue;
@@ -403,7 +402,7 @@ export class LegacyInstanceDetail extends React.Component<
                 useBrick={attrCustomConfig.useBrick}
                 data={{
                   modelData,
-                  instanceData
+                  instanceData,
                 }}
               />
             ) : (
@@ -413,9 +412,9 @@ export class LegacyInstanceDetail extends React.Component<
                   ref: (el: any) => {
                     el &&
                       Object.assign(el, {
-                        ...attrCustomConfig.component.properties
+                        ...attrCustomConfig.component.properties,
                       });
-                  }
+                  },
                 }}
               />
             ))}
@@ -468,36 +467,36 @@ export class LegacyInstanceDetail extends React.Component<
     basicInfoGroupList = [];
 
     if (fieldsByTag) {
-      basicInfoGroupList = map(fieldsByTag, tag => {
+      basicInfoGroupList = map(fieldsByTag, (tag) => {
         const attrList = compact(
-          map(tag.fields, attr => {
-            const matched = modelData.attrList.find(item => item.id === attr);
+          map(tag.fields, (attr) => {
+            const matched = modelData.attrList.find((item) => item.id === attr);
             return matched;
           })
         );
         return {
           name: tag.name,
           active: false,
-          attrList
+          attrList,
         };
       });
     } else {
       if (attributeKeys?.length) {
         basicInfoAttrList = attributeKeys
-          .map(attr => {
-            const matched = modelData.attrList.find(item => item.id === attr);
+          .map((attr) => {
+            const matched = modelData.attrList.find((item) => item.id === attr);
             if (matched && attrFilter(matched)) {
               return matched;
             }
           })
-          .filter(attr => attr);
+          .filter((attr) => attr);
       } else {
         basicInfoAttrList = modelData.attrList.filter((attr: any) =>
           attrFilter(attr)
         );
       }
 
-      basicInfoAttrList.forEach(basicInfoAttr => {
+      basicInfoAttrList.forEach((basicInfoAttr) => {
         let groupTag: string;
         const nameKey = getInstanceNameKeys(modelData)[0];
         if (!["FK", "FKs"].includes(basicInfoAttr.value.type)) {
@@ -531,7 +530,7 @@ export class LegacyInstanceDetail extends React.Component<
           basicInfoGroupList.push({
             name: groupTag,
             active: false,
-            attrList: [basicInfoAttr]
+            attrList: [basicInfoAttr],
           });
         }
       });
@@ -539,7 +538,7 @@ export class LegacyInstanceDetail extends React.Component<
 
     this.setState({
       basicInfoGroupList,
-      basicInfoGroupListShow: basicInfoGroupList
+      basicInfoGroupListShow: basicInfoGroupList,
     });
   }
   async componentDidUpdate(
@@ -559,7 +558,7 @@ export class LegacyInstanceDetail extends React.Component<
       const buttonActions: BrickAction[] = [];
       const dropdownActions: BrickAction[] = [];
 
-      this.props.actions.forEach(action => {
+      this.props.actions.forEach((action) => {
         switch (action.type) {
           case "dropdown":
             dropdownActions.push(action);
@@ -587,11 +586,11 @@ export class LegacyInstanceDetail extends React.Component<
       this.setState({
         basicInfoGroupListShow: basicInfoGroupList.filter(
           (item: any) => item.name === basicInfoGroup.name
-        )
+        ),
       });
     } else {
       this.setState({
-        basicInfoGroupListShow: basicInfoGroupList
+        basicInfoGroupListShow: basicInfoGroupList,
       });
     }
     basicInfoGroup.active = !basicInfoGroup.active;
@@ -601,12 +600,12 @@ export class LegacyInstanceDetail extends React.Component<
     try {
       const [modelData, instanceData] = await Promise.all([
         fetchCmdbObjectDetail(this.props.objectId),
-        fetchCmdbInstanceDetail(this.props.objectId, this.props.instanceId)
+        fetchCmdbInstanceDetail(this.props.objectId, this.props.instanceId),
       ]);
       this.setState({
         instanceData,
         modelData,
-        loaded: true
+        loaded: true,
       });
       this.setBasicInfoGroupList(this.state);
       // this.setFormattedInstanceData(this.state);

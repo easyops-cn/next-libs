@@ -1,12 +1,13 @@
 import React, { Component, FormEvent } from "react";
-import { Button, Checkbox, Collapse, Form } from "antd";
+import { Form } from "@ant-design/compatible";
+import { Button, Checkbox, Collapse } from "antd";
 import { ButtonType } from "antd/lib/button";
 import { CmdbModels, InstanceApi } from "@sdk/cmdb-sdk";
 import {
   FormComponentProps,
   ValidationRule,
   FormItemProps,
-} from "antd/lib/form";
+} from "@ant-design/compatible/lib/form";
 import {
   FormControlTypeEnum,
   ModelAttributeFormControl,

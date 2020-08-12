@@ -1,9 +1,10 @@
 import React from "react";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Button, Modal, Table } from "antd";
 import { Attribute, Structkey } from "./interfaces";
 import { isEmpty } from "lodash";
 import { AddStructModal } from "./AddStructModal";
-import { TableSize } from "antd/lib/table/interface";
+import { SizeType } from "antd/lib/config-provider/SizeContext";
 import styles from "./index.module.css";
 export interface StructTableProps {
   attribute: Attribute;
@@ -11,8 +12,8 @@ export interface StructTableProps {
   isEditable?: boolean;
   // 是否单结构体
   isLegacy?: boolean;
-  size?: TableSize;
-  handleStoreFunction?: Function;
+  size?: SizeType;
+  handleStoreFunction?(data: any): void;
 }
 export interface StructTableState {
   structData: any;
@@ -106,12 +107,12 @@ export class StructTable extends React.Component<
       <div>
         <Button
           type="link"
-          icon="edit"
+          icon={<EditOutlined />}
           onClick={() => this.handleOpenEditModal(index)}
         />
         <Button
           type="link"
-          icon="delete"
+          icon={<DeleteOutlined />}
           onClick={() => {
             this.openConfirmModal(index);
           }}

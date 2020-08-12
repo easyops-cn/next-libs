@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Modal, Button, Icon } from "antd";
+import { WarningOutlined } from "@ant-design/icons";
+import { Modal, Button } from "antd";
 
 import { CmdbModels, InstanceApi } from "@sdk/cmdb-sdk";
 import { InstanceList } from "../instance-list/InstanceList";
@@ -101,8 +102,7 @@ export function InstanceListModal(
       <>
         {props.singleSelect && selectedInstanceListTemp.length > 1 && (
           <span style={{ color: "#ff0016", marginRight: "20px" }}>
-            <Icon
-              type="warning"
+            <WarningOutlined
               style={{ color: "#ff0016", marginRight: "10px" }}
             />
             只允许选择一个实例
