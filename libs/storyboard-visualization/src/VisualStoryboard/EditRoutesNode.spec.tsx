@@ -1,6 +1,7 @@
 import React from "react";
 import { shallow } from "enzyme";
-import { Modal, Form } from "antd";
+import { Form } from "@ant-design/compatible";
+import { Modal } from "antd";
 import { EditRoutesNode } from "./EditRoutesNode";
 import { GeneralEditor } from "./GeneralEditor";
 
@@ -8,8 +9,8 @@ describe("EditRoutesNode", () => {
   it("should work", () => {
     const routesNode: any = {
       brickData: {
-        brick: "a"
-      }
+        brick: "a",
+      },
     };
     const handleOk = jest.fn();
     const wrapper = shallow(
@@ -34,7 +35,7 @@ describe("EditRoutesNode", () => {
 
     // Read only
     wrapper.setProps({
-      editable: false
+      editable: false,
     });
     expect(wrapper.find(Modal).prop("footer")).toBe(null);
   });

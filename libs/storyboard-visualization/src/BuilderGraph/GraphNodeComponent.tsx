@@ -1,5 +1,5 @@
 import React from "react";
-import { Icon } from "antd";
+import { MenuOutlined } from "@ant-design/icons";
 import classNames from "classnames";
 import { FaIcon } from "@easyops/brick-types";
 import { GeneralIcon } from "@libs/basic-components";
@@ -110,7 +110,7 @@ export function GraphNodeComponent(
           node.originalData.type !== "view-tpl-root" &&
           node.originalData.type !== "route-root" && (
             <div className={styles.menuButton} onClick={handleReorderClick}>
-              <Icon type="menu" />
+              <MenuOutlined />
             </div>
           )}
       </div>

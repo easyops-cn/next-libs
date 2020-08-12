@@ -1,5 +1,5 @@
 import React from "react";
-import { Icon } from "antd";
+import { Icon as LegacyIcon } from "@ant-design/compatible";
 import { ViewItem } from "../shared/interfaces";
 
 interface RouteTypeIconProps {
@@ -27,7 +27,7 @@ export function RouteTypeIcon({
   }
   if (icon) {
     return (
-      <Icon
+      <LegacyIcon
         style={{
           marginRight: "8px",
           color,

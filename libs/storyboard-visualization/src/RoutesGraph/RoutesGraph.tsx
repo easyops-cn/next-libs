@@ -32,7 +32,7 @@ import {
   ZOOM_SCALE_MAX,
 } from "./constants";
 import { zoomIdentity } from "d3-zoom";
-import { Icon } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
 
 interface RenderOptions {
   contentItemActions?: ContentItemActions;
@@ -709,7 +709,7 @@ export class RoutesGraph {
       );
     });
     this.finalPositionAnchorContainer.each(function (d) {
-      ReactDOM.render(<Icon type="plus" />, this);
+      ReactDOM.render(<PlusOutlined />, this);
     });
     const edges = this.getEdges(graphData);
 
