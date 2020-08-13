@@ -1,5 +1,4 @@
-import { doTransform } from "@easyops/brick-kit";
-import { isObject } from "@easyops/brick-utils";
+import { looseCheckIfByTransform } from "@easyops/brick-kit";
 import { UseBrickConf } from "@easyops/brick-types";
 
 export interface ContentItemActions {
@@ -9,24 +8,10 @@ export interface ContentItemActions {
 // 配合 ItemActionsComponent 一起使用
 export function filterActions(
   contentItemActions: ContentItemActions,
-  item: Record<string, any>
+  item: unknown
 ): UseBrickConf[] {
   const filteredActions = []
     .concat(contentItemActions?.useBrick ?? [])
-    .filter((action) => {
-      if (isObject(action.if)) {
-        // eslint-disable-next-line
-        console.warn("Currently don't support resolvable-if in `useBrick`");
-      } else if (
-        typeof action.if === "boolean" ||
-        typeof action.if === "string"
-      ) {
-        const ifChecked = doTransform({ item }, action.if);
-        if (ifChecked === false) {
-          return false;
-        }
-      }
-      return true;
-    });
+    .filter((action) => looseCheckIfByTransform(action, { item }));
   return filteredActions;
 }
