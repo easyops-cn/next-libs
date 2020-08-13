@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/datetime-components@0.8.0...@libs/datetime-components@1.0.0-next.0) (2020-08-13)
+
+### Features
+
+- **datetime-components:** antd v4 migaration ([ba9afdc](https://git.easyops.local/anyclouds/next-libs/commits/ba9afdc))
+
+### BREAKING CHANGES
+
+- **datetime-components:** antd v4 migration
+
+Closes BRICK_STORE-1666
+
 # [0.8.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/datetime-components@0.7.2...@libs/datetime-components@0.8.0) (2020-07-30)
 
 ### Features

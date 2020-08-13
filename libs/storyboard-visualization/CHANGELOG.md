@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.38.2...@libs/storyboard-visualization@1.0.0-next.0) (2020-08-13)
+
+### Features
+
+- **storyboard-visualization:** antd v4 migaration ([3f02e5d](https://git.easyops.local/anyclouds/next-libs/commits/3f02e5d))
+
+### BREAKING CHANGES
+
+- **storyboard-visualization:** antd v4 migration
+
+Closes BRICK_STORE-1666
+
 ## [0.38.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@0.38.1...@libs/storyboard-visualization@0.38.2) (2020-08-13)
 
 **Note:** Version bump only for package @libs/storyboard-visualization

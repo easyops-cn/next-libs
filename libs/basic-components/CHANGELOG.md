@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@0.26.3...@libs/basic-components@1.0.0-next.0) (2020-08-13)
+
+### Features
+
+- **basic-components:** antd v4 migaration ([e11bf00](https://git.easyops.local/anyclouds/next-libs/commits/e11bf00))
+
+### BREAKING CHANGES
+
+- **basic-components:** antd v4 migration
+
+Closes BRICK_STORE-1666
+
 ## [0.26.3](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@0.26.2...@libs/basic-components@0.26.3) (2020-08-13)
 
 ### Bug Fixes

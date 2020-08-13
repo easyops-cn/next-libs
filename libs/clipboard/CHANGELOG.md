@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/clipboard@0.3.1...@libs/clipboard@1.0.0-next.0) (2020-08-13)
+
+### Features
+
+- **clipboard:** antd v4 migaration ([518a196](https://git.easyops.local/anyclouds/next-libs/commits/518a196))
+
+### BREAKING CHANGES
+
+- **clipboard:** antd v4 migration
+
+Closes BRICK_STORE-1666
+
 ## [0.3.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/clipboard@0.3.0...@libs/clipboard@0.3.1) (2020-03-13)
 
 ### Bug Fixes

@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@1.9.2...@libs/cmdb-instances@2.0.0-next.0) (2020-08-13)
+
+### Features
+
+- **cmdb-instances:** antd v4 migaration ([1ef0024](https://git.easyops.local/anyclouds/next-libs/commits/1ef0024))
+
+### BREAKING CHANGES
+
+- **cmdb-instances:** antd v4 migration
+
+Closes BRICK_STORE-1666
+
 ## [1.9.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@1.9.1...@libs/cmdb-instances@1.9.2) (2020-08-13)
 
 **Note:** Version bump only for package @libs/cmdb-instances
