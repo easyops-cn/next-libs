@@ -29,6 +29,7 @@
         "@types/enzyme-adapter-react-16",
         "@types/history",
         "@types/jest",
+        "@types/js-yaml",
         "@types/lodash",
         "@types/lolex",
         "@types/node",
