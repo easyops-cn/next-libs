@@ -2602,13 +2602,13 @@
     lodash "^4.17.15"
     redent "^3.0.0"
 
-"@testing-library/react-hooks@^3.3.0":
-  version "3.3.0"
-  resolved "https://registry.npm.taobao.org/@testing-library/react-hooks/download/@testing-library/react-hooks-3.3.0.tgz#dc217bfce8e7c34a99c811d73d23feef957b7c1d"
-  integrity sha1-3CF7/Ojnw0qZyBHXPSP+75V7fB0=
+"@testing-library/react-hooks@^3.4.1":
+  version "3.4.1"
+  resolved "https://registry.npm.taobao.org/@testing-library/react-hooks/download/@testing-library/react-hooks-3.4.1.tgz?cache=0&sync_timestamp=1597506791624&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40testing-library%2Freact-hooks%2Fdownload%2F%40testing-library%2Freact-hooks-3.4.1.tgz#1f8ccd21208086ec228d9743fe40b69d0efcd7e5"
+  integrity sha1-H4zNISCAhuwijZdD/kC2nQ781+U=
   dependencies:
     "@babel/runtime" "^7.5.4"
-    "@types/testing-library__react-hooks" "^3.0.0"
+    "@types/testing-library__react-hooks" "^3.3.0"
 
 "@testing-library/react@^10.4.7":
   version "10.4.7"
@@ -3137,12 +3137,11 @@
   dependencies:
     "@types/jest" "*"
 
-"@types/testing-library__react-hooks@^3.0.0":
-  version "3.1.0"
-  resolved "https://registry.npm.taobao.org/@types/testing-library__react-hooks/download/@types/testing-library__react-hooks-3.1.0.tgz#04d174ce767fbcce3ccb5021d7f156e1b06008a9"
-  integrity sha1-BNF0znZ/vM48y1Ah1/FW4bBgCKk=
+"@types/testing-library__react-hooks@^3.3.0":
+  version "3.4.0"
+  resolved "https://registry.npm.taobao.org/@types/testing-library__react-hooks/download/@types/testing-library__react-hooks-3.4.0.tgz#be148b7fa7d19cd3349c4ef9d9534486bc582fcc"
+  integrity sha1-vhSLf6fRnNM0nE752VNEhrxYL8w=
   dependencies:
-    "@types/react" "*"
     "@types/react-test-renderer" "*"
 
 "@types/trusted-types@*":
