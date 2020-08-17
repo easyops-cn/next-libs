@@ -92,7 +92,6 @@ exports[`Sidebar should work 1`] = `
     >
       <MenuItem
         key="2.1.0"
-        title="for-submenu"
       >
         <Link
           to="/for/submenu"
