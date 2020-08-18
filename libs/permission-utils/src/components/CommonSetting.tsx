@@ -131,11 +131,11 @@ export class CommonSetting extends React.Component<
     const columns = [
       {
         title: "权限名称",
-        dataIndex: "data.remark",
+        dataIndex: ["data", "remark"],
       },
       {
         title: "适用角色",
-        dataIndex: "data.roles",
+        dataIndex: ["data", "roles"],
         render: this.renderRoles,
       },
       {
