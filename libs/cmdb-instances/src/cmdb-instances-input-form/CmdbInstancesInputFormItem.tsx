@@ -28,6 +28,7 @@ export interface CmdbInstancesInputFormItemProps {
   children?: React.ReactNode;
   query?: { [fieldId: string]: any }[];
   onChange?: (value: string[]) => void;
+  defaultQuery?: { [fieldId: string]: any }[];
 }
 
 export const LegacyCmdbInstancesInputFormItem = (
@@ -50,13 +51,13 @@ export const LegacyCmdbInstancesInputFormItem = (
 
   const objectData = modifyModelData(props.objectMap[props.objectId]);
   const fieldData = objectData.__fieldList.find(
-    field => field.__id === props.fieldId
+    (field) => field.__id === props.fieldId
   );
 
   const [visible, setVisible] = useState(false);
   const [selectedInstances, setSelectedInstances] = useState({
     valid: [],
-    invalid: []
+    invalid: [],
   });
   const [inputValue, setInputValue] = useState("");
 
@@ -68,33 +69,33 @@ export const LegacyCmdbInstancesInputFormItem = (
         await InstanceApi.postSearch(props.objectId, {
           query: {
             instanceId: {
-              $in: selectedInstances.map(instance => instance.instanceId)
+              $in: selectedInstances.map((instance) => instance.instanceId),
             },
-            ...presetQuery
+            ...presetQuery,
           },
           permission,
           fields: {
             instanceId: true,
-            [props.fieldId]: true
-          }
+            [props.fieldId]: true,
+          },
         })
       ).list;
-      const instanceIds = instances.map(instance => instance.instanceId);
+      const instanceIds = instances.map((instance) => instance.instanceId);
 
       const selectedInstancesMap = groupBy(
         selectedInstances,
-        selectedInstance => instanceIds.includes(selectedInstance.instanceId)
+        (selectedInstance) => instanceIds.includes(selectedInstance.instanceId)
       );
 
       setSelectedInstances({
         valid: selectedInstancesMap.true || [],
         invalid: (selectedInstancesMap.false || []).map(
-          invalidSelectedInstance => invalidSelectedInstance[props.fieldId]
-        )
+          (invalidSelectedInstance) => invalidSelectedInstance[props.fieldId]
+        ),
       });
 
       return selectedInstancesMap.true
-        ? selectedInstancesMap.true.map(instance => instance.instanceId)
+        ? selectedInstancesMap.true.map((instance) => instance.instanceId)
         : [];
     }
   };
@@ -108,20 +109,20 @@ export const LegacyCmdbInstancesInputFormItem = (
           page_size: instanceIds.length,
           query: {
             instanceId: {
-              $in: instanceIds
-            }
+              $in: instanceIds,
+            },
           },
           fields: {
             instanceId: true,
-            [props.fieldId]: true
-          }
+            [props.fieldId]: true,
+          },
         })
       ).list;
     }
 
     setInputValue(
       selectedInstances
-        .map(instanceData => instanceData[props.fieldId])
+        .map((instanceData) => instanceData[props.fieldId])
         .join(seperator)
     );
 
@@ -130,7 +131,7 @@ export const LegacyCmdbInstancesInputFormItem = (
       if (!props.checkDisabled) {
         keys = await checkSelectedInstances(selectedInstances);
       } else {
-        keys = selectedInstances.map(instance => instance.instanceId);
+        keys = selectedInstances.map((instance) => instance.instanceId);
       }
     } else {
       setSelectedInstances({ valid: [], invalid: [] });
@@ -160,39 +161,39 @@ export const LegacyCmdbInstancesInputFormItem = (
             $and: [
               {
                 [props.fieldId]: {
-                  $in: fieldValues
+                  $in: fieldValues,
                 },
-                ...presetQuery
+                ...presetQuery,
               },
-              ...(props.query ? props.query : [])
-            ]
+              ...(props.query ? props.query : []),
+            ],
           },
           permission,
           fields: {
             instanceId: true,
-            [props.fieldId]: true
-          }
+            [props.fieldId]: true,
+          },
         })
       ).list;
 
-      const validSelectedInstances = instances.filter(instance =>
+      const validSelectedInstances = instances.filter((instance) =>
         fieldValues.includes(instance[props.fieldId])
       );
 
       const validFieldValues = validSelectedInstances.map(
-        instance => instance[props.fieldId]
+        (instance) => instance[props.fieldId]
       );
       const invalidFieldValues = fieldValues.filter(
-        fieldValue => !validFieldValues.includes(fieldValue)
+        (fieldValue) => !validFieldValues.includes(fieldValue)
       );
 
       setSelectedInstances({
         valid: validSelectedInstances || [],
-        invalid: invalidFieldValues || []
+        invalid: invalidFieldValues || [],
       });
 
       props.onChange?.(
-        validSelectedInstances.map(instance => instance.instanceId)
+        validSelectedInstances.map((instance) => instance.instanceId)
       );
     }
   };
@@ -240,25 +241,25 @@ export const LegacyCmdbInstancesInputFormItem = (
               $and: [
                 {
                   [props.fieldId]: {
-                    $in: fieldValues
-                  }
+                    $in: fieldValues,
+                  },
                 },
-                ...(props.query ? props.query : [])
-              ]
+                ...(props.query ? props.query : []),
+              ],
             },
             fields: {
               instanceId: true,
-              [props.fieldId]: true
-            }
+              [props.fieldId]: true,
+            },
           })
         ).list;
 
         setSelectedInstances({
           valid: instances || [],
-          invalid: []
+          invalid: [],
         });
 
-        props.onChange?.(instances.map(instance => instance.instanceId));
+        props.onChange?.(instances.map((instance) => instance.instanceId));
       }
     }
   };
@@ -266,15 +267,15 @@ export const LegacyCmdbInstancesInputFormItem = (
   const closeInvalidFieldValuesModal = (): void => {
     setSelectedInstances({
       valid: selectedInstances.valid,
-      invalid: []
+      invalid: [],
     });
     setInputValue(
       selectedInstances.valid
-        .map(instance => instance[props.fieldId])
+        .map((instance) => instance[props.fieldId])
         .join(seperator)
     );
     props.onChange?.(
-      selectedInstances.valid.map(instance => instance.instanceId)
+      selectedInstances.valid.map((instance) => instance.instanceId)
     );
   };
 
@@ -296,7 +297,7 @@ export const LegacyCmdbInstancesInputFormItem = (
             onClick={closeInvalidFieldValuesModal}
           >
             {t(K.DELETE)}
-          </Button>
+          </Button>,
         ]}
         onCancel={closeInvalidFieldValuesModal}
       >
@@ -317,11 +318,12 @@ export const LegacyCmdbInstancesInputFormItem = (
         presetConfigs={{ query: presetQuery }}
         permission={permission}
         selectedRowKeys={selectedInstances.valid.map(
-          instance => instance.instanceId
+          (instance) => instance.instanceId
         )}
         onSelected={handleInstancesSelected}
         singleSelect={props.singleSelect}
         onCancel={closeSelectInstancesModal}
+        defaultQuery={props.defaultQuery}
       />
       <div className={style.cmdbInstancesInputFormWrapper}>
         <Input
