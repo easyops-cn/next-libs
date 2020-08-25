@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@2.0.0-next.0...@libs/cmdb-instances@2.0.0-next.1) (2020-08-25)
+
+### Bug Fixes
+
+- **cmdb-instances:** AdvancedSearch 样式里使用的 Form 的类名改为 .ant-legacy-form 为前缀的 ([0ac61aa](https://git.easyops.local/anyclouds/next-libs/commits/0ac61aa))
+
 # [2.0.0-next.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@1.9.2...@libs/cmdb-instances@2.0.0-next.0) (2020-08-13)
 
 ### Features

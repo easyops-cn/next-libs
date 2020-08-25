@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/permission-utils@1.0.0-next.0...@libs/permission-utils@1.0.0-next.1) (2020-08-25)
+
+### Bug Fixes
+
+- **permission-utils:** CommonSetting 的 Table 的 columns 的嵌套 dataIndex 改为数组形式的 ([8ba240a](https://git.easyops.local/anyclouds/next-libs/commits/8ba240a))
+
 # [1.0.0-next.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/permission-utils@0.7.37...@libs/permission-utils@1.0.0-next.0) (2020-08-13)
 
 ### Features
