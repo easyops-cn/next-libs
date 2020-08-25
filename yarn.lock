@@ -1246,7 +1246,7 @@
     request "^2.88.2"
     request-promise-native "^1.0.9"
 
-"@easyops/brick-types@^1.27.0", "@easyops/brick-types@^1.29.0", "@easyops/brick-types@^2.0.0-next.2":
+"@easyops/brick-types@^2.0.0-next.2":
   version "2.0.0-next.2"
   resolved "http://registry.npm.easyops.local/@easyops/brick-types/download/@easyops/brick-types-2.0.0-next.2.tgz#e4910bfb84dd24f67bf4f45f142b5d008b67d2b0"
   integrity sha1-5JEL+4TdJPZ79PRfFCtdAItn0rA=

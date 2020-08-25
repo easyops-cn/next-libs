@@ -29,7 +29,7 @@
     "@libs/basic-components": "*"
   },
   "devDependencies": {
-    "@easyops/brick-types": "^1.29.0",
+    "@easyops/brick-types": "^2.0.0-next.2",
     "@libs/basic-components": "^1.0.0-next.0"
   }
 }
