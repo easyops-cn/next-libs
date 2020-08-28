@@ -13,8 +13,8 @@
     "build": "lerna run build",
     "postbuild": "npm run size-limit",
     "size-limit": "size-limit",
-    "test": "cross-env NODE_ENV='test' jest",
-    "test:ci": "cross-env NODE_ENV='test' CI=true jest --ci",
+    "test": "cross-env NODE_ENV='test' node --expose-gc ./node_modules/.bin/jest --logHeapUsage",
+    "test:ci": "cross-env NODE_ENV='test' CI=true node --expose-gc ./node_modules/.bin/jest --logHeapUsage --ci",
     "yo": "brick-scripts -t libs",
     "yo-debug": "node --inspect-brk ./node_modules/@easyops/brick-scripts/dist/index.js -t libs",
     "renew": "dev-dependencies-renew",
@@ -31,11 +31,11 @@
   "devDependencies": {
     "@easyops/babel-runtime-helpers": "^0.1.5",
     "@easyops/brick-http": "^1.1.6",
-    "@easyops/brick-icons": "^1.18.2",
-    "@easyops/brick-kit": "^1.62.0",
+    "@easyops/brick-icons": "^1.18.3",
+    "@easyops/brick-kit": "^1.62.1",
     "@easyops/brick-types": "^1.52.0",
     "@easyops/brick-utils": "^1.54.1",
-    "@easyops/dev-dependencies": "^0.7.11",
+    "@easyops/dev-dependencies": "^0.7.13",
     "@easyops/fontawesome-library": "^1.1.8",
     "@fortawesome/react-fontawesome": "^0.1.11",
     "@size-limit/file": "^4.5.5",
@@ -85,7 +85,7 @@
   ],
   "easyops": {
     "create-next-repo": "0.10.1",
-    "dev-dependencies": "0.7.11"
+    "dev-dependencies": "0.7.13"
   },
   "resolutions": {
     "lodash": "^4.17.20",
