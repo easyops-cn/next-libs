@@ -153,9 +153,15 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
     this.unlisten();
   }
 
-  private renderSimpleMenuItem(item: SidebarMenuSimpleItem): React.ReactNode {
+  private renderSimpleMenuItem(
+    item: SidebarMenuSimpleItem,
+    ignoreTitle?: boolean
+  ): React.ReactNode {
     return (
-      <Menu.Item key={String(item.key)} title={item.text}>
+      <Menu.Item
+        key={String(item.key)}
+        title={ignoreTitle ? undefined : item.text}
+      >
         <Link to={item.to} href={item.href} target={item.target}>
           {item.icon && (
             <i className={style.menuItemIcon}>
@@ -191,17 +197,21 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
           </span>
         }
       >
-        {item.items.map((innerItem) => this.renderMenuItem(innerItem))}
+        {/* Items in sub-menu should ignore their titles. */}
+        {item.items.map((innerItem) => this.renderMenuItem(innerItem, true))}
       </Menu.SubMenu>
     );
   }
 
-  private renderMenuItem(item: SidebarMenuItem): React.ReactNode {
+  private renderMenuItem(
+    item: SidebarMenuItem,
+    ignoreTitle?: boolean
+  ): React.ReactNode {
     return isSubMenu(item)
       ? this.renderSubMenu(item)
       : isGroup(item)
       ? this.renderGroupMenu(item)
-      : this.renderSimpleMenuItem(item);
+      : this.renderSimpleMenuItem(item, ignoreTitle);
   }
 
   render(): React.ReactNode {

@@ -214,6 +214,7 @@ interface InstanceListProps {
   onAliveHostsChange?(value: boolean): void;
   relationLinkDisabled?: boolean;
   notifyCurrentFields?: (fiels: string[]) => void;
+  defaultQuery?: { [fieldId: string]: any }[];
 }
 
 interface InstanceListState {
@@ -335,7 +336,6 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     fieldIds: getFields(),
     autoBreakLine: false,
   };
-
   const [q, setQ] = useState(props.q);
   const [state, setState] = useReducer(reducer, initState);
   const [selectedRowKeys, setSelectedRowKeys] = useState(
@@ -359,12 +359,20 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
       searchParams.page = page;
       state.pageSize && (searchParams["page_size"] = state.pageSize);
       sort && (searchParams.sort = { [sort]: asc ? 1 : -1 });
+
       if (state.q) {
         query = getQuery(modelData, idObjectMap, state.q, state.fieldIds);
       }
 
       if (!isEmpty(state.aq)) {
         query[LogicalOperators.And] = state.aq;
+      }
+
+      if (!isEmpty(props.defaultQuery)) {
+        query[LogicalOperators.And] = [
+          ...(query[LogicalOperators.And] || []),
+          ...props.defaultQuery,
+        ];
       }
 
       if (!isEmpty(query)) {
