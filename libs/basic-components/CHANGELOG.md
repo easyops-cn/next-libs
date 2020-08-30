@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@1.0.0-next.1...@libs/basic-components@1.0.0-next.2) (2020-08-30)
+
+### Bug Fixes
+
+- **menu:** ignore menu-item title in sub-menu ([6220fd6](https://git.easyops.local/anyclouds/next-libs/commits/6220fd6))
+
+### Features
+
+- **badge:** 把 badge 抽到 libs 中 ([001f9a8](https://git.easyops.local/anyclouds/next-libs/commits/001f9a8))
+
 # [0.27.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@0.26.4...@libs/basic-components@0.27.0) (2020-08-20)
 
 ### Features
