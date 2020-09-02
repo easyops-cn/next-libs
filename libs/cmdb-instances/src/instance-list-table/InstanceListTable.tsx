@@ -489,8 +489,8 @@ export class LegacyInstanceListTable extends React.Component<
         sorter.order
       ];
       if (
-        sorter.field !== undefined &&
-        (sorter.field !== this.props.sort || asc !== this.props.asc)
+        (sorter.column ? sorter.field : undefined) !== this.props.sort ||
+        asc !== this.props.asc
       ) {
         this.props.onSortingChange?.({ sort: sorter.field as string, asc });
       }
@@ -536,6 +536,7 @@ export class LegacyInstanceListTable extends React.Component<
       .selectDisabled
       ? null
       : {
+          preserveSelectedRowKeys: true,
           selectedRowKeys,
           onChange: this.onSelectChange,
         };
