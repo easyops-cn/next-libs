@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.4](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@2.0.0-next.3...@libs/cmdb-instances@2.0.0-next.4) (2020-09-02)
+
+### Bug Fixes
+
+- **cmdb-instances:** fix InstanceListTable sort and select ([25a85cd](https://git.easyops.local/anyclouds/next-libs/commits/25a85cd))
+
 # [2.0.0-next.3](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@2.0.0-next.2...@libs/cmdb-instances@2.0.0-next.3) (2020-08-30)
 
 **Note:** Version bump only for package @libs/cmdb-instances
