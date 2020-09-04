@@ -19,7 +19,7 @@ import {
 } from "./processors";
 import style from "./style.module.css";
 
-interface SelectInfo {
+export interface SelectInfo {
   event: "select";
   selected: boolean;
   node: EventDataNode;
@@ -27,7 +27,7 @@ interface SelectInfo {
   nativeEvent: MouseEvent;
 }
 
-interface CheckInfo {
+export interface CheckInfo {
   event: "check";
   node: EventDataNode;
   checked: boolean;
@@ -40,7 +40,7 @@ interface CheckInfo {
   halfCheckedKeys?: React.Key[];
 }
 
-interface ExpandInfo {
+export interface ExpandInfo {
   node: EventDataNode;
   expanded: boolean;
   nativeEvent: MouseEvent;
@@ -443,8 +443,11 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
 
   renderTitle(node: CustomTreeNode): React.ReactNode {
     const title = node.title;
-    const objectId = node.objectId;
-    const objectName = this.objectMap[objectId].name;
+    let objectName: string;
+    if (this.objectMap) {
+      const objectId = node.objectId;
+      objectName = this.objectMap[objectId].name;
+    }
     let titleNode = <span className="ant-tree-title">{title}</span>;
     if (this.props.q) {
       const qLen = this.props.q.length;
