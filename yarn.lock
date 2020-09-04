@@ -1067,10 +1067,10 @@
   resolved "https://registry.npm.taobao.org/@csstools/convert-colors/download/@csstools/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"
   integrity sha1-rUldxBsS511YjG24uYNPCPoTHrc=
 
-"@dll/ace@^2.0.0-next.6":
-  version "2.0.0-next.6"
-  resolved "http://registry.npm.easyops.local/@dll/ace/download/@dll/ace-2.0.0-next.6.tgz#566aeb1d45ec99f6e90f1c6e3a5f2caba82b5238"
-  integrity sha1-VmrrHUXsmfbpDxxuOl8sq6grUjg=
+"@dll/ace@^2.0.0-next.7":
+  version "2.0.0-next.7"
+  resolved "http://registry.npm.easyops.local/@dll/ace/download/@dll/ace-2.0.0-next.7.tgz#80f0efe796c22bd949528f69f86d3dd17331cbdb"
+  integrity sha1-gPDv55bCK9lJUo9p+G090XMxy9s=
   dependencies:
     react-ace "^7.0.5"
 
@@ -1127,31 +1127,34 @@
   dependencies:
     "@babel/runtime" "^7.11.2"
 
-"@easyops/brick-container@^2.0.0-next.6":
-  version "2.0.0-next.6"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-container/download/@easyops/brick-container-2.0.0-next.6.tgz#471118c8c37d57d9a754876859f10ee292d7c9e5"
-  integrity sha1-RxEYyMN9V9mnVIdoWfEO4pLXyeU=
+"@easyops/brick-container@^2.0.0-next.7":
+  version "2.0.0-next.7"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-container/download/@easyops/brick-container-2.0.0-next.7.tgz#600a6a169b6546f6872dd9d33187fc69436728e7"
+  integrity sha1-YApqFptlRvaHLdnTMYf8aUNnKOc=
   dependencies:
     body-parser "^1.19.0"
     chalk "^4.1.0"
+    chokidar "^3.4.2"
     concat-stream "^2.0.0"
     express "^4.17.1"
     http-proxy-middleware "^1.0.5"
     js-yaml "^3.14.0"
+    lodash "^4.17.20"
     meow "^7.1.0"
+    ws "^7.3.1"
 
-"@easyops/brick-dll@^2.0.0-next.6":
-  version "2.0.0-next.6"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-dll/download/@easyops/brick-dll-2.0.0-next.6.tgz#1c79b6759cd136672ecd17c726a69d2f7370a4c9"
-  integrity sha1-HHm2dZzRNmcuzRfHJqadL3NwpMk=
+"@easyops/brick-dll@^2.0.0-next.7":
+  version "2.0.0-next.7"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-dll/download/@easyops/brick-dll-2.0.0-next.7.tgz#ca9dd4978ebecccccf7b360f96eaaee78ce6c727"
+  integrity sha1-yp3Ul46+zMzPezYPluqu54zmxyc=
   dependencies:
     "@ant-design/compatible" "^1.0.5"
     "@ant-design/icons" "^4.2.2"
     "@easyops/babel-runtime-helpers" "^1.0.0-next.1"
-    "@easyops/brick-http" "^2.0.0-next.1"
+    "@easyops/brick-http" "^2.0.0-next.2"
     "@easyops/brick-icons" "^2.0.0-next.3"
-    "@easyops/brick-kit" "^2.0.0-next.6"
-    "@easyops/brick-utils" "^2.0.0-next.5"
+    "@easyops/brick-kit" "^2.0.0-next.7"
+    "@easyops/brick-utils" "^2.0.0-next.6"
     "@easyops/fontawesome-library" "^1.1.8"
     "@fortawesome/react-fontawesome" "^0.1.11"
     antd "^4.6.1"
@@ -1165,22 +1168,22 @@
     react-i18next "^11.7.1"
     react-transition-group "^4.4.1"
 
-"@easyops/brick-http@^2.0.0-next.1":
-  version "2.0.0-next.1"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-http/download/@easyops/brick-http-2.0.0-next.1.tgz#a3559d03c022ee8e710307385fa2547b858ca2b2"
-  integrity sha1-o1WdA8Ai7o5xAwc4X6JUe4WMorI=
+"@easyops/brick-http@^2.0.0-next.2":
+  version "2.0.0-next.2"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-http/download/@easyops/brick-http-2.0.0-next.2.tgz#31b40ef7b0d419de63535568a10ed53f42e2641e"
+  integrity sha1-MbQO97DUGd5jU1VooQ7VP0LiZB4=
 
 "@easyops/brick-icons@^2.0.0-next.3":
   version "2.0.0-next.3"
   resolved "http://registry.npm.easyops.local/@easyops/brick-icons/download/@easyops/brick-icons-2.0.0-next.3.tgz#0f8d3612cc06365c0a5b1a626d6066a762b1269f"
   integrity sha1-D402EswGNlwKWxpibWBmp2KxJp8=
 
-"@easyops/brick-kit@^2.0.0-next.6":
-  version "2.0.0-next.6"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-kit/download/@easyops/brick-kit-2.0.0-next.6.tgz#ae97ababf34ae201e0bbe77fa86b1f2b2156c20b"
-  integrity sha1-rperq/NK4gHgu+d/qGsfKyFWwgs=
+"@easyops/brick-kit@^2.0.0-next.7":
+  version "2.0.0-next.7"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-kit/download/@easyops/brick-kit-2.0.0-next.7.tgz#b5b413e695c4ea701d595211d589c42753279439"
+  integrity sha1-tbQT5pXE6nAdWVIR1YnEJ1MnlDk=
   dependencies:
-    "@easyops/brick-types" "^2.0.0-next.5"
+    "@easyops/brick-types" "^2.0.0-next.6"
     "@sdk/auth-sdk" "^0.8.3"
     "@sdk/cmdb-sdk" "^0.15.8"
     "@sdk/micro-app-sdk" "^0.8.2"
@@ -1203,19 +1206,19 @@
     request "^2.88.2"
     request-promise-native "^1.0.9"
 
-"@easyops/brick-types@^2.0.0-next.2", "@easyops/brick-types@^2.0.0-next.5":
-  version "2.0.0-next.5"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-types/download/@easyops/brick-types-2.0.0-next.5.tgz#ff75ef39740f1a2ff4d04f8d06a99fecc21b8b07"
-  integrity sha1-/3XvOXQPGi/00E+NBqmf7MIbiwc=
+"@easyops/brick-types@^2.0.0-next.2", "@easyops/brick-types@^2.0.0-next.6":
+  version "2.0.0-next.6"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-types/download/@easyops/brick-types-2.0.0-next.6.tgz#1f3f3356942b0a9546be5d23da6a2fa9160c5398"
+  integrity sha1-Hz8zVpQrCpVGvl0j2movqRYMU5g=
 
-"@easyops/brick-utils@^2.0.0-next.5":
-  version "2.0.0-next.5"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-utils/download/@easyops/brick-utils-2.0.0-next.5.tgz#56cbbe190d7e2b298f943bebbdb9c94e0531e8f2"
-  integrity sha1-Vsu+GQ1+KymPlDvrvbnJTgUx6PI=
+"@easyops/brick-utils@^2.0.0-next.6":
+  version "2.0.0-next.6"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-utils/download/@easyops/brick-utils-2.0.0-next.6.tgz#16980d6a61a96feb8d4022746f65b25e81af4625"
+  integrity sha1-FpgNamGpb+uNQCJ0b2WyXoGvRiU=
   dependencies:
     "@babel/parser" "^7.11.4"
     "@easyops-cn/brick-next-pipes" "^0.3.2"
-    "@easyops/brick-types" "^2.0.0-next.5"
+    "@easyops/brick-types" "^2.0.0-next.6"
     file-saver "^2.0.2"
     path-to-regexp "^6.1.0"
 
@@ -1224,12 +1227,12 @@
   resolved "http://registry.npm.easyops.local/@easyops/browserslist-config-next/download/@easyops/browserslist-config-next-0.1.0.tgz#9882b7364c8d25a81a00e04b559f72fb1a10b4a1"
   integrity sha1-mIK3NkyNJagaAOBLVZ9y+xoQtKE=
 
-"@easyops/build-config-factory@^2.0.0-next.5":
-  version "2.0.0-next.5"
-  resolved "http://registry.npm.easyops.local/@easyops/build-config-factory/download/@easyops/build-config-factory-2.0.0-next.5.tgz#821ede952c8f6d2f038e410e2ccb18cf0038528d"
-  integrity sha1-gh7elSyPbS8DjkEOLMsYzwA4Uo0=
+"@easyops/build-config-factory@^2.0.0-next.6":
+  version "2.0.0-next.6"
+  resolved "http://registry.npm.easyops.local/@easyops/build-config-factory/download/@easyops/build-config-factory-2.0.0-next.6.tgz#ddd850433d00c8cbef1e8b5e218706f3c95a2f55"
+  integrity sha1-3dhQQz0AyMvvHoteIYcG88laL1U=
   dependencies:
-    "@easyops/brick-utils" "^2.0.0-next.5"
+    "@easyops/brick-utils" "^2.0.0-next.6"
     change-case "^4.1.1"
     chokidar "^3.4.2"
     fs-extra "^9.0.1"
@@ -1249,22 +1252,22 @@
   resolved "http://registry.npm.easyops.local/@easyops/custom-antd-styles/download/@easyops/custom-antd-styles-1.0.0-next.1.tgz#29743ed0d080051919a6ce23e555b2f081906715"
   integrity sha1-KXQ+0NCABRkZps4j5VWy8IGQZxU=
 
-"@easyops/dev-dependencies@^1.0.0-next.8":
-  version "1.0.0-next.8"
-  resolved "http://registry.npm.easyops.local/@easyops/dev-dependencies/download/@easyops/dev-dependencies-1.0.0-next.8.tgz#2e88f865748534282e132bc76673eb3762fc1a70"
-  integrity sha1-Loj4ZXSFNCguEyvHZnPrN2L8GnA=
+"@easyops/dev-dependencies@^1.0.0-next.9":
+  version "1.0.0-next.9"
+  resolved "http://registry.npm.easyops.local/@easyops/dev-dependencies/download/@easyops/dev-dependencies-1.0.0-next.9.tgz#c3db1c3fd0598777430c431117e99daf59c86751"
+  integrity sha1-w9scP9BZh3dDDEMRF+mdr1nIZ1E=
   dependencies:
     "@babel/core" "^7.11.4"
-    "@dll/ace" "^2.0.0-next.6"
+    "@dll/ace" "^2.0.0-next.7"
     "@dll/d3" "^2.0.0-next.4"
     "@dll/echarts" "^2.0.0-next.3"
     "@easyops/babel-preset-next" "^0.6.12"
     "@easyops/babel-preset-prismjs" "^1.0.0-next.1"
-    "@easyops/brick-container" "^2.0.0-next.6"
-    "@easyops/brick-dll" "^2.0.0-next.6"
+    "@easyops/brick-container" "^2.0.0-next.7"
+    "@easyops/brick-dll" "^2.0.0-next.7"
     "@easyops/brick-scripts" "^2.0.0-next.3"
     "@easyops/browserslist-config-next" "^0.1.0"
-    "@easyops/build-config-factory" "^2.0.0-next.5"
+    "@easyops/build-config-factory" "^2.0.0-next.6"
     "@easyops/custom-antd-styles" "^1.0.0-next.1"
     "@easyops/eslint-config-next" "^1.0.0-next.1"
     "@easyops/rollup-config-factory" "^2.0.0-next.1"
@@ -5590,11 +5593,6 @@ d3-dispatch@1:
   resolved "https://registry.npm.taobao.org/d3-dispatch/download/d3-dispatch-1.0.6.tgz#00d37bcee4dd8cd97729dd893a0ac29caaba5d58"
   integrity sha1-ANN7zuTdjNl3Kd2JOgrCnKq6XVg=
 
-"d3-dispatch@1 - 2":
-  version "2.0.0"
-  resolved "https://registry.npm.taobao.org/d3-dispatch/download/d3-dispatch-2.0.0.tgz#8a18e16f76dd3fcaef42163c97b926aa9b55e7cf"
-  integrity sha1-ihjhb3bdP8rvQhY8l7kmqptV588=
-
 d3-drag@1, d3-drag@^1.2.5:
   version "1.2.5"
   resolved "https://registry.npm.taobao.org/d3-drag/download/d3-drag-1.2.5.tgz#2537f451acd39d31406677b7dc77c82f7d988f70"
@@ -5634,10 +5632,10 @@ d3-interpolate@1:
   resolved "https://registry.npm.taobao.org/d3-path/download/d3-path-2.0.0.tgz?cache=0&sync_timestamp=1597836945155&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fd3-path%2Fdownload%2Fd3-path-2.0.0.tgz#55d86ac131a0548adae241eebfb56b4582dd09d8"
   integrity sha1-VdhqwTGgVIra4kHuv7VrRYLdCdg=
 
-"d3-quadtree@1 - 2":
-  version "2.0.0"
-  resolved "https://registry.npm.taobao.org/d3-quadtree/download/d3-quadtree-2.0.0.tgz?cache=0&sync_timestamp=1598194930763&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fd3-quadtree%2Fdownload%2Fd3-quadtree-2.0.0.tgz#edbad045cef88701f6fee3aee8e93fb332d30f9d"
-  integrity sha1-7brQRc74hwH2/uOu6Ok/szLTD50=
+d3-quadtree@1:
+  version "1.0.7"
+  resolved "https://registry.npm.taobao.org/d3-quadtree/download/d3-quadtree-1.0.7.tgz?cache=0&sync_timestamp=1598194930763&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fd3-quadtree%2Fdownload%2Fd3-quadtree-1.0.7.tgz#ca8b84df7bb53763fe3c2f24bd435137f4e53135"
+  integrity sha1-youE33u1N2P+PC8kvUNRN/TlMTU=
 
 d3-selection@1, d3-selection@^1.1.0, d3-selection@^1.4.2:
   version "1.4.2"
@@ -5655,11 +5653,6 @@ d3-timer@1:
   version "1.0.10"
   resolved "https://registry.npm.taobao.org/d3-timer/download/d3-timer-1.0.10.tgz#dfe76b8a91748831b13b6d9c793ffbd508dd9de5"
   integrity sha1-3+dripF0iDGxO22ceT/71QjdneU=
-
-"d3-timer@1 - 2":
-  version "2.0.0"
-  resolved "https://registry.npm.taobao.org/d3-timer/download/d3-timer-2.0.0.tgz?cache=0&sync_timestamp=1598192644493&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fd3-timer%2Fdownload%2Fd3-timer-2.0.0.tgz#055edb1d170cfe31ab2da8968deee940b56623e6"
-  integrity sha1-BV7bHRcM/jGrLaiWje7pQLVmI+Y=
 
 d3-transition@1:
   version "1.3.2"
@@ -8564,6 +8557,16 @@ jest-config@^26.4.2:
     micromatch "^4.0.2"
     pretty-format "^26.4.2"
 
+jest-diff@^25.1.0, jest-diff@^25.5.0:
+  version "25.5.0"
+  resolved "https://registry.npm.taobao.org/jest-diff/download/jest-diff-25.5.0.tgz?cache=0&sync_timestamp=1598096627421&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fjest-diff%2Fdownload%2Fjest-diff-25.5.0.tgz#1dd26ed64f96667c068cef026b677dfa01afcfa9"
+  integrity sha1-HdJu1k+WZnwGjO8Ca2d9+gGvz6k=
+  dependencies:
+    chalk "^3.0.0"
+    diff-sequences "^25.2.6"
+    jest-get-type "^25.2.6"
+    pretty-format "^25.5.0"
+
 jest-diff@^25.2.1:
   version "25.3.0"
   resolved "https://registry.npm.taobao.org/jest-diff/download/jest-diff-25.3.0.tgz#0d7d6f5d6171e5dacde9e05be47b3615e147c26f"
@@ -8689,6 +8692,16 @@ jest-leak-detector@^26.4.2:
   dependencies:
     jest-get-type "^26.3.0"
     pretty-format "^26.4.2"
+
+jest-matcher-utils@^25.1.0:
+  version "25.5.0"
+  resolved "https://registry.npm.taobao.org/jest-matcher-utils/download/jest-matcher-utils-25.5.0.tgz?cache=0&sync_timestamp=1598096627618&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fjest-matcher-utils%2Fdownload%2Fjest-matcher-utils-25.5.0.tgz#fbc98a12d730e5d2453d7f1ed4a4d948e34b7867"
+  integrity sha1-+8mKEtcw5dJFPX8e1KTZSONLeGc=
+  dependencies:
+    chalk "^3.0.0"
+    jest-diff "^25.5.0"
+    jest-get-type "^25.2.6"
+    pretty-format "^25.5.0"
 
 jest-matcher-utils@^26.4.2:
   version "26.4.2"
@@ -11616,7 +11629,7 @@ prettier@^2.0.5:
   resolved "https://registry.npm.taobao.org/prettier/download/prettier-2.0.5.tgz?cache=0&sync_timestamp=1587491448785&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fprettier%2Fdownload%2Fprettier-2.0.5.tgz#d6d56282455243f2f92cc1716692c08aa31522d4"
   integrity sha1-1tVigkVSQ/L5LMFxZpLAiqMVItQ=
 
-pretty-format@^25.2.1, pretty-format@^25.3.0:
+pretty-format@^25.2.1, pretty-format@^25.3.0, pretty-format@^25.5.0:
   version "25.5.0"
   resolved "https://registry.npm.taobao.org/pretty-format/download/pretty-format-25.5.0.tgz?cache=0&sync_timestamp=1588675326013&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fpretty-format%2Fdownload%2Fpretty-format-25.5.0.tgz#7873c1d774f682c34b8d48b6743a2bf2ac55791a"
   integrity sha1-eHPB13T2gsNLjUi2dDor8qxVeRo=
@@ -15051,6 +15064,11 @@ ws@^7.2.3:
   version "7.2.3"
   resolved "https://registry.npm.taobao.org/ws/download/ws-7.2.3.tgz?cache=0&sync_timestamp=1583774972911&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fws%2Fdownload%2Fws-7.2.3.tgz#a5411e1fb04d5ed0efee76d26d5c46d830c39b46"
   integrity sha1-pUEeH7BNXtDv7nbSbVxG2DDDm0Y=
+
+ws@^7.3.1:
+  version "7.3.1"
+  resolved "https://registry.npm.taobao.org/ws/download/ws-7.3.1.tgz?cache=0&sync_timestamp=1593925481882&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fws%2Fdownload%2Fws-7.3.1.tgz#d0547bf67f7ce4f12a72dfe31262c68d7dc551c8"
+  integrity sha1-0FR79n985PEqct/jEmLGjX3FUcg=
 
 xml-name-validator@^3.0.0:
   version "3.0.0"
