@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.10.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@1.9.5...@libs/cmdb-instances@1.10.0) (2020-09-08)
+
+### Features
+
+- libs 更新使用这份 refs ATM-646 ([93a6138](https://git.easyops.local/anyclouds/next-libs/commits/93a6138))
+
 ## [1.9.5](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@1.9.4...@libs/cmdb-instances@1.9.5) (2020-08-21)
 
 **Note:** Version bump only for package @libs/cmdb-instances
