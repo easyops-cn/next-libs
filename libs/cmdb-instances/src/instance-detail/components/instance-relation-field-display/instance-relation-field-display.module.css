@@ -1,0 +1,43 @@
+.userInstanceDisplay {
+  display: inline-block;
+  margin-right: 5px;
+  border-radius: 20px;
+  padding: 2px 5px;
+  background-color: #167be0;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  max-width: 250px;
+  font-size: 14px;
+  font-weight: 400;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.instancePopover {
+  display: grid;
+  grid-template-columns: 84px 1fr;
+}
+
+.instancePopoverLabel {
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: normal;
+  word-break: break-all;
+  line-height: 26px;
+  font-size: 12px;
+  font-weight: 400;
+  color: rgba(140, 140, 140, 1);
+}
+
+.instancePopoverValue {
+  width: 192px;
+  text-overflow: ellipsis;
+  white-space: normal;
+  word-break: break-all;
+  line-height: 26px;
+  font-size: 12px;
+  font-weight: 400;
+  color: rgba(89, 89, 89, 1);
+}

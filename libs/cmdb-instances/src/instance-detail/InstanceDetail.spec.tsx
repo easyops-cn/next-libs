@@ -1,13 +1,13 @@
 import React from "react";
 import { shallow } from "enzyme";
 import { InstanceDetail, LegacyInstanceDetail } from "./InstanceDetail";
-import * as fetchCmdbObjectDetail from "../data-providers/fetchCmdbObjectDetail";
-jest.mock("../data-providers/fetchCmdbObjectDetail");
+import * as fetchCmdbObjectList from "../data-providers/fetchCmdbObjectList";
+jest.mock("../data-providers/fetchCmdbObjectList");
 jest.mock("../data-providers/fetchCmdbInstanceDetail");
 
-const spyFetchCmdbObjectDetail = jest.spyOn(
-  fetchCmdbObjectDetail,
-  "fetchCmdbObjectDetail"
+const spyFetchCmdbObjectList = jest.spyOn(
+  fetchCmdbObjectList,
+  "fetchCmdbObjectList"
 );
 describe("InstanceDetail", () => {
   const wrapper = shallow<LegacyInstanceDetail>(
@@ -16,6 +16,7 @@ describe("InstanceDetail", () => {
   const instance = wrapper.instance();
 
   it("should work", async () => {
+    expect(wrapper).toMatchSnapshot();
     const wrapper2 = shallow<LegacyInstanceDetail>(
       <InstanceDetail
         objectId="HOST"
@@ -24,32 +25,33 @@ describe("InstanceDetail", () => {
         actions={[
           {
             label: "编辑",
-            url: "instanceId/edit"
+            url: "instanceId/edit",
           },
           {
             label: "删除",
-            event: "read.single.delete"
+            event: "read.single.delete",
           },
           {
             label: "编辑",
             type: "dropdown",
-            url: "instanceId/edit"
+            url: "instanceId/edit",
           },
           {
             label: "删除",
             type: "dropdown",
             isDanger: true,
-            event: "read.single.delete"
-          }
+            event: "read.single.delete",
+          },
         ]}
       />
     );
     await (global as any).flushPromises();
     wrapper2.update();
+    expect(wrapper2).toMatchSnapshot();
 
     expect(wrapper2.find("Card")).toHaveLength(1);
     wrapper2.setProps({
-      showCard: false
+      showCard: false,
     });
     expect(wrapper2.find("Card")).toHaveLength(0);
   });
@@ -58,8 +60,8 @@ describe("InstanceDetail", () => {
     const data = {
       value: {
         type: "str",
-        mode: "markdown"
-      }
+        mode: "markdown",
+      },
     };
     expect(instance.isMarkdownField(data)).toBeTruthy();
     expect(instance.isMarkdownField({})).toBeFalsy();
@@ -69,15 +71,15 @@ describe("InstanceDetail", () => {
     expect(
       instance.isRelation({
         value: {
-          type: "FK"
-        }
+          type: "FK",
+        },
       })
     ).toBeTruthy();
     expect(
       instance.isRelation({
         value: {
-          type: "FKs"
-        }
+          type: "FKs",
+        },
       })
     ).toBeTruthy();
 
@@ -88,15 +90,15 @@ describe("InstanceDetail", () => {
     expect(
       instance.isStruct({
         value: {
-          type: "struct"
-        }
+          type: "struct",
+        },
       })
     ).toBeTruthy();
     expect(
       instance.isStructs({
         value: {
-          type: "structs"
-        }
+          type: "structs",
+        },
       })
     ).toBeTruthy();
 
@@ -104,12 +106,11 @@ describe("InstanceDetail", () => {
   });
 
   it("tests isSpecialDisplayField", () => {
-    /*eslint @typescript-eslint/camelcase: ["error", {properties: "never"}]*/
     let data = {
       id: "id",
       left_id: "left_id",
       right_object_id: "right_object_id",
-      left_object_id: "left_object_id"
+      left_object_id: "left_object_id",
     };
     expect(instance.isSpecialDisplayField(data)).toBeFalsy();
     expect(instance.isSpecialDisplayField({})).toBeFalsy();
@@ -118,7 +119,7 @@ describe("InstanceDetail", () => {
       id: "name",
       left_id: "name",
       right_object_id: "right_object_id",
-      left_object_id: "left_object_id"
+      left_object_id: "left_object_id",
     };
     expect(instance.isSpecialDisplayField(data)).toBeFalsy();
 
@@ -126,25 +127,25 @@ describe("InstanceDetail", () => {
       id: "name",
       left_id: "name",
       right_object_id: "USER",
-      left_object_id: "left_object_id"
+      left_object_id: "left_object_id",
     };
     expect(instance.isSpecialDisplayField(data)).toBeTruthy();
   });
 
   it("test toggleBasicInfoGroupFilter", () => {
-    const basicInfoGroupList: any[] = [
+    const basicInfoGroupList = [
       {
         name: "name 1",
-        attrList: []
+        attrList: [] as any[],
       },
       {
         name: "name 2",
-        attrList: [],
-        active: true
-      }
+        attrList: [] as any[],
+        active: true,
+      },
     ];
     instance.setState({
-      basicInfoGroupList
+      basicInfoGroupList,
     });
     const basicInfoGroupLabel = wrapper.find(".basicInfoGroupLabel");
     const toggleBasicInfoGroupFilter = jest.spyOn(
@@ -159,8 +160,8 @@ describe("InstanceDetail", () => {
       {
         name: "name 1",
         attrList: [],
-        active: true
-      }
+        active: true,
+      },
     ]);
     basicInfoGroupLabel.at(0).simulate("click");
     expect(toggleBasicInfoGroupFilter).toBeCalled();
@@ -175,17 +176,18 @@ describe("InstanceDetail", () => {
         fieldsByTag={[
           {
             name: "基础信息",
-            fields: ["name", "ip"]
+            fields: ["name", "ip"],
           },
           {
             name: "agent信息",
-            fields: ["status"]
-          }
+            fields: ["status"],
+          },
         ]}
       />
     );
     await (global as any).flushPromises();
     wrapper2.update();
+    expect(wrapper2).toMatchSnapshot();
   });
 
   it("test brickConfigList", async () => {
@@ -197,13 +199,14 @@ describe("InstanceDetail", () => {
         brickConfigList={[
           {
             name: "input",
-            label: "输入"
-          }
+            label: "输入",
+          },
         ]}
       />
     );
     await (global as any).flushPromises();
     wrapper2.update();
+    expect(wrapper2).toMatchSnapshot();
   });
 
   it("test didUpdate", async () => {
@@ -215,6 +218,6 @@ describe("InstanceDetail", () => {
       />
     );
     wrapper.setProps({ objectId: "HOST", instanceId: "bbb" });
-    expect(spyFetchCmdbObjectDetail).toBeCalled();
+    expect(spyFetchCmdbObjectList).toBeCalled();
   });
 });
