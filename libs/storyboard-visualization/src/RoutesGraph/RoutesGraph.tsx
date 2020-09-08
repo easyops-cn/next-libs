@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { create, Selection, event as d3Event, select } from "d3-selection";
+import { create, Selection, select } from "d3-selection";
 import {
   uniqueId,
   values,
@@ -289,9 +289,10 @@ export class RoutesGraph {
   }
 
   /* istanbul ignore next */
-  onDragSvg(d: RouteGraphNode): void {
+  onDragSvg(event: Event, d: RouteGraphNode): void {
     if (!this.readOnly) {
-      const { dx, dy } = d3Event;
+      // Todo(steve): fixing types (https://github.com/DefinitelyTyped/DefinitelyTyped/issues/38939#issuecomment-683879719)
+      const { dx, dy } = event as any;
       const targetX = d.node.offsetLeft + dx / this.scale;
       const targetY = d.node.offsetTop + dy / this.scale;
       let result: {
@@ -327,7 +328,7 @@ export class RoutesGraph {
   }
 
   /* istanbul ignore next */
-  onDragSvgEnd(d: RouteGraphNode): void {
+  onDragSvgEnd(event: Event, d: RouteGraphNode): void {
     if (!this.readOnly) {
       this.canvas.node().style.borderColor = "#d7d7d9";
       const targetX = roundSize(d.x, this.alignSize);
@@ -421,15 +422,15 @@ export class RoutesGraph {
       this.getCanvasSize();
     });
     this.canvas
-      .on("mousedown", () => {
+      .on("mousedown", (event: MouseEvent) => {
         this.linksLayer.classed(styles.grabbing, true);
-        d3Event.preventDefault();
-        const x0 = d3Event.screenX + this.offsetX;
-        const y0 = d3Event.screenY + this.offsetY;
+        event.preventDefault();
+        const x0 = event.screenX + this.offsetX;
+        const y0 = event.screenY + this.offsetY;
         d3Window
           .on("mousemove", () => {
-            const dx = x0 - d3Event.screenX - this.offsetX;
-            const dy = y0 - d3Event.screenY - this.offsetY;
+            const dx = x0 - event.screenX - this.offsetX;
+            const dy = y0 - event.screenY - this.offsetY;
             this.transform(dx, dy, this.scale);
           })
           .on("mouseup", () => {
@@ -437,15 +438,16 @@ export class RoutesGraph {
             d3Window.on("mousemove", null).on("mouseup", null);
           });
       })
-      .on("wheel", function () {
-        d3Event.preventDefault();
+      .on("wheel", function (event: Event) {
+        event.preventDefault();
       })
-      .on("wheel.zoom", () => {
-        d3Event.stopPropagation();
-        const { deltaX, deltaY, ctrlKey } = d3Event;
-        // macOS trackPad pinch event is emitted as a wheel.zoom and d3.event.ctrlKey set to true
+      // Todo(steve): fixing types (https://github.com/DefinitelyTyped/DefinitelyTyped/issues/38939#issuecomment-683879719)
+      .on("wheel.zoom", (event: any) => {
+        event.stopPropagation();
+        const { deltaX, deltaY, ctrlKey } = event;
+        // macOS trackPad pinch event is emitted as a wheel.zoom and event.ctrlKey set to true
         if (ctrlKey) {
-          this.scale += ZOOM_STEP * (d3Event.wheelDelta > 0 ? 1 : -1);
+          this.scale += ZOOM_STEP * (event.wheelDelta > 0 ? 1 : -1);
           this.scale = Math.min(ZOOM_SCALE_MAX, this.scale);
           this.scale = Math.max(ZOOM_SCALE_MIN, this.scale);
           this.transform(0, 0, this.scale);
@@ -689,8 +691,8 @@ export class RoutesGraph {
       })
       .call(
         drag<HTMLDivElement, RouteGraphNode>()
-          .on("drag", this.onDragSvg.bind(this))
-          .on("end", this.onDragSvgEnd.bind(this))
+          .on("drag", this.onDragSvg.bind(this) as any)
+          .on("end", this.onDragSvgEnd.bind(this) as any)
       );
     this.nodes = this.nodesContainer.selectAll(`.${styles.nodeWrapper}`);
     const onNodeClick = this.onNodeClick;

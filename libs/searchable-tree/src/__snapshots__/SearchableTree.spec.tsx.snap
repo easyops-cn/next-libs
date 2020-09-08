@@ -3,7 +3,7 @@
 exports[`SearchableTree should expand the nodes that match search value 1`] = `
 <DocumentFragment>
   <span
-    class="ant-input-search ant-input-affix-wrapper"
+    class="ant-input-affix-wrapper ant-input-search"
     style="margin-bottom: 8px;"
   >
     <input
