@@ -1,6 +1,5 @@
 import React from "react";
 import { Storyboard } from "@easyops/brick-types";
-import { ValueFn } from "d3-selection";
 import { HierarchyPointNode } from "d3-hierarchy";
 import { EditBrickNode } from "./EditBrickNode";
 import { EditRoutesNode } from "./EditRoutesNode";
@@ -12,7 +11,7 @@ import {
   StoryboardNodeApp,
   StoryboardNodeSlottedRoutes,
   StoryboardNode,
-  StoryboardNodeSubRoutes
+  StoryboardNodeSubRoutes,
 } from "../interfaces";
 import { treeToStoryboard } from "../treeToStoryboard";
 
@@ -37,7 +36,7 @@ export function VisualStoryboard(
 
   const visual = React.useMemo(() => new Visualization(), []);
   const tree = React.useMemo(() => storyboardToTree(props.storyboard), [
-    props.storyboard
+    props.storyboard,
   ]);
 
   const callbackRef = React.useCallback(
@@ -50,11 +49,9 @@ export function VisualStoryboard(
     [visual]
   );
 
-  const handleNodeClick: ValueFn<
-    SVGPathElement,
-    HierarchyPointNode<StoryboardNode>,
-    void
-  > = React.useCallback(node => {
+  const handleNodeClick: (
+    data: HierarchyPointNode<StoryboardNode>
+  ) => void = React.useCallback((node) => {
     if (node.data.type === "brick") {
       setActiveBrickNode(node.data);
     } else if (node.data.type === "app" || node.data.type === "routes") {
@@ -67,7 +64,7 @@ export function VisualStoryboard(
       props.path ? filterStoryboardTree(tree, { path: props.path }) : tree,
       {
         showFullBrickName: props.showFullBrickName,
-        handleNodeClick
+        handleNodeClick,
       }
     );
   }, [props.path, props.showFullBrickName, tree, visual, handleNodeClick]);
