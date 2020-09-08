@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.3](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@1.0.0-next.2...@libs/storyboard-visualization@1.0.0-next.3) (2020-09-08)
+
+### Bug Fixes
+
+- fix after upgrade d3 v2 which handles event differently ([b6b90da](https://git.easyops.local/anyclouds/next-libs/commits/b6b90da))
+
 # [1.0.0-next.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@1.0.0-next.1...@libs/storyboard-visualization@1.0.0-next.2) (2020-08-30)
 
 **Note:** Version bump only for package @libs/storyboard-visualization

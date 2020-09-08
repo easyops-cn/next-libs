@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.5](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@2.0.0-next.4...@libs/cmdb-instances@2.0.0-next.5) (2020-09-08)
+
+### Bug Fixes
+
+- fix after upgrade d3 v2 which handles event differently ([b6b90da](https://git.easyops.local/anyclouds/next-libs/commits/b6b90da))
+
 # [2.0.0-next.4](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@2.0.0-next.3...@libs/cmdb-instances@2.0.0-next.4) (2020-09-02)
 
 ### Bug Fixes
