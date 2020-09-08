@@ -1,0 +1,263 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InstanceDetail should work 1`] = `
+<Spin
+  size="default"
+  spinning={false}
+  wrapperClassName=""
+>
+  <Card
+    bordered={false}
+    extra={
+      <div
+        className="instanceDetailActions"
+      />
+    }
+    title={
+      <React.Fragment>
+        基本信息
+        <Popover
+          content={null}
+          mouseEnterDelay={0.1}
+          mouseLeaveDelay={0.1}
+          overlayStyle={Object {}}
+          placement="bottom"
+          transitionName="zoom-big"
+          trigger="hover"
+        >
+          <Icon
+            className="colorBlue"
+            style={
+              Object {
+                "marginLeft": "6px",
+              }
+            }
+            theme="filled"
+            type="info-circle"
+          />
+        </Popover>
+      </React.Fragment>
+    }
+  >
+    <div
+      className="detailCard showMultipleLines"
+    >
+      <dl />
+    </div>
+  </Card>
+</Spin>
+`;
+
+exports[`InstanceDetail should work 2`] = `
+<Spin
+  size="default"
+  spinning={false}
+  wrapperClassName=""
+>
+  <Card
+    bordered={false}
+    extra={
+      <div
+        className="instanceDetailActions"
+      >
+        <Button
+          block={false}
+          ghost={false}
+          htmlType="button"
+          loading={false}
+        >
+          <Link
+            to="instanceId/edit"
+          >
+            编辑
+          </Link>
+        </Button>
+        <Button
+          block={false}
+          ghost={false}
+          htmlType="button"
+          loading={false}
+          onClick={[Function]}
+        >
+          删除
+        </Button>
+        <Dropdown
+          mouseEnterDelay={0.15}
+          mouseLeaveDelay={0.1}
+          overlay={
+            <Menu>
+              <MenuItem>
+                <Link
+                  to="instanceId/edit"
+                >
+                  <span
+                    className=""
+                  >
+                    编辑
+                  </span>
+                </Link>
+              </MenuItem>
+              <MenuItem
+                onClick={[Function]}
+              >
+                <span
+                  className="danger"
+                >
+                  删除
+                </span>
+              </MenuItem>
+            </Menu>
+          }
+          placement="bottomLeft"
+        >
+          <a>
+            更多 
+            <Icon
+              type="down"
+            />
+          </a>
+        </Dropdown>
+      </div>
+    }
+    title={
+      <React.Fragment>
+        基本信息
+        <Popover
+          content={null}
+          mouseEnterDelay={0.1}
+          mouseLeaveDelay={0.1}
+          overlayStyle={Object {}}
+          placement="bottom"
+          transitionName="zoom-big"
+          trigger="hover"
+        >
+          <Icon
+            className="colorBlue"
+            style={
+              Object {
+                "marginLeft": "6px",
+              }
+            }
+            theme="filled"
+            type="info-circle"
+          />
+        </Popover>
+      </React.Fragment>
+    }
+  >
+    <div
+      className="detailCard showMultipleLines"
+    >
+      <dl />
+    </div>
+  </Card>
+</Spin>
+`;
+
+exports[`InstanceDetail test brickConfigList 1`] = `
+<Spin
+  size="default"
+  spinning={false}
+  wrapperClassName=""
+>
+  <Card
+    bordered={false}
+    extra={
+      <div
+        className="instanceDetailActions"
+      />
+    }
+    title={
+      <React.Fragment>
+        基本信息
+        <Popover
+          content={null}
+          mouseEnterDelay={0.1}
+          mouseLeaveDelay={0.1}
+          overlayStyle={Object {}}
+          placement="bottom"
+          transitionName="zoom-big"
+          trigger="hover"
+        >
+          <Icon
+            className="colorBlue"
+            style={
+              Object {
+                "marginLeft": "6px",
+              }
+            }
+            theme="filled"
+            type="info-circle"
+          />
+        </Popover>
+      </React.Fragment>
+    }
+  >
+    <div
+      className="detailCard showMultipleLines"
+    >
+      <dl />
+    </div>
+  </Card>
+  <Card
+    bordered={false}
+    key="input"
+    style={
+      Object {
+        "marginTop": "24px",
+      }
+    }
+    title="输入"
+  >
+    <input />
+  </Card>
+</Spin>
+`;
+
+exports[`InstanceDetail test fieldsByTag 1`] = `
+<Spin
+  size="default"
+  spinning={false}
+  wrapperClassName=""
+>
+  <Card
+    bordered={false}
+    extra={
+      <div
+        className="instanceDetailActions"
+      />
+    }
+    title={
+      <React.Fragment>
+        基本信息
+        <Popover
+          content={null}
+          mouseEnterDelay={0.1}
+          mouseLeaveDelay={0.1}
+          overlayStyle={Object {}}
+          placement="bottom"
+          transitionName="zoom-big"
+          trigger="hover"
+        >
+          <Icon
+            className="colorBlue"
+            style={
+              Object {
+                "marginLeft": "6px",
+              }
+            }
+            theme="filled"
+            type="info-circle"
+          />
+        </Popover>
+      </React.Fragment>
+    }
+  >
+    <div
+      className="detailCard showMultipleLines"
+    >
+      <dl />
+    </div>
+  </Card>
+</Spin>
+`;
