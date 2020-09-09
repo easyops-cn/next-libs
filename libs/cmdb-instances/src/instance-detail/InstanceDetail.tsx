@@ -4,7 +4,7 @@ import { Card, Popover, Spin, Button, Menu, Dropdown } from "antd";
 import { withTranslation, WithTranslation } from "react-i18next";
 import {
   get,
-  isNil,
+  keyBy,
   mapValues,
   isObject,
   isString,
@@ -20,7 +20,14 @@ import {
   InstanceDisplay,
   BrickAction,
 } from "@easyops/brick-types";
-import { getInstanceNameKeys, IGNORED_FIELDS } from "@libs/cmdb-utils";
+import { InstanceRelationFieldDisplay } from "./components/instance-relation-field-display/instance-relation-field-display";
+import {
+  getInstanceNameKeys,
+  modifyModelData,
+  IGNORED_FIELDS,
+  ModifiedModelCmdbObject,
+  ModifiedModelObjectField,
+} from "@libs/cmdb-utils";
 import { CmdbModels } from "@sdk/cmdb-sdk";
 import { Link } from "@libs/basic-components";
 import { StructTable } from "../struct-components/StructTable";
@@ -31,7 +38,7 @@ import style from "./index.module.css";
 import shared from "./shared.module.css";
 
 import {
-  fetchCmdbObjectDetail,
+  fetchCmdbObjectList,
   fetchCmdbInstanceDetail,
 } from "../data-providers";
 import { BASIC_INFORMATION_RELATION_GROUP_ID } from "./constants";
@@ -45,13 +52,14 @@ export interface AttrCustomConfigs {
 export interface LegacyCustomComponent {
   component?: {
     brick: string;
-    field?: keyof LegacyInstanceDetailState;
+    field?: string;
     properties: Record<string, any>;
   };
   useBrick?: UseBrickConf;
 }
 
 interface LegacyInstanceDetailProps extends WithTranslation {
+  modelDataList?: CmdbModels.ModelCmdbObject[];
   objectId: string;
   instanceId: string;
   attributeKeys?: string[];
@@ -62,13 +70,12 @@ interface LegacyInstanceDetailProps extends WithTranslation {
   onActionClick?: (eventName: string) => void;
   fieldsByTag?: FieldsByTag[];
   showCard?: boolean;
+  relationFieldUrlTemplate?: string;
 }
 
 interface LegacyInstanceDetailState {
-  modelData: {
-    attrList?: any[];
-    objectId?: string;
-  };
+  modelDataMap: { [objectId: string]: CmdbModels.ModelCmdbObject };
+  modelData: Partial<ModifiedModelCmdbObject>;
   instanceData: any;
   helpTips: any[];
   basicInfoGroupList: any[];
@@ -86,6 +93,7 @@ export class LegacyInstanceDetail extends React.Component<
   constructor(props: LegacyInstanceDetailProps) {
     super(props);
     this.state = {
+      modelDataMap: null,
       modelData: null,
       instanceData: null,
       helpTips: [
@@ -337,7 +345,7 @@ export class LegacyInstanceDetail extends React.Component<
 
   getAttrListNode(attr: any): React.ReactNode {
     const { isStruct, isStructs, isRelation, isMarkdownField } = this;
-    const { modelData, instanceData } = this.state;
+    const { modelDataMap, modelData, instanceData } = this.state;
     let config;
     let isComponentMode = false;
     let attrCustomConfig: LegacyCustomComponent;
@@ -357,8 +365,8 @@ export class LegacyInstanceDetail extends React.Component<
             "`component` of `<cmdb-instances.instance-detail>.attrCustomConfigs[attrId].component` is deprecated, use `useBrick` instead."
           );
           attrCustomConfig = cloneDeep(attrCustomConfig);
-          const field: keyof LegacyInstanceDetailState =
-            attrCustomConfig.component.field || "instanceData";
+          const field = (attrCustomConfig.component.field ||
+            "instanceData") as keyof LegacyInstanceDetailState;
           attrCustomConfig.component.properties = this.getNewProperties(
             attrCustomConfig.component.properties || {},
             field
@@ -379,7 +387,7 @@ export class LegacyInstanceDetail extends React.Component<
               : style.basicAttr
           }
         >
-          {attr.name}:
+          {attr.__isRelation ? attr.right_description : attr.name}:
         </dt>
 
         <dd
@@ -393,6 +401,14 @@ export class LegacyInstanceDetail extends React.Component<
               : style.basicAttr
           }
         >
+          {attr.__isRelation && (
+            <InstanceRelationFieldDisplay
+              modelDataMap={modelDataMap}
+              relationData={attr}
+              value={instanceData[attr.__id]}
+              relationFieldUrlTemplate={this.props.relationFieldUrlTemplate}
+            ></InstanceRelationFieldDisplay>
+          )}
           {!isStructs(attr) &&
             !isStruct(attr) &&
             !isRelation(attr) &&
@@ -407,14 +423,11 @@ export class LegacyInstanceDetail extends React.Component<
               />
             ) : (
               <attrCustomConfig.component.brick
-                {...{
-                  target: "blank",
-                  ref: (el: any) => {
-                    el &&
-                      Object.assign(el, {
-                        ...attrCustomConfig.component.properties,
-                      });
-                  },
+                ref={(el: any) => {
+                  el &&
+                    Object.assign(el, {
+                      ...attrCustomConfig.component.properties,
+                    });
                 }}
               />
             ))}
@@ -452,15 +465,15 @@ export class LegacyInstanceDetail extends React.Component<
     let { modelData, basicInfoGroupList } = state;
     const { attributeKeys, fieldsByTag } = this.props;
     let basicInfoAttrList: any[];
-    function attrFilter(attr: any): boolean {
-      if (IGNORED_FIELDS[modelData.objectId]?.includes(attr.id)) {
+    function attrFilter(field: ModifiedModelObjectField): boolean {
+      if (IGNORED_FIELDS[modelData.objectId]?.includes(field.__id)) {
         return false;
       }
       return (
-        !["FK", "FKs"].includes(attr.value.type) ||
-        (attr.id === attr.left_id
-          ? attr.left_groups?.includes(BASIC_INFORMATION_RELATION_GROUP_ID)
-          : attr.right_groups?.includes(BASIC_INFORMATION_RELATION_GROUP_ID))
+        !field.__isRelation ||
+        (field as CmdbModels.ModelObjectRelation).left_groups?.includes(
+          BASIC_INFORMATION_RELATION_GROUP_ID
+        )
       );
     }
 
@@ -470,7 +483,9 @@ export class LegacyInstanceDetail extends React.Component<
       basicInfoGroupList = map(fieldsByTag, (tag) => {
         const attrList = compact(
           map(tag.fields, (attr) => {
-            const matched = modelData.attrList.find((item) => item.id === attr);
+            const matched = modelData.__fieldList.find(
+              (field) => field.__id === attr
+            );
             return matched;
           })
         );
@@ -484,38 +499,31 @@ export class LegacyInstanceDetail extends React.Component<
       if (attributeKeys?.length) {
         basicInfoAttrList = attributeKeys
           .map((attr) => {
-            const matched = modelData.attrList.find((item) => item.id === attr);
+            const matched = modelData.__fieldList.find(
+              (field) => field.__id === attr
+            );
             if (matched && attrFilter(matched)) {
               return matched;
             }
           })
           .filter((attr) => attr);
       } else {
-        basicInfoAttrList = modelData.attrList.filter((attr: any) =>
-          attrFilter(attr)
+        basicInfoAttrList = modelData.__fieldList.filter((field) =>
+          attrFilter(field)
         );
       }
 
-      basicInfoAttrList.forEach((basicInfoAttr) => {
+      basicInfoAttrList.forEach((field) => {
         let groupTag: string;
         const nameKey = getInstanceNameKeys(modelData)[0];
-        if (!["FK", "FKs"].includes(basicInfoAttr.value.type)) {
+        if (field.__isRelation) {
           groupTag =
-            basicInfoAttr.tag.length > 0
-              ? basicInfoAttr.tag[0] || "基本信息"
-              : "基本信息";
-        } else if (basicInfoAttr.id === basicInfoAttr.left_id) {
-          groupTag =
-            basicInfoAttr.left_tags?.length &&
-            basicInfoAttr.left_tags[0].trim() !== ""
-              ? basicInfoAttr.left_tags[0]
+            field.left_tags?.length && field.left_tags[0].trim() !== ""
+              ? field.left_tags[0]
               : "默认属性";
         } else {
           groupTag =
-            basicInfoAttr.right_tags?.length &&
-            basicInfoAttr.right_tags[0].trim() !== ""
-              ? basicInfoAttr.right_tags[0]
-              : "默认属性";
+            field.tag.length > 0 ? field.tag[0] || "基本信息" : "基本信息";
         }
 
         const basicInfoGroup = basicInfoGroupList.find(
@@ -523,14 +531,14 @@ export class LegacyInstanceDetail extends React.Component<
         );
 
         if (basicInfoGroup) {
-          basicInfoAttr.id === nameKey
-            ? basicInfoGroup["attrList"].unshift(basicInfoAttr)
-            : basicInfoGroup["attrList"].push(basicInfoAttr);
+          field.id === nameKey
+            ? basicInfoGroup["attrList"].unshift(field)
+            : basicInfoGroup["attrList"].push(field);
         } else {
           basicInfoGroupList.push({
             name: groupTag,
             active: false,
-            attrList: [basicInfoAttr],
+            attrList: [field],
           });
         }
       });
@@ -541,15 +549,13 @@ export class LegacyInstanceDetail extends React.Component<
       basicInfoGroupListShow: basicInfoGroupList,
     });
   }
-  async componentDidUpdate(
-    prevProps: LegacyInstanceDetailProps
-  ): Promise<void> {
+  componentDidUpdate(prevProps: LegacyInstanceDetailProps): void {
     if (
       this.props.objectId &&
       this.props.instanceId &&
       prevProps.instanceId !== this.props.instanceId
     ) {
-      await this.fetchData();
+      (async () => await this.fetchData(this.props))();
     }
   }
 
@@ -573,7 +579,7 @@ export class LegacyInstanceDetail extends React.Component<
       this.setState({ buttonActions, dropdownActions });
     }
     if (this.props.instanceId && this.props.objectId) {
-      await this.fetchData();
+      await this.fetchData(this.props);
     }
   }
 
@@ -596,16 +602,33 @@ export class LegacyInstanceDetail extends React.Component<
     basicInfoGroup.active = !basicInfoGroup.active;
   }
 
-  async fetchData(): Promise<void> {
+  async fetchData(props: LegacyInstanceDetailProps): Promise<void> {
+    let modelListData, modelDataMap, modelData, instanceData;
     try {
-      const [modelData, instanceData] = await Promise.all([
-        fetchCmdbObjectDetail(this.props.objectId),
-        fetchCmdbInstanceDetail(this.props.objectId, this.props.instanceId),
-      ]);
+      if (props.modelDataList) {
+        modelDataMap = keyBy(props.modelDataList, "objectId");
+        instanceData = await fetchCmdbInstanceDetail(
+          props.objectId,
+          props.instanceId
+        );
+      } else {
+        [modelListData, instanceData] = await Promise.all([
+          fetchCmdbObjectList(),
+          fetchCmdbInstanceDetail(props.objectId, props.instanceId),
+        ]);
+        modelDataMap = keyBy(modelListData.data, "objectId") as {
+          [objectId: string]: CmdbModels.ModelCmdbObject;
+        };
+      }
+      modelData = modelDataMap[props.objectId];
+
       this.setState({
+        modelDataMap,
+        modelData: modifyModelData(modelData),
         instanceData,
-        modelData,
         loaded: true,
+        basicInfoGroupListShow: [],
+        basicInfoGroupList: [],
       });
       this.setBasicInfoGroupList(this.state);
       // this.setFormattedInstanceData(this.state);

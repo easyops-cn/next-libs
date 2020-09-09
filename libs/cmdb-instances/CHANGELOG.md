@@ -19,18 +19,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 **Note:** Version bump only for package @libs/cmdb-instances
 
-## [1.9.5](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@1.9.4...@libs/cmdb-instances@1.9.5) (2020-08-21)
-
-**Note:** Version bump only for package @libs/cmdb-instances
-
-## [1.9.4](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@1.9.3...@libs/cmdb-instances@1.9.4) (2020-08-20)
-
-**Note:** Version bump only for package @libs/cmdb-instances
-
-## [1.9.3](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@1.9.2...@libs/cmdb-instances@1.9.3) (2020-08-17)
-
-**Note:** Version bump only for package @libs/cmdb-instances
-
 # [2.0.0-next.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@2.0.0-next.1...@libs/cmdb-instances@2.0.0-next.2) (2020-08-25)
 
 **Note:** Version bump only for package @libs/cmdb-instances
@@ -52,6 +40,24 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 - **cmdb-instances:** antd v4 migration
 
 Closes BRICK_STORE-1666
+
+# [1.10.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@1.9.5...@libs/cmdb-instances@1.10.0) (2020-09-08)
+
+### Features
+
+- libs 更新使用这份 refs ATM-646 ([93a6138](https://git.easyops.local/anyclouds/next-libs/commits/93a6138))
+
+## [1.9.5](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@1.9.4...@libs/cmdb-instances@1.9.5) (2020-08-21)
+
+**Note:** Version bump only for package @libs/cmdb-instances
+
+## [1.9.4](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@1.9.3...@libs/cmdb-instances@1.9.4) (2020-08-20)
+
+**Note:** Version bump only for package @libs/cmdb-instances
+
+## [1.9.3](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@1.9.2...@libs/cmdb-instances@1.9.3) (2020-08-17)
+
+**Note:** Version bump only for package @libs/cmdb-instances
 
 ## [1.9.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@1.9.1...@libs/cmdb-instances@1.9.2) (2020-08-13)
 
