@@ -73,8 +73,8 @@
           "yarn"
         ],
         "fileFilters": ["**/*"]
-      }
+      },
+      "baseBranches": ["master", "antd_v4_migration"]
     }
-  ],
-  "baseBranches": ["master", "antd_v4_migration"]
+  ]
 }
