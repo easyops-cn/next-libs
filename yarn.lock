@@ -1216,10 +1216,10 @@
   resolved "http://registry.npm.easyops.local/@easyops/custom-antd-styles/download/@easyops/custom-antd-styles-0.11.4.tgz#8b2ddcc7200453e2c1f54b8188436659344e6be0"
   integrity sha1-iy3cxyAEU+LB9UuBiENmWTROa+A=
 
-"@easyops/dev-dependencies@^0.7.18":
-  version "0.7.18"
-  resolved "http://registry.npm.easyops.local/@easyops/dev-dependencies/download/@easyops/dev-dependencies-0.7.18.tgz#4ae5a31fdc3bdb90bb0dc34c52e8ea89437cd92b"
-  integrity sha1-SuWjH9w725C7DcNMUujqiUN82Ss=
+"@easyops/dev-dependencies@^0.7.19":
+  version "0.7.19"
+  resolved "http://registry.npm.easyops.local/@easyops/dev-dependencies/download/@easyops/dev-dependencies-0.7.19.tgz#1f91338997b78511759014545817a9db15e473b0"
+  integrity sha1-H5EziZe3hRF1kBRUWBep2xXkc7A=
   dependencies:
     "@babel/core" "^7.11.4"
     "@dll/ace" "^1.0.183"
