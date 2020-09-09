@@ -104,8 +104,13 @@
   background-color: var(--theme-blue-background);
 }
 
-.contentItem:hover .contentItemToolbar {
-  display: flex;
+.contentItem {
+  &:hover,
+  &.actionsVisible {
+    .contentItemToolbar {
+      display: flex;
+    }
+  }
 }
 
 .contentItemMain {

@@ -105,6 +105,7 @@ export function RoutesPreview(props: RoutesPreviewProps): React.ReactElement {
   const [draggingItem, setDraggingItem] = useState<
     RouteGraphNode | undefined
   >();
+  const [actionsVisible, setActionsVisible] = useState(false);
 
   const getDraggingStatus = (
     dragging: boolean,
@@ -156,6 +157,7 @@ export function RoutesPreview(props: RoutesPreviewProps): React.ReactElement {
               onClick={() => handleClick(item.originalData)}
               className={classNames(styles.previewTag, {
                 [styles.contentItemEllipsisButtonAvailable]: ellipsisButtonAvailable,
+                [styles.actionsVisible]: actionsVisible,
               })}
             >
               <RouteTypeIcon item={item.originalData} />
@@ -168,6 +170,9 @@ export function RoutesPreview(props: RoutesPreviewProps): React.ReactElement {
                   <ItemActionsComponent
                     filteredActions={filteredActions}
                     item={item.originalData}
+                    onVisibleChange={(visible) => {
+                      setActionsVisible(visible);
+                    }}
                   />
                 </div>
               )}
