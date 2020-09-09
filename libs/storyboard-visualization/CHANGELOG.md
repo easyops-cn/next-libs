@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.4](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@1.0.0-next.3...@libs/storyboard-visualization@1.0.0-next.4) (2020-09-09)
+
+### Bug Fixes
+
+- **storyboard-visualization:** keep action menu trigger visible when action menu is visible ([507d34a](https://git.easyops.local/anyclouds/next-libs/commits/507d34a))
+
 # [1.0.0-next.3](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@1.0.0-next.2...@libs/storyboard-visualization@1.0.0-next.3) (2020-09-08)
 
 ### Bug Fixes

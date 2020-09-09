@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.6](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@1.10.0...@libs/cmdb-instances@2.0.0-next.6) (2020-09-09)
+
+### Bug Fixes
+
+- fix after upgrade d3 v2 which handles event differently ([b6b90da](https://git.easyops.local/anyclouds/next-libs/commits/b6b90da))
+- **cmdb-instances:** AdvancedSearch 样式里使用的 Form 的类名改为 .ant-legacy-form 为前缀的 ([0ac61aa](https://git.easyops.local/anyclouds/next-libs/commits/0ac61aa))
+- **cmdb-instances:** fix InstanceListTable sort and select ([25a85cd](https://git.easyops.local/anyclouds/next-libs/commits/25a85cd))
+
+### Features
+
+- **cmdb-instances:** antd v4 migaration ([1ef0024](https://git.easyops.local/anyclouds/next-libs/commits/1ef0024))
+
+### BREAKING CHANGES
+
+- **cmdb-instances:** antd v4 migration
+
+Closes BRICK_STORE-1666
+
 # [2.0.0-next.5](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@2.0.0-next.4...@libs/cmdb-instances@2.0.0-next.5) (2020-09-08)
 
 ### Bug Fixes
