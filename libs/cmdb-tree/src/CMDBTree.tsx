@@ -85,6 +85,7 @@ interface CMDBTreeProps {
   };
   selectedObjectId?: string;
   selectedInstanceId?: string;
+  style?: React.CSSProperties;
 }
 
 interface CMDBTreeState {
@@ -562,6 +563,10 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
       </Tree>
     );
 
-    return <div className={style.easyopsCustomizeAntTree}>{child}</div>;
+    return (
+      <div className={style.easyopsCustomizeAntTree} style={this.props.style}>
+        {child}
+      </div>
+    );
   }
 }
