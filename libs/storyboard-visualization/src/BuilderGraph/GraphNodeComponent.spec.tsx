@@ -1,6 +1,6 @@
 import React from "react";
 import { shallow } from "enzyme";
-import { GeneralIcon } from "@libs/basic-components";
+import { GeneralIcon, ItemActionsComponent } from "@libs/basic-components";
 import { FaIcon } from "@easyops/brick-types";
 import { GraphNodeComponent, ContentItem } from "./GraphNodeComponent";
 import { GraphNode } from "./interfaces";
@@ -17,7 +17,7 @@ describe("GraphNodeComponent", () => {
       left: -100,
       top: -97.5,
       width: 200,
-      height: 195
+      height: 195,
     });
 
     expect(wrapper.find("ContentItem").length).toBe(3);
@@ -31,9 +31,9 @@ describe("GraphNodeComponent", () => {
         items: [
           {
             alias: "brick: 1",
-            type: "brick"
-          }
-        ]
+            type: "brick",
+          },
+        ],
       },
       originalData: {
         alias: "route: bricks",
@@ -41,12 +41,12 @@ describe("GraphNodeComponent", () => {
         children: [
           {
             alias: "brick: 1",
-            type: "brick"
-          }
-        ]
+            type: "brick",
+          },
+        ],
       },
       height: 88,
-      children: []
+      children: [],
     };
 
     const wrapper = shallow(<GraphNodeComponent node={node} />);
@@ -58,10 +58,10 @@ describe("GraphNodeComponent", () => {
       nodeType: "route",
       originalData: {
         alias: "route: empty",
-        type: "bricks"
+        type: "bricks",
       },
       height: 56,
-      children: []
+      children: [],
     };
 
     const wrapper = shallow(<GraphNodeComponent node={node} />);
@@ -73,7 +73,7 @@ describe("ContentItem", () => {
   it("should work", () => {
     const item: ViewItem = {
       alias: "route: empty",
-      type: "bricks"
+      type: "bricks",
     };
     const wrapper = shallow(<ContentItem type="routes" item={item} />);
 
@@ -90,17 +90,17 @@ describe("ContentItem", () => {
     expect(wrapper.find(".contentItemToolbar").length).toBe(0);
 
     wrapper.setProps({
-      isLast: true
+      isLast: true,
     });
     expect(wrapper.prop("style").marginBottom).toBe(0);
 
     wrapper.setProps({
-      type: "bricks"
+      type: "bricks",
     });
     expect(findItemIcon()).toBe("puzzle-piece");
 
     wrapper.setProps({
-      type: "unknown"
+      type: "unknown",
     });
     expect(findItemIcon()).toBe("question");
 
@@ -110,35 +110,37 @@ describe("ContentItem", () => {
           {
             brick: "div",
             properties: {
-              textContent: "first"
+              textContent: "first",
             },
             events: {
               click: {
                 action: "message.success",
-                args: ["good"]
-              }
-            }
+                args: ["good"],
+              },
+            },
           },
           {
             brick: "div",
             if: "@{item.type | equal : routes}",
             properties: {
-              textContent: "second"
+              textContent: "second",
             },
             events: {
               click: {
                 action: "message.warn",
-                args: ["bad"]
-              }
-            }
-          }
-        ]
-      }
+                args: ["bad"],
+              },
+            },
+          },
+        ],
+      },
     });
 
     expect(wrapper.prop("className")).toBe(
       "contentItem contentItemEllipsisButtonAvailable"
     );
     expect(wrapper.find(".contentItemToolbar").length).toBe(1);
+    wrapper.find(ItemActionsComponent).invoke("onVisibleChange")(true);
+    expect(wrapper.prop("className").includes("actionsVisible")).toBe(true);
   });
 });

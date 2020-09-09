@@ -34,8 +34,13 @@
   display: none;
   background-color: var(--theme-blue-background);
 }
-.routeNodeContainer:hover .contentItemToolbar {
-  display: flex;
+.routeNodeContainer {
+  &:hover,
+  &.actionsVisible {
+    .contentItemToolbar {
+      display: flex;
+    }
+  }
 }
 .routeNodeContainer:hover .contentItemEllipsisButtonAvailable {
   padding-right: 30px;

@@ -2,6 +2,7 @@ import React from "react";
 import { mount } from "enzyme";
 import { fakeRoutesGraphNodes, fakeContentItemActions } from "../fakesForTest";
 import { RoutesPreview } from "./RoutesPreview";
+import { ItemActionsComponent } from "@libs/basic-components";
 
 describe("RoutesPreview", () => {
   it("should work", async () => {
@@ -37,5 +38,13 @@ describe("RoutesPreview", () => {
     expect(wrapper.find(".previewTag").length).toBe(3);
     wrapper.find(".previewTag").at(0).simulate("click");
     expect(onNodeClick).toHaveBeenCalled();
+    wrapper.find(ItemActionsComponent).first().invoke("onVisibleChange")(true);
+    expect(
+      wrapper
+        .find(".previewTag")
+        .first()
+        .prop("className")
+        .includes("actionsVisible")
+    ).toBe(true);
   });
 });
