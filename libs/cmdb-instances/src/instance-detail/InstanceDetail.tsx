@@ -217,6 +217,7 @@ export class LegacyInstanceDetail extends React.Component<
     );
   }
 
+  // istanbul ignore next
   onActionClick(eventName: string) {
     if (this.props.onActionClick) {
       this.props.onActionClick(eventName);
@@ -344,6 +345,7 @@ export class LegacyInstanceDetail extends React.Component<
     });
   }
 
+  // istanbul ignore next
   getAttrListNode(attr: any): React.ReactNode {
     const { isStruct, isStructs, isRelation, isMarkdownField } = this;
     const { modelDataMap, modelData, instanceData } = this.state;
@@ -462,6 +464,7 @@ export class LegacyInstanceDetail extends React.Component<
     );
   }
 
+  // istanbul ignore next
   setBasicInfoGroupList(state: LegacyInstanceDetailState) {
     let { modelData, basicInfoGroupList } = state;
     const { attributeKeys, fieldsByTag } = this.props;
@@ -603,6 +606,7 @@ export class LegacyInstanceDetail extends React.Component<
     basicInfoGroup.active = !basicInfoGroup.active;
   }
 
+  // istanbul ignore next
   async fetchData(props: LegacyInstanceDetailProps): Promise<void> {
     let modelListData, modelDataMap, modelData, instanceData;
     try {
