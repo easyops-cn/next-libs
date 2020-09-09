@@ -1252,10 +1252,10 @@
   resolved "http://registry.npm.easyops.local/@easyops/custom-antd-styles/download/@easyops/custom-antd-styles-1.0.0-next.1.tgz#29743ed0d080051919a6ce23e555b2f081906715"
   integrity sha1-KXQ+0NCABRkZps4j5VWy8IGQZxU=
 
-"@easyops/dev-dependencies@^1.0.0-next.11":
-  version "1.0.0-next.11"
-  resolved "http://registry.npm.easyops.local/@easyops/dev-dependencies/download/@easyops/dev-dependencies-1.0.0-next.11.tgz#c6b65a01df7bfa6e3fe8fb519a8e9679287baf23"
-  integrity sha1-xrZaAd97+m4/6PtRmo6WeSh7ryM=
+"@easyops/dev-dependencies@^1.0.0-next.12":
+  version "1.0.0-next.12"
+  resolved "http://registry.npm.easyops.local/@easyops/dev-dependencies/download/@easyops/dev-dependencies-1.0.0-next.12.tgz#a92a431319f09739892c5127f654c0dcb87dbde9"
+  integrity sha1-qSpDExnwlzmJLFEn9lTA3Lh9vek=
   dependencies:
     "@babel/core" "^7.11.4"
     "@dll/ace" "^2.0.0-next.9"
@@ -1270,7 +1270,7 @@
     "@easyops/build-config-factory" "^2.0.0-next.6"
     "@easyops/custom-antd-styles" "^1.0.0-next.1"
     "@easyops/eslint-config-next" "^1.0.0-next.1"
-    "@easyops/rollup-config-factory" "^2.0.0-next.1"
+    "@easyops/rollup-config-factory" "^2.0.0-next.2"
     "@easyops/webpack-config-factory" "^2.0.0-next.2"
     "@testing-library/jest-dom" "^5.11.3"
     "@testing-library/react" "^10.4.9"
@@ -1315,11 +1315,12 @@
     "@fortawesome/free-brands-svg-icons" "^5.14.0"
     "@fortawesome/free-solid-svg-icons" "^5.14.0"
 
-"@easyops/rollup-config-factory@^2.0.0-next.1":
-  version "2.0.0-next.1"
-  resolved "http://registry.npm.easyops.local/@easyops/rollup-config-factory/download/@easyops/rollup-config-factory-2.0.0-next.1.tgz#f379a17e2c13183dcb25c87872bfd8724656e594"
-  integrity sha1-83mhfiwTGD3LJch4cr/YckZW5ZQ=
+"@easyops/rollup-config-factory@^2.0.0-next.2":
+  version "2.0.0-next.2"
+  resolved "http://registry.npm.easyops.local/@easyops/rollup-config-factory/download/@easyops/rollup-config-factory-2.0.0-next.2.tgz#b9206080f76155f06146cf29bda400263ba8bf71"
+  integrity sha1-uSBggPdhVfBhRs8pvaQAJjuov3E=
   dependencies:
+    postcss-nested "^4.2.3"
     rollup "^2.26.5"
     rollup-plugin-babel "^4.4.0"
     rollup-plugin-commonjs "^10.1.0"
