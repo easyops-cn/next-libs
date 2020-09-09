@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-tree@1.0.0-next.1...@libs/cmdb-tree@1.0.0-next.2) (2020-09-09)
+
+### Features
+
+- **cmdb-tree:** CMDBTree add style property ([e103cb1](https://git.easyops.local/anyclouds/next-libs/commits/e103cb1))
+
 # [1.0.0-next.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-tree@1.0.0-next.0...@libs/cmdb-tree@1.0.0-next.1) (2020-09-04)
 
 ### Bug Fixes
