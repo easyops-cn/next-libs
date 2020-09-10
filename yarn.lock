@@ -1216,10 +1216,10 @@
   resolved "http://registry.npm.easyops.local/@easyops/custom-antd-styles/download/@easyops/custom-antd-styles-0.11.4.tgz#8b2ddcc7200453e2c1f54b8188436659344e6be0"
   integrity sha1-iy3cxyAEU+LB9UuBiENmWTROa+A=
 
-"@easyops/dev-dependencies@^0.7.19":
-  version "0.7.19"
-  resolved "http://registry.npm.easyops.local/@easyops/dev-dependencies/download/@easyops/dev-dependencies-0.7.19.tgz#1f91338997b78511759014545817a9db15e473b0"
-  integrity sha1-H5EziZe3hRF1kBRUWBep2xXkc7A=
+"@easyops/dev-dependencies@^0.7.20":
+  version "0.7.20"
+  resolved "http://registry.npm.easyops.local/@easyops/dev-dependencies/download/@easyops/dev-dependencies-0.7.20.tgz#4af86fe96d92d5dcfb6c5adc8778954415029224"
+  integrity sha1-Svhv6W2S1dz7bFrch3iVRBUCkiQ=
   dependencies:
     "@babel/core" "^7.11.4"
     "@dll/ace" "^1.0.183"
@@ -1234,7 +1234,7 @@
     "@easyops/build-config-factory" "^1.18.11"
     "@easyops/custom-antd-styles" "^0.11.4"
     "@easyops/eslint-config-next" "^0.1.18"
-    "@easyops/rollup-config-factory" "^1.1.13"
+    "@easyops/rollup-config-factory" "^1.2.0"
     "@easyops/webpack-config-factory" "^1.11.2"
     "@testing-library/jest-dom" "^5.11.3"
     "@testing-library/react" "^10.4.9"
@@ -1279,11 +1279,12 @@
     "@fortawesome/free-brands-svg-icons" "^5.14.0"
     "@fortawesome/free-solid-svg-icons" "^5.14.0"
 
-"@easyops/rollup-config-factory@^1.1.13":
-  version "1.1.13"
-  resolved "http://registry.npm.easyops.local/@easyops/rollup-config-factory/download/@easyops/rollup-config-factory-1.1.13.tgz#91500837597648aa9d94a73280f86f0889f8226b"
-  integrity sha1-kVAIN1l2SKqdlKcygPhvCIn4Ims=
+"@easyops/rollup-config-factory@^1.2.0":
+  version "1.2.0"
+  resolved "http://registry.npm.easyops.local/@easyops/rollup-config-factory/download/@easyops/rollup-config-factory-1.2.0.tgz#d510fe8a70943b5b0a2f09c23968f5775843da86"
+  integrity sha1-1RD+inCUO1sKLwnCOWj1d1hD2oY=
   dependencies:
+    postcss-nested "^4.2.3"
     rollup "^2.26.5"
     rollup-plugin-babel "^4.4.0"
     rollup-plugin-commonjs "^10.1.0"
