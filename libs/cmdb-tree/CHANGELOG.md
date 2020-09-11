@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.3](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-tree@1.0.0-next.2...@libs/cmdb-tree@1.0.0-next.3) (2020-09-11)
+
+### Bug Fixes
+
+- **cmdb-tree:** CMDBTree initTree outermost try to get by treeRequest.object_id when there is no item corresponding toselectedObjectId ([bec8ab5](https://git.easyops.local/anyclouds/next-libs/commits/bec8ab5))
+
 # [1.0.0-next.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-tree@1.0.0-next.1...@libs/cmdb-tree@1.0.0-next.2) (2020-09-09)
 
 ### Features
