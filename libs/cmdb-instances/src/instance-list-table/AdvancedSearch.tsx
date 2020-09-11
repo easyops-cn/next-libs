@@ -1,6 +1,6 @@
 import React, { ChangeEvent, FormEvent } from "react";
 import update from "immutability-helper";
-import { isEqual } from "lodash";
+import { isEqual, find, startsWith, findKey, isNil } from "lodash";
 import { Form } from "@ant-design/compatible";
 import { Button, Col, Input, Row, Select } from "antd";
 import { FormComponentProps } from "@ant-design/compatible/lib/form";
@@ -320,10 +320,21 @@ export function getFieldConditionsAndValues(
   relationSideId?: string,
   index?: number
 ) {
+  let isRelationWithNoExpression = false;
   let expressions = fieldQueryOperatorExpressionsMap[id];
   let expressionsKeysStr: string;
   if (!expressions && isRelation) {
-    expressions = fieldQueryOperatorExpressionsMap[relationSideId];
+    isRelationWithNoExpression = true;
+    const relatedKey = findKey(fieldQueryOperatorExpressionsMap, (v, k) =>
+      startsWith(k, `${relationSideId}.`)
+    );
+    const relatedExpressions = fieldQueryOperatorExpressionsMap[relatedKey];
+    if (
+      relatedExpressions &&
+      !isNil(relatedExpressions[ElementOperators.Exists])
+    ) {
+      expressions = fieldQueryOperatorExpressionsMap[relatedKey];
+    }
   }
 
   if (expressions) {
@@ -408,7 +419,7 @@ export function getFieldConditionsAndValues(
     isRelation &&
     expressions &&
     currentCondition.operations[0].operator === ElementOperators.Exists &&
-    index !== 0
+    isRelationWithNoExpression
   ) {
     disabled = true;
     currentCondition = availableConditions[0];
@@ -443,7 +454,7 @@ export interface AdvancedSearchFormProps extends FormComponentProps {
   modelData: Partial<CmdbModels.ModelCmdbObject>;
   q?: Query[];
   placeholder?: string;
-  onSearch?(queries: Query[]): void;
+  onSearch?(queries: Query[], queriesToShow?: Query[]): void;
   onChange?(e: ChangeEvent<HTMLInputElement>): void;
 }
 
@@ -533,13 +544,13 @@ export class AdvancedSearchForm extends React.Component<
         });
       },
       (relation, sides) => {
-        const showKeys = getInstanceNameKeys(
-          this.props.idObjectMap[
-            relation[`${sides.that}_object_id` as RelationObjectIdKeys]
-          ]
-        );
-
+        const relationObject = this.props.idObjectMap[
+          relation[`${sides.that}_object_id` as RelationObjectIdKeys]
+        ];
+        const showKeys = getInstanceNameKeys(relationObject);
         showKeys.forEach((showKey, index) => {
+          const nameOfShowKey =
+            find(relationObject?.attrList, ["id", showKey])?.name ?? showKey;
           const id = `${
             relation[`${sides.this}_id` as RelationIdKeys]
           }.${showKey}`;
@@ -549,7 +560,7 @@ export class AdvancedSearchForm extends React.Component<
             id,
             name: `${
               relation[`${sides.this}_name` as RelationNameKeys]
-            }(${showKey})`,
+            }(${nameOfShowKey})`,
             attrValue: { type },
             isRelation: true,
             relationSideId: relation[`${sides.this}_id` as RelationIdKeys],
@@ -767,19 +778,24 @@ export class AdvancedSearchForm extends React.Component<
   handleSearch = (e: FormEvent<any>): void => {
     e.preventDefault();
     if (this.props.onSearch) {
+      // 当过滤字段为relation并且过滤条件为ElementOperators.Exists的时候，发起后台请求的搜索queries与负责前端展示的query不同。需要额外处理。
       let queries: Query[] = [];
+      let queriesToShow: Query[] = [];
       this.state.fields.forEach((field) => {
         const expressions: QueryOperatorExpressions = {};
         let fieldQuery: Query = { [field.id]: expressions };
+        let fieldQueryToShow: Query = { [field.id]: expressions };
         let hasValue = false;
         field.values.forEach((value, index) => {
           const operation = field.currentCondition.operations[index];
-
           const fieldId =
             field.isRelation && ElementOperators.Exists === operation.operator
               ? field.relationSideId
               : field.id;
           fieldQuery = { [fieldId]: expressions };
+
+          const fieldIdToShow = field.id;
+          fieldQueryToShow = { [fieldIdToShow]: expressions };
 
           if (
             value !== null &&
@@ -818,6 +834,23 @@ export class AdvancedSearchForm extends React.Component<
                   }
                 ),
               };
+              fieldQueryToShow = {
+                [multiValueSearchOperator.logicalOperator]: values.map(
+                  (value) => {
+                    if (operation.prefix) {
+                      value = operation.prefix + value;
+                    }
+                    if (operation.suffix) {
+                      value += operation.suffix;
+                    }
+                    return {
+                      [fieldIdToShow]: {
+                        [operation.operator]: value,
+                      },
+                    };
+                  }
+                ),
+              };
             } else {
               value = convertValue(field.attrValue.type, value);
               if (operation.prefix) {
@@ -833,19 +866,21 @@ export class AdvancedSearchForm extends React.Component<
         });
         if (hasValue) {
           queries.push(fieldQuery);
+          queriesToShow.push(fieldQueryToShow);
         }
       });
       if (queries.length === 0) {
         queries = undefined;
+        queriesToShow = undefined;
       }
       if (!isEqual(this.props.q, queries)) {
-        this.props.onSearch(queries);
+        this.props.onSearch(queries, queriesToShow);
       }
     }
   };
 
   handleReset = () => {
-    this.props.onSearch([]);
+    this.props.onSearch([], []);
     this.props.form.resetFields();
   };
 

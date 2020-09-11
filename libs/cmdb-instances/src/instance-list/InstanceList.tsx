@@ -11,6 +11,7 @@ import {
   sortBy,
   uniqueId,
   findIndex,
+  find,
 } from "lodash";
 import { handleHttpError } from "@easyops/brick-kit";
 import {
@@ -107,14 +108,16 @@ function translateConditions(
   modelData.relation_list.forEach((relation) => {
     const sides = getRelationObjectSides(relation, modelData);
     const objectId = relation[`${sides.this}_id` as RelationIdKeys];
-    const nameKeys = getInstanceNameKeys(
-      idObjectMap[relation[`${sides.that}_object_id` as RelationObjectIdKeys]]
-    );
+    const relationObject =
+      idObjectMap[relation[`${sides.that}_object_id` as RelationObjectIdKeys]];
+    const nameKeys = getInstanceNameKeys(relationObject);
     nameKeys.forEach((nameKey) => {
+      const nameOfNameKey =
+        find(relationObject?.attrList, ["id", nameKey])?.name ?? nameKey;
       const id = `${objectId}.${nameKey}`;
       const name = `${
         relation[`${sides.this}_name` as RelationNameKeys]
-      }(${nameKey})`;
+      }(${nameOfNameKey})`;
       relations.push({
         id,
         name,
@@ -185,6 +188,7 @@ interface InstanceListProps {
   searchDisabled?: boolean;
   sortDisabled?: boolean;
   aq?: Query[];
+  aqToShow?: Query[];
   advancedSearchDisabled?: boolean;
   page?: number;
   pageSize?: number;
@@ -220,6 +224,7 @@ interface InstanceListProps {
 interface InstanceListState {
   q: string;
   aq: Query[];
+  aqToShow?: Query[];
   asc: boolean;
   sort: string;
   page: number;
@@ -323,6 +328,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
   const initState: InstanceListState = {
     q: props.q,
     aq: props.aq,
+    aqToShow: props.aqToShow,
     asc: props.asc,
     sort: props.sort,
     page: props.page,
@@ -494,8 +500,11 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     props.onSearch?.(q);
   };
 
-  const onAdvancedSearch = (queries: Query[]) => {
-    setState({ aq: queries });
+  const onAdvancedSearch = (queries: Query[], queriesToShow: Query[]) => {
+    setState({
+      aq: queries,
+      aqToShow: queriesToShow,
+    });
     props.onAdvancedSearch?.(queries);
   };
 
@@ -566,6 +575,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
   const onAdvancedSearchCloseGen = (attrId: string, valuesStr: string) => {
     return () => {
       const queries: Query[] = [];
+      const queriesToShow: Query[] = [];
       state.aq.forEach((query) => {
         const key = Object.keys(query)[0];
         if (
@@ -584,11 +594,36 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
           queries.push(query);
         }
       });
-      setState({ aq: queries });
+      state.aqToShow.forEach((query) => {
+        const key = Object.keys(query)[0];
+        if (
+          (key === "$or" || key === "$and") &&
+          Object.keys((query[key] as Query[])[0])[0] === attrId
+        ) {
+          const filteredSubQueries = (query[key] as Query[]).filter((query) => {
+            return Object.values(query[attrId]).join(" ") !== valuesStr;
+          });
+          if (filteredSubQueries.length > 0) {
+            queriesToShow.push({
+              [key]: filteredSubQueries,
+            });
+          }
+        } else if (key !== attrId) {
+          queriesToShow.push(query);
+        }
+      });
+      setState({
+        aq: queries,
+        aqToShow: queriesToShow,
+      });
       props.onAdvancedSearch?.(queries);
     };
   };
-  const conditions = translateConditions(state.aq, idObjectMap, modelData);
+  const conditions = translateConditions(
+    state.aqToShow,
+    idObjectMap,
+    modelData
+  );
 
   return (
     <Spin spinning={state.loading}>
@@ -699,7 +734,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
                 fieldIds={state.fieldIds}
                 idObjectMap={state.idObjectMap}
                 modelData={modelData}
-                q={state.aq}
+                q={state.aqToShow}
                 onSearch={onAdvancedSearch}
               />
             </div>
