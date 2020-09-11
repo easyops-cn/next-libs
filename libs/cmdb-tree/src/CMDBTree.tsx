@@ -206,7 +206,8 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
 
     if (anchorTree && anchorTree[objectId]) {
       this.convertTrees(anchorTree[objectId], this.relations);
-      const outermost = anchorTree[this.props.selectedObjectId][0];
+      const outermost = (anchorTree[this.props.selectedObjectId] ??
+        anchorTree[objectId])[0];
       const node = nodes.find((node) => node.key === outermost.instanceId);
       node.children = outermost.children;
       this.findExpandKeys(node, expandKeys);
