@@ -35,7 +35,7 @@
     "@easyops/brick-kit": "^1.65.1",
     "@easyops/brick-types": "^1.54.1",
     "@easyops/brick-utils": "^1.55.1",
-    "@easyops/dev-dependencies": "^0.7.23",
+    "@easyops/dev-dependencies": "^0.7.24",
     "@easyops/fontawesome-library": "^1.1.8",
     "@fortawesome/react-fontawesome": "^0.1.11",
     "@size-limit/file": "^4.5.5",
@@ -85,7 +85,7 @@
   ],
   "easyops": {
     "create-next-repo": "0.10.1",
-    "dev-dependencies": "0.7.23"
+    "dev-dependencies": "0.7.24"
   },
   "resolutions": {
     "lodash": "^4.17.20",
