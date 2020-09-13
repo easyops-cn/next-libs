@@ -36,7 +36,8 @@ exports[`AddStructModal should init addStructModal 1`] = `
       ：
     </label>
     <Select
-      choiceTransitionName="zoom"
+      bordered={true}
+      choiceTransitionName=""
       defaultValue={
         Array [
           "abc",
@@ -45,7 +46,6 @@ exports[`AddStructModal should init addStructModal 1`] = `
       }
       mode="tags"
       onChange={[Function]}
-      showSearch={false}
       style={
         Object {
           "width": "100%",
@@ -80,7 +80,7 @@ exports[`AddStructModal should init addStructModal 1`] = `
       数组
       ：
     </label>
-    <InputNumber
+    <ForwardRef
       defaultValue={1000}
       onChange={[Function]}
       step={1}
@@ -129,8 +129,7 @@ exports[`AddStructModal should init addStructModal 1`] = `
       枚举
       ：
     </label>
-    <RadioGroup
-      buttonStyle="outline"
+    <Memo([object Object])
       defaultValue="1"
       onChange={[Function]}
     >
@@ -169,7 +168,7 @@ exports[`AddStructModal should init addStructModal 1`] = `
       >
         9
       </Radio>
-    </RadioGroup>
+    </Memo([object Object])>
   </div>
   <div
     className="formItem"
@@ -181,15 +180,10 @@ exports[`AddStructModal should init addStructModal 1`] = `
       日期
       ：
     </label>
-    <PickerWrapper
+    <Picker
       defaultValue={"2019-05-23T16:00:00.000Z"}
-      locale={Object {}}
       onChange={[Function]}
-      onOk={[Function]}
-      onOpenChange={[Function]}
-      popupStyle={Object {}}
       showTime={false}
-      transitionName="slide-up"
     />
   </div>
   <div
@@ -202,15 +196,10 @@ exports[`AddStructModal should init addStructModal 1`] = `
       时间
       ：
     </label>
-    <PickerWrapper
+    <Picker
       defaultValue={"2019-05-24T04:00:00.000Z"}
-      locale={Object {}}
       onChange={[Function]}
-      onOk={[Function]}
-      onOpenChange={[Function]}
-      popupStyle={Object {}}
       showTime={true}
-      transitionName="slide-up"
     />
   </div>
 </Modal>
@@ -223,7 +212,54 @@ exports[`AddStructModal should render Select 1`] = `
 `;
 
 exports[`AddStructModal should render radio group 1`] = `
-<ContextConsumer>
-  <Component />
-</ContextConsumer>
+<ContextProvider
+  value={
+    Object {
+      "disabled": undefined,
+      "name": undefined,
+      "onChange": [Function],
+      "value": "1",
+    }
+  }
+>
+  <div
+    className="ant-radio-group ant-radio-group-undefined"
+  >
+    <Radio
+      key="1"
+      type="radio"
+      value="1"
+    >
+      1
+    </Radio>
+    <Radio
+      key="3"
+      type="radio"
+      value="3"
+    >
+      3
+    </Radio>
+    <Radio
+      key="5"
+      type="radio"
+      value="5"
+    >
+      5
+    </Radio>
+    <Radio
+      key="7"
+      type="radio"
+      value="7"
+    >
+      7
+    </Radio>
+    <Radio
+      key="9"
+      type="radio"
+      value="9"
+    >
+      9
+    </Radio>
+  </div>
+</ContextProvider>
 `;

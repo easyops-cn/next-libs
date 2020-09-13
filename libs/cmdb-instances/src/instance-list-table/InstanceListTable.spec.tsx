@@ -5,17 +5,17 @@ import { createHistory } from "@easyops/brick-kit";
 import {
   ReadPaginationChangeDetail,
   ReadSortingChangeDetail,
-  PropertyDisplayType
+  PropertyDisplayType,
 } from "@easyops/brick-types";
 
 import { InstanceListTable } from "./InstanceListTable";
 import { getInstanceListData, HOST } from "./data-providers/__mocks__";
 createHistory();
 
-const ipAttr = HOST.attrList.find(attr => attr.id === "ip");
+const ipAttr = HOST.attrList.find((attr) => attr.id === "ip");
 const idObjectMap = { HOST };
 const detailUrlTemplates = {
-  default: "/cmdb-instances/#{objectId}/instance/#{instanceId}"
+  default: "/cmdb-instances/#{objectId}/instance/#{instanceId}",
 };
 
 const mockOnPaginationChange = jest.fn();
@@ -24,7 +24,7 @@ const mockOnSelectionChange = jest.fn();
 const mockElementName = "mock-element";
 
 function getRelationValue(instances: Record<string, any>[]): string {
-  return String(instances.map(instance => instance.name));
+  return String(instances.map((instance) => instance.name));
 }
 
 afterEach(() => {
@@ -45,7 +45,7 @@ describe("InstanceListTable", () => {
           "status",
           "hostname",
           "owner",
-          "_deviceList_CLUSTER"
+          "_deviceList_CLUSTER",
         ]}
         idObjectMap={idObjectMap}
         modelData={HOST}
@@ -66,7 +66,7 @@ describe("InstanceListTable", () => {
         container.getElementsByClassName("ant-table-thead")[0] as HTMLElement,
         ipAttr.name
       ).parentElement.getElementsByClassName("ant-table-column-sorter-up")[0]
-    ).toHaveClass("on");
+    ).toHaveClass("active");
   });
 
   it("should call function that is passed to the onClickItem property when click link", () => {
@@ -133,7 +133,7 @@ describe("InstanceListTable", () => {
     );
     expect(mockOnPaginationChange).toBeCalledWith({
       page,
-      pageSize
+      pageSize,
     });
     expect(mockOnSortingChange).not.toBeCalled();
     rerender(
@@ -196,7 +196,7 @@ describe("InstanceListTable", () => {
     );
     expect(mockOnSortingChange).toBeCalledWith({
       sort: ipAttr.id,
-      asc: true
+      asc: true,
     });
     expect(mockOnPaginationChange).not.toBeCalled();
     rerender(
@@ -216,7 +216,7 @@ describe("InstanceListTable", () => {
         container.getElementsByClassName("ant-table-thead")[0] as HTMLElement,
         ipAttr.name
       ).parentElement.getElementsByClassName("ant-table-column-sorter-up")[0]
-    ).toHaveClass("on");
+    ).toHaveClass("active");
   });
 
   it(`should not throw error after table head "${ipAttr.name}" clicked, when there is not function passed to the onSortingChange property`, () => {
@@ -257,7 +257,7 @@ describe("InstanceListTable", () => {
     );
     expect(mockOnSelectionChange).toBeCalledWith({
       selectedKeys: [instance.instanceId],
-      selectedItems: [instance]
+      selectedItems: [instance],
     });
   });
 
@@ -296,7 +296,7 @@ describe("InstanceListTable", () => {
         instanceListData={instanceListData}
         propertyDisplayConfigs={[
           { key: attributeKey, brick: mockElementName },
-          { key: relationKey, brick: mockElementName }
+          { key: relationKey, brick: mockElementName },
         ]}
       />
     );
@@ -323,12 +323,12 @@ describe("InstanceListTable", () => {
           {
             key: attributeKey,
             type: PropertyDisplayType.Tag,
-            valueColorMap: { 运营中: "green" }
+            valueColorMap: { 运营中: "green" },
           },
           {
             key: "tag",
-            type: PropertyDisplayType.Tag
-          }
+            type: PropertyDisplayType.Tag,
+          },
         ]}
       />
     );

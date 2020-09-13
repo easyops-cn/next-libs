@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { CmdbModels, InstanceApi } from "@sdk/cmdb-sdk";
-import { Form } from "antd";
+import { Form } from "@ant-design/compatible";
 import { get, keyBy } from "lodash";
-import { FormComponentProps } from "antd/lib/form";
+import { FormComponentProps } from "@ant-design/compatible/lib/form";
 import { ModelAttributeFormControl } from "../model-attribute-form-control/ModelAttributeFormControl";
 
 import i18n from "i18next";
@@ -11,7 +11,7 @@ import { NS_LIBS_CMDB_INSTANCES, K } from "../i18n/constants";
 import {
   ModifiedModelObjectAttr,
   ModifiedModelObjectRelation,
-  ModifiedModelObjectField
+  ModifiedModelObjectField,
 } from "@libs/cmdb-utils";
 
 import { ModelRelationForm } from "../model-relation-form/ModelRelationForm";
@@ -29,8 +29,7 @@ export interface InstanceAttributeFormProps extends FormComponentProps {
 }
 
 export class LegacyInstanceAttributeForm extends Component<
-  InstanceAttributeFormProps,
-  {}
+  InstanceAttributeFormProps
 > {
   private modelMap: Record<string, Partial<CmdbModels.ModelCmdbObject>> = {};
 
@@ -47,7 +46,7 @@ export class LegacyInstanceAttributeForm extends Component<
   ) => {
     const formItemLayout = {
       labelCol: { span: 4 },
-      wrapperCol: { span: 18 }
+      wrapperCol: { span: 18 },
     };
 
     const InitialRelationValue = get(
@@ -82,11 +81,11 @@ export class LegacyInstanceAttributeForm extends Component<
     const { getFieldDecorator } = form;
     const formItemLayout = {
       labelCol: { span: 4 },
-      wrapperCol: { span: 18 }
+      wrapperCol: { span: 18 },
     };
     const collapse =
       basicInfoAttrList &&
-      basicInfoAttrList.map(attribute =>
+      basicInfoAttrList.map((attribute) =>
         attribute.__isRelation ? (
           this.renderRelationFormControl(attribute)
         ) : (
@@ -99,13 +98,13 @@ export class LegacyInstanceAttributeForm extends Component<
               rules: [
                 {
                   required:
-                    (attribute as ModifiedModelObjectAttr).required !== "false"
-                }
+                    (attribute as ModifiedModelObjectAttr).required !== "false",
+                },
               ],
               initialValue: get(
                 this.props.attributeFormControlInitialValueMap,
                 attribute.__id
-              )
+              ),
             })(
               <ModelAttributeFormControl
                 isCreate={this.props.isCreate}
@@ -122,6 +121,8 @@ export class LegacyInstanceAttributeForm extends Component<
 export const InstanceAttributeForm = Form.create<InstanceAttributeFormProps>({
   name: "instanceAttributeForm",
   validateMessages: {
-    required: i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.VALIDATE_MESSAGE_REQUIRED}`)
-  }
+    required: i18n.t(
+      `${NS_LIBS_CMDB_INSTANCES}:${K.VALIDATE_MESSAGE_REQUIRED}`
+    ),
+  },
 })(LegacyInstanceAttributeForm);

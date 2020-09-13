@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.3](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@1.0.0-next.2...@libs/basic-components@1.0.0-next.3) (2020-09-09)
+
+### Features
+
+- **basic-components:** ItemActionsComponent add onVisibleChange property ([6d9bef9](https://git.easyops.local/anyclouds/next-libs/commits/6d9bef9))
+
+# [1.0.0-next.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@1.0.0-next.1...@libs/basic-components@1.0.0-next.2) (2020-08-30)
+
+### Bug Fixes
+
+- **menu:** ignore menu-item title in sub-menu ([6220fd6](https://git.easyops.local/anyclouds/next-libs/commits/6220fd6))
+
+### Features
+
+- **badge:** 把 badge 抽到 libs 中 ([001f9a8](https://git.easyops.local/anyclouds/next-libs/commits/001f9a8))
+
 # [0.27.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@0.26.4...@libs/basic-components@0.27.0) (2020-08-20)
 
 ### Features
@@ -14,6 +30,22 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Bug Fixes
 
 - **menu:** ignore menu-item title in sub-menu ([6220fd6](https://git.easyops.local/anyclouds/next-libs/commits/6220fd6))
+
+# [1.0.0-next.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@1.0.0-next.0...@libs/basic-components@1.0.0-next.1) (2020-08-25)
+
+**Note:** Version bump only for package @libs/basic-components
+
+# [1.0.0-next.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@0.26.3...@libs/basic-components@1.0.0-next.0) (2020-08-13)
+
+### Features
+
+- **basic-components:** antd v4 migaration ([e11bf00](https://git.easyops.local/anyclouds/next-libs/commits/e11bf00))
+
+### BREAKING CHANGES
+
+- **basic-components:** antd v4 migration
+
+Closes BRICK_STORE-1666
 
 ## [0.26.3](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@0.26.2...@libs/basic-components@0.26.3) (2020-08-13)
 

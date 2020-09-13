@@ -20,7 +20,8 @@ import {
   ReadSortingChangeDetail,
 } from "@easyops/brick-types";
 import { CmdbModels, InstanceApi } from "@sdk/cmdb-sdk";
-import { Button, Checkbox, Icon, Spin, Input, Tag } from "antd";
+import { Icon as LegacyIcon } from "@ant-design/compatible";
+import { Button, Checkbox, Spin, Input, Tag } from "antd";
 import {
   getRelationObjectSides,
   forEachAvailableFields,
@@ -623,7 +624,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
                     data-testid="advanced-search-toggle-btn"
                   >
                     高级搜索
-                    <Icon
+                    <LegacyIcon
                       type={state.isAdvancedSearchVisible ? "up" : "down"}
                     />
                   </Button>

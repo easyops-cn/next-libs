@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, ReactElement } from "react";
-import { Icon } from "antd";
-import { IconProps } from "antd/lib/icon";
+import { Icon as LegacyIcon } from "@ant-design/compatible";
+import { IconProps } from "@ant-design/compatible/lib/icon";
 
 export interface ClipboardProps {
   text: string;
@@ -49,7 +49,7 @@ export function Clipboard(
   const { onCopy, icon, children, ...restProps } = props;
   const defaultIconProps = {
     theme: "filled",
-    type: "copy"
+    type: "copy",
   };
 
   const onCopyButtonClick = () => {
@@ -60,7 +60,7 @@ export function Clipboard(
   return (
     <>
       {!props.children ? (
-        <Icon
+        <LegacyIcon
           {...Object.assign({}, defaultIconProps, icon)}
           onClick={onCopyButtonClick}
         />
@@ -69,7 +69,7 @@ export function Clipboard(
           React.Children.only(props.children) as ReactElement,
           {
             ...restProps,
-            onClick: onCopyButtonClick
+            onClick: onCopyButtonClick,
           }
         )
       )}

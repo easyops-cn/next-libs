@@ -1,4 +1,4 @@
-import { WrappedFormUtils } from "antd/lib/form/Form";
+import { WrappedFormUtils } from "@ant-design/compatible/lib/form/Form";
 import { ColProps } from "antd/lib/col";
 import React from "react";
 import { MenuIcon, UseBrickConf } from "@easyops/brick-types";

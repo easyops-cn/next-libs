@@ -39,8 +39,13 @@
 .previewTag:hover {
   background-color: var(--theme-blue-background);
 }
-.previewTag:hover .contentItemToolbar {
-  display: flex;
+.previewTag {
+  &:hover,
+  &.actionsVisible {
+    .contentItemToolbar {
+      display: flex;
+    }
+  }
 }
 .contentItemEllipsisButtonAvailable:hover {
   padding-right: 30px;

@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/permission-utils@1.0.0-next.0...@libs/permission-utils@1.0.0-next.1) (2020-08-25)
+
+### Bug Fixes
+
+- **permission-utils:** CommonSetting 的 Table 的 columns 的嵌套 dataIndex 改为数组形式的 ([8ba240a](https://git.easyops.local/anyclouds/next-libs/commits/8ba240a))
+
+# [1.0.0-next.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/permission-utils@0.7.37...@libs/permission-utils@1.0.0-next.0) (2020-08-13)
+
+### Features
+
+- **permission-utils:** antd v4 migaration ([0695334](https://git.easyops.local/anyclouds/next-libs/commits/0695334))
+
+### BREAKING CHANGES
+
+- **permission-utils:** antd v4 migration
+
+Closes BRICK_STORE-1666
+
 ## [0.7.37](https://git.easyops.local/anyclouds/next-libs/compare/@libs/permission-utils@0.7.36...@libs/permission-utils@0.7.37) (2020-06-03)
 
 **Note:** Version bump only for package @libs/permission-utils

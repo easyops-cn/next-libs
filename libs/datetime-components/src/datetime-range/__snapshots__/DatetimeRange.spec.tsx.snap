@@ -24,7 +24,7 @@ exports[`DatetimeRange should work 1`] = `
       >
         快速选择：
       </div>
-      <RadioGroup
+      <Memo
         buttonStyle="solid"
         className="btnGroup"
         onChange={[Function]}
@@ -35,37 +35,37 @@ exports[`DatetimeRange should work 1`] = `
         }
         value="now-7d"
       >
-        <RadioButton
+        <ForwardRef(RadioButton)
           className="now-1h"
           value="now-1h"
         >
           近1小时
-        </RadioButton>
-        <RadioButton
+        </ForwardRef(RadioButton)>
+        <ForwardRef(RadioButton)
           className="now-1d"
           value="now-1d"
         >
           近24小时
-        </RadioButton>
-        <RadioButton
+        </ForwardRef(RadioButton)>
+        <ForwardRef(RadioButton)
           className="now/d"
           value="now/d"
         >
           今天
-        </RadioButton>
-        <RadioButton
+        </ForwardRef(RadioButton)>
+        <ForwardRef(RadioButton)
           className="now-7d"
           value="now-7d"
         >
           近7天
-        </RadioButton>
-        <RadioButton
+        </ForwardRef(RadioButton)>
+        <ForwardRef(RadioButton)
           className="now-30d"
           value="now-30d"
         >
           近30天
-        </RadioButton>
-      </RadioGroup>
+        </ForwardRef(RadioButton)>
+      </Memo>
       <div
         style={
           Object {
@@ -87,20 +87,16 @@ exports[`DatetimeRange should work 1`] = `
           }
         }
       >
-        <PickerWrapper
+        <RangePicker
           allowClear={false}
           format="YYYY-MM-DD HH:mm:ss"
-          locale={Object {}}
           onChange={[Function]}
-          onOk={[Function]}
-          onOpenChange={[Function]}
           placeholder={
             Array [
               "开始日期",
               "结束日期",
             ]
           }
-          popupStyle={Object {}}
           showTime={
             Object {
               "defaultValue": Array [
@@ -114,7 +110,6 @@ exports[`DatetimeRange should work 1`] = `
               "width": "380px",
             }
           }
-          transitionName="slide-up"
           value={null}
         />
       </div>
@@ -145,13 +140,12 @@ exports[`DatetimeRange should work 1`] = `
     htmlType="button"
     loading={false}
   >
-    <Icon
+    <ForwardRef(ClockCircleOutlined)
       style={
         Object {
           "verticalAlign": "middle",
         }
       }
-      type="clock-circle"
     />
      
     近7天

@@ -25,15 +25,13 @@ exports[`InstanceDetail should work 1`] = `
           transitionName="zoom-big"
           trigger="hover"
         >
-          <Icon
+          <ForwardRef(InfoCircleFilled)
             className="colorBlue"
             style={
               Object {
                 "marginLeft": "6px",
               }
             }
-            theme="filled"
-            type="info-circle"
           />
         </Popover>
       </React.Fragment>
@@ -108,13 +106,10 @@ exports[`InstanceDetail should work 2`] = `
               </MenuItem>
             </Menu>
           }
-          placement="bottomLeft"
         >
           <a>
             更多 
-            <Icon
-              type="down"
-            />
+            <ForwardRef(DownOutlined) />
           </a>
         </Dropdown>
       </div>
@@ -131,15 +126,13 @@ exports[`InstanceDetail should work 2`] = `
           transitionName="zoom-big"
           trigger="hover"
         >
-          <Icon
+          <ForwardRef(InfoCircleFilled)
             className="colorBlue"
             style={
               Object {
                 "marginLeft": "6px",
               }
             }
-            theme="filled"
-            type="info-circle"
           />
         </Popover>
       </React.Fragment>
@@ -179,15 +172,13 @@ exports[`InstanceDetail test brickConfigList 1`] = `
           transitionName="zoom-big"
           trigger="hover"
         >
-          <Icon
+          <ForwardRef(InfoCircleFilled)
             className="colorBlue"
             style={
               Object {
                 "marginLeft": "6px",
               }
             }
-            theme="filled"
-            type="info-circle"
           />
         </Popover>
       </React.Fragment>
@@ -239,15 +230,13 @@ exports[`InstanceDetail test fieldsByTag 1`] = `
           transitionName="zoom-big"
           trigger="hover"
         >
-          <Icon
+          <ForwardRef(InfoCircleFilled)
             className="colorBlue"
             style={
               Object {
                 "marginLeft": "6px",
               }
             }
-            theme="filled"
-            type="info-circle"
           />
         </Popover>
       </React.Fragment>

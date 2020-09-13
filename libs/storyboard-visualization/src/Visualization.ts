@@ -2,9 +2,9 @@ import {
   hierarchy,
   tree,
   HierarchyPointNode,
-  HierarchyPointLink
+  HierarchyPointLink,
 } from "d3-hierarchy";
-import { create, Selection, ValueFn } from "d3-selection";
+import { create, Selection } from "d3-selection";
 import {
   linkHorizontal,
   symbol,
@@ -12,7 +12,7 @@ import {
   symbolDiamond,
   symbolSquare,
   SymbolType,
-  symbolTriangle
+  symbolTriangle,
 } from "d3-shape";
 import { findLast, uniqueId } from "lodash";
 import classNames from "classnames";
@@ -24,11 +24,7 @@ import styles from "./shared/Visualization.module.css";
 
 interface RenderOptions {
   showFullBrickName?: boolean;
-  handleNodeClick?: ValueFn<
-    SVGPathElement,
-    HierarchyPointNode<StoryboardNode>,
-    void
-  >;
+  handleNodeClick?: (data: HierarchyPointNode<StoryboardNode>) => void;
 }
 
 const getBrickName = (
@@ -148,7 +144,7 @@ export class Visualization {
 
     let x0 = Infinity;
     let x1 = -x0;
-    root.each(d => {
+    root.each((d) => {
       if (d.x > x1) x1 = d.x;
       if (d.x < x0) x0 = d.x;
     });
@@ -169,8 +165,8 @@ export class Visualization {
       unknown,
       HierarchyPointNode<StoryboardNode>
     >()
-      .x(d => d.y)
-      .y(d => d.x);
+      .x((d) => d.y)
+      .y((d) => d.x);
 
     this.links = this.links
       .data(
@@ -180,14 +176,14 @@ export class Visualization {
             ({ target }) =>
               target ===
               target.parent.children.find(
-                item => item.data.groupIndex === target.data.groupIndex
+                (item) => item.data.groupIndex === target.data.groupIndex
               )
           )
           .map(({ source, target }) => {
             const offset = 20;
             const lastSibling = findLast(
               target.parent.children,
-              item => item.data.groupIndex === target.data.groupIndex
+              (item) => item.data.groupIndex === target.data.groupIndex
             );
             let targetX = target.x;
             let targetY = target.y;
@@ -200,33 +196,33 @@ export class Visualization {
             return {
               source: {
                 ...source,
-                y: source.y + offset
+                y: source.y + offset,
               },
               target: {
                 ...target,
                 x: targetX,
-                y: targetY
-              }
+                y: targetY,
+              },
             };
           })
       )
-      .join(enter => {
+      .join((enter) => {
         const link = enter.append("g");
         link.append("path").attr("marker-end", `url(#${this.arrowMarkerId})`);
 
         link.append("text").attr("dy", "0.31em");
         return link;
       })
-      .attr("class", d =>
+      .attr("class", (d) =>
         classNames(
           styles.link,
           [
             d.target.data.type,
             (d.target.data as any).brickType,
-            (d.target.data as any).routeType
+            (d.target.data as any).routeType,
           ]
             .filter(Boolean)
-            .map(type => styles[type])
+            .map((type) => styles[type])
         )
       );
 
@@ -234,8 +230,8 @@ export class Visualization {
 
     this.links
       .select("text")
-      .attr("x", d => d.target.y - 5)
-      .attr("y", d => {
+      .attr("x", (d) => d.target.y - 5)
+      .attr("y", (d) => {
         const offset = 8;
         if (d.target.x > d.source.x) {
           return d.target.x + offset;
@@ -274,12 +270,12 @@ export class Visualization {
 
     this.groups = this.groups
       .data(
-        root.descendants().filter(d => {
+        root.descendants().filter((d) => {
           if (!d.parent) {
             return false;
           }
           const siblings = d.parent.children.filter(
-            item => item.data.groupIndex === d.data.groupIndex
+            (item) => item.data.groupIndex === d.data.groupIndex
           );
           if (siblings.length > 1 && siblings[0] === d) {
             return true;
@@ -288,15 +284,16 @@ export class Visualization {
         })
       )
       .join("path")
-      .attr("d", d => {
+      .attr("d", (d) => {
         const lastSibling = findLast(
           d.parent.children,
-          item => item.data.groupIndex === d.data.groupIndex
+          (item) => item.data.groupIndex === d.data.groupIndex
         );
         const x0 = d.x;
         const x1 = lastSibling.x;
-        return `M${d.y - dy / 3} ${x0 - dx / 2}h${(dy * 2) / 3}V${x1 +
-          dx}h${(-dy * 2) / 3}z`;
+        return `M${d.y - dy / 3} ${x0 - dx / 2}h${(dy * 2) / 3}V${x1 + dx}h${
+          (-dy * 2) / 3
+        }z`;
       });
 
     const getSymbolType = (data: StoryboardNode): SymbolType => {
@@ -316,45 +313,45 @@ export class Visualization {
 
     this.nodes = this.nodes
       .data(root.descendants())
-      .join(enter => {
+      .join((enter) => {
         const node = enter.append("g");
         const nodePath = node.append("path");
 
         if (options.handleNodeClick) {
           nodePath.classed(styles.clickable, true);
-          nodePath.on("click", options.handleNodeClick);
+          nodePath.on("click", (event, data) => {
+            // Todo(steve): fixing types (https://github.com/DefinitelyTyped/DefinitelyTyped/issues/38939#issuecomment-683879719)
+            options.handleNodeClick(data as any);
+          });
         } else {
           nodePath.classed(styles.clickable, false);
           nodePath.on("click", null);
         }
 
-        node
-          .append("text")
-          .attr("dy", "0.31em")
-          .attr("y", "1.6em");
+        node.append("text").attr("dy", "0.31em").attr("y", "1.6em");
         return node;
       })
-      .attr("class", d =>
+      .attr("class", (d) =>
         classNames(
           styles.node,
           {
             [styles.leaf]: !d.data.children,
             [styles.template]:
               d.data.type === "brick" && d.data.brickData.template,
-            [styles.provider]: d.data.type === "brick" && d.data.brickData.bg
+            [styles.provider]: d.data.type === "brick" && d.data.brickData.bg,
           },
           [d.data.type, (d.data as any).brickType, (d.data as any).routeType]
             .filter(Boolean)
-            .map(type => styles[type])
+            .map((type) => styles[type])
         )
       )
-      .attr("transform", d => `translate(${d.y},${d.x})`);
+      .attr("transform", (d) => `translate(${d.y},${d.x})`);
 
     this.nodes
       .select("path")
-      .attr("d", d => symbolGenerator.type(getSymbolType(d.data))());
+      .attr("d", (d) => symbolGenerator.type(getSymbolType(d.data))());
 
-    this.nodes.select("text").text(d => {
+    this.nodes.select("text").text((d) => {
       switch (d.data.type) {
         case "app":
           return d.data.appData.name;
@@ -369,63 +366,63 @@ export class Visualization {
         hasChildren: false,
         isTemplate: false,
         isProvider: false,
-        name: "构件"
+        name: "构件",
       },
       {
         type: "brick",
         hasChildren: true,
-        name: "容器构件"
+        name: "容器构件",
       },
       {
         type: "brick",
         hasChildren: false,
         isTemplate: true,
         isProvider: false,
-        name: "模板"
+        name: "模板",
       },
       {
         type: "brick",
         hasChildren: false,
         isTemplate: false,
         isProvider: true,
-        name: "Provider"
+        name: "Provider",
       },
       {
         type: "routes",
-        name: "路由"
+        name: "路由",
       },
       {
         type: "redirect",
-        name: "重定向"
-      }
+        name: "重定向",
+      },
     ];
 
     const legendWidth = width / (legends.length + 1);
     this.legendsContainer
       .selectAll("g")
       .data(legends, (_datum, index) => String(index))
-      .join(enter => {
+      .join((enter) => {
         const node = enter.append("g");
         node
           .append("path")
-          .attr("d", d => symbolGenerator.type(getSymbolType(d as any))());
+          .attr("d", (d) => symbolGenerator.type(getSymbolType(d as any))());
         node
           .append("text")
           .attr("dy", "0.31em")
           .attr("x", 25)
-          .text(d => d.name);
+          .text((d) => d.name);
         return node;
       })
-      .attr("class", d =>
+      .attr("class", (d) =>
         classNames(
           styles.node,
           styles.legend,
           {
             [styles.leaf]: !d.hasChildren,
             [styles.template]: d.isTemplate,
-            [styles.provider]: d.isProvider
+            [styles.provider]: d.isProvider,
           },
-          [d.type].filter(Boolean).map(type => styles[type])
+          [d.type].filter(Boolean).map((type) => styles[type])
         )
       )
       .attr(

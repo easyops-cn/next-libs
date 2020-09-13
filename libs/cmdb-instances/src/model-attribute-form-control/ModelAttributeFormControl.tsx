@@ -23,14 +23,14 @@ export enum ModelAttributeValueType {
   FOREIGN_KEYS = "FKs",
   IP = "ip",
   FLOAT = "float",
-  BOOLEAN = "bool"
+  BOOLEAN = "bool",
 }
 
 export enum ModelAttributeValueModeType {
   MULTIPLE_LINES = "multiple-lines",
   DEFAULT = "default",
   MARKDOWN = "markdown",
-  URL = "url"
+  URL = "url",
 }
 
 export enum FormControlTypeEnum {
@@ -51,7 +51,7 @@ export enum FormControlTypeEnum {
   // fallback to show a plain text span
   _PLAIN_TEXT = "_plain_text",
   MARKDOWN = "markdown",
-  URL = "url"
+  URL = "url",
 }
 
 export interface FormControl {
@@ -90,12 +90,12 @@ export interface ModelAttributeFormControlState {
 export const boolOptions: FormControlSelectItem[] = [
   {
     id: true,
-    text: "true"
+    text: "true",
   },
   {
     id: false,
-    text: "false"
-  }
+    text: "false",
+  },
 ];
 
 export class ModelAttributeFormControl extends Component<
@@ -118,7 +118,7 @@ export class ModelAttributeFormControl extends Component<
           this.props.attribute,
           this.props.id,
           this.props.type
-        )
+        ),
       });
     }
   }
@@ -130,7 +130,7 @@ export class ModelAttributeFormControl extends Component<
       this.state = {
         value,
         errorMessage: null,
-        formControl: this.computeFormControl(attribute, id, type)
+        formControl: this.computeFormControl(attribute, id, type),
       };
     } catch (error) {
       this.state = {
@@ -138,8 +138,8 @@ export class ModelAttributeFormControl extends Component<
         formControl: {
           type: FormControlTypeEnum._PLAIN_TEXT,
           name: attribute.name,
-          id: ""
-        }
+          id: "",
+        },
       };
     }
   }
@@ -163,9 +163,9 @@ export class ModelAttributeFormControl extends Component<
   ): FormControlSelectItem[] {
     if (attribute.value.type === ModelAttributeValueType.ENUM) {
       // The backend guys are notorious to use `regex` as enum candidates. 😢
-      return (attribute.value.regex as string[]).map(enumValue => ({
+      return (attribute.value.regex as string[]).map((enumValue) => ({
         id: enumValue,
-        text: enumValue
+        text: enumValue,
       }));
     }
   }
@@ -255,7 +255,7 @@ export class ModelAttributeFormControl extends Component<
       required: attribute.required === "true",
       readOnly: !this.props.isCreate && attribute.readonly === "true",
       unique: attribute.unique === "true",
-      pattern: ModelAttributeFormControl.computePattern(attribute)
+      pattern: ModelAttributeFormControl.computePattern(attribute),
     };
 
     if (result.type === FormControlTypeEnum.STRUCT) {
@@ -306,7 +306,7 @@ export class ModelAttributeFormControl extends Component<
     }
     return {
       value: value ? moment(value, format) : null,
-      format
+      format,
     };
   }
 
@@ -349,7 +349,7 @@ export class ModelAttributeFormControl extends Component<
     const { attribute } = this.props;
     const {
       value,
-      formControl: { type, ...restProps }
+      formControl: { type, ...restProps },
     } = this.state;
     const unsupportText = `"${type}"类型暂时不支持编辑`;
 
@@ -361,7 +361,7 @@ export class ModelAttributeFormControl extends Component<
             value={value}
             type="text"
             {...props}
-            onChange={e => this.onChange(e)}
+            onChange={(e) => this.onChange(e)}
             className={this.props.className}
             style={this.props.style}
           />
@@ -377,7 +377,7 @@ export class ModelAttributeFormControl extends Component<
             required={required}
             placeholder={placeholder}
             value={value}
-            onChange={e => this.onChange(e)}
+            onChange={(e) => this.onChange(e)}
           />
         );
       }
@@ -426,7 +426,7 @@ export class ModelAttributeFormControl extends Component<
         // NODE: 对非必填单选为空的特殊处理 BY @robertman
         const unselected = {
           id: "-%none%-",
-          text: "暂不选择"
+          text: "暂不选择",
         };
 
         if (!required) {
@@ -440,7 +440,7 @@ export class ModelAttributeFormControl extends Component<
             className={this.props.className}
             style={this.props.style}
           >
-            {items.map(item => (
+            {items.map((item) => (
               <Radio value={item.id} key={String(item.id)}>
                 {item.text}
               </Radio>
@@ -462,8 +462,10 @@ export class ModelAttributeFormControl extends Component<
             className={this.props.className}
           >
             {value &&
-              (value as string[]).map(tag => (
-                <Select.Option key={tag}>{tag}</Select.Option>
+              (value as string[]).map((tag) => (
+                <Select.Option value={tag} key={tag}>
+                  {tag}
+                </Select.Option>
               ))}
           </Select>
         );
@@ -474,7 +476,7 @@ export class ModelAttributeFormControl extends Component<
         let dateConfig = {};
         if (type === FormControlTypeEnum.DATETIME) {
           dateConfig = {
-            showTime: true
+            showTime: true,
           };
         }
         const { readOnly, placeholder } = restProps;

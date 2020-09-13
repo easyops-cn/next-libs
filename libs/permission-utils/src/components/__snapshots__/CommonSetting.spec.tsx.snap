@@ -18,15 +18,21 @@ exports[`CommonSetting should work 1`] = `
       修改权限
     </Button>
   </div>
-  <withStore(Table)
+  <Table
     columns={
       Array [
         Object {
-          "dataIndex": "data.remark",
+          "dataIndex": Array [
+            "data",
+            "remark",
+          ],
           "title": "权限名称",
         },
         Object {
-          "dataIndex": "data.roles",
+          "dataIndex": Array [
+            "data",
+            "roles",
+          ],
           "render": [Function],
           "title": "适用角色",
         },
@@ -280,6 +286,7 @@ exports[`CommonSetting should work 1`] = `
         },
       ]
     }
+    rowKey="key"
   />
   <Modal
     confirmLoading={false}

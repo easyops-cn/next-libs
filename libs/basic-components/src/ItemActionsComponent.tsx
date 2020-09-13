@@ -7,12 +7,13 @@ import { UseBrickConf } from "@easyops/brick-types";
 export interface ItemActionsComponentProps {
   filteredActions?: UseBrickConf[];
   item?: Record<string, any>;
+  onVisibleChange?(visible: boolean): void;
 }
 
 export function ItemActionsComponent(
   props: ItemActionsComponentProps
 ): React.ReactElement {
-  const { item, filteredActions } = props;
+  const { item, filteredActions, onVisibleChange } = props;
 
   if (!filteredActions?.length) {
     return null;
@@ -30,6 +31,7 @@ export function ItemActionsComponent(
           ))}
         </Menu>
       }
+      onVisibleChange={onVisibleChange}
     >
       <Button type="link" size="small">
         <GeneralIcon icon={{ lib: "fa", icon: "ellipsis-h" }} />

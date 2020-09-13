@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.3](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@1.0.0-next.2...@libs/forms@1.0.0-next.3) (2020-09-09)
+
+**Note:** Version bump only for package @libs/forms
+
+# [1.0.0-next.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@1.0.0-next.1...@libs/forms@1.0.0-next.2) (2020-08-30)
+
+**Note:** Version bump only for package @libs/forms
+
 ## [0.17.12](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.17.11...@libs/forms@0.17.12) (2020-08-20)
 
 **Note:** Version bump only for package @libs/forms
@@ -10,6 +18,22 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ## [0.17.11](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.17.10...@libs/forms@0.17.11) (2020-08-17)
 
 **Note:** Version bump only for package @libs/forms
+
+# [1.0.0-next.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@1.0.0-next.0...@libs/forms@1.0.0-next.1) (2020-08-25)
+
+**Note:** Version bump only for package @libs/forms
+
+# [1.0.0-next.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.17.10...@libs/forms@1.0.0-next.0) (2020-08-13)
+
+### Features
+
+- **forms:** antd v4 migaration ([9acf7be](https://git.easyops.local/anyclouds/next-libs/commits/9acf7be))
+
+### BREAKING CHANGES
+
+- **forms:** antd v4 migration
+
+Closes BRICK_STORE-1666
 
 ## [0.17.10](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@0.17.9...@libs/forms@0.17.10) (2020-08-13)
 

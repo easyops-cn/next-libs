@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Slider, Icon, Button } from "antd";
-import { SliderValue } from "antd/lib/slider";
+import Icon from "@ant-design/icons";
+import { Slider, Button } from "antd";
 import style from "./ZoomPanel.module.css";
 import zoomIn from "./svg/zoom-in.svg";
 import zoomOut from "./svg/zoom-out.svg";
@@ -24,8 +24,8 @@ export function ZoomPanel(props: ZoomPanelProps): React.ReactElement {
     setScale(Math.round(props.scale * 100));
   }, [props.scale]);
 
-  const onChange = (value: SliderValue) => {
-    const scale = value as number;
+  const onChange = (value: number) => {
+    const scale = value;
     setScale(scale);
     props.notifyScaleChange(scale / 100);
   };

@@ -1,5 +1,6 @@
 import React from "react";
 import update from "immutability-helper";
+import { DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 import { Table, Button, Modal, Switch, Tag } from "antd";
 import * as _ from "lodash";
 
@@ -14,7 +15,7 @@ export interface CommonSettingPropsDefine {
   permissionList: Permission[];
   permissionNameOfEdit?: string;
   roleList: any;
-  updateFunction?: Function;
+  updateFunction?(params: Record<string, any>): void;
   stateTarget?: any;
   selectedInstances?: Record<string, any>[];
   onSingleAddUserModelOpen?(props: Record<string, any>): void;
@@ -49,7 +50,7 @@ export class CommonSetting extends React.Component<
       batchType: "add",
       currentUsers: [],
       temporaryUsers: [],
-      temporaryPerms: []
+      temporaryPerms: [],
     };
   }
   componentDidMount() {
@@ -74,7 +75,7 @@ export class CommonSetting extends React.Component<
     if (selectedInstances !== prevProps.selectedInstances) {
       this.setState(
         {
-          temporaryUsers: selectedInstances.map(instance => instance.name)
+          temporaryUsers: selectedInstances.map((instance) => instance.name),
         },
         () => {
           this.handleUsersChange();
@@ -113,14 +114,14 @@ export class CommonSetting extends React.Component<
         <Button
           style={{ marginRight: "8px" }}
           id="batchAddBtn"
-          icon="plus"
+          icon={<PlusOutlined />}
           onClick={() => this.openBatchSetUserModel("add")}
         >
           批量添加
         </Button>
         <Button
           id="batchRemoveBtn"
-          icon="delete"
+          icon={<DeleteOutlined />}
           onClick={() => this.openBatchSetUserModel("remove")}
         >
           批量删除
@@ -130,22 +131,22 @@ export class CommonSetting extends React.Component<
     const columns = [
       {
         title: "权限名称",
-        dataIndex: "data.remark"
+        dataIndex: ["data", "remark"],
       },
       {
         title: "适用角色",
-        dataIndex: "data.roles",
-        render: this.renderRoles
+        dataIndex: ["data", "roles"],
+        render: this.renderRoles,
       },
       {
         title: "启用白名单",
         dataIndex: "_whiteListEnabled",
-        render: this.renderWhiteListEnabled
+        render: this.renderWhiteListEnabled,
       },
       {
         title: "操作",
         dataIndex: "operation",
-        render: this.renderOperation
+        render: this.renderOperation,
       },
       {
         title: "用户组／用户",
@@ -163,8 +164,8 @@ export class CommonSetting extends React.Component<
                 </Tag>
               ))
             : null;
-        }
-      }
+        },
+      },
     ];
     const {
       collections,
@@ -172,7 +173,7 @@ export class CommonSetting extends React.Component<
       enableEdit,
       batchType,
       showBatchHandleUserModal,
-      currentUsers
+      currentUsers,
     } = this.state;
     return (
       <div className={styles.panelContainer}>
@@ -223,7 +224,7 @@ export class CommonSetting extends React.Component<
         size="small"
         onClick={() => this.openSingleAddUserModel(record)}
         id={`addUserBtn-${record.data.id}`}
-        icon="plus"
+        icon={<PlusOutlined />}
       />
     ) : null;
   };
@@ -231,7 +232,7 @@ export class CommonSetting extends React.Component<
   store = () => {
     const { collections } = this.state;
     const params: any = {};
-    _.forEach(collections.permissionList, perm => {
+    _.forEach(collections.permissionList, (perm) => {
       params[perm.keyAuthorizers] = perm.authorizers;
     });
     this.props.updateFunction(params);
@@ -244,14 +245,14 @@ export class CommonSetting extends React.Component<
     this.setState({
       temporaryUsers: e.map(
         (user: { key: string; label: string }) => user.label
-      )
+      ),
     });
   };
   // 打开为单个权限添加用户弹窗
   openSingleAddUserModel = (record: any) => {
     this.batchHandlePermChange([record.data.action]);
     this.setState({
-      batchType: "add"
+      batchType: "add",
     });
     if (this.props.onSingleAddUserModelOpen) {
       const objectIdObjectMap: Record<
@@ -260,16 +261,16 @@ export class CommonSetting extends React.Component<
       > = {
         USER: {
           objectId: "USER",
-          name: "用户"
+          name: "用户",
         },
         USER_GROUP: {
           objectId: "USER_GROUP",
-          name: "用户组"
-        }
+          name: "用户组",
+        },
       };
       const reverseObjectIdMap: Record<string, string> = {
         USER: "USER_GROUP",
-        USER_GROUP: "USER"
+        USER_GROUP: "USER",
       };
       const onSingleAddUserModelOpen = (objectId: string) => {
         const object = objectIdObjectMap[objectId];
@@ -290,7 +291,7 @@ export class CommonSetting extends React.Component<
                 切换为{reversedObject.name}
               </Button>
             </>
-          )
+          ),
         });
       };
       onSingleAddUserModelOpen("USER_GROUP");
@@ -317,7 +318,7 @@ export class CommonSetting extends React.Component<
   openBatchSetUserModel(batchType: string) {
     this.setState({
       batchType,
-      showBatchHandleUserModal: true
+      showBatchHandleUserModal: true,
     });
   }
   // 保存批量添加／删除用户
@@ -343,9 +344,9 @@ export class CommonSetting extends React.Component<
       this.setState({
         collections: update(this.state.collections, {
           permissionList: {
-            [index]: { authorizers: { $set: item.authorizers } }
-          }
-        })
+            [index]: { authorizers: { $set: item.authorizers } },
+          },
+        }),
       });
     });
     if (_.isFunction(this.state.collections.getCurrentUsers)) {
@@ -369,8 +370,8 @@ export class CommonSetting extends React.Component<
     if (checked && _.isEmpty(permissionList[modifiedIndex].authorizers)) {
       permissionList[modifiedIndex].authorizers.push("easyops");
     }
-    this.setState(prevState => ({
-      collections: { ...prevState.collections, permissionList }
+    this.setState((prevState) => ({
+      collections: { ...prevState.collections, permissionList },
     }));
   }
 }

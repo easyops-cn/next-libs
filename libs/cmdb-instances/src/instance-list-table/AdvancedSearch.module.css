@@ -4,19 +4,21 @@
   border-radius: 6px;
 }
 
-.advancedSearchForm :global(.ant-form-item-children) > .conditionInputGroup {
+.advancedSearchForm
+  :global(.ant-legacy-form-item-children)
+  > .conditionInputGroup {
   display: inline-flex;
 }
 
-.advancedSearchForm :global(.ant-form-item) {
+.advancedSearchForm :global(.ant-legacy-form-item) {
   margin-bottom: 24px;
 }
 
-.advancedSearchForm :global(.ant-form-item-label) {
+.advancedSearchForm :global(.ant-legacy-form-item-label) {
   line-height: unset;
 }
 
-.advancedSearchForm :global(.ant-form-item) label {
+.advancedSearchForm :global(.ant-legacy-form-item) label {
   display: inline-block;
   margin-bottom: 4px;
 }

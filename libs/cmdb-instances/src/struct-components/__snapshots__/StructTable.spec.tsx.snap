@@ -8,7 +8,7 @@ exports[`StructTable should render 1`] = `
     }
   }
 >
-  <withStore(Table)
+  <Table
     columns={
       Array [
         Object {
@@ -89,6 +89,7 @@ exports[`StructTable should render 1`] = `
       ]
     }
     pagination={false}
+    rowKey="key"
     scroll={
       Object {
         "x": "max-content",
@@ -106,7 +107,7 @@ exports[`StructTable should render 2`] = `
     }
   }
 >
-  <withStore(Table)
+  <Table
     columns={
       Array [
         Object {
@@ -176,6 +177,7 @@ exports[`StructTable should render 2`] = `
       ]
     }
     pagination={false}
+    rowKey="key"
     scroll={
       Object {
         "x": "max-content",
@@ -191,7 +193,7 @@ exports[`StructTable should render 3`] = `
     block={false}
     ghost={false}
     htmlType="button"
-    icon="edit"
+    icon={<ForwardRef(EditOutlined) />}
     loading={false}
     onClick={[Function]}
     type="link"
@@ -200,7 +202,7 @@ exports[`StructTable should render 3`] = `
     block={false}
     ghost={false}
     htmlType="button"
-    icon="delete"
+    icon={<ForwardRef(DeleteOutlined) />}
     loading={false}
     onClick={[Function]}
     type="link"
@@ -286,7 +288,7 @@ exports[`StructTable should render 4`] = `
     block={false}
     ghost={false}
     htmlType="button"
-    icon="edit"
+    icon={<ForwardRef(EditOutlined) />}
     loading={false}
     onClick={[Function]}
     type="link"
@@ -295,7 +297,7 @@ exports[`StructTable should render 4`] = `
     block={false}
     ghost={false}
     htmlType="button"
-    icon="delete"
+    icon={<ForwardRef(DeleteOutlined) />}
     loading={false}
     onClick={[Function]}
     type="link"

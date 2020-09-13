@@ -2,6 +2,7 @@ import React from "react";
 import { mount } from "enzyme";
 import { RouteNodeComponent } from "./RouteNodeComponent";
 import { fakeRoutesGraphNodes, fakeContentItemActions } from "../fakesForTest";
+import { ItemActionsComponent } from "@libs/basic-components";
 
 describe("RouteNodeComponent", () => {
   it("should work", () => {
@@ -19,5 +20,12 @@ describe("RouteNodeComponent", () => {
     wrapper.find(".contentItemToolbar").simulate("click");
     wrapper.find(".routeNodeContainer").simulate("click");
     expect(onNodeClick).toHaveBeenCalled();
+    wrapper.find(ItemActionsComponent).invoke("onVisibleChange")(true);
+    expect(
+      wrapper
+        .find(".routeNodeContainer")
+        .prop("className")
+        .includes("actionsVisible")
+    ).toBe(true);
   });
 });

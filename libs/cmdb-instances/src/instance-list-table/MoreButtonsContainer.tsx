@@ -1,5 +1,6 @@
 import React from "react";
-import { Dropdown, Menu, Icon, Modal, Button } from "antd";
+import { EllipsisOutlined, SettingOutlined } from "@ant-design/icons";
+import { Dropdown, Menu, Modal, Button } from "antd";
 import { CmdbModels } from "@sdk/cmdb-sdk";
 import { Settings } from "./SettingsContainer";
 import { InstanceListPresetConfigs } from "./interfaces";
@@ -48,7 +49,7 @@ export class MoreButtonsContainer extends React.Component<
     const menu = (
       <Menu>
         <Menu.Item onClick={this.handleSettingButtonClick}>
-          <Icon type="setting" /> 显示设置
+          <SettingOutlined /> 显示设置
         </Menu.Item>
       </Menu>
     );
@@ -60,7 +61,7 @@ export class MoreButtonsContainer extends React.Component<
           trigger={["click"]}
           className={styles.moreButtonsContainer}
         >
-          <Button shape="circle" icon="ellipsis" />
+          <Button shape="circle" icon={<EllipsisOutlined />} />
         </Dropdown>
         <Modal
           visible={this.state.visible}

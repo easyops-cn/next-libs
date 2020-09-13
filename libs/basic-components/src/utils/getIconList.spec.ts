@@ -3,37 +3,39 @@ import { getIconList, GetIconListParams } from "./getIconList";
 jest.mock("@easyops/brick-icons", () => ({
   iconsByCategory: {
     app: ["all-cmdb", "brick-group"],
-    model: ["business", "cloud-host"]
-  }
+    model: ["business", "cloud-host"],
+  },
 }));
 
 jest.mock("@easyops/fontawesome-library", () => ({
   fab: {
     fa500px: {
       prefix: "fab",
-      iconName: "500px"
+      iconName: "500px",
     },
     faAccusoft: {
       prefix: "fab",
-      iconName: "accusoft"
-    }
+      iconName: "accusoft",
+    },
   },
   fas: {
     faAd: {
       prefix: "fas",
-      iconName: "ad"
+      iconName: "ad",
     },
     faAddressBook: {
       prefix: "fas",
-      iconName: "address-book"
-    }
-  }
+      iconName: "address-book",
+    },
+  },
 }));
 
-jest.mock("@ant-design/icons/lib/manifest", () => ({
-  fill: ["account-book"],
-  outline: ["alert"],
-  twotone: ["alipay-circle"]
+jest.mock("./antdIcons", () => ({
+  antdIconKeys: [
+  "AccountBookFilled",
+  "AlertOutlined",
+  "ApiTwoTone",
+  ]
 }));
 
 describe("GetIconList", () => {
@@ -48,8 +50,8 @@ describe("GetIconList", () => {
             icon: {
               category: "app",
               icon: "all-cmdb",
-              lib: "easyops"
-            }
+              lib: "easyops",
+            },
           },
           {
             title: "brick-group",
@@ -57,8 +59,8 @@ describe("GetIconList", () => {
             icon: {
               category: "app",
               icon: "brick-group",
-              lib: "easyops"
-            }
+              lib: "easyops",
+            },
           },
           {
             title: "business",
@@ -66,8 +68,8 @@ describe("GetIconList", () => {
             icon: {
               category: "model",
               icon: "business",
-              lib: "easyops"
-            }
+              lib: "easyops",
+            },
           },
           {
             title: "cloud-host",
@@ -75,18 +77,18 @@ describe("GetIconList", () => {
             icon: {
               category: "model",
               icon: "cloud-host",
-              lib: "easyops"
-            }
-          }
+              lib: "easyops",
+            },
+          },
         ],
-        total: 4
-      }
+        total: 4,
+      },
     ],
     [
       {
         type: "easyops",
         page: 1,
-        pageSize: 2
+        pageSize: 2,
       },
       {
         list: [
@@ -96,8 +98,8 @@ describe("GetIconList", () => {
             icon: {
               category: "app",
               icon: "all-cmdb",
-              lib: "easyops"
-            }
+              lib: "easyops",
+            },
           },
           {
             title: "brick-group",
@@ -105,31 +107,31 @@ describe("GetIconList", () => {
             icon: {
               category: "app",
               icon: "brick-group",
-              lib: "easyops"
-            }
-          }
+              lib: "easyops",
+            },
+          },
         ],
-        total: 4
-      }
+        total: 4,
+      },
     ],
     [
       {
         q: "tttttt",
         type: "easyops",
         page: 1,
-        pageSize: 2
+        pageSize: 2,
       },
       {
         list: [],
-        total: 0
-      }
+        total: 0,
+      },
     ],
     [
       {
         q: "all-cmdb",
         type: "easyops",
         page: 1,
-        pageSize: 20
+        pageSize: 20,
       },
       {
         list: [
@@ -139,16 +141,16 @@ describe("GetIconList", () => {
             icon: {
               category: "app",
               icon: "all-cmdb",
-              lib: "easyops"
-            }
-          }
+              lib: "easyops",
+            },
+          },
         ],
-        total: 1
-      }
+        total: 1,
+      },
     ],
     [
       {
-        type: "antd"
+        type: "antd",
       },
       {
         list: [
@@ -158,8 +160,8 @@ describe("GetIconList", () => {
             icon: {
               icon: "account-book",
               theme: "filled",
-              lib: "antd"
-            }
+              lib: "antd",
+            },
           },
           {
             title: "alert",
@@ -167,25 +169,25 @@ describe("GetIconList", () => {
             icon: {
               icon: "alert",
               theme: "outlined",
-              lib: "antd"
-            }
+              lib: "antd",
+            },
           },
           {
-            title: "alipay-circle",
-            descriptionList: ["theme: twoTone", "icon: alipay-circle"],
+            title: "api",
+            descriptionList: ["theme: twoTone", "icon: api"],
             icon: {
-              icon: "alipay-circle",
+              icon: "api",
               theme: "twoTone",
-              lib: "antd"
-            }
-          }
+              lib: "antd",
+            },
+          },
         ],
-        total: 3
-      }
+        total: 3,
+      },
     ],
     [
       {
-        type: "fa"
+        type: "fa",
       },
       {
         list: [
@@ -195,8 +197,8 @@ describe("GetIconList", () => {
             icon: {
               icon: "ad",
               lib: "fa",
-              prefix: "fas"
-            }
+              prefix: "fas",
+            },
           },
           {
             title: "address-book",
@@ -204,8 +206,8 @@ describe("GetIconList", () => {
             icon: {
               icon: "address-book",
               lib: "fa",
-              prefix: "fas"
-            }
+              prefix: "fas",
+            },
           },
           {
             title: "500px",
@@ -213,8 +215,8 @@ describe("GetIconList", () => {
             icon: {
               icon: "500px",
               lib: "fa",
-              prefix: "fab"
-            }
+              prefix: "fab",
+            },
           },
           {
             title: "accusoft",
@@ -222,13 +224,13 @@ describe("GetIconList", () => {
             icon: {
               icon: "accusoft",
               lib: "fa",
-              prefix: "fab"
-            }
-          }
+              prefix: "fab",
+            },
+          },
         ],
-        total: 4
-      }
-    ]
+        total: 4,
+      },
+    ],
   ])("GetIconList(%j) should work", (params, result) => {
     expect(getIconList(params)).toEqual(result);
   });

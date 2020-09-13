@@ -6,7 +6,7 @@ import {
   HierarchyPointNode,
   HierarchyPointLink,
 } from "d3-hierarchy";
-import { create, Selection, event as d3Event, select } from "d3-selection";
+import { create, Selection, select } from "d3-selection";
 import { linkHorizontal } from "d3-shape";
 import { uniqueId, isNil, debounce } from "lodash";
 import classNames from "classnames";
@@ -117,15 +117,15 @@ export class BuilderGraph {
     const d3Window = select(window);
     /* istanbul ignore next */
     this.canvas
-      .on("mousedown", () => {
+      .on("mousedown", (event: MouseEvent) => {
         this.canvas.classed(styles.grabbing, true);
-        d3Event.preventDefault();
-        const x0 = d3Event.screenX + this.offsetX;
-        const y0 = d3Event.screenY + this.offsetY;
+        event.preventDefault();
+        const x0 = event.screenX + this.offsetX;
+        const y0 = event.screenY + this.offsetY;
         d3Window
           .on("mousemove", () => {
-            const dx = x0 - d3Event.screenX - this.offsetX;
-            const dy = y0 - d3Event.screenY - this.offsetY;
+            const dx = x0 - event.screenX - this.offsetX;
+            const dy = y0 - event.screenY - this.offsetY;
             this.transform(dx, dy);
           })
           .on("mouseup", () => {
@@ -137,13 +137,14 @@ export class BuilderGraph {
             d3Window.on("mousemove", null).on("mouseup", null);
           });
       })
-      .on("wheel", function () {
-        d3Event.preventDefault();
+      .on("wheel", function (event: Event) {
+        event.preventDefault();
       })
-      .on("wheel.zoom", () => {
-        d3Event.stopPropagation();
-        const { deltaX, deltaY, ctrlKey } = d3Event;
-        // macOS trackPad pinch event is emitted as a wheel.zoom and d3.event.ctrlKey set to true
+      .on("wheel.zoom", (event: Event) => {
+        event.stopPropagation();
+        // Todo(steve): fixing types (https://github.com/DefinitelyTyped/DefinitelyTyped/issues/38939#issuecomment-683879719)
+        const { deltaX, deltaY, ctrlKey } = event as any;
+        // macOS trackPad pinch event is emitted as a wheel.zoom and event.ctrlKey set to true
         if (ctrlKey) {
           return;
         }

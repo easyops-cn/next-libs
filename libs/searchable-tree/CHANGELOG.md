@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.4](https://git.easyops.local/anyclouds/next-libs/compare/@libs/searchable-tree@1.0.0-next.3...@libs/searchable-tree@1.0.0-next.4) (2020-09-09)
+
+**Note:** Version bump only for package @libs/searchable-tree
+
+# [1.0.0-next.3](https://git.easyops.local/anyclouds/next-libs/compare/@libs/searchable-tree@1.0.0-next.2...@libs/searchable-tree@1.0.0-next.3) (2020-09-08)
+
+### Bug Fixes
+
+- fix after upgrade d3 v2 which handles event differently ([b6b90da](https://git.easyops.local/anyclouds/next-libs/commits/b6b90da))
+
+# [1.0.0-next.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/searchable-tree@1.0.0-next.1...@libs/searchable-tree@1.0.0-next.2) (2020-08-30)
+
+### Bug Fixes
+
+- **searchable-tree:** update snapshots ([333916b](https://git.easyops.local/anyclouds/next-libs/commits/333916b))
+
 ## [0.1.12](https://git.easyops.local/anyclouds/next-libs/compare/@libs/searchable-tree@0.1.11...@libs/searchable-tree@0.1.12) (2020-08-20)
 
 **Note:** Version bump only for package @libs/searchable-tree
@@ -10,6 +26,22 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ## [0.1.11](https://git.easyops.local/anyclouds/next-libs/compare/@libs/searchable-tree@0.1.10...@libs/searchable-tree@0.1.11) (2020-08-17)
 
 **Note:** Version bump only for package @libs/searchable-tree
+
+# [1.0.0-next.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/searchable-tree@1.0.0-next.0...@libs/searchable-tree@1.0.0-next.1) (2020-08-25)
+
+**Note:** Version bump only for package @libs/searchable-tree
+
+# [1.0.0-next.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/searchable-tree@0.1.10...@libs/searchable-tree@1.0.0-next.0) (2020-08-13)
+
+### Features
+
+- **searchable-tree:** antd v4 migaration ([9a51349](https://git.easyops.local/anyclouds/next-libs/commits/9a51349))
+
+### BREAKING CHANGES
+
+- **searchable-tree:** antd v4 migration
+
+Closes BRICK_STORE-1666
 
 ## [0.1.10](https://git.easyops.local/anyclouds/next-libs/compare/@libs/searchable-tree@0.1.9...@libs/searchable-tree@0.1.10) (2020-08-13)
 

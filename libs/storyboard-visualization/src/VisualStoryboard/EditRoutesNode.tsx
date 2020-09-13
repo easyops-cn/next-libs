@@ -1,15 +1,16 @@
 import React from "react";
-import { Modal, Form } from "antd";
+import { Form } from "@ant-design/compatible";
+import { Modal } from "antd";
 import {
   StoryboardNodeApp,
   StoryboardNodeSlottedRoutes,
-  StoryboardNodeSubRoutes
+  StoryboardNodeSubRoutes,
 } from "../interfaces";
 import {
   updateRoutesNode,
   routesNodeChildrenToRoutes,
   generalParse,
-  generalStringify
+  generalStringify,
 } from "./processors";
 import { GeneralEditor } from "./GeneralEditor";
 
@@ -60,7 +61,7 @@ export function EditRoutesNode(props: EditRoutesNodeProps): React.ReactElement {
     );
     if (routes !== false) {
       updateRoutesNode(originalNode, {
-        routes
+        routes,
       });
       props.onOk && props.onOk();
     }

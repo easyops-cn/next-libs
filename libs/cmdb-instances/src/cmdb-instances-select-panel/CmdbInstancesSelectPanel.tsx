@@ -161,7 +161,6 @@ export function CmdbInstancesSelectPanel(
           selectDisabled={true}
           sortDisabled={true}
           configProps={{
-            bodyStyle: { borderRadius: 6, backgroundColor: "white" },
             pagination: false,
           }}
         ></InstanceListTable>

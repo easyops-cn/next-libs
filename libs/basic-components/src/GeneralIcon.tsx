@@ -1,5 +1,7 @@
 import React from "react";
-import { Icon, Avatar } from "antd";
+import { Icon as LegacyIcon } from "@ant-design/compatible";
+import Icon from "@ant-design/icons";
+import { Avatar } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   MenuIcon,
@@ -75,7 +77,7 @@ export function GeneralIcon({
   if (icon.lib === "antd") {
     const type =
       (icon as RefinedAntdIcon).icon ?? (icon as LegacyAntdIcon).type;
-    iconNode = <Icon type={type} theme={icon.theme} style={iconStyle} />;
+    iconNode = <LegacyIcon type={type} theme={icon.theme} style={iconStyle} />;
   }
 
   if (icon.lib === "fa") {

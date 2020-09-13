@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { shallow, mount } from "enzyme";
-import { Form } from "antd";
+import { Form } from "@ant-design/compatible";
 import {
   FormItemWrapper,
   getRules,
@@ -54,7 +54,7 @@ describe("FormItemWrapper", () => {
 
     const labelWrapper = shallow(<Label />);
     expect(labelWrapper.text()).toEqual(
-      "hello <Tooltip /><BrickAsComponent />"
+      "hello <GeneralIcon /><BrickAsComponent />"
     );
     expect(labelWrapper.find("Tooltip").prop("title")).toEqual(
       "这是一个 tooltips"
@@ -241,7 +241,11 @@ describe("FormItemWrapper", () => {
     });
 
     it("should support custom validated rule", () => {
-      const validatorFn = (rule: any, value: string, callback: Function) => {
+      const validatorFn = (
+        rule: any,
+        value: string,
+        callback: (message?: string) => void
+      ) => {
         if (value === "abc") {
           callback("输入错误");
         } else {
@@ -269,7 +273,11 @@ describe("FormItemWrapper", () => {
         },
       ]);
 
-      const validatorFn2 = (rule: any, value: string, callback: Function) => {
+      const validatorFn2 = (
+        rule: any,
+        value: string,
+        callback: (message?: string) => void
+      ) => {
         if (value === "bcd") {
           callback("输入错误");
         } else {

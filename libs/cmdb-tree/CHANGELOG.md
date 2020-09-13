@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.3](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-tree@1.0.0-next.2...@libs/cmdb-tree@1.0.0-next.3) (2020-09-11)
+
+### Bug Fixes
+
+- **cmdb-tree:** CMDBTree initTree outermost try to get by treeRequest.object_id when there is no item corresponding toselectedObjectId ([bec8ab5](https://git.easyops.local/anyclouds/next-libs/commits/bec8ab5))
+
+# [1.0.0-next.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-tree@1.0.0-next.1...@libs/cmdb-tree@1.0.0-next.2) (2020-09-09)
+
+### Features
+
+- **cmdb-tree:** CMDBTree add style property ([e103cb1](https://git.easyops.local/anyclouds/next-libs/commits/e103cb1))
+
+# [1.0.0-next.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-tree@1.0.0-next.0...@libs/cmdb-tree@1.0.0-next.1) (2020-09-04)
+
+### Bug Fixes
+
+- **cmdb-tree:** CMDBTree compatible with treeData provided ([f8dd05e](https://git.easyops.local/anyclouds/next-libs/commits/f8dd05e))
+
+# [1.0.0-next.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-tree@0.8.2...@libs/cmdb-tree@1.0.0-next.0) (2020-08-13)
+
+### Features
+
+- **cmdb-tree:** antd v4 migaration ([662712e](https://git.easyops.local/anyclouds/next-libs/commits/662712e))
+
+### BREAKING CHANGES
+
+- **cmdb-tree:** antd v4 migration
+
+Closes BRICK_STORE-1666
+
 ## [0.8.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-tree@0.8.1...@libs/cmdb-tree@0.8.2) (2020-03-13)
 
 ### Bug Fixes

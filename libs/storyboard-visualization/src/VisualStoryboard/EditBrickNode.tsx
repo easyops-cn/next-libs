@@ -1,6 +1,7 @@
 import React from "react";
 import { isEmpty } from "lodash";
-import { Modal, Form, Radio, Input } from "antd";
+import { Form } from "@ant-design/compatible";
+import { Modal, Radio, Input } from "antd";
 import { RadioChangeEvent } from "antd/lib/radio";
 import { StoryboardNodeBrick } from "../interfaces";
 import {
@@ -8,7 +9,7 @@ import {
   brickNodeChildrenToSlots,
   BrickPatch,
   generalParse,
-  generalStringify
+  generalStringify,
 } from "./processors";
 import { GeneralEditor } from "./GeneralEditor";
 import { BrickLifeCycle } from "@easyops/brick-types";
@@ -101,7 +102,7 @@ export function EditBrickNode(props: EditBrickNodeProps): React.ReactElement {
       ["useResolves", "array", resolvesAsString],
       ["onPageLoad", "arrayOrObject", onPageLoadAsString],
       ["onAnchorLoad", "arrayOrObject", onAnchorLoadAsString],
-      ["onAnchorUnload", "arrayOrObject", onAnchorUnloadAsString]
+      ["onAnchorUnload", "arrayOrObject", onAnchorUnloadAsString],
     ];
     if (type === "template") {
       lifeCycleMembers.splice(1, 3);
@@ -130,7 +131,7 @@ export function EditBrickNode(props: EditBrickNodeProps): React.ReactElement {
           brick: brickName,
           properties,
           events,
-          lifeCycle
+          lifeCycle,
         };
 
         if (type === "brick") {
@@ -139,14 +140,14 @@ export function EditBrickNode(props: EditBrickNodeProps): React.ReactElement {
             updateBrickNode(originalNode, {
               ...brickPatch,
               slots,
-              bg: undefined
+              bg: undefined,
             });
             props.onOk && props.onOk();
           }
         } else {
           updateBrickNode(originalNode, {
             ...brickPatch,
-            bg: true
+            bg: true,
           });
           props.onOk && props.onOk();
         }
@@ -161,7 +162,7 @@ export function EditBrickNode(props: EditBrickNodeProps): React.ReactElement {
         Object.assign(brickData, {
           template: templateName,
           params,
-          lifeCycle
+          lifeCycle,
         });
         props.onOk && props.onOk();
       }

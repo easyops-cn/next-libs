@@ -1,5 +1,5 @@
-import React from "react";
-import { Icon } from "antd";
+import React, { useState } from "react";
+import { MenuOutlined } from "@ant-design/icons";
 import classNames from "classnames";
 import { FaIcon } from "@easyops/brick-types";
 import { GeneralIcon } from "@libs/basic-components";
@@ -110,7 +110,7 @@ export function GraphNodeComponent(
           node.originalData.type !== "view-tpl-root" &&
           node.originalData.type !== "route-root" && (
             <div className={styles.menuButton} onClick={handleReorderClick}>
-              <Icon type="menu" />
+              <MenuOutlined />
             </div>
           )}
       </div>
@@ -148,6 +148,7 @@ const contentItemSubtypeIconMap: Record<ContentItemSubtype, FaIcon["icon"]> = {
 
 export function ContentItem(props: ContentItemProps): React.ReactElement {
   const { item, type, isLast, onNodeClick, contentItemActions } = props;
+  const [actionsVisible, setActionsVisible] = useState(false);
 
   /* istanbul ignore next */
   const handleNodeClick = (): void => {
@@ -189,6 +190,7 @@ export function ContentItem(props: ContentItemProps): React.ReactElement {
         [styles.contentItemTypeCustomTemplate]: subtype === "custom-template",
         [styles.contentItemTypeViewTemplate]: subtype === "view-template",
         [styles.contentItemEllipsisButtonAvailable]: ellipsisButtonAvailable,
+        [styles.actionsVisible]: actionsVisible,
       })}
       style={{
         ...styleConfig.contentItem,
@@ -211,7 +213,13 @@ export function ContentItem(props: ContentItemProps): React.ReactElement {
       </div>
       {ellipsisButtonAvailable && (
         <div className={styles.contentItemToolbar} onClick={handleToolBarClick}>
-          <ItemActionsComponent filteredActions={filteredActions} item={item} />
+          <ItemActionsComponent
+            filteredActions={filteredActions}
+            item={item}
+            onVisibleChange={(visible) => {
+              setActionsVisible(visible);
+            }}
+          />
         </div>
       )}
     </div>

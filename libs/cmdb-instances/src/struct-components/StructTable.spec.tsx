@@ -3,26 +3,25 @@ import { shallow } from "enzyme";
 import { StructTable } from "./StructTable";
 import { AddStructModal } from "./AddStructModal";
 import { attribute, structData, structData2 } from "./mockData";
-import { Button } from "antd";
+import { Button, Modal } from "antd";
+
+const spyOnModalConfirm = jest.spyOn(Modal, "confirm");
 
 describe("StructTable", () => {
-  const $$ = (className: string) => {
-    return document.body.querySelectorAll(className);
-  };
   const handleStoreFunction = jest.fn();
   const structsProps = {
     attribute,
     structData: [structData, structData2],
     isEditable: true,
     isLegacy: false,
-    handleStoreFunction
+    handleStoreFunction,
   };
   const structProps = {
     attribute,
     structData: structData,
     isEditable: true,
     isLegacy: true,
-    handleStoreFunction
+    handleStoreFunction,
   };
   const structsWrapper = shallow(<StructTable {...structsProps} />);
   const structsInstance = structsWrapper.instance() as StructTable;
@@ -43,20 +42,18 @@ describe("StructTable", () => {
   });
   // 打开结构体编辑弹窗
   it("should call handleOpenEditModal function", () => {
-    structsOperationWrapper
-      .find(Button)
-      .at(0)
-      .prop("onClick")(expect.anything());
+    structsOperationWrapper.find(Button).at(0).prop("onClick")(
+      expect.anything()
+    );
     expect(structsInstance.state.showEditModal).toEqual(true);
     expect(structsInstance.state.currentIndex).toEqual(0);
   });
   // 打开删除确认弹窗
   it("should call openConfirmModal function", () => {
-    structsOperationWrapper
-      .find(Button)
-      .at(1)
-      .prop("onClick")(expect.anything());
-    expect($$(".ant-modal-confirm")).toHaveLength(1);
+    structsOperationWrapper.find(Button).at(1).prop("onClick")(
+      expect.anything()
+    );
+    expect(spyOnModalConfirm).toBeCalled();
   });
   //编辑结构体
   it("should call the edit structs function", () => {
@@ -90,12 +87,13 @@ describe("StructTable", () => {
   });
   //点击删除确认弹窗的确定按钮
   it("should call the remove function when click Ok button of confirm modal", () => {
-    structsOperationWrapper
-      .find(Button)
-      .at(1)
-      .prop("onClick")(expect.anything());
+    structsOperationWrapper.find(Button).at(1).prop("onClick")(
+      expect.anything()
+    );
     const spy = jest.spyOn(structsProps, "handleStoreFunction");
-    ($$(".ant-btn")[1] as HTMLButtonElement).click();
+    spyOnModalConfirm.mock.calls[
+      spyOnModalConfirm.mock.calls.length - 1
+    ][0].onOk();
     expect(spy).toBeCalled();
   });
 });

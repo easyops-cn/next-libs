@@ -6,16 +6,16 @@ import {
   ModelAttributeFormControl,
   ModelAttributeFormControlProps,
   ModelAttributeFormControlState,
-  ModelAttributeValueType
+  ModelAttributeValueType,
 } from "./ModelAttributeFormControl";
 import {
   mockFetchCmdbInstanceDetailReturnValue,
-  mockFetchCmdbObjectDetailReturnValue
+  mockFetchCmdbObjectDetailReturnValue,
 } from "../__mocks__/";
 import { CmdbModels } from "@sdk/cmdb-sdk";
 import { Input, InputNumber, Radio, Select } from "antd";
 
-/* eslint-disable @typescript-eslint/camelcase */
+/* eslint-disable @typescript-eslint/naming-convention */
 
 describe("ModelAttributeFormControl", () => {
   const attribute: Partial<CmdbModels.ModelObjectAttr> =
@@ -23,7 +23,7 @@ describe("ModelAttributeFormControl", () => {
 
   const Props: ModelAttributeFormControlProps = {
     onChange: () => null,
-    attribute
+    attribute,
   };
   const wrapper = shallow(<ModelAttributeFormControl {...Props} />);
   const instance = wrapper.instance() as ModelAttributeFormControl;
@@ -35,8 +35,8 @@ describe("ModelAttributeFormControl", () => {
     it("should return 'text'", () => {
       const result = computeFormControlType({
         value: {
-          type: "str"
-        }
+          type: "str",
+        },
       });
 
       expect(result).toEqual(FormControlTypeEnum.TEXT);
@@ -46,8 +46,8 @@ describe("ModelAttributeFormControl", () => {
       const result = computeFormControlType({
         value: {
           type: "str",
-          mode: "multiple-lines"
-        }
+          mode: "multiple-lines",
+        },
       });
 
       expect(result).toEqual(FormControlTypeEnum.TEXTAREA);
@@ -57,8 +57,8 @@ describe("ModelAttributeFormControl", () => {
       const result = computeFormControlType({
         value: {
           type: "str",
-          mode: "url"
-        }
+          mode: "url",
+        },
       });
       expect(result).toEqual(FormControlTypeEnum.URL);
     });
@@ -67,8 +67,8 @@ describe("ModelAttributeFormControl", () => {
       const result = computeFormControlType({
         value: {
           type: "str",
-          mode: "markdown"
-        }
+          mode: "markdown",
+        },
       });
 
       expect(result).toEqual(FormControlTypeEnum.MARKDOWN);
@@ -77,8 +77,8 @@ describe("ModelAttributeFormControl", () => {
     it("should return 'number' when type equal 'int'", () => {
       const result = computeFormControlType({
         value: {
-          type: "int"
-        }
+          type: "int",
+        },
       });
 
       expect(result).toEqual(FormControlTypeEnum.NUMBER);
@@ -87,8 +87,8 @@ describe("ModelAttributeFormControl", () => {
     it("should return 'number' when type equal 'float'", () => {
       const result = computeFormControlType({
         value: {
-          type: "float"
-        }
+          type: "float",
+        },
       });
 
       expect(result).toEqual(FormControlTypeEnum.NUMBER);
@@ -97,8 +97,8 @@ describe("ModelAttributeFormControl", () => {
     it("should return 'date'", () => {
       const result = computeFormControlType({
         value: {
-          type: "date"
-        }
+          type: "date",
+        },
       });
 
       expect(result).toEqual(FormControlTypeEnum.DATE);
@@ -107,8 +107,8 @@ describe("ModelAttributeFormControl", () => {
     it("should return 'datetime'", () => {
       const result = computeFormControlType({
         value: {
-          type: "datetime"
-        }
+          type: "datetime",
+        },
       });
 
       expect(result).toEqual(FormControlTypeEnum.DATETIME);
@@ -117,8 +117,8 @@ describe("ModelAttributeFormControl", () => {
     it("should return 'tags' when type equal 'arr'", () => {
       const result = computeFormControlType({
         value: {
-          type: "arr"
-        }
+          type: "arr",
+        },
       });
 
       expect(result).toEqual(FormControlTypeEnum.TAGS);
@@ -134,10 +134,10 @@ describe("ModelAttributeFormControl", () => {
               name: "名称",
               protected: true,
               regex: null,
-              type: "str"
-            }
-          ]
-        }
+              type: "str",
+            },
+          ],
+        },
       });
 
       expect(result).toEqual(FormControlTypeEnum.LEGACY_STRUCT);
@@ -148,8 +148,8 @@ describe("ModelAttributeFormControl", () => {
         computeFormControlType({
           value: {
             type: "struct",
-            struct_define: []
-          }
+            struct_define: [],
+          },
         });
       }).toThrowError(new Error("请在资源模型中添加结构体属性"));
     });
@@ -158,15 +158,15 @@ describe("ModelAttributeFormControl", () => {
       expect(() => {
         computeFormControlType({
           value: {
-            type: "enum"
-          }
+            type: "enum",
+          },
         });
 
         computeFormControlType({
           value: {
             type: "enum",
-            regex: []
-          }
+            regex: [],
+          },
         });
       }).toThrowError(new Error("请在资源模型管理中添加枚举值"));
     });
@@ -175,8 +175,8 @@ describe("ModelAttributeFormControl", () => {
       const result = computeFormControlType({
         value: {
           type: "enum",
-          regex: ["未安装", "异常", "正常"]
-        }
+          regex: ["未安装", "异常", "正常"],
+        },
       });
       expect(result).toEqual(FormControlTypeEnum.RADIO);
     });
@@ -185,8 +185,8 @@ describe("ModelAttributeFormControl", () => {
       const result = computeFormControlType({
         value: {
           type: "enum",
-          regex: ["未安装", "异常", "正常", "test", "test2", "test3"]
-        }
+          regex: ["未安装", "异常", "正常", "test", "test2", "test3"],
+        },
       });
       expect(result).toEqual(FormControlTypeEnum.SELECT);
     });
@@ -194,8 +194,8 @@ describe("ModelAttributeFormControl", () => {
     it("should return 'radio' when type equal 'bool'", () => {
       const result = computeFormControlType({
         value: {
-          type: "bool"
-        }
+          type: "bool",
+        },
       });
       expect(result).toEqual(FormControlTypeEnum.SELECT);
     });
@@ -210,10 +210,10 @@ describe("ModelAttributeFormControl", () => {
               name: "名称",
               protected: true,
               regex: null,
-              type: "str"
-            }
-          ]
-        }
+              type: "str",
+            },
+          ],
+        },
       });
 
       expect(result).toEqual(FormControlTypeEnum.STRUCT);
@@ -224,8 +224,8 @@ describe("ModelAttributeFormControl", () => {
         computeFormControlType({
           value: {
             type: "structs",
-            struct_define: []
-          }
+            struct_define: [],
+          },
         });
       }).toThrowError(new Error("请在资源模型中添加结构体属性"));
     });
@@ -234,8 +234,8 @@ describe("ModelAttributeFormControl", () => {
       expect(() => {
         computeFormControlType({
           value: {
-            type: "test"
-          }
+            type: "test",
+          },
         });
       }).toThrowError(new Error("unsupported type: test"));
     });
@@ -249,16 +249,16 @@ describe("ModelAttributeFormControl", () => {
       const data = [
         {
           id: "未安装",
-          text: "未安装"
+          text: "未安装",
         },
         {
           id: "异常",
-          text: "异常"
+          text: "异常",
         },
         {
           id: "正常",
-          text: "正常"
-        }
+          text: "正常",
+        },
       ];
       expect(result).toEqual(data);
     });
@@ -279,7 +279,7 @@ describe("ModelAttributeFormControl", () => {
       const formControl: FormControl = {
         id: "fake_id",
         type: FormControlTypeEnum.SELECT,
-        name: "fake_name"
+        name: "fake_name",
       };
 
       const result = computePlaceholder(formControl);
@@ -290,7 +290,7 @@ describe("ModelAttributeFormControl", () => {
       const formControl: FormControl = {
         id: "fake_id",
         type: FormControlTypeEnum.DATETIME,
-        name: "fake_name"
+        name: "fake_name",
       };
 
       const result = computePlaceholder(formControl);
@@ -301,7 +301,7 @@ describe("ModelAttributeFormControl", () => {
       const formControl: FormControl = {
         id: "fake_id",
         type: FormControlTypeEnum.TAGS,
-        name: "fake_name"
+        name: "fake_name",
       };
 
       const result = computePlaceholder(formControl);
@@ -312,7 +312,7 @@ describe("ModelAttributeFormControl", () => {
       const formControl: FormControl = {
         id: "fake_id",
         type: FormControlTypeEnum.SELECT,
-        name: "fake_name"
+        name: "fake_name",
       };
 
       const result = computePlaceholder(formControl);
@@ -331,10 +331,10 @@ describe("ModelAttributeFormControl", () => {
             name: "名称",
             protected: true,
             regex: null,
-            type: "str"
-          }
-        ]
-      }
+            type: "str",
+          },
+        ],
+      },
     });
 
     it("should return result and result.maxlength equal 1", () => {
@@ -347,8 +347,8 @@ describe("ModelAttributeFormControl", () => {
     it("should return regExp ", () => {
       const attribute = Object.assign(Props.attribute, {
         value: {
-          regex: ["选中", "未选中"]
-        }
+          regex: ["选中", "未选中"],
+        },
       });
       const result = ModelAttributeFormControl.computePattern(attribute);
       const regExp = new RegExp(attribute.value.regex as string, "u");
@@ -359,8 +359,8 @@ describe("ModelAttributeFormControl", () => {
       const attribute = Object.assign(Props.attribute, {
         value: {
           type: ModelAttributeValueType.ENUM,
-          regex: ["选中", "未选中"]
-        }
+          regex: ["选中", "未选中"],
+        },
       });
       const result = ModelAttributeFormControl.computePattern(attribute);
       expect(result).toBeUndefined();
@@ -393,7 +393,7 @@ describe("ModelAttributeFormControl", () => {
   it("should work", () => {
     instance.setState({
       errorMessage: null,
-      formControl: instance.computeFormControl(instance.props.attribute)
+      formControl: instance.computeFormControl(instance.props.attribute),
     });
 
     expect(instance.props.attribute).toEqual(Props.attribute);
@@ -404,7 +404,7 @@ describe("ModelAttributeFormControl", () => {
     const event = {
       // eslint-disable-next-line @typescript-eslint/no-empty-function
       preventDefault() {},
-      target: { value: "the-value" }
+      target: { value: "the-value" },
     };
     const attribute: Partial<CmdbModels.ModelObjectAttr> =
       mockFetchCmdbObjectDetailReturnValue.attrList[2];
@@ -428,8 +428,8 @@ describe("ModelAttributeFormControl", () => {
     const onChange = jest.fn();
     const event = {
       target: {
-        value: "100"
-      }
+        value: "100",
+      },
     };
     const attribute: Partial<CmdbModels.ModelObjectAttr> = {
       id: "jjj",
@@ -451,9 +451,9 @@ describe("ModelAttributeFormControl", () => {
         mode: "",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     };
 
     const props = Object.assign(Props, { attribute, onChange, value });
@@ -481,8 +481,8 @@ describe("ModelAttributeFormControl", () => {
     const onChange = jest.fn();
     const event = {
       target: {
-        value: "test value"
-      }
+        value: "test value",
+      },
     };
 
     const attribute: Partial<CmdbModels.ModelObjectAttr> = {
@@ -505,9 +505,9 @@ describe("ModelAttributeFormControl", () => {
         mode: "multiple-lines",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     };
 
     const props = Object.assign(Props, { attribute, onChange, value });
@@ -553,9 +553,9 @@ describe("ModelAttributeFormControl", () => {
         mode: "",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     };
 
     const props = Object.assign(Props, { attribute, onChange, value });
@@ -586,7 +586,7 @@ describe("ModelAttributeFormControl", () => {
     const props = Object.assign(Props, {
       value,
       attribute,
-      onChange
+      onChange,
     });
 
     const wrapper = mount(<ModelAttributeFormControl {...props} />);
@@ -596,27 +596,18 @@ describe("ModelAttributeFormControl", () => {
     expect(radioEl.exists()).toBeTruthy();
     expect(radioEl.at(0).text()).toEqual(value);
     expect(
-      radioEl
-        .at(0)
-        .find("input[type='radio']")
-        .props().checked
+      radioEl.at(0).find("input[type='radio']").props().checked
     ).toBeTruthy();
     expect(
-      radioEl
-        .at(1)
-        .find("input[type='radio']")
-        .props().checked
+      radioEl.at(1).find("input[type='radio']").props().checked
     ).toBeFalsy();
 
     const event: any = {
       target: {
-        value: mockFetchCmdbObjectDetailReturnValue.attrList[1].value.regex[1]
-      }
+        value: mockFetchCmdbObjectDetailReturnValue.attrList[1].value.regex[1],
+      },
     };
-    wrapper
-      .find(Radio.Group)
-      .props()
-      .onChange(event);
+    wrapper.find(Radio.Group).props().onChange(event);
     wrapper.update();
     await jest.runAllTimers();
 
@@ -646,19 +637,19 @@ describe("ModelAttributeFormControl", () => {
       const props = Object.assign(Props, {
         value,
         attribute,
-        onChange
+        onChange,
       });
 
       const wrapper = mount(<ModelAttributeFormControl {...props} />);
       wrapper.update();
-      const options = wrapper.find("li");
+      const options = wrapper.find("span.ant-select-selection-item");
       const spyOnChange = jest.spyOn(
         wrapper.instance() as ModelAttributeFormControl,
         "onChange"
       );
 
       // ant select li 默认会多一个li
-      expect(options.length).toEqual(value.length + 1);
+      expect(options).toHaveLength(value.length);
       wrapper
         .find(Select)
         .props()
@@ -674,14 +665,14 @@ describe("ModelAttributeFormControl", () => {
       const props = Object.assign(Props, {
         value,
         attribute,
-        onChange
+        onChange,
       });
 
       const wrapper = mount(<ModelAttributeFormControl {...props} />);
       wrapper.update();
-      const options = wrapper.find("li");
+      const options = wrapper.find("span.ant-select-selection-item");
       // ant select li 默认会多一个li
-      expect(options.length).toEqual(1);
+      expect(options).toHaveLength(0);
     });
   });
 });

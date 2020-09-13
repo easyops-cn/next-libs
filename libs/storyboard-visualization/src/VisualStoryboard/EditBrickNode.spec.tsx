@@ -1,6 +1,7 @@
 import React from "react";
 import { shallow } from "enzyme";
-import { Modal, Form, Radio, Input } from "antd";
+import { Form } from "@ant-design/compatible";
+import { Modal, Radio, Input } from "antd";
 import { EditBrickNode } from "./EditBrickNode";
 import { GeneralEditor } from "./GeneralEditor";
 
@@ -9,8 +10,8 @@ describe("EditBrickNode", () => {
     // Brick
     const brickNode: any = {
       brickData: {
-        brick: "a"
-      }
+        brick: "a",
+      },
     };
     const handleOk = jest.fn();
     const wrapper = shallow(
@@ -29,8 +30,8 @@ describe("EditBrickNode", () => {
       .find(Input)
       .invoke("onChange")({
       target: {
-        value: "new-brick"
-      }
+        value: "new-brick",
+      },
     } as any);
 
     wrapper
@@ -95,8 +96,8 @@ describe("EditBrickNode", () => {
       .find(Radio.Group)
       .invoke("onChange")({
       target: {
-        value: "provider"
-      }
+        value: "provider",
+      },
     } as any);
     expect(wrapper.find(Form.Item).length).toBe(8);
 
@@ -111,8 +112,8 @@ describe("EditBrickNode", () => {
       .find(Radio.Group)
       .invoke("onChange")({
       target: {
-        value: "template"
-      }
+        value: "template",
+      },
     } as any);
     expect(wrapper.find(Form.Item).length).toBe(4);
 
@@ -122,8 +123,8 @@ describe("EditBrickNode", () => {
       .find(Input)
       .invoke("onChange")({
       target: {
-        value: "new-template"
-      }
+        value: "new-template",
+      },
     } as any);
 
     wrapper
@@ -157,7 +158,7 @@ describe("EditBrickNode", () => {
 
     // Read only
     wrapper.setProps({
-      editable: false
+      editable: false,
     });
     expect(wrapper.find(Modal).prop("footer")).toBe(null);
   });

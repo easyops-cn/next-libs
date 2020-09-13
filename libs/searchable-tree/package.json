@@ -1,6 +1,6 @@
 {
   "name": "@libs/searchable-tree",
-  "version": "0.1.12",
+  "version": "1.0.0-next.4",
   "description": "> TODO: description",
   "homepage": "https://git.easyops.local/anyclouds/next-libs/tree/master/libs/searchable-tree",
   "license": "UNLICENSED",
@@ -29,7 +29,7 @@
     "@libs/basic-components": "*"
   },
   "devDependencies": {
-    "@easyops/brick-types": "^1.29.0",
-    "@libs/basic-components": "^0.27.0"
+    "@easyops/brick-types": "^2.0.0-next.2",
+    "@libs/basic-components": "^1.0.0-next.3"
   }
 }

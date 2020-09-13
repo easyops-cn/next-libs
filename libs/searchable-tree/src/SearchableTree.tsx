@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Tree, Input, Icon } from "antd";
+import Icon from "@ant-design/icons";
+import { Tree, Input } from "antd";
 import { TreeProps, AntTreeNodeProps } from "antd/lib/tree";
 import { MenuIcon } from "@easyops/brick-types";
 import { GeneralIcon } from "@libs/basic-components";
@@ -26,9 +27,11 @@ export interface SearchableTreeProps {
   >;
   dataSource: SearchableTreeNodeProps[];
   searchable?: boolean;
-  onSelect?(selectedKeys: string[]): void;
+  onSelect?(selectedKeys: React.Key[]): void;
   onCheck?(
-    checkedKeys: string[] | { checked: string[]; halfChecked: string[] }
+    checkedKeys:
+      | React.Key[]
+      | { checked: React.Key[]; halfChecked: React.Key[] }
   ): void;
 }
 
@@ -41,15 +44,15 @@ export function SearchableTree(props: SearchableTreeProps): React.ReactElement {
     dataSource = [],
     searchable = false,
   } = props;
-  const [selectedKeys, setSelectedKeys] = useState<string[]>();
+  const [selectedKeys, setSelectedKeys] = useState<React.Key[]>();
   const [checkedKeys, setCheckedKeys] = useState<
-    | string[]
+    | React.Key[]
     | {
-        checked: string[];
-        halfChecked: string[];
+        checked: React.Key[];
+        halfChecked: React.Key[];
       }
   >();
-  const [expandedKeys, setExpandedKeys] = useState<string[]>();
+  const [expandedKeys, setExpandedKeys] = useState<React.Key[]>();
   const [searchValue, setSearchValue] = useState<string>();
   const nodeMatchedRef = useRef<boolean>(false);
 
@@ -109,7 +112,7 @@ export function SearchableTree(props: SearchableTreeProps): React.ReactElement {
     }
   };
 
-  const onSelect = (selectedKeys: string[]) => {
+  const onSelect = (selectedKeys: React.Key[]) => {
     setSelectedKeys(selectedKeys);
 
     if (props.onSelect) {
@@ -118,7 +121,9 @@ export function SearchableTree(props: SearchableTreeProps): React.ReactElement {
   };
 
   const onCheck = (
-    checkedKeys: string[] | { checked: string[]; halfChecked: string[] }
+    checkedKeys:
+      | React.Key[]
+      | { checked: React.Key[]; halfChecked: React.Key[] }
   ) => {
     setCheckedKeys(checkedKeys);
 
@@ -127,7 +132,7 @@ export function SearchableTree(props: SearchableTreeProps): React.ReactElement {
     }
   };
 
-  const onExpand = (expandedKeys: string[]) => {
+  const onExpand = (expandedKeys: React.Key[]) => {
     setExpandedKeys(expandedKeys);
   };
 

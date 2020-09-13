@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./RouteNodeComponent.module.css";
 import { ViewItem } from "../shared/interfaces";
 import { viewTypeConfig } from "./constants";
@@ -29,6 +29,7 @@ export function RouteNodeComponent(
   props: RouteNodeComponentProps
 ): React.ReactElement {
   const { originalData, onNodeClick, contentItemActions } = props;
+  const [actionsVisible, setActionsVisible] = useState(false);
 
   const handleNodeClick = (): void => {
     onNodeClick?.(originalData);
@@ -52,7 +53,12 @@ export function RouteNodeComponent(
 
   return (
     <Dropdown overlay={menu} trigger={["contextMenu"]}>
-      <div className={styles.routeNodeContainer} onClick={handleNodeClick}>
+      <div
+        className={classNames(styles.routeNodeContainer, {
+          [styles.actionsVisible]: actionsVisible,
+        })}
+        onClick={handleNodeClick}
+      >
         <div
           className={classNames(styles.routeTitle, {
             [styles.contentItemEllipsisButtonAvailable]: ellipsisButtonAvailable,
@@ -77,6 +83,9 @@ export function RouteNodeComponent(
               <ItemActionsComponent
                 filteredActions={filteredActions}
                 item={originalData}
+                onVisibleChange={(visible) => {
+                  setActionsVisible(visible);
+                }}
               />
             </div>
           )}

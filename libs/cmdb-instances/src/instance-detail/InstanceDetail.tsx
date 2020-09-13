@@ -1,5 +1,6 @@
 import React from "react";
-import { Card, Icon, Popover, Spin, Button, Menu, Dropdown } from "antd";
+import { DownOutlined, InfoCircleFilled } from "@ant-design/icons";
+import { Card, Popover, Spin, Button, Menu, Dropdown } from "antd";
 import { withTranslation, WithTranslation } from "react-i18next";
 import {
   get,
@@ -206,9 +207,7 @@ export class LegacyInstanceDetail extends React.Component<
             ))
           }
         >
-          <Icon
-            type="info-circle"
-            theme="filled"
+          <InfoCircleFilled
             className={style.colorBlue}
             style={{ marginLeft: "6px" }}
           />
@@ -277,7 +276,7 @@ export class LegacyInstanceDetail extends React.Component<
         {menu && (
           <Dropdown overlay={menu}>
             <a>
-              更多 <Icon type="down" />
+              更多 <DownOutlined />
             </a>
           </Dropdown>
         )}

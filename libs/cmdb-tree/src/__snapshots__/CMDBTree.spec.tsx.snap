@@ -72,7 +72,7 @@ exports[`cmdb tree should work 1`] = `
     showLine={true}
   >
     <ContextTreeNode
-      dataRef={
+      data-ref={
         Object {
           "isLeaf": true,
           "key": "business-id-1",

@@ -3,7 +3,8 @@ import { shallow, mount } from "enzyme";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { BrickIcon } from "@easyops/brick-icons";
 import { GeneralIcon } from "./GeneralIcon";
-import { Icon } from "antd";
+import { Icon as LegacyIcon } from "@ant-design/compatible";
+import Icon from "@ant-design/icons";
 
 describe("GeneralIcon", () => {
   it("should render null if icon is falsy", () => {
@@ -17,7 +18,7 @@ describe("GeneralIcon", () => {
         icon={{ lib: "antd", type: "up", theme: "filled", color: "#0071eb" }}
       />
     );
-    expect(wrapper.find(Icon).prop("style")).toEqual({
+    expect(wrapper.find(LegacyIcon).prop("style")).toEqual({
       color: "#0071eb",
     });
   });
