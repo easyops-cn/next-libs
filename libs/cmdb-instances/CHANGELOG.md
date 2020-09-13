@@ -59,6 +59,12 @@ Closes BRICK_STORE-1666
 
 Closes BRICK_STORE-1666
 
+## [1.10.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@1.10.0...@libs/cmdb-instances@1.10.1) (2020-09-09)
+
+### Bug Fixes
+
+- **instance-format:** format value ([e5b6a8f](https://git.easyops.local/anyclouds/next-libs/commits/e5b6a8f))
+
 # [1.10.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@1.9.5...@libs/cmdb-instances@1.10.0) (2020-09-08)
 
 ### Features
