@@ -6,7 +6,7 @@ import { AdvancedSearch } from "./AdvancedSearch";
 import { HOST } from "./data-providers/__mocks__/fetchCmdbObjectDetail";
 import { ModelAttributeValueType } from "../model-attribute-form-control/ModelAttributeFormControl";
 
-const mockOnSearch = jest.fn(query => null);
+const mockOnSearch = jest.fn((query) => null);
 
 afterEach(() => {
   cleanup();
@@ -18,7 +18,7 @@ describe("AdvancedSearch", () => {
     let intAttr: Partial<CmdbModels.ModelObjectAttr>;
     let strAttr: Partial<CmdbModels.ModelObjectAttr>;
     let arrAttr: Partial<CmdbModels.ModelObjectAttr>;
-    HOST.attrList.some(attr => {
+    HOST.attrList.some((attr) => {
       switch (attr.value.type) {
         case ModelAttributeValueType.INTEGER:
           if (!intAttr) {
@@ -48,7 +48,7 @@ describe("AdvancedSearch", () => {
         q={[
           { [intAttr.id]: { $eq: intValue } },
           { [strAttr.id]: { $like: `%${strValue}%` } },
-          { [arrAttr.id]: { $in: arrValue } }
+          { [arrAttr.id]: { $in: arrValue } },
         ]}
         onSearch={mockOnSearch}
       />
@@ -59,7 +59,7 @@ describe("AdvancedSearch", () => {
 
   it("should call onSearch after click submit button", () => {
     const attr = HOST.attrList.find(
-      attr => attr.value.type === ModelAttributeValueType.STRING
+      (attr) => attr.value.type === ModelAttributeValueType.STRING
     );
     const value = "aaa";
     const { getByLabelText, getByTestId } = render(
@@ -75,14 +75,15 @@ describe("AdvancedSearch", () => {
     expect(mockOnSearch).not.toBeCalled();
     fireEvent.change(input, { target: { value } });
     fireEvent.click(submitButton);
-    expect(mockOnSearch).toBeCalledWith([
-      { $or: [{ [attr.id]: { $like: `%${value}%` } }] }
-    ]);
+    expect(mockOnSearch).toBeCalledWith(
+      [{ $or: [{ [attr.id]: { $like: `%${value}%` } }] }],
+      [{ $or: [{ [attr.id]: { $like: `%${value}%` } }] }]
+    );
   });
 
   it("should reset fields after click reset button", () => {
     const attr = HOST.attrList.find(
-      attr => attr.value.type === ModelAttributeValueType.INTEGER
+      (attr) => attr.value.type === ModelAttributeValueType.INTEGER
     );
     const value = 111;
     const { getByLabelText, getByTestId } = render(
@@ -98,6 +99,6 @@ describe("AdvancedSearch", () => {
     fireEvent.change(input, { target: { value } });
     fireEvent.click(resetButton);
     fireEvent.click(submitButton);
-    expect(mockOnSearch).toBeCalledWith([]);
+    expect(mockOnSearch).toBeCalledWith([], []);
   });
 });
