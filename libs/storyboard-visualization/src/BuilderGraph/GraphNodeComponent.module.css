@@ -128,3 +128,7 @@
 .contentItemEllipsisButtonAvailable:hover {
   padding-right: 38px;
 }
+
+.highlightContentItem {
+  background-color: #fcf4ea;
+}
