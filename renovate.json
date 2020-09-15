@@ -76,7 +76,8 @@
         ],
         "fileFilters": ["**/*"]
       },
-      "baseBranches": ["master", "antd_v4_migration"]
+      "baseBranches": ["master", "legacy/brick-next_1.x"],
+      "updateTypes": ["patch", "minor"]
     }
   ]
 }
