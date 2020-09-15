@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@1.0.0...@libs/storyboard-visualization@1.1.0) (2020-09-15)
+
+### Bug Fixes
+
+- **graph:** drag ([6ca23c9](https://git.easyops.local/anyclouds/next-libs/commits/6ca23c9))
+
+### Features
+
+- **graph-node-component:** support highlight node ([63854ba](https://git.easyops.local/anyclouds/next-libs/commits/63854ba))
+
 # [1.0.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@1.0.0-next.4...@libs/storyboard-visualization@1.0.0) (2020-09-13)
 
 **Note:** Version bump only for package @libs/storyboard-visualization
