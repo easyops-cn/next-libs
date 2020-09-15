@@ -428,7 +428,7 @@ export class RoutesGraph {
         const x0 = event.screenX + this.offsetX;
         const y0 = event.screenY + this.offsetY;
         d3Window
-          .on("mousemove", () => {
+          .on("mousemove", (event: any) => {
             const dx = x0 - event.screenX - this.offsetX;
             const dy = y0 - event.screenY - this.offsetY;
             this.transform(dx, dy, this.scale);

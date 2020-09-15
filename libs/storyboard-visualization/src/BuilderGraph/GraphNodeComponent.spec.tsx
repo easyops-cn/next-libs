@@ -143,4 +143,14 @@ describe("ContentItem", () => {
     wrapper.find(ItemActionsComponent).invoke("onVisibleChange")(true);
     expect(wrapper.prop("className").includes("actionsVisible")).toBe(true);
   });
+
+  it("should work for highlight node", () => {
+    const item: ViewItem = {
+      alias: "highlight node",
+      type: "bricks",
+      _highlight: true,
+    };
+    const wrapper = shallow(<ContentItem type="routes" item={item} />);
+    expect(wrapper.find(".highlightContentItem").length).toBe(1);
+  });
 });
