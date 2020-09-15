@@ -191,6 +191,7 @@ export function ContentItem(props: ContentItemProps): React.ReactElement {
         [styles.contentItemTypeViewTemplate]: subtype === "view-template",
         [styles.contentItemEllipsisButtonAvailable]: ellipsisButtonAvailable,
         [styles.actionsVisible]: actionsVisible,
+        [styles.highlightContentItem]: item._highlight,
       })}
       style={{
         ...styleConfig.contentItem,

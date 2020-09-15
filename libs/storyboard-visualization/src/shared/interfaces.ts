@@ -20,4 +20,5 @@ export interface ViewItem {
     y?: number;
     viewType?: string;
   };
+  _highlight?: boolean;
 }
