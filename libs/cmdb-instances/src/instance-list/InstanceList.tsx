@@ -12,6 +12,7 @@ import {
   uniqueId,
   findIndex,
   find,
+  startsWith,
 } from "lodash";
 import { handleHttpError } from "@easyops/brick-kit";
 import {
@@ -590,7 +591,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
               [key]: filteredSubQueries,
             });
           }
-        } else if (key !== attrId) {
+        } else if (key !== attrId && !startsWith(attrId, `${key}.`)) {
           queries.push(query);
         }
       });
