@@ -1,7 +1,7 @@
 import React from "react";
 import { debounce, isEqual, remove, without, get, isEmpty } from "lodash";
 import { extraFieldAttrs, otherFieldIds } from "./constants";
-import { Button, Checkbox, Col, Input, Row, Typography } from "antd";
+import { Button, Checkbox, Col, Divider, Input, Row, Typography } from "antd";
 import {
   getBatchEditableRelations,
   CMDB_RESOURCE_FIELDS_SETTINGS,
@@ -27,8 +27,6 @@ interface SettingsState {
 
 export class Settings extends React.Component<SettingsProps, SettingsState> {
   debounceHandleSearch: () => void;
-  titleLineStyle: any;
-  titleLineSpanStyle: any;
   attrAndRelationList: { id: string; name: string }[] = [];
 
   constructor(props: SettingsProps) {
@@ -70,21 +68,6 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
       filterList: this.attrAndRelationList,
     };
     this.debounceHandleSearch = debounce(this.filterColTag, 300);
-
-    this.titleLineStyle = {
-      height: "1px",
-      borderTop: "1px solid #ddd",
-      marginTop: "24px",
-      marginBottom: "24px",
-    };
-
-    this.titleLineSpanStyle = {
-      position: "relative",
-      top: "-14px",
-      fontSize: "16px",
-      background: "#fff",
-      paddingRight: "10px",
-    };
   }
 
   handleChecked(event: any, attr: any) {
@@ -171,74 +154,62 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
     );
 
     return (
-      <div>
-        <Typography.Title level={4}>{title}</Typography.Title>
-        <Row>
-          <Row style={this.titleLineStyle}>
-            <span style={this.titleLineSpanStyle}>字段设置</span>
-          </Row>
-          <Row>
-            <Input.Search
-              value={this.state.q}
-              placeholder="按字段名称搜索"
-              onChange={this.handleChange}
-              style={{ width: 200 }}
-            />
-          </Row>
-          <Row
-            style={{
-              marginTop: 15,
-              marginBottom: 15,
-              height: 200,
-              overflow: "auto",
-            }}
-            className="nextFields"
-          >
-            {attrs.map((attr: any) => this.renderCheckbox(attr, "nextFields"))}
-            {extraAttrs.length > 0 ? (
-              <>
-                <Col
-                  span={24}
-                  style={{ borderTop: "1px solid #e9e9e9", margin: "10px 0" }}
-                />
-                {extraAttrs.map((attr: any) =>
-                  this.renderCheckbox(attr, "nextFields")
-                )}
-              </>
-            ) : null}
-          </Row>
-          <Row style={this.titleLineStyle}>
-            <Col span={8}>
-              <Button
-                type="default"
-                onClick={this.handleReset}
-                style={{ marginTop: 15 }}
-              >
-                恢复默认
-              </Button>
-            </Col>
-            <Col span={16}>
-              <Row justify="end">
-                <Button
-                  type="default"
-                  onClick={this.handleCancel}
-                  style={{ marginTop: 15, marginRight: 10 }}
-                >
-                  取消
-                </Button>
-                <Button
-                  type="primary"
-                  onClick={this.handleConfirm}
-                  disabled={count === 0}
-                  style={{ marginTop: 15 }}
-                >
-                  确定
-                </Button>
-              </Row>
-            </Col>
-          </Row>
+      <>
+        <Typography.Title level={5}>{title}</Typography.Title>
+        <Divider orientation="left" plain>
+          字段设置
+        </Divider>
+        <div>
+          <Input.Search
+            value={this.state.q}
+            placeholder="按字段名称搜索"
+            onChange={this.handleChange}
+            style={{ width: 200 }}
+          />
+        </div>
+        <Row
+          style={{
+            marginTop: 15,
+            height: 200,
+            overflow: "auto",
+          }}
+          className="nextFields"
+        >
+          {attrs.map((attr: any) => this.renderCheckbox(attr, "nextFields"))}
+          {extraAttrs.length > 0 ? (
+            <>
+              <Divider />
+              {extraAttrs.map((attr: any) =>
+                this.renderCheckbox(attr, "nextFields")
+              )}
+            </>
+          ) : null}
         </Row>
-      </div>
+        <Divider style={{ marginBottom: 15 }} />
+        <div style={{ display: "flex" }}>
+          <div>
+            <Button type="default" onClick={this.handleReset}>
+              恢复默认
+            </Button>
+          </div>
+          <div style={{ marginLeft: "auto" }}>
+            <Button
+              type="default"
+              onClick={this.handleCancel}
+              style={{ marginRight: 10 }}
+            >
+              取消
+            </Button>
+            <Button
+              type="primary"
+              onClick={this.handleConfirm}
+              disabled={count === 0}
+            >
+              确定
+            </Button>
+          </div>
+        </div>
+      </>
     );
   }
 }
