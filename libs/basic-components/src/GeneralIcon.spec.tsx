@@ -66,4 +66,19 @@ describe("GeneralIcon", () => {
       borderColor: "var(--theme-green-border-color)",
     });
   });
+
+  it("should pass onClick property", () => {
+    const mockedOnClick = jest.fn();
+    const wrapper = shallow(
+      <GeneralIcon
+        icon={{ lib: "antd", type: "up", theme: "filled", color: "#0071eb" }}
+        onClick={mockedOnClick}
+      />
+    );
+    const event = new MouseEvent("click");
+    wrapper.find(LegacyIcon).invoke("onClick")(
+      (event as unknown) as React.MouseEvent<HTMLElement, MouseEvent>
+    );
+    expect(mockedOnClick).toBeCalledWith(event);
+  });
 });
