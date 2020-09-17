@@ -13,6 +13,7 @@ import {
   findIndex,
   find,
   startsWith,
+  compact,
 } from "lodash";
 import { handleHttpError } from "@easyops/brick-kit";
 import {
@@ -477,7 +478,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
   }) => {
     let { selectedItems, selectedKeys } = selected;
     setSelectedRowKeys(selectedKeys);
-    if (selectedKeys.length > selectedItems.length) {
+    if (selectedKeys.length > compact(selectedItems).length) {
       const ids = selectedKeys.filter((id) => !cache.current.has(id));
       if (ids.length) {
         const resp = await InstanceApi.postSearch(props.objectId, {
