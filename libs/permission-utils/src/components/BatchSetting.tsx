@@ -177,7 +177,9 @@ export class BatchSetting extends React.Component<
           />
           <div className={styles.formContainer}>
             <div className={styles.formRow}>
-              <label className={`ant-form-item-required ${styles.formLabel}`}>
+              <label
+                className={`ant-legacy-form-item-required ${styles.formLabel}`}
+              >
                 选择权限：
               </label>
               <CheckboxGroup
