@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.3](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@2.0.2...@libs/cmdb-instances@2.0.3) (2020-09-17)
+
+### Bug Fixes
+
+- **InstanceList:** onSelectionChange selectedItems filter falsey item ([5f849c6](https://git.easyops.local/anyclouds/next-libs/commits/5f849c6))
+- **Settings:** style fixes ([a66bddd](https://git.easyops.local/anyclouds/next-libs/commits/a66bddd))
+
 ## [2.0.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@2.0.1...@libs/cmdb-instances@2.0.2) (2020-09-16)
 
 ### Bug Fixes
