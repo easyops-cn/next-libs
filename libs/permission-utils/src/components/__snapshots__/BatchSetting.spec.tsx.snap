@@ -42,7 +42,7 @@ exports[`BatchSetting should work 1`] = `
         className="formRow"
       >
         <label
-          className="ant-form-item-required formLabel"
+          className="ant-legacy-form-item-required formLabel"
         >
           选择权限：
         </label>
