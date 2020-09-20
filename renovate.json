@@ -2,7 +2,7 @@
   "$schema": "http://json.schemastore.org/renovate",
   "extends": ["config:base"],
   "rangeStrategy": "bump",
-  "semanticCommits": true,
+  "semanticCommits": "enabled",
   "commitMessagePrefix": "chore(deps):",
   "assignees": ["weareoutman"],
   "ignorePresets": [":ignoreModulesAndTests"],
@@ -76,8 +76,13 @@
         ],
         "fileFilters": ["**/*"]
       },
-      "baseBranches": ["master", "legacy/brick-next_1.x"],
-      "updateTypes": ["patch", "minor"]
+      "major": { "enabled": false }
+    },
+    {
+      "baseBranchList": ["legacy/brick-next_1.x"],
+      "excludePackagePatterns": ["^@easyops/"],
+      "enabled": false
     }
-  ]
+  ],
+  "baseBranches": ["master", "legacy/brick-next_1.x"]
 }
