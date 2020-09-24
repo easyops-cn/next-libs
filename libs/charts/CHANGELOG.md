@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.7.5](https://git.easyops.local/anyclouds/next-libs/compare/@libs/charts@0.7.4...@libs/charts@0.7.5) (2020-09-24)
+
+### Bug Fixes
+
+- **TrendChart:** allways render .chart element ([e113d3c](https://git.easyops.local/anyclouds/next-libs/commits/e113d3c))
+
 ## [0.7.4](https://git.easyops.local/anyclouds/next-libs/compare/@libs/charts@0.7.3...@libs/charts@0.7.4) (2020-08-10)
 
 ### Bug Fixes
