@@ -888,6 +888,7 @@ export class AdvancedSearchForm extends React.Component<
     return (
       <div className={styles.advancedSearch}>
         <Form
+          layout="vertical"
           className={styles.advancedSearchForm}
           onSubmit={this.handleSearch}
         >
