@@ -91,7 +91,7 @@ export function formatTooltip(
   let tooltip = `${moment(params[0].data[0]).format(
     "YYYY/MM/DD H:mm:ss"
   )}<br />`;
-  params.forEach(param => {
+  params.forEach((param) => {
     const name = param.seriesName;
 
     let label;
@@ -118,36 +118,36 @@ export function TrendChart(props: TrendChartProps): React.ReactElement {
   const colorList: TrendChartColor[] = props.colorList || [
     {
       lineColor: "rgba(47, 194, 91, 1)",
-      areaColor: ["rgba(47, 194, 91, 0.3)", "rgba(47, 194, 91, 0.3)"]
+      areaColor: ["rgba(47, 194, 91, 0.3)", "rgba(47, 194, 91, 0.3)"],
     },
     {
       lineColor: "rgba(255, 186, 0, 1)",
-      areaColor: ["rgba(255, 186, 0, 0.3)", "rgba(255, 186, 0, 0.3)"]
+      areaColor: ["rgba(255, 186, 0, 0.3)", "rgba(255, 186, 0, 0.3)"],
     },
     {
       lineColor: "rgba(0, 113, 235, 1)",
-      areaColor: ["rgba(0, 113, 235, 0.3)", "rgba(0, 113, 235, 0.3)"]
+      areaColor: ["rgba(0, 113, 235, 0.3)", "rgba(0, 113, 235, 0.3)"],
     },
     {
       lineColor: "rgba(63, 76, 129, 1)",
-      areaColor: ["rgba(63, 76, 129, 0.3)", "rgba(63, 76, 129, 0.3)"]
+      areaColor: ["rgba(63, 76, 129, 0.3)", "rgba(63, 76, 129, 0.3)"],
     },
     {
       lineColor: "rgba(41, 199, 204, 1)",
-      areaColor: ["rgba(41, 199, 204, 0.3)", "rgba(41, 199, 204, 0.3)"]
+      areaColor: ["rgba(41, 199, 204, 0.3)", "rgba(41, 199, 204, 0.3)"],
     },
     {
       lineColor: "rgba(255, 162, 53, 1)",
-      areaColor: ["rgba(255, 162, 53, 0.3)", "rgba(255, 162, 53, 0.3)"]
+      areaColor: ["rgba(255, 162, 53, 0.3)", "rgba(255, 162, 53, 0.3)"],
     },
     {
       lineColor: "rgba(133, 67, 224, 1)",
-      areaColor: ["rgba(133, 67, 224, 0.3)", "rgba(133, 67, 224, 0.3)"]
+      areaColor: ["rgba(133, 67, 224, 0.3)", "rgba(133, 67, 224, 0.3)"],
     },
     {
       lineColor: "rgba(240, 73, 60, 1)",
-      areaColor: ["rgba(240, 73, 60, 0.3)", "rgba(240, 73, 60, 0.3)"]
-    }
+      areaColor: ["rgba(240, 73, 60, 0.3)", "rgba(240, 73, 60, 0.3)"],
+    },
   ];
 
   const chartRef = useRef();
@@ -159,7 +159,7 @@ export function TrendChart(props: TrendChartProps): React.ReactElement {
         bottom: 40,
         left: "left",
         right: 35,
-        containLabel: true
+        containLabel: true,
       },
       title: {
         text: props.title,
@@ -169,8 +169,8 @@ export function TrendChart(props: TrendChartProps): React.ReactElement {
         textStyle: {
           fontSize: 14,
           fontWeight: 500,
-          color: "rgba(38, 38, 38, 1)"
-        }
+          color: "rgba(38, 38, 38, 1)",
+        },
       },
       legend: {
         data: props.data.legendList,
@@ -182,16 +182,16 @@ export function TrendChart(props: TrendChartProps): React.ReactElement {
         textStyle: {
           fontSize: 12,
           fontWeight: 400,
-          color: "rgba(140, 140, 140, 1)"
-        }
+          color: "rgba(140, 140, 140, 1)",
+        },
       },
       toolbox: {
         feature: {
           dataZoom: {
-            yAxisIndex: "none"
-          }
+            yAxisIndex: "none",
+          },
         },
-        right: 30
+        right: 30,
       },
       xAxis: {
         type: "time",
@@ -199,50 +199,50 @@ export function TrendChart(props: TrendChartProps): React.ReactElement {
         boundaryGap: false,
         axisLine: {
           lineStyle: {
-            color: "rgba(217, 217, 217, 1)"
-          }
+            color: "rgba(217, 217, 217, 1)",
+          },
         },
         axisTick: {
-          show: false
+          show: false,
         },
         axisLabel: {
-          color: "rgba(89, 89, 89, 1)"
+          color: "rgba(89, 89, 89, 1)",
         },
         splitLine: {
-          show: false
-        }
+          show: false,
+        },
       },
       yAxis: {
         type: "value",
         name: get(props.yAxis, "name"),
         nameTextStyle: {
           fontSize: 12,
-          color: "rgba(89, 89, 89, 1)"
+          color: "rgba(89, 89, 89, 1)",
         },
         axisLine: {
-          show: false
+          show: false,
         },
         axisTick: {
-          show: false
+          show: false,
         },
         axisLabel: {
           padding: [0, 0, 0, 20],
           showMinLabel: true,
           showMaxLabel: true,
           color: "rgba(89, 89, 89, 1)",
-          formatter: (value: number) => formatAxisLabel(value, props.format)
+          formatter: (value: number) => formatAxisLabel(value, props.format),
         },
         splitLine: {
           lineStyle: {
             type: "dashed",
-            color: "rgba(232, 232, 232, 1)"
-          }
-        }
+            color: "rgba(232, 232, 232, 1)",
+          },
+        },
       },
       series: props.data.trendDataList.map((trendData, index) => {
         const color = colorList[index % colorList.length];
 
-        trendData.data.forEach(data => {
+        trendData.data.forEach((data) => {
           if (!(data[0] instanceof Date)) {
             data[0] = new Date(data[0]);
           }
@@ -265,14 +265,14 @@ export function TrendChart(props: TrendChartProps): React.ReactElement {
           markLine: {
             label: {
               formatter: (params: any) =>
-                formatMarkLineLabel(params, props.format)
-            }
+                formatMarkLineLabel(params, props.format),
+            },
           },
           itemStyle: {
-            color: color.lineColor
+            color: color.lineColor,
           },
           lineStyle: {
-            width: 0.5
+            width: 0.5,
           },
           areaStyle: color.areaColor && {
             normal: {
@@ -280,16 +280,16 @@ export function TrendChart(props: TrendChartProps): React.ReactElement {
                 ? new echarts.graphic.LinearGradient(0, 0, 0, 1, [
                     {
                       offset: 0,
-                      color: color.areaColor[0]
+                      color: color.areaColor[0],
                     },
                     {
                       offset: 1,
-                      color: color.areaColor[1]
-                    }
+                      color: color.areaColor[1],
+                    },
                   ])
-                : color.areaColor
-            }
-          }
+                : color.areaColor,
+            },
+          },
         };
       }),
       tooltip: {
@@ -298,9 +298,9 @@ export function TrendChart(props: TrendChartProps): React.ReactElement {
           return formatTooltip(props.format, params);
         },
         textStyle: {
-          fontSize: 12
-        }
-      }
+          fontSize: 12,
+        },
+      },
     };
 
     const formatOption: any = {};
@@ -342,6 +342,8 @@ export function TrendChart(props: TrendChartProps): React.ReactElement {
   useEffect(() => {
     if (props.status === undefined || props.status === DataStatus.Normal) {
       renderChart(computeOption());
+    } else if (scope.echartsInstance) {
+      scope.echartsInstance.clear();
     }
   }, [props.data]);
 
@@ -350,6 +352,9 @@ export function TrendChart(props: TrendChartProps): React.ReactElement {
       if (scope.echartsInstance) {
         scope.echartsInstance.dispose();
       }
+      if (scope.resizeObserver) {
+        scope.resizeObserver.disconnect();
+      }
     },
     []
   );
@@ -357,37 +362,37 @@ export function TrendChart(props: TrendChartProps): React.ReactElement {
   const render = (): React.ReactElement => {
     const status =
       props.status === undefined ? DataStatus.Normal : props.status;
+    const isNormal = status === DataStatus.Normal;
     const title = props.title || "";
+    let content: React.ReactElement;
     switch (status) {
       case DataStatus.Normal:
-        return <div className={style.chart} ref={chartRef} />;
+        break;
       case DataStatus.Empty:
-        return (
-          <>
-            <div className={style.title}>{title}</div>
-            <div className={style.body}>
-              <div className={style.emptyWrapper}>
-                <Empty className={style.emptyText}></Empty>
-                <div>暂无数据</div>
-              </div>
-            </div>
-          </>
+        content = (
+          <div className={style.emptyWrapper}>
+            <Empty className={style.emptyText}></Empty>
+            <div>暂无数据</div>
+          </div>
         );
+        break;
       case DataStatus.ApiError:
-        return (
-          <>
-            <div className={style.title}>{title}</div>
-            <div>获取数据失败</div>
-          </>
-        );
+        content = <div>获取数据失败</div>;
+        break;
       default:
-        return (
+        content = <div>{props.error || "未知错误"}</div>;
+    }
+    return (
+      <>
+        {!isNormal && (
           <>
             <div className={style.title}>{title}</div>
-            <div>{props.error || "未知错误"}</div>
+            <div className={style.body}>{content}</div>
           </>
-        );
-    }
+        )}
+        <div className={style.chart} ref={chartRef} hidden={!isNormal} />
+      </>
+    );
   };
 
   return render();
