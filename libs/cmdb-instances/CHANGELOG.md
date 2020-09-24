@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.4](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@2.0.3...@libs/cmdb-instances@2.0.4) (2020-09-24)
+
+### Bug Fixes
+
+- **AdvancedSearch:** set Form layout to vertical ([eddafed](https://git.easyops.local/anyclouds/next-libs/commits/eddafed))
+
 ## [2.0.3](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@2.0.2...@libs/cmdb-instances@2.0.3) (2020-09-17)
 
 ### Bug Fixes
