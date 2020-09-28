@@ -74,7 +74,7 @@
           "yarn-deduplicate yarn.lock",
           "yarn"
         ],
-        "fileFilters": ["**/*"]
+        "fileFilters": ["**/*", ".gitlab/**/*"]
       },
       "major": { "enabled": false }
     },
