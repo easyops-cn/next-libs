@@ -544,8 +544,7 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
         selectedKeys={[this.props.selectedInstanceId]}
         draggable
         showIcon={this.props.showIcon}
-        showLine
-        className="hide-file-icon"
+        showLine={{ showLeafIcon: false }}
         onSelect={this.props.onSelect}
         checkable={this.props.checkable}
         checkStrictly={this.props.checkStrictly}
