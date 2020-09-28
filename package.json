@@ -42,7 +42,7 @@
     "@fortawesome/react-fontawesome": "^0.1.11",
     "@size-limit/file": "^4.6.0",
     "@svgr/rollup": "^5.4.0",
-    "@testing-library/react-hooks": "^3.4.1",
+    "@testing-library/react-hooks": "^3.4.2",
     "@types/classnames": "^2.2.10",
     "@types/d3": "^5.7.2",
     "@types/dompurify": "^2.0.4",
