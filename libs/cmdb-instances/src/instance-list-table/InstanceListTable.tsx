@@ -87,6 +87,7 @@ interface InstanceListTableState {
   list: Record<string, any>[];
   columns?: ColumnType<Record<string, any>>[];
   pagination: TablePaginationConfig;
+  defaultPagination: TablePaginationConfig;
 }
 
 export class LegacyInstanceListTable extends React.Component<
@@ -109,22 +110,26 @@ export class LegacyInstanceListTable extends React.Component<
     const fieldIds = this.props.fieldIds;
     const sortedColumns = this.getChangeColumns(fieldIds);
 
+    const defaultPagination = {
+      disabled: this.props.paginationDisabled,
+      pageSizeOptions: this.props.pageSizeOptions,
+      showSizeChanger: this.props.showSizeChanger,
+      showTotal: (totals: number) => (
+        <span className={styles.totalText}>
+          共<strong className={styles.total}>{totals}</strong> 项
+        </span>
+      ),
+    };
     this.state = {
       list: this.props.instanceListData.list,
       columns: sortedColumns,
       pagination: {
-        disabled: this.props.paginationDisabled,
-        pageSizeOptions: this.props.pageSizeOptions,
-        showSizeChanger: this.props.showSizeChanger,
+        ...defaultPagination,
         total: this.props.instanceListData.total,
-        showTotal: (totals) => (
-          <span className={styles.totalText}>
-            共<strong className={styles.total}>{totals}</strong> 项
-          </span>
-        ),
         current: this.props.instanceListData.page,
         pageSize: this.props.instanceListData.page_size,
       },
+      defaultPagination: defaultPagination,
     };
   }
 
@@ -512,6 +517,7 @@ export class LegacyInstanceListTable extends React.Component<
       this.setState({
         list: this.props.instanceListData.list,
         pagination: {
+          ...this.state.defaultPagination,
           total: this.props.instanceListData.total,
           current: this.props.instanceListData.page,
           pageSize: this.props.instanceListData.page_size,
