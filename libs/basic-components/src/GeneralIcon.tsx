@@ -9,7 +9,7 @@ import {
   LegacyAntdIcon,
 } from "@easyops/brick-types";
 import { BrickIcon } from "@easyops/brick-icons";
-import { getColor } from "./utils/getColor";
+import { Colors, COLORS_MAP, getColor } from "./utils/getColor";
 
 interface MenuIconProps {
   icon: MenuIcon;
@@ -18,17 +18,6 @@ interface MenuIconProps {
   shape?: "circle" | "square";
   reverseBgColor?: boolean;
   onClick?(event: React.MouseEvent<HTMLElement, MouseEvent>): void;
-}
-
-export enum Colors {
-  green = "green",
-  red = "red",
-  blue = "blue",
-  orange = "orange",
-  cyan = "cyan",
-  purple = "purple",
-  geekblue = "geekblue",
-  gray = "gray",
 }
 
 export function GeneralIcon({
@@ -56,7 +45,7 @@ export function GeneralIcon({
   let avatarStyle: Record<string, any> = {};
   if (icon.color) {
     if (bg) {
-      if (Object.keys(Colors).includes(icon.color)) {
+      if (COLORS_MAP[icon.color as Colors]) {
         if (reverseBgColor) {
           avatarStyle = {
             color: "#ffffff",
@@ -72,7 +61,11 @@ export function GeneralIcon({
         };
       }
     } else {
-      iconStyle = { color: icon.color };
+      iconStyle = {
+        color: COLORS_MAP[icon.color as Colors]
+          ? getColor(icon.color).color
+          : icon.color,
+      };
     }
   }
 
