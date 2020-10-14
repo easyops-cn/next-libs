@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@1.1.0...@libs/basic-components@1.1.1) (2020-10-14)
+
+### Bug Fixes
+
+- **GeneralIcon:** use getColor to get color when bg is falsy ([ec5dcc3](https://git.easyops.local/anyclouds/next-libs/commits/ec5dcc3))
+
 # [1.1.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@1.0.0...@libs/basic-components@1.1.0) (2020-09-17)
 
 ### Features
