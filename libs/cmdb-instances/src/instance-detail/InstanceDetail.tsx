@@ -607,7 +607,12 @@ export class LegacyInstanceDetail extends React.Component<
 
   // istanbul ignore next
   async fetchData(props: LegacyInstanceDetailProps): Promise<void> {
-    let modelListData, modelDataMap, modelData, instanceData;
+    let modelListData,
+      modelDataMap,
+      modelData: Partial<CmdbModels.ModelCmdbObject>,
+      instanceData,
+      filterModelData,
+      hideModelData: string[];
     try {
       if (props.modelDataList) {
         modelDataMap = keyBy(props.modelDataList, "objectId");
@@ -625,10 +630,25 @@ export class LegacyInstanceDetail extends React.Component<
         };
       }
       modelData = modelDataMap[props.objectId];
-
+      hideModelData = modelData.view.hide_columns || [];
+      filterModelData = {
+        ...modelData,
+        attrList: modelData.attrList.filter(
+          (item) => !hideModelData.includes(item.id)
+        ),
+        relation_list: modelData.relation_list.filter(
+          (item) =>
+            !(
+              (hideModelData.includes(item.left_id) &&
+                item.left_object_id === props.objectId) ||
+              (hideModelData.includes(item.right_id) &&
+                item.right_object_id === props.objectId)
+            )
+        ),
+      };
       this.setState({
         modelDataMap,
-        modelData: modifyModelData(modelData),
+        modelData: modifyModelData(filterModelData),
         instanceData,
         loaded: true,
         basicInfoGroupListShow: [],

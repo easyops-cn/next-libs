@@ -49,6 +49,7 @@ interface ModelAttributeFormProps extends FormComponentProps {
   onSubmit(data: any): Promise<any>;
   basicInfoAttrList?: Partial<CmdbModels.ModelObjectAttr>[];
   objectList?: Partial<CmdbModels.ModelCmdbObject>[];
+  modelData?: Partial<CmdbModels.ModelCmdbObject>;
   attributeFormControlInitialValueMap:
     | InstanceApi.GetDefaultValueTemplateResponseBody
     | Partial<InstanceApi.GetDetailResponseBody>;
@@ -86,21 +87,39 @@ export class ModelAttributeForm extends Component<
 
   constructor(props: ModelAttributeFormProps) {
     super(props);
-
     if (this.props.objectList) {
       this.modelMap = keyBy(this.props.objectList, "objectId");
-      this.modelData = modifyModelData(this.modelMap[this.props.objectId]);
+    }
+    if (this.props.modelData) {
+      this.modelData = modifyModelData(this.props.modelData);
+    } else {
+      if (this.props.objectList) {
+        this.modelData = modifyModelData(this.modelMap[this.props.objectId]);
+      }
     }
 
+    const hideModelData: string[] = this.modelData.view.hide_columns || [];
     let AttrListGroupByTag: attributesFieldsByTag[] = [];
-
+    let fieldsByTag;
     if (props.formItemProps) {
       this.formItemProps = props.formItemProps;
     }
     if (props.fieldsByTag) {
+      fieldsByTag = this.props.fieldsByTag.map((items) => {
+        let fields;
+        if (items.fields) {
+          fields = items.fields.filter(
+            (item) => item && !hideModelData.includes(item)
+          );
+        }
+        return {
+          name: items.name,
+          fields,
+        };
+      });
       AttrListGroupByTag = ModelAttributeForm.getFieldsByTag(
         this.props.basicInfoAttrList,
-        props.fieldsByTag,
+        fieldsByTag,
         this.modelData
       );
     } else {
