@@ -276,12 +276,14 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
       : CMDB_RESOURCE_FIELDS_SETTINGS;
     const ignoredFields: string[] =
       settings.ignoredFields[modelData.objectId] || [];
-    const fieldIds: string[] =
+    let fieldIds: string[] =
       settings.defaultFields[modelData.objectId] ||
       difference(uniq(map(modelData.attrList, "id")), ignoredFields).slice(
         0,
         inModal ? MAX_DEFAULT_MODAL_FIELDS_COUNT : MAX_DEFAULT_FIELDS_COUNT
       );
+    const hideModelData: string[] = modelData.view.hide_columns || [];
+    fieldIds = fieldIds.filter((field) => !hideModelData.includes(field));
     return { fieldIds };
   };
 
@@ -323,6 +325,8 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
       fieldIds = computeDefaultFields().fieldIds;
     }
     fieldIds = _sortFieldIds(fieldIds);
+    const hideModelData: string[] = modelData.view.hide_columns || [];
+    fieldIds = fieldIds.filter((field) => !hideModelData.includes(field));
     return fieldIds;
   };
 

@@ -38,8 +38,6 @@ export interface InstanceListModalProps {
 export function InstanceListModal(
   props: InstanceListModalProps
 ): React.ReactElement {
-  const modelData = props.objectMap[props.objectId];
-
   const [selectedInstanceListTemp, setSelectedInstanceListTemp] = useState([]);
 
   // istanbul ignore next
