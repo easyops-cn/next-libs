@@ -17,6 +17,7 @@ import { GraphNodeComponent } from "./GraphNodeComponent";
 import { styleConfig } from "./constants";
 import { ContentItemActions } from "@libs/basic-components";
 import { zoomIdentity } from "d3-zoom";
+import { drag } from "d3-drag";
 
 import styles from "./BuilderGraph.module.css";
 
@@ -113,30 +114,30 @@ export class BuilderGraph {
       .attr("class", styles.nodesContainer);
     this.nodes = this.nodesContainer.selectAll(`.${styles.nodeWrapper}`);
 
-    // Grabbing to scroll.
-    const d3Window = select(window);
     /* istanbul ignore next */
-    this.canvas
-      .on("mousedown", (event: MouseEvent) => {
-        this.canvas.classed(styles.grabbing, true);
-        event.preventDefault();
-        const x0 = event.screenX + this.offsetX;
-        const y0 = event.screenY + this.offsetY;
-        d3Window
-          .on("mousemove", (event: any) => {
-            const dx = x0 - event.screenX - this.offsetX;
-            const dy = y0 - event.screenY - this.offsetY;
-            this.transform(dx, dy);
-          })
-          .on("mouseup", () => {
+    let moved: boolean;
+    this.canvas.call(
+      drag<HTMLDivElement, any>()
+        .on("start", () => {
+          moved = false;
+          this.canvas.classed(styles.grabbing, true);
+        })
+        .on("drag", (event) => {
+          const { dx, dy } = event as any;
+          this.transform(-dx, -dy);
+          moved = true;
+        })
+        .on("end", () => {
+          if (moved) {
             this.onDragEnd?.(
               Math.floor(this.offsetX),
               Math.floor(this.offsetY)
             );
-            this.canvas.classed(styles.grabbing, false);
-            d3Window.on("mousemove", null).on("mouseup", null);
-          });
-      })
+          }
+          this.canvas.classed(styles.grabbing, false);
+        })
+    );
+    this.canvas
       .on("wheel", function (event: Event) {
         event.preventDefault();
       })
