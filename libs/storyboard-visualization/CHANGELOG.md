@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.3](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@1.1.2...@libs/storyboard-visualization@1.1.3) (2020-10-19)
+
+### Bug Fixes
+
+- **graph:** replace mouse events with drag events ([9709801](https://git.easyops.local/anyclouds/next-libs/commits/9709801))
+
 ## [1.1.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/storyboard-visualization@1.1.1...@libs/storyboard-visualization@1.1.2) (2020-10-14)
 
 **Note:** Version bump only for package @libs/storyboard-visualization
