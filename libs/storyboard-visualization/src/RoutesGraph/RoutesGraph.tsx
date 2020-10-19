@@ -421,23 +421,20 @@ export class RoutesGraph {
     d3Window.on("resize", () => {
       this.getCanvasSize();
     });
+    this.canvas.call(
+      drag<HTMLDivElement, any>()
+        .on("start", () => {
+          this.linksLayer.classed(styles.grabbing, true);
+        })
+        .on("drag", (event) => {
+          const { dx, dy } = event as any;
+          this.transform(-dx, -dy, this.scale);
+        })
+        .on("end", () => {
+          this.linksLayer.classed(styles.grabbing, false);
+        })
+    );
     this.canvas
-      .on("mousedown", (event: MouseEvent) => {
-        this.linksLayer.classed(styles.grabbing, true);
-        event.preventDefault();
-        const x0 = event.screenX + this.offsetX;
-        const y0 = event.screenY + this.offsetY;
-        d3Window
-          .on("mousemove", (event: any) => {
-            const dx = x0 - event.screenX - this.offsetX;
-            const dy = y0 - event.screenY - this.offsetY;
-            this.transform(dx, dy, this.scale);
-          })
-          .on("mouseup", () => {
-            this.linksLayer.classed(styles.grabbing, false);
-            d3Window.on("mousemove", null).on("mouseup", null);
-          });
-      })
       .on("wheel", function (event: Event) {
         event.preventDefault();
       })
