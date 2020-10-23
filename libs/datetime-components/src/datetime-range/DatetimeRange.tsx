@@ -193,7 +193,7 @@ export class DatetimeRange extends React.Component<
   render(): React.ReactNode {
     const labelStyle = {
       display: "block",
-      color: "#262626",
+      color: "var(--text-color-title)",
       lineHeight: "24px",
       fontSize: "16px",
       fontWeight: 500,
