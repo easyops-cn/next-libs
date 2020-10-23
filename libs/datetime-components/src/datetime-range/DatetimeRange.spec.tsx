@@ -7,7 +7,7 @@ describe("DatetimeRange", () => {
   const wrapper = shallow(<DatetimeRange />);
   const component = wrapper.instance() as DatetimeRange;
   it("should work", () => {
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper).toBeTruthy();
   });
   it("test getButtonText now-7d", () => {
     expect(component.getButtonText()).toBe("近7天");
@@ -15,7 +15,7 @@ describe("DatetimeRange", () => {
   it("test getButtonText now-30d", () => {
     const dateRange = {
       type: DATE_RANGE,
-      value: "now-30d"
+      value: "now-30d",
     };
     wrapper.setState({ dateRange });
     expect(component.getButtonText()).toBe("近30天");
@@ -25,8 +25,8 @@ describe("DatetimeRange", () => {
       type: SPECIFIED_DATE,
       value: {
         from: 1556703515644,
-        to: 1556789915644
-      }
+        to: 1556789915644,
+      },
     };
     wrapper.setState({ dateRange });
     expect(component.getButtonText()).toBe(
@@ -39,7 +39,7 @@ describe("DatetimeRange", () => {
     expect(wrapper.state("range")).toBe(null);
     expect(wrapper.state("specifiedDate")).toEqual([
       moment(1556703515644),
-      moment(1556789915644)
+      moment(1556789915644),
     ]);
   });
   it("test handleVisibleChange", () => {
@@ -56,12 +56,12 @@ describe("DatetimeRange onConfirm", () => {
       type: SPECIFIED_DATE,
       value: {
         from: 1556703515644,
-        to: 1556789915644
-      }
+        to: 1556789915644,
+      },
     };
     wrapper.setState({
       type: SPECIFIED_DATE,
-      specifiedDate: [moment(1556703515644), moment(1556789915644)]
+      specifiedDate: [moment(1556703515644), moment(1556789915644)],
     });
     component.save();
     expect(wrapper.state("dateRange")).toEqual(dateRange);
@@ -70,11 +70,11 @@ describe("DatetimeRange onConfirm", () => {
   it("test save dateRange", () => {
     const dateRange = {
       type: DATE_RANGE,
-      value: "now-30d"
+      value: "now-30d",
     };
     wrapper.setState({
       type: DATE_RANGE,
-      range: "now-30d"
+      range: "now-30d",
     });
     component.save();
     expect(wrapper.state("dateRange")).toEqual(dateRange);
@@ -88,12 +88,12 @@ describe("DatetimeRange onConfirm", () => {
         customTimeRange={[
           {
             range: "now-30d",
-            text: "近30天"
+            text: "近30天",
           },
           {
             range: "now-1y",
-            text: "近一年"
-          }
+            text: "近一年",
+          },
         ]}
       />
     );
@@ -101,17 +101,7 @@ describe("DatetimeRange onConfirm", () => {
     wrapper.find(".ant-btn").simulate("click");
     wrapper.update();
 
-    expect(
-      wrapper
-        .find("Radio")
-        .at(0)
-        .text()
-    ).toEqual("近30天");
-    expect(
-      wrapper
-        .find("Radio")
-        .at(1)
-        .text()
-    ).toEqual("近一年");
+    expect(wrapper.find("Radio").at(0).text()).toEqual("近30天");
+    expect(wrapper.find("Radio").at(1).text()).toEqual("近一年");
   });
 });
