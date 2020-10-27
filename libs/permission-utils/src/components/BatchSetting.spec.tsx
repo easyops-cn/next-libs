@@ -15,8 +15,8 @@ describe("BatchSetting", () => {
         condition: {
           deleteAuthorizers: "%user",
           name: "package",
-          system: "deploy"
-        }
+          system: "deploy",
+        },
       },
       roles: [
         "系统管理员",
@@ -24,7 +24,7 @@ describe("BatchSetting", () => {
         "应用测试",
         "应用开发",
         "test",
-        "测试角色-没有easyops+系统管理菜单"
+        "测试角色-没有easyops+系统管理菜单",
       ],
       system: "持续部署",
       user: [
@@ -35,10 +35,10 @@ describe("BatchSetting", () => {
         "ea",
         "willniu",
         "lightjiao",
-        "user3"
+        "user3",
       ],
       _actionWeight: 1,
-      _category: "a-0"
+      _category: "a-0",
     },
     {
       action: "deploy:package_update",
@@ -49,8 +49,8 @@ describe("BatchSetting", () => {
         condition: {
           updateAuthorizers: "%user",
           name: "package",
-          system: "deploy"
-        }
+          system: "deploy",
+        },
       },
       roles: [
         "系统管理员",
@@ -58,7 +58,7 @@ describe("BatchSetting", () => {
         "应用测试",
         "应用开发",
         "test",
-        "测试角色-没有easyops+系统管理菜单"
+        "测试角色-没有easyops+系统管理菜单",
       ],
       system: "持续部署",
       user: [
@@ -69,10 +69,10 @@ describe("BatchSetting", () => {
         "ea",
         "willniu",
         "lightjiao",
-        "user3"
+        "user3",
       ],
       _actionWeight: 2,
-      _category: "a-0"
+      _category: "a-0",
     },
     {
       action: "deploy:package_read",
@@ -83,8 +83,8 @@ describe("BatchSetting", () => {
         condition: {
           readAuthorizers: "%user",
           name: "package",
-          system: "deploy"
-        }
+          system: "deploy",
+        },
       },
       roles: [
         "系统管理员",
@@ -92,7 +92,7 @@ describe("BatchSetting", () => {
         "应用测试",
         "应用开发",
         "test",
-        "测试角色-没有easyops+系统管理菜单"
+        "测试角色-没有easyops+系统管理菜单",
       ],
       system: "持续部署",
       user: [
@@ -103,37 +103,37 @@ describe("BatchSetting", () => {
         "ea",
         "willniu",
         "lightjiao",
-        "user3"
+        "user3",
       ],
       _actionWeight: 100,
-      _category: "a-0"
-    }
+      _category: "a-0",
+    },
   ];
   const instanceIds = [
     "b6c5145b627a11e99f5106e69ba71c45",
     "8d0eb0decf6a34debdb3c5d458df5f98",
-    "5a8c4609657c11e985d58e589cd9215b"
+    "5a8c4609657c11e985d58e589cd9215b",
   ];
-  const updateFunction = () => {};
+  const updateFunction = (): void => void 0;
   const props = {
     modelData,
     instanceIds,
     permissionList,
-    updateFunction
+    updateFunction,
   };
   const wrapper = shallow(<BatchSetting {...props} />);
   const instance = wrapper.instance() as BatchSetting;
 
   it("should work", () => {
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper).toBeTruthy();
     expect(instance.state).toEqual({
       visible: false,
       formData: {
         enableWhiteList: false,
         method: "overwrite",
         authorizers: [],
-        perm: []
-      }
+        perm: [],
+      },
     });
   });
   it("should work when toggle the white list switch", () => {

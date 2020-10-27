@@ -9,7 +9,7 @@ describe("SelectUserOrGroup", () => {
   const wrapper = shallow(<SelectUserOrGroup {...props} />);
   const instance = wrapper.instance() as SelectUserOrGroup;
   it("should render", () => {
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper).toBeTruthy();
     expect(wrapper.find(Select)).toHaveLength(1);
   });
 
