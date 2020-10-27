@@ -158,7 +158,7 @@ export class CommonSetting extends React.Component<
                   color="blue"
                   key={item}
                   closable={this.state.enableEdit}
-                  onClose={(e: Event) => this.removeUser(e, item, record)}
+                  onClose={(e) => this.removeUser(e, item, record)}
                 >
                   {item}
                 </Tag>
@@ -305,7 +305,7 @@ export class CommonSetting extends React.Component<
     this.setState({ showAddUser: false });
   };
   // 为单个权限删除一个用户
-  removeUser = (e: Event, item: string, record: any) => {
+  removeUser = (e: React.MouseEvent, item: string, record: any) => {
     this.batchHandlePermChange([record.data.action]);
     this.setState({ temporaryUsers: [item], batchType: "remove" });
     this.handleUsersChange();
