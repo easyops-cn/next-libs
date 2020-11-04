@@ -158,7 +158,7 @@ export class CommonSetting extends React.Component<
                   color="blue"
                   key={item}
                   closable={this.state.enableEdit}
-                  onClose={(e) => this.removeUser(e, item, record)}
+                  onClose={(e: any) => this.removeUser(e, item, record)}
                 >
                   {item}
                 </Tag>
