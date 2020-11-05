@@ -22,6 +22,18 @@ export const copyToClipboard = (text: string): boolean => {
     document.addEventListener("copy", listener);
     success = document.execCommand("copy");
 
+    // document.execCommand("copy") only triggers if there is a selection
+    // Refs https://bugs.webkit.org/show_bug.cgi?id=156529
+    // Ref https://stackoverflow.com/questions/40147676/javascript-copy-to-clipboard-on-safari
+    if (!success) {
+      const textArea = document.createElement("textArea") as HTMLInputElement;
+      textArea.value = text;
+      document.body.appendChild(textArea);
+      textArea.select();
+      success = document.execCommand("copy");
+      document.body.removeChild(textArea);
+    }
+
     if (!success) {
       throw new Error("copy command was unsuccessful!");
     }
@@ -49,7 +61,7 @@ export function Clipboard(
   const { onCopy, icon, children, ...restProps } = props;
   const defaultIconProps = {
     theme: "filled",
-    type: "copy",
+    type: "copy"
   };
 
   const onCopyButtonClick = () => {
@@ -69,7 +81,7 @@ export function Clipboard(
           React.Children.only(props.children) as ReactElement,
           {
             ...restProps,
-            onClick: onCopyButtonClick,
+            onClick: onCopyButtonClick
           }
         )
       )}
