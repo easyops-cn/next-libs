@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/clipboard@1.0.0...@libs/clipboard@1.0.1) (2020-11-09)
+
+### Bug Fixes
+
+- fix copy error in safari ([4c5a7b2](https://git.easyops.local/anyclouds/next-libs/commits/4c5a7b2))
+
 # [1.0.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/clipboard@1.0.0-next.0...@libs/clipboard@1.0.0) (2020-09-13)
 
 **Note:** Version bump only for package @libs/clipboard
