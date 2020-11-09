@@ -106,7 +106,7 @@ export function InstanceRelationFieldDisplay(
           if (relationFieldUrlTemplate) {
             userInstance = (
               <Link
-                href={parseTemplate(
+                to={parseTemplate(
                   relationFieldUrlTemplate,
                   oppositeInstanceData
                 )}

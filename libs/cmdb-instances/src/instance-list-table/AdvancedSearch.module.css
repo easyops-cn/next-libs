@@ -11,7 +11,7 @@
 }
 
 .advancedSearchForm :global(.ant-legacy-form-item) {
-  margin-bottom: 24px;
+  margin-bottom: 14px;
 }
 
 .advancedSearchForm :global(.ant-legacy-form-item-label) {

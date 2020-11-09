@@ -3,6 +3,7 @@ import {
   difference,
   isEmpty,
   isEqual,
+  isString,
   map,
   uniq,
   union,
@@ -44,7 +45,6 @@ import {
   InstanceListTable,
 } from "../instance-list-table";
 import styles from "./InstanceList.module.css";
-import { CheckboxChangeEvent } from "antd/lib/checkbox";
 import {
   extraFieldAttrs,
   CMDB_MODAL_FIELDS_SETTINGS,
@@ -147,6 +147,19 @@ function translateConditions(
             key,
             attr.value.type as ModelAttributeValueType
           );
+          if (
+            ![
+              ConditionType.Between,
+              ConditionType.Empty,
+              ConditionType.NotEmpty,
+              ConditionType.False,
+              ConditionType.True,
+            ].includes(info.currentCondition.type)
+          ) {
+            info.values = info.values.map((v) =>
+              isString(v) && v.includes(" ") ? v.replace(/^"+|"+$/g, "") : v
+            );
+          }
 
           let condition = `${attr.name}: ${info.currentCondition.label}`;
           if (
