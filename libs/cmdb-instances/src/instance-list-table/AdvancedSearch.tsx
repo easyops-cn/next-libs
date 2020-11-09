@@ -1,6 +1,14 @@
 import React, { ChangeEvent, FormEvent } from "react";
 import update from "immutability-helper";
-import { isEqual, find, startsWith, findKey, isNil } from "lodash";
+import {
+  isEqual,
+  find,
+  startsWith,
+  findKey,
+  isNil,
+  flatten,
+  isString,
+} from "lodash";
 import { Form } from "@ant-design/compatible";
 import { Button, Col, Input, Row, Select } from "antd";
 import { FormComponentProps } from "@ant-design/compatible/lib/form";
@@ -19,6 +27,10 @@ import {
   ModelAttributeFormControl,
   ModelAttributeValueType,
 } from "../model-attribute-form-control/ModelAttributeFormControl";
+import {
+  processAttrValueWithQuote,
+  ENABLED_CMDB_ADVANCE_SEARCH_WITH_QUOTE,
+} from "../processors";
 
 enum ComparisonOperators {
   Equal = "$eq",
@@ -138,6 +150,14 @@ const FieldTypeConditionTypesMap: Record<string, ConditionType[]> = {
     ConditionType.NotEmpty,
   ],
   [ModelAttributeValueType.BOOLEAN]: [
+    ConditionType.Equal,
+    ConditionType.NotEqual,
+    ConditionType.Empty,
+    ConditionType.NotEmpty,
+  ],
+  [ModelAttributeValueType.JSON]: [
+    ConditionType.Contain,
+    ConditionType.NotContain,
     ConditionType.Equal,
     ConditionType.NotEqual,
     ConditionType.Empty,
@@ -496,9 +516,25 @@ export class AdvancedSearchForm extends React.Component<
             const compareOperator = Object.keys(firstSubQuery[fieldId])[0];
             const subQueryValue = (expressions as Query[])
               .map((query) => {
-                return (query[fieldId] as Record<ComparisonOperators, any>)[
-                  compareOperator as ComparisonOperators
-                ];
+                const targetValue = (query[fieldId] as Record<
+                  ComparisonOperators,
+                  any
+                >)[compareOperator as ComparisonOperators];
+                if (
+                  compareOperator === ComparisonOperators.Like ||
+                  compareOperator === ComparisonOperators.NotLike
+                ) {
+                  return isString(targetValue) && targetValue.includes(" ")
+                    ? `${targetValue[0]}"${targetValue.slice(
+                        1,
+                        targetValue.length - 1
+                      )}"${targetValue[targetValue.length - 1]}`
+                    : targetValue;
+                } else {
+                  return isString(targetValue) && targetValue.includes(" ")
+                    ? `"${targetValue}"`
+                    : targetValue;
+                }
               })
               .join(" ");
             key = fieldId;
@@ -516,12 +552,16 @@ export class AdvancedSearchForm extends React.Component<
     forEachAvailableFields(
       this.props.modelData,
       (attr) => {
-        const attrValue: Partial<CmdbModels.ModelObjectAttrValue> = {};
+        const attrValue: Partial<CmdbModels.ModelObjectAttrValue> & {
+          isStruct?: boolean;
+        } = {};
 
         switch (attr.value.type) {
           case ModelAttributeValueType.STRUCT:
           case ModelAttributeValueType.STRUCT_LIST:
             attrValue.type = ModelAttributeValueType.STRING;
+            attrValue.struct_define = attr.value.struct_define;
+            attrValue.isStruct = true;
             break;
           case ModelAttributeValueType.ENUM:
             attrValue.type = attr.value.type;
@@ -786,6 +826,13 @@ export class AdvancedSearchForm extends React.Component<
         let fieldQuery: Query = { [field.id]: expressions };
         let fieldQueryToShow: Query = { [field.id]: expressions };
         let hasValue = false;
+        let structQueryId: string[];
+        const isStruct = !!(field.attrValue as any).isStruct;
+        if (isStruct) {
+          structQueryId = field.attrValue.struct_define.map(
+            (struct_item) => `${field.id}.${struct_item.id}`
+          );
+        }
         field.values.forEach((value, index) => {
           const operation = field.currentCondition.operations[index];
           const fieldId =
@@ -810,30 +857,59 @@ export class AdvancedSearchForm extends React.Component<
               if (field.attrValue.type === ModelAttributeValueType.ENUM) {
                 values = value;
               } else if (typeof value === "string") {
-                values = value
-                  .trim()
-                  .split(/\s+/)
-                  .map((value) => convertValue(field.attrValue.type, value));
+                if (
+                  !ENABLED_CMDB_ADVANCE_SEARCH_WITH_QUOTE ||
+                  !value.includes('"')
+                ) {
+                  values = value
+                    .trim()
+                    .split(/\s+/)
+                    .map((value) => convertValue(field.attrValue.type, value));
+                } else {
+                  values = processAttrValueWithQuote(value, []);
+                }
               } else {
                 values = [value];
               }
-              fieldQuery = {
-                [multiValueSearchOperator.logicalOperator]: values.map(
-                  (value) => {
-                    if (operation.prefix) {
-                      value = operation.prefix + value;
+
+              if (isStruct) {
+                fieldQuery = {
+                  [multiValueSearchOperator.logicalOperator]: flatten(
+                    values.map((value) => {
+                      if (operation.prefix) {
+                        value = operation.prefix + value;
+                      }
+                      if (operation.suffix) {
+                        value += operation.suffix;
+                      }
+
+                      return structQueryId.map((structId: string | number) => ({
+                        [structId]: {
+                          [operation.operator]: value,
+                        },
+                      }));
+                    })
+                  ),
+                };
+              } else {
+                fieldQuery = {
+                  [multiValueSearchOperator.logicalOperator]: values.map(
+                    (value) => {
+                      if (operation.prefix) {
+                        value = operation.prefix + value;
+                      }
+                      if (operation.suffix) {
+                        value += operation.suffix;
+                      }
+                      return {
+                        [fieldId]: {
+                          [operation.operator]: value,
+                        },
+                      };
                     }
-                    if (operation.suffix) {
-                      value += operation.suffix;
-                    }
-                    return {
-                      [fieldId]: {
-                        [operation.operator]: value,
-                      },
-                    };
-                  }
-                ),
-              };
+                  ),
+                };
+              }
               fieldQueryToShow = {
                 [multiValueSearchOperator.logicalOperator]: values.map(
                   (value) => {

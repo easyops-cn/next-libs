@@ -24,6 +24,7 @@ export enum ModelAttributeValueType {
   IP = "ip",
   FLOAT = "float",
   BOOLEAN = "bool",
+  JSON = "json",
 }
 
 export enum ModelAttributeValueModeType {
@@ -191,6 +192,8 @@ export class ModelAttributeFormControl extends Component<
       /* falls through */
       case ModelAttributeValueType.IP:
         return FormControlTypeEnum.TEXT;
+      case ModelAttributeValueType.JSON:
+        return FormControlTypeEnum.TEXT;
       case ModelAttributeValueType.ENUM:
         if (
           attribute.value.regex === undefined ||
@@ -355,12 +358,13 @@ export class ModelAttributeFormControl extends Component<
 
     switch (type) {
       case FormControlTypeEnum.TEXT: {
-        const { pattern, ...props } = restProps;
+        const { pattern, placeholder, ...props } = restProps;
         return (
           <Input
             value={value}
             type="text"
             {...props}
+            placeholder={placeholder}
             onChange={(e) => this.onChange(e)}
             className={this.props.className}
             style={this.props.style}
