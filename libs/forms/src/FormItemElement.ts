@@ -10,6 +10,13 @@ import {
   LabelBrick,
 } from "./interfaces";
 
+export function checkIfIsFormElement(element: HTMLElement): boolean {
+  return (
+    (element as HTMLElement & { isFormElement?: boolean }).isFormElement ||
+    element.nodeName.toLowerCase() === "forms.general-form" // 兼容老版本
+  );
+}
+
 export abstract class FormItemElement extends UpdatingElement {
   readonly isFormItemElement = true;
 
@@ -73,12 +80,7 @@ export abstract class FormItemElement extends UpdatingElement {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     let element: HTMLElement & { isFormElement?: boolean } = this;
     while ((element = element.parentNode as HTMLElement)) {
-      if (
-        !element ||
-        element.isFormElement ||
-        // 兼容老版本
-        element.nodeName.toLowerCase() === "forms.general-form"
-      ) {
+      if (!element || checkIfIsFormElement(element)) {
         break;
       }
     }
@@ -93,8 +95,17 @@ export abstract class FormItemElement extends UpdatingElement {
 
   connectedCallback(): void {
     const form = this.getFormElement();
-    this.style.display =
-      form && form.layout === "inline" ? "inline-block" : "block";
+
+    if (form && form.layout === "inline") {
+      this.style.display = "inline-block";
+    } else {
+      this.style.display = "block";
+
+      if (checkIfIsFormElement(this.parentNode as HTMLElement)) {
+        this.style.maxWidth = "1332px";
+      }
+    }
+
     this._render();
   }
 
