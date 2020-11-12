@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@2.1.0...@libs/cmdb-instances@2.1.1) (2020-11-12)
+
+### Bug Fixes
+
+- **cmdb-instances:** 新站点高级搜索关系字段搜索不正确 ([1ac06d3](https://git.easyops.local/anyclouds/next-libs/commits/1ac06d3))
+
 # [2.1.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@2.0.7...@libs/cmdb-instances@2.1.0) (2020-11-09)
 
 ### Features
