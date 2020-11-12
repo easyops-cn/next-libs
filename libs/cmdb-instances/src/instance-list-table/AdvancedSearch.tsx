@@ -871,28 +871,48 @@ export class AdvancedSearchForm extends React.Component<
               } else {
                 values = [value];
               }
+              if (values.length) {
+                if (isStruct) {
+                  fieldQuery = {
+                    [multiValueSearchOperator.logicalOperator]: flatten(
+                      values.map((value) => {
+                        if (operation.prefix) {
+                          value = operation.prefix + value;
+                        }
+                        if (operation.suffix) {
+                          value += operation.suffix;
+                        }
 
-              if (isStruct) {
-                fieldQuery = {
-                  [multiValueSearchOperator.logicalOperator]: flatten(
-                    values.map((value) => {
-                      if (operation.prefix) {
-                        value = operation.prefix + value;
+                        return structQueryId.map(
+                          (structId: string | number) => ({
+                            [structId]: {
+                              [operation.operator]: value,
+                            },
+                          })
+                        );
+                      })
+                    ),
+                  };
+                } else {
+                  fieldQuery = {
+                    [multiValueSearchOperator.logicalOperator]: values.map(
+                      (value) => {
+                        if (operation.prefix) {
+                          value = operation.prefix + value;
+                        }
+                        if (operation.suffix) {
+                          value += operation.suffix;
+                        }
+                        return {
+                          [fieldId]: {
+                            [operation.operator]: value,
+                          },
+                        };
                       }
-                      if (operation.suffix) {
-                        value += operation.suffix;
-                      }
-
-                      return structQueryId.map((structId: string | number) => ({
-                        [structId]: {
-                          [operation.operator]: value,
-                        },
-                      }));
-                    })
-                  ),
-                };
-              } else {
-                fieldQuery = {
+                    ),
+                  };
+                }
+                fieldQueryToShow = {
                   [multiValueSearchOperator.logicalOperator]: values.map(
                     (value) => {
                       if (operation.prefix) {
@@ -902,31 +922,15 @@ export class AdvancedSearchForm extends React.Component<
                         value += operation.suffix;
                       }
                       return {
-                        [fieldId]: {
+                        [fieldIdToShow]: {
                           [operation.operator]: value,
                         },
                       };
                     }
                   ),
                 };
+                hasValue = true;
               }
-              fieldQueryToShow = {
-                [multiValueSearchOperator.logicalOperator]: values.map(
-                  (value) => {
-                    if (operation.prefix) {
-                      value = operation.prefix + value;
-                    }
-                    if (operation.suffix) {
-                      value += operation.suffix;
-                    }
-                    return {
-                      [fieldIdToShow]: {
-                        [operation.operator]: value,
-                      },
-                    };
-                  }
-                ),
-              };
             } else {
               value = convertValue(field.attrValue.type, value);
               if (operation.prefix) {
@@ -936,8 +940,8 @@ export class AdvancedSearchForm extends React.Component<
                 value += operation.suffix;
               }
               expressions[operation.operator] = value;
+              hasValue = true;
             }
-            hasValue = true;
           }
         });
         if (hasValue) {
