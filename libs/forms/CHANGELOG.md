@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@1.0.2...@libs/forms@1.1.0) (2020-11-12)
+
+### Features
+
+- **FormItemElement:** 当父元素是 FormElement 时，增加 maxWidth 为 1332px 的 style ([d7a5acd](https://git.easyops.local/anyclouds/next-libs/commits/d7a5acd))
+
 ## [1.0.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@1.0.1...@libs/forms@1.0.2) (2020-10-14)
 
 **Note:** Version bump only for package @libs/forms
