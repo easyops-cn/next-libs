@@ -88,10 +88,13 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
     const checked = this.state[fieldsKey].includes(attr.id);
 
     return (
-      <Col key={attr.id} span={8}>
+      <Col key={attr.id} span={8} style={{ padding: 5 }}>
         <Checkbox
           name={field}
-          style={{ margin: 5 }}
+          style={{
+            width: "100%",
+            wordBreak: "break-all",
+          }}
           checked={checked}
           onChange={(event) => this.handleChecked(event, attr)}
         >
