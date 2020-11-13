@@ -8,6 +8,7 @@ import {
   isNil,
   flatten,
   isString,
+  isArray,
 } from "lodash";
 import { Form } from "@ant-design/compatible";
 import { Button, Col, Input, Row, Select } from "antd";
@@ -474,7 +475,12 @@ export interface AdvancedSearchFormProps extends FormComponentProps {
   modelData: Partial<CmdbModels.ModelCmdbObject>;
   q?: Query[];
   placeholder?: string;
-  onSearch?(queries: Query[], queriesToShow?: Query[]): void;
+  onSearch?(
+    queries: Query[],
+    queriesToShow?: Query[],
+    fieldToShow?: Record<string, any[]>[]
+  ): void;
+  fieldToShow?: Record<string, any[]>[]; // 回填高级搜索的field值（根据query回填丢失了引号信息）
   onChange?(e: ChangeEvent<HTMLInputElement>): void;
 }
 
@@ -514,29 +520,42 @@ export class AdvancedSearchForm extends React.Component<
             const firstSubQuery = (expressions as Query[])[0];
             const fieldId = Object.keys(firstSubQuery)[0];
             const compareOperator = Object.keys(firstSubQuery[fieldId])[0];
-            const subQueryValue = (expressions as Query[])
-              .map((query) => {
-                const targetValue = (query[fieldId] as Record<
-                  ComparisonOperators,
-                  any
-                >)[compareOperator as ComparisonOperators];
-                if (
-                  compareOperator === ComparisonOperators.Like ||
-                  compareOperator === ComparisonOperators.NotLike
-                ) {
-                  return isString(targetValue) && targetValue.includes(" ")
-                    ? `${targetValue[0]}"${targetValue.slice(
-                        1,
-                        targetValue.length - 1
-                      )}"${targetValue[targetValue.length - 1]}`
-                    : targetValue;
-                } else {
-                  return isString(targetValue) && targetValue.includes(" ")
-                    ? `"${targetValue}"`
-                    : targetValue;
-                }
-              })
-              .join(" ");
+            let subQueryValue = "";
+            let targetField;
+            if (ENABLED_CMDB_ADVANCE_SEARCH_WITH_QUOTE) {
+              targetField = this.props?.fieldToShow.find(
+                (fieldItem) => Object.keys(fieldItem)[0] === fieldId
+              );
+            }
+            if (!isNil(targetField)) {
+              subQueryValue = isArray(targetField[fieldId])
+                ? targetField[fieldId].join("")
+                : (targetField[fieldId] as any);
+            } else {
+              subQueryValue = (expressions as Query[])
+                .map((query) => {
+                  const targetValue = (query[fieldId] as Record<
+                    ComparisonOperators,
+                    any
+                  >)[compareOperator as ComparisonOperators];
+                  if (
+                    compareOperator === ComparisonOperators.Like ||
+                    compareOperator === ComparisonOperators.NotLike
+                  ) {
+                    return isString(targetValue) && targetValue.includes(" ")
+                      ? `${targetValue[0]}"${targetValue.slice(
+                          1,
+                          targetValue.length - 1
+                        )}"${targetValue[targetValue.length - 1]}`
+                      : targetValue;
+                  } else {
+                    return isString(targetValue) && targetValue.includes(" ")
+                      ? `"${targetValue}"`
+                      : targetValue;
+                  }
+                })
+                .join(" ");
+            }
             key = fieldId;
             expressions = {
               [compareOperator]: subQueryValue,
@@ -821,6 +840,7 @@ export class AdvancedSearchForm extends React.Component<
       // 当过滤字段为relation并且过滤条件为ElementOperators.Exists的时候，发起后台请求的搜索queries与负责前端展示的query不同。需要额外处理。
       let queries: Query[] = [];
       let queriesToShow: Query[] = [];
+      const fieldToShow: Record<string, any[]>[] = [];
       this.state.fields.forEach((field) => {
         const expressions: QueryOperatorExpressions = {};
         let fieldQuery: Query = { [field.id]: expressions };
@@ -930,6 +950,7 @@ export class AdvancedSearchForm extends React.Component<
                   ),
                 };
                 hasValue = true;
+                fieldToShow.push({ [field.id]: field.values });
               }
             } else {
               value = convertValue(field.attrValue.type, value);
@@ -941,6 +962,7 @@ export class AdvancedSearchForm extends React.Component<
               }
               expressions[operation.operator] = value;
               hasValue = true;
+              fieldToShow.push({ [field.id]: field.values });
             }
           }
         });
@@ -954,13 +976,13 @@ export class AdvancedSearchForm extends React.Component<
         queriesToShow = undefined;
       }
       if (!isEqual(this.props.q, queries)) {
-        this.props.onSearch(queries, queriesToShow);
+        this.props.onSearch(queries, queriesToShow, fieldToShow);
       }
     }
   };
 
   handleReset = () => {
-    this.props.onSearch([], []);
+    this.props.onSearch([], [], []);
     this.props.form.resetFields();
   };
 

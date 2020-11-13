@@ -254,6 +254,7 @@ interface InstanceListState {
   isAdvancedSearchVisible: boolean;
   fieldIds: string[];
   autoBreakLine: boolean;
+  fieldToShow?: Record<string, any[]>[];
 }
 
 export function InstanceList(props: InstanceListProps): React.ReactElement {
@@ -519,9 +520,14 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     props.onSearch?.(q);
   };
 
-  const onAdvancedSearch = (queries: Query[], queriesToShow: Query[]) => {
+  const onAdvancedSearch = (
+    queries: Query[],
+    queriesToShow: Query[],
+    fieldToShow: Record<string, any[]>[]
+  ) => {
     setState({
       aq: queries,
+      fieldToShow,
       aqToShow: queriesToShow,
     });
     props.onAdvancedSearch?.(queries);
@@ -754,6 +760,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
                 idObjectMap={state.idObjectMap}
                 modelData={modelData}
                 q={state.aqToShow}
+                fieldToShow={state.fieldToShow}
                 onSearch={onAdvancedSearch}
               />
             </div>

@@ -51,6 +51,7 @@ describe("AdvancedSearch", () => {
           { [arrAttr.id]: { $in: arrValue } },
         ]}
         onSearch={mockOnSearch}
+        fieldToShow={[{ [strAttr.id]: [`"${strValue}"`] }]}
       />
     );
     const input = getByLabelText(intAttr.name);
@@ -77,7 +78,8 @@ describe("AdvancedSearch", () => {
     fireEvent.click(submitButton);
     expect(mockOnSearch).toBeCalledWith(
       [{ $or: [{ [attr.id]: { $like: `%${value}%` } }] }],
-      [{ $or: [{ [attr.id]: { $like: `%${value}%` } }] }]
+      [{ $or: [{ [attr.id]: { $like: `%${value}%` } }] }],
+      [{ [attr.id]: [`${value}`] }]
     );
   });
 
@@ -99,6 +101,6 @@ describe("AdvancedSearch", () => {
     fireEvent.change(input, { target: { value } });
     fireEvent.click(resetButton);
     fireEvent.click(submitButton);
-    expect(mockOnSearch).toBeCalledWith([], []);
+    expect(mockOnSearch).toBeCalledWith([], [], []);
   });
 });
