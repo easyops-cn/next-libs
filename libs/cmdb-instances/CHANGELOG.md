@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.3](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@2.1.2...@libs/cmdb-instances@2.1.3) (2020-11-13)
+
+### Bug Fixes
+
+- **SettingsContainer:** 修改复选框样式 ([46eb985](https://git.easyops.local/anyclouds/next-libs/commits/46eb985))
+- **SettingsContainer:** 修改复选框样式 ([8b18e7a](https://git.easyops.local/anyclouds/next-libs/commits/8b18e7a))
+
 ## [2.1.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@2.1.1...@libs/cmdb-instances@2.1.2) (2020-11-13)
 
 ### Bug Fixes
