@@ -91,7 +91,10 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
       <Col key={attr.id} span={8} style={{ padding: 5 }}>
         <Checkbox
           name={field}
-          style={{ width: "100%" }}
+          style={{
+            width: "100%",
+            wordBreak: "break-all",
+          }}
           checked={checked}
           onChange={(event) => this.handleChecked(event, attr)}
         >
