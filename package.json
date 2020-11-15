@@ -41,7 +41,7 @@
     "@easyops/fontawesome-library": "^1.1.9",
     "@fortawesome/react-fontawesome": "^0.1.12",
     "@size-limit/file": "^4.6.2",
-    "@svgr/rollup": "^5.4.0",
+    "@svgr/rollup": "^5.5.0",
     "@testing-library/react-hooks": "^3.4.2",
     "@types/classnames": "^2.2.10",
     "@types/d3": "^5.16.3",
