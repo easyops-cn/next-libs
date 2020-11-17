@@ -20,6 +20,7 @@
         "@easyops/brick-kit",
         "@easyops/brick-types",
         "@easyops/brick-utils",
+        "@easyops/easyops-analytics",
         "@easyops/fontawesome-library",
         "@fortawesome/react-fontawesome",
         "@size-limit/file",
