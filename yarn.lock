@@ -759,19 +759,12 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.10.4"
 
-"@babel/plugin-transform-react-constant-elements@^7.12.1":
+"@babel/plugin-transform-react-constant-elements@^7.12.1", "@babel/plugin-transform-react-constant-elements@^7.9.0":
   version "7.12.1"
   resolved "https://registry.npm.taobao.org/@babel/plugin-transform-react-constant-elements/download/@babel/plugin-transform-react-constant-elements-7.12.1.tgz#4471f0851feec3231cc9aaa0dccde39947c1ac1e"
   integrity sha1-RHHwhR/uwyMcyaqg3M3jmUfBrB4=
   dependencies:
     "@babel/helper-plugin-utils" "^7.10.4"
-
-"@babel/plugin-transform-react-constant-elements@^7.9.0":
-  version "7.9.0"
-  resolved "https://registry.npm.taobao.org/@babel/plugin-transform-react-constant-elements/download/@babel/plugin-transform-react-constant-elements-7.9.0.tgz?cache=0&sync_timestamp=1584718622324&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40babel%2Fplugin-transform-react-constant-elements%2Fdownload%2F%40babel%2Fplugin-transform-react-constant-elements-7.9.0.tgz#a75abc936a3819edec42d3386d9f1c93f28d9d9e"
-  integrity sha1-p1q8k2o4Ge3sQtM4bZ8ck/KNnZ4=
-  dependencies:
-    "@babel/helper-plugin-utils" "^7.8.3"
 
 "@babel/plugin-transform-react-display-name@^7.12.1":
   version "7.12.1"
@@ -779,15 +772,6 @@
   integrity sha1-HLzQw7HWZIxVN0oi/JtrflNBwA0=
   dependencies:
     "@babel/helper-plugin-utils" "^7.10.4"
-
-"@babel/plugin-transform-react-jsx-development@^7.12.1":
-  version "7.12.1"
-  resolved "https://registry.npm.taobao.org/@babel/plugin-transform-react-jsx-development/download/@babel/plugin-transform-react-jsx-development-7.12.1.tgz?cache=0&sync_timestamp=1602800306965&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40babel%2Fplugin-transform-react-jsx-development%2Fdownload%2F%40babel%2Fplugin-transform-react-jsx-development-7.12.1.tgz#0b8f8cd531dcf7991f1e5f2c10a2a4f1cfc78e36"
-  integrity sha1-C4+M1THc95kfHl8sEKKk8c/HjjY=
-  dependencies:
-    "@babel/helper-builder-react-jsx-experimental" "^7.12.1"
-    "@babel/helper-plugin-utils" "^7.10.4"
-    "@babel/plugin-syntax-jsx" "^7.12.1"
 
 "@babel/plugin-transform-react-jsx-development@^7.12.5":
   version "7.12.5"
@@ -811,16 +795,6 @@
   integrity sha1-0H3mhj9GjaCAntz3mhqoziqComs=
   dependencies:
     "@babel/helper-plugin-utils" "^7.10.4"
-
-"@babel/plugin-transform-react-jsx@^7.12.1":
-  version "7.12.1"
-  resolved "https://registry.npm.taobao.org/@babel/plugin-transform-react-jsx/download/@babel/plugin-transform-react-jsx-7.12.1.tgz?cache=0&sync_timestamp=1602800307072&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40babel%2Fplugin-transform-react-jsx%2Fdownload%2F%40babel%2Fplugin-transform-react-jsx-7.12.1.tgz#c2d96c77c2b0e4362cc4e77a43ce7c2539d478cb"
-  integrity sha1-wtlsd8Kw5DYsxOd6Q858JTnUeMs=
-  dependencies:
-    "@babel/helper-builder-react-jsx" "^7.10.4"
-    "@babel/helper-builder-react-jsx-experimental" "^7.12.1"
-    "@babel/helper-plugin-utils" "^7.10.4"
-    "@babel/plugin-syntax-jsx" "^7.12.1"
 
 "@babel/plugin-transform-react-jsx@^7.12.5":
   version "7.12.5"
@@ -998,20 +972,7 @@
     "@babel/types" "^7.4.4"
     esutils "^2.0.2"
 
-"@babel/preset-react@^7.12.1", "@babel/preset-react@^7.9.4":
-  version "7.12.1"
-  resolved "https://registry.npm.taobao.org/@babel/preset-react/download/@babel/preset-react-7.12.1.tgz?cache=0&sync_timestamp=1602800181242&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40babel%2Fpreset-react%2Fdownload%2F%40babel%2Fpreset-react-7.12.1.tgz#7f022b13f55b6dd82f00f16d1c599ae62985358c"
-  integrity sha1-fwIrE/VbbdgvAPFtHFma5imFNYw=
-  dependencies:
-    "@babel/helper-plugin-utils" "^7.10.4"
-    "@babel/plugin-transform-react-display-name" "^7.12.1"
-    "@babel/plugin-transform-react-jsx" "^7.12.1"
-    "@babel/plugin-transform-react-jsx-development" "^7.12.1"
-    "@babel/plugin-transform-react-jsx-self" "^7.12.1"
-    "@babel/plugin-transform-react-jsx-source" "^7.12.1"
-    "@babel/plugin-transform-react-pure-annotations" "^7.12.1"
-
-"@babel/preset-react@^7.12.5":
+"@babel/preset-react@^7.12.1", "@babel/preset-react@^7.12.5", "@babel/preset-react@^7.9.4":
   version "7.12.5"
   resolved "https://registry.npm.taobao.org/@babel/preset-react/download/@babel/preset-react-7.12.5.tgz#d45625f65d53612078a43867c5c6750e78772c56"
   integrity sha1-1FYl9l1TYSB4pDhnxcZ1Dnh3LFY=
@@ -1071,16 +1032,7 @@
     globals "^11.1.0"
     lodash "^4.17.19"
 
-"@babel/types@^7.0.0", "@babel/types@^7.10.4", "@babel/types@^7.11.0", "@babel/types@^7.12.1", "@babel/types@^7.3.0", "@babel/types@^7.3.3", "@babel/types@^7.4.4", "@babel/types@^7.9.5":
-  version "7.12.1"
-  resolved "https://registry.npm.taobao.org/@babel/types/download/@babel/types-7.12.1.tgz?cache=0&sync_timestamp=1602799916513&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40babel%2Ftypes%2Fdownload%2F%40babel%2Ftypes-7.12.1.tgz#e109d9ab99a8de735be287ee3d6a9947a190c4ae"
-  integrity sha1-4QnZq5mo3nNb4ofuPWqZR6GQxK4=
-  dependencies:
-    "@babel/helper-validator-identifier" "^7.10.4"
-    lodash "^4.17.19"
-    to-fast-properties "^2.0.0"
-
-"@babel/types@^7.12.6":
+"@babel/types@^7.0.0", "@babel/types@^7.10.4", "@babel/types@^7.11.0", "@babel/types@^7.12.1", "@babel/types@^7.12.6", "@babel/types@^7.3.0", "@babel/types@^7.3.3", "@babel/types@^7.4.4":
   version "7.12.6"
   resolved "https://registry.npm.taobao.org/@babel/types/download/@babel/types-7.12.6.tgz?cache=0&sync_timestamp=1604486339981&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40babel%2Ftypes%2Fdownload%2F%40babel%2Ftypes-7.12.6.tgz#ae0e55ef1cce1fbc881cd26f8234eb3e657edc96"
   integrity sha1-rg5V7xzOH7yIHNJvgjTrPmV+3JY=
@@ -1107,10 +1059,10 @@
   resolved "https://registry.npm.taobao.org/@csstools/convert-colors/download/@csstools/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"
   integrity sha1-rUldxBsS511YjG24uYNPCPoTHrc=
 
-"@dll/ace@^2.0.31":
-  version "2.0.31"
-  resolved "http://registry.npm.easyops.local/@dll/ace/download/@dll/ace-2.0.31.tgz#a938ac961116d314619e51c1fc8df8ef07409d06"
-  integrity sha1-qTislhEW0xRhnlHB/I347wdAnQY=
+"@dll/ace@^2.0.40":
+  version "2.0.40"
+  resolved "http://registry.npm.easyops.local/@dll/ace/download/@dll/ace-2.0.40.tgz#39c960f3300e88913b68c022bb4b4f6f680320d9"
+  integrity sha1-Oclg8zAOiJE7aMAiu0tPb2gDINk=
   dependencies:
     react-ace "^7.0.5"
 
@@ -1133,10 +1085,10 @@
   dependencies:
     echarts "^4.9.0"
 
-"@easyops-cn/brick-next-pipes@^0.3.5":
-  version "0.3.5"
-  resolved "https://registry.npm.taobao.org/@easyops-cn/brick-next-pipes/download/@easyops-cn/brick-next-pipes-0.3.5.tgz#0385af5b7ec4270a9dc45d02dcdd3ced2a846d3a"
-  integrity sha1-A4WvW37EJwqdxF0C3N087SqEbTo=
+"@easyops-cn/brick-next-pipes@^0.3.7":
+  version "0.3.7"
+  resolved "https://registry.npm.taobao.org/@easyops-cn/brick-next-pipes/download/@easyops-cn/brick-next-pipes-0.3.7.tgz#e1aa1c392737df6ecc9f14c9c4d5d971328f2998"
+  integrity sha1-4aocOSc3327MnxTJxNXZcTKPKZg=
 
 "@easyops/babel-preset-next@^0.6.14":
   version "0.6.14"
@@ -1167,10 +1119,10 @@
   dependencies:
     "@babel/runtime" "^7.12.1"
 
-"@easyops/brick-container@^2.7.6":
-  version "2.7.6"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-container/download/@easyops/brick-container-2.7.6.tgz#3a89f7cf2cc10945aa3f3048fe6a36488655e095"
-  integrity sha1-Oon3zyzBCUWqPzBI/mo2SIZV4JU=
+"@easyops/brick-container@^2.9.3":
+  version "2.9.3"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-container/download/@easyops/brick-container-2.9.3.tgz#cb2b2741d73f3cbe5470891b6db8e4559cc6e2ef"
+  integrity sha1-yysnQdc/PL5UcIkbbbjkVZzG4u8=
   dependencies:
     body-parser "^1.19.0"
     chalk "^4.1.0"
@@ -1183,18 +1135,19 @@
     meow "^7.1.1"
     ws "^7.3.1"
 
-"@easyops/brick-dll@^2.3.4":
-  version "2.3.4"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-dll/download/@easyops/brick-dll-2.3.4.tgz#57e53fe468d70ef38d313e61a48c9c89ae56f358"
-  integrity sha1-V+U/5GjXDvONMT5hpIycia5W81g=
+"@easyops/brick-dll@^2.5.3":
+  version "2.5.3"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-dll/download/@easyops/brick-dll-2.5.3.tgz#938ac58af4c72ec575a699c0c5951a9471d30cee"
+  integrity sha1-k4rFivTHLsV1ppnAxZUalHHTDO4=
   dependencies:
     "@ant-design/compatible" "^1.0.8"
     "@ant-design/icons" "^4.2.2"
     "@easyops/babel-runtime-helpers" "^1.0.1"
     "@easyops/brick-http" "^2.2.0"
-    "@easyops/brick-icons" "^2.2.0"
-    "@easyops/brick-kit" "^2.14.0"
-    "@easyops/brick-utils" "^2.3.4"
+    "@easyops/brick-icons" "^2.4.1"
+    "@easyops/brick-kit" "^2.19.2"
+    "@easyops/brick-utils" "^2.4.1"
+    "@easyops/easyops-analytics" "^0.1.0"
     "@easyops/fontawesome-library" "^1.1.9"
     "@fortawesome/react-fontawesome" "^0.1.12"
     antd "4.6.6"
@@ -1213,27 +1166,27 @@
   resolved "http://registry.npm.easyops.local/@easyops/brick-http/download/@easyops/brick-http-2.2.0.tgz#743a4dab16e17298f280d7d0d83752eb83d5c347"
   integrity sha1-dDpNqxbhcpjygNfQ2DdS64PVw0c=
 
-"@easyops/brick-icons@^2.2.0":
-  version "2.2.0"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-icons/download/@easyops/brick-icons-2.2.0.tgz#665b4f6796ed3d1b3cd537cfe3a8d44492ccd784"
-  integrity sha1-ZltPZ5btPRs81TfP46jURJLM14Q=
+"@easyops/brick-icons@^2.4.1":
+  version "2.4.1"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-icons/download/@easyops/brick-icons-2.4.1.tgz#92dda66f2ca398031250b77758095eaf1c678201"
+  integrity sha1-kt2mbyyjmAMSULd3WAlerxxnggE=
 
-"@easyops/brick-kit@^2.14.0":
-  version "2.14.0"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-kit/download/@easyops/brick-kit-2.14.0.tgz#cd9bba1af939b058b4cb1672e486215b16160dc7"
-  integrity sha1-zZu6Gvk5sFi0yxZy5IYhWxYWDcc=
+"@easyops/brick-kit@^2.19.2":
+  version "2.19.2"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-kit/download/@easyops/brick-kit-2.19.2.tgz#ac91f35031dffec93d4712b5332e07f742e8c37b"
+  integrity sha1-rJHzUDHf/sk9RxK1My4H90Low3s=
   dependencies:
-    "@easyops/brick-types" "^2.6.0"
+    "@easyops/brick-types" "^2.9.0"
     "@sdk/auth-sdk" "^0.8.4"
     "@sdk/cmdb-sdk" "^0.15.11"
     "@sdk/micro-app-sdk" "^0.8.2"
     "@sdk/user-service-sdk" "^0.2.10"
     minimatch "^3.0.4"
 
-"@easyops/brick-scripts@^2.0.1":
-  version "2.0.1"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-scripts/download/@easyops/brick-scripts-2.0.1.tgz#f71f00e348f7e32b2b456a92a058f3f7fb7faaf4"
-  integrity sha1-9x8A40j34ysrRWqSoFjz9/t/qvQ=
+"@easyops/brick-scripts@^2.0.2":
+  version "2.0.2"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-scripts/download/@easyops/brick-scripts-2.0.2.tgz#63513fe436ed650baf2eee97215048d31e710c15"
+  integrity sha1-Y1E/5DbtZQuvLu6XIVBI0x5xDBU=
   dependencies:
     chalk "^4.1.0"
     change-case "^4.1.1"
@@ -1246,19 +1199,19 @@
     request "^2.88.2"
     request-promise-native "^1.0.9"
 
-"@easyops/brick-types@^2.0.0-next.2", "@easyops/brick-types@^2.6.0":
-  version "2.6.0"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-types/download/@easyops/brick-types-2.6.0.tgz#5d782fec6f509a900abe1d587f616f7fa831fda7"
-  integrity sha1-XXgv7G9QmpAKvh1Yf2Fvf6gx/ac=
+"@easyops/brick-types@^2.0.0-next.2", "@easyops/brick-types@^2.9.0":
+  version "2.9.0"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-types/download/@easyops/brick-types-2.9.0.tgz#65cd1a2472d70d9e1575b865c690df4d62795bf4"
+  integrity sha1-Zc0aJHLXDZ4VdbhlxpDfTWJ5W/Q=
 
-"@easyops/brick-utils@^2.3.4":
-  version "2.3.4"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-utils/download/@easyops/brick-utils-2.3.4.tgz#c1269b07f7f046c2b07b4a3f689e8fd83c6d45cf"
-  integrity sha1-wSabB/fwRsKwe0o/aJ6P2DxtRc8=
+"@easyops/brick-utils@^2.4.1":
+  version "2.4.1"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-utils/download/@easyops/brick-utils-2.4.1.tgz#29bdf5693e54a315a25c52ea2c957c1404686143"
+  integrity sha1-Kb31aT5UoxWiXFLqLJV8FARoYUM=
   dependencies:
     "@babel/parser" "^7.12.3"
-    "@easyops-cn/brick-next-pipes" "^0.3.5"
-    "@easyops/brick-types" "^2.6.0"
+    "@easyops-cn/brick-next-pipes" "^0.3.7"
+    "@easyops/brick-types" "^2.9.0"
     file-saver "^2.0.2"
     path-to-regexp "^6.2.0"
 
@@ -1267,12 +1220,12 @@
   resolved "http://registry.npm.easyops.local/@easyops/browserslist-config-next/download/@easyops/browserslist-config-next-0.1.0.tgz#9882b7364c8d25a81a00e04b559f72fb1a10b4a1"
   integrity sha1-mIK3NkyNJagaAOBLVZ9y+xoQtKE=
 
-"@easyops/build-config-factory@^2.0.15":
-  version "2.0.15"
-  resolved "http://registry.npm.easyops.local/@easyops/build-config-factory/download/@easyops/build-config-factory-2.0.15.tgz#1c828e395a8f31fde0b042dd3cdb2473eadf45c6"
-  integrity sha1-HIKOOVqPMf3gsELdPNskc+rfRcY=
+"@easyops/build-config-factory@^2.1.1":
+  version "2.1.1"
+  resolved "http://registry.npm.easyops.local/@easyops/build-config-factory/download/@easyops/build-config-factory-2.1.1.tgz#3ffb063f5dc6445f5eaef6af573cc3257c57fc24"
+  integrity sha1-P/sGP13GRF9ervavVzzDJXxX/CQ=
   dependencies:
-    "@easyops/brick-utils" "^2.3.4"
+    "@easyops/brick-utils" "^2.4.1"
     change-case "^4.1.1"
     chokidar "^3.4.3"
     fs-extra "^9.0.1"
@@ -1287,28 +1240,28 @@
     typedoc "^0.19.2"
     typedoc-plugin-no-inherit "^1.2.0"
 
-"@easyops/custom-antd-styles@^1.2.2":
-  version "1.2.2"
-  resolved "http://registry.npm.easyops.local/@easyops/custom-antd-styles/download/@easyops/custom-antd-styles-1.2.2.tgz#14f1adbaa7c37a0fd9950930004312d4e76bd4f8"
-  integrity sha1-FPGtuqfDeg/ZlQkwAEMS1Odr1Pg=
+"@easyops/custom-antd-styles@^1.2.3":
+  version "1.2.3"
+  resolved "http://registry.npm.easyops.local/@easyops/custom-antd-styles/download/@easyops/custom-antd-styles-1.2.3.tgz#20d612f1c46e513f6a64e176ff1cc77aaea78118"
+  integrity sha1-INYS8cRuUT9qZOF2/xzHeq6ngRg=
 
-"@easyops/dev-dependencies@^1.1.6":
-  version "1.1.6"
-  resolved "http://registry.npm.easyops.local/@easyops/dev-dependencies/download/@easyops/dev-dependencies-1.1.6.tgz#cd4a286eb0cfd79e91f273cb3749b3db495d0e65"
-  integrity sha1-zUoobrDP156R8nPLN0mz20ldDmU=
+"@easyops/dev-dependencies@^1.1.15":
+  version "1.1.15"
+  resolved "http://registry.npm.easyops.local/@easyops/dev-dependencies/download/@easyops/dev-dependencies-1.1.15.tgz#66f59468da9a9c69c8b570366cb16162ca3a33bd"
+  integrity sha1-ZvWUaNqanGnItXA2bLFhYso6M70=
   dependencies:
     "@babel/core" "^7.12.3"
-    "@dll/ace" "^2.0.31"
+    "@dll/ace" "^2.0.40"
     "@dll/d3" "^2.0.4"
     "@dll/echarts" "^2.0.5"
     "@easyops/babel-preset-next" "^0.6.14"
     "@easyops/babel-preset-prismjs" "^1.0.1"
-    "@easyops/brick-container" "^2.7.6"
-    "@easyops/brick-dll" "^2.3.4"
-    "@easyops/brick-scripts" "^2.0.1"
+    "@easyops/brick-container" "^2.9.3"
+    "@easyops/brick-dll" "^2.5.3"
+    "@easyops/brick-scripts" "^2.0.2"
     "@easyops/browserslist-config-next" "^0.1.0"
-    "@easyops/build-config-factory" "^2.0.15"
-    "@easyops/custom-antd-styles" "^1.2.2"
+    "@easyops/build-config-factory" "^2.1.1"
+    "@easyops/custom-antd-styles" "^1.2.3"
     "@easyops/eslint-config-next" "^1.0.6"
     "@easyops/rollup-config-factory" "^2.0.6"
     "@easyops/webpack-config-factory" "^2.1.3"
@@ -1338,6 +1291,11 @@
     size-limit "^4.6.2"
     typescript "~4.0.5"
     yargs "^16.1.0"
+
+"@easyops/easyops-analytics@^0.1.0":
+  version "0.1.0"
+  resolved "http://registry.npm.easyops.local/@easyops/easyops-analytics/download/@easyops/easyops-analytics-0.1.0.tgz#d48dd1aea6273abda704c4b450ee080d22a374d8"
+  integrity sha1-1I3RrqYnOr2nBMS0UO4IDSKjdNg=
 
 "@easyops/eslint-config-next@^1.0.6":
   version "1.0.6"
@@ -2600,29 +2558,10 @@
   resolved "https://registry.npm.taobao.org/@svgr/babel-plugin-transform-react-native-svg/download/@svgr/babel-plugin-transform-react-native-svg-5.4.0.tgz?cache=0&sync_timestamp=1588020027766&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40svgr%2Fbabel-plugin-transform-react-native-svg%2Fdownload%2F%40svgr%2Fbabel-plugin-transform-react-native-svg-5.4.0.tgz#00bf9a7a73f1cad3948cdab1f8dfb774750f8c80"
   integrity sha1-AL+aenPxytOUjNqx+N+3dHUPjIA=
 
-"@svgr/babel-plugin-transform-svg-component@^5.4.0":
-  version "5.4.0"
-  resolved "https://registry.npm.taobao.org/@svgr/babel-plugin-transform-svg-component/download/@svgr/babel-plugin-transform-svg-component-5.4.0.tgz?cache=0&sync_timestamp=1588020010921&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40svgr%2Fbabel-plugin-transform-svg-component%2Fdownload%2F%40svgr%2Fbabel-plugin-transform-svg-component-5.4.0.tgz#a2212b4d018e6075a058bb7e220a66959ef7a03c"
-  integrity sha1-oiErTQGOYHWgWLt+IgpmlZ73oDw=
-
 "@svgr/babel-plugin-transform-svg-component@^5.5.0":
   version "5.5.0"
   resolved "https://registry.npm.taobao.org/@svgr/babel-plugin-transform-svg-component/download/@svgr/babel-plugin-transform-svg-component-5.5.0.tgz#583a5e2a193e214da2f3afeb0b9e8d3250126b4a"
   integrity sha1-WDpeKhk+IU2i86/rC56NMlASa0o=
-
-"@svgr/babel-preset@^5.4.0":
-  version "5.4.0"
-  resolved "https://registry.npm.taobao.org/@svgr/babel-preset/download/@svgr/babel-preset-5.4.0.tgz#da21854643e1c4ad2279239baa7d5a8b128c1f15"
-  integrity sha1-2iGFRkPhxK0ieSObqn1aixKMHxU=
-  dependencies:
-    "@svgr/babel-plugin-add-jsx-attribute" "^5.4.0"
-    "@svgr/babel-plugin-remove-jsx-attribute" "^5.4.0"
-    "@svgr/babel-plugin-remove-jsx-empty-expression" "^5.0.1"
-    "@svgr/babel-plugin-replace-jsx-attribute-value" "^5.0.1"
-    "@svgr/babel-plugin-svg-dynamic-title" "^5.4.0"
-    "@svgr/babel-plugin-svg-em-dimensions" "^5.4.0"
-    "@svgr/babel-plugin-transform-react-native-svg" "^5.4.0"
-    "@svgr/babel-plugin-transform-svg-component" "^5.4.0"
 
 "@svgr/babel-preset@^5.5.0":
   version "5.5.0"
@@ -2638,16 +2577,7 @@
     "@svgr/babel-plugin-transform-react-native-svg" "^5.4.0"
     "@svgr/babel-plugin-transform-svg-component" "^5.5.0"
 
-"@svgr/core@^5.4.0":
-  version "5.4.0"
-  resolved "https://registry.npm.taobao.org/@svgr/core/download/@svgr/core-5.4.0.tgz#655378ee43679eb94fee3d4e1976e38252dff8e7"
-  integrity sha1-ZVN47kNnnrlP7j1OGXbjglLf+Oc=
-  dependencies:
-    "@svgr/plugin-jsx" "^5.4.0"
-    camelcase "^6.0.0"
-    cosmiconfig "^6.0.0"
-
-"@svgr/core@^5.5.0":
+"@svgr/core@^5.4.0", "@svgr/core@^5.5.0":
   version "5.5.0"
   resolved "https://registry.npm.taobao.org/@svgr/core/download/@svgr/core-5.5.0.tgz#82e826b8715d71083120fe8f2492ec7d7874a579"
   integrity sha1-gugmuHFdcQgxIP6PJJLsfXh0pXk=
@@ -2656,13 +2586,6 @@
     camelcase "^6.2.0"
     cosmiconfig "^7.0.0"
 
-"@svgr/hast-util-to-babel-ast@^5.4.0":
-  version "5.4.0"
-  resolved "https://registry.npm.taobao.org/@svgr/hast-util-to-babel-ast/download/@svgr/hast-util-to-babel-ast-5.4.0.tgz?cache=0&sync_timestamp=1588020010886&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40svgr%2Fhast-util-to-babel-ast%2Fdownload%2F%40svgr%2Fhast-util-to-babel-ast-5.4.0.tgz#bb5d002e428f510aa5b53ec0a02377a95b367715"
-  integrity sha1-u10ALkKPUQqltT7AoCN3qVs2dxU=
-  dependencies:
-    "@babel/types" "^7.9.5"
-
 "@svgr/hast-util-to-babel-ast@^5.5.0":
   version "5.5.0"
   resolved "https://registry.npm.taobao.org/@svgr/hast-util-to-babel-ast/download/@svgr/hast-util-to-babel-ast-5.5.0.tgz#5ee52a9c2533f73e63f8f22b779f93cd432a5461"
@@ -2670,17 +2593,7 @@
   dependencies:
     "@babel/types" "^7.12.6"
 
-"@svgr/plugin-jsx@^5.4.0":
-  version "5.4.0"
-  resolved "https://registry.npm.taobao.org/@svgr/plugin-jsx/download/@svgr/plugin-jsx-5.4.0.tgz#ab47504c55615833c6db70fca2d7e489f509787c"
-  integrity sha1-q0dQTFVhWDPG23D8otfkifUJeHw=
-  dependencies:
-    "@babel/core" "^7.7.5"
-    "@svgr/babel-preset" "^5.4.0"
-    "@svgr/hast-util-to-babel-ast" "^5.4.0"
-    svg-parser "^2.0.2"
-
-"@svgr/plugin-jsx@^5.5.0":
+"@svgr/plugin-jsx@^5.4.0", "@svgr/plugin-jsx@^5.5.0":
   version "5.5.0"
   resolved "https://registry.npm.taobao.org/@svgr/plugin-jsx/download/@svgr/plugin-jsx-5.5.0.tgz#1aa8cd798a1db7173ac043466d7b52236b369000"
   integrity sha1-GqjNeYodtxc6wENGbXtSI2s2kAA=
@@ -2690,16 +2603,7 @@
     "@svgr/hast-util-to-babel-ast" "^5.5.0"
     svg-parser "^2.0.2"
 
-"@svgr/plugin-svgo@^5.4.0":
-  version "5.4.0"
-  resolved "https://registry.npm.taobao.org/@svgr/plugin-svgo/download/@svgr/plugin-svgo-5.4.0.tgz?cache=0&sync_timestamp=1588020010906&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40svgr%2Fplugin-svgo%2Fdownload%2F%40svgr%2Fplugin-svgo-5.4.0.tgz#45d9800b7099a6f7b4d85ebac89ab9abe8592f64"
-  integrity sha1-RdmAC3CZpve02F66yJq5q+hZL2Q=
-  dependencies:
-    cosmiconfig "^6.0.0"
-    merge-deep "^3.0.2"
-    svgo "^1.2.2"
-
-"@svgr/plugin-svgo@^5.5.0":
+"@svgr/plugin-svgo@^5.4.0", "@svgr/plugin-svgo@^5.5.0":
   version "5.5.0"
   resolved "https://registry.npm.taobao.org/@svgr/plugin-svgo/download/@svgr/plugin-svgo-5.5.0.tgz#02da55d85320549324e201c7b2e53bf431fcc246"
   integrity sha1-AtpV2FMgVJMk4gHHsuU79DH8wkY=
@@ -4592,12 +4496,7 @@ camelcase@^5.0.0, camelcase@^5.3.1:
   resolved "https://registry.npm.taobao.org/camelcase/download/camelcase-5.3.1.tgz#e3c9b31569e106811df242f715725a1f4c494320"
   integrity sha1-48mzFWnhBoEd8kL3FXJaH0xJQyA=
 
-camelcase@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.npm.taobao.org/camelcase/download/camelcase-6.0.0.tgz#5259f7c30e35e278f1bdc2a4d91230b37cad981e"
-  integrity sha1-Uln3ww414njxvcKk2RIws3ytmB4=
-
-camelcase@^6.2.0:
+camelcase@^6.0.0, camelcase@^6.2.0:
   version "6.2.0"
   resolved "https://registry.npm.taobao.org/camelcase/download/camelcase-6.2.0.tgz?cache=0&sync_timestamp=1603923709404&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcamelcase%2Fdownload%2Fcamelcase-6.2.0.tgz#924af881c9d525ac9d87f40d964e5cea982a1809"
   integrity sha1-kkr4gcnVJaydh/QNlk5c6pgqGAk=
@@ -4895,17 +4794,6 @@ cliui@^7.0.2:
     string-width "^4.2.0"
     strip-ansi "^6.0.0"
     wrap-ansi "^7.0.0"
-
-clone-deep@^0.2.4:
-  version "0.2.4"
-  resolved "https://registry.npm.taobao.org/clone-deep/download/clone-deep-0.2.4.tgz#4e73dd09e9fb971cc38670c5dced9c1896481cc6"
-  integrity sha1-TnPdCen7lxzDhnDF3O2cGJZIHMY=
-  dependencies:
-    for-own "^0.1.3"
-    is-plain-object "^2.0.1"
-    kind-of "^3.0.2"
-    lazy-cache "^1.0.3"
-    shallow-clone "^0.1.2"
 
 clone-deep@^4.0.1:
   version "4.0.1"
@@ -5347,17 +5235,6 @@ cosmiconfig@^5.0.0, cosmiconfig@^5.1.0:
     is-directory "^0.3.1"
     js-yaml "^3.13.1"
     parse-json "^4.0.0"
-
-cosmiconfig@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.npm.taobao.org/cosmiconfig/download/cosmiconfig-6.0.0.tgz?cache=0&sync_timestamp=1572710769619&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcosmiconfig%2Fdownload%2Fcosmiconfig-6.0.0.tgz#da4fee853c52f6b1e6935f41c1a2fc50bd4a9982"
-  integrity sha1-2k/uhTxS9rHmk19BwaL8UL1KmYI=
-  dependencies:
-    "@types/parse-json" "^4.0.0"
-    import-fresh "^3.1.0"
-    parse-json "^5.0.0"
-    path-type "^4.0.0"
-    yaml "^1.7.2"
 
 cosmiconfig@^7.0.0:
   version "7.0.0"
@@ -7115,22 +6992,10 @@ follow-redirects@^1.0.0:
   dependencies:
     debug "^3.0.0"
 
-for-in@^0.1.3:
-  version "0.1.8"
-  resolved "https://registry.npm.taobao.org/for-in/download/for-in-0.1.8.tgz#d8773908e31256109952b1fdb9b3fa867d2775e1"
-  integrity sha1-2Hc5COMSVhCZUrH9ubP6hn0ndeE=
-
-for-in@^1.0.1, for-in@^1.0.2:
+for-in@^1.0.2:
   version "1.0.2"
   resolved "https://registry.npm.taobao.org/for-in/download/for-in-1.0.2.tgz#81068d295a8142ec0ac726c6e2200c30fb6d5e80"
   integrity sha1-gQaNKVqBQuwKxybG4iAMMPttXoA=
-
-for-own@^0.1.3:
-  version "0.1.5"
-  resolved "https://registry.npm.taobao.org/for-own/download/for-own-0.1.5.tgz#5265c681a4f294dabbf17c9509b6763aa84510ce"
-  integrity sha1-UmXGgaTylNq78XyVCbZ2OqhFEM4=
-  dependencies:
-    for-in "^1.0.1"
 
 forever-agent@~0.6.1:
   version "0.6.1"
@@ -7966,7 +7831,7 @@ import-fresh@^2.0.0:
     caller-path "^2.0.0"
     resolve-from "^3.0.0"
 
-import-fresh@^3.0.0, import-fresh@^3.1.0, import-fresh@^3.2.1:
+import-fresh@^3.0.0, import-fresh@^3.2.1:
   version "3.2.1"
   resolved "https://registry.npm.taobao.org/import-fresh/download/import-fresh-3.2.1.tgz#633ff618506e793af5ac91bf48b72677e15cbe66"
   integrity sha1-Yz/2GFBueTr1rJG/SLcmd+FcvmY=
@@ -8203,7 +8068,7 @@ is-boolean-object@^1.0.1:
   resolved "https://registry.npm.taobao.org/is-boolean-object/download/is-boolean-object-1.0.1.tgz#10edc0900dd127697a92f6f9807c7617d68ac48e"
   integrity sha1-EO3AkA3RJ2l6kvb5gHx2F9aKxI4=
 
-is-buffer@^1.0.2, is-buffer@^1.1.5:
+is-buffer@^1.1.5:
   version "1.1.6"
   resolved "https://registry.npm.taobao.org/is-buffer/download/is-buffer-1.1.6.tgz#efaa2ea9daa0d7ab2ea13a97b2b8ad51fefbe8be"
   integrity sha1-76ouqdqg16suoTqXsritUf776L4=
@@ -8407,7 +8272,7 @@ is-plain-obj@^1.0.0, is-plain-obj@^1.1.0:
   resolved "https://registry.npm.taobao.org/is-plain-obj/download/is-plain-obj-1.1.0.tgz#71a50c8429dfca773c92a390a4a03b39fcd51d3e"
   integrity sha1-caUMhCnfync8kqOQpKA7OfzVHT4=
 
-is-plain-object@^2.0.1, is-plain-object@^2.0.3, is-plain-object@^2.0.4:
+is-plain-object@^2.0.3, is-plain-object@^2.0.4:
   version "2.0.4"
   resolved "https://registry.npm.taobao.org/is-plain-object/download/is-plain-object-2.0.4.tgz#2c163b3fafb1b606d9d17928f05c2a1c38e07677"
   integrity sha1-LBY7P6+xtgbZ0Xko8FwqHDjgdnc=
@@ -9128,13 +8993,6 @@ jsprim@^1.2.2:
     array-includes "^3.1.1"
     object.assign "^4.1.1"
 
-kind-of@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.npm.taobao.org/kind-of/download/kind-of-2.0.1.tgz?cache=0&sync_timestamp=1579193926808&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fkind-of%2Fdownload%2Fkind-of-2.0.1.tgz#018ec7a4ce7e3a86cb9141be519d24c8faa981b5"
-  integrity sha1-AY7HpM5+OobLkUG+UZ0kyPqpgbU=
-  dependencies:
-    is-buffer "^1.0.2"
-
 kind-of@^3.0.2, kind-of@^3.0.3, kind-of@^3.2.0:
   version "3.2.2"
   resolved "https://registry.npm.taobao.org/kind-of/download/kind-of-3.2.2.tgz#31ea21a734bab9bbb0f32466d893aea51e4a3c64"
@@ -9175,16 +9033,6 @@ klona@^2.0.4:
   version "2.0.4"
   resolved "https://registry.npm.taobao.org/klona/download/klona-2.0.4.tgz?cache=0&sync_timestamp=1600226616064&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fklona%2Fdownload%2Fklona-2.0.4.tgz#7bb1e3affb0cb8624547ef7e8f6708ea2e39dfc0"
   integrity sha1-e7Hjr/sMuGJFR+9+j2cI6i4538A=
-
-lazy-cache@^0.2.3:
-  version "0.2.7"
-  resolved "https://registry.npm.taobao.org/lazy-cache/download/lazy-cache-0.2.7.tgz#7feddf2dcb6edb77d11ef1d117ab5ffdf0ab1b65"
-  integrity sha1-f+3fLctu23fRHvHRF6tf/fCrG2U=
-
-lazy-cache@^1.0.3:
-  version "1.0.4"
-  resolved "https://registry.npm.taobao.org/lazy-cache/download/lazy-cache-1.0.4.tgz#a1d78fc3a50474cb80845d3b3b6e1da49a446e8e"
-  integrity sha1-odePw6UEdMuAhF07O24dpJpEbo4=
 
 lerna@^3.22.1:
   version "3.22.1"
@@ -9709,15 +9557,6 @@ meow@^7.1.1:
     type-fest "^0.13.1"
     yargs-parser "^18.1.3"
 
-merge-deep@^3.0.2:
-  version "3.0.2"
-  resolved "https://registry.npm.taobao.org/merge-deep/download/merge-deep-3.0.2.tgz#f39fa100a4f1bd34ff29f7d2bf4508fbb8d83ad2"
-  integrity sha1-85+hAKTxvTT/KffSv0UI+7jYOtI=
-  dependencies:
-    arr-union "^3.1.0"
-    clone-deep "^0.2.4"
-    kind-of "^3.0.2"
-
 merge-descriptors@1.0.1:
   version "1.0.1"
   resolved "https://registry.npm.taobao.org/merge-descriptors/download/merge-descriptors-1.0.1.tgz#b00aaa556dd8b44568150ec9d1b953f3f90cbb61"
@@ -9926,14 +9765,6 @@ mixin-deep@^1.2.0:
   dependencies:
     for-in "^1.0.2"
     is-extendable "^1.0.1"
-
-mixin-object@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.npm.taobao.org/mixin-object/download/mixin-object-2.0.1.tgz#4fb949441dab182540f1fe035ba60e1947a5e57e"
-  integrity sha1-T7lJRB2rGCVA8f4DW6YOGUel5X4=
-  dependencies:
-    for-in "^0.1.3"
-    is-extendable "^0.1.1"
 
 mkdirp-promise@^5.0.1:
   version "5.0.1"
@@ -13347,16 +13178,6 @@ sha.js@^2.4.0, sha.js@^2.4.8:
     inherits "^2.0.1"
     safe-buffer "^5.0.1"
 
-shallow-clone@^0.1.2:
-  version "0.1.2"
-  resolved "https://registry.npm.taobao.org/shallow-clone/download/shallow-clone-0.1.2.tgz#5909e874ba77106d73ac414cfec1ffca87d97060"
-  integrity sha1-WQnodLp3EG1zrEFM/sH/yofZcGA=
-  dependencies:
-    is-extendable "^0.1.1"
-    kind-of "^2.0.1"
-    lazy-cache "^0.2.3"
-    mixin-object "^2.0.1"
-
 shallow-clone@^3.0.0:
   version "3.0.1"
   resolved "https://registry.npm.taobao.org/shallow-clone/download/shallow-clone-3.0.1.tgz#8f2981ad92531f55035b01fb230769a40e02efa3"
@@ -15184,7 +15005,7 @@ yallist@^4.0.0:
   resolved "https://registry.npm.taobao.org/yallist/download/yallist-4.0.0.tgz#9bb92790d9c0effec63be73519e11a35019a3a72"
   integrity sha1-m7knkNnA7/7GO+c1GeEaNQGaOnI=
 
-yaml@*, yaml@^1.10.0, yaml@^1.7.2:
+yaml@*, yaml@^1.10.0:
   version "1.10.0"
   resolved "https://registry.npm.taobao.org/yaml/download/yaml-1.10.0.tgz?cache=0&sync_timestamp=1598195169702&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fyaml%2Fdownload%2Fyaml-1.10.0.tgz#3b593add944876077d4d683fee01081bd9fff31e"
   integrity sha1-O1k63ZRIdgd9TWg/7gEIG9n/8x4=
