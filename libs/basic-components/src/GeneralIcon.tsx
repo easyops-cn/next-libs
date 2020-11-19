@@ -17,17 +17,12 @@ interface MenuIconProps {
   size?: number | "large" | "small" | "default";
   shape?: "circle" | "square";
   reverseBgColor?: boolean;
+  style?: React.CSSProperties;
   onClick?(event: React.MouseEvent<HTMLElement, MouseEvent>): void;
 }
 
-export function GeneralIcon({
-  icon,
-  bg,
-  size,
-  shape,
-  reverseBgColor,
-  onClick,
-}: MenuIconProps): React.ReactElement {
+export function GeneralIcon(props: MenuIconProps): React.ReactElement {
+  const { icon, bg, size, shape, reverseBgColor, onClick } = props;
   let iconNode = <></>;
   if (!icon) {
     return bg ? (
@@ -41,31 +36,37 @@ export function GeneralIcon({
     );
   }
 
-  let iconStyle: Record<string, any> = {};
-  let avatarStyle: Record<string, any> = {};
+  let style: Record<string, any>;
   if (icon.color) {
     if (bg) {
       if (COLORS_MAP[icon.color as Colors]) {
         if (reverseBgColor) {
-          avatarStyle = {
+          style = {
             color: "#ffffff",
             backgroundColor: getColor(icon.color).color,
           };
         } else {
-          avatarStyle = getColor(icon.color);
+          style = getColor(icon.color);
         }
       } else {
-        avatarStyle = {
+        style = {
           color: "#ffffff",
           backgroundColor: icon.color,
         };
       }
     } else {
-      iconStyle = {
+      style = {
         color: COLORS_MAP[icon.color as Colors]
           ? getColor(icon.color).color
           : icon.color,
       };
+    }
+  }
+  if (props.style) {
+    if (style) {
+      Object.assign(style, props.style);
+    } else {
+      style = props.style;
     }
   }
 
@@ -76,7 +77,7 @@ export function GeneralIcon({
       <LegacyIcon
         type={type}
         theme={icon.theme}
-        style={iconStyle}
+        style={style}
         onClick={onClick}
       />
     );
@@ -88,7 +89,7 @@ export function GeneralIcon({
     const faIcon = icon.prefix ? [icon.prefix, icon.icon] : icon.icon;
     iconNode = (
       <Icon
-        style={{ ...iconStyle, verticalAlign: 0 }}
+        style={{ ...style, verticalAlign: 0 }}
         component={() => <FontAwesomeIcon icon={faIcon} />}
         onClick={onClick}
       />
@@ -98,7 +99,7 @@ export function GeneralIcon({
   if (icon.lib === "easyops") {
     iconNode = (
       <Icon
-        style={iconStyle}
+        style={style}
         component={() => (
           <BrickIcon icon={icon.icon} category={icon.category} />
         )}
@@ -113,7 +114,7 @@ export function GeneralIcon({
         icon={iconNode}
         size={size ?? "default"}
         shape={shape ?? "circle"}
-        style={avatarStyle}
+        style={style}
       ></Avatar>
     );
   }
