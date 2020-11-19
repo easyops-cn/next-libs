@@ -81,4 +81,17 @@ describe("GeneralIcon", () => {
     );
     expect(mockedOnClick).toBeCalledWith(event);
   });
+
+  it("should pass through style property", () => {
+    const style: React.CSSProperties = { marginRight: 8 };
+    const wrapper = shallow(
+      <GeneralIcon
+        icon={{ lib: "antd", type: "up", theme: "filled", color: "#0071eb" }}
+        style={style}
+      />
+    );
+    expect(wrapper.find(LegacyIcon).prop("style")).toEqual(
+      expect.objectContaining(style)
+    );
+  });
 });
