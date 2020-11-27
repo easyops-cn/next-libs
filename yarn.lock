@@ -1059,10 +1059,10 @@
   resolved "https://registry.npm.taobao.org/@csstools/convert-colors/download/@csstools/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"
   integrity sha1-rUldxBsS511YjG24uYNPCPoTHrc=
 
-"@dll/ace@^2.0.41":
-  version "2.0.41"
-  resolved "http://registry.npm.easyops.local/@dll/ace/download/@dll/ace-2.0.41.tgz#78fc4c3e598acc7d68b3f22b82147d9fdcda2f3a"
-  integrity sha1-ePxMPlmKzH1os/IrghR9n9zaLzo=
+"@dll/ace@^2.0.45":
+  version "2.0.45"
+  resolved "http://registry.npm.easyops.local/@dll/ace/download/@dll/ace-2.0.45.tgz#9a52bbf19347dcbf7ffda13f92e8621a08f5eb8c"
+  integrity sha1-mlK78ZNH3L9//aE/kuhiGgj164w=
   dependencies:
     react-ace "^7.0.5"
 
@@ -1119,10 +1119,10 @@
   dependencies:
     "@babel/runtime" "^7.12.5"
 
-"@easyops/brick-container@^2.9.5":
-  version "2.9.5"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-container/download/@easyops/brick-container-2.9.5.tgz#4669256399569909f4d3b95304e86102ccdc268c"
-  integrity sha1-RmklY5lWmQn007lTBOhhAszcJow=
+"@easyops/brick-container@^2.9.9":
+  version "2.9.9"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-container/download/@easyops/brick-container-2.9.9.tgz#b1a8dc3dbf18232bb8691b2abf172f6dd1f9cb11"
+  integrity sha1-sajcPb8YIyu4aRsqvxcvbdH5yxE=
   dependencies:
     body-parser "^1.19.0"
     chalk "^4.1.0"
@@ -1135,18 +1135,18 @@
     meow "^8.0.0"
     ws "^7.4.0"
 
-"@easyops/brick-dll@^2.5.4":
-  version "2.5.4"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-dll/download/@easyops/brick-dll-2.5.4.tgz#589742034ad05a36ec5177b2d5ba97d93a96373d"
-  integrity sha1-WJdCA0rQWjbsUXey1bqX2TqWNz0=
+"@easyops/brick-dll@^2.5.8":
+  version "2.5.8"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-dll/download/@easyops/brick-dll-2.5.8.tgz#a1cd045802842f0cdc7ff3ad4a67bafcd0e4249c"
+  integrity sha1-oc0EWAKELwzcf/OtSme6/NDkJJw=
   dependencies:
     "@ant-design/compatible" "^1.0.8"
     "@ant-design/icons" "^4.2.2"
     "@easyops/babel-runtime-helpers" "^1.0.2"
     "@easyops/brick-http" "^2.2.1"
-    "@easyops/brick-icons" "^2.4.2"
-    "@easyops/brick-kit" "^2.19.3"
-    "@easyops/brick-utils" "^2.4.2"
+    "@easyops/brick-icons" "^2.4.3"
+    "@easyops/brick-kit" "^2.22.1"
+    "@easyops/brick-utils" "^2.4.5"
     "@easyops/easyops-analytics" "^0.1.1"
     "@easyops/fontawesome-library" "^1.1.9"
     "@fortawesome/react-fontawesome" "^0.1.12"
@@ -1166,17 +1166,17 @@
   resolved "http://registry.npm.easyops.local/@easyops/brick-http/download/@easyops/brick-http-2.2.1.tgz#e051550c9cf02b837cfe6a389e87224c1344c35f"
   integrity sha1-4FFVDJzwK4N8/mo4nociTBNEw18=
 
-"@easyops/brick-icons@^2.4.2":
-  version "2.4.2"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-icons/download/@easyops/brick-icons-2.4.2.tgz#07a118ab8bf41b378869b45f9efdccf294d1d2df"
-  integrity sha1-B6EYq4v0GzeIabRfnv3M8pTR0t8=
+"@easyops/brick-icons@^2.4.3":
+  version "2.4.3"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-icons/download/@easyops/brick-icons-2.4.3.tgz#18fcf4eb2111d6eb9b187281bb951b64c8ea4d3c"
+  integrity sha1-GPz06yER1uubGHKBu5UbZMjqTTw=
 
-"@easyops/brick-kit@^2.19.3":
-  version "2.19.3"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-kit/download/@easyops/brick-kit-2.19.3.tgz#594e59c98f32f6065be292d48c600e616df442c5"
-  integrity sha1-WU5ZyY8y9gZb4pLUjGAOYW30QsU=
+"@easyops/brick-kit@^2.22.1":
+  version "2.22.1"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-kit/download/@easyops/brick-kit-2.22.1.tgz#52d44ea1a5d5bb5b02c3a83cad0b93e7e1608f7c"
+  integrity sha1-UtROoaXVu1sCw6g8rQuT5+Fgj3w=
   dependencies:
-    "@easyops/brick-types" "^2.9.0"
+    "@easyops/brick-types" "^2.11.0"
     "@sdk/auth-sdk" "^0.8.4"
     "@sdk/cmdb-sdk" "^0.15.11"
     "@sdk/micro-app-sdk" "^0.8.2"
@@ -1199,19 +1199,19 @@
     request "^2.88.2"
     request-promise-native "^1.0.9"
 
-"@easyops/brick-types@^2.0.0-next.2", "@easyops/brick-types@^2.9.0":
-  version "2.9.0"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-types/download/@easyops/brick-types-2.9.0.tgz#65cd1a2472d70d9e1575b865c690df4d62795bf4"
-  integrity sha1-Zc0aJHLXDZ4VdbhlxpDfTWJ5W/Q=
+"@easyops/brick-types@^2.0.0-next.2", "@easyops/brick-types@^2.11.0":
+  version "2.11.0"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-types/download/@easyops/brick-types-2.11.0.tgz#89c1442a019b2fe59d9a2e4999790602ec710d13"
+  integrity sha1-icFEKgGbL+Wdmi5JmXkGAuxxDRM=
 
-"@easyops/brick-utils@^2.4.2":
-  version "2.4.2"
-  resolved "http://registry.npm.easyops.local/@easyops/brick-utils/download/@easyops/brick-utils-2.4.2.tgz#d4ba4769d9743d798ba4830b7c0b8d784f10c141"
-  integrity sha1-1LpHadl0PXmLpIMLfAuNeE8QwUE=
+"@easyops/brick-utils@^2.4.5":
+  version "2.4.5"
+  resolved "http://registry.npm.easyops.local/@easyops/brick-utils/download/@easyops/brick-utils-2.4.5.tgz#98157ede43cb674fe3958cb4a6d88dda9bf3105c"
+  integrity sha1-mBV+3kPLZ0/jlYy0ptiN2pvzEFw=
   dependencies:
     "@babel/parser" "^7.12.5"
     "@easyops-cn/brick-next-pipes" "^0.3.7"
-    "@easyops/brick-types" "^2.9.0"
+    "@easyops/brick-types" "^2.11.0"
     file-saver "^2.0.2"
     path-to-regexp "^6.2.0"
 
@@ -1220,12 +1220,12 @@
   resolved "http://registry.npm.easyops.local/@easyops/browserslist-config-next/download/@easyops/browserslist-config-next-0.1.0.tgz#9882b7364c8d25a81a00e04b559f72fb1a10b4a1"
   integrity sha1-mIK3NkyNJagaAOBLVZ9y+xoQtKE=
 
-"@easyops/build-config-factory@^2.1.2":
-  version "2.1.2"
-  resolved "http://registry.npm.easyops.local/@easyops/build-config-factory/download/@easyops/build-config-factory-2.1.2.tgz#8239d25d42d8dd285ea730abdb38b4ea5b2a0f5b"
-  integrity sha1-gjnSXULY3ShepzCr2zi06lsqD1s=
+"@easyops/build-config-factory@^2.1.5":
+  version "2.1.5"
+  resolved "http://registry.npm.easyops.local/@easyops/build-config-factory/download/@easyops/build-config-factory-2.1.5.tgz#75421259f81ffb1fc2ec4e9afa70f52fa230137b"
+  integrity sha1-dUISWfgf+x/C7E6a+nD1L6IwE3s=
   dependencies:
-    "@easyops/brick-utils" "^2.4.2"
+    "@easyops/brick-utils" "^2.4.5"
     change-case "^4.1.1"
     chokidar "^3.4.3"
     fs-extra "^9.0.1"
@@ -1240,28 +1240,28 @@
     typedoc "^0.19.2"
     typedoc-plugin-no-inherit "^1.2.0"
 
-"@easyops/custom-antd-styles@^1.3.0":
-  version "1.3.0"
-  resolved "http://registry.npm.easyops.local/@easyops/custom-antd-styles/download/@easyops/custom-antd-styles-1.3.0.tgz#ac4d8fb108aff960fa8fb32f74904ec77b068c35"
-  integrity sha1-rE2PsQiv+WD6j7MvdJBOx3sGjDU=
+"@easyops/custom-antd-styles@^1.3.1":
+  version "1.3.1"
+  resolved "http://registry.npm.easyops.local/@easyops/custom-antd-styles/download/@easyops/custom-antd-styles-1.3.1.tgz#db88dbf159a8512abfb770328091ca70d488f425"
+  integrity sha1-24jb8VmoUSq/t3AygJHKcNSI9CU=
 
-"@easyops/dev-dependencies@^1.1.17":
-  version "1.1.17"
-  resolved "http://registry.npm.easyops.local/@easyops/dev-dependencies/download/@easyops/dev-dependencies-1.1.17.tgz#0662b0217374bb2ac82321b72c0133c524a98c33"
-  integrity sha1-BmKwIXN0uyrIIyG3LAEzxSSpjDM=
+"@easyops/dev-dependencies@^1.1.21":
+  version "1.1.21"
+  resolved "http://registry.npm.easyops.local/@easyops/dev-dependencies/download/@easyops/dev-dependencies-1.1.21.tgz#38f58f399718a3467b42d13208f4dcb0b0d5e303"
+  integrity sha1-OPWPOZcYo0Z7QtEyCPTcsLDV4wM=
   dependencies:
     "@babel/core" "^7.12.3"
-    "@dll/ace" "^2.0.41"
+    "@dll/ace" "^2.0.45"
     "@dll/d3" "^2.0.5"
     "@dll/echarts" "^2.0.6"
     "@easyops/babel-preset-next" "^0.6.15"
     "@easyops/babel-preset-prismjs" "^1.0.1"
-    "@easyops/brick-container" "^2.9.5"
-    "@easyops/brick-dll" "^2.5.4"
+    "@easyops/brick-container" "^2.9.9"
+    "@easyops/brick-dll" "^2.5.8"
     "@easyops/brick-scripts" "^2.0.3"
     "@easyops/browserslist-config-next" "^0.1.0"
-    "@easyops/build-config-factory" "^2.1.2"
-    "@easyops/custom-antd-styles" "^1.3.0"
+    "@easyops/build-config-factory" "^2.1.5"
+    "@easyops/custom-antd-styles" "^1.3.1"
     "@easyops/eslint-config-next" "^1.0.7"
     "@easyops/rollup-config-factory" "^2.0.7"
     "@easyops/webpack-config-factory" "^2.1.4"
