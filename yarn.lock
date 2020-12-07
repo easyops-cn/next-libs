@@ -2665,10 +2665,10 @@
     lodash "^4.17.15"
     redent "^3.0.0"
 
-"@testing-library/react-hooks@^3.5.0":
-  version "3.5.0"
-  resolved "https://registry.npm.taobao.org/@testing-library/react-hooks/download/@testing-library/react-hooks-3.5.0.tgz#8d728f2d56d615935116385f3ff9335e3402e46b"
-  integrity sha1-jXKPLVbWFZNRFjhfP/kzXjQC5Gs=
+"@testing-library/react-hooks@^3.6.0":
+  version "3.6.0"
+  resolved "https://registry.npm.taobao.org/@testing-library/react-hooks/download/@testing-library/react-hooks-3.6.0.tgz#37e595eb1111e71b39ef0597b390850b9af3660d"
+  integrity sha1-N+WV6xER5xs57wWXs5CFC5rzZg0=
   dependencies:
     "@babel/runtime" "^7.12.5"
     "@types/testing-library__react-hooks" "^3.4.0"
