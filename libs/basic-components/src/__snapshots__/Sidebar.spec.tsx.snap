@@ -10,7 +10,6 @@ exports[`Sidebar should work 1`] = `
   style={
     Object {
       "borderRight": 0,
-      "height": "100%",
     }
   }
 >
