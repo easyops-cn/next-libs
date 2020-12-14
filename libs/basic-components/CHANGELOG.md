@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.1](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@1.2.0...@libs/basic-components@1.2.1) (2020-12-14)
+
+### Bug Fixes
+
+- **sidebar:** fix menu height ([78c01e8](https://git.easyops.local/anyclouds/next-libs/commits/78c01e8))
+
 # [1.2.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@1.1.1...@libs/basic-components@1.2.0) (2020-11-19)
 
 ### Features
