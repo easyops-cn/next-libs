@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.2.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@2.1.5...@libs/cmdb-instances@2.2.0) (2020-12-23)
+
+### Features
+
+- support onChangeV2 event ([4f41275](https://git.easyops.local/anyclouds/next-libs/commits/4f41275))
+
 ## [2.1.5](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@2.1.4...@libs/cmdb-instances@2.1.5) (2020-12-14)
 
 **Note:** Version bump only for package @libs/cmdb-instances
