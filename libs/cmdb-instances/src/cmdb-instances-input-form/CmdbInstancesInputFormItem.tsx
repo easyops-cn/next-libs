@@ -28,6 +28,7 @@ export interface CmdbInstancesInputFormItemProps {
   children?: React.ReactNode;
   query?: { [fieldId: string]: any }[];
   onChange?: (value: string[]) => void;
+  onChangeV2?: (value: any[]) => void;
   defaultQuery?: { [fieldId: string]: any }[];
 }
 
@@ -216,6 +217,10 @@ export const LegacyCmdbInstancesInputFormItem = (
     props.onChange?.(keys);
   };
 
+  const handleInstancesSelectedV2 = (instanceDataList: any[]) => {
+    props.onChangeV2?.(instanceDataList);
+  };
+
   const handleInputChanged = (event: { target: { value: string } }): void => {
     setInputValue(event.target.value);
   };
@@ -321,6 +326,7 @@ export const LegacyCmdbInstancesInputFormItem = (
           (instance) => instance.instanceId
         )}
         onSelected={handleInstancesSelected}
+        onSelectedV2={handleInstancesSelectedV2}
         singleSelect={props.singleSelect}
         onCancel={closeSelectInstancesModal}
         defaultQuery={props.defaultQuery}
