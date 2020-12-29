@@ -645,7 +645,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     };
   };
   const conditions = translateConditions(
-    state.aqToShow,
+    state.aqToShow || state.aq,
     idObjectMap,
     modelData
   );
@@ -759,7 +759,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
                 fieldIds={state.fieldIds}
                 idObjectMap={state.idObjectMap}
                 modelData={modelData}
-                q={state.aqToShow}
+                q={state.aqToShow || state.aq}
                 fieldToShow={state.fieldToShow}
                 onSearch={onAdvancedSearch}
               />
