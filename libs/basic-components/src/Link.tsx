@@ -1,5 +1,5 @@
 // Ref https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/modules/Link.js
-import React from "react";
+import React, { useMemo } from "react";
 import { createLocation, LocationDescriptor } from "history";
 import { getHistory } from "@easyops/brick-kit";
 import { PluginHistory, PluginHistoryState } from "@easyops/brick-types";
@@ -27,52 +27,50 @@ type LinkClickFn = (
 /**
  * The public API for rendering a history-aware <a>.
  */
-export class Link extends React.Component<LinkProps> {
-  handleClick(
-    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
-    history: PluginHistory
-  ): void {
-    if (this.props.onClick) this.props.onClick(event);
-    if (this.props.href) return;
-
-    if (
-      !event.defaultPrevented && // onClick prevented default
-      event.button === 0 && // ignore everything but left clicks
-      (!this.props.target || this.props.target === "_self") && // let browser handle "target=_blank" etc.
-      !isModifiedEvent(event) // ignore clicks with modifier keys
-    ) {
-      event.preventDefault();
-
-      if (!this.props.to) return;
-
-      const method = this.props.replace ? history.replace : history.push;
-
-      method(this.props.to as any);
-    }
-  }
-
-  render(): React.ReactNode {
-    const { innerRef, replace, to, ...rest } = this.props; // eslint-disable-line no-unused-vars
-    const history = getHistory();
-
-    let href;
-    if (this.props.href) {
-      href = this.props.href;
+export function Link(props: LinkProps): React.ReactElement {
+  const { innerRef, replace, to, ...rest } = props; // eslint-disable-line no-unused-vars
+  const history = getHistory();
+  const href = useMemo(() => {
+    if (props.href) {
+      return props.href;
     } else {
       const location =
         typeof to === "string"
           ? createLocation(to, null, null, history.location)
           : to;
-      href = location ? history.createHref(location) : "";
+      return location ? history.createHref(location) : "";
     }
+  }, [props.href, to, history]);
 
-    return (
-      <a
-        {...rest}
-        onClick={event => this.handleClick(event, history)}
-        href={href}
-        ref={innerRef}
-      />
-    );
-  }
+  const handleClick = (
+    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+    history: PluginHistory
+  ): void => {
+    if (props.onClick) props.onClick(event);
+    if (props.href) return;
+
+    if (
+      !event.defaultPrevented && // onClick prevented default
+      event.button === 0 && // ignore everything but left clicks
+      (!props.target || props.target === "_self") && // let browser handle "target=_blank" etc.
+      !isModifiedEvent(event) // ignore clicks with modifier keys
+    ) {
+      event.preventDefault();
+
+      if (!to) return;
+
+      const method = replace ? history.replace : history.push;
+
+      method(to);
+    }
+  };
+
+  return (
+    <a
+      {...rest}
+      onClick={(event) => handleClick(event, history)}
+      href={href}
+      ref={innerRef}
+    />
+  );
 }
