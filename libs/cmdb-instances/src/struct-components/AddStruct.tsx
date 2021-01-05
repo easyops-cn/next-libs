@@ -10,7 +10,7 @@ export interface AddStructProps {
   style?: CSSProperties;
   structData?: any;
   attribute: Partial<CmdbModels.ModelObjectAttr>;
-  handleStoreFunction: Function;
+  handleStoreFunction: (value: any) => void;
   isLegacy?: boolean;
   className?: string;
 }
@@ -24,7 +24,7 @@ export class AddStruct extends React.Component<AddStructProps, AddStructState> {
     super(props);
     this.state = {
       structData: props.structData,
-      showModal: false
+      showModal: false,
     };
   }
   // 编辑结构体
@@ -48,7 +48,7 @@ export class AddStruct extends React.Component<AddStructProps, AddStructState> {
   };
   handleCloseModal = () => {
     this.setState({
-      showModal: false
+      showModal: false,
     });
   };
   handleOpenAddModal = () => {

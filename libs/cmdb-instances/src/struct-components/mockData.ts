@@ -1,3 +1,4 @@
+import { Attribute } from "./interfaces";
 export const structData = {
   arr: ["abc", "def"],
   str: "string",
@@ -19,55 +20,54 @@ export const structData2 = {
   enums: ["1", "3", "5"],
 };
 export const structList = [structData, structData2];
-export const attribute = {
+export const attribute: Attribute = {
   name: "结构体",
   id: "struct",
   value: {
     type: "structs",
-    // eslint-disable-next-line @typescript-eslint/camelcase
     struct_define: [
       {
         id: "arr",
         name: "数组",
-        type: "arr"
+        type: "arr",
       },
       {
         id: "str",
         name: "字符串",
-        type: "str"
+        type: "str",
       },
       {
         id: "int",
         name: "数组",
-        type: "int"
+        type: "int",
       },
       {
         id: "ip",
         name: "IP地址",
-        type: "ip"
+        type: "ip",
       },
       {
         id: "enum",
         name: "枚举",
         type: "enum",
-        regex: ["1", "3", "5", "7", "9"]
+        regex: ["1", "3", "5", "7", "9"],
       },
       {
         id: "date",
         name: "日期",
-        type: "date"
+        type: "date",
       },
       {
         id: "datetime",
         name: "时间",
-        type: "datetime"
+        type: "datetime",
       },
       {
         id: "enums",
         name: "枚举多选",
         type: "enums",
-        regex: ["1", "3", "5", "7", "9"]
-      }
-    ]
-  }
+        regex: ["1", "3", "5", "7", "9"],
+      },
+    ],
+  },
 };

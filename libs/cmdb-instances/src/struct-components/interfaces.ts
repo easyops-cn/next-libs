@@ -1,7 +1,9 @@
+import { ModelObjectAttrValue } from "@sdk/cmdb-sdk/dist/types/model/cmdb";
+
 export interface Structkey {
   id: string;
   name: string;
-  type: string;
+  type: ModelObjectAttrValue["type"];
   regex?: any;
   protected?: boolean;
 }
@@ -9,16 +11,16 @@ export interface AttributeValue {
   default?: any;
   default_type?: string;
   struct_define?: Structkey[];
-  type: string;
+  type: ModelObjectAttrValue["type"];
 }
 export interface Attribute {
   id?: string;
   name: string;
   protected?: boolean;
-  readonly?: string;
-  required?: string;
+  readonly?: "true" | "false";
+  required?: "true" | "false";
   tag?: string[];
-  unique?: string;
+  unique?: "true" | "false";
   value: AttributeValue;
   wordIndexDenined?: boolean;
   tips?: string;
