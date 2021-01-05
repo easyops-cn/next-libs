@@ -5,7 +5,8 @@ export const structData = {
   ip: "0.0.0.0",
   enum: "1",
   date: "2019-05-24",
-  datetime: "2019-05-24 12:00:00"
+  datetime: "2019-05-24 12:00:00",
+  enums: ["1", "3"],
 };
 export const structData2 = {
   arr: ["ppp"],
@@ -14,7 +15,8 @@ export const structData2 = {
   ip: "10.0.0.0",
   enum: "5",
   date: "2019-05-23",
-  datetime: "2019-05-24 23:00:00"
+  datetime: "2019-05-24 23:00:00",
+  enums: ["1", "3", "5"],
 };
 export const structList = [structData, structData2];
 export const attribute = {
@@ -59,6 +61,12 @@ export const attribute = {
         id: "datetime",
         name: "时间",
         type: "datetime"
+      },
+      {
+        id: "enums",
+        name: "枚举多选",
+        type: "enums",
+        regex: ["1", "3", "5", "7", "9"]
       }
     ]
   }

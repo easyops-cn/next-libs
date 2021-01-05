@@ -89,7 +89,7 @@ export class AddStructModal extends React.Component<
       const Option = Select.Option;
       enumForm = (
         <Select
-          defaultValue={value}
+          {...(value !== null? {defaultValue: value}: {})}
           style={{ width: "100%" }}
           onChange={(e: SelectValue) => this.handleValueChange(e, define)}
         >
@@ -119,6 +119,22 @@ export class AddStructModal extends React.Component<
       case "enum":
         formType = this.getEnumForm(define, defaultValue);
         break;
+      case "enums":
+        formType = (
+          <Select
+            mode="multiple"
+            style={{ width: "100%" }}
+            onChange={(e: SelectValue) => this.handleValueChange(e, define)}
+            {...(defaultValue !== null ? {defaultValue: defaultValue}: {})}
+          >
+            {define.regex.map((item: string) => (
+              <Select.Option value={item} key={item}>
+                {item}
+              </Select.Option>
+            ))}
+          </Select>
+        );
+        break;
       case "bool":
         formType = (
           <Radio.Group
@@ -138,7 +154,7 @@ export class AddStructModal extends React.Component<
           <Select
             mode="tags"
             style={{ width: "100%" }}
-            defaultValue={defaultValue}
+            {...(defaultValue !== null ? {defaultValue: defaultValue}: {})}
             onChange={(e: SelectValue) => this.handleValueChange(e, define)}
           />
         );

@@ -191,6 +191,16 @@ describe("ModelAttributeFormControl", () => {
       expect(result).toEqual(FormControlTypeEnum.SELECT);
     });
 
+    it("should return 'select' when type equal 'enums'", () => {
+      const result = computeFormControlType({
+        value: {
+          type: "enums",
+          regex: ["a", "b", "c", "d"],
+        },
+      });
+      expect(result).toEqual(FormControlTypeEnum.SELECT);
+    });
+
     it("should return 'radio' when type equal 'bool'", () => {
       const result = computeFormControlType({
         value: {
@@ -258,6 +268,31 @@ describe("ModelAttributeFormControl", () => {
         {
           id: "正常",
           text: "正常",
+        },
+      ];
+      expect(result).toEqual(data);
+    });
+
+    it("should return 'FormControlSelectItem[]' when type not equal enums", () => {
+      const result = instance.computeFormControlItems(
+        mockFetchCmdbObjectDetailReturnValue.attrList[7]
+      );
+      const data = [
+        {
+          id: "a",
+          text: "a",
+        },
+        {
+          id: "b",
+          text: "b",
+        },
+        {
+          id: "c",
+          text: "c",
+        },
+        {
+          id: "d",
+          text: "d",
         },
       ];
       expect(result).toEqual(data);

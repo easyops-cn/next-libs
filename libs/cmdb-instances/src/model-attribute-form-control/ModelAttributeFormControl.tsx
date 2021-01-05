@@ -14,6 +14,7 @@ export enum ModelAttributeValueType {
   STRING = "str",
   INTEGER = "int",
   ENUM = "enum",
+  ENUMS = "enums",
   ARR = "arr",
   DATE = "date",
   DATETIME = "datetime",
@@ -162,7 +163,7 @@ export class ModelAttributeFormControl extends Component<
   computeFormControlItems(
     attribute: Partial<CmdbModels.ModelObjectAttr>
   ): FormControlSelectItem[] {
-    if (attribute.value.type === ModelAttributeValueType.ENUM) {
+    if (attribute.value.type === ModelAttributeValueType.ENUM || attribute.value.type === ModelAttributeValueType.ENUMS) {
       // The backend guys are notorious to use `regex` as enum candidates. 😢
       return (attribute.value.regex as string[]).map((enumValue) => ({
         id: enumValue,
@@ -228,6 +229,8 @@ export class ModelAttributeFormControl extends Component<
         }
         return FormControlTypeEnum.STRUCT;
       case ModelAttributeValueType.BOOLEAN:
+        return FormControlTypeEnum.SELECT;
+      case ModelAttributeValueType.ENUMS:
         return FormControlTypeEnum.SELECT;
       default:
         throw new Error(`unsupported type: ${attribute.value.type}`);

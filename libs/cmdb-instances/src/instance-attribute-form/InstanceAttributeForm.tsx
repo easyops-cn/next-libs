@@ -3,7 +3,10 @@ import { CmdbModels, InstanceApi } from "@sdk/cmdb-sdk";
 import { Form } from "@ant-design/compatible";
 import { get, keyBy } from "lodash";
 import { FormComponentProps } from "@ant-design/compatible/lib/form";
-import { ModelAttributeFormControl } from "../model-attribute-form-control/ModelAttributeFormControl";
+import {
+  ModelAttributeFormControl,
+  ModelAttributeValueType,
+} from "../model-attribute-form-control/ModelAttributeFormControl";
 
 import i18n from "i18next";
 import { NS_LIBS_CMDB_INSTANCES, K } from "../i18n/constants";
@@ -109,6 +112,10 @@ export class LegacyInstanceAttributeForm extends Component<
               <ModelAttributeFormControl
                 isCreate={this.props.isCreate}
                 attribute={attribute}
+                multiSelect={
+                  (attribute as ModifiedModelObjectAttr).value?.type ===
+                  ModelAttributeValueType.ENUMS
+                }
               />
             )}
           </Form.Item>

@@ -180,6 +180,30 @@ export const mockFetchCmdbObjectDetailReturnValue: Partial<CmdbModels.ModelCmdbO
         series_number_length: 0
       },
       wordIndexDenied: false
+    },
+    {
+      id: "check_enums",
+      name: "多选枚举",
+      protected: false,
+      custom: "false",
+      unique: "false",
+      readonly: "false",
+      required: "false",
+      tag: ["基本信息"],
+      description: "",
+      tips: "",
+      value: {
+        type: "enums",
+        regex: ["a", "b", "c", "d"],
+        default_type: "",
+        default: ["a", "b"],
+        struct_define: [],
+        mode: "",
+        prefix: "",
+        start_value: 0,
+        series_number_length: 0
+      },
+      wordIndexDenied: false
     }
   ],
   relation_groups: [
