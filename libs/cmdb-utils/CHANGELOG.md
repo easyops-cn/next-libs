@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.7.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-utils@0.6.0...@libs/cmdb-utils@0.7.0) (2021-01-05)
+
+### Features
+
+- **cmdb-instance:** 获取 objectList 更换新的接口 ([1eb4e97](https://git.easyops.local/anyclouds/next-libs/commits/1eb4e97))
+
 # [0.6.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-utils@0.5.19...@libs/cmdb-utils@0.6.0) (2020-04-13)
 
 ### Features
