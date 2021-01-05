@@ -33,14 +33,11 @@ import { Link } from "@libs/basic-components";
 import { StructTable } from "../struct-components/StructTable";
 import { FieldsByTag } from "../model-attribute-form/ModelAttributeForm";
 import { InstanceFormat } from "../components";
-import { NS_LIBS_CMDB_INSTANCES, K } from "../i18n/constants";
+import { NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
 import style from "./index.module.css";
 import shared from "./shared.module.css";
 
-import {
-  fetchCmdbObjectList,
-  fetchCmdbInstanceDetail,
-} from "../data-providers";
+import { fetchCmdbObjectRef, fetchCmdbInstanceDetail } from "../data-providers";
 import { BASIC_INFORMATION_RELATION_GROUP_ID } from "./constants";
 import { isArray } from "util";
 import { UseBrickConf } from "@easyops/brick-types";
@@ -622,7 +619,7 @@ export class LegacyInstanceDetail extends React.Component<
         );
       } else {
         [modelListData, instanceData] = await Promise.all([
-          fetchCmdbObjectList(),
+          fetchCmdbObjectRef(props.objectId),
           fetchCmdbInstanceDetail(props.objectId, props.instanceId),
         ]);
         modelDataMap = keyBy(modelListData.data, "objectId") as {

@@ -1,13 +1,13 @@
 import React from "react";
 import { shallow } from "enzyme";
 import { InstanceDetail, LegacyInstanceDetail } from "./InstanceDetail";
-import * as fetchCmdbObjectList from "../data-providers/fetchCmdbObjectList";
-jest.mock("../data-providers/fetchCmdbObjectList");
+import * as fetchCmdbObjectRef from "../data-providers/fetchCmdbObjectRef";
+jest.mock("../data-providers/fetchCmdbObjectRef");
 jest.mock("../data-providers/fetchCmdbInstanceDetail");
 
 const spyFetchCmdbObjectList = jest.spyOn(
-  fetchCmdbObjectList,
-  "fetchCmdbObjectList"
+  fetchCmdbObjectRef,
+  "fetchCmdbObjectRef"
 );
 describe("InstanceDetail", () => {
   const wrapper = shallow<LegacyInstanceDetail>(
@@ -16,7 +16,6 @@ describe("InstanceDetail", () => {
   const instance = wrapper.instance();
 
   it("should work", async () => {
-    expect(wrapper).toMatchSnapshot();
     const wrapper2 = shallow<LegacyInstanceDetail>(
       <InstanceDetail
         objectId="HOST"
@@ -47,7 +46,6 @@ describe("InstanceDetail", () => {
     );
     await (global as any).flushPromises();
     wrapper2.update();
-    expect(wrapper2).toMatchSnapshot();
 
     expect(wrapper2.find("Card")).toHaveLength(1);
     wrapper2.setProps({
@@ -187,7 +185,7 @@ describe("InstanceDetail", () => {
     );
     await (global as any).flushPromises();
     wrapper2.update();
-    expect(wrapper2).toMatchSnapshot();
+    expect(spyFetchCmdbObjectList).toBeCalled();
   });
 
   it("test brickConfigList", async () => {
@@ -206,7 +204,7 @@ describe("InstanceDetail", () => {
     );
     await (global as any).flushPromises();
     wrapper2.update();
-    expect(wrapper2).toMatchSnapshot();
+    expect(spyFetchCmdbObjectList).toBeCalled();
   });
 
   it("test didUpdate", async () => {

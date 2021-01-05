@@ -1,5 +1,4 @@
 import { CmdbModels } from "@sdk/cmdb-sdk";
-/* eslint-disable @typescript-eslint/camelcase */
 
 export const fetchCmdbObjectDetail = jest.fn(() =>
   Promise.resolve({
@@ -28,78 +27,78 @@ export const fetchCmdbObjectDetail = jest.fn(() =>
               name: "名称",
               type: "str",
               regex: null,
-              protected: true
+              protected: true,
             },
             {
               id: "category",
               name: "分类",
               type: "str",
               regex: null,
-              protected: true
+              protected: true,
             },
             {
               id: "flowId",
               name: "流程Id",
               type: "str",
               regex: null,
-              protected: true
+              protected: true,
             },
             {
               id: "flowVersion",
               name: "流程版本",
               type: "int",
               regex: null,
-              protected: true
+              protected: true,
             },
             {
               id: "templateId",
               name: "模板Id",
               type: "str",
               regex: null,
-              protected: true
+              protected: true,
             },
             {
               id: "templateVersion",
               name: "模板版本",
               type: "int",
               regex: null,
-              protected: true
+              protected: true,
             },
             {
               id: "rules",
               name: "rules",
               type: "str",
               regex: null,
-              protected: true
+              protected: true,
             },
             {
               id: "subscribers",
               name: "subscribers",
               type: "arr",
               regex: null,
-              protected: true
+              protected: true,
             },
             {
               id: "subscribedChannel",
               name: "subscribedChannel",
               type: "str",
               regex: null,
-              protected: true
+              protected: true,
             },
             {
               id: "metadata",
               name: "metadata",
               type: "str",
               regex: null,
-              protected: true
-            }
+              protected: true,
+            },
           ],
           mode: "",
           prefix: "",
           start_value: 0,
-          series_number_length: 0
+          series_number_length: 0,
         },
-        wordIndexDenied: false
+        wordIndexDenied: false,
       },
       {
         id: "_defaultDeployStrategy",
@@ -123,22 +122,22 @@ export const fetchCmdbObjectDetail = jest.fn(() =>
               name: "环境类型",
               type: "str",
               regex: null,
-              protected: true
+              protected: true,
             },
             {
               id: "strategyId",
               name: "策略ID",
               type: "str",
               regex: null,
-              protected: true
-            }
+              protected: true,
+            },
           ],
           mode: "",
           prefix: "",
           start_value: 0,
-          series_number_length: 0
+          series_number_length: 0,
         },
-        wordIndexDenied: false
+        wordIndexDenied: false,
       },
       {
         id: "_hierarchy",
@@ -162,7 +161,7 @@ export const fetchCmdbObjectDetail = jest.fn(() =>
             "逻辑下层",
             "数据上层",
             "数据中层",
-            "数据下层"
+            "数据下层",
           ],
           default_type: "",
           default: null,
@@ -170,9 +169,9 @@ export const fetchCmdbObjectDetail = jest.fn(() =>
           mode: "",
           prefix: "",
           start_value: 0,
-          series_number_length: 0
+          series_number_length: 0,
         },
-        wordIndexDenied: false
+        wordIndexDenied: false,
       },
       {
         id: "_packageList",
@@ -196,15 +195,15 @@ export const fetchCmdbObjectDetail = jest.fn(() =>
               name: "包名称",
               type: "str",
               regex: null,
-              protected: true
-            }
+              protected: true,
+            },
           ],
           mode: "",
           prefix: "",
           start_value: 0,
-          series_number_length: 0
+          series_number_length: 0,
         },
-        wordIndexDenied: false
+        wordIndexDenied: false,
       },
       {
         id: "struct",
@@ -228,15 +227,15 @@ export const fetchCmdbObjectDetail = jest.fn(() =>
               name: "包名称",
               type: "str",
               regex: null,
-              protected: true
-            }
+              protected: true,
+            },
           ],
           mode: "",
           prefix: "",
           start_value: 0,
-          series_number_length: 0
+          series_number_length: 0,
         },
-        wordIndexDenied: false
+        wordIndexDenied: false,
       },
       {
         id: "_updatable",
@@ -258,9 +257,9 @@ export const fetchCmdbObjectDetail = jest.fn(() =>
           mode: "",
           prefix: "",
           start_value: 0,
-          series_number_length: 0
+          series_number_length: 0,
         },
-        wordIndexDenied: false
+        wordIndexDenied: false,
       },
       {
         id: "appId",
@@ -282,9 +281,9 @@ export const fetchCmdbObjectDetail = jest.fn(() =>
           mode: "default",
           prefix: "",
           start_value: 0,
-          series_number_length: 0
+          series_number_length: 0,
         },
-        wordIndexDenied: false
+        wordIndexDenied: false,
       },
       {
         id: "asd",
@@ -306,9 +305,9 @@ export const fetchCmdbObjectDetail = jest.fn(() =>
           mode: "default",
           prefix: "",
           start_value: 0,
-          series_number_length: 0
+          series_number_length: 0,
         },
-        wordIndexDenied: false
+        wordIndexDenied: false,
       },
       {
         id: "auto_test_attr5266539355",
@@ -330,9 +329,9 @@ export const fetchCmdbObjectDetail = jest.fn(() =>
           mode: "default",
           prefix: "",
           start_value: 0,
-          series_number_length: 0
+          series_number_length: 0,
         },
-        wordIndexDenied: false
+        wordIndexDenied: false,
       },
       {
         id: "featureEnabled",
@@ -354,9 +353,9 @@ export const fetchCmdbObjectDetail = jest.fn(() =>
           mode: "",
           prefix: "",
           start_value: 0,
-          series_number_length: 0
+          series_number_length: 0,
         },
-        wordIndexDenied: false
+        wordIndexDenied: false,
       },
       {
         id: "featurePriority",
@@ -378,9 +377,9 @@ export const fetchCmdbObjectDetail = jest.fn(() =>
           mode: "",
           prefix: "",
           start_value: 10,
-          series_number_length: 0
+          series_number_length: 0,
         },
-        wordIndexDenied: false
+        wordIndexDenied: false,
       },
       {
         id: "featureRule",
@@ -404,36 +403,36 @@ export const fetchCmdbObjectDetail = jest.fn(() =>
               name: "比较器",
               type: "enum",
               regex: [],
-              protected: false
+              protected: false,
             },
             {
               id: "value",
               name: "值",
               type: "str",
               regex: null,
-              protected: false
+              protected: false,
             },
             {
               id: "key",
               name: "特征ID",
               type: "str",
               regex: null,
-              protected: false
+              protected: false,
             },
             {
               id: "label",
               name: "特征项",
               type: "str",
               regex: null,
-              protected: false
-            }
+              protected: false,
+            },
           ],
           mode: "",
           prefix: "",
           start_value: 0,
-          series_number_length: 0
+          series_number_length: 0,
         },
-        wordIndexDenied: false
+        wordIndexDenied: false,
       },
       {
         id: "hhhd",
@@ -455,9 +454,9 @@ export const fetchCmdbObjectDetail = jest.fn(() =>
           mode: "default",
           prefix: "",
           start_value: 0,
-          series_number_length: 0
+          series_number_length: 0,
         },
-        wordIndexDenied: false
+        wordIndexDenied: false,
       },
       {
         id: "jjjd",
@@ -479,9 +478,9 @@ export const fetchCmdbObjectDetail = jest.fn(() =>
           mode: "",
           prefix: "",
           start_value: 0,
-          series_number_length: 0
+          series_number_length: 0,
         },
-        wordIndexDenied: false
+        wordIndexDenied: false,
       },
       {
         id: "memo",
@@ -503,9 +502,9 @@ export const fetchCmdbObjectDetail = jest.fn(() =>
           mode: "default",
           prefix: "",
           start_value: 0,
-          series_number_length: 0
+          series_number_length: 0,
         },
-        wordIndexDenied: false
+        wordIndexDenied: false,
       },
       {
         id: "name",
@@ -527,9 +526,9 @@ export const fetchCmdbObjectDetail = jest.fn(() =>
           mode: "default",
           prefix: "",
           start_value: 0,
-          series_number_length: 0
+          series_number_length: 0,
         },
-        wordIndexDenied: false
+        wordIndexDenied: false,
       },
       {
         id: "serviceId",
@@ -551,9 +550,9 @@ export const fetchCmdbObjectDetail = jest.fn(() =>
           mode: "default",
           prefix: "",
           start_value: 0,
-          series_number_length: 0
+          series_number_length: 0,
         },
-        wordIndexDenied: false
+        wordIndexDenied: false,
       },
       {
         id: "testadd",
@@ -575,10 +574,10 @@ export const fetchCmdbObjectDetail = jest.fn(() =>
           mode: "default",
           prefix: "",
           start_value: 0,
-          series_number_length: 0
+          series_number_length: 0,
         },
-        wordIndexDenied: false
-      }
+        wordIndexDenied: false,
+      },
     ],
     relation_list: [
       {
@@ -601,9 +600,9 @@ export const fetchCmdbObjectDetail = jest.fn(() =>
         right_name: "负责备份的主机",
         right_object_id: "USER",
         right_tags: [],
-        _version: 0
-      }
-    ]
+        _version: 0,
+      },
+    ],
   })
 );
 
@@ -617,7 +616,7 @@ export const mockFetchCmdbObjectDetailReturnValue: Partial<CmdbModels.ModelCmdbO
   view: {
     attr_order: ["hostname"],
     hide_columns: ["deviceId", "_deviceList_CLUSTER"],
-    show_key: ["hostname"]
+    show_key: ["hostname"],
   },
   attrList: [
     {
@@ -640,9 +639,9 @@ export const mockFetchCmdbObjectDetailReturnValue: Partial<CmdbModels.ModelCmdbO
         mode: "",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "_agentStatus",
@@ -664,9 +663,9 @@ export const mockFetchCmdbObjectDetailReturnValue: Partial<CmdbModels.ModelCmdbO
         mode: "",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "deviceId",
@@ -688,9 +687,9 @@ export const mockFetchCmdbObjectDetailReturnValue: Partial<CmdbModels.ModelCmdbO
         mode: "default",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "tag",
@@ -712,9 +711,9 @@ export const mockFetchCmdbObjectDetailReturnValue: Partial<CmdbModels.ModelCmdbO
         mode: "default",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "check_url2",
@@ -736,9 +735,9 @@ export const mockFetchCmdbObjectDetailReturnValue: Partial<CmdbModels.ModelCmdbO
         mode: "url",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "check_array",
@@ -760,9 +759,9 @@ export const mockFetchCmdbObjectDetailReturnValue: Partial<CmdbModels.ModelCmdbO
         mode: "default",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "timeline",
@@ -784,17 +783,17 @@ export const mockFetchCmdbObjectDetailReturnValue: Partial<CmdbModels.ModelCmdbO
         mode: "",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
-    }
+      wordIndexDenied: false,
+    },
   ],
   relation_groups: [
     {
       id: "_user",
       name: "负责人",
-      protected: true
-    }
+      protected: true,
+    },
   ],
   relation_list: [
     {
@@ -817,7 +816,7 @@ export const mockFetchCmdbObjectDetailReturnValue: Partial<CmdbModels.ModelCmdbO
       right_max: -1,
       right_groups: [],
       right_tags: [],
-      _version: 0
+      _version: 0,
     },
     {
       left_description: "负责备份的主机",
@@ -839,15 +838,15 @@ export const mockFetchCmdbObjectDetailReturnValue: Partial<CmdbModels.ModelCmdbO
       right_name: "负责备份的主机",
       right_object_id: "USER",
       right_tags: [],
-      _version: 0
-    }
+      _version: 0,
+    },
   ],
   updateAuthorizers: [],
   deleteAuthorizers: [],
   wordIndexDenied: false,
   _version: 35,
   creator: "",
-  modifier: "defaultUser"
+  modifier: "defaultUser",
 };
 
 export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
@@ -878,15 +877,15 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
       "hostname",
       "owner",
       "_deviceList_CLUSTER",
-      "deviceId"
+      "deviceId",
     ],
     hide_columns: ["deviceId"],
     relation_view: {
       _deviceList_CLUSTER: ["name"],
-      owner: ["name"]
+      owner: ["name"],
     },
     showHideAttrs: true,
-    show_key: ["ip", "hostname"]
+    show_key: ["ip", "hostname"],
   },
   attrList: [
     {
@@ -909,9 +908,9 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
         mode: "",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "cpu",
@@ -935,43 +934,43 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
             name: "型号",
             type: "str",
             regex: null,
-            protected: true
+            protected: true,
           },
           {
             id: "architecture",
             name: "架构",
             type: "str",
             regex: null,
-            protected: true
+            protected: true,
           },
           {
             id: "hz",
             name: "频率",
             type: "str",
             regex: null,
-            protected: true
+            protected: true,
           },
           {
             id: "logical_cores",
             name: "逻辑核数",
             type: "int",
             regex: null,
-            protected: true
+            protected: true,
           },
           {
             id: "physical_cores",
             name: "物理核数",
             type: "int",
             regex: null,
-            protected: true
-          }
+            protected: true,
+          },
         ],
         mode: "",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "cpuHz",
@@ -993,9 +992,9 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
         mode: "",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "cpuModel",
@@ -1017,9 +1016,9 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
         mode: "default",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "cpus",
@@ -1041,9 +1040,9 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
         mode: "",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "deviceId",
@@ -1065,9 +1064,9 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
         mode: "default",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "diskSize",
@@ -1089,9 +1088,9 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
         mode: "",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "eth",
@@ -1115,57 +1114,57 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
             name: "网卡",
             type: "str",
             regex: null,
-            protected: true
+            protected: true,
           },
           {
             id: "status",
             name: "状态",
             type: "enum",
             regex: [],
-            protected: true
+            protected: true,
           },
           {
             id: "ip",
             name: "关联IP",
             type: "str",
             regex: null,
-            protected: true
+            protected: true,
           },
           {
             id: "mask",
             name: "子网掩码",
             type: "str",
             regex: null,
-            protected: true
+            protected: true,
           },
           {
             id: "speed",
             name: "速度",
             type: "int",
             regex: null,
-            protected: true
+            protected: true,
           },
           {
             id: "mac",
             name: "MAC",
             type: "str",
             regex: null,
-            protected: true
+            protected: true,
           },
           {
             id: "broadcast",
             name: "广播地址",
             type: "str",
             regex: null,
-            protected: true
-          }
+            protected: true,
+          },
         ],
         mode: "",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "hostname",
@@ -1187,9 +1186,9 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
         mode: "default",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "ip",
@@ -1212,9 +1211,9 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
         mode: "",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "memSize",
@@ -1236,9 +1235,9 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
         mode: "",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "memo",
@@ -1260,9 +1259,9 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
         mode: "default",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "osArchitecture",
@@ -1284,9 +1283,9 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
         mode: "default",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "osDistro",
@@ -1308,9 +1307,9 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
         mode: "default",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "osRelease",
@@ -1332,9 +1331,9 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
         mode: "default",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "osSystem",
@@ -1356,9 +1355,9 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
         mode: "default",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "osVersion",
@@ -1380,9 +1379,9 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
         mode: "default",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "status",
@@ -1405,7 +1404,7 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
           "开发机",
           "测试机",
           "维修中",
-          "报废"
+          "报废",
         ],
         default_type: "",
         default: null,
@@ -1413,9 +1412,9 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
         mode: "",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "tag",
@@ -1437,27 +1436,27 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
         mode: "default",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
-    }
+      wordIndexDenied: false,
+    },
   ],
   relation_groups: [
     {
       id: "_user",
       name: "负责人",
-      protected: true
+      protected: true,
     },
     {
       id: "_relate_connect",
       name: "位置信息",
-      protected: true
+      protected: true,
     },
     {
       id: "basic_info",
       name: "基本属性",
-      protected: true
-    }
+      protected: true,
+    },
   ],
   relation_list: [
     {
@@ -1480,7 +1479,7 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
       right_max: -1,
       right_groups: [],
       right_tags: [],
-      _version: 0
+      _version: 0,
     },
     {
       relation_id: "HOST_owner_USER",
@@ -1502,15 +1501,15 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
       right_max: -1,
       right_groups: [],
       right_tags: [],
-      _version: 0
-    }
+      _version: 0,
+    },
   ],
   updateAuthorizers: [],
   deleteAuthorizers: [],
   wordIndexDenied: false,
   _version: 3,
   creator: "",
-  modifier: "easyops"
+  modifier: "easyops",
 };
 
 export const _KUBERNETES_CLUSTER = {
@@ -1529,12 +1528,12 @@ export const _KUBERNETES_CLUSTER = {
       "environment",
       "authMode",
       "authInfo",
-      "tlsConfig"
+      "tlsConfig",
     ],
     hide_columns: [],
     showHideAttrs: true,
     show_key: ["name"],
-    visible: true
+    visible: true,
   },
   attrList: [
     {
@@ -1557,9 +1556,9 @@ export const _KUBERNETES_CLUSTER = {
         mode: "default",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: true
+      wordIndexDenied: true,
     },
     {
       id: "host",
@@ -1581,9 +1580,9 @@ export const _KUBERNETES_CLUSTER = {
         mode: "default",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: true
+      wordIndexDenied: true,
     },
     {
       id: "environment",
@@ -1605,9 +1604,9 @@ export const _KUBERNETES_CLUSTER = {
         mode: "",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: true
+      wordIndexDenied: true,
     },
     {
       id: "authMode",
@@ -1629,9 +1628,9 @@ export const _KUBERNETES_CLUSTER = {
         mode: "",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: true
+      wordIndexDenied: true,
     },
     {
       id: "authInfo",
@@ -1655,22 +1654,22 @@ export const _KUBERNETES_CLUSTER = {
             name: "用户名",
             type: "str",
             regex: null,
-            protected: false
+            protected: false,
           },
           {
             id: "password",
             name: "密码",
             type: "str",
             regex: null,
-            protected: false
-          }
+            protected: false,
+          },
         ],
         mode: "",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: true
+      wordIndexDenied: true,
     },
     {
       id: "tlsConfig",
@@ -1694,30 +1693,30 @@ export const _KUBERNETES_CLUSTER = {
             name: "客户端证书",
             type: "str",
             regex: null,
-            protected: false
+            protected: false,
           },
           {
             id: "clientKey",
             name: "客户端Key",
             type: "str",
             regex: null,
-            protected: false
+            protected: false,
           },
           {
             id: "clusterCA",
             name: "集群证书",
             type: "str",
             regex: null,
-            protected: false
-          }
+            protected: false,
+          },
         ],
         mode: "",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: true
-    }
+      wordIndexDenied: true,
+    },
   ],
   relation_groups: [],
   relation_list: [
@@ -1742,7 +1741,7 @@ export const _KUBERNETES_CLUSTER = {
       right_max: 1,
       right_groups: [],
       right_tags: [],
-      _version: 1
+      _version: 1,
     },
     {
       relation_id:
@@ -1765,13 +1764,13 @@ export const _KUBERNETES_CLUSTER = {
       right_max: -1,
       right_groups: [],
       right_tags: [],
-      _version: 1
-    }
+      _version: 1,
+    },
   ],
   updateAuthorizers: [],
   deleteAuthorizers: [],
   wordIndexDenied: true,
   _version: 23,
   creator: "defaultUser",
-  modifier: "defaultUser"
+  modifier: "defaultUser",
 };

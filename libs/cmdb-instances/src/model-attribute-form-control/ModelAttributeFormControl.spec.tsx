@@ -244,6 +244,7 @@ describe("ModelAttributeFormControl", () => {
       expect(() => {
         computeFormControlType({
           value: {
+            // @ts-ignore
             type: "test",
           },
         });

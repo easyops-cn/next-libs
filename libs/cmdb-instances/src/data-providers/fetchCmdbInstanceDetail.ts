@@ -4,5 +4,5 @@ export function fetchCmdbInstanceDetail(
   objectId: string,
   instanceId: string
 ): Promise<Partial<InstanceApi.GetDetailResponseBody>> {
-  return InstanceApi.getDetail(objectId, instanceId);
+  return InstanceApi.getDetail(objectId, instanceId, {});
 }

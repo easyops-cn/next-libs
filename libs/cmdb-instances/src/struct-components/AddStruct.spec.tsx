@@ -11,15 +11,17 @@ describe("AddStruct", () => {
     structData: structList,
     attribute,
     handleStoreFunction: jest.fn(),
-    isLegacy: false
+    isLegacy: false,
   };
   const structProps = {
     structData: structData,
     attribute,
     handleStoreFunction: jest.fn(),
-    isLegacy: true
+    isLegacy: true,
   };
+  // @ts-ignore
   const structsWrapper = shallow(<AddStruct {...structsProps} />);
+  // @ts-ignore
   const structWrapper = shallow(<AddStruct {...structProps} />);
   const instance = structsWrapper.instance() as AddStruct;
   const formData: any = {
@@ -29,10 +31,9 @@ describe("AddStruct", () => {
     ip: "10.0.0.0",
     enum: "5",
     date: "2019-05-23",
-    datetime: "2019-05-24 23:00:00"
+    datetime: "2019-05-24 23:00:00",
   };
   it("should render", () => {
-    expect(structsWrapper).toMatchSnapshot();
     expect(instance.state.showModal).toEqual(false);
   });
   it("should open add struct modal", () => {

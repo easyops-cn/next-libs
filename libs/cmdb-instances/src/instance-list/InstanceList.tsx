@@ -25,7 +25,7 @@ import {
 } from "@easyops/brick-types";
 import { CmdbModels, InstanceApi } from "@sdk/cmdb-sdk";
 import { Icon as LegacyIcon } from "@ant-design/compatible";
-import { Button, Checkbox, Spin, Input, Tag } from "antd";
+import { Button, Spin, Input, Tag } from "antd";
 import {
   getRelationObjectSides,
   forEachAvailableFields,
