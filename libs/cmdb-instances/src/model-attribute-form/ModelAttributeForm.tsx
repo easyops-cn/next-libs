@@ -264,7 +264,8 @@ export class ModelAttributeForm extends Component<
     const type = ModelAttributeFormControl.computeFormControlType(attribute);
     if (
       attribute.value.regex === null ||
-      attribute.value.type === ModelAttributeValueType.INTEGER
+      attribute.value.type === ModelAttributeValueType.INTEGER ||
+      attribute.value.type === ModelAttributeValueType.ENUMS
     ) {
       return [required];
     }
@@ -372,6 +373,9 @@ export class ModelAttributeForm extends Component<
                     <ModelAttributeFormControl
                       isCreate={this.props.isCreate}
                       attribute={attribute}
+                      multiSelect={
+                        attribute?.value?.type === ModelAttributeValueType.ENUMS
+                      }
                     />
                   )}
                 </Form.Item>

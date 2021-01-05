@@ -20,7 +20,7 @@ describe("AddStructModal", () => {
   const instance = wrapper.instance() as AddStructModal;
   it("should init addStructModal", () => {
     expect(wrapper).toBeTruthy();
-    expect(instance.state.showError).toEqual(new Array(7).fill(false));
+    expect(instance.state.showError).toEqual(new Array(8).fill(false));
   });
   it("should call the store function", () => {
     const spy = jest.spyOn(props, "handleStoreFunction");
@@ -67,7 +67,7 @@ describe("AddStructModal", () => {
     expect(instance.state.structData["enum"]).toEqual("3");
   });
   it("should change the arr value", () => {
-    wrapper.find(Select).prop("onChange")(["abc", "xyz"], expect.anything());
+    wrapper.find(Select).at(0).prop("onChange")(["abc", "xyz"], expect.anything());
     expect(instance.state.structData["arr"]).toEqual(["abc", "xyz"]);
   });
   it("should change the date value", () => {
@@ -86,6 +86,13 @@ describe("AddStructModal", () => {
       "2019-01-01 23:59:59"
     );
   });
+  it("should change the enums value", () => {
+    wrapper.find(Select).at(1).prop("onChange")(
+      ["3", "5", "7"],
+      expect.anything()
+    );
+    expect(instance.state.structData["enums"]).toEqual(["3", "5", "7"]);
+  });
   it("should render radio group", () => {
     const define = {
       id: "enum",
@@ -96,7 +103,7 @@ describe("AddStructModal", () => {
     const radioWrapper = shallow(instance.getEnumForm(define, "1"));
     expect(radioWrapper).toMatchSnapshot();
   });
-  it("should render Select", () => {
+  it("should render Select when enum", () => {
     const define = {
       id: "enum",
       name: "枚举",
@@ -135,4 +142,5 @@ describe("AddStructModal", () => {
     } as RadioChangeEvent);
     expect(wrapper2.find(Radio.Group).prop("defaultValue")).toEqual(true);
   });
+
 });

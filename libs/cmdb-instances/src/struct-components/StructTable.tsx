@@ -41,6 +41,7 @@ export class StructTable extends React.Component<
         switch (item.type) {
           case "bool":
             return String(text);
+          case "enums":
           case "arr":
             return text?.join?.("; ");
           default:
