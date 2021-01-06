@@ -90,7 +90,9 @@ export function GeneralIcon(props: MenuIconProps): React.ReactElement {
     iconNode = (
       <Icon
         style={{ ...style, verticalAlign: 0 }}
-        component={() => <FontAwesomeIcon icon={faIcon} />}
+        component={() => (
+          <FontAwesomeIcon icon={faIcon} style={{ width: "1em" }} />
+        )}
         onClick={onClick}
       />
     );
