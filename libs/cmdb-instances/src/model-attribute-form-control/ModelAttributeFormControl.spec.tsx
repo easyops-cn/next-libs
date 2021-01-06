@@ -146,29 +146,52 @@ describe("ModelAttributeFormControl", () => {
     it("should throw error when struct_define is empty array", () => {
       expect(() => {
         computeFormControlType({
+          name: "some name",
           value: {
             type: "struct",
             struct_define: [],
           },
         });
-      }).toThrowError(new Error("请在资源模型中添加结构体属性"));
+      }).toThrowError(
+        new Error("请在资源模型中添加结构体属性, 属性: some name")
+      );
     });
 
     it("should be error when type equal 'enum' and regex equal 'undefined' || 'length===0", () => {
       expect(() => {
         computeFormControlType({
+          name: "some name",
           value: {
             type: "enum",
           },
         });
+      }).toThrowError(
+        new Error("请在资源模型管理中添加枚举值, 属性: some name")
+      );
 
+      expect(() => {
         computeFormControlType({
+          name: "some name",
+          value: {
+            type: "enum",
+            regex: null,
+          },
+        });
+      }).toThrowError(
+        new Error("请在资源模型管理中添加枚举值, 属性: some name")
+      );
+
+      expect(() => {
+        computeFormControlType({
+          name: "some name",
           value: {
             type: "enum",
             regex: [],
           },
         });
-      }).toThrowError(new Error("请在资源模型管理中添加枚举值"));
+      }).toThrowError(
+        new Error("请在资源模型管理中添加枚举值, 属性: some name")
+      );
     });
 
     it("should return 'radio' when type equal 'enum' and regex array length<=5", () => {
@@ -232,12 +255,15 @@ describe("ModelAttributeFormControl", () => {
     it("should throw error when type equal 'structs' and struct_define is empty array", () => {
       expect(() => {
         computeFormControlType({
+          name: "some name",
           value: {
             type: "structs",
             struct_define: [],
           },
         });
-      }).toThrowError(new Error("请在资源模型中添加结构体属性"));
+      }).toThrowError(
+        new Error("请在资源模型中添加结构体属性, 属性: some name")
+      );
     });
 
     it("should throw error when type not in FormControlTypeEnum", () => {
