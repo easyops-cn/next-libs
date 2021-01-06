@@ -10,6 +10,7 @@ import {
 } from "@easyops/brick-types";
 import { BrickIcon } from "@easyops/brick-icons";
 import { Colors, COLORS_MAP, getColor } from "./utils/getColor";
+import cssStyle from "./GeneralIcon.module.css";
 
 interface MenuIconProps {
   icon: MenuIcon;
@@ -91,7 +92,7 @@ export function GeneralIcon(props: MenuIconProps): React.ReactElement {
       <Icon
         style={{ ...style, verticalAlign: 0 }}
         component={() => (
-          <FontAwesomeIcon icon={faIcon} style={{ width: "1em" }} />
+          <FontAwesomeIcon icon={faIcon} className={cssStyle.faIcon} />
         )}
         onClick={onClick}
       />
