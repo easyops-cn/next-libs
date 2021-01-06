@@ -200,14 +200,6 @@ export class ModelAttributeForm extends Component<
     e.preventDefault();
     this.props.form.validateFields(async (err, values) => {
       if (!err) {
-        // NODE: 对单选为空的特殊处理 BY @robertman
-        for (const key in values) {
-          if (values[key] === "-%none%-") {
-            values[key] = null;
-            break;
-          }
-        }
-
         this.setState({ sending: true });
         const result = await this.props.onSubmit({
           continueCreating: this.state.continueCreating,

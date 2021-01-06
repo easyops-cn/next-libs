@@ -2,12 +2,12 @@ import React from "react";
 import { mount, shallow } from "enzyme";
 import {
   InstanceModelAttributeForm,
-  ModelAttributeForm
+  ModelAttributeForm,
 } from "./ModelAttributeForm";
 import {
   mockFetchCmdbInstanceDetailReturnValue,
   mockFetchCmdbObjectDetailReturnValue,
-  mockFetchCmdbObjectListReturnValue
+  mockFetchCmdbObjectListReturnValue,
 } from "../__mocks__";
 import { Checkbox } from "antd";
 
@@ -22,7 +22,7 @@ describe("ModelAttributeForm", () => {
     isCreate: true,
     formItemProps: {
       labelCol: { span: 3 },
-      wrapperCol: { span: 17 }
+      wrapperCol: { span: 17 },
     },
     brickList: [
       {
@@ -31,21 +31,21 @@ describe("ModelAttributeForm", () => {
         header: "使用示例（根据“参数说明”自动生成）",
         options: {
           theme: "monokai",
-          mode: "yaml"
-        }
-      }
+          mode: "yaml",
+        },
+      },
     ],
     objectList: mockFetchCmdbObjectListReturnValue,
     onSubmit: jest.fn(),
-    onCancel: jest.fn()
+    onCancel: jest.fn(),
   };
 
   describe("handleSubmit", () => {
     it("should submit", async () => {
-      const values = {
+      const values: any = {
         CHECK_IP2: "sdfsdfs",
         check_array: ["24324"],
-        check_enum: "-%none%-",
+        check_enum: null,
         check_ip4: "192.168.100.15",
         check_num_readonly: 4,
         name: "sdfsdf",
@@ -53,7 +53,7 @@ describe("ModelAttributeForm", () => {
         check_num: 2,
         check_read_only: "0.0.0.0",
         check_string: "sdfdsfsdf",
-        check_url: "[null](http://sdfsfdsdfdsf)"
+        check_url: "[null](http://sdfsfdsdfdsf)",
       };
 
       const newValues: any = {
@@ -67,15 +67,15 @@ describe("ModelAttributeForm", () => {
         check_num: 2,
         check_read_only: "0.0.0.0",
         check_string: "sdfdsfsdf",
-        check_url: "[null](http://sdfsfdsdfdsf)"
+        check_url: "[null](http://sdfsfdsdfdsf)",
       };
       const newProps = Object.assign({}, props, {
         isCreate: true,
         allowContinueCreate: true,
         tagsList: {
           基本信息: ["timeline"],
-          默认属性: ["deviceId", "_agentStatus", "_agentHeartBeat"]
-        }
+          默认属性: ["deviceId", "_agentStatus", "_agentHeartBeat"],
+        },
       });
       const wrapper = mount(<InstanceModelAttributeForm {...newProps} />);
       const instance = wrapper
@@ -89,12 +89,12 @@ describe("ModelAttributeForm", () => {
 
       checkBox.simulate("change", {
         target: {
-          checked: true
-        }
+          checked: true,
+        },
       });
       wrapper.update();
 
-      await new Promise(resolve => setImmediate(resolve));
+      await new Promise((resolve) => setImmediate(resolve));
 
       wrapper.update();
       expect(instance.submitBtnText).toBe("保存");
@@ -109,15 +109,15 @@ describe("ModelAttributeForm", () => {
       const submitBtn = wrapper.find("button[type='submit']");
 
       submitBtn.simulate("submit", {
-        preventDefault: jest.fn()
+        preventDefault: jest.fn(),
       });
 
       expect(instance.state.sending).toBeTruthy();
 
-      await new Promise(resolve => setImmediate(resolve));
+      await new Promise((resolve) => setImmediate(resolve));
       expect(props.onSubmit).toBeCalledWith({
         continueCreating: true,
-        values: newValues
+        values: newValues,
       });
       expect(instance.state.sending).toBeFalsy();
     });
@@ -131,9 +131,9 @@ describe("ModelAttributeForm", () => {
           fieldsByTag: [
             {
               name: "基本信息",
-              fields: ["_agentHeartBeat", "_agentStatus"]
-            }
-          ]
+              fields: ["_agentHeartBeat", "_agentStatus"],
+            },
+          ],
         })}
       />
     );
@@ -143,10 +143,7 @@ describe("ModelAttributeForm", () => {
     expect(instance.submitBtnText).toBe("修改");
     expect(instance.state.sending).toBeFalsy();
 
-    wrapper
-      .find("Button")
-      .at(1)
-      .simulate("click");
+    wrapper.find("Button").at(1).simulate("click");
     expect(props.onCancel).toHaveBeenCalled();
   });
 
@@ -156,7 +153,7 @@ describe("ModelAttributeForm", () => {
       getFieldsValue: () => {},
       validateFields: jest.fn(),
       resetFields: jest.fn(),
-      getFieldsError: jest.fn(() => [])
+      getFieldsError: jest.fn(() => []),
     };
     const wrapper = shallow(
       <ModelAttributeForm
@@ -184,9 +181,9 @@ describe("ModelAttributeForm", () => {
                 mode: "",
                 prefix: "",
                 start_value: 0,
-                series_number_length: 0
+                series_number_length: 0,
               },
-              wordIndexDenied: false
+              wordIndexDenied: false,
             },
             {
               id: "_agentStatus",
@@ -208,9 +205,9 @@ describe("ModelAttributeForm", () => {
                 mode: "",
                 prefix: "",
                 start_value: 0,
-                series_number_length: 0
+                series_number_length: 0,
               },
-              wordIndexDenied: false
+              wordIndexDenied: false,
             },
             {
               id: "deviceId",
@@ -232,16 +229,16 @@ describe("ModelAttributeForm", () => {
                 mode: "default",
                 prefix: "",
                 start_value: 0,
-                series_number_length: 0
+                series_number_length: 0,
               },
-              wordIndexDenied: false
-            }
-          ]
+              wordIndexDenied: false,
+            },
+          ],
         })}
       />
     );
-    expect(wrapper.findWhere(n => n.prop("label") === "agent状态").length).toBe(
-      0
-    );
+    expect(
+      wrapper.findWhere((n) => n.prop("label") === "agent状态").length
+    ).toBe(0);
   });
 });

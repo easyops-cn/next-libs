@@ -163,9 +163,12 @@ export class ModelAttributeFormControl extends Component<
   computeFormControlItems(
     attribute: Partial<CmdbModels.ModelObjectAttr>
   ): FormControlSelectItem[] {
-    if (attribute.value.type === ModelAttributeValueType.ENUM || attribute.value.type === ModelAttributeValueType.ENUMS) {
+    if (
+      attribute.value.type === ModelAttributeValueType.ENUM ||
+      attribute.value.type === ModelAttributeValueType.ENUMS
+    ) {
       // The backend guys are notorious to use `regex` as enum candidates. 😢
-      return (attribute.value.regex as string[]).map((enumValue) => ({
+      return (attribute.value.regex as string[])?.map((enumValue) => ({
         id: enumValue,
         text: enumValue,
       }));
@@ -197,10 +200,12 @@ export class ModelAttributeFormControl extends Component<
         return FormControlTypeEnum.TEXT;
       case ModelAttributeValueType.ENUM:
         if (
-          attribute.value.regex === undefined ||
+          !attribute.value.regex ||
           (attribute.value.regex as string[]).length === 0
         ) {
-          throw new Error("请在资源模型管理中添加枚举值");
+          throw new Error(
+            "请在资源模型管理中添加枚举值, 属性: " + attribute.name
+          );
         }
         if (
           (attribute.value.regex as string[]).length <= 5 &&
@@ -220,12 +225,16 @@ export class ModelAttributeFormControl extends Component<
         return FormControlTypeEnum.TAGS;
       case ModelAttributeValueType.STRUCT:
         if (attribute.value.struct_define.length === 0) {
-          throw new Error("请在资源模型中添加结构体属性");
+          throw new Error(
+            "请在资源模型中添加结构体属性, 属性: " + attribute.name
+          );
         }
         return FormControlTypeEnum.LEGACY_STRUCT;
       case ModelAttributeValueType.STRUCT_LIST:
         if (attribute.value.struct_define.length === 0) {
-          throw new Error("请在资源模型中添加结构体属性");
+          throw new Error(
+            "请在资源模型中添加结构体属性, 属性: " + attribute.name
+          );
         }
         return FormControlTypeEnum.STRUCT;
       case ModelAttributeValueType.BOOLEAN:
@@ -432,7 +441,7 @@ export class ModelAttributeFormControl extends Component<
 
         // NODE: 对非必填单选为空的特殊处理 BY @robertman
         const unselected = {
-          id: "-%none%-",
+          id: null as string,
           text: "暂不选择",
         };
 
