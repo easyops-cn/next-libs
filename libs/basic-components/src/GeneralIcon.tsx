@@ -73,7 +73,7 @@ export function GeneralIcon(props: MenuIconProps): React.ReactElement {
 
   if (icon.lib === "antd") {
     const type =
-      (icon as RefinedAntdIcon).icon ?? (icon as LegacyAntdIcon).type;
+      (icon as RefinedAntdIcon).icon || (icon as LegacyAntdIcon).type;
     iconNode = (
       <LegacyIcon
         type={type}
@@ -88,6 +88,7 @@ export function GeneralIcon(props: MenuIconProps): React.ReactElement {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const faIcon = icon.prefix ? [icon.prefix, icon.icon] : icon.icon;
+
     iconNode = (
       <Icon
         style={{ ...style, verticalAlign: 0 }}
