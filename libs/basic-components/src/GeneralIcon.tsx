@@ -7,6 +7,8 @@ import {
   MenuIcon,
   RefinedAntdIcon,
   LegacyAntdIcon,
+  FaIcon,
+  EasyopsIcon,
 } from "@easyops/brick-types";
 import { BrickIcon } from "@easyops/brick-icons";
 import { Colors, COLORS_MAP, getColor } from "./utils/getColor";
@@ -20,25 +22,23 @@ interface MenuIconProps {
   reverseBgColor?: boolean;
   style?: React.CSSProperties;
   onClick?(event: React.MouseEvent<HTMLElement, MouseEvent>): void;
+  showEmptyIcon?: boolean;
 }
 
 export function GeneralIcon(props: MenuIconProps): React.ReactElement {
-  const { icon, bg, size, shape, reverseBgColor, onClick } = props;
+  const {
+    icon,
+    bg,
+    size,
+    shape,
+    reverseBgColor,
+    onClick,
+    showEmptyIcon,
+  } = props;
   let iconNode = <></>;
-  if (!icon) {
-    return bg ? (
-      <Avatar
-        icon={iconNode}
-        size={size ?? "default"}
-        shape={shape ?? "circle"}
-      ></Avatar>
-    ) : (
-      iconNode
-    );
-  }
 
   let style: Record<string, any>;
-  if (icon.color) {
+  if (icon?.color) {
     if (bg) {
       if (COLORS_MAP[icon.color as Colors]) {
         if (reverseBgColor) {
@@ -69,6 +69,35 @@ export function GeneralIcon(props: MenuIconProps): React.ReactElement {
     } else {
       style = props.style;
     }
+  }
+
+  const iconType =
+    (icon as RefinedAntdIcon | FaIcon | EasyopsIcon)?.icon ||
+    (icon as LegacyAntdIcon)?.type;
+
+  if (!icon || (!iconType && showEmptyIcon)) {
+    return bg ? (
+      <Avatar
+        icon={
+          showEmptyIcon ? (
+            <Icon
+              style={style}
+              component={() => (
+                <BrickIcon icon="empty-icon" category="common" />
+              )}
+              onClick={onClick}
+            />
+          ) : (
+            iconNode
+          )
+        }
+        size={size ?? "default"}
+        shape={shape ?? "circle"}
+        style={style}
+      ></Avatar>
+    ) : (
+      iconNode
+    );
   }
 
   if (icon.lib === "antd") {
