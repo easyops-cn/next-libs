@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.4](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@1.2.3...@libs/basic-components@1.2.4) (2021-01-11)
+
+### Bug Fixes
+
+- **general-icon:** show icon's type when icon is empty in antd ([57f85b8](https://git.easyops.local/anyclouds/next-libs/commits/57f85b8))
+
 ## [1.2.3](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@1.2.2...@libs/basic-components@1.2.3) (2021-01-06)
 
 **Note:** Version bump only for package @libs/basic-components
