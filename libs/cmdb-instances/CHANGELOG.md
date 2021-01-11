@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.3](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@2.3.2...@libs/cmdb-instances@2.3.3) (2021-01-11)
+
+### Bug Fixes
+
+- **model-attribute-form:** 修复折叠面板样式 ([e284571](https://git.easyops.local/anyclouds/next-libs/commits/e284571))
+
 ## [2.3.2](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@2.3.1...@libs/cmdb-instances@2.3.2) (2021-01-11)
 
 **Note:** Version bump only for package @libs/cmdb-instances
