@@ -1,9 +1,25 @@
-.formPanelContainer {
-  padding-top: 20px;
-}
-.formPanelContainer :global(.ant-collapse-content) {
-  padding-top: 4px;
-}
-.formPanelContainer :global(.ant-collapse-content-box) {
-  padding-bottom: 12px;
+.collapseStyle {
+  &:global(.ant-collapse) {
+    > :global(.ant-collapse-item) {
+      > :global(.ant-collapse-header) {
+        background-color: #f5f5f5;
+      }
+
+      &:global(.ant-collapse-item-active) {
+        > :global(.ant-collapse-header) {
+          border-bottom: 1px solid #d9d9d9;
+        }
+      }
+    }
+
+    :global(.ant-collapse-content) {
+      background-color: #fff;
+      padding-top: 24px;
+
+      :global(.ant-collapse-content-box) {
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+    }
+  }
 }
