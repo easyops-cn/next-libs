@@ -159,12 +159,12 @@ export class ModelAttributeForm extends Component<
       if (!map.has(name)) {
         map.set(name, []);
         fields.forEach((field) => {
-          map.set(name, [
-            ...map.get(name),
-            modelData
-              ? modelData.__fieldList.find((__field) => __field.__id === field)
-              : attributeList.find(({ id }) => id === field),
-          ]);
+          const appendAttr = modelData
+            ? modelData.__fieldList.find((__field) => __field.__id === field)
+            : attributeList.find(({ id }) => id === field);
+          if (appendAttr !== undefined) {
+            map.set(name, [...map.get(name), appendAttr]);
+          }
         });
       }
     });
