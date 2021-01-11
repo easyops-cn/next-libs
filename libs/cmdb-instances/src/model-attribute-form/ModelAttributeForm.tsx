@@ -345,9 +345,13 @@ export class ModelAttributeForm extends Component<
     }
 
     const collapse = this.state.attrListGroupByTag && (
-      <Collapse bordered={false} defaultActiveKey={defaultActiveKey}>
+      <Collapse
+        bordered={false}
+        defaultActiveKey={defaultActiveKey}
+        className={styles.collapseStyle}
+      >
         {this.state.attrListGroupByTag.map(([tag, list]) => (
-          <Panel header={tag} key={tag} className={styles.formPanelContainer}>
+          <Panel header={tag} key={tag}>
             {list.map((attribute: Partial<ModifiedModelObjectAttr>) =>
               attribute.__isRelation ? (
                 this.renderRelationFormControl(attribute)
