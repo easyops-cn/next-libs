@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.4](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@2.3.3...@libs/cmdb-instances@2.3.4) (2021-01-12)
+
+### Bug Fixes
+
+- **cmdb-instances:** 修复问题 ([bcf2739](https://git.easyops.local/anyclouds/next-libs/commits/bcf2739))
+
 ## [2.3.3](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@2.3.2...@libs/cmdb-instances@2.3.3) (2021-01-11)
 
 ### Bug Fixes
