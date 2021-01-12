@@ -94,4 +94,18 @@ describe("GeneralIcon", () => {
       expect.objectContaining(style)
     );
   });
+
+  it("should render empty-icon when icon is empty and showEmptyIcon is true", () => {
+    const wrapper = mount(
+      <GeneralIcon
+        showEmptyIcon={true}
+        bg={true}
+        icon={{ lib: "antd", type: "" }}
+      />
+    );
+    expect(wrapper.find(BrickIcon).props()).toMatchObject({
+      icon: "empty-icon",
+      category: "common",
+    });
+  });
 });
