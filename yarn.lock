@@ -2665,13 +2665,14 @@
     lodash "^4.17.15"
     redent "^3.0.0"
 
-"@testing-library/react-hooks@^3.7.0":
-  version "3.7.0"
-  resolved "https://registry.npm.taobao.org/@testing-library/react-hooks/download/@testing-library/react-hooks-3.7.0.tgz#6d75c5255ef49bce39b6465bf6b49e2dac84919e"
-  integrity sha1-bXXFJV70m845tkZb9rSeLayEkZ4=
+"@testing-library/react-hooks@^4.0.1":
+  version "4.0.1"
+  resolved "https://registry.npm.taobao.org/@testing-library/react-hooks/download/@testing-library/react-hooks-4.0.1.tgz#bb678abb7c766c192da74be50148ad8337a5503f"
+  integrity sha1-u2eKu3x2bBktp0vlAUitgzelUD8=
   dependencies:
     "@babel/runtime" "^7.12.5"
-    "@types/testing-library__react-hooks" "^3.4.0"
+    "@types/react" ">=16.9.0"
+    "@types/react-test-renderer" ">=16.9.0"
 
 "@testing-library/react@^10.4.9":
   version "10.4.9"
@@ -3130,7 +3131,14 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-test-renderer@*", "@types/react-test-renderer@^16.9.3":
+"@types/react-test-renderer@>=16.9.0":
+  version "17.0.0"
+  resolved "https://registry.npm.taobao.org/@types/react-test-renderer/download/@types/react-test-renderer-17.0.0.tgz#9be47b375eeb906fced37049e67284a438d56620"
+  integrity sha1-m+R7N17rkG/O03BJ5nKEpDjVZiA=
+  dependencies:
+    "@types/react" "*"
+
+"@types/react-test-renderer@^16.9.3":
   version "16.9.3"
   resolved "https://registry.npm.taobao.org/@types/react-test-renderer/download/@types/react-test-renderer-16.9.3.tgz#96bab1860904366f4e848b739ba0e2f67bcae87e"
   integrity sha1-lrqxhgkENm9OhItzm6Di9nvK6H4=
@@ -3144,7 +3152,7 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@^16.9.56":
+"@types/react@*", "@types/react@>=16.9.0", "@types/react@^16.9.56":
   version "16.9.56"
   resolved "https://registry.npm.taobao.org/@types/react/download/@types/react-16.9.56.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Freact%2Fdownload%2F%40types%2Freact-16.9.56.tgz#ea25847b53c5bec064933095fc366b1462e2adf0"
   integrity sha1-6iWEe1PFvsBkkzCV/DZrFGLirfA=
@@ -3180,13 +3188,6 @@
   integrity sha1-q6XuBit4gPacIS73aTifMHUoBuU=
   dependencies:
     "@types/jest" "*"
-
-"@types/testing-library__react-hooks@^3.4.0":
-  version "3.4.1"
-  resolved "https://registry.npm.taobao.org/@types/testing-library__react-hooks/download/@types/testing-library__react-hooks-3.4.1.tgz#b8d7311c6c1f7db3103e94095fe901f8fef6e433"
-  integrity sha1-uNcxHGwffbMQPpQJX+kB+P725DM=
-  dependencies:
-    "@types/react-test-renderer" "*"
 
 "@types/trusted-types@*":
   version "1.0.4"
