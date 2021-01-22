@@ -351,7 +351,7 @@ export class ModelAttributeForm extends Component<
         className={styles.collapseStyle}
       >
         {this.state.attrListGroupByTag.map(([tag, list]) => (
-          <Panel header={tag} key={tag}>
+          <Panel header={tag} key={tag} forceRender={true}>
             {list.map((attribute: Partial<ModifiedModelObjectAttr>) =>
               attribute.__isRelation ? (
                 this.renderRelationFormControl(attribute)
@@ -404,16 +404,10 @@ export class ModelAttributeForm extends Component<
     const submitContainer = (
       <div
         className="ant-collapse-content"
-        style={{ borderTop: "none", paddingTop: "16px" }}
+        style={{ borderTop: "none", paddingTop: "16px", paddingLeft: "20px" }}
       >
         <div className="ant-collapse-content-box">
-          <Form.Item>
-            <div
-              className={[
-                "ant-col",
-                `ant-col-${this.formItemProps.labelCol.span}`,
-              ].join(" ")}
-            />
+          <Form.Item {...this.formItemProps} label=" " colon={false}>
             {allowContinueCreate && (
               <Checkbox onChange={this.handleCheckContinueCreating}>
                 创建另一个
