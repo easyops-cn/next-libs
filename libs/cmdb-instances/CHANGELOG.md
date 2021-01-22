@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.8](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@2.3.7...@libs/cmdb-instances@2.3.8) (2021-01-22)
+
+### Bug Fixes
+
+- **cmdb-instances:** 更改 formItem submitButton 位置 ([c896754](https://git.easyops.local/anyclouds/next-libs/commits/c896754))
+
 ## [2.3.7](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-instances@2.3.6...@libs/cmdb-instances@2.3.7) (2021-01-18)
 
 **Note:** Version bump only for package @libs/cmdb-instances
