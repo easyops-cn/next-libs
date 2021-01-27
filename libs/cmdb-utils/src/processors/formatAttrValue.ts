@@ -39,6 +39,7 @@ export const formatAttrValue = (value: any, attr: any, objectId: string) => {
       display = _.map(value, getFkAttrDisplay(attr)).join("; ");
       break;
     case "arr":
+    case "enums":
       display = _.join(value, "; ");
       break;
     case "struct":
@@ -51,7 +52,7 @@ export const formatAttrValue = (value: any, attr: any, objectId: string) => {
       break;
     case "enum":
       display = _.isArray(value)
-        ? _.map(value, v => {
+        ? _.map(value, (v) => {
             return v.value;
           }).join(" | ")
         : value + "";
@@ -67,12 +68,12 @@ export const formatAttrValue = (value: any, attr: any, objectId: string) => {
 };
 
 function getFkAttrDisplay(attr: any) {
-  return function(item: any) {
+  return function (item: any) {
     // 兼容老数据
     if (!_.has(attr, "relation_view")) {
       attr.relation_view = [
         getInstanceNameKey(_.get(attr, "value.rule.obj")),
-        ..._.get(attr, "view.visibleExternals", [])
+        ..._.get(attr, "view.visibleExternals", []),
       ];
     }
     const rightObjectId = _.get(attr, "value.rule.obj", attr.right_object_id);
@@ -83,9 +84,10 @@ function getFkAttrDisplay(attr: any) {
       if (Object.prototype.hasOwnProperty.call(attr.value, "external")) {
         name =
           _.chain(attr.value.external)
-            .map(val => val.org_attr)
+            .map((val) => val.org_attr)
             .reject(
-              attrName => !Object.prototype.hasOwnProperty.call(item, attrName)
+              (attrName) =>
+                !Object.prototype.hasOwnProperty.call(item, attrName)
             )
             .first()
             .value() || _.first(_.keys(item));
