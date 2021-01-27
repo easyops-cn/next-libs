@@ -129,6 +129,12 @@ const FieldTypeConditionTypesMap: Record<string, ConditionType[]> = {
     ConditionType.Empty,
     ConditionType.NotEmpty,
   ],
+  [ModelAttributeValueType.ENUMS]: [
+    ConditionType.Contain,
+    ConditionType.NotContain,
+    ConditionType.Empty,
+    ConditionType.NotEmpty,
+  ],
   [ModelAttributeValueType.ARR]: [
     ConditionType.Contain,
     ConditionType.NotContain,
@@ -214,6 +220,7 @@ function getCondition(
     case ConditionType.Contain:
       label = "包含";
       switch (fieldType) {
+        case ModelAttributeValueType.ENUMS:
         case ModelAttributeValueType.ARR:
           operations = [
             {
@@ -234,6 +241,7 @@ function getCondition(
     case ConditionType.NotContain:
       label = "不包含";
       switch (fieldType) {
+        case ModelAttributeValueType.ENUMS:
         case ModelAttributeValueType.ARR:
           operations = [
             {
@@ -583,6 +591,7 @@ export class AdvancedSearchForm extends React.Component<
             attrValue.isStruct = true;
             break;
           case ModelAttributeValueType.ENUM:
+          case ModelAttributeValueType.ENUMS:
             attrValue.type = attr.value.type;
             attrValue.regex = attr.value.regex;
             break;
@@ -757,6 +766,7 @@ export class AdvancedSearchForm extends React.Component<
           };
           break;
         case ModelAttributeValueType.ENUM:
+        case ModelAttributeValueType.ENUMS:
           type = FormControlTypeEnum.SELECT;
           multiSelect = true;
           break;

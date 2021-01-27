@@ -308,6 +308,7 @@ export class LegacyInstanceListTable extends React.Component<
           };
           break;
         case ModelAttributeValueType.ARR:
+        case ModelAttributeValueType.ENUMS:
           column.render = (
             value: string[],
             record: Record<string, any>,
