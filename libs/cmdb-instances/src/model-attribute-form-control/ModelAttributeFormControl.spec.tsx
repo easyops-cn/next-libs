@@ -337,7 +337,7 @@ describe("ModelAttributeFormControl", () => {
   describe("test computePlaceholder fn", () => {
     const computePlaceholder = ModelAttributeFormControl.computePlaceholder;
 
-    it("should return '单选' when formControl.type equal 'select'", () => {
+    it("should return '点击选择' when formControl.type equal 'select'", () => {
       const formControl: FormControl = {
         id: "fake_id",
         type: FormControlTypeEnum.SELECT,
@@ -345,7 +345,7 @@ describe("ModelAttributeFormControl", () => {
       };
 
       const result = computePlaceholder(formControl);
-      expect(result).toEqual("单选");
+      expect(result).toEqual("点击选择");
     });
 
     it("should return '点击选择' when formControl.type equal 'datetime' or 'date'", () => {
@@ -370,7 +370,7 @@ describe("ModelAttributeFormControl", () => {
       expect(result).toEqual("输入多个，以回车间隔");
     });
 
-    it("should return '单选' when formControl.type equal 'select'", () => {
+    it("should return '点击选择' when formControl.type equal 'select'", () => {
       const formControl: FormControl = {
         id: "fake_id",
         type: FormControlTypeEnum.SELECT,
@@ -378,7 +378,7 @@ describe("ModelAttributeFormControl", () => {
       };
 
       const result = computePlaceholder(formControl);
-      expect(result).toEqual("单选");
+      expect(result).toEqual("点击选择");
     });
   });
 

@@ -151,6 +151,7 @@ export class ModelAttributeFormControl extends Component<
   ): RegExp | undefined {
     if (
       attribute.value.type !== ModelAttributeValueType.ENUM &&
+      attribute.value.type !== ModelAttributeValueType.ENUMS &&
       attribute.value.regex !== undefined &&
       attribute.value.regex !== null
     ) {
@@ -289,7 +290,7 @@ export class ModelAttributeFormControl extends Component<
 
     const placeholders = [];
     if (formControl.type === FormControlTypeEnum.SELECT) {
-      placeholders.push("单选");
+      placeholders.push("点击选择");
     }
     if (
       [FormControlTypeEnum.DATETIME, FormControlTypeEnum.DATE].includes(
@@ -519,9 +520,10 @@ export class ModelAttributeFormControl extends Component<
       }
 
       case FormControlTypeEnum.SELECT: {
-        const { readOnly } = restProps;
+        const { readOnly, placeholder } = restProps;
         return (
           <Select
+            placeholder={placeholder}
             mode={this.props.multiSelect ? "multiple" : undefined}
             defaultValue={value || []}
             onChange={(e: any) => this.onChange(e)}
