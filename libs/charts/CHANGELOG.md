@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/charts@0.7.5...@libs/charts@1.0.0) (2021-01-28)
+
+### Features
+
+- use next-core ([706bd93](https://git.easyops.local/anyclouds/next-libs/commits/706bd93))
+
 ## [0.7.5](https://git.easyops.local/anyclouds/next-libs/compare/@libs/charts@0.7.4...@libs/charts@0.7.5) (2020-09-24)
 
 ### Bug Fixes

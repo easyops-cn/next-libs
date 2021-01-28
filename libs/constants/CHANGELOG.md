@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/constants@0.7.0...@libs/constants@1.0.0) (2021-01-28)
+
+### Features
+
+- use next-core ([706bd93](https://git.easyops.local/anyclouds/next-libs/commits/706bd93))
+
 # [0.7.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/constants@0.6.1...@libs/constants@0.7.0) (2020-04-13)
 
 ### Features

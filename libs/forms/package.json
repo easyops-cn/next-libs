@@ -1,6 +1,6 @@
 {
   "name": "@libs/forms",
-  "version": "1.1.7",
+  "version": "2.0.0",
   "description": "> TODO: description",
   "homepage": "https://git.easyops.local/anyclouds/next-libs/tree/master/libs/forms",
   "license": "UNLICENSED",
@@ -29,10 +29,10 @@
   },
   "sideEffects": false,
   "peerDependencies": {
-    "@next-core/brick-dll": "*",
-    "@libs/basic-components": "*"
+    "@libs/basic-components": "*",
+    "@next-core/brick-dll": "*"
   },
   "devDependencies": {
-    "@libs/basic-components": "^1.3.0"
+    "@libs/basic-components": "^2.0.0"
   }
 }

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-utils@0.8.0...@libs/cmdb-utils@1.0.0) (2021-01-28)
+
+### Features
+
+- use next-core ([706bd93](https://git.easyops.local/anyclouds/next-libs/commits/706bd93))
+
 # [0.8.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-utils@0.7.0...@libs/cmdb-utils@0.8.0) (2021-01-27)
 
 ### Features

@@ -1,6 +1,6 @@
 {
   "name": "@libs/charts",
-  "version": "0.7.5",
+  "version": "1.0.0",
   "description": "> TODO: description",
   "homepage": "https://git.easyops.local/anyclouds/next-libs/tree/master/libs/charts",
   "license": "UNLICENSED",
@@ -29,14 +29,14 @@
   },
   "sideEffects": false,
   "peerDependencies": {
-    "@next-dll/echarts": "*",
-    "@next-core/brick-dll": "*"
+    "@next-core/brick-dll": "*",
+    "@next-dll/echarts": "*"
   },
   "dependencies": {
     "@types/echarts": "^4.4.3",
     "resize-observer-polyfill": "^1.5.1"
   },
   "devDependencies": {
-    "@libs/constants": "^0.7.0"
+    "@libs/constants": "^1.0.0"
   }
 }
