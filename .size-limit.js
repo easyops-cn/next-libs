@@ -7,7 +7,7 @@ module.exports = sizeLimit({
     charts: "20 KB",
     "cmdb-instances": "73 KB",
     crontab: "25 KB",
-    "permission-utils": "15 KB",
+    "permission-utils": "18 KB",
     "storyboard-visualization": "100 KB",
   },
 });
