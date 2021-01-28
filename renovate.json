@@ -85,5 +85,6 @@
       "enabled": false
     }
   ],
+  "postUpdateOptions": ["yarnDedupeHighest"],
   "baseBranches": ["master", "legacy/brick-next_1.x"]
 }
