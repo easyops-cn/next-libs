@@ -1,5 +1,5 @@
 import React from "react";
-import { Storyboard } from "@easyops/brick-types";
+import { Storyboard } from "@next-core/brick-types";
 import { HierarchyPointNode } from "d3-hierarchy";
 import { EditBrickNode } from "./EditBrickNode";
 import { EditRoutesNode } from "./EditRoutesNode";
@@ -27,9 +27,10 @@ export interface VisualStoryboardProps {
 export function VisualStoryboard(
   props: VisualStoryboardProps
 ): React.ReactElement {
-  const [activeBrickNode, setActiveBrickNode] = React.useState<
-    StoryboardNodeBrick
-  >(null);
+  const [
+    activeBrickNode,
+    setActiveBrickNode,
+  ] = React.useState<StoryboardNodeBrick>(null);
   const [activeRoutesNode, setActiveRoutesNode] = React.useState<
     StoryboardNodeApp | StoryboardNodeSubRoutes | StoryboardNodeSlottedRoutes
   >(null);

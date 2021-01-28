@@ -12,7 +12,7 @@ import {
   mockFetchCmdbInstanceDetailReturnValue,
   mockFetchCmdbObjectDetailReturnValue,
 } from "../__mocks__/";
-import { CmdbModels } from "@sdk/cmdb-sdk";
+import { CmdbModels } from "@next-sdk/cmdb-sdk";
 import { Input, InputNumber, Radio, Select } from "antd";
 
 /* eslint-disable @typescript-eslint/naming-convention */

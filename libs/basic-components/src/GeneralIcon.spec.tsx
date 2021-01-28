@@ -1,7 +1,7 @@
 import React from "react";
 import { shallow, mount } from "enzyme";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { BrickIcon } from "@easyops/brick-icons";
+import { BrickIcon } from "@next-core/brick-icons";
 import { GeneralIcon } from "./GeneralIcon";
 import { Icon as LegacyIcon } from "@ant-design/compatible";
 import Icon from "@ant-design/icons";

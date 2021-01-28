@@ -1,7 +1,7 @@
-import { iconsByCategory as easyopsByCategory } from "@easyops/brick-icons";
-import { fab, fas } from "@easyops/fontawesome-library";
+import { iconsByCategory as easyopsByCategory } from "@next-core/brick-icons";
+import { fab, fas } from "@next-core/fontawesome-library";
 import { kebabCase } from "lodash";
-import { antdIconKeys } from './antdIcons';
+import { antdIconKeys } from "./antdIcons";
 
 export type IconType = "easyops" | "antd" | "fa";
 

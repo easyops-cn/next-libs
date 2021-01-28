@@ -1,9 +1,9 @@
-import { matchPath, computeRealRoutePath } from "@easyops/brick-utils";
-import { MicroApp } from "@easyops/brick-types";
+import { matchPath, computeRealRoutePath } from "@next-core/brick-utils";
+import { MicroApp } from "@next-core/brick-types";
 import {
   StoryboardTree,
   AbstractStoryboardNode,
-  StoryboardNodeRoutedChild
+  StoryboardNodeRoutedChild,
 } from "./interfaces";
 
 export interface FilterOptions {
@@ -18,7 +18,7 @@ function matchRoute(
   return (
     matchPath(path, {
       path: computeRealRoutePath(node.routeData.path, appData),
-      exact: node.routeData.exact
+      exact: node.routeData.exact,
     }) !== null
   );
 }
@@ -31,12 +31,12 @@ function filterStoryboardNode(
   if (options.path && node.children) {
     let children = node.children;
     if (node.type === "app" || node.type === "routes") {
-      const matchedNode = children.find(child =>
+      const matchedNode = children.find((child) =>
         matchRoute(child as StoryboardNodeRoutedChild, appData, options.path)
       );
       if (matchedNode) {
         children = children.filter(
-          child => child.groupIndex === matchedNode.groupIndex
+          (child) => child.groupIndex === matchedNode.groupIndex
         );
       } else {
         children = [];
@@ -45,9 +45,9 @@ function filterStoryboardNode(
     node = {
       ...node,
       $$originalNode: node,
-      children: children.map(child =>
+      children: children.map((child) =>
         filterStoryboardNode(child, appData, options)
-      )
+      ),
     };
   }
   return node;

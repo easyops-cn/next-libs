@@ -1,7 +1,7 @@
 import React from "react";
 import { mount, shallow } from "enzyme";
 import { Badge, BadgeProps } from "./Badge";
-import { BrickAsComponent } from "@easyops/brick-kit";
+import { BrickAsComponent } from "@next-core/brick-kit";
 import { GeneralIcon } from "./GeneralIcon";
 
 describe("Badge", () => {

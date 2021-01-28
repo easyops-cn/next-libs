@@ -6,7 +6,7 @@ import {
   getBatchEditableRelations,
   CMDB_RESOURCE_FIELDS_SETTINGS,
 } from "@libs/cmdb-utils";
-import { CmdbModels } from "@sdk/cmdb-sdk";
+import { CmdbModels } from "@next-sdk/cmdb-sdk";
 
 interface SettingsProps {
   title?: string;

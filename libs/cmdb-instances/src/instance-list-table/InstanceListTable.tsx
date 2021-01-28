@@ -16,8 +16,8 @@ import {
   ReadPaginationChangeDetail,
   ReadSelectionChangeDetail,
   ReadSortingChangeDetail,
-} from "@easyops/brick-types";
-import { CmdbModels, InstanceApi } from "@sdk/cmdb-sdk";
+} from "@next-core/brick-types";
+import { CmdbModels, InstanceApi } from "@next-sdk/cmdb-sdk";
 import { Link } from "@libs/basic-components";
 import {
   forEachAvailableFields,

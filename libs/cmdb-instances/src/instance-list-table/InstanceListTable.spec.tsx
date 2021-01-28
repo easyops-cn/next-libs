@@ -1,12 +1,12 @@
 import "@testing-library/jest-dom/extend-expect";
 import React from "react";
 import { render, fireEvent, cleanup, getByText } from "@testing-library/react";
-import { createHistory } from "@easyops/brick-kit";
+import { createHistory } from "@next-core/brick-kit";
 import {
   ReadPaginationChangeDetail,
   ReadSortingChangeDetail,
   PropertyDisplayType,
-} from "@easyops/brick-types";
+} from "@next-core/brick-types";
 
 import { InstanceListTable } from "./InstanceListTable";
 import { getInstanceListData, HOST } from "./data-providers/__mocks__";

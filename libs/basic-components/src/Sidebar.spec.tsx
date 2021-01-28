@@ -1,12 +1,12 @@
 import React from "react";
 import { shallow } from "enzyme";
-import { createHistory } from "@easyops/brick-kit";
+import { createHistory } from "@next-core/brick-kit";
 import {
   Sidebar,
   initMenuItemAndMatchCurrentPathKeys,
   matchMenuItem,
 } from "./Sidebar";
-import { SidebarMenuItem, SidebarMenuGroup } from "@easyops/brick-types";
+import { SidebarMenuItem, SidebarMenuGroup } from "@next-core/brick-types";
 
 createHistory();
 

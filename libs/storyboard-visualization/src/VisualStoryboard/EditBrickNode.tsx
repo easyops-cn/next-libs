@@ -12,7 +12,7 @@ import {
   generalStringify,
 } from "./processors";
 import { GeneralEditor } from "./GeneralEditor";
-import { BrickLifeCycle } from "@easyops/brick-types";
+import { BrickLifeCycle } from "@next-core/brick-types";
 
 interface EditBrickNodeProps {
   visible: boolean;

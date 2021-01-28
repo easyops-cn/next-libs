@@ -25,11 +25,11 @@
   },
   "sideEffects": false,
   "peerDependencies": {
-    "@easyops/brick-dll": "*",
+    "@next-core/brick-dll": "*",
     "@libs/basic-components": "*"
   },
   "devDependencies": {
-    "@easyops/brick-types": "^2.0.0-next.2",
+    "@next-core/brick-types": "^2.16.0",
     "@libs/basic-components": "^1.3.0"
   }
 }

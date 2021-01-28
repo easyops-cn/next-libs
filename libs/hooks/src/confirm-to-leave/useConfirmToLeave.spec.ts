@@ -2,12 +2,12 @@ import { renderHook, act } from "@testing-library/react-hooks";
 import { createMemoryHistory } from "history";
 
 import { useConfirmToLeave } from "./useConfirmToLeave";
-import { getHistory } from "@easyops/brick-kit";
+import { getHistory } from "@next-core/brick-kit";
 
-jest.mock("@easyops/brick-kit");
+jest.mock("@next-core/brick-kit");
 const mockGetUserConfirmation = jest.fn();
 const memHistory = createMemoryHistory({
-  getUserConfirmation: mockGetUserConfirmation
+  getUserConfirmation: mockGetUserConfirmation,
 });
 const mockGetHistory = getHistory as jest.Mock;
 mockGetHistory.mockImplementation(() => memHistory);

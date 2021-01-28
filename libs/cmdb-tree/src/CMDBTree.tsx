@@ -5,8 +5,8 @@ import { Tree, Spin, Empty, Tooltip } from "antd";
 import { EventDataNode, DataNode } from "antd/lib/tree";
 import { sortBy, isEmpty, keyBy, get } from "lodash";
 
-import { handleHttpError } from "@easyops/brick-kit";
-import { CmdbObjectApi, InstanceTreeApi, CmdbModels } from "@sdk/cmdb-sdk";
+import { handleHttpError } from "@next-core/brick-kit";
+import { CmdbObjectApi, InstanceTreeApi, CmdbModels } from "@next-sdk/cmdb-sdk";
 
 import {
   search,

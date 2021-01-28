@@ -1,5 +1,5 @@
-import { looseCheckIfByTransform } from "@easyops/brick-kit";
-import { UseBrickConf } from "@easyops/brick-types";
+import { looseCheckIfByTransform } from "@next-core/brick-kit";
+import { UseBrickConf } from "@next-core/brick-types";
 
 export interface ContentItemActions {
   useBrick: UseBrickConf;

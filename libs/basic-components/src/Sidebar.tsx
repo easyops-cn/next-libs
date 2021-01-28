@@ -3,13 +3,13 @@ import { Menu } from "antd";
 import { MenuTheme } from "antd/lib/menu/MenuContext";
 import { uniq } from "lodash";
 import { UnregisterCallback, Location, parsePath } from "history";
-import { getHistory } from "@easyops/brick-kit";
-import { matchPath } from "@easyops/brick-utils";
+import { getHistory } from "@next-core/brick-kit";
+import { matchPath } from "@next-core/brick-utils";
 import {
   SidebarMenuSimpleItem,
   SidebarMenuItem,
   SidebarMenuGroup,
-} from "@easyops/brick-types";
+} from "@next-core/brick-types";
 import { Link } from "./Link";
 import { GeneralIcon } from "./GeneralIcon";
 import style from "./Sidebar.module.css";

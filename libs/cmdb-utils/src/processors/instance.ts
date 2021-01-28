@@ -1,4 +1,4 @@
-import { CmdbModels } from "@sdk/cmdb-sdk";
+import { CmdbModels } from "@next-sdk/cmdb-sdk";
 import { DefaultNameKey } from "../constants";
 import _ from "lodash";
 

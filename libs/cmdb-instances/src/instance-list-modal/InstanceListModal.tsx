@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { WarningOutlined } from "@ant-design/icons";
 import { Modal, Button } from "antd";
 
-import { CmdbModels, InstanceApi } from "@sdk/cmdb-sdk";
+import { CmdbModels, InstanceApi } from "@next-sdk/cmdb-sdk";
 import { InstanceList } from "../instance-list/InstanceList";
 import { InstanceListPresetConfigs } from "../instance-list-table/interfaces";
 import { Query } from "../instance-list-table";

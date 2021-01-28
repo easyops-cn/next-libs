@@ -1,4 +1,4 @@
-import { InstanceApi } from "@sdk/cmdb-sdk";
+import { InstanceApi } from "@next-sdk/cmdb-sdk";
 
 export const mockFetchCmdbInstanceDetailReturnValue: Partial<InstanceApi.GetDetailResponseBody> = {
   NumberTen: [],
@@ -33,7 +33,7 @@ export const mockFetchCmdbInstanceDetailReturnValue: Partial<InstanceApi.GetDeta
       user_email: "wimihe22@easyops.cn",
       user_memo: null,
       user_tel: null,
-      wework_userid: null
+      wework_userid: null,
     },
     {
       _is_auto_discovery: null,
@@ -51,8 +51,8 @@ export const mockFetchCmdbInstanceDetailReturnValue: Partial<InstanceApi.GetDeta
       user_email: "tester0009114@easyops.cn",
       user_memo: null,
       user_tel: null,
-      wework_userid: null
-    }
+      wework_userid: null,
+    },
   ],
   creator: "defaultUser",
   ctime: "2019-03-02 09:45:54",
@@ -81,7 +81,7 @@ export const mockFetchCmdbInstanceDetailReturnValue: Partial<InstanceApi.GetDeta
       user_email: "test@qq.com",
       user_memo: "",
       user_tel: "",
-      wework_userid: ""
+      wework_userid: "",
     },
     {
       _is_auto_discovery: null,
@@ -99,9 +99,9 @@ export const mockFetchCmdbInstanceDetailReturnValue: Partial<InstanceApi.GetDeta
       user_email: "wimihe22@easyops.cn",
       user_memo: null,
       user_tel: null,
-      wework_userid: null
-    }
+      wework_userid: null,
+    },
   ],
   status: "运营中",
-  wimitest: []
+  wimitest: [],
 };

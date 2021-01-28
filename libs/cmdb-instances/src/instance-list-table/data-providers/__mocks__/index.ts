@@ -1,6 +1,6 @@
 export * from "./searchCmdbInstances";
 
-import { CmdbModels } from "@sdk/cmdb-sdk";
+import { CmdbModels } from "@next-sdk/cmdb-sdk";
 
 export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
   objectId: "HOST",
@@ -30,15 +30,15 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
       "hostname",
       "owner",
       "_deviceList_CLUSTER",
-      "deviceId"
+      "deviceId",
     ],
     hide_columns: ["deviceId"],
     relation_view: {
       _deviceList_CLUSTER: ["name"],
-      owner: ["name"]
+      owner: ["name"],
     },
     showHideAttrs: true,
-    show_key: ["ip", "hostname"]
+    show_key: ["ip", "hostname"],
   },
   attrList: [
     {
@@ -61,9 +61,9 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
         mode: "",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "cpu",
@@ -87,43 +87,43 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
             name: "型号",
             type: "str",
             regex: null,
-            protected: true
+            protected: true,
           },
           {
             id: "architecture",
             name: "架构",
             type: "str",
             regex: null,
-            protected: true
+            protected: true,
           },
           {
             id: "hz",
             name: "频率",
             type: "str",
             regex: null,
-            protected: true
+            protected: true,
           },
           {
             id: "logical_cores",
             name: "逻辑核数",
             type: "int",
             regex: null,
-            protected: true
+            protected: true,
           },
           {
             id: "physical_cores",
             name: "物理核数",
             type: "int",
             regex: null,
-            protected: true
-          }
+            protected: true,
+          },
         ],
         mode: "",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "cpuHz",
@@ -145,9 +145,9 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
         mode: "",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "cpuModel",
@@ -169,9 +169,9 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
         mode: "default",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "cpus",
@@ -193,9 +193,9 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
         mode: "",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "deviceId",
@@ -217,9 +217,9 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
         mode: "default",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "diskSize",
@@ -241,9 +241,9 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
         mode: "",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "eth",
@@ -267,57 +267,57 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
             name: "网卡",
             type: "str",
             regex: null,
-            protected: true
+            protected: true,
           },
           {
             id: "status",
             name: "状态",
             type: "enum",
             regex: [],
-            protected: true
+            protected: true,
           },
           {
             id: "ip",
             name: "关联IP",
             type: "str",
             regex: null,
-            protected: true
+            protected: true,
           },
           {
             id: "mask",
             name: "子网掩码",
             type: "str",
             regex: null,
-            protected: true
+            protected: true,
           },
           {
             id: "speed",
             name: "速度",
             type: "int",
             regex: null,
-            protected: true
+            protected: true,
           },
           {
             id: "mac",
             name: "MAC",
             type: "str",
             regex: null,
-            protected: true
+            protected: true,
           },
           {
             id: "broadcast",
             name: "广播地址",
             type: "str",
             regex: null,
-            protected: true
-          }
+            protected: true,
+          },
         ],
         mode: "",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "hostname",
@@ -339,9 +339,9 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
         mode: "default",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "ip",
@@ -364,9 +364,9 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
         mode: "",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "memSize",
@@ -388,9 +388,9 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
         mode: "",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "memo",
@@ -412,9 +412,9 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
         mode: "default",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "osArchitecture",
@@ -436,9 +436,9 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
         mode: "default",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "osDistro",
@@ -460,9 +460,9 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
         mode: "default",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "osRelease",
@@ -484,9 +484,9 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
         mode: "default",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "osSystem",
@@ -508,9 +508,9 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
         mode: "default",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "osVersion",
@@ -532,9 +532,9 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
         mode: "default",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "status",
@@ -557,7 +557,7 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
           "开发机",
           "测试机",
           "维修中",
-          "报废"
+          "报废",
         ],
         default_type: "",
         default: null,
@@ -565,9 +565,9 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
         mode: "",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "tag",
@@ -589,27 +589,27 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
         mode: "default",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
-    }
+      wordIndexDenied: false,
+    },
   ],
   relation_groups: [
     {
       id: "_user",
       name: "负责人",
-      protected: true
+      protected: true,
     },
     {
       id: "_relate_connect",
       name: "位置信息",
-      protected: true
+      protected: true,
     },
     {
       id: "basic_info",
       name: "基本属性",
-      protected: true
-    }
+      protected: true,
+    },
   ],
   relation_list: [
     {
@@ -632,7 +632,7 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
       right_max: -1,
       right_groups: [],
       right_tags: [],
-      _version: 0
+      _version: 0,
     },
     {
       relation_id: "HOST_owner_USER",
@@ -654,13 +654,13 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
       right_max: -1,
       right_groups: [],
       right_tags: [],
-      _version: 0
-    }
+      _version: 0,
+    },
   ],
   updateAuthorizers: [],
   deleteAuthorizers: [],
   wordIndexDenied: false,
   _version: 3,
   creator: "",
-  modifier: "easyops"
+  modifier: "easyops",
 };

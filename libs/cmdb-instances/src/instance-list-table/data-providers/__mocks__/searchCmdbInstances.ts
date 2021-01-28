@@ -1,6 +1,4 @@
-import { InstanceApi } from "@sdk/cmdb-sdk";
-
-/* eslint-disable @typescript-eslint/camelcase */
+import { InstanceApi } from "@next-sdk/cmdb-sdk";
 
 export const searchCmdbInstances = jest.fn(
   (objectId: string, params?: InstanceApi.PostSearchRequestBody) =>
@@ -12,7 +10,7 @@ export function getInstanceListData(total = 2, page = 1, pageSize = 20) {
     total: total,
     page: page,
     page_size: pageSize,
-    list: []
+    list: [],
   };
 
   const startIndex = (instanceListData.page - 1) * instanceListData.page_size;
@@ -48,7 +46,7 @@ export function getInstanceListData(total = 2, page = 1, pageSize = 20) {
           name: "CLUSTER1",
           org: 8888,
           packageId: null,
-          type: "3"
+          type: "3",
         },
         {
           _deployType: "default",
@@ -70,8 +68,8 @@ export function getInstanceListData(total = 2, page = 1, pageSize = 20) {
           name: "CLUSTER2",
           org: 8888,
           packageId: null,
-          type: "0"
-        }
+          type: "0",
+        },
       ],
       _object_id: "HOST",
       _object_version: 3,
@@ -85,7 +83,7 @@ export function getInstanceListData(total = 2, page = 1, pageSize = 20) {
             brand: "Intel(R) Xeon(R) CPU E5-2620 v3 @ 2.40GHz",
             hz: "2.4000 GHz",
             logical_cores: 24,
-            physical_cores: 12
+            physical_cores: 12,
           }
         : null,
       cpuHz: 2400,
@@ -104,7 +102,7 @@ export function getInstanceListData(total = 2, page = 1, pageSize = 20) {
               mask: "255.255.255.0",
               name: "eth0",
               speed: 10000,
-              status: "Active"
+              status: "Active",
             },
             {
               ip: "127.0.0.1",
@@ -112,8 +110,8 @@ export function getInstanceListData(total = 2, page = 1, pageSize = 20) {
               mask: "255.0.0.0",
               name: "lo",
               speed: 0,
-              status: "Active"
-            }
+              status: "Active",
+            },
           ]
         : null,
       hostname: `HOST${i}`,
@@ -131,7 +129,7 @@ export function getInstanceListData(total = 2, page = 1, pageSize = 20) {
       osVersion: "Linux 3.10.0-862.el7.x86_64",
       owner: [],
       status: "运营中",
-      tag: isWithinHalfPage ? ["aaa", "bbb", "ccc"] : null
+      tag: isWithinHalfPage ? ["aaa", "bbb", "ccc"] : null,
     });
   }
 

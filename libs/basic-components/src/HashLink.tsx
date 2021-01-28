@@ -1,5 +1,5 @@
 import React from "react";
-import { getHistory } from "@easyops/brick-kit";
+import { getHistory } from "@next-core/brick-kit";
 
 export interface HashLinkProps {
   to: string;
@@ -23,13 +23,13 @@ export class HashLink extends React.Component<HashLinkProps> {
     const history = getHistory();
     const href = `${history.createHref({
       ...history.location,
-      hash: undefined
+      hash: undefined,
     })}${to}`;
 
     return (
       <a
         {...rest}
-        onClick={event => this.handleClick(event)}
+        onClick={(event) => this.handleClick(event)}
         href={href}
         ref={innerRef}
       />

@@ -1,4 +1,4 @@
-import * as PermissionSdk from "@sdk/permission-sdk";
+import * as PermissionSdk from "@next-sdk/permission-sdk";
 
 export function fetchPermRoleList(): Promise<
   Partial<PermissionSdk.RoleApi.GetPermissionRoleListResponseBody>

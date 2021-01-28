@@ -2,13 +2,13 @@ import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import { keyBy } from "lodash";
 
-import { InstanceApi } from "@sdk/cmdb-sdk";
+import { InstanceApi } from "@next-sdk/cmdb-sdk";
 
 import { ModelRelationForm } from "./ModelRelationForm";
 
 import { mockFetchCmdbObjectListReturnValue } from "../__mocks__";
 
-jest.mock("@sdk/cmdb-sdk");
+jest.mock("@next-sdk/cmdb-sdk");
 
 describe("BrickConditionalDisplay", () => {
   const mockPostSearch = jest
@@ -17,7 +17,7 @@ describe("BrickConditionalDisplay", () => {
       list: [],
       page: 1,
       page_size: 20,
-      total: 0
+      total: 0,
     });
 
   it("should work", () => {
@@ -25,8 +25,8 @@ describe("BrickConditionalDisplay", () => {
 
     const modelMap = keyBy(objectList, "objectId");
     const relation = objectList
-      .find(objectData => objectData.objectId === "CLUSTER")
-      .relation_list.find(relation => relation.left_id === "deviceList");
+      .find((objectData) => objectData.objectId === "CLUSTER")
+      .relation_list.find((relation) => relation.left_id === "deviceList");
     const instanceListData: any[] = [];
 
     const result = render(

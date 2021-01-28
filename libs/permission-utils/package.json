@@ -29,10 +29,10 @@
   },
   "sideEffects": false,
   "peerDependencies": {
-    "@easyops/brick-dll": "*"
+    "@next-core/brick-dll": "*"
   },
   "dependencies": {
-    "@sdk/cmdb-sdk": "^0.5.1",
+    "@next-sdk/cmdb-sdk": "^1.0.1",
     "immutability-helper": "^3.1.1"
   }
 }

@@ -1,4 +1,4 @@
-import { InstanceApi } from "@sdk/cmdb-sdk";
+import { InstanceApi } from "@next-sdk/cmdb-sdk";
 
 export function fetchCmdbInstanceDetail(
   objectId: string,

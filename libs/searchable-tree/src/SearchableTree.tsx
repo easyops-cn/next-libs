@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import Icon from "@ant-design/icons";
 import { Tree, Input } from "antd";
 import { TreeProps, AntTreeNodeProps } from "antd/lib/tree";
-import { MenuIcon } from "@easyops/brick-types";
+import { MenuIcon } from "@next-core/brick-types";
 import { GeneralIcon } from "@libs/basic-components";
 
 type TreeIcon = MenuIcon | React.ComponentType<React.SVGAttributes<SVGElement>>;

@@ -1,4 +1,4 @@
-import { InstanceApi } from "@sdk/cmdb-sdk";
+import { InstanceApi } from "@next-sdk/cmdb-sdk";
 
 // 获取实例默认值模板
 export function getDefaultValueTemplate(

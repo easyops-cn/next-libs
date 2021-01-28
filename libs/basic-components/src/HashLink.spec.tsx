@@ -1,11 +1,11 @@
 import React from "react";
 import { shallow } from "enzyme";
-import * as kit from "@easyops/brick-kit";
+import * as kit from "@next-core/brick-kit";
 import { HashLink } from "./HashLink";
 
 jest.spyOn(kit, "getHistory").mockReturnValue({
   createHref: () => "/",
-  location: {}
+  location: {},
 } as any);
 
 describe("HashLink", () => {

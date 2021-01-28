@@ -4,22 +4,22 @@ import {
   BrickConf,
   MicroApp,
   SlotsConf,
-  RouteConfOfBricks
-} from "@easyops/brick-types";
+  RouteConfOfBricks,
+} from "@next-core/brick-types";
 import {
   StoryboardTree,
   StoryboardNodeRoutedBrick,
   StoryboardNodeSlottedBrick,
   RouteData,
   StoryboardNodeBrickChild,
-  StoryboardNodeRoutedChild
+  StoryboardNodeRoutedChild,
 } from "./interfaces";
 
 export function storyboardToTree(storyboard: Storyboard): StoryboardTree {
   return {
     type: "app",
     appData: storyboard.app,
-    children: processRoutes(storyboard.routes, storyboard.app)
+    children: processRoutes(storyboard.routes, storyboard.app),
   };
 }
 
@@ -36,19 +36,19 @@ function processRoutes(
           routeType: "routed",
           children: processRoutes(subRoutes, appData),
           routeData,
-          groupIndex: index
+          groupIndex: index,
         });
       } else {
         const { bricks, ...routeData } = routeConf as RouteConfOfBricks;
         if (Array.isArray(bricks)) {
-          bricks.forEach(brickConf => {
+          bricks.forEach((brickConf) => {
             acc.push(processRoutedBrick(brickConf, appData, routeData, index));
           });
         } else if (routeData.redirect) {
           acc.push({
             type: "redirect",
             routeData,
-            groupIndex: index
+            groupIndex: index,
           });
         } else {
           // eslint-disable-next-line no-console
@@ -78,7 +78,7 @@ function processBrickChildren(
         routeType: "slotted",
         slotName,
         groupIndex: index,
-        children: processRoutes(slotConf.routes, appData)
+        children: processRoutes(slotConf.routes, appData),
       });
     } else {
       for (const brickConf of slotConf.bricks) {
@@ -103,7 +103,7 @@ function processSlottedBrick(
     brickData,
     slotName,
     groupIndex,
-    children: processBrickChildren(slots, appData)
+    children: processBrickChildren(slots, appData),
   };
 }
 
@@ -120,6 +120,6 @@ function processRoutedBrick(
     brickData,
     routeData,
     groupIndex,
-    children: processBrickChildren(slots, appData)
+    children: processBrickChildren(slots, appData),
   };
 }

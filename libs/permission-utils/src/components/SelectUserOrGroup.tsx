@@ -6,8 +6,8 @@ import {
   SelectUserOrGroupState,
   User,
 } from "../interfaces";
-import * as CmdbSdk from "@sdk/cmdb-sdk";
-import { handleHttpError } from "@easyops/brick-kit";
+import * as CmdbSdk from "@next-sdk/cmdb-sdk";
+import { handleHttpError } from "@next-core/brick-kit";
 import { LabeledValue } from "antd/lib/select";
 
 export class SelectUserOrGroup extends React.Component<

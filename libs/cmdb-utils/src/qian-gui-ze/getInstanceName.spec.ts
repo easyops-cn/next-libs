@@ -1,14 +1,14 @@
 import { getInstanceName, getInstanceNameKey } from "./getInstanceName";
-import { getRuntime } from "@easyops/brick-kit";
+import { getRuntime } from "@next-core/brick-kit";
 
-jest.mock("@easyops/brick-kit");
+jest.mock("@next-core/brick-kit");
 
 (getRuntime as jest.Mock).mockReturnValue({
   getFeatureFlags: () => {
     return {
-      "config-show-key": true
+      "config-show-key": true,
     };
-  }
+  },
 });
 
 describe("getInstanceNameKey", () => {
@@ -17,13 +17,13 @@ describe("getInstanceNameKey", () => {
       "HOST",
       {
         view: {
-          show_key: "abc"
-        }
+          show_key: "abc",
+        },
       },
       true,
-      "abc"
+      "abc",
     ],
-    ["HOST", "", true, "hostname"]
+    ["HOST", "", true, "hostname"],
   ];
 
   it.each(cases)(
@@ -38,38 +38,38 @@ describe("getInstanceName", () => {
   const cases: [any, any, any, any][] = [
     [
       {
-        hostname: "host1"
+        hostname: "host1",
       },
       "HOST",
       [
         {
-          objectId: "HOST"
+          objectId: "HOST",
         },
         {
-          objectId: "APP"
-        }
+          objectId: "APP",
+        },
       ],
-      "host1"
+      "host1",
     ],
     [
       {
         a: "1",
-        b: "2"
+        b: "2",
       },
       "APP",
       [
         {
-          objectId: "HOST"
+          objectId: "HOST",
         },
         {
           objectId: "APP",
           view: {
-            show_key: ["a", "b"]
-          }
-        }
+            show_key: ["a", "b"],
+          },
+        },
       ],
-      "1(2)"
-    ]
+      "1(2)",
+    ],
   ];
 
   it.each(cases)(

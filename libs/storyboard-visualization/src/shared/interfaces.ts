@@ -1,4 +1,4 @@
-import { UseBrickConf } from "@easyops/brick-types";
+import { UseBrickConf } from "@next-core/brick-types";
 
 export interface ViewItem {
   alias?: string;

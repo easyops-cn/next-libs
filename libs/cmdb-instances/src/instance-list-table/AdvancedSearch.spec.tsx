@@ -1,6 +1,6 @@
 import React from "react";
 import { cleanup, fireEvent, render } from "@testing-library/react";
-import { CmdbModels } from "@sdk/cmdb-sdk";
+import { CmdbModels } from "@next-sdk/cmdb-sdk";
 
 import { AdvancedSearch } from "./AdvancedSearch";
 import { HOST } from "./data-providers/__mocks__/fetchCmdbObjectDetail";

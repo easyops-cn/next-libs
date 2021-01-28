@@ -1,7 +1,5 @@
-import { CmdbObjectApi } from "@sdk/cmdb-sdk";
+import { CmdbObjectApi } from "@next-sdk/cmdb-sdk";
 
-export function fetchCmdbObjectList(): Promise<
-  CmdbObjectApi.GetObjectAllResponseBody
-> {
+export function fetchCmdbObjectList(): Promise<CmdbObjectApi.GetObjectAllResponseBody> {
   return CmdbObjectApi.getObjectAll({});
 }

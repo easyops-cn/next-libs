@@ -29,6 +29,6 @@
   },
   "sideEffects": false,
   "peerDependencies": {
-    "@easyops/brick-dll": "*"
+    "@next-core/brick-dll": "*"
   }
 }

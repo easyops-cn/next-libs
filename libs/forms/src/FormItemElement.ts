@@ -1,5 +1,5 @@
 import ReactDOM from "react-dom";
-import { UpdatingElement, property } from "@easyops/brick-kit";
+import { UpdatingElement, property } from "@next-core/brick-kit";
 import { ValidationRule } from "@ant-design/compatible/lib/form";
 import { ColProps } from "antd/lib/col";
 

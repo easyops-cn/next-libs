@@ -14,14 +14,14 @@
       "packageNames": [
         "@ant-design/compatible",
         "@ant-design/icons",
-        "@easyops/babel-runtime-helpers",
-        "@easyops/brick-http",
-        "@easyops/brick-icons",
-        "@easyops/brick-kit",
-        "@easyops/brick-types",
-        "@easyops/brick-utils",
-        "@easyops/easyops-analytics",
-        "@easyops/fontawesome-library",
+        "@next-core/babel-runtime-helpers",
+        "@next-core/brick-http",
+        "@next-core/brick-icons",
+        "@next-core/brick-kit",
+        "@next-core/brick-types",
+        "@next-core/brick-utils",
+        "@next-core/easyops-analytics",
+        "@next-core/fontawesome-library",
         "@fortawesome/react-fontawesome",
         "@size-limit/file",
         "@types/classnames",
@@ -64,7 +64,7 @@
       ]
     },
     {
-      "packagePatterns": ["^@easyops/"],
+      "packagePatterns": ["^@next-core/"],
       "automerge": false,
       "groupName": "next-core packages",
       "postUpgradeTasks": {
@@ -81,9 +81,10 @@
     },
     {
       "baseBranchList": ["legacy/brick-next_1.x"],
-      "excludePackagePatterns": ["^@easyops/"],
+      "excludePackagePatterns": ["^@next-core/"],
       "enabled": false
     }
   ],
+  "postUpdateOptions": ["yarnDedupeHighest"],
   "baseBranches": ["master", "legacy/brick-next_1.x"]
 }

@@ -1,13 +1,13 @@
 import { getIconList, GetIconListParams } from "./getIconList";
 
-jest.mock("@easyops/brick-icons", () => ({
+jest.mock("@next-core/brick-icons", () => ({
   iconsByCategory: {
     app: ["all-cmdb", "brick-group"],
     model: ["business", "cloud-host"],
   },
 }));
 
-jest.mock("@easyops/fontawesome-library", () => ({
+jest.mock("@next-core/fontawesome-library", () => ({
   fab: {
     fa500px: {
       prefix: "fab",
@@ -31,11 +31,7 @@ jest.mock("@easyops/fontawesome-library", () => ({
 }));
 
 jest.mock("./antdIcons", () => ({
-  antdIconKeys: [
-  "AccountBookFilled",
-  "AlertOutlined",
-  "ApiTwoTone",
-  ]
+  antdIconKeys: ["AccountBookFilled", "AlertOutlined", "ApiTwoTone"],
 }));
 
 describe("GetIconList", () => {

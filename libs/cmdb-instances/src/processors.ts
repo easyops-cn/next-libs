@@ -1,4 +1,4 @@
-import { getRuntime } from "@easyops/brick-kit";
+import { getRuntime } from "@next-core/brick-kit";
 import { uniq, compact } from "lodash";
 
 const featureFlags =

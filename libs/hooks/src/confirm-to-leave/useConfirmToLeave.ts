@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import { getHistory } from "@easyops/brick-kit";
+import { getHistory } from "@next-core/brick-kit";
 
 export const useConfirmToLeave = (
   shouldBlockRef: React.MutableRefObject<boolean>,
   message = "确定离开该页面?"
 ): void => {
-  let historyUnblock: Function;
+  let historyUnblock: any;
 
   const beforeunload = (e: BeforeUnloadEvent) => {
     if (shouldBlockRef.current) {

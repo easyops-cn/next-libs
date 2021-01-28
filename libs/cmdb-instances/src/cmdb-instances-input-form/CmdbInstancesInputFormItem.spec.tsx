@@ -2,7 +2,7 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 
-import { CmdbModels, InstanceApi } from "@sdk/cmdb-sdk";
+import { CmdbModels, InstanceApi } from "@next-sdk/cmdb-sdk";
 
 import { CmdbInstancesInputFormItem } from "./CmdbInstancesInputFormItem";
 
@@ -12,7 +12,7 @@ interface InstanceListModalProps {
 
 const instance = {
   instanceId: "123",
-  ip: "192.168.100.100"
+  ip: "192.168.100.100",
 };
 
 jest.mock("../instance-list-modal/InstanceListModal", () => ({
@@ -22,17 +22,17 @@ jest.mock("../instance-list-modal/InstanceListModal", () => ({
         props.onSelected([
           {
             instanceId: "123",
-            ip: "192.168.100.100"
-          }
+            ip: "192.168.100.100",
+          },
         ]);
       }
     };
 
     return <button onClick={handleOk}>确认</button>;
-  }
+  },
 }));
 
-jest.mock("@sdk/cmdb-sdk");
+jest.mock("@next-sdk/cmdb-sdk");
 
 describe("HostInstanceSelect", () => {
   const objectMap: { [key: string]: Partial<CmdbModels.ModelCmdbObject> } = {
@@ -44,20 +44,20 @@ describe("HostInstanceSelect", () => {
           id: "name",
           name: "名称",
           value: {
-            type: "str"
-          }
-        }
+            type: "str",
+          },
+        },
       ],
       relation_list: [],
       view: {
-        attr_order: ["name"]
-      }
-    }
+        attr_order: ["name"],
+      },
+    },
   };
 
   it("should work when select instances by InstanceListModal", async () => {
     jest.spyOn(InstanceApi, "postSearch").mockResolvedValue({
-      list: [instance]
+      list: [instance],
     });
 
     const { getByText } = render(
@@ -67,7 +67,7 @@ describe("HostInstanceSelect", () => {
           objectId: "HOST",
           fieldId: "ip",
           value: ["123"],
-          ref: React.createRef<HTMLDivElement>()
+          ref: React.createRef<HTMLDivElement>(),
         }}
       />
     );
@@ -81,7 +81,7 @@ describe("HostInstanceSelect", () => {
 
   it("should work when input field value", async () => {
     jest.spyOn(InstanceApi, "postSearch").mockResolvedValue({
-      list: [instance]
+      list: [instance],
     });
 
     const { getByTestId } = render(
@@ -90,7 +90,7 @@ describe("HostInstanceSelect", () => {
           objectMap,
           objectId: "HOST",
           fieldId: "ip",
-          ref: React.createRef<HTMLDivElement>()
+          ref: React.createRef<HTMLDivElement>(),
         }}
       />
     );
@@ -100,7 +100,7 @@ describe("HostInstanceSelect", () => {
       "input"
     );
     fireEvent.change(fieldValueInputElement, {
-      target: { value: "192.168.100.162" }
+      target: { value: "192.168.100.162" },
     });
     fireEvent.blur(fieldValueInputElement);
   });

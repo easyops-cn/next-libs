@@ -1,4 +1,4 @@
-import { computeRealRoutePath } from "@easyops/brick-utils";
+import { computeRealRoutePath } from "@next-core/brick-utils";
 import { StoryboardTree, StoryboardNode } from "./interfaces";
 
 export function computeRoutes(tree: StoryboardTree): string[] {
@@ -11,7 +11,7 @@ export function computeRoutes(tree: StoryboardTree): string[] {
     ) {
       const realPaths = computeRealRoutePath(node.routeData.path, tree.appData);
       const paths = Array.isArray(realPaths) ? realPaths : [realPaths];
-      paths.forEach(path => {
+      paths.forEach((path) => {
         routes.add(path);
       });
     }

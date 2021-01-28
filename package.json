@@ -16,30 +16,30 @@
     "test": "cross-env NODE_ENV='test' node --expose-gc ./node_modules/.bin/jest --logHeapUsage",
     "test:ci": "cross-env NODE_ENV='test' CI=true node --expose-gc ./node_modules/.bin/jest --logHeapUsage --ci",
     "yo": "brick-scripts -t libs",
-    "yo-debug": "node --inspect-brk ./node_modules/@easyops/brick-scripts/dist/index.js -t libs",
+    "yo-debug": "node --inspect-brk ./node_modules/@next-core/brick-scripts/dist/index.js -t libs",
     "renew": "dev-dependencies-renew",
     "extract": "dev-dependencies-extract"
   },
   "browserslist": {
     "development": [
-      "extends @easyops/browserslist-config-next/development"
+      "extends @next-core/browserslist-config-next/development"
     ],
     "production": [
-      "extends @easyops/browserslist-config-next/production"
+      "extends @next-core/browserslist-config-next/production"
     ]
   },
   "devDependencies": {
     "@ant-design/compatible": "^1.0.8",
     "@ant-design/icons": "^4.2.2",
-    "@easyops/babel-runtime-helpers": "^1.0.2",
-    "@easyops/brick-http": "^2.2.1",
-    "@easyops/brick-icons": "^2.4.3",
-    "@easyops/brick-kit": "^2.22.1",
-    "@easyops/brick-types": "^2.11.0",
-    "@easyops/brick-utils": "^2.4.5",
-    "@easyops/dev-dependencies": "^1.1.21",
-    "@easyops/easyops-analytics": "^0.1.1",
-    "@easyops/fontawesome-library": "^1.1.9",
+    "@next-core/babel-runtime-helpers": "^1.0.4",
+    "@next-core/brick-http": "^2.2.4",
+    "@next-core/brick-icons": "^2.7.3",
+    "@next-core/brick-kit": "^2.31.1",
+    "@next-core/brick-types": "^2.16.0",
+    "@next-core/brick-utils": "^2.10.4",
+    "@next-core/dev-dependencies": "^1.2.27",
+    "@next-core/easyops-analytics": "^0.1.4",
+    "@next-core/fontawesome-library": "^1.1.12",
     "@fortawesome/react-fontawesome": "^0.1.12",
     "@size-limit/file": "^4.7.0",
     "@svgr/rollup": "^5.5.0",
@@ -92,7 +92,7 @@
   },
   "resolutions": {
     "lodash": "^4.17.20",
-    "@easyops/brick-types": "^2.11.0",
+    "@next-core/brick-types": "^2.16.0",
     "@types/react": "^16.9.56"
   }
 }

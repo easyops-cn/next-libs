@@ -1,4 +1,4 @@
-import { ModelObjectAttrValue } from "@sdk/cmdb-sdk/dist/types/model/cmdb";
+import { ModelObjectAttrValue } from "@next-sdk/cmdb-sdk/dist/types/model/cmdb";
 
 export const CMDB_RESOURCE_FIELDS_SETTINGS = {
   defaultFields: {
