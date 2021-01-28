@@ -1,4 +1,4 @@
-import { CmdbModels, CmdbObjectApi } from "@sdk/cmdb-sdk";
+import { CmdbModels, CmdbObjectApi } from "@next-sdk/cmdb-sdk";
 
 export function fetchCmdbObjectDetail(
   objectId: string

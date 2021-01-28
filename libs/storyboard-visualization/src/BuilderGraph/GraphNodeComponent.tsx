@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { MenuOutlined } from "@ant-design/icons";
 import classNames from "classnames";
-import { FaIcon } from "@easyops/brick-types";
+import { FaIcon } from "@next-core/brick-types";
 import { GeneralIcon } from "@libs/basic-components";
 import styles from "./GraphNodeComponent.module.css";
 import { GraphNode } from "./interfaces";

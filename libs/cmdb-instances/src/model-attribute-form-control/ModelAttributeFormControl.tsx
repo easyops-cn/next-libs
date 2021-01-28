@@ -1,5 +1,5 @@
 import React, { Component, ReactNode } from "react";
-import { CmdbModels } from "@sdk/cmdb-sdk";
+import { CmdbModels } from "@next-sdk/cmdb-sdk";
 import { DatePicker, Input, InputNumber, Radio, Select } from "antd";
 import { AddStruct } from "../struct-components";
 import moment, { Moment } from "moment";

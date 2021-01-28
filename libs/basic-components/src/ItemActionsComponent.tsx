@@ -1,8 +1,8 @@
 import React from "react";
 import { Button, Dropdown, Menu } from "antd";
-import { BrickAsComponent } from "@easyops/brick-kit";
+import { BrickAsComponent } from "@next-core/brick-kit";
 import { GeneralIcon } from "./GeneralIcon";
-import { UseBrickConf } from "@easyops/brick-types";
+import { UseBrickConf } from "@next-core/brick-types";
 
 export interface ItemActionsComponentProps {
   filteredActions?: UseBrickConf[];

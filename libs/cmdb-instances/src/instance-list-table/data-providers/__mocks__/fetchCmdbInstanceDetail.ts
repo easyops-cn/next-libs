@@ -1,6 +1,4 @@
-import { InstanceApi } from "@sdk/cmdb-sdk";
-
-/* eslint-disable @typescript-eslint/camelcase */
+import { InstanceApi } from "@next-sdk/cmdb-sdk";
 
 export const fetchCmdbInstanceDetail = jest.fn(() =>
   Promise.resolve({
@@ -24,7 +22,7 @@ export const fetchCmdbInstanceDetail = jest.fn(() =>
         mtime: "2019-03-07 18:57:46",
         name: "test-app",
         org: 8888,
-        serviceId: ""
+        serviceId: "",
       },
       {
         _defaultDeployStrategy: null,
@@ -68,8 +66,8 @@ export const fetchCmdbInstanceDetail = jest.fn(() =>
         testClusterOperateAuthorizers: null,
         testPipelineOperateAuthorizers: null,
         testadd: "",
-        updateAuthorizers: null
-      }
+        updateAuthorizers: null,
+      },
     ],
     _access_app: [
       {
@@ -83,8 +81,8 @@ export const fetchCmdbInstanceDetail = jest.fn(() =>
         featurePriority: "14",
         instanceId: "5834fa8d9b7f5",
         name: "cmdbAutoTestApp3036276825",
-        org: 8888
-      }
+        org: 8888,
+      },
     ],
     _object_id: "APP",
     _object_version: 0,
@@ -98,7 +96,7 @@ export const fetchCmdbInstanceDetail = jest.fn(() =>
         packageId: "4dbfb11490db141e93bc2b08a06ddd47",
         postRestart: 1,
         preStop: 1,
-        userCheck: 1
+        userCheck: 1,
       },
       {
         autoStart: 1,
@@ -108,8 +106,8 @@ export const fetchCmdbInstanceDetail = jest.fn(() =>
         packageId: "4b694cf447ff9e7bfdeb4379492046dc",
         postRestart: 1,
         preStop: 1,
-        userCheck: 1
-      }
+        userCheck: 1,
+      },
     ],
     _pre_ts: 1554285627,
     _ts: 1557908573,
@@ -131,8 +129,8 @@ export const fetchCmdbInstanceDetail = jest.fn(() =>
         modifier: "easyops",
         mtime: "2019-04-09 15:20:04",
         name: "testBusiness3043844451",
-        org: 8888
-      }
+        org: 8888,
+      },
     ],
     clusters: [],
     creator: "easyops",
@@ -154,7 +152,7 @@ export const fetchCmdbInstanceDetail = jest.fn(() =>
         user_email: "wimihe22@easyops.cn",
         user_memo: null,
         user_tel: null,
-        wework_userid: null
+        wework_userid: null,
       },
       {
         _is_auto_discovery: null,
@@ -172,7 +170,7 @@ export const fetchCmdbInstanceDetail = jest.fn(() =>
         user_email: null,
         user_memo: null,
         user_tel: null,
-        wework_userid: null
+        wework_userid: null,
       },
       {
         _is_auto_discovery: null,
@@ -190,7 +188,7 @@ export const fetchCmdbInstanceDetail = jest.fn(() =>
         user_email: "tester0009114@easyops.cn",
         user_memo: null,
         user_tel: null,
-        wework_userid: null
+        wework_userid: null,
       },
       {
         _is_auto_discovery: "true",
@@ -214,8 +212,8 @@ export const fetchCmdbInstanceDetail = jest.fn(() =>
         user_email: "lightjiao_test_user@easyops.cn",
         user_memo: null,
         user_tel: null,
-        wework_userid: null
-      }
+        wework_userid: null,
+      },
     ],
     featurePriority: "10",
     instanceId: "582f332114dd8",
@@ -242,7 +240,7 @@ export const fetchCmdbInstanceDetail = jest.fn(() =>
         user_email: null,
         user_memo: null,
         user_tel: null,
-        wework_userid: null
+        wework_userid: null,
       },
       {
         _is_auto_discovery: "true",
@@ -266,8 +264,8 @@ export const fetchCmdbInstanceDetail = jest.fn(() =>
         user_email: "lightjiao_test_user@easyops.cn",
         user_memo: null,
         user_tel: null,
-        wework_userid: null
-      }
+        wework_userid: null,
+      },
     ],
     services: [
       {
@@ -284,10 +282,10 @@ export const fetchCmdbInstanceDetail = jest.fn(() =>
         instanceId: "588ff323d6aea",
         name: "ddd",
         org: 8888,
-        token: null
-      }
+        token: null,
+      },
     ],
-    tester: []
+    tester: [],
   })
 );
 
@@ -324,7 +322,7 @@ export const mockFetchCmdbInstanceDetailReturnValue: Partial<InstanceApi.GetDeta
       user_email: "wimihe22@easyops.cn",
       user_memo: null,
       user_tel: null,
-      wework_userid: null
+      wework_userid: null,
     },
     {
       _is_auto_discovery: null,
@@ -342,8 +340,8 @@ export const mockFetchCmdbInstanceDetailReturnValue: Partial<InstanceApi.GetDeta
       user_email: "tester0009114@easyops.cn",
       user_memo: null,
       user_tel: null,
-      wework_userid: null
-    }
+      wework_userid: null,
+    },
   ],
   creator: "defaultUser",
   ctime: "2019-03-02 09:45:54",
@@ -372,7 +370,7 @@ export const mockFetchCmdbInstanceDetailReturnValue: Partial<InstanceApi.GetDeta
       user_email: "test@qq.com",
       user_memo: "",
       user_tel: "",
-      wework_userid: ""
+      wework_userid: "",
     },
     {
       _is_auto_discovery: null,
@@ -390,9 +388,9 @@ export const mockFetchCmdbInstanceDetailReturnValue: Partial<InstanceApi.GetDeta
       user_email: "wimihe22@easyops.cn",
       user_memo: null,
       user_tel: null,
-      wework_userid: null
-    }
+      wework_userid: null,
+    },
   ],
   status: "运营中",
-  wimitest: []
+  wimitest: [],
 };

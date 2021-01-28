@@ -2,7 +2,7 @@ import React, { Component, FormEvent } from "react";
 import { Form } from "@ant-design/compatible";
 import { Button, Checkbox, Collapse } from "antd";
 import { ButtonType } from "antd/lib/button";
-import { CmdbModels, InstanceApi } from "@sdk/cmdb-sdk";
+import { CmdbModels, InstanceApi } from "@next-sdk/cmdb-sdk";
 import {
   FormComponentProps,
   ValidationRule,
@@ -440,6 +440,6 @@ export class ModelAttributeForm extends Component<
   }
 }
 
-export const InstanceModelAttributeForm = Form.create<
-  ModelAttributeFormProps
->()(ModelAttributeForm);
+export const InstanceModelAttributeForm = Form.create<ModelAttributeFormProps>()(
+  ModelAttributeForm
+);

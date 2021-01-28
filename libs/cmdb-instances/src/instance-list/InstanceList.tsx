@@ -16,14 +16,14 @@ import {
   startsWith,
   compact,
 } from "lodash";
-import { handleHttpError } from "@easyops/brick-kit";
+import { handleHttpError } from "@next-core/brick-kit";
 import {
   PropertyDisplayConfig,
   ReadPaginationChangeDetail,
   ReadSelectionChangeDetail,
   ReadSortingChangeDetail,
-} from "@easyops/brick-types";
-import { CmdbModels, InstanceApi } from "@sdk/cmdb-sdk";
+} from "@next-core/brick-types";
+import { CmdbModels, InstanceApi } from "@next-sdk/cmdb-sdk";
 import { Icon as LegacyIcon } from "@ant-design/compatible";
 import { Button, Spin, Input, Tag } from "antd";
 import {

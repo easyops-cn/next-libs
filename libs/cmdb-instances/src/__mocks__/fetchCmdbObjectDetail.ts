@@ -1,4 +1,4 @@
-import { CmdbModels } from "@sdk/cmdb-sdk";
+import { CmdbModels } from "@next-sdk/cmdb-sdk";
 
 export const mockFetchCmdbObjectDetailReturnValue: Partial<CmdbModels.ModelCmdbObject> = {
   objectId: "HOST",
@@ -10,7 +10,7 @@ export const mockFetchCmdbObjectDetailReturnValue: Partial<CmdbModels.ModelCmdbO
   view: {
     attr_order: ["hostname"],
     hide_columns: ["deviceId", "_deviceList_CLUSTER"],
-    show_key: ["hostname"]
+    show_key: ["hostname"],
   },
   attrList: [
     {
@@ -33,9 +33,9 @@ export const mockFetchCmdbObjectDetailReturnValue: Partial<CmdbModels.ModelCmdbO
         mode: "",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "_agentStatus",
@@ -57,9 +57,9 @@ export const mockFetchCmdbObjectDetailReturnValue: Partial<CmdbModels.ModelCmdbO
         mode: "",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "deviceId",
@@ -81,9 +81,9 @@ export const mockFetchCmdbObjectDetailReturnValue: Partial<CmdbModels.ModelCmdbO
         mode: "default",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "tag",
@@ -105,9 +105,9 @@ export const mockFetchCmdbObjectDetailReturnValue: Partial<CmdbModels.ModelCmdbO
         mode: "default",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "check_url2",
@@ -129,9 +129,9 @@ export const mockFetchCmdbObjectDetailReturnValue: Partial<CmdbModels.ModelCmdbO
         mode: "url",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "check_array",
@@ -153,9 +153,9 @@ export const mockFetchCmdbObjectDetailReturnValue: Partial<CmdbModels.ModelCmdbO
         mode: "default",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "timeline",
@@ -177,9 +177,9 @@ export const mockFetchCmdbObjectDetailReturnValue: Partial<CmdbModels.ModelCmdbO
         mode: "",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
+      wordIndexDenied: false,
     },
     {
       id: "check_enums",
@@ -201,17 +201,17 @@ export const mockFetchCmdbObjectDetailReturnValue: Partial<CmdbModels.ModelCmdbO
         mode: "",
         prefix: "",
         start_value: 0,
-        series_number_length: 0
+        series_number_length: 0,
       },
-      wordIndexDenied: false
-    }
+      wordIndexDenied: false,
+    },
   ],
   relation_groups: [
     {
       id: "_user",
       name: "负责人",
-      protected: true
-    }
+      protected: true,
+    },
   ],
   relation_list: [
     {
@@ -234,7 +234,7 @@ export const mockFetchCmdbObjectDetailReturnValue: Partial<CmdbModels.ModelCmdbO
       right_max: -1,
       right_groups: [],
       right_tags: [],
-      _version: 0
+      _version: 0,
     },
     {
       left_description: "负责备份的主机",
@@ -256,13 +256,13 @@ export const mockFetchCmdbObjectDetailReturnValue: Partial<CmdbModels.ModelCmdbO
       right_name: "负责备份的主机",
       right_object_id: "USER",
       right_tags: [],
-      _version: 0
-    }
+      _version: 0,
+    },
   ],
   updateAuthorizers: [],
   deleteAuthorizers: [],
   wordIndexDenied: false,
   _version: 35,
   creator: "",
-  modifier: "defaultUser"
+  modifier: "defaultUser",
 };

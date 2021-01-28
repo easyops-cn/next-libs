@@ -1,4 +1,4 @@
-import { CmdbModels, InstanceApi } from "@sdk/cmdb-sdk";
+import { CmdbModels, InstanceApi } from "@next-sdk/cmdb-sdk";
 import { CMDB_RESOURCE_FIELDS_SETTINGS } from "./constants";
 import { getRelationObjectSides } from "./processors";
 import _ from "lodash";
@@ -35,7 +35,7 @@ export function getInstanceShowName(
   instanceData: { [key: string]: string },
   nameKeys: string[]
 ) {
-  const instanceShowName = nameKeys.map(nameKey => {
+  const instanceShowName = nameKeys.map((nameKey) => {
     return instanceData[nameKey];
   });
   return composeInstanceShowName(instanceShowName);
@@ -85,7 +85,7 @@ export const getBatchEditableRelations = (
       id: item[`${side.this}_id`],
       name: item[`${side.that}_description`],
       isRelation: true,
-      objectId: item[`${side.that}_object_id`]
+      objectId: item[`${side.that}_object_id`],
     });
   });
   return modelData.relation_list;
@@ -101,7 +101,7 @@ export function getRelationQuery(
     ? { $in: instanceId }
     : { [operator]: instanceId };
   return {
-    [`${rightSideId}.instanceId`]: query
+    [`${rightSideId}.instanceId`]: query,
   };
 }
 export function composeErrorMessage(
@@ -112,12 +112,12 @@ export function composeErrorMessage(
   const action = "批量编辑" + context.modelData.name;
   const failedList = _.map(
     errorData.data,
-    row =>
-      `${row.error}：${_.map(row.data, item =>
+    (row) =>
+      `${row.error}：${_.map(row.data, (item) =>
         _.get(
           _.find(
             failedInstances,
-            instance => item.instanceId === instance.instanceId
+            (instance) => item.instanceId === instance.instanceId
           ),
           context.nameKey
         )
@@ -138,11 +138,11 @@ export const IGNORED_FIELDS: Record<string, string[]> = {
     "_packageList",
     "installPath",
     "runUser",
-    "businessId"
+    "businessId",
   ],
   BUSINESS: ["businessId"],
   CLUSTER: ["clusterId", "packageId", "_packageList"],
-  HOST: ["deviceId"]
+  HOST: ["deviceId"],
 };
 
 export interface ModifiedModelObjectAttr extends CmdbModels.ModelObjectAttr {
@@ -176,7 +176,7 @@ export function modifyModelData(
   const fieldMap: Record<string, ModifiedModelObjectField> = {};
   const ignoredFields = IGNORED_FIELDS[clonedModelData.objectId] || [];
 
-  clonedModelData.attrList.forEach(attr => {
+  clonedModelData.attrList.forEach((attr) => {
     if (!ignoredFields.includes(attr.id)) {
       const clonedAttr: Partial<ModifiedModelObjectAttr> = _.cloneDeep(attr);
 
@@ -188,7 +188,7 @@ export function modifyModelData(
     }
   });
 
-  clonedModelData.relation_list.forEach(relation => {
+  clonedModelData.relation_list.forEach((relation) => {
     if (
       relation.left_object_id === clonedModelData.objectId &&
       !ignoredFields.includes(relation.left_id)
@@ -219,9 +219,9 @@ export function modifyModelData(
         "min",
         "max",
         "groups",
-        "tags"
+        "tags",
       ];
-      invertedFields.forEach(invertedField => {
+      invertedFields.forEach((invertedField) => {
         const tempFieldValue = clonedRelation[`left_${invertedField}`];
         clonedRelation[`left_${invertedField}`] =
           clonedRelation[`right_${invertedField}`];
@@ -240,12 +240,12 @@ export function modifyModelData(
   const currentOrderedFieldIds = clonedModelData.view.attr_order || [];
   const orderedFieldIds: string[] = [];
   const notOrderedFieldIds: string[] = [];
-  currentOrderedFieldIds.forEach(currentOrderedFieldId => {
+  currentOrderedFieldIds.forEach((currentOrderedFieldId) => {
     if (fieldIdList.includes(currentOrderedFieldId)) {
       orderedFieldIds.push(currentOrderedFieldId);
     }
   });
-  fieldIdList.forEach(fieldId => {
+  fieldIdList.forEach((fieldId) => {
     if (!orderedFieldIds.includes(fieldId)) {
       notOrderedFieldIds.push(fieldId);
     }
@@ -254,7 +254,7 @@ export function modifyModelData(
   const fieldList: ModifiedModelObjectField[] = [];
   const attrList: Partial<ModifiedModelObjectAttr>[] = [];
   const relationList: Partial<ModifiedModelObjectRelation>[] = [];
-  orderedFieldIds.forEach(orderedFieldId => {
+  orderedFieldIds.forEach((orderedFieldId) => {
     fieldList.push(fieldMap[orderedFieldId]);
     if (fieldMap[orderedFieldId].__isRelation) {
       relationList.push(fieldMap[orderedFieldId]);
@@ -262,7 +262,7 @@ export function modifyModelData(
       attrList.push(fieldMap[orderedFieldId]);
     }
   });
-  notOrderedFieldIds.forEach(notOrderedFieldId => {
+  notOrderedFieldIds.forEach((notOrderedFieldId) => {
     fieldList.push(fieldMap[notOrderedFieldId]);
     if (fieldMap[notOrderedFieldId].__isRelation) {
       relationList.push(fieldMap[notOrderedFieldId]);

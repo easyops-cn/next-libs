@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { CmdbModels, InstanceApi } from "@sdk/cmdb-sdk";
+import { CmdbModels, InstanceApi } from "@next-sdk/cmdb-sdk";
 import { Form } from "@ant-design/compatible";
 import { get, keyBy } from "lodash";
 import { FormComponentProps } from "@ant-design/compatible/lib/form";
@@ -31,9 +31,7 @@ export interface InstanceAttributeFormProps extends FormComponentProps {
     | Partial<InstanceApi.GetDetailResponseBody>;
 }
 
-export class LegacyInstanceAttributeForm extends Component<
-  InstanceAttributeFormProps
-> {
+export class LegacyInstanceAttributeForm extends Component<InstanceAttributeFormProps> {
   private modelMap: Record<string, Partial<CmdbModels.ModelCmdbObject>> = {};
 
   constructor(Props: InstanceAttributeFormProps) {

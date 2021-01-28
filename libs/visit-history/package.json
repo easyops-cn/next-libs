@@ -29,7 +29,7 @@
   },
   "sideEffects": false,
   "peerDependencies": {
-    "@easyops/brick-dll": "*"
+    "@next-core/brick-dll": "*"
   },
   "dependencies": {
     "@libs/storage": "^0.2.3"

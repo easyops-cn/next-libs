@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
-
 export const mockGetDefaultValueTemplateValue = {
   _agentHeartBeat: -1,
   _agentStatus: "未安装",
@@ -33,7 +31,7 @@ export const mockGetDefaultValueTemplateValue = {
   service: null,
   status: null,
   struct: null,
-  tag: null
+  tag: null,
 };
 
 export const getDefaultValueTemplate = jest.fn(() =>

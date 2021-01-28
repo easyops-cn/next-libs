@@ -5,9 +5,9 @@ import { keyBy } from "lodash";
 import { InstanceListModal } from "./InstanceListModal";
 import { getInstanceListData } from "../instance-list-table/data-providers/__mocks__";
 import { mockFetchCmdbObjectListReturnValue } from "../__mocks__";
-import { InstanceApi } from "@sdk/cmdb-sdk";
+import { InstanceApi } from "@next-sdk/cmdb-sdk";
 
-jest.mock("@sdk/cmdb-sdk");
+jest.mock("@next-sdk/cmdb-sdk");
 
 const mockInstanceListData = InstanceApi.postSearch as jest.Mock;
 

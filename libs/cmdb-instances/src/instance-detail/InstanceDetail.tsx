@@ -12,14 +12,14 @@ import {
   map,
   compact,
 } from "lodash";
-import { handleHttpError, BrickAsComponent } from "@easyops/brick-kit";
+import { handleHttpError, BrickAsComponent } from "@next-core/brick-kit";
 import {
   AttributeConfig,
   CustomBrickConfig,
   CustomDisplay,
   InstanceDisplay,
   BrickAction,
-} from "@easyops/brick-types";
+} from "@next-core/brick-types";
 import { InstanceRelationFieldDisplay } from "./components/instance-relation-field-display/instance-relation-field-display";
 import {
   getInstanceNameKeys,
@@ -28,7 +28,7 @@ import {
   ModifiedModelCmdbObject,
   ModifiedModelObjectField,
 } from "@libs/cmdb-utils";
-import { CmdbModels } from "@sdk/cmdb-sdk";
+import { CmdbModels } from "@next-sdk/cmdb-sdk";
 import { Link } from "@libs/basic-components";
 import { StructTable } from "../struct-components/StructTable";
 import { FieldsByTag } from "../model-attribute-form/ModelAttributeForm";
@@ -40,7 +40,7 @@ import shared from "./shared.module.css";
 import { fetchCmdbObjectRef, fetchCmdbInstanceDetail } from "../data-providers";
 import { BASIC_INFORMATION_RELATION_GROUP_ID } from "./constants";
 import { isArray } from "util";
-import { UseBrickConf } from "@easyops/brick-types";
+import { UseBrickConf } from "@next-core/brick-types";
 
 export interface AttrCustomConfigs {
   [attrId: string]: LegacyCustomComponent;

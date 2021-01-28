@@ -3,9 +3,9 @@ import { Modal } from "antd";
 import {
   BrickLifeCycle,
   BrickEventsMap,
-  BrickConf
-} from "@easyops/brick-types";
-import { isObject } from "@easyops/brick-utils";
+  BrickConf,
+} from "@next-core/brick-types";
+import { isObject } from "@next-core/brick-utils";
 import { safeDump, JSON_SCHEMA, safeLoad } from "js-yaml";
 import {
   StoryboardNodeBrick,
@@ -15,7 +15,7 @@ import {
   StoryboardNodeApp,
   StoryboardNodeSlottedRoutes,
   StoryboardNodeRoutedChild,
-  StoryboardNodeSubRoutes
+  StoryboardNodeSubRoutes,
 } from "../interfaces";
 
 export interface BrickPatch {
@@ -59,7 +59,7 @@ export function brickNodeChildrenToSlots(
     (acc, nodes) => {
       if (nodes[0].type === "routes") {
         acc[nodes[0].slotName] = {
-          type: "routes"
+          type: "routes",
         };
       } else {
         acc[nodes[0].slotName] = {
@@ -71,9 +71,9 @@ export function brickNodeChildrenToSlots(
               template: node.brickData.template,
               internalUsedBricks: node.brickData.internalUsedBricks,
               internalUsedTemplates: node.brickData.internalUsedTemplates,
-              if: node.brickData.if
+              if: node.brickData.if,
             })
-          )
+          ),
         };
       }
       return acc;
@@ -92,8 +92,8 @@ function slottedBrickPlaceholder(
     slotName,
     groupIndex,
     brickData: {
-      brick: "div"
-    }
+      brick: "div",
+    },
   };
 }
 
@@ -114,7 +114,7 @@ export function updateBrickNode(
   let groupIndex = 0;
   for (const [slotName, slotData] of Object.entries(slots)) {
     const matchedChildren = (node.children ?? []).filter(
-      item =>
+      (item) =>
         item.type === (slotData.type === "routes" ? "routes" : "brick") &&
         item.slotName === slotName
     );
@@ -122,7 +122,7 @@ export function updateBrickNode(
       if (slotData.type === "bricks" && Array.isArray(slotData.bricks)) {
         children.push(
           ...slotData.bricks
-            .map(item => {
+            .map((item) => {
               const matchedNode = matchedChildren[
                 item._target
               ] as StoryboardNodeSlottedBrick;
@@ -134,19 +134,19 @@ export function updateBrickNode(
                   delete matchedNode.brickData.bg;
                   delete matchedNode.children;
                   Object.assign(matchedNode.brickData, {
-                    template: item.template
+                    template: item.template,
                   });
                 } else if (item.brick) {
                   delete matchedNode.brickData.template;
                   delete matchedNode.brickData.params;
                   Object.assign(matchedNode.brickData, {
-                    brick: item.brick
+                    brick: item.brick,
                   });
                 }
                 Object.assign(matchedNode.brickData, {
                   internalUsedBricks: item.internalUsedBricks,
                   internalUsedTemplates: item.internalUsedTemplates,
-                  if: item.if
+                  if: item.if,
                 });
                 return matchedNode;
               }
@@ -163,9 +163,9 @@ export function updateBrickNode(
         );
       } else {
         children.push(
-          ...matchedChildren.map(item => ({
+          ...matchedChildren.map((item) => ({
             ...item,
-            groupIndex: groupIndex
+            groupIndex: groupIndex,
           }))
         );
       }
@@ -173,7 +173,7 @@ export function updateBrickNode(
       if (slotData.type === "bricks") {
         if (Array.isArray(slotData.bricks)) {
           children.push(
-            ...slotData.bricks.map(item => {
+            ...slotData.bricks.map((item) => {
               const placeholder = slottedBrickPlaceholder(slotName, groupIndex);
               if (item.brick) {
                 placeholder.brickData.brick = item.brick;
@@ -193,7 +193,7 @@ export function updateBrickNode(
           routeType: "slotted",
           slotName,
           groupIndex: groupIndex,
-          children: []
+          children: [],
         });
       }
     }
@@ -205,9 +205,9 @@ export function updateBrickNode(
 export function routesNodeChildrenToRoutes(
   nodes: StoryboardNodeRoutedChild[]
 ): RouteDataPatch[] {
-  return Object.values(groupBy(nodes, "groupIndex")).map(group => ({
+  return Object.values(groupBy(nodes, "groupIndex")).map((group) => ({
     _target: group[0].groupIndex,
-    ...group[0].routeData
+    ...group[0].routeData,
   }));
 }
 
@@ -224,13 +224,13 @@ export function updateRoutesNode(
       // Ensure `_target` and `type` match.
       const matchedChildren =
         _target !== undefined &&
-        (node.children ?? []).filter(item => item.groupIndex === _target);
+        (node.children ?? []).filter((item) => item.groupIndex === _target);
       if (matchedChildren && matchedChildren.length > 0) {
         acc.push(
-          ...matchedChildren.map(item => ({
+          ...matchedChildren.map((item) => ({
             ...item,
             routeData,
-            groupIndex: index
+            groupIndex: index,
           }))
         );
       } else if (type === "routes") {
@@ -239,13 +239,13 @@ export function updateRoutesNode(
           routeType: "routed",
           routeData,
           children: [],
-          groupIndex: index
+          groupIndex: index,
         });
       } else if (type === "redirect") {
         acc.push({
           type: "redirect",
           routeData,
-          groupIndex: index
+          groupIndex: index,
         });
       } else {
         acc.push({
@@ -253,9 +253,9 @@ export function updateRoutesNode(
           brickType: "routed",
           routeData,
           brickData: {
-            brick: "div"
+            brick: "div",
           },
-          groupIndex: index
+          groupIndex: index,
         });
       }
       return acc;
@@ -273,7 +273,7 @@ export function generalStringify(data: any, useYaml?: boolean): string {
       schema: JSON_SCHEMA,
       skipInvalid: true,
       noRefs: true,
-      noCompatMode: true
+      noCompatMode: true,
     });
   }
   return JSON.stringify(data, null, 2);
@@ -296,7 +296,7 @@ export function generalParse(
       : JSON.parse(value);
   } catch (e) {
     Modal.error({
-      content: `请填写有效的${label} ${useYaml ? "YAML" : "JSON"} 串`
+      content: `请填写有效的${label} ${useYaml ? "YAML" : "JSON"} 串`,
     });
     return false;
   }
@@ -310,7 +310,7 @@ export function generalParse(
       : !parsedIsArray && !parsedIsObject
   ) {
     Modal.error({
-      content: `请填写有效的${label}`
+      content: `请填写有效的${label}`,
     });
     return false;
   }

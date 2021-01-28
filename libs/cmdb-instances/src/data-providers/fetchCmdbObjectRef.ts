@@ -1,4 +1,4 @@
-import { CmdbObjectApi } from "@sdk/cmdb-sdk";
+import { CmdbObjectApi } from "@next-sdk/cmdb-sdk";
 
 export function fetchCmdbObjectRef(
   objectId: string

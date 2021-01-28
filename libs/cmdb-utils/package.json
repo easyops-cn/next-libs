@@ -29,9 +29,9 @@
   },
   "sideEffects": false,
   "peerDependencies": {
-    "@easyops/brick-dll": "*"
+    "@next-core/brick-dll": "*"
   },
   "dependencies": {
-    "@sdk/cmdb-sdk": "^0.15.17"
+    "@next-sdk/cmdb-sdk": "^1.0.1"
   }
 }

@@ -29,8 +29,8 @@
   },
   "sideEffects": false,
   "peerDependencies": {
-    "@dll/echarts": "*",
-    "@easyops/brick-dll": "*"
+    "@next-dll/echarts": "*",
+    "@next-core/brick-dll": "*"
   },
   "dependencies": {
     "@types/echarts": "^4.4.3",

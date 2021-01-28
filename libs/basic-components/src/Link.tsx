@@ -1,8 +1,8 @@
 // Ref https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/modules/Link.js
 import React, { useMemo } from "react";
 import { createLocation, LocationDescriptor } from "history";
-import { getHistory } from "@easyops/brick-kit";
-import { PluginHistory, PluginHistoryState } from "@easyops/brick-types";
+import { getHistory } from "@next-core/brick-kit";
+import { PluginHistory, PluginHistoryState } from "@next-core/brick-types";
 
 function isModifiedEvent(
   event: React.MouseEvent<HTMLAnchorElement, MouseEvent>

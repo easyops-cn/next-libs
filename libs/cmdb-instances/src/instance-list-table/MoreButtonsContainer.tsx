@@ -1,7 +1,7 @@
 import React from "react";
 import { EllipsisOutlined, SettingOutlined } from "@ant-design/icons";
 import { Dropdown, Menu, Modal, Button } from "antd";
-import { CmdbModels } from "@sdk/cmdb-sdk";
+import { CmdbModels } from "@next-sdk/cmdb-sdk";
 import { Settings } from "./SettingsContainer";
 import { InstanceListPresetConfigs } from "./interfaces";
 import styles from "./InstanceListTable.module.css";

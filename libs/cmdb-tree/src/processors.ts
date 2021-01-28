@@ -1,5 +1,5 @@
 import { isEmpty, cloneDeep, get } from "lodash";
-import { CmdbModels } from "@sdk/cmdb-sdk";
+import { CmdbModels } from "@next-sdk/cmdb-sdk";
 import { TreeNode } from "./CMDBTree";
 
 export function transformToTreeData(objectList: any[]): TreeNode[] {
@@ -46,7 +46,7 @@ export function transformToTreeData(objectList: any[]): TreeNode[] {
             key: `${category}.${tag}`,
             title: tag,
             type: "tag",
-            children: map[category][tag]
+            children: map[category][tag],
           });
         }
       }
@@ -59,7 +59,7 @@ export function transformToTreeData(objectList: any[]): TreeNode[] {
       key: category,
       title: category,
       type: "category",
-      children
+      children,
     });
   }
 
@@ -91,7 +91,7 @@ function match(treeNode: TreeNode, q: string): boolean {
   ) {
     return true;
   }
-  treeNode.children = treeNode.children.filter(node => match(node, q));
+  treeNode.children = treeNode.children.filter((node) => match(node, q));
   return !isEmpty(treeNode.children);
 }
 
@@ -164,7 +164,7 @@ export function fixRequestFields(
     >();
     for (const [objectId, child] of map) {
       if (child?.length) {
-        const model = objectList.find(o => o.objectId == objectId);
+        const model = objectList.find((o) => o.objectId == objectId);
         if (!model) {
           continue;
         }
@@ -223,7 +223,7 @@ export function getObjectIds(
     >();
     for (const [objectId, child] of map) {
       if (child?.length) {
-        const model = objectList.find(o => o.objectId == objectId);
+        const model = objectList.find((o) => o.objectId == objectId);
         if (!model) {
           continue;
         }
@@ -258,7 +258,7 @@ export function getRelation2ObjectId(
     >();
     for (const [objectId, child] of map) {
       if (child?.length) {
-        const model = objectList.find(o => o.objectId == objectId);
+        const model = objectList.find((o) => o.objectId == objectId);
         if (!model) {
           continue;
         }

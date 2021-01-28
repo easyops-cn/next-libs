@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import classnames from "classnames";
 
-import { CmdbModels, InstanceApi } from "@sdk/cmdb-sdk";
+import { CmdbModels, InstanceApi } from "@next-sdk/cmdb-sdk";
 import { InstanceListTable } from "../instance-list-table";
 import { InstanceListModal } from "../instance-list-modal/InstanceListModal";
 

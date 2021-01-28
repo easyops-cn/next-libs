@@ -1,8 +1,8 @@
 import React from "react";
 import { Badge as AntdBadge } from "antd";
 import { BadgeProps as AntdBadgeProps } from "antd/lib/badge";
-import { BrickAsComponent } from "@easyops/brick-kit";
-import { UseBrickConf, MenuIcon } from "@easyops/brick-types";
+import { BrickAsComponent } from "@next-core/brick-kit";
+import { UseBrickConf, MenuIcon } from "@next-core/brick-types";
 import { GeneralIcon } from "./GeneralIcon";
 
 export interface BadgeProps extends AntdBadgeProps {

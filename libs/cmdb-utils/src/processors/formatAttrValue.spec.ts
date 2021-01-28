@@ -1,14 +1,14 @@
 import { formatAttrValue } from "./formatAttrValue";
-import { getRuntime } from "@easyops/brick-kit";
+import { getRuntime } from "@next-core/brick-kit";
 
-jest.mock("@easyops/brick-kit");
+jest.mock("@next-core/brick-kit");
 
 (getRuntime as jest.Mock).mockReturnValue({
   getFeatureFlags: () => {
     return {
-      "config-show-key": true
+      "config-show-key": true,
     };
-  }
+  },
 });
 
 describe("formatAttrValue", () => {
@@ -35,12 +35,12 @@ describe("formatAttrValue", () => {
           mode: "default",
           prefix: "",
           start_value: 0,
-          series_number_length: 0
+          series_number_length: 0,
         },
-        wordIndexDenied: false
+        wordIndexDenied: false,
       },
       "HOST",
-      "123"
+      "123",
     ],
     [
       [
@@ -49,8 +49,8 @@ describe("formatAttrValue", () => {
           fstype: "1",
           mountpoint: "1",
           provider: "1",
-          size: 1
-        }
+          size: 1,
+        },
       ],
       {
         id: "disk",
@@ -74,46 +74,46 @@ describe("formatAttrValue", () => {
               name: "磁盘",
               type: "str",
               regex: null,
-              protected: true
+              protected: true,
             },
             {
               id: "fstype",
               name: "文件系统类型",
               type: "str",
               regex: null,
-              protected: true
+              protected: true,
             },
             {
               id: "mountpoint",
               name: "挂载点",
               type: "str",
               regex: null,
-              protected: true
+              protected: true,
             },
             {
               id: "size",
               name: "容量（KB）",
               type: "int",
               regex: null,
-              protected: true
+              protected: true,
             },
             {
               id: "provider",
               name: "网络挂载",
               type: "str",
               regex: null,
-              protected: true
-            }
+              protected: true,
+            },
           ],
           mode: "",
           prefix: "",
           start_value: 0,
-          series_number_length: 0
+          series_number_length: 0,
         },
-        wordIndexDenied: false
+        wordIndexDenied: false,
       },
       "HOST",
-      '[{"device":"1","fstype":"1","mountpoint":"1","provider":"1","size":1}]'
+      '[{"device":"1","fstype":"1","mountpoint":"1","provider":"1","size":1}]',
     ],
     [
       "未安装",
@@ -137,12 +137,12 @@ describe("formatAttrValue", () => {
           mode: "",
           prefix: "",
           start_value: 0,
-          series_number_length: 0
+          series_number_length: 0,
         },
-        wordIndexDenied: false
+        wordIndexDenied: false,
       },
       "HOST",
-      "未安装"
+      "未安装",
     ],
     [
       1024,
@@ -166,50 +166,50 @@ describe("formatAttrValue", () => {
           mode: "",
           prefix: "",
           start_value: 0,
-          series_number_length: 0
+          series_number_length: 0,
         },
-        wordIndexDenied: false
+        wordIndexDenied: false,
       },
       "HOST",
-      "1 MB"
+      "1 MB",
     ],
     [
       [1, 2, 3],
       {
         id: "arr",
         value: {
-          type: "arr"
-        }
+          type: "arr",
+        },
       },
       "APP",
-      "1; 2; 3"
+      "1; 2; 3",
     ],
     [
       [
         {
-          value: 1
+          value: 1,
         },
         {
-          value: 2
+          value: 2,
         },
         {
-          value: 3
-        }
+          value: 3,
+        },
       ],
       {
         id: "enum",
         value: {
-          type: "enum"
-        }
+          type: "enum",
+        },
       },
       "APP",
-      "1 | 2 | 3"
+      "1 | 2 | 3",
     ],
     [
       [
         {
-          k: "2"
-        }
+          k: "2",
+        },
       ],
       {
         id: "FK",
@@ -217,22 +217,22 @@ describe("formatAttrValue", () => {
         value: {
           type: "FK",
           rule: {
-            obj: "k"
-          }
+            obj: "k",
+          },
         },
         view: {
-          visibleExternals: "k"
-        }
+          visibleExternals: "k",
+        },
       },
       "APP",
-      "(2)"
+      "(2)",
     ],
     [
       [
         {
           k: "2",
-          v: "3"
-        }
+          v: "3",
+        },
       ],
       {
         id: "FK",
@@ -240,21 +240,21 @@ describe("formatAttrValue", () => {
         value: {
           type: "FK",
           rule: {
-            obj: "k"
+            obj: "k",
           },
-          external: "v"
+          external: "v",
         },
         view: {
-          visibleExternals: "k"
-        }
+          visibleExternals: "k",
+        },
       },
       "APP",
-      "2(3)"
+      "2(3)",
     ],
     [
       {
         k: "2",
-        v: "3"
+        v: "3",
       },
       {
         id: "FK",
@@ -262,26 +262,26 @@ describe("formatAttrValue", () => {
         value: {
           type: "FK",
           rule: {
-            obj: "k"
+            obj: "k",
           },
-          external: "v"
+          external: "v",
         },
         view: {
-          visibleExternals: "k"
+          visibleExternals: "k",
         },
-        relation_id: "app"
+        relation_id: "app",
       },
       "APP",
-      "2; 3"
+      "2; 3",
     ],
     [
       [
         {
-          k: "1"
+          k: "1",
         },
         {
-          k: "2"
-        }
+          k: "2",
+        },
       ],
       {
         id: "FKs",
@@ -289,50 +289,50 @@ describe("formatAttrValue", () => {
         value: {
           type: "FKs",
           rule: {
-            obj: "k"
+            obj: "k",
           },
-          external: "k"
+          external: "k",
         },
         view: {
-          visibleExternals: "k"
-        }
+          visibleExternals: "k",
+        },
       },
       "APP",
-      "1; 2"
+      "1; 2",
     ],
     [
       [],
       {
         id: "struct",
         value: {
-          type: "struct"
-        }
+          type: "struct",
+        },
       },
       "APP",
-      ""
+      "",
     ],
     [
       "123",
       {
         id: "struct",
         value: {
-          type: "struct"
-        }
+          type: "struct",
+        },
       },
       "APP",
-      "123"
+      "123",
     ],
     [
       undefined,
       {
         id: "app",
         value: {
-          type: "str"
-        }
+          type: "str",
+        },
       },
       undefined,
-      ""
-    ]
+      "",
+    ],
   ];
 
   it.each(cases)(

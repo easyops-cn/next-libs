@@ -1,7 +1,7 @@
 import React from "react";
 import { mount, shallow } from "enzyme";
 import { HttpOptions, useHttp } from "./useHttp";
-import * as kit from "@easyops/brick-kit";
+import * as kit from "@next-core/brick-kit";
 
 const mockHttpApi = jest.fn();
 const mockOnSuccess = jest.fn();
@@ -15,7 +15,7 @@ const TestUseHttpComponent = ({
   getter,
   onError,
   onFinally,
-  onSuccess
+  onSuccess,
 }: TestUseHttpComponentProps) => {
   const { error, loading, data, reload } = useHttp(
     mockHttpApi,
@@ -25,7 +25,7 @@ const TestUseHttpComponent = ({
       getter: getter || null,
       onError,
       onFinally,
-      onSuccess
+      onSuccess,
     }
   );
   if (loading) {

@@ -2,13 +2,13 @@ import React from "react";
 import { mount } from "enzyme";
 import { act } from "react-dom/test-utils";
 
-import { CmdbModels, InstanceApi } from "@sdk/cmdb-sdk";
+import { CmdbModels, InstanceApi } from "@next-sdk/cmdb-sdk";
 import { CmdbInstancesSelectPanel } from "./CmdbInstancesSelectPanel";
 import { InstanceListTable } from "../instance-list-table";
 import { InstanceList } from "../instance-list/InstanceList";
 import { InstanceListModal } from "../instance-list-modal/InstanceListModal";
 
-jest.mock("@sdk/cmdb-sdk");
+jest.mock("@next-sdk/cmdb-sdk");
 jest.mock("../instance-list-table", () => {
   return {
     InstanceListTable: jest.fn(() => {

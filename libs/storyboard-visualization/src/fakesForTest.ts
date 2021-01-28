@@ -1,4 +1,4 @@
-import { Storyboard } from "@easyops/brick-types";
+import { Storyboard } from "@next-core/brick-types";
 import { StoryboardTree } from "./interfaces";
 import { GraphNode } from "./BuilderGraph";
 import { RouteGraphNode } from "./RoutesGraph";

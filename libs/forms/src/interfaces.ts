@@ -1,7 +1,7 @@
 import { WrappedFormUtils } from "@ant-design/compatible/lib/form/Form";
 import { ColProps } from "antd/lib/col";
 import React from "react";
-import { MenuIcon, UseBrickConf } from "@easyops/brick-types";
+import { MenuIcon, UseBrickConf } from "@next-core/brick-types";
 
 export interface AbstractGeneralFormElement extends HTMLElement {
   formUtils: WrappedFormUtils;

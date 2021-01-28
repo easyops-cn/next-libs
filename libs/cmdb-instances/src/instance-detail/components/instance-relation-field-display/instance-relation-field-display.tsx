@@ -11,7 +11,7 @@ import {
   getInstanceNameKeys,
   parseTemplate,
 } from "@libs/cmdb-utils";
-import { CmdbModels } from "@sdk/cmdb-sdk";
+import { CmdbModels } from "@next-sdk/cmdb-sdk";
 
 import { userDisplayFieldIdList } from "./constants";
 

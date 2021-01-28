@@ -16,8 +16,8 @@ import {
 } from "d3-shape";
 import { findLast, uniqueId } from "lodash";
 import classNames from "classnames";
-import { computeRealRoutePath } from "@easyops/brick-utils";
-import { BrickConf } from "@easyops/brick-types";
+import { computeRealRoutePath } from "@next-core/brick-utils";
+import { BrickConf } from "@next-core/brick-types";
 import { StoryboardTree, StoryboardNode } from "./interfaces";
 
 import styles from "./shared/Visualization.module.css";

@@ -1,14 +1,13 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import React from "react";
 import { shallow } from "enzyme";
 import { render } from "@testing-library/react";
 import "snapshot-diff";
 import "snapshot-diff/extend-expect";
-import { InstanceTreeApi } from "@sdk/cmdb-sdk";
+import { InstanceTreeApi } from "@next-sdk/cmdb-sdk";
 import { CMDBTree } from "./CMDBTree";
-import * as kit from "@easyops/brick-kit";
+import * as kit from "@next-core/brick-kit";
 
-jest.mock("@sdk/cmdb-sdk");
+jest.mock("@next-sdk/cmdb-sdk");
 
 const treeRequestBody: any = { tree: {} };
 const q = "";
@@ -36,14 +35,14 @@ xdescribe("cmdb tree", () => {
             {
               _object_id: "business",
               instanceId: "business-id-2",
-              name: "business-2"
-            }
+              name: "business-2",
+            },
           ],
           _businesses_APP: [
-            { _object_id: "APP", instanceId: "app-id", name: "app-1" }
-          ]
-        }
-      ]
+            { _object_id: "APP", instanceId: "app-id", name: "app-1" },
+          ],
+        },
+      ],
     });
 
     wrapper = shallow(
@@ -104,11 +103,11 @@ xdescribe("cmdb tree", () => {
           name: "name-1",
           _object_id: "BUSINESS",
           _sub_system: [
-            { instanceId: "id-2", name: "name-2", _object_id: "BUSINESS" }
-          ]
-        }
+            { instanceId: "id-2", name: "name-2", _object_id: "BUSINESS" },
+          ],
+        },
       ],
-      APP: []
+      APP: [],
     });
     const expected = [
       expect.objectContaining({
@@ -123,8 +122,8 @@ xdescribe("cmdb tree", () => {
             key: "id-2",
             title: "name-2",
             objectId: "BUSINESS",
-            isLeaf: true
-          }
+            isLeaf: true,
+          },
         ],
         key: "id-1",
         title: "name-1",
@@ -137,11 +136,11 @@ xdescribe("cmdb tree", () => {
             key: "id-2",
             title: "name-2",
             objectId: "BUSINESS",
-            isLeaf: true
-          }
+            isLeaf: true,
+          },
         ],
-        isLeaf: false
-      })
+        isLeaf: false,
+      }),
     ];
     expect(spy).toBeCalledWith(expected, true);
   });
@@ -151,8 +150,8 @@ xdescribe("cmdb tree", () => {
       key: "0",
       children: [
         { key: "0-0" },
-        { key: "0-1", children: [{ key: "0-1-0" }, { key: "target" }] }
-      ]
+        { key: "0-1", children: [{ key: "0-1-0" }, { key: "target" }] },
+      ],
     };
 
     const result: string[] = [];
@@ -166,9 +165,9 @@ xdescribe("cmdb tree", () => {
         key: "0",
         children: [
           { key: "0-0", children: [{ key: "0-0-1" }] },
-          { key: "0-1", children: [{ key: "0-1-0" }, { key: "target" }] }
-        ]
-      }
+          { key: "0-1", children: [{ key: "0-1-0" }, { key: "target" }] },
+        ],
+      },
     ];
 
     const result: string[] = [];

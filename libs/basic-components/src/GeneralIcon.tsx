@@ -9,8 +9,8 @@ import {
   LegacyAntdIcon,
   FaIcon,
   EasyopsIcon,
-} from "@easyops/brick-types";
-import { BrickIcon } from "@easyops/brick-icons";
+} from "@next-core/brick-types";
+import { BrickIcon } from "@next-core/brick-icons";
 import { Colors, COLORS_MAP, getColor } from "./utils/getColor";
 import cssStyle from "./GeneralIcon.module.css";
 

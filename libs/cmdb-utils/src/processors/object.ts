@@ -1,4 +1,4 @@
-import { CmdbModels } from "@sdk/cmdb-sdk";
+import { CmdbModels } from "@next-sdk/cmdb-sdk";
 
 type Sides = "left" | "right";
 export type RelationIdKeys = "left_id" | "right_id";
@@ -31,7 +31,7 @@ export function forEachAvailableFields(
   if (fieldIds) {
     const fieldIdSet = new Set(fieldIds);
     if (attrCallback) {
-      object.attrList.forEach(attr => {
+      object.attrList.forEach((attr) => {
         if (fieldIdSet.has(attr.id)) {
           attrCallback(attr);
         }
@@ -39,7 +39,7 @@ export function forEachAvailableFields(
     }
 
     if (relationCallback) {
-      object.relation_list.forEach(relation => {
+      object.relation_list.forEach((relation) => {
         const sides = getRelationObjectSides(relation, object);
         const id = relation[`${sides.this}_id` as RelationIdKeys];
 
@@ -56,7 +56,7 @@ export function forEachAvailableFields(
     }
 
     if (attrCallback) {
-      object.attrList.forEach(attr => {
+      object.attrList.forEach((attr) => {
         if (!hideColumnsSet || !hideColumnsSet.has(attr.id)) {
           attrCallback(attr);
         }
@@ -64,7 +64,7 @@ export function forEachAvailableFields(
     }
 
     if (relationCallback) {
-      object.relation_list.forEach(relation => {
+      object.relation_list.forEach((relation) => {
         const sides = getRelationObjectSides(relation, object);
         const id = relation[`${sides.this}_id` as RelationIdKeys];
 

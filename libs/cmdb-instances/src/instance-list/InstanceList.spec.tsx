@@ -7,8 +7,8 @@ import {
   fireEvent,
 } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
-import { PropertyDisplayConfig } from "@easyops/brick-types";
-import { InstanceApi } from "@sdk/cmdb-sdk";
+import { PropertyDisplayConfig } from "@next-core/brick-types";
+import { InstanceApi } from "@next-sdk/cmdb-sdk";
 import * as storage from "@libs/storage";
 import { IconButton } from "./IconButton";
 
@@ -24,7 +24,7 @@ import { InstanceListPresetConfigs } from "../instance-list/InstanceList";
 import { mount, shallow } from "enzyme";
 
 jest.mock("@libs/storage");
-jest.mock("@sdk/cmdb-sdk");
+jest.mock("@next-sdk/cmdb-sdk");
 jest.mock("../instance-list-table", () => ({
   AdvancedSearch: jest.fn(() => {
     return "<div>Fake advanced search loaded!</div>";

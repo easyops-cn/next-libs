@@ -9,7 +9,7 @@ import { BatchHandleUser } from "./BatchHandleUser";
 import { PermissionCollection } from "../processors";
 import { SelectUserOrGroup } from "./SelectUserOrGroup";
 import styles from "./index.module.css";
-import { CmdbModels } from "@sdk/cmdb-sdk";
+import { CmdbModels } from "@next-sdk/cmdb-sdk";
 export interface CommonSettingPropsDefine {
   instanceData: any;
   permissionList: Permission[];

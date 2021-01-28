@@ -1,4 +1,4 @@
-import { CmdbModels } from "@sdk/cmdb-sdk";
+import { CmdbModels } from "@next-sdk/cmdb-sdk";
 
 export const fetchCmdbObjectDetail = jest.fn(() =>
   Promise.resolve({

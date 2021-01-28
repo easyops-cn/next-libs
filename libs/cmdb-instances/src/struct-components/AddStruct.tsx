@@ -4,7 +4,7 @@ import { StructTable } from "./StructTable";
 import { AddStructModal } from "./AddStructModal";
 import { isArray, isEmpty } from "lodash";
 import { Attribute } from "./interfaces";
-import { CmdbModels } from "@sdk/cmdb-sdk";
+import { CmdbModels } from "@next-sdk/cmdb-sdk";
 
 export interface AddStructProps {
   style?: CSSProperties;

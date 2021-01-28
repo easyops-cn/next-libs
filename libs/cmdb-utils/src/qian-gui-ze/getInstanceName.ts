@@ -1,5 +1,5 @@
 import { find } from "lodash";
-import { getRuntime } from "@easyops/brick-kit";
+import { getRuntime } from "@next-core/brick-kit";
 
 const getShowKey = () => {
   return getRuntime().getFeatureFlags()["config-show-key"];
@@ -28,7 +28,7 @@ export const getInstanceName = (
   objectId: any,
   modelList: any[] = []
 ) => {
-  const instanceModel = find(modelList, model => model.objectId === objectId);
+  const instanceModel = find(modelList, (model) => model.objectId === objectId);
   const showKey = getInstanceNameKey(objectId, instanceModel);
   if (Array.isArray(showKey)) {
     const showName = showKey

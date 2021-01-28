@@ -1,4 +1,4 @@
-import { RouteConf, MicroApp, BrickConf } from "@easyops/brick-types";
+import { RouteConf, MicroApp, BrickConf } from "@next-core/brick-types";
 
 export type StoryboardTree = StoryboardNodeApp;
 

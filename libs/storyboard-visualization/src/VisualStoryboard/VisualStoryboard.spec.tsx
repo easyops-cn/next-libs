@@ -1,6 +1,6 @@
 import React from "react";
 import { mount } from "enzyme";
-import { Storyboard } from "@easyops/brick-types";
+import { Storyboard } from "@next-core/brick-types";
 import { VisualStoryboard } from "./VisualStoryboard";
 import { Visualization } from "../Visualization";
 import { EditBrickNode } from "./EditBrickNode";
@@ -12,7 +12,7 @@ const render = jest.fn();
 (Visualization as jest.Mock).mockImplementation(() => ({
   getDOMNode: () =>
     document.createElementNS("http://www.w3.org/2000/svg", "svg"),
-  render
+  render,
 }));
 
 describe("VisualStoryboard", () => {
@@ -21,9 +21,9 @@ describe("VisualStoryboard", () => {
       app: {
         id: "a",
         name: "A",
-        homepage: "/a"
+        homepage: "/a",
       },
-      routes: []
+      routes: [],
     };
     const handleStoryboardUpdate = jest.fn();
     const wrapper = mount(
@@ -36,7 +36,7 @@ describe("VisualStoryboard", () => {
 
     wrapper.setProps({
       path: "/",
-      editable: true
+      editable: true,
     });
     expect(render).toBeCalledTimes(2);
 

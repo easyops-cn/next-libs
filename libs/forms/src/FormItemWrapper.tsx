@@ -4,7 +4,7 @@ import { get, isEmpty } from "lodash";
 import { Form } from "@ant-design/compatible";
 import { Tooltip } from "antd";
 import { GeneralIcon } from "@libs/basic-components";
-import { BrickAsComponent } from "@easyops/brick-kit";
+import { BrickAsComponent } from "@next-core/brick-kit";
 import { getDefaultMessage } from "./message";
 import { ValidationRule } from "@ant-design/compatible/lib/form";
 import { ColProps, ColSize } from "antd/lib/grid";

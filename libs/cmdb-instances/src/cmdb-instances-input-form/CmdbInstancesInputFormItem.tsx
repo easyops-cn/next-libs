@@ -6,7 +6,7 @@ import { groupBy } from "lodash";
 
 import { InstanceListModal } from "../instance-list-modal/InstanceListModal";
 import { modifyModelData } from "@libs/cmdb-utils";
-import { CmdbModels, InstanceApi } from "@sdk/cmdb-sdk";
+import { CmdbModels, InstanceApi } from "@next-sdk/cmdb-sdk";
 
 import { useTranslation } from "react-i18next";
 import { NS_LIBS_CMDB_INSTANCES, K } from "../i18n/constants";

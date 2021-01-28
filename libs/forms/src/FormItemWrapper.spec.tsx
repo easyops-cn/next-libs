@@ -7,7 +7,7 @@ import {
   getCommonEventMap,
   FormItemWrapperProps,
 } from "./FormItemWrapper";
-import { MenuIcon } from "@easyops/brick-types";
+import { MenuIcon } from "@next-core/brick-types";
 import i18n from "i18next";
 import { AbstractGeneralFormElement } from "./interfaces";
 

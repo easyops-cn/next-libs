@@ -2,9 +2,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import {
   HttpFetchError,
   HttpParseError,
-  HttpResponseError
-} from "@easyops/brick-http";
-import { handleHttpError } from "@easyops/brick-kit";
+  HttpResponseError,
+} from "@next-core/brick-http";
+import { handleHttpError } from "@next-core/brick-kit";
 import { get } from "lodash";
 
 type ThenArg<T> = T extends Promise<infer U>

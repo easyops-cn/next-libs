@@ -1,7 +1,7 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import { SearchableTree } from "./SearchableTree";
-import { FaIcon } from "@easyops/brick-types";
+import { FaIcon } from "@next-core/brick-types";
 
 const dataSource = [
   {

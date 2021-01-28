@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Modal, Table } from "antd";
 import { ColumnProps } from "antd/lib/table";
 
-import { CmdbModels, InstanceApi } from "@sdk/cmdb-sdk";
+import { CmdbModels, InstanceApi } from "@next-sdk/cmdb-sdk";
 import { InstanceListTable } from "../instance-list-table/InstanceListTable";
 
 import styles from "./model-relation-form.module.css";
@@ -28,21 +28,22 @@ export function ModelRelationForm(
   const oppositeModelData = props.modelMap[props.relation.right_object_id];
 
   const [visible, setVisible] = useState(false);
-  const [modalInstanceListData, setModalInstanceListData] = useState<
-    InstanceApi.PostSearchResponseBody
-  >();
+  const [
+    modalInstanceListData,
+    setModalInstanceListData,
+  ] = useState<InstanceApi.PostSearchResponseBody>();
 
   let selectedInstanceListTemp: any[] = [];
   const [selectedInstanceList, setSelectedInstanceList] = useState(
     props.instanceListData || []
   );
 
-  const fieldIds = oppositeModelData.attrList.map(attr => attr.id);
+  const fieldIds = oppositeModelData.attrList.map((attr) => attr.id);
 
   const computeFields = () => {
     // TODO(Cyril): compute custom fields
     return {
-      "*": true
+      "*": true,
     };
   };
 
@@ -52,7 +53,7 @@ export function ModelRelationForm(
       {
         page: 1,
         page_size: 10,
-        fields: computeFields()
+        fields: computeFields(),
       }
     );
     setModalInstanceListData(instanceListData);
@@ -63,7 +64,7 @@ export function ModelRelationForm(
     setVisible(false);
     setSelectedInstanceList(selectedInstanceListTemp);
     props.onChange(
-      selectedInstanceListTemp.map(instanceData => instanceData.instanceId)
+      selectedInstanceListTemp.map((instanceData) => instanceData.instanceId)
     );
   };
 
@@ -80,7 +81,7 @@ export function ModelRelationForm(
       {
         page: event.page,
         page_size: event.pageSize,
-        fields: computeFields()
+        fields: computeFields(),
       }
     );
     setModalInstanceListData(instanceListData);
@@ -92,12 +93,12 @@ export function ModelRelationForm(
 
   const renderTable = (selectedInstanceList: any[]) => {
     const columns: ColumnProps<any>[] = oppositeModelData.attrList
-      .filter(attr => !["struct", "structs"].includes(attr.value.type))
+      .filter((attr) => !["struct", "structs"].includes(attr.value.type))
       .slice(0, 7)
-      .map(attr => ({
+      .map((attr) => ({
         title: attr.name,
         key: attr.id,
-        dataIndex: attr.id
+        dataIndex: attr.id,
       }));
 
     return (

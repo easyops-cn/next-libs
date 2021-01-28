@@ -1,5 +1,5 @@
-import { InstanceApi } from "@sdk/cmdb-sdk";
-import { HttpOptions } from "@easyops/brick-http";
+import { InstanceApi } from "@next-sdk/cmdb-sdk";
+import { HttpOptions } from "@next-core/brick-http";
 
 export function fetchCmdbInstanceAggregateCount(
   objectId: string | number,

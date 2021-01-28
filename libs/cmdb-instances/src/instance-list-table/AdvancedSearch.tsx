@@ -13,7 +13,7 @@ import {
 import { Form } from "@ant-design/compatible";
 import { Button, Col, Input, Row, Select } from "antd";
 import { FormComponentProps } from "@ant-design/compatible/lib/form";
-import { CmdbModels } from "@sdk/cmdb-sdk";
+import { CmdbModels } from "@next-sdk/cmdb-sdk";
 import {
   forEachAvailableFields,
   getInstanceNameKeys,
