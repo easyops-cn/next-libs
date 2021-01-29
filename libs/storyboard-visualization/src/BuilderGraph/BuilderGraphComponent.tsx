@@ -1,7 +1,7 @@
 import React from "react";
 import { BuilderGraph } from "./BuilderGraph";
 import { ViewItem } from "../shared/interfaces";
-import { ContentItemActions } from "@libs/basic-components";
+import { ContentItemActions } from "@next-libs/basic-components";
 
 export interface BuilderGraphComponentProps {
   data: ViewItem[];

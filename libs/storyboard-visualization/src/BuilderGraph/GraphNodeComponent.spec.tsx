@@ -1,6 +1,6 @@
 import React from "react";
 import { shallow } from "enzyme";
-import { GeneralIcon, ItemActionsComponent } from "@libs/basic-components";
+import { GeneralIcon, ItemActionsComponent } from "@next-libs/basic-components";
 import { FaIcon } from "@next-core/brick-types";
 import { GraphNodeComponent, ContentItem } from "./GraphNodeComponent";
 import { GraphNode } from "./interfaces";

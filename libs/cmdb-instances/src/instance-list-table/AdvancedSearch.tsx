@@ -20,7 +20,7 @@ import {
   RelationIdKeys,
   RelationNameKeys,
   RelationObjectIdKeys,
-} from "@libs/cmdb-utils";
+} from "@next-libs/cmdb-utils";
 
 import styles from "./AdvancedSearch.module.css";
 import {

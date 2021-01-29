@@ -1,4 +1,4 @@
-import { ShortUnitId, numberFormatUnits } from "@libs/constants";
+import { ShortUnitId, numberFormatUnits } from "@next-libs/constants";
 
 export const humanizeNumberValue = (
   value: number,
@@ -9,7 +9,7 @@ export const humanizeNumberValue = (
 
   if (unit) {
     const numberUnitIndex = numberFormatUnits.findIndex(
-      numberUnit =>
+      (numberUnit) =>
         numberUnit.id.toLocaleLowerCase() === unit.toLocaleLowerCase()
     );
     if (numberUnitIndex !== -1) {

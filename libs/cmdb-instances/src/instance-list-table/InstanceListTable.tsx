@@ -18,7 +18,7 @@ import {
   ReadSortingChangeDetail,
 } from "@next-core/brick-types";
 import { CmdbModels, InstanceApi } from "@next-sdk/cmdb-sdk";
-import { Link } from "@libs/basic-components";
+import { Link } from "@next-libs/basic-components";
 import {
   forEachAvailableFields,
   getInstanceNameKeys,
@@ -28,7 +28,7 @@ import {
   RelationNameKeys,
   RelationObjectIdKeys,
   RelationObjectSides,
-} from "@libs/cmdb-utils";
+} from "@next-libs/cmdb-utils";
 import { NS_CMDB_INSTANCES } from "./i18n/constants";
 
 import { ModelAttributeValueType } from "../model-attribute-form-control/ModelAttributeFormControl";

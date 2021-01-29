@@ -1,8 +1,8 @@
 {
-  "name": "@libs/cmdb-instances",
+  "name": "@next-libs/cmdb-instances",
   "version": "3.0.0",
   "description": "> TODO: description",
-  "homepage": "https://git.easyops.local/anyclouds/next-libs/tree/master/libs/cmdb-instances",
+  "homepage": "https://github.com/easyops-cn/next-libs/tree/master/libs/cmdb-instances",
   "license": "UNLICENSED",
   "main": "dist/index.bundle.js",
   "module": "dist/index.esm.js",
@@ -12,7 +12,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git@git.easyops.local:anyclouds/next-libs.git"
+    "url": "git@github.com:easyops-cn/next-libs.git"
   },
   "scripts": {
     "clean": "rimraf dist",
@@ -32,9 +32,9 @@
     "@next-core/brick-dll": "*"
   },
   "dependencies": {
-    "@libs/basic-components": "^2.0.0",
-    "@libs/cmdb-utils": "^1.0.0",
-    "@libs/storage": "^1.0.0",
+    "@next-libs/basic-components": "^2.0.0",
+    "@next-libs/cmdb-utils": "^1.0.0",
+    "@next-libs/storage": "^1.0.0",
     "@next-core/brick-types": "^2.16.0",
     "@next-sdk/cmdb-sdk": "^1.0.1",
     "@next-sdk/permission-sdk": "^1.1.1",

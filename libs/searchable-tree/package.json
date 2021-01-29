@@ -1,8 +1,8 @@
 {
-  "name": "@libs/searchable-tree",
+  "name": "@next-libs/searchable-tree",
   "version": "2.0.0",
   "description": "> TODO: description",
-  "homepage": "https://git.easyops.local/anyclouds/next-libs/tree/master/libs/searchable-tree",
+  "homepage": "https://github.com/easyops-cn/next-libs/tree/master/libs/searchable-tree",
   "license": "UNLICENSED",
   "main": "dist/index.bundle.js",
   "module": "dist/index.esm.js",
@@ -25,11 +25,11 @@
   },
   "sideEffects": false,
   "peerDependencies": {
-    "@libs/basic-components": "*",
+    "@next-libs/basic-components": "*",
     "@next-core/brick-dll": "*"
   },
   "devDependencies": {
-    "@libs/basic-components": "^2.0.0",
+    "@next-libs/basic-components": "^2.0.0",
     "@next-core/brick-types": "^2.16.0"
   }
 }

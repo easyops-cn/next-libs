@@ -1,4 +1,4 @@
-import { ByteRatesUnitId as DataRateFormatUnitId } from "@libs/constants";
+import { ByteRatesUnitId as DataRateFormatUnitId } from "@next-libs/constants";
 
 import { dataRateFormatUnits } from "../constants/format/dataRate";
 
@@ -12,11 +12,11 @@ export function humanizeDataRateValue(
   if (unit) {
     for (let i = 0; i < dataRateFormatUnits.length; ++i) {
       const dataRateUnitIndex = dataRateFormatUnits[i].findIndex(
-        dataRateUnit =>
+        (dataRateUnit) =>
           dataRateUnit.id.toLocaleLowerCase() === unit.toLocaleLowerCase() ||
           (dataRateUnit.alias &&
             dataRateUnit.alias
-              .map(alias => alias.toLocaleLowerCase())
+              .map((alias) => alias.toLocaleLowerCase())
               .includes(unit))
       );
       if (dataRateUnitIndex !== -1) {
@@ -51,6 +51,6 @@ export function humanizeDataRateValue(
     value /
       (dataRateFormatUnit.divisor /
         dataRateFormatUnitGroup[baseDataRateUnitIndex].divisor),
-    dataRateFormatUnit.display
+    dataRateFormatUnit.display,
   ];
 }

@@ -5,7 +5,7 @@ import { Button, Checkbox, Col, Divider, Input, Row, Typography } from "antd";
 import {
   getBatchEditableRelations,
   CMDB_RESOURCE_FIELDS_SETTINGS,
-} from "@libs/cmdb-utils";
+} from "@next-libs/cmdb-utils";
 import { CmdbModels } from "@next-sdk/cmdb-sdk";
 
 interface SettingsProps {

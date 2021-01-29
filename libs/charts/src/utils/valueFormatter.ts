@@ -13,7 +13,7 @@ import {
   BytesUnitId,
   ByteRatesUnitId,
   ShortUnitId,
-} from "@libs/constants";
+} from "@next-libs/constants";
 
 export const convertValueByPrecision = (
   value: number,

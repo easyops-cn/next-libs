@@ -33,7 +33,7 @@ import {
   RelationIdKeys,
   RelationNameKeys,
   RelationObjectIdKeys,
-} from "@libs/cmdb-utils";
+} from "@next-libs/cmdb-utils";
 
 import {
   ConditionType,
@@ -52,7 +52,7 @@ import {
   MAX_DEFAULT_FIELDS_COUNT,
   MAX_DEFAULT_MODAL_FIELDS_COUNT,
 } from "./constants";
-import { JsonStorage } from "@libs/storage";
+import { JsonStorage } from "@next-libs/storage";
 import { ModelAttributeValueType } from "../model-attribute-form-control/ModelAttributeFormControl";
 import { IconButton } from "./IconButton";
 

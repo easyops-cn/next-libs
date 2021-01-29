@@ -9,7 +9,7 @@ import {
 import { act } from "react-dom/test-utils";
 import { PropertyDisplayConfig } from "@next-core/brick-types";
 import { InstanceApi } from "@next-sdk/cmdb-sdk";
-import * as storage from "@libs/storage";
+import * as storage from "@next-libs/storage";
 import { IconButton } from "./IconButton";
 
 import { InstanceList } from "./InstanceList";
@@ -23,7 +23,7 @@ import {
 import { InstanceListPresetConfigs } from "../instance-list/InstanceList";
 import { mount, shallow } from "enzyme";
 
-jest.mock("@libs/storage");
+jest.mock("@next-libs/storage");
 jest.mock("@next-sdk/cmdb-sdk");
 jest.mock("../instance-list-table", () => ({
   AdvancedSearch: jest.fn(() => {

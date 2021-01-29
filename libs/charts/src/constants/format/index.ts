@@ -1,4 +1,4 @@
-import { percentFormatUnitIds } from "@libs/constants";
+import { percentFormatUnitIds } from "@next-libs/constants";
 import { timeFormatUnitIds } from "./time";
 import { dataFormatUnitIds } from "./data";
 import { dataRateFormatUnitIds } from "./dataRate";

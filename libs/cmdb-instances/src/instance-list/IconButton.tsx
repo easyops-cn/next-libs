@@ -2,7 +2,7 @@ import React from "react";
 import { Tooltip } from "antd";
 import styles from "./IconButton.module.css";
 import classNames from "classnames";
-import { GeneralIcon } from "@libs/basic-components";
+import { GeneralIcon } from "@next-libs/basic-components";
 
 interface IconButtonProps {
   checked?: boolean;

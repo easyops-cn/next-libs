@@ -1,8 +1,8 @@
 {
-  "name": "@libs/basic-components",
+  "name": "@next-libs/basic-components",
   "version": "2.0.0",
   "description": "> TODO: description",
-  "homepage": "https://git.easyops.local/anyclouds/next-libs/tree/master/libs/basic-components",
+  "homepage": "https://github.com/easyops-cn/next-libs/tree/master/libs/basic-components",
   "license": "UNLICENSED",
   "main": "dist/index.bundle.js",
   "module": "dist/index.esm.js",
@@ -12,7 +12,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git@git.easyops.local:anyclouds/next-libs.git"
+    "url": "git@github.com:easyops-cn/next-libs.git"
   },
   "scripts": {
     "clean": "rimraf dist",

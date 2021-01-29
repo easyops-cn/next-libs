@@ -1,4 +1,4 @@
-import { TimesUnitId as TimeFormatUnitId } from "@libs/constants";
+import { TimesUnitId as TimeFormatUnitId } from "@next-libs/constants";
 
 import { timeFormatUnits } from "../constants/format/time";
 
@@ -11,11 +11,11 @@ export function humanizeTimeValue(
   if (unit) {
     for (let i = 0; i < timeFormatUnits.length; ++i) {
       const timeUnitIndex = timeFormatUnits[i].findIndex(
-        timeUnit =>
+        (timeUnit) =>
           timeUnit.id.toLocaleLowerCase() === unit.toLocaleLowerCase() ||
           (timeUnit.alias &&
             timeUnit.alias
-              .map(alias => alias.toLocaleLowerCase())
+              .map((alias) => alias.toLocaleLowerCase())
               .includes(unit))
       );
       if (timeUnitIndex !== -1) {
@@ -44,6 +44,6 @@ export function humanizeTimeValue(
   return [
     value /
       (timeFormatUnit.divisor / timeFormatUnitGroup[baseTimeUnitIndex].divisor),
-    timeFormatUnit.display
+    timeFormatUnit.display,
   ];
 }

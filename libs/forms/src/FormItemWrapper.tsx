@@ -3,7 +3,7 @@ import { unstable_batchedUpdates } from "react-dom";
 import { get, isEmpty } from "lodash";
 import { Form } from "@ant-design/compatible";
 import { Tooltip } from "antd";
-import { GeneralIcon } from "@libs/basic-components";
+import { GeneralIcon } from "@next-libs/basic-components";
 import { BrickAsComponent } from "@next-core/brick-kit";
 import { getDefaultMessage } from "./message";
 import { ValidationRule } from "@ant-design/compatible/lib/form";

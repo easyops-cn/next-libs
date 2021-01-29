@@ -2,14 +2,22 @@
   "$schema": "http://json.schemastore.org/renovate",
   "extends": ["config:base"],
   "rangeStrategy": "bump",
-  "semanticCommits": "enabled",
+  "semanticCommits": true,
   "commitMessagePrefix": "chore(deps):",
-  "assignees": ["weareoutman"],
   "ignorePresets": [":ignoreModulesAndTests"],
   "packageRules": [
     { "depTypeList": ["devDependencies"], "automerge": true },
     {
-      "packagePatterns": ["^@bricks/", "^@libs/", "^@micro-apps/", "^@sdk/"],
+      "packagePatterns": [
+        "^@bricks/",
+        "^@libs/",
+        "^@micro-apps/",
+        "^@sdk/",
+        "^@next-bricks/",
+        "^@next-libs/",
+        "^@next-micro-apps/",
+        "^@next-sdk/"
+      ],
       "enabled": false,
       "packageNames": [
         "@ant-design/compatible",
@@ -75,16 +83,10 @@
           "yarn-deduplicate yarn.lock",
           "yarn"
         ],
-        "fileFilters": ["**/*", ".gitlab/**/*"]
+        "fileFilters": ["**/*", ".gitlab/**/*", ".github/**/*"]
       },
       "major": { "enabled": false }
-    },
-    {
-      "baseBranchList": ["legacy/brick-next_1.x"],
-      "excludePackagePatterns": ["^@next-core/"],
-      "enabled": false
     }
   ],
-  "postUpdateOptions": ["yarnDedupeHighest"],
-  "baseBranches": ["master", "legacy/brick-next_1.x"]
+  "postUpdateOptions": ["yarnDedupeHighest"]
 }

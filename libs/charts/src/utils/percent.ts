@@ -1,4 +1,4 @@
-import { PercentUnitId as PercentFormatUnitId } from "@libs/constants";
+import { PercentUnitId as PercentFormatUnitId } from "@next-libs/constants";
 
 export function humanizePercentValue(
   value: number,

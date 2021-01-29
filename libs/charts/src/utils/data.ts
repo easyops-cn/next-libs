@@ -1,4 +1,4 @@
-import { BytesUnitId as DataFormatUnitId } from "@libs/constants";
+import { BytesUnitId as DataFormatUnitId } from "@next-libs/constants";
 
 import { dataFormatUnits } from "../constants/format/data";
 
@@ -12,11 +12,11 @@ export function humanizeDataValue(
   if (unit) {
     for (let i = 0; i < dataFormatUnits.length; ++i) {
       const dataUnitIndex = dataFormatUnits[i].findIndex(
-        dataUnit =>
+        (dataUnit) =>
           dataUnit.id.toLocaleLowerCase() === unit.toLocaleLowerCase() ||
           (dataUnit.alias &&
             dataUnit.alias
-              .map(alias => alias.toLocaleLowerCase())
+              .map((alias) => alias.toLocaleLowerCase())
               .includes(unit))
       );
       if (dataUnitIndex !== -1) {
@@ -45,6 +45,6 @@ export function humanizeDataValue(
   return [
     value /
       (dataFormatUnit.divisor / dataFormatUnitGroup[baseDataUnitIndex].divisor),
-    dataFormatUnit.display
+    dataFormatUnit.display,
   ];
 }

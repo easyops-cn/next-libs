@@ -15,7 +15,7 @@ import {
   ModifiedModelObjectAttr,
   ModifiedModelObjectRelation,
   ModifiedModelObjectField,
-} from "@libs/cmdb-utils";
+} from "@next-libs/cmdb-utils";
 
 import { ModelRelationForm } from "../model-relation-form/ModelRelationForm";
 

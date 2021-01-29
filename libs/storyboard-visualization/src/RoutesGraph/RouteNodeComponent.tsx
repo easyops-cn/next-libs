@@ -7,7 +7,7 @@ import {
   ItemActionsComponent,
   filterActions,
   ContentItemActions,
-} from "@libs/basic-components";
+} from "@next-libs/basic-components";
 import classNames from "classnames";
 import { Dropdown, Menu } from "antd";
 import { RouteTypeIcon } from "./RouteTypeIcon";

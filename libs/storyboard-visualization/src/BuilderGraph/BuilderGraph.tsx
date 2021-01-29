@@ -15,7 +15,7 @@ import { ViewItem } from "../shared/interfaces";
 import { viewsToGraph, computeSourceX } from "./processors";
 import { GraphNodeComponent } from "./GraphNodeComponent";
 import { styleConfig } from "./constants";
-import { ContentItemActions } from "@libs/basic-components";
+import { ContentItemActions } from "@next-libs/basic-components";
 import { zoomIdentity } from "d3-zoom";
 import { drag } from "d3-drag";
 

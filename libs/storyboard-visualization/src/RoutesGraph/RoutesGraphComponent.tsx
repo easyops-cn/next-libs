@@ -2,7 +2,7 @@ import React from "react";
 import { RoutesGraph } from "./RoutesGraph";
 import { ViewItem } from "../shared/interfaces";
 import { viewsToGraph } from "./processors";
-import { ContentItemActions } from "@libs/basic-components";
+import { ContentItemActions } from "@next-libs/basic-components";
 
 export interface RoutesGraphComponentProps {
   data?: ViewItem[];

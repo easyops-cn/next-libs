@@ -1,6 +1,6 @@
 import React from "react";
 import { isNil, isArray } from "lodash";
-import { formatAttrValue } from "@libs/cmdb-utils";
+import { formatAttrValue } from "@next-libs/cmdb-utils";
 
 interface InstanceFormatProps {
   objectId?: string;

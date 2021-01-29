@@ -1,6 +1,6 @@
 import _ from "lodash";
 import moment from "moment";
-import { JsonStorage } from "@libs/storage";
+import { JsonStorage } from "@next-libs/storage";
 
 export const GLOBAL_SPACE_NAME = "visitHistory";
 
@@ -30,7 +30,7 @@ export class VisitHistory {
       jsonLocalStorage.setItem(
         GLOBAL_SPACE_NAME,
         Object.assign(this.globalSpace, {
-          [namespace]: []
+          [namespace]: [],
         })
       );
     }
@@ -53,9 +53,7 @@ export class VisitHistory {
     // 如果数据是键值对，则补充一些记录数据进去
     if (_.isObject(data) && !_.isArray(data)) {
       // 记录最近访问时间
-      (data as any).visitedAt = moment()
-        .add(0)
-        .format();
+      (data as any).visitedAt = moment().add(0).format();
 
       // 计数 +1
       if (removed.length && removed[0]) {
@@ -75,7 +73,7 @@ export class VisitHistory {
     this.jsonLocalStorage.setItem(
       GLOBAL_SPACE_NAME,
       Object.assign(this.globalSpace, {
-        [this.namespace]: history
+        [this.namespace]: history,
       })
     );
   }
@@ -89,7 +87,7 @@ export class VisitHistory {
     this.jsonLocalStorage.setItem(
       GLOBAL_SPACE_NAME,
       Object.assign(this.globalSpace, {
-        [this.namespace]: []
+        [this.namespace]: [],
       })
     );
   }
@@ -110,7 +108,7 @@ export class VisitHistory {
    * @param {string | number | string[] | number[]} 需要移除的key的值
    */
   remove(values: string | number | string[] | number[]) {
-    _.remove(this.history, v => {
+    _.remove(this.history, (v) => {
       if (_.isArray(values)) {
         return _.includes(values, _.get(v, this.props));
       }
@@ -119,7 +117,7 @@ export class VisitHistory {
     this.jsonLocalStorage.setItem(
       GLOBAL_SPACE_NAME,
       Object.assign(this.globalSpace, {
-        [this.namespace]: this.history
+        [this.namespace]: this.history,
       })
     );
   }
@@ -133,10 +131,10 @@ export class VisitHistory {
     return _.chain(this.history)
       .orderBy(
         [
-          function(item) {
+          function (item) {
             return item.count || 1;
           },
-          "visitedAt"
+          "visitedAt",
         ],
         ["desc", "desc"]
       )

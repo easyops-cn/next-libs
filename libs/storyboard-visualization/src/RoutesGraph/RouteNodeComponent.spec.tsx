@@ -2,7 +2,7 @@ import React from "react";
 import { mount } from "enzyme";
 import { RouteNodeComponent } from "./RouteNodeComponent";
 import { fakeRoutesGraphNodes, fakeContentItemActions } from "../fakesForTest";
-import { ItemActionsComponent } from "@libs/basic-components";
+import { ItemActionsComponent } from "@next-libs/basic-components";
 
 describe("RouteNodeComponent", () => {
   it("should work", () => {

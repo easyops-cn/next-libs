@@ -7,7 +7,7 @@ import { InstanceListTable } from "../instance-list-table/InstanceListTable";
 
 import styles from "./model-relation-form.module.css";
 
-import { ModifiedModelObjectRelation } from "@libs/cmdb-utils";
+import { ModifiedModelObjectRelation } from "@next-libs/cmdb-utils";
 
 export interface ModelRelationFormProps {
   modelMap: Record<string, Partial<CmdbModels.ModelCmdbObject>>;

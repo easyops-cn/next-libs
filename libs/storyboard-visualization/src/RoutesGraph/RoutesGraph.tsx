@@ -24,7 +24,7 @@ import { XYCoord } from "react-dnd";
 import styles from "./RoutesGraph.module.css";
 import { getLinkPath } from "./processors";
 import { ViewItem } from "../shared/interfaces";
-import { ContentItemActions, ZoomPanel } from "@libs/basic-components";
+import { ContentItemActions, ZoomPanel } from "@next-libs/basic-components";
 import {
   nodeWidth,
   ZOOM_STEP,

@@ -3,7 +3,7 @@ import { StoryboardTree } from "./interfaces";
 import { GraphNode } from "./BuilderGraph";
 import { RouteGraphNode } from "./RoutesGraph";
 import { ViewItem } from "./shared/interfaces";
-import { ContentItemActions } from "@libs/basic-components";
+import { ContentItemActions } from "@next-libs/basic-components";
 
 export function fakeStoryboard(): Storyboard {
   return {

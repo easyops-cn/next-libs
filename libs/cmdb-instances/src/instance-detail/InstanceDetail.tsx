@@ -27,9 +27,9 @@ import {
   IGNORED_FIELDS,
   ModifiedModelCmdbObject,
   ModifiedModelObjectField,
-} from "@libs/cmdb-utils";
+} from "@next-libs/cmdb-utils";
 import { CmdbModels } from "@next-sdk/cmdb-sdk";
-import { Link } from "@libs/basic-components";
+import { Link } from "@next-libs/basic-components";
 import { StructTable } from "../struct-components/StructTable";
 import { FieldsByTag } from "../model-attribute-form/ModelAttributeForm";
 import { InstanceFormat } from "../components";

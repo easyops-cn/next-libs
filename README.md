@@ -1,7 +1,7 @@
 # Next Libs
 
-[![pipeline status](https://git.easyops.local/anyclouds/next-libs/badges/master/pipeline.svg)](https://git.easyops.local/anyclouds/next-libs/commits/master)
-[![coverage report](https://git.easyops.local/anyclouds/next-libs/badges/master/coverage.svg)](https://git.easyops.local/anyclouds/next-libs/commits/master)
+[![pipeline status](https://github.com/easyops-cn/next-libs/badges/master/pipeline.svg)](https://github.com/easyops-cn/next-libs/commits/master)
+[![coverage report](https://github.com/easyops-cn/next-libs/badges/master/coverage.svg)](https://github.com/easyops-cn/next-libs/commits/master)
 
 ### Prepare
 

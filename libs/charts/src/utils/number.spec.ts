@@ -1,5 +1,5 @@
 import { humanizeNumberValue } from "./number";
-import { ShortUnitId } from "@libs/constants";
+import { ShortUnitId } from "@next-libs/constants";
 
 describe("dateRate", () => {
   it("should humanize data rate value correctly", () => {

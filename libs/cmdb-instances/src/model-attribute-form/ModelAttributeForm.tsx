@@ -23,7 +23,7 @@ import {
   ModifiedModelObjectField,
   ModifiedModelCmdbObject,
   modifyModelData,
-} from "@libs/cmdb-utils";
+} from "@next-libs/cmdb-utils";
 import styles from "./ModelAttributeForm.module.css";
 export interface ModelAttributeFormChildren {
   header: string;

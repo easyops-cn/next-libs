@@ -2,7 +2,7 @@ import React from "react";
 import { Popover } from "antd";
 import { get, sortBy } from "lodash";
 
-import { Link } from "@libs/basic-components";
+import { Link } from "@next-libs/basic-components";
 import {
   ModifiedModelObjectField,
   ModifiedModelObjectRelation,
@@ -10,7 +10,7 @@ import {
   getInstanceShowName,
   getInstanceNameKeys,
   parseTemplate,
-} from "@libs/cmdb-utils";
+} from "@next-libs/cmdb-utils";
 import { CmdbModels } from "@next-sdk/cmdb-sdk";
 
 import { userDisplayFieldIdList } from "./constants";

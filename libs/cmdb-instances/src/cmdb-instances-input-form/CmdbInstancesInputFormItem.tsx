@@ -5,7 +5,7 @@ import { Input, Button, Modal } from "antd";
 import { groupBy } from "lodash";
 
 import { InstanceListModal } from "../instance-list-modal/InstanceListModal";
-import { modifyModelData } from "@libs/cmdb-utils";
+import { modifyModelData } from "@next-libs/cmdb-utils";
 import { CmdbModels, InstanceApi } from "@next-sdk/cmdb-sdk";
 
 import { useTranslation } from "react-i18next";

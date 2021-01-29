@@ -3,14 +3,14 @@ import { mount } from "enzyme";
 import {
   mockFetchCmdbObjectListReturnValue,
   mockFetchCmdbInstanceDetailReturnValue,
-  mockFetchCmdbObjectDetailReturnValue
+  mockFetchCmdbObjectDetailReturnValue,
 } from "../__mocks__";
 import {
   InstanceAttributeForm,
-  LegacyInstanceAttributeForm
+  LegacyInstanceAttributeForm,
 } from "./InstanceAttributeForm";
 
-import { modifyModelData } from "@libs/cmdb-utils";
+import { modifyModelData } from "@next-libs/cmdb-utils";
 
 jest.mock("../i18n");
 
@@ -22,7 +22,7 @@ describe("InstanceAttributeForm", () => {
     objectList: mockFetchCmdbObjectListReturnValue,
     attributeFormControlInitialValueMap: mockFetchCmdbInstanceDetailReturnValue,
     basicInfoAttrList: modifyModelData(mockFetchCmdbObjectDetailReturnValue)
-      .attrList
+      .attrList,
   };
 
   it("should work", () => {

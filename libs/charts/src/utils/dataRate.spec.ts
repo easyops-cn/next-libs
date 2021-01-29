@@ -1,5 +1,5 @@
 import { humanizeDataRateValue } from "./dataRate";
-import { ByteRatesUnitId as DataRateFormatUnitId } from "@libs/constants";
+import { ByteRatesUnitId as DataRateFormatUnitId } from "@next-libs/constants";
 
 describe("dateRate", () => {
   it("should humanize data rate value correctly", () => {
@@ -7,7 +7,7 @@ describe("dateRate", () => {
     expect(humanizeDataRateValue(8 * 1024)).toEqual([1, "KBps"]);
     expect(humanizeDataRateValue(1024, DataRateFormatUnitId.KBps)).toEqual([
       1,
-      "MBps"
+      "MBps",
     ]);
   });
 });

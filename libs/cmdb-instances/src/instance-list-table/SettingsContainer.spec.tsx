@@ -9,7 +9,7 @@ import {
 import { Settings } from "./SettingsContainer";
 import { HOST } from "./data-providers/__mocks__";
 import { InstanceListPresetConfigs } from "./interfaces";
-import { getBatchEditableRelations } from "@libs/cmdb-utils";
+import { getBatchEditableRelations } from "@next-libs/cmdb-utils";
 
 describe("Settings", () => {
   const objectId = "HOST";
