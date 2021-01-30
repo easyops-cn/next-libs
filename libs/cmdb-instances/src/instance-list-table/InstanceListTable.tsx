@@ -475,7 +475,7 @@ export class LegacyInstanceListTable extends React.Component<
 
   onChange = (
     pagination: TablePaginationConfig,
-    filters: Record<string, React.Key[]>,
+    filters: Record<string, (React.Key | boolean)[]>,
     sorter:
       | SorterResult<Record<string, any>>
       | SorterResult<Record<string, any>>[],
