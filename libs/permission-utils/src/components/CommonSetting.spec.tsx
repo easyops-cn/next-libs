@@ -4,7 +4,7 @@ import { CommonSetting, CommonSettingPropsDefine } from "./CommonSetting";
 import { PermissionCollection } from "../processors";
 import {
   PERM_SET_OF_PACKAGE_INSTANCE,
-  PERM_PACKAGE_UPDATE
+  PERM_PACKAGE_UPDATE,
 } from "../constants";
 describe("CommonSetting", () => {
   const instanceData = {
@@ -29,7 +29,7 @@ describe("CommonSetting", () => {
     type: "1",
     deleteAuthorizers: ["easyops", "06031"],
     readAuthorizers: ["easyops", "06032"],
-    updateAuthorizers: ["easyops", "06034", "group1"]
+    updateAuthorizers: ["easyops", "06034", "group1"],
   };
   const permissionList = [
     {
@@ -41,8 +41,8 @@ describe("CommonSetting", () => {
         condition: {
           deleteAuthorizers: "%user",
           name: "package",
-          system: "deploy"
-        }
+          system: "deploy",
+        },
       },
       roles: [
         "系统管理员",
@@ -50,7 +50,7 @@ describe("CommonSetting", () => {
         "应用测试",
         "应用开发",
         "test",
-        "测试角色-没有easyops+系统管理菜单"
+        "测试角色-没有easyops+系统管理菜单",
       ],
       system: "持续部署",
       user: [
@@ -61,10 +61,10 @@ describe("CommonSetting", () => {
         "ea",
         "willniu",
         "lightjiao",
-        "user3"
+        "user3",
       ],
       _actionWeight: 1,
-      _category: "a-0"
+      _category: "a-0",
     },
     {
       action: "deploy:package_update",
@@ -75,8 +75,8 @@ describe("CommonSetting", () => {
         condition: {
           updateAuthorizers: "%user",
           name: "package",
-          system: "deploy"
-        }
+          system: "deploy",
+        },
       },
       roles: [
         "系统管理员",
@@ -84,7 +84,7 @@ describe("CommonSetting", () => {
         "应用测试",
         "应用开发",
         "test",
-        "测试角色-没有easyops+系统管理菜单"
+        "测试角色-没有easyops+系统管理菜单",
       ],
       system: "持续部署",
       user: [
@@ -95,10 +95,10 @@ describe("CommonSetting", () => {
         "ea",
         "willniu",
         "lightjiao",
-        "user3"
+        "user3",
       ],
       _actionWeight: 2,
-      _category: "a-0"
+      _category: "a-0",
     },
     {
       action: "deploy:package_read",
@@ -109,8 +109,8 @@ describe("CommonSetting", () => {
         condition: {
           readAuthorizers: "%user",
           name: "package",
-          system: "deploy"
-        }
+          system: "deploy",
+        },
       },
       roles: [
         "系统管理员",
@@ -118,7 +118,7 @@ describe("CommonSetting", () => {
         "应用测试",
         "应用开发",
         "test",
-        "测试角色-没有easyops+系统管理菜单"
+        "测试角色-没有easyops+系统管理菜单",
       ],
       system: "持续部署",
       user: [
@@ -129,75 +129,75 @@ describe("CommonSetting", () => {
         "ea",
         "willniu",
         "lightjiao",
-        "user3"
+        "user3",
       ],
       _actionWeight: 100,
-      _category: "a-0"
-    }
+      _category: "a-0",
+    },
   ];
   const roleList = [
     {
       permission: [
         "5b7b87737e5a2e22b829bcbd",
         "5b7b87737e5a2e22ba29bcac",
-        "5b7b87737e5a2e22b929bcac"
+        "5b7b87737e5a2e22b929bcac",
       ],
       role: "系统管理员",
       user: ["easyops", "user3", "group1", "lightjiao"],
       org: 3333,
-      id: "5b7b876e7e5a2e22b829bcac"
+      id: "5b7b876e7e5a2e22b829bcac",
     },
     {
       permission: ["5c1373157e5a2e9d26040ac3", "5c1373157e5a2e9d24040aa8"],
       role: "应用运维",
       user: ["willniu123", "willniu"],
       org: 3333,
-      id: "5b7b876e7e5a2e22b829bcb6"
+      id: "5b7b876e7e5a2e22b829bcb6",
     },
     {
       permission: [
         "5b7b87797e5a2e22b829bcc0",
         "5b7b87a27e5a2e22ba29bcb9",
-        "5b7b87a27e5a2e22ba29bcba"
+        "5b7b87a27e5a2e22ba29bcba",
       ],
       role: "应用测试",
       user: [],
       org: 3333,
-      id: "5b7b876e7e5a2e22b829bcb7"
+      id: "5b7b876e7e5a2e22b829bcb7",
     },
     {
       permission: [
         "5b7b87797e5a2e22b829bcc0",
         "5b7b87a27e5a2e22ba29bcb9",
-        "5b7b87a27e5a2e22ba29bcba"
+        "5b7b87a27e5a2e22ba29bcba",
       ],
       role: "应用开发",
       user: [],
       org: 3333,
-      id: "5b7b876e7e5a2e22b829bcb8"
+      id: "5b7b876e7e5a2e22b829bcb8",
     },
     {
       permission: [
         "5b7b87a27e5a2e22ba29bcc4",
         "5b7b87a27e5a2e22bb29bcbe",
-        "5b7b87a27e5a2e22bb29bcc0"
+        "5b7b87a27e5a2e22bb29bcc0",
       ],
       role: "test",
       user: ["qwe", "group2"],
       org: 3333,
-      id: "5c3ee1b37e5a2e3497d23eba"
+      id: "5c3ee1b37e5a2e3497d23eba",
     },
     {
       permission: [
         "5b7b87797e5a2e22b829bcc0",
         "5b7b877d7e5a2e22b829bcc2",
-        "5b7b877d7e5a2e22bb29bcb1"
+        "5b7b877d7e5a2e22bb29bcb1",
       ],
       role: "测试角色-没有easyops+系统管理菜单",
       user: ["qw"],
       org: 3333,
-      id: "5c10c30d7e5a2e021395c091"
-    }
+      id: "5c10c30d7e5a2e021395c091",
+    },
   ];
   const userIdToName = {
     alanname123: "alanname123",
@@ -226,17 +226,17 @@ describe("CommonSetting", () => {
     willniu123: "willniu123",
     yasuo: "yasuo",
     zachary: "zachary",
-    zhangxing: "zhangxing"
+    zhangxing: "zhangxing",
   };
   const userGroupIdToName = {
     group1: "group1",
     group2: "group2",
     group3: "group3",
-    group4: "group4"
+    group4: "group4",
   };
   const permissionSet = PERM_SET_OF_PACKAGE_INSTANCE;
   const permissionNameOfEdit = PERM_PACKAGE_UPDATE;
-  const updateFunction = () => {};
+  const updateFunction = jest.fn();
   const onSingleAddUserModelClose = jest.fn();
   const stateTarget = {};
   const props: CommonSettingPropsDefine = {
@@ -248,16 +248,16 @@ describe("CommonSetting", () => {
     // userIdToName,
     // userGroupIdToName,
     updateFunction,
-    stateTarget
+    stateTarget,
   };
   const wrapper = shallow(<CommonSetting {...props} />);
   const instance = wrapper.instance() as CommonSetting;
   it("should work", () => {
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper).toBeTruthy();
   });
   it("componentDidUpdate", () => {
     wrapper.setProps({
-      selectedInstances: [{ instanceId: "fake_id", name: "fake_name" }]
+      selectedInstances: [{ instanceId: "fake_id", name: "fake_name" }],
     });
     expect(instance.state.temporaryUsers).toEqual(["fake_name"]);
   });
@@ -311,9 +311,9 @@ describe("CommonSetting", () => {
       temporaryPerms: [
         "deploy:package_read",
         "deploy:package_update",
-        "deploy:package_delete"
+        "deploy:package_delete",
       ],
-      temporaryUsers: ["anntest"]
+      temporaryUsers: ["anntest"],
     });
     instance.handleUsersChange();
     const permissionList = instance.state.collections.permissionList;
@@ -328,9 +328,9 @@ describe("CommonSetting", () => {
       temporaryPerms: [
         "deploy:package_read",
         "deploy:package_update",
-        "deploy:package_delete"
+        "deploy:package_delete",
       ],
-      temporaryUsers: ["06031"]
+      temporaryUsers: ["06031"],
     });
     instance.handleUsersChange();
     const permissionList = instance.state.collections.permissionList;

@@ -22,6 +22,7 @@
       "packageNames": [
         "@ant-design/compatible",
         "@ant-design/icons",
+        "@fortawesome/react-fontawesome",
         "@next-core/babel-runtime-helpers",
         "@next-core/brick-http",
         "@next-core/brick-icons",
@@ -30,7 +31,7 @@
         "@next-core/brick-utils",
         "@next-core/easyops-analytics",
         "@next-core/fontawesome-library",
-        "@fortawesome/react-fontawesome",
+        "@next-core/illustrations",
         "@size-limit/file",
         "@types/classnames",
         "@types/d3",
