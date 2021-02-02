@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.1 (2021-02-02)
+
+### Bug Fixes
+
+- **chart:** value formatter refs MONITOR-458 ([81d6121](https://github.com/easyops-cn/next-libs/commit/81d6121))
+- refine scripts for concurrently process ([e4124ae](https://github.com/easyops-cn/next-libs/commit/e4124ae))
+
+### Features
+
+- use next-core ([706bd93](https://github.com/easyops-cn/next-libs/commit/706bd93))
+- **charts:** support more unit alias refs MONITOR-277 ([d72e1b7](https://github.com/easyops-cn/next-libs/commit/d72e1b7))
+- **charts:** support more units refs MONITOR-277 ([b71feba](https://github.com/easyops-cn/next-libs/commit/b71feba))
+- **valueFormatter:** add NONE type refs MONITOR-758 ([16f1843](https://github.com/easyops-cn/next-libs/commit/16f1843))
+- add byte, byteRate and time units, refs MONITOR-223 ([601fee2](https://github.com/easyops-cn/next-libs/commit/601fee2))
+- color export refs ATM-482 ([2c5794f](https://github.com/easyops-cn/next-libs/commit/2c5794f))
+- Initial commit for moved libs ([008ff9a](https://github.com/easyops-cn/next-libs/commit/008ff9a))
+
 # [1.0.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/constants@0.7.0...@libs/constants@1.0.0) (2021-01-28)
 
 ### Features

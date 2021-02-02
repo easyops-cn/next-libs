@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.1 (2021-02-02)
+
+### Bug Fixes
+
+- fix copy error in safari ([4c5a7b2](https://github.com/easyops-cn/next-libs/commit/4c5a7b2))
+- refine scripts for concurrently process ([e4124ae](https://github.com/easyops-cn/next-libs/commit/e4124ae))
+- should exclude `children` in `restProps` ([52dfcad](https://github.com/easyops-cn/next-libs/commit/52dfcad))
+
+### Features
+
+- use next-core ([706bd93](https://github.com/easyops-cn/next-libs/commit/706bd93))
+- **clipboard:** antd v4 migaration ([518a196](https://github.com/easyops-cn/next-libs/commit/518a196))
+- export the copy method, refs BRICK_STORE-1170 ([c8e298a](https://github.com/easyops-cn/next-libs/commit/c8e298a))
+- Initial commit for moved libs ([008ff9a](https://github.com/easyops-cn/next-libs/commit/008ff9a))
+
+### BREAKING CHANGES
+
+- **clipboard:** antd v4 migration
+
+Closes BRICK_STORE-1666
+
 # [2.0.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/clipboard@1.0.1...@libs/clipboard@2.0.0) (2021-01-28)
 
 ### Features

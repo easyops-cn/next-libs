@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.1 (2021-02-02)
+
+### Bug Fixes
+
+- refine scripts for concurrently process ([e4124ae](https://github.com/easyops-cn/next-libs/commit/e4124ae))
+- **breadcrumb:** 修复多个 template-breadcrumb 中，模板变量被覆盖的问题 ([936cf5d](https://github.com/easyops-cn/next-libs/commit/936cf5d))
+- **breadcrumb:** 补充单元测试 ([4116822](https://github.com/easyops-cn/next-libs/commit/4116822))
+- **cmdb-utils:** default instance name key of "HOST" model refs BRICK_STORE-999 ([57f7ac3](https://github.com/easyops-cn/next-libs/commit/57f7ac3))
+- **cmdb-utils:** getInstanceNameKeys refs BRICK_STORE-999 ([665bd7e](https://github.com/easyops-cn/next-libs/commit/665bd7e))
+- **cmdb-utils:** parseTemplate 用空字符串代替 undefined ([593a7b0](https://github.com/easyops-cn/next-libs/commit/593a7b0))
+
+### Features
+
+- use next-core ([706bd93](https://github.com/easyops-cn/next-libs/commit/706bd93))
+- **cmdb-instance:** 获取 objectList 更换新的接口 ([1eb4e97](https://github.com/easyops-cn/next-libs/commit/1eb4e97))
+- **cmdb-instances:** 支持多选枚举 ([32a59f6](https://github.com/easyops-cn/next-libs/commit/32a59f6))
+- **cmdb-utils:** formatAttrValue ([12b4ddc](https://github.com/easyops-cn/next-libs/commit/12b4ddc))
+- **cmdb-utils:** migrate conditionHelper refs MONITOR-570 ([bd30ac8](https://github.com/easyops-cn/next-libs/commit/bd30ac8))
+- Initial commit for moved libs ([008ff9a](https://github.com/easyops-cn/next-libs/commit/008ff9a))
+- submitAsForm, refs BRICK_STORE-526 ([5fb2200](https://github.com/easyops-cn/next-libs/commit/5fb2200))
+- **cmdb-utils:** modify model data refs BRICK_STORE-522 ([bf7f77c](https://github.com/easyops-cn/next-libs/commit/bf7f77c))
+
 # [1.0.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-utils@0.8.0...@libs/cmdb-utils@1.0.0) (2021-01-28)
 
 ### Features

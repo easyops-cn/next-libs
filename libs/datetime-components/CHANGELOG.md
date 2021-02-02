@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.1 (2021-02-02)
+
+### Bug Fixes
+
+- **datetime-range:** using css variables ([ebb9b8b](https://github.com/easyops-cn/next-libs/commit/ebb9b8b))
+- refine scripts for concurrently process ([e4124ae](https://github.com/easyops-cn/next-libs/commit/e4124ae))
+- **container:** change Select style ([24cb48d](https://github.com/easyops-cn/next-libs/commit/24cb48d))
+- 修复图标未与文字居中的问题 ([3a425bb](https://github.com/easyops-cn/next-libs/commit/3a425bb))
+
+### Features
+
+- use next-core ([706bd93](https://github.com/easyops-cn/next-libs/commit/706bd93))
+- **datetime-components:** antd v4 migaration ([ba9afdc](https://github.com/easyops-cn/next-libs/commit/ba9afdc))
+- **datetime-components:** DatatimeRange 组件新增 size 属性 ([156fa3e](https://github.com/easyops-cn/next-libs/commit/156fa3e))
+- **datetime-range:** support `placement` prop, refs BRICK_STORE-1145 ([bc4b9d3](https://github.com/easyops-cn/next-libs/commit/bc4b9d3))
+- Initial commit for moved libs ([008ff9a](https://github.com/easyops-cn/next-libs/commit/008ff9a))
+- support anytime parse ([0f759c5](https://github.com/easyops-cn/next-libs/commit/0f759c5))
+- 时间选择器支持自定义配置时间范围 ([f8b8d6d](https://github.com/easyops-cn/next-libs/commit/f8b8d6d))
+
+### BREAKING CHANGES
+
+- **datetime-components:** antd v4 migration
+
+Closes BRICK_STORE-1666
+
 # [2.0.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/datetime-components@1.0.1...@libs/datetime-components@2.0.0) (2021-01-28)
 
 ### Features

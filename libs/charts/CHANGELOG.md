@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.1 (2021-02-02)
+
+### Bug Fixes
+
+- **chart:** value formatter refs MONITOR-458 ([81d6121](https://github.com/easyops-cn/next-libs/commit/81d6121))
+- **charts:** clear chart when re-render refs BRICK_STORE-1362 ([756d47e](https://github.com/easyops-cn/next-libs/commit/756d47e))
+- **charts:** export utils refs MONITOR-277 ([7a3d461](https://github.com/easyops-cn/next-libs/commit/7a3d461))
+- **charts:** export utils refs MONITOR-277 ([5eb15c7](https://github.com/easyops-cn/next-libs/commit/5eb15c7))
+- **charts:** formatValue 当没有 unit 时，type 默认为 none ([2fb8ff9](https://github.com/easyops-cn/next-libs/commit/2fb8ff9))
+- **charts:** optimize empty display refs MONITOR-534 ([8a925a5](https://github.com/easyops-cn/next-libs/commit/8a925a5))
+- **charts:** optimize empty display refs MONITOR-534 ([89e311d](https://github.com/easyops-cn/next-libs/commit/89e311d))
+- **charts:** use "none" unit refs BRICK_STORE-1613 ([061946d](https://github.com/easyops-cn/next-libs/commit/061946d))
+- **charts:** use ResizeObserver refs MONITOR-400 ([d405746](https://github.com/easyops-cn/next-libs/commit/d405746))
+- **trend-chart:** add "nullValue" property refs MONITOR-775 ([7d95335](https://github.com/easyops-cn/next-libs/commit/7d95335))
+- **trend-chart:** change data status refs BRICK_STORE-1259 ([4608f45](https://github.com/easyops-cn/next-libs/commit/4608f45))
+- **trend-chart:** connect null value refs MONITOR-775 ([06ec812](https://github.com/easyops-cn/next-libs/commit/06ec812))
+- **trend-chart:** optimize styles refs BRICK_STORE-1224 ([33c168b](https://github.com/easyops-cn/next-libs/commit/33c168b))
+- **trend-chart:** use unique id refs MONITOR-480 ([31949fc](https://github.com/easyops-cn/next-libs/commit/31949fc))
+- **TrendChart:** allways render .chart element ([e113d3c](https://github.com/easyops-cn/next-libs/commit/e113d3c))
+- refine scripts for concurrently process ([e4124ae](https://github.com/easyops-cn/next-libs/commit/e4124ae))
+
+### Features
+
+- use next-core ([706bd93](https://github.com/easyops-cn/next-libs/commit/706bd93))
+- **charts:** support more unit alias refs MONITOR-277 ([d72e1b7](https://github.com/easyops-cn/next-libs/commit/d72e1b7))
+- **charts:** support more units refs MONITOR-277 ([b71feba](https://github.com/easyops-cn/next-libs/commit/b71feba))
+- **charts:** support more units refs MONITOR-277 ([cd8a29b](https://github.com/easyops-cn/next-libs/commit/cd8a29b))
+- **charts:** trend-chart ([24ffd76](https://github.com/easyops-cn/next-libs/commit/24ffd76))
+- **dashboard:** add forbidden status refs MONITOR-732 ([7114455](https://github.com/easyops-cn/next-libs/commit/7114455))
+- **valueFormatter:** add NONE type refs MONITOR-758 ([16f1843](https://github.com/easyops-cn/next-libs/commit/16f1843))
+- add time unit, refs MONITOR-223 ([4e4af79](https://github.com/easyops-cn/next-libs/commit/4e4af79))
+
 # [1.0.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/charts@0.7.5...@libs/charts@1.0.0) (2021-01-28)
 
 ### Features

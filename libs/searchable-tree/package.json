@@ -1,6 +1,6 @@
 {
   "name": "@next-libs/searchable-tree",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "> TODO: description",
   "homepage": "https://github.com/easyops-cn/next-libs/tree/master/libs/searchable-tree",
   "license": "UNLICENSED",
@@ -25,11 +25,11 @@
   },
   "sideEffects": false,
   "peerDependencies": {
-    "@next-libs/basic-components": "*",
-    "@next-core/brick-dll": "*"
+    "@next-core/brick-dll": "*",
+    "@next-libs/basic-components": "*"
   },
   "devDependencies": {
-    "@next-libs/basic-components": "^2.0.0",
-    "@next-core/brick-types": "^2.16.0"
+    "@next-core/brick-types": "^2.16.0",
+    "@next-libs/basic-components": "^2.0.1"
   }
 }

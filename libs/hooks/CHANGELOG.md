@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.1 (2021-02-02)
+
+### Bug Fixes
+
+- refine scripts for concurrently process ([e4124ae](https://github.com/easyops-cn/next-libs/commit/e4124ae))
+- **hooks:** 修复 useHttp 中 onSuccess 传入的 data 类型错误 ([62b17c7](https://github.com/easyops-cn/next-libs/commit/62b17c7))
+
+### Features
+
+- use next-core ([706bd93](https://github.com/easyops-cn/next-libs/commit/706bd93))
+- **hooks:** useHttp 增加 options ([1cd7904](https://github.com/easyops-cn/next-libs/commit/1cd7904))
+
 # [1.0.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/hooks@0.1.7...@libs/hooks@1.0.0) (2021-01-28)
 
 ### Features

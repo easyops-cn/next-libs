@@ -3,6 +3,58 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.1 (2021-02-02)
+
+### Bug Fixes
+
+- **form:** form item margin bottom ([3cfc383](https://github.com/easyops-cn/next-libs/commit/3cfc383))
+- **form:** label style, Refs DATA_QUALITY-113 ([997d3f5](https://github.com/easyops-cn/next-libs/commit/997d3f5))
+- **forms:** FormItem 用 notRender 替代 hidden 作为判断是否渲染的属性 ([f364c7a](https://github.com/easyops-cn/next-libs/commit/f364c7a))
+- **forms:** FormItemElement 在调用 setNotRender 之后立刻调用 \_render ([28cd3a2](https://github.com/easyops-cn/next-libs/commit/28cd3a2))
+- **forms:** FormItemWrapper 用 unstable_batchedUpdates 包裹 onChange 和 setId ([8b2ad69](https://github.com/easyops-cn/next-libs/commit/8b2ad69))
+- **forms:** labelBrick style ([a062048](https://github.com/easyops-cn/next-libs/commit/a062048))
+- **forms:** 在 state 改变后，再触发强制渲染 ([7beede2](https://github.com/easyops-cn/next-libs/commit/7beede2))
+- change @libs/basic-components to peerDependencies ([20f55cc](https://github.com/easyops-cn/next-libs/commit/20f55cc))
+- helpBrick style modify ([112f00c](https://github.com/easyops-cn/next-libs/commit/112f00c))
+- labelTooltip inteface ([5e3421f](https://github.com/easyops-cn/next-libs/commit/5e3421f))
+- refine scripts for concurrently process ([e4124ae](https://github.com/easyops-cn/next-libs/commit/e4124ae))
+- typo ([80e0433](https://github.com/easyops-cn/next-libs/commit/80e0433))
+- 修复表单项单独使用时样式对齐问题 ([39170e8](https://github.com/easyops-cn/next-libs/commit/39170e8))
+- 修复表单项没有配置 label 时也显示 : 的问题 ([fcf6834](https://github.com/easyops-cn/next-libs/commit/fcf6834))
+- 表单校验设置默认信息 ([71d47ef](https://github.com/easyops-cn/next-libs/commit/71d47ef))
+- **forms:** migrate general form components refs BRICK_STROE-334 ([a548f73](https://github.com/easyops-cn/next-libs/commit/a548f73))
+- **general-select:** options 遗漏掉其他字段 ([2e14c21](https://github.com/easyops-cn/next-libs/commit/2e14c21))
+
+### Features
+
+- use next-core ([706bd93](https://github.com/easyops-cn/next-libs/commit/706bd93))
+- **FormItemElement:** 当父元素是 FormElement 时，增加 maxWidth 为 1332px 的 style ([d7a5acd](https://github.com/easyops-cn/next-libs/commit/d7a5acd))
+- **forms:** add isFormElement ([155af39](https://github.com/easyops-cn/next-libs/commit/155af39))
+- **forms:** antd v4 migaration ([9acf7be](https://github.com/easyops-cn/next-libs/commit/9acf7be))
+- **forms:** formatOptions 在指定 fields 的时候，改用 lodash 的 get 取值 ([3d3e043](https://github.com/easyops-cn/next-libs/commit/3d3e043))
+- **forms:** formatOptions 支持布尔类型 ([37a070c](https://github.com/easyops-cn/next-libs/commit/37a070c))
+- **forms:** FormItemElement 增加 isFormItemElement 属性和 setHidden 方法 ([bf29f7a](https://github.com/easyops-cn/next-libs/commit/bf29f7a))
+- **forms:** FormItemElement 增加 validator 属性 ([9527131](https://github.com/easyops-cn/next-libs/commit/9527131))
+- **forms:** FormItemWrapper 在 hidden 为 true 时，返回 null，以避免隐藏的表单项影响表单校验 ([7dd33ca](https://github.com/easyops-cn/next-libs/commit/7dd33ca))
+- **forms:** FormItemWrapper 增加 asyncForceR ([bc3bfa9](https://github.com/easyops-cn/next-libs/commit/bc3bfa9))
+- **forms:** FormItemWrapper 支持 layout 属性 ([bb224f9](https://github.com/easyops-cn/next-libs/commit/bb224f9))
+- **forms:** FormItemWrapper 支持传递 className 给 Form.Item ([f77709b](https://github.com/easyops-cn/next-libs/commit/f77709b))
+- **forms:** FormItemWrapper 支持指定 validateTrigger 和 valuePropName ([c4eb2be](https://github.com/easyops-cn/next-libs/commit/c4eb2be))
+- **forms:** support labelBrick in FormItemWrapper ([f102eda](https://github.com/easyops-cn/next-libs/commit/f102eda))
+- form 表单项 label 支持 tootips ([07096ad](https://github.com/easyops-cn/next-libs/commit/07096ad))
+- form 表单支持 help 描述 ([39b14c5](https://github.com/easyops-cn/next-libs/commit/39b14c5))
+- **forms:** FormItemWrapper 支持没有 label 的布局 ([5efac41](https://github.com/easyops-cn/next-libs/commit/5efac41))
+- rules support custom validator ([76deb91](https://github.com/easyops-cn/next-libs/commit/76deb91))
+- support custom validator for form item, refs BRICK_STORE-809 ([881d649](https://github.com/easyops-cn/next-libs/commit/881d649))
+- 增加通用的是事件绑定 ([2c1b62c](https://github.com/easyops-cn/next-libs/commit/2c1b62c))
+- **forms:** migrate general form components refs BRICK_STROE-334 ([107e2c2](https://github.com/easyops-cn/next-libs/commit/107e2c2))
+
+### BREAKING CHANGES
+
+- **forms:** antd v4 migration
+
+Closes BRICK_STORE-1666
+
 # [2.0.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/forms@1.1.7...@libs/forms@2.0.0) (2021-01-28)
 
 ### Features

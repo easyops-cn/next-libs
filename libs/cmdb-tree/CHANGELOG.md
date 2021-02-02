@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.1 (2021-02-02)
+
+### Bug Fixes
+
+- **cmdb-tree:** CMDBTree compatible with treeData provided ([f8dd05e](https://github.com/easyops-cn/next-libs/commit/f8dd05e))
+- **cmdb-tree:** CMDBTree initTree outermost try to get by treeRequest.object_id when there is no item corresponding toselectedObjectId ([bec8ab5](https://github.com/easyops-cn/next-libs/commit/bec8ab5))
+- **CMDBTree:** set showLeafIcon to false ([c17c219](https://github.com/easyops-cn/next-libs/commit/c17c219))
+- refine scripts for concurrently process ([e4124ae](https://github.com/easyops-cn/next-libs/commit/e4124ae))
+- **object-tree:** all nodes are searchable ([24c66e3](https://github.com/easyops-cn/next-libs/commit/24c66e3))
+
+### Features
+
+- use next-core ([706bd93](https://github.com/easyops-cn/next-libs/commit/706bd93))
+- **cmdb-tree:** antd v4 migaration ([662712e](https://github.com/easyops-cn/next-libs/commit/662712e))
+- **cmdb-tree:** CMDBTree add style property ([e103cb1](https://github.com/easyops-cn/next-libs/commit/e103cb1))
+- **cmdb-tree:** display tree node title with `show_key`, refs BRICK_STORE-794 ([883d850](https://github.com/easyops-cn/next-libs/commit/883d850))
+- **cmdb-tree:** support general tree query, refs BRICK_STORE-794 ([93da474](https://github.com/easyops-cn/next-libs/commit/93da474))
+- Initial commit for moved libs ([008ff9a](https://github.com/easyops-cn/next-libs/commit/008ff9a))
+
+### BREAKING CHANGES
+
+- **cmdb-tree:** antd v4 migration
+
+Closes BRICK_STORE-1666
+
 # [2.0.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/cmdb-tree@1.0.1...@libs/cmdb-tree@2.0.0) (2021-01-28)
 
 ### Features

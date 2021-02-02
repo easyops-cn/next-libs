@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.1 (2021-02-02)
+
+### Bug Fixes
+
+- fix after upgrade d3 v2 which handles event differently ([b6b90da](https://github.com/easyops-cn/next-libs/commit/b6b90da))
+- **searchable-tree:** update snapshots ([333916b](https://github.com/easyops-cn/next-libs/commit/333916b))
+- fix types after upgrade antd ([e74871e](https://github.com/easyops-cn/next-libs/commit/e74871e))
+
+### Features
+
+- use next-core ([706bd93](https://github.com/easyops-cn/next-libs/commit/706bd93))
+- **searchable-tree:** antd v4 migaration ([9a51349](https://github.com/easyops-cn/next-libs/commit/9a51349))
+- **searchable-tree:** SearchableTree ([97bb58e](https://github.com/easyops-cn/next-libs/commit/97bb58e))
+
+### BREAKING CHANGES
+
+- **searchable-tree:** antd v4 migration
+
+Closes BRICK_STORE-1666
+
 # [2.0.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/searchable-tree@1.0.9...@libs/searchable-tree@2.0.0) (2021-01-28)
 
 ### Features

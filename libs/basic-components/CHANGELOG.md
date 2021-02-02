@@ -3,6 +3,65 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.1 (2021-02-02)
+
+### Bug Fixes
+
+- **general-icon:** show icon's type when icon is empty in antd ([57f85b8](https://github.com/easyops-cn/next-libs/commit/57f85b8))
+- **GeneralIcon:** use getColor to get color when bg is falsy ([ec5dcc3](https://github.com/easyops-cn/next-libs/commit/ec5dcc3))
+- **icon:** bg ([a4a126e](https://github.com/easyops-cn/next-libs/commit/a4a126e))
+- **menu:** ignore menu-item title in sub-menu ([6220fd6](https://github.com/easyops-cn/next-libs/commit/6220fd6))
+- **menu:** support default expanded sub-menu ([7d8fc23](https://github.com/easyops-cn/next-libs/commit/7d8fc23))
+- **sidebar:** fix menu height ([78c01e8](https://github.com/easyops-cn/next-libs/commit/78c01e8))
+- loose check if ([667035d](https://github.com/easyops-cn/next-libs/commit/667035d))
+- **sidebar:** refine menu styles for submenu ([c9991a1](https://github.com/easyops-cn/next-libs/commit/c9991a1))
+- match search for active menu in sidebar ([36a0116](https://github.com/easyops-cn/next-libs/commit/36a0116))
+- refine scripts for concurrently process ([e4124ae](https://github.com/easyops-cn/next-libs/commit/e4124ae))
+- support icon in sub-menu ([e8ad65b](https://github.com/easyops-cn/next-libs/commit/e8ad65b))
+- update brick-types to v0.18.0 ([e89f39a](https://github.com/easyops-cn/next-libs/commit/e89f39a))
+- 品牌类的图标放到最后 ([8f5b0a4](https://github.com/easyops-cn/next-libs/commit/8f5b0a4))
+- 导出相应的 utils 函数 ([679ac34](https://github.com/easyops-cn/next-libs/commit/679ac34))
+- **general-icon:** return empty react component instead of null ([706a4f3](https://github.com/easyops-cn/next-libs/commit/706a4f3))
+
+### Features
+
+- use next-core ([706bd93](https://github.com/easyops-cn/next-libs/commit/706bd93))
+- **badge:** 把 badge 抽到 libs 中 ([001f9a8](https://github.com/easyops-cn/next-libs/commit/001f9a8))
+- **basic-component:** export COLORS_MAP ([58d898c](https://github.com/easyops-cn/next-libs/commit/58d898c))
+- **basic-components:** add icon to sidebar ([d45a4a5](https://github.com/easyops-cn/next-libs/commit/d45a4a5))
+- **basic-components:** antd v4 migaration ([e11bf00](https://github.com/easyops-cn/next-libs/commit/e11bf00))
+- **basic-components:** ItemActionsComponent ([b68300f](https://github.com/easyops-cn/next-libs/commit/b68300f))
+- **basic-components:** ItemActionsComponent add onVisibleChange property ([6d9bef9](https://github.com/easyops-cn/next-libs/commit/6d9bef9))
+- **basic-components:** zoom panel ([06a8c06](https://github.com/easyops-cn/next-libs/commit/06a8c06))
+- **general-icon:** bg size shape ([b56049c](https://github.com/easyops-cn/next-libs/commit/b56049c))
+- **general-icon:** fa icon ([fb26736](https://github.com/easyops-cn/next-libs/commit/fb26736))
+- **general-icon:** showEmptyIcon ([ea92ed6](https://github.com/easyops-cn/next-libs/commit/ea92ed6))
+- **general-icon:** support icon and color ([ca2da5b](https://github.com/easyops-cn/next-libs/commit/ca2da5b))
+- **GeneralIcon:** add onClick property ([b723ea2](https://github.com/easyops-cn/next-libs/commit/b723ea2))
+- **GeneralIcon:** add style property ([35b9718](https://github.com/easyops-cn/next-libs/commit/35b9718))
+- **icon:** style ([82d42af](https://github.com/easyops-cn/next-libs/commit/82d42af))
+- **utils:** getIconList ([bee9696](https://github.com/easyops-cn/next-libs/commit/bee9696))
+- add easyops icons ([d90e4d7](https://github.com/easyops-cn/next-libs/commit/d90e4d7))
+- add transform color processor ([fbfe79b](https://github.com/easyops-cn/next-libs/commit/fbfe79b))
+- BRICK_STORE-530 菜单支持新开页面跳转 ([7689a60](https://github.com/easyops-cn/next-libs/commit/7689a60))
+- hash link ([6329aa5](https://github.com/easyops-cn/next-libs/commit/6329aa5))
+- Initial commit for moved libs ([008ff9a](https://github.com/easyops-cn/next-libs/commit/008ff9a))
+- Link 增加 href 属性，支持外部跳转 ([4998206](https://github.com/easyops-cn/next-libs/commit/4998206))
+- remove BaseJump ([12d613d](https://github.com/easyops-cn/next-libs/commit/12d613d))
+- sidebar support href ([270a3e3](https://github.com/easyops-cn/next-libs/commit/270a3e3))
+- svg component of empty result ([0a67239](https://github.com/easyops-cn/next-libs/commit/0a67239))
+- **sidebar:** BRICK_STORE-339 sidebar 兼容 APPMenu 模式和普通使用模式 ([e406536](https://github.com/easyops-cn/next-libs/commit/e406536))
+- **sidebar:** BRICK_STORE-339 修改测试用例 ([936557b](https://github.com/easyops-cn/next-libs/commit/936557b))
+- **sidebar:** BRICK_STORE-339 提供 className，便于外部不同地方使用控制样式 ([7823c6d](https://github.com/easyops-cn/next-libs/commit/7823c6d))
+- **sidebar:** BRICK_STORE-339 文档左侧菜单目录支持折叠 ([283055d](https://github.com/easyops-cn/next-libs/commit/283055d))
+- **Sidebar:** show tooltip when sidebar is collapsed ([f40c787](https://github.com/easyops-cn/next-libs/commit/f40c787))
+
+### BREAKING CHANGES
+
+- **basic-components:** antd v4 migration
+
+Closes BRICK_STORE-1666
+
 # [2.0.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/basic-components@1.3.0...@libs/basic-components@2.0.0) (2021-01-28)
 
 ### Features

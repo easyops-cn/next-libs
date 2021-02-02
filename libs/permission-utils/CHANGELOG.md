@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.1 (2021-02-02)
+
+### Bug Fixes
+
+- **BatchSetting:** ant-form-item-required add legacy prefix ([c7cb637](https://github.com/easyops-cn/next-libs/commit/c7cb637))
+- **permission-utils:** CommonSetting 的 Table 的 columns 的嵌套 dataIndex 改为数组形式的 ([8ba240a](https://github.com/easyops-cn/next-libs/commit/8ba240a))
+- refine scripts for concurrently process ([e4124ae](https://github.com/easyops-cn/next-libs/commit/e4124ae))
+
+### Features
+
+- use next-core ([706bd93](https://github.com/easyops-cn/next-libs/commit/706bd93))
+- **permission-utils:** antd v4 migaration ([0695334](https://github.com/easyops-cn/next-libs/commit/0695334))
+- Initial commit for moved libs ([008ff9a](https://github.com/easyops-cn/next-libs/commit/008ff9a))
+
+### BREAKING CHANGES
+
+- **permission-utils:** antd v4 migration
+
+Closes BRICK_STORE-1666
+
 # [2.0.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/permission-utils@1.0.2...@libs/permission-utils@2.0.0) (2021-01-28)
 
 ### Features

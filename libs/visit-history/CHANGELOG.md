@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.1 (2021-02-02)
+
+### Bug Fixes
+
+- refine scripts for concurrently process ([e4124ae](https://github.com/easyops-cn/next-libs/commit/e4124ae))
+
+### Features
+
+- use next-core ([706bd93](https://github.com/easyops-cn/next-libs/commit/706bd93))
+- **visit-history:** support remove items ([df967d2](https://github.com/easyops-cn/next-libs/commit/df967d2))
+- Initial commit for moved libs ([008ff9a](https://github.com/easyops-cn/next-libs/commit/008ff9a))
+
 # [1.0.0](https://git.easyops.local/anyclouds/next-libs/compare/@libs/visit-history@0.4.6...@libs/visit-history@1.0.0) (2021-01-28)
 
 ### Features
