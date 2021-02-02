@@ -16,6 +16,11 @@ jobs:
         node-version: [14.x]
 
     steps:
+    - name: Setup timezone
+      uses: zcong1993/setup-timezone@master
+      with:
+        timezone: Asia/Shanghai
+
     - uses: actions/checkout@v2
 
     - name: Use Node.js ${{ matrix.node-version }}
