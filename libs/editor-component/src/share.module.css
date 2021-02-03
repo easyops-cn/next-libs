@@ -1,0 +1,28 @@
+.toolbarContainer {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  line-height: 12px;
+  font-size: 12px;
+  text-align: center;
+  color: white;
+  box-shadow: none;
+  transition: all 0.8s;
+  border-radius: 50%;
+  border: none;
+  z-index: 1;
+
+  .copyIcon,
+  .exportIcon {
+    opacity: 0.5;
+    cursor: pointer;
+    font-size: 16px;
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  .exportIcon {
+    margin-left: 5px;
+  }
+}
