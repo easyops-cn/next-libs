@@ -1,8 +1,10 @@
 import React from "react";
 import { mount } from "enzyme";
 import AceEditor from "react-ace";
+import { ClipboardProps } from "@next-libs/clipboard";
 import { message } from "antd";
 import { ExportOutlined } from "@ant-design/icons";
+import { Annotation } from "brace";
 import fileSaver from "file-saver";
 import { CodeEditorItem } from "./CodeEditor";
 
@@ -24,7 +26,7 @@ describe("CodeEditorItem", () => {
         showExportButton={true}
       />
     );
-    wrapper.find(AceEditor).invoke("onBlur")();
+    wrapper.find(AceEditor).invoke("onBlur")(null);
     expect(onBlur).toHaveBeenCalled();
     wrapper.find(AceEditor).invoke("onChange")("456");
     await (global as any).flushPromises();
@@ -42,9 +44,9 @@ describe("CodeEditorItem", () => {
     expect(wrapper.find(".themeGithub").length).toBe(1);
     const spyOnMessage = jest.spyOn(message, "success");
     const spyOnMessageError = jest.spyOn(message, "error");
-    wrapper.find("Clipboard").invoke("onCopy")("123", true);
+    (wrapper.find("Clipboard").invoke("onCopy") as any)("123", true);
     expect(spyOnMessage).toHaveBeenCalled();
-    wrapper.find("Clipboard").invoke("onCopy")("123", false);
+    (wrapper.find("Clipboard").invoke("onCopy") as any)("123", false);
     expect(spyOnMessageError).toHaveBeenCalled();
   });
 
@@ -60,7 +62,6 @@ describe("CodeEditorItem", () => {
         onChange={onChange}
         onBlur={onBlur}
         onErrorChange={onErrorChange}
-        required={true}
         showCopyButton={true}
         showExportButton={true}
       />
@@ -83,9 +84,9 @@ describe("CodeEditorItem", () => {
       value: "a: b\nccc: ddd\n ddd",
     });
 
-    const spyOnSaveAs = jest.spyOn(fileSaver, "saveAs").mockReturnValue(() => {
+    const spyOnSaveAs = jest.spyOn(fileSaver, "saveAs").mockReturnValue((() => {
       /* do nothing */
-    });
+    }) as any);
     wrapper.find(ExportOutlined).simulate("click");
     expect(spyOnSaveAs).toHaveBeenCalled();
   });
@@ -130,7 +131,9 @@ describe("CodeEditorItem", () => {
       value: "isReal: true",
     });
     wrapper.update();
-    wrapper.find(AceEditor).invoke("onValidate")([{ type: "error" }]);
+    wrapper.find(AceEditor).invoke("onValidate")([
+      { type: "error" },
+    ] as Annotation[]);
     expect(mockSetMock).toHaveBeenCalled();
   });
 

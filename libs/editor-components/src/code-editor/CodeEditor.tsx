@@ -36,7 +36,7 @@ export function CodeEditorItem(
   ref: any
 ): React.ReactElement {
   const [editor, setEditor] = useState<IEditorProps>();
-  const [ajv, setAjv] = useState();
+  const [ajv, setAjv] = useState<any>();
   const [jsonSchema, setJsonSchema] = useState(props.jsonSchema);
   const brickNextError = useRef(null);
   const compileSchema = useRef(false);
@@ -53,7 +53,7 @@ export function CodeEditorItem(
     setJsonSchema(schemaValue);
   }, [props.jsonSchema, props.mode]);
 
-  const schemaLint = (data): Annotation[] => {
+  const schemaLint = (data: any): Annotation[] => {
     let newAnnotations: Annotation[] = [];
     try {
       if (!compileSchema?.current) {
@@ -66,7 +66,7 @@ export function CodeEditorItem(
           const position = editor.getCursorPosition();
           const errorMessage = uniqWith(
             ajv.errors,
-            (o, v) => v.dataPtah === o.dataPtah && v.message === o.message
+            (o, v: any) => v.dataPtah === o.dataPtah && v.message === o.message
           )
             ?.map((e) => {
               const field =
@@ -81,7 +81,7 @@ export function CodeEditorItem(
               type: "warning",
               text: errorMessage,
               raw: ajv.errors,
-            },
+            } as Annotation,
           ];
           brickNextError.current = newAnnotations;
         } else {
@@ -118,7 +118,7 @@ export function CodeEditorItem(
             type: "error",
             text: e.reason,
             raw: e,
-          },
+          } as Annotation,
         ];
       }
     }
@@ -132,7 +132,13 @@ export function CodeEditorItem(
           customCompletersIndex.current = editor.completers.length;
         }
         editor.completers.splice(customCompletersIndex.current, 1, {
-          getCompletions(editor, session, pos, prefix, callback) {
+          getCompletions(
+            editor: IEditorProps,
+            session: any,
+            pos: any,
+            prefix: string,
+            callback: any
+          ) {
             callback(
               null,
               map(props.customCompleters, (v) => {
@@ -221,7 +227,7 @@ export function CodeEditorItem(
     }
   }, [editor, props.mode]);
 
-  const onLoad = (editorInstance) => {
+  const onLoad = (editorInstance: IEditorProps) => {
     setEditor(editorInstance);
   };
 

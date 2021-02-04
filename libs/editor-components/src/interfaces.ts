@@ -6,6 +6,7 @@ export interface Error {
 }
 
 export interface CodeEditorProps {
+  name?: string;
   placeholder?: string;
   value?: string;
   onChange?: (value: string) => void;

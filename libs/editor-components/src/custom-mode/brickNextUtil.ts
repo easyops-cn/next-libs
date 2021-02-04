@@ -1,4 +1,5 @@
 import storyboardJsonSchema from "@next-core/brick-types/.schema/storyboard.json";
+import { IEditorProps } from "react-ace";
 import { get } from "lodash";
 
 export const brickNextSnippet = [
@@ -53,12 +54,24 @@ export const brickNextKeywords = [
 export const brickNextCompleters = [
   {
     identifierRegexps: [/[a-zA-Z_0-9@<$\-\u00A2-\u2000\u2070-\uFFFF]/],
-    getCompletions(editor, session, pos, prefix, callback) {
+    getCompletions(
+      editor: IEditorProps,
+      session: any,
+      pos: any,
+      prefix: string,
+      callback: any
+    ) {
       callback(null, brickNextSnippet);
     },
   },
   {
-    getCompletions(editor, session, pos, prefix, callback) {
+    getCompletions(
+      editor: IEditorProps,
+      session: any,
+      pos: any,
+      prefix: string,
+      callback: any
+    ) {
       callback(
         null,
         brickNextKeywords.map((word) => ({
@@ -71,7 +84,13 @@ export const brickNextCompleters = [
     },
   },
   {
-    getCompletions(editor, session, pos, prefix, callback) {
+    getCompletions(
+      editor: IEditorProps,
+      session: any,
+      pos: any,
+      prefix: string,
+      callback: any
+    ) {
       const line = session.getLine(pos.row).substr(0, pos.column);
       if (/action(["']?)([\s]*):/.test(line)) {
         callback(
@@ -79,7 +98,7 @@ export const brickNextCompleters = [
           get(
             storyboardJsonSchema,
             "definitions.BuiltinBrickEventHandler.properties.action.enum"
-          )?.map((word) => ({
+          )?.map((word: any) => ({
             caption: word,
             value: word,
             meta: "event action",

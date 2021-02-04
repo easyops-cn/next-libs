@@ -28,14 +28,15 @@ describe("CodeDisplay", () => {
 
     const spyOnMessage = jest.spyOn(message, "success");
     const spyOnMessageError = jest.spyOn(message, "error");
-    wrapper.find("Clipboard").invoke("onCopy")("123", true);
+    (wrapper.find("Clipboard").invoke("onCopy") as any)("123", true);
     expect(spyOnMessage).toHaveBeenCalled();
-    wrapper.find("Clipboard").invoke("onCopy")("123", false);
+    (wrapper.find("Clipboard").invoke("onCopy") as any)("123", false);
     expect(spyOnMessageError).toHaveBeenCalled();
 
-    const spyOnSaveAs = jest.spyOn(fileSaver, "saveAs").mockReturnValue(() => {
+    // eslint-disable-next-line
+    const spyOnSaveAs = jest.spyOn(fileSaver, "saveAs").mockReturnValue((() => {
       /* do nothing */
-    });
+    }) as any);
     wrapper.find(ExportOutlined).simulate("click");
     expect(spyOnSaveAs).toHaveBeenCalled();
   });
