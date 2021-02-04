@@ -1,0 +1,22 @@
+.aceContainer {
+  border: 1px solid #e8e8e8;
+  border-radius: 4px;
+}
+
+.wrapper {
+  position: relative;
+  .themeTomorrow,
+  .themeGithub {
+    color: #cccccc;
+  }
+
+  &:hover {
+    .aceToolbar {
+      display: block;
+    }
+  }
+
+  .aceToolbar {
+    display: none;
+  }
+}

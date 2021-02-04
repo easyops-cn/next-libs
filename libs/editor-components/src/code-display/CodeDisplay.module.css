@@ -1,0 +1,34 @@
+.customCodeDisplay {
+  position: relative;
+  pre[class*="language-"],
+  code[class*="language-"] {
+    font-size: 12px;
+    line-height: 16px;
+  }
+  pre[class*="language-"] {
+    position: relative;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-radius: 4px;
+    .counterBg {
+      position: absolute;
+      width: 40px;
+      height: 100%;
+      left: 0;
+      background: #3b3b3b;
+    }
+  }
+  :global(.line-numbers .line-numbers-rows) {
+    border-right: 0;
+  }
+
+  &:hover {
+    .displayToolbar {
+      display: block;
+    }
+  }
+
+  .displayToolbar {
+    display: none;
+  }
+}

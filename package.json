@@ -21,8 +21,12 @@
     "extract": "dev-dependencies-extract"
   },
   "browserslist": {
-    "development": ["extends @next-core/browserslist-config-next/development"],
-    "production": ["extends @next-core/browserslist-config-next/production"]
+    "development": [
+      "extends @next-core/browserslist-config-next/development"
+    ],
+    "production": [
+      "extends @next-core/browserslist-config-next/production"
+    ]
   },
   "devDependencies": {
     "@ant-design/compatible": "^1.0.8",
@@ -59,6 +63,8 @@
     "@types/react-transition-group": "^4.4.0",
     "@types/yaml": "^1.9.6",
     "antd": "^4.11.2",
+    "@types/file-saver": "^2.0.1",
+    "@types/prismjs": "^1.16.2",
     "d3-drag": "^2.0.0",
     "d3-force": "^2.1.1",
     "d3-hierarchy": "^2.0.0",
