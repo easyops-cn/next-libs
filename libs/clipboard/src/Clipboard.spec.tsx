@@ -3,6 +3,12 @@ import { mount, ReactWrapper } from "enzyme";
 import { Clipboard, ClipboardProps } from "./Clipboard";
 import { Icon as LegacyIcon } from "@ant-design/compatible";
 import { HeartFilled } from "@ant-design/icons";
+import { message } from "antd";
+import i18next from "i18next";
+import { K } from "./i18n/constants";
+
+const sypOnMessageSuccess = jest.spyOn(message, "success");
+const sypOnMessageError = jest.spyOn(message, "error");
 
 describe("Clipboard", () => {
   const TEXT = "copy was successful!";
@@ -20,9 +26,9 @@ describe("Clipboard", () => {
     .mockImplementation(() => null);
 
   describe("test default icon", () => {
-    let wrapper: ReactWrapper;
+    let wrapper: ReactWrapper<ClipboardProps>;
     beforeEach(() => {
-      wrapper = mount(<Clipboard {...props} />);
+      wrapper = mount<ClipboardProps>(<Clipboard {...props} />);
     });
 
     afterEach(() => {
@@ -57,6 +63,18 @@ describe("Clipboard", () => {
 
       expect(spyOnConsoleError).toBeCalled();
       expect(props.onCopy).toBeCalledWith(TEXT, false);
+    });
+
+    it("should show default message when without onCopy property", () => {
+      document.execCommand = jest.fn().mockReturnValue(true);
+      wrapper.setProps({ onCopy: undefined });
+
+      wrapper.find(LegacyIcon).simulate("click");
+      expect(sypOnMessageSuccess).toBeCalledWith(i18next.t(K.COPY_SUCCESS));
+
+      (document.execCommand as jest.Mock).mockReturnValue(false);
+      wrapper.find(LegacyIcon).simulate("click");
+      expect(sypOnMessageError).toBeCalledWith(i18next.t(K.COPY_FAILED));
     });
 
     it("should work when app running in IE browser", () => {
