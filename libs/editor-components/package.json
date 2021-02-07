@@ -1,13 +1,15 @@
 {
   "name": "@next-libs/editor-components",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "> TODO: description",
   "homepage": "https://github.com/easyops-cn/next-libs/tree/master/libs/editor-components",
   "license": "GPL-3.0",
   "main": "dist/index.bundle.js",
   "module": "dist/index.esm.js",
   "typings": "dist/types/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "clean": "rimraf dist",
     "prestart": "npm run clean",
@@ -28,7 +30,7 @@
     "brace": "*"
   },
   "dependencies": {
-    "@next-libs/clipboard": "^2.0.3",
+    "@next-libs/clipboard": "^2.1.0",
     "ajv": "^6.12.6",
     "classnames": "^2.2.6",
     "file-saver": "^2.0.5",
