@@ -1,10 +1,13 @@
 import React, { PropsWithChildren, ReactElement } from "react";
 import { Icon as LegacyIcon } from "@ant-design/compatible";
 import { IconProps } from "@ant-design/compatible/lib/icon";
+import { message } from "antd";
+import { useTranslation } from "react-i18next";
+import { NS_CLIPBOARD, K } from "./i18n/constants";
 
 export interface ClipboardProps {
   text: string;
-  onCopy: (text: string, result: boolean) => void;
+  onCopy?: (text: string, result: boolean) => void;
   icon?: IconProps;
 }
 
@@ -58,15 +61,20 @@ export const copyToClipboard = (text: string): boolean => {
 export function Clipboard(
   props: PropsWithChildren<ClipboardProps>
 ): React.ReactElement {
+  const { t } = useTranslation(NS_CLIPBOARD);
   const { onCopy, icon, children, ...restProps } = props;
   const defaultIconProps = {
     theme: "filled",
-    type: "copy"
+    type: "copy",
   };
 
   const onCopyButtonClick = () => {
     const success = copyToClipboard(props.text);
-    onCopy && onCopy(props.text, success);
+    onCopy
+      ? onCopy(props.text, success)
+      : success
+      ? message.success(t(K.COPY_SUCCESS))
+      : message.error(t(K.COPY_FAILED));
   };
 
   return (
@@ -81,7 +89,7 @@ export function Clipboard(
           React.Children.only(props.children) as ReactElement,
           {
             ...restProps,
-            onClick: onCopyButtonClick
+            onClick: onCopyButtonClick,
           }
         )
       )}
