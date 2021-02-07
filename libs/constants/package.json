@@ -3,13 +3,11 @@
   "version": "1.0.3",
   "description": "> TODO: description",
   "homepage": "https://github.com/easyops-cn/next-libs/tree/master/libs/constants",
-  "license": "UNLICENSED",
+  "license": "GPL-3.0",
   "main": "dist/index.bundle.js",
   "module": "dist/index.esm.js",
   "typings": "dist/types/index.d.ts",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "repository": {
     "type": "git",
     "url": "git@github.com:easyops-cn/next-libs.git"
