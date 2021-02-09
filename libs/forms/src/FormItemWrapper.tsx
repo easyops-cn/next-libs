@@ -45,7 +45,7 @@ export interface FormItemWrapperProps extends CommonEventProps {
     | ValidationRule["validator"] // Deprecated
     | Pick<ValidationRule, "validator" | "message">
     | Pick<ValidationRule, "validator" | "message">[];
-  helpBrick?: HelpBrickProps;
+  helpBrick?: HelpBrickProps | string | number;
   className?: string;
   notRender?: boolean;
   trigger?: string;
@@ -308,13 +308,12 @@ export function FormItemWrapper(
     formItemProps.colon = !props.formElement.noColon;
   }
 
-  return (
-    <Form.Item
-      className={`${style.formItem} ${className ?? ""}`}
-      {...formItemProps}
-    >
-      {input}
-      {helpBrick?.useBrick && (
+  const getHelpBrickNode = () => {
+    if (typeof helpBrick === "string" || typeof helpBrick === "number") {
+      return <span className={style.helpInformation}>{helpBrick}</span>;
+    }
+    if (helpBrick?.useBrick) {
+      return (
         <span
           style={helpBrick.containerStyle}
           className={classNames({
@@ -326,7 +325,17 @@ export function FormItemWrapper(
         >
           <BrickAsComponent useBrick={helpBrick.useBrick} />
         </span>
-      )}
+      );
+    }
+  };
+
+  return (
+    <Form.Item
+      className={`${style.formItem} ${className ?? ""}`}
+      {...formItemProps}
+    >
+      {input}
+      {getHelpBrickNode()}
     </Form.Item>
   );
 }

@@ -18,3 +18,12 @@ forms\.general-form .formItem {
   position: relative;
   line-height: 20px;
 }
+
+.helpInformation {
+  display: block;
+  position: relative;
+  color: #949494;
+  font-size: 14px;
+  line-height: 20px;
+  margin-top: 4px;
+}

@@ -349,4 +349,32 @@ describe("FormItemWrapper", () => {
       });
     });
   });
+
+  it("should work when helpBrick is string", () => {
+    const wrapper = shallow(
+      <FormItemWrapper name="username" label="hello" helpBrick="help title" />
+    );
+    expect(wrapper.find(".helpInformation").length).toBe(1);
+    expect(wrapper.find(".helpInformation").text()).toEqual("help title");
+  });
+
+  it("should work when helpBrick is brick", () => {
+    const wrapper = shallow(
+      <FormItemWrapper
+        name="username"
+        label="hello"
+        helpBrick={{
+          useBrick: {
+            brick: "div",
+            properties: {
+              textContent: "help title",
+            },
+          },
+        }}
+      />
+    );
+    const helpBrickWrapper = wrapper.find(Form.Item).children();
+    expect(helpBrickWrapper.text()).toEqual("<BrickAsComponent />");
+    expect(helpBrickWrapper.hasClass("bottomBrick")).toBe(true);
+  });
 });
