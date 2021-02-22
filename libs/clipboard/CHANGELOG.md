@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.2.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/clipboard@2.0.3...@next-libs/clipboard@2.2.0) (2021-02-22)
+
+
+### Features
+
+* **Clipboard:** show default message when there is no onCopy property ([e46c6c7](https://github.com/easyops-cn/next-libs/commit/e46c6c7e93f4b25451d5614bec6efac3a749c8a7))
+
+
+
+
+
 # [2.1.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/clipboard@2.0.3...@next-libs/clipboard@2.1.0) (2021-02-07)
 
 ### Features

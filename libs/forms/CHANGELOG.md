@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@2.0.3...@next-libs/forms@2.1.0) (2021-02-22)
+
+
+### Features
+
+* **forms:** 表单支持简单说明 ([4ae6b16](https://github.com/easyops-cn/next-libs/commit/4ae6b16f1e0b5f2226807969d1920751369ad567))
+
+
+
+
+
 ## [2.0.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@2.0.3...@next-libs/forms@2.0.4) (2021-02-07)
 
 **Note:** Version bump only for package @next-libs/forms
