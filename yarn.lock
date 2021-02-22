@@ -29,7 +29,7 @@
   resolved "https://registry.npm.taobao.org/@ant-design/icons-svg/download/@ant-design/icons-svg-4.1.0.tgz#480b025f4b20ef7fe8f47d4a4846e4fee84ea06c"
   integrity sha1-SAsCX0sg73/o9H1KSEbk/uhOoGw=
 
-"@ant-design/icons@^4.0.0", "@ant-design/icons@^4.3.0", "@ant-design/icons@^4.5.0":
+"@ant-design/icons@^4.0.0", "@ant-design/icons@^4.5.0":
   version "4.5.0"
   resolved "https://registry.npm.taobao.org/@ant-design/icons/download/@ant-design/icons-4.5.0.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40ant-design%2Ficons%2Fdownload%2F%40ant-design%2Ficons-4.5.0.tgz#dc5ceff85503932265143dc5c3013167daa3f754"
   integrity sha1-3Fzv+FUDkyJlFD3FwwExZ9qj91Q=
@@ -2039,7 +2039,7 @@
   dependencies:
     babel-plugin-prismjs "^2.0.1"
 
-"@next-core/babel-runtime-helpers@^1.0.6", "@next-core/babel-runtime-helpers@^1.0.7":
+"@next-core/babel-runtime-helpers@^1.0.7":
   version "1.0.7"
   resolved "https://registry.npm.taobao.org/@next-core/babel-runtime-helpers/download/@next-core/babel-runtime-helpers-1.0.7.tgz?cache=0&sync_timestamp=1613960485244&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40next-core%2Fbabel-runtime-helpers%2Fdownload%2F%40next-core%2Fbabel-runtime-helpers-1.0.7.tgz#55780d246edbe912289241e544cf9a8580536835"
   integrity sha1-VXgNJG7b6RIokkHlRM+ahYBTaDU=
@@ -2090,17 +2090,17 @@
     react-i18next "^11.8.7"
     react-transition-group "^4.4.1"
 
-"@next-core/brick-http@^2.2.5", "@next-core/brick-http@^2.2.6":
+"@next-core/brick-http@^2.2.6":
   version "2.2.6"
   resolved "https://registry.npm.taobao.org/@next-core/brick-http/download/@next-core/brick-http-2.2.6.tgz?cache=0&sync_timestamp=1613960501993&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40next-core%2Fbrick-http%2Fdownload%2F%40next-core%2Fbrick-http-2.2.6.tgz#3d20e88ce5637268e37648f55dad2cb6e36372fc"
   integrity sha1-PSDojOVjcmjjdkj1Xa0stuNjcvw=
 
-"@next-core/brick-icons@^2.8.1", "@next-core/brick-icons@^2.8.2":
+"@next-core/brick-icons@^2.8.2":
   version "2.8.2"
   resolved "https://registry.npm.taobao.org/@next-core/brick-icons/download/@next-core/brick-icons-2.8.2.tgz?cache=0&sync_timestamp=1613960507148&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40next-core%2Fbrick-icons%2Fdownload%2F%40next-core%2Fbrick-icons-2.8.2.tgz#6811441241d46cb58dc50eb5e407b314fcb018d1"
   integrity sha1-aBFEEkHUbLWNxQ615AezFPywGNE=
 
-"@next-core/brick-kit@^2.33.0", "@next-core/brick-kit@^2.33.1":
+"@next-core/brick-kit@^2.33.1":
   version "2.33.1"
   resolved "https://registry.npm.taobao.org/@next-core/brick-kit/download/@next-core/brick-kit-2.33.1.tgz#e9e5eb2fc6458d9113e3a99935d8b2064186daf5"
   integrity sha1-6eXrL8ZFjZET46mZNdiyBkGG2vU=
@@ -2135,7 +2135,7 @@
   resolved "https://registry.npm.taobao.org/@next-core/brick-types/download/@next-core/brick-types-2.17.1.tgz#f33c589cce41f9b1ffb8d2fa75fa0c647fb1ada3"
   integrity sha1-8zxYnM5B+bH/uNL6dfoMZH+xraM=
 
-"@next-core/brick-utils@^2.10.8", "@next-core/brick-utils@^2.10.9":
+"@next-core/brick-utils@^2.10.9":
   version "2.10.9"
   resolved "https://registry.npm.taobao.org/@next-core/brick-utils/download/@next-core/brick-utils-2.10.9.tgz?cache=0&sync_timestamp=1613960510226&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40next-core%2Fbrick-utils%2Fdownload%2F%40next-core%2Fbrick-utils-2.10.9.tgz#b70cadb64086092cda9ecb4b9f04d3f106046d3a"
   integrity sha1-twyttkCGCSzanstLnwTT8QYEbTo=
@@ -2226,12 +2226,12 @@
     typescript "~4.1.5"
     yargs "^16.2.0"
 
-"@next-core/easyops-analytics@^0.1.5", "@next-core/easyops-analytics@^0.1.6":
+"@next-core/easyops-analytics@^0.1.6":
   version "0.1.6"
   resolved "https://registry.npm.taobao.org/@next-core/easyops-analytics/download/@next-core/easyops-analytics-0.1.6.tgz?cache=0&sync_timestamp=1613960515011&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40next-core%2Feasyops-analytics%2Fdownload%2F%40next-core%2Feasyops-analytics-0.1.6.tgz#ec39540ac3dff386d9073bb2b10a20163912f6bf"
   integrity sha1-7DlUCsPf84bZBzuysQogFjkS9r8=
 
-"@next-core/editor-bricks-helper@^0.7.10", "@next-core/editor-bricks-helper@^0.7.9":
+"@next-core/editor-bricks-helper@^0.7.10":
   version "0.7.10"
   resolved "https://registry.npm.taobao.org/@next-core/editor-bricks-helper/download/@next-core/editor-bricks-helper-0.7.10.tgz?cache=0&sync_timestamp=1613960515050&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40next-core%2Feditor-bricks-helper%2Fdownload%2F%40next-core%2Feditor-bricks-helper-0.7.10.tgz#34d9ea12b04471d4b4aad508ac8553a9972abd67"
   integrity sha1-NNnqErBEcdS0qtUIrIVTqZcqvWc=
@@ -3061,10 +3061,10 @@
     jest-diff "^26.0.0"
     pretty-format "^26.0.0"
 
-"@types/js-yaml@^3.12.5":
-  version "3.12.5"
-  resolved "https://registry.npm.taobao.org/@types/js-yaml/download/@types/js-yaml-3.12.5.tgz#136d5e6a57a931e1cce6f9d8126aa98a9c92a6bb"
-  integrity sha1-E21ealepMeHM5vnYEmqpipySprs=
+"@types/js-yaml@^3.12.6":
+  version "3.12.6"
+  resolved "https://registry.npm.taobao.org/@types/js-yaml/download/@types/js-yaml-3.12.6.tgz#7f10c926aa41e189a2755c4c7fcf8e4573bd7ac1"
+  integrity sha1-fxDJJqpB4YmidVxMf8+ORXO9esE=
 
 "@types/json-schema@^7.0.3", "@types/json-schema@^7.0.5", "@types/json-schema@^7.0.6":
   version "7.0.6"
@@ -3091,10 +3091,10 @@
   resolved "https://registry.npm.taobao.org/@types/minimist/download/@types/minimist-1.2.0.tgz#69a23a3ad29caf0097f06eda59b361ee2f0639f6"
   integrity sha1-aaI6OtKcrwCX8G7aWbNh7i8GOfY=
 
-"@types/node@*", "@types/node@^12.12.31":
-  version "12.12.35"
-  resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-12.12.35.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-12.12.35.tgz#1e61b226c14380f4384f70cfe49a65c2c553ad2b"
-  integrity sha1-HmGyJsFDgPQ4T3DP5JplwsVTrSs=
+"@types/node@*", "@types/node@^12.20.3":
+  version "12.20.4"
+  resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-12.20.4.tgz?cache=0&sync_timestamp=1613758023673&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-12.20.4.tgz#73687043dd00fcb6962c60fbf499553a24d6bdf2"
+  integrity sha1-c2hwQ90A/LaWLGD79JlVOiTWvfI=
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
@@ -3133,10 +3133,10 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-test-renderer@>=16.9.0", "@types/react-test-renderer@^17.0.0":
-  version "17.0.0"
-  resolved "https://registry.npm.taobao.org/@types/react-test-renderer/download/@types/react-test-renderer-17.0.0.tgz#9be47b375eeb906fced37049e67284a438d56620"
-  integrity sha1-m+R7N17rkG/O03BJ5nKEpDjVZiA=
+"@types/react-test-renderer@>=16.9.0", "@types/react-test-renderer@^17.0.1":
+  version "17.0.1"
+  resolved "https://registry.npm.taobao.org/@types/react-test-renderer/download/@types/react-test-renderer-17.0.1.tgz#3120f7d1c157fba9df0118dae20cb0297ee0e06b"
+  integrity sha1-MSD30cFX+6nfARja4gywKX7g4Gs=
   dependencies:
     "@types/react" "*"
 
@@ -3147,10 +3147,10 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@>=16.9.0", "@types/react@^16.9.56":
-  version "16.9.56"
-  resolved "https://registry.npm.taobao.org/@types/react/download/@types/react-16.9.56.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Freact%2Fdownload%2F%40types%2Freact-16.9.56.tgz#ea25847b53c5bec064933095fc366b1462e2adf0"
-  integrity sha1-6iWEe1PFvsBkkzCV/DZrFGLirfA=
+"@types/react@*", "@types/react@>=16.9.0", "@types/react@^16.14.4":
+  version "16.14.4"
+  resolved "https://registry.npm.taobao.org/@types/react/download/@types/react-16.14.4.tgz?cache=0&sync_timestamp=1613155380024&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Freact%2Fdownload%2F%40types%2Freact-16.14.4.tgz#365f6a1e117d1eec960ba792c7e1e91ecad38e6f"
+  integrity sha1-Nl9qHhF9HuyWC6eSx+HpHsrTjm8=
   dependencies:
     "@types/prop-types" "*"
     csstype "^3.0.2"
@@ -3694,7 +3694,7 @@ ansi-styles@^4.0.0, ansi-styles@^4.1.0:
     "@types/color-name" "^1.1.1"
     color-convert "^2.0.1"
 
-antd@^4.12.2, antd@^4.12.3:
+antd@^4.12.3:
   version "4.12.3"
   resolved "https://registry.npm.taobao.org/antd/download/antd-4.12.3.tgz#b9f1401e4f2899a3b33c1953491775efbbaa4da3"
   integrity sha1-ufFAHk8omaOzPBlTSRd177uqTaM=
@@ -7813,7 +7813,7 @@ husky@^4.3.8:
     slash "^3.0.0"
     which-pm-runs "^1.0.0"
 
-i18next@^19.8.6, i18next@^19.8.9:
+i18next@^19.8.9:
   version "19.8.9"
   resolved "https://registry.npm.taobao.org/i18next/download/i18next-19.8.9.tgz#ee3175cf1edcd142b45eca49d23079edaa1e6fcc"
   integrity sha1-7jF1zx7c0UK0XspJ0jB57aoeb8w=
@@ -12422,7 +12422,7 @@ react-error-boundary@^3.1.0:
   dependencies:
     "@babel/runtime" "^7.12.5"
 
-react-i18next@^11.8.5, react-i18next@^11.8.7:
+react-i18next@^11.8.7:
   version "11.8.7"
   resolved "https://registry.npm.taobao.org/react-i18next/download/react-i18next-11.8.7.tgz#845f31e01e2aa92a3954c374ebcc4bd54df1cace"
   integrity sha1-hF8x4B4qqSo5VMN068xL1U3xys4=
