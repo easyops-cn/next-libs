@@ -3,13 +3,11 @@ import update from "immutability-helper";
 import { DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 import { Table, Button, Modal, Switch, Tag } from "antd";
 import * as _ from "lodash";
-
-import { Permission, User } from "../interfaces";
+import { Permission } from "../interfaces";
 import { BatchHandleUser } from "./BatchHandleUser";
 import { PermissionCollection } from "../processors";
 import { SelectUserOrGroup } from "./SelectUserOrGroup";
 import styles from "./index.module.css";
-import { CmdbModels } from "@next-sdk/cmdb-sdk";
 export interface CommonSettingPropsDefine {
   instanceData: any;
   permissionList: Permission[];
@@ -208,7 +206,7 @@ export class CommonSetting extends React.Component<
   }
   renderWhiteListEnabled = (text: boolean, record: any) => (
     <Switch
-      defaultChecked={text}
+      defaultChecked={!!record.authorizers.length}
       onChange={(checked: boolean) =>
         this.handleToggleWhiteListEnabled(checked, record)
       }
@@ -254,50 +252,7 @@ export class CommonSetting extends React.Component<
     this.setState({
       batchType: "add",
     });
-    if (this.props.onSingleAddUserModelOpen) {
-      const objectIdObjectMap: Record<
-        string,
-        Partial<CmdbModels.ModelCmdbObject>
-      > = {
-        USER: {
-          objectId: "USER",
-          name: "用户",
-        },
-        USER_GROUP: {
-          objectId: "USER_GROUP",
-          name: "用户组",
-        },
-      };
-      const reverseObjectIdMap: Record<string, string> = {
-        USER: "USER_GROUP",
-        USER_GROUP: "USER",
-      };
-      const onSingleAddUserModelOpen = (objectId: string) => {
-        const object = objectIdObjectMap[objectId];
-        const reversedObject = objectIdObjectMap[reverseObjectIdMap[objectId]];
-        this.props.onSingleAddUserModelOpen({
-          objectId,
-          modalTitle: (
-            <>
-              选择{object.name}
-              <Button
-                type="link"
-                size="small"
-                onClick={() =>
-                  onSingleAddUserModelOpen(reversedObject.objectId)
-                }
-                style={{ marginLeft: "8px" }}
-              >
-                切换为{reversedObject.name}
-              </Button>
-            </>
-          ),
-        });
-      };
-      onSingleAddUserModelOpen("USER_GROUP");
-    } else {
-      this.setState({ showAddUser: true });
-    }
+    this.setState({ showAddUser: true });
   };
   // 保存为单个权限添加用户
   handleStoreSingleAddUser = () => {
@@ -369,6 +324,8 @@ export class CommonSetting extends React.Component<
     permissionList[modifiedIndex]._whiteListEnabled = checked;
     if (checked && _.isEmpty(permissionList[modifiedIndex].authorizers)) {
       permissionList[modifiedIndex].authorizers.push("easyops");
+    } else if (!checked) {
+      permissionList[modifiedIndex].authorizers = [];
     }
     this.setState((prevState) => ({
       collections: { ...prevState.collections, permissionList },
