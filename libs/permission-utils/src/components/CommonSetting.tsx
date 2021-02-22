@@ -251,8 +251,8 @@ export class CommonSetting extends React.Component<
     this.batchHandlePermChange([record.data.action]);
     this.setState({
       batchType: "add",
+      showAddUser: true,
     });
-    this.setState({ showAddUser: true });
   };
   // 保存为单个权限添加用户
   handleStoreSingleAddUser = () => {
