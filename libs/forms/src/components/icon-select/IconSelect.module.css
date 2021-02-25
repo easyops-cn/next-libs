@@ -1,0 +1,179 @@
+.previewContainer {
+  display: grid;
+  justify-items: center;
+  margin-bottom: 20px;
+}
+.iconName {
+  text-align: center;
+}
+.showArea {
+  justify-items: center;
+  display: grid;
+  font-size: 40px;
+  position: relative;
+  height: 70px;
+  align-items: center;
+  &:hover {
+    .deleteWrapper {
+      display: grid;
+    }
+  }
+  .deleteWrapper {
+    top: 0;
+    position: absolute;
+    display: none;
+    cursor: pointer;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.15);
+    justify-items: center;
+    align-items: center;
+    .deleteIcon {
+      font-size: 14px;
+      background: #ffffff;
+      display: grid;
+      justify-items: center;
+      align-items: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(238, 239, 243, 1);
+      &:focus {
+        background-color: #f2f2f2;
+      }
+    }
+  }
+}
+.clearButton {
+  position: absolute;
+  bottom: -32px;
+}
+
+.previewAvatar {
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.selectedIcon {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  justify-self: center;
+  align-self: center;
+}
+
+.selectedAvatar {
+  cursor: pointer;
+}
+
+.faIcon {
+  :global(.anticon) {
+    vertical-align: 0;
+  }
+}
+
+.selectIconContainer {
+  display: grid;
+  grid-template-columns: 80px auto;
+  row-gap: 20px;
+}
+
+.selectIconArea {
+  margin-left: 22px;
+}
+
+.selectColorArea {
+  display: flex;
+}
+.colorBox {
+  width: 38px;
+  height: 38px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.emptyColor {
+  border: 2px solid rgba(217, 217, 217, 1);
+  background-color: #ffffff;
+  position: relative;
+  overflow: hidden;
+}
+.emptyLine {
+  background: #d0021b;
+  position: absolute;
+  transform: translateX(-10px) rotate(-45deg);
+  width: 50px;
+  margin: 19px 0;
+  height: 2px;
+}
+.colorBox:not(:last-child) {
+  margin-right: 30px;
+}
+.colorBox:first-child {
+  margin-left: 22px;
+}
+
+.title {
+  text-align: right;
+  line-height: 32px;
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(102, 102, 102, 1);
+}
+
+.selectIconArea .iconSearch {
+  width: 200px;
+  height: 32px;
+  margin-bottom: 12px;
+  margin-right: 10px;
+}
+
+.iconContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 50px;
+}
+
+.iconContainer:hover {
+  cursor: pointer;
+}
+
+.iconContainer .iconName {
+  visibility: hidden;
+  font-size: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  height: 100%;
+  overflow: hidden;
+}
+
+.iconContainer:hover .iconName {
+  visibility: visible;
+  font-size: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  height: 100%;
+  overflow: hidden;
+  color: #43a1ff;
+}
+
+.iconContainer:hover .iconInnerContainer {
+  color: #43a1ff;
+}
+
+.iconContainer .iconInnerContainer {
+  color: #595959;
+}
+
+.iconArea {
+  padding-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(8, 12.5%);
+  overflow: auto;
+  width: 616px;
+  height: 218px;
+  font-size: 20px;
+  background: rgba(251, 251, 251, 1);
+}
