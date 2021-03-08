@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@3.0.6...@next-libs/cmdb-instances@3.0.7) (2021-03-08)
+
+
+### Bug Fixes
+
+* 用户没有主机实例操作权限， 安装redis点击从CMDB筛选主机会报错问题修复 Closed CD-1590 ([07cf1ab](https://github.com/easyops-cn/next-libs/commit/07cf1ab028453b2a28f4c8b47cb57fd3391e22f6))
+
+
+
+
+
 ## [3.0.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@3.0.4...@next-libs/cmdb-instances@3.0.6) (2021-02-22)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
