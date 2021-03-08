@@ -374,70 +374,62 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     asc: boolean,
     page: number
   ) => {
-    try {
-      const searchParams: InstanceApi.PostSearchRequestBody = {};
-      if (!isEmpty(props.permission)) {
-        searchParams.permission = props.permission;
-      }
-
-      let query: Record<string, any> = {};
-
-      searchParams.page = page;
-      state.pageSize && (searchParams["page_size"] = state.pageSize);
-      sort && (searchParams.sort = { [sort]: asc ? 1 : -1 });
-
-      if (state.q) {
-        query = getQuery(modelData, idObjectMap, state.q, state.fieldIds);
-      }
-
-      if (!isEmpty(state.aq)) {
-        query[LogicalOperators.And] = state.aq;
-      }
-
-      if (!isEmpty(props.defaultQuery)) {
-        query[LogicalOperators.And] = [
-          ...(query[LogicalOperators.And] || []),
-          ...props.defaultQuery,
-        ];
-      }
-
-      if (!isEmpty(query)) {
-        searchParams.query = query;
-      }
-      if (props.presetConfigs) {
-        if (!isEmpty(props.presetConfigs.query)) {
-          if (searchParams.query) {
-            searchParams.query = {
-              $and: [searchParams.query, props.presetConfigs.query],
-            };
-          } else {
-            searchParams.query = props.presetConfigs.query;
-          }
-        }
-        if (state.fieldIds) {
-          const fields: Record<string, boolean> = {};
-          state.fieldIds.forEach((id) => (fields[id] = true));
-          if (searchParams.fields) {
-            searchParams.fields = Object.assign(
-              {},
-              searchParams.fields,
-              fields
-            );
-          } else {
-            searchParams.fields = fields;
-          }
-        }
-      }
-      if (state.relatedToMe) {
-        searchParams.only_my_instance = state.relatedToMe;
-      }
-      if (state.aliveHosts && props.objectId === "HOST") {
-        searchParams.query = { ...searchParams.query, _agentStatus: "正常" };
-      }
-      return await InstanceApi.postSearch(props.objectId, searchParams);
-    } catch (e) {
-      handleHttpError(e);
+    const searchParams: InstanceApi.PostSearchRequestBody = {};
+    if (!isEmpty(props.permission)) {
+      searchParams.permission = props.permission;
     }
+
+    let query: Record<string, any> = {};
+
+    searchParams.page = page;
+    state.pageSize && (searchParams["page_size"] = state.pageSize);
+    sort && (searchParams.sort = { [sort]: asc ? 1 : -1 });
+
+    if (state.q) {
+      query = getQuery(modelData, idObjectMap, state.q, state.fieldIds);
+    }
+
+    if (!isEmpty(state.aq)) {
+      query[LogicalOperators.And] = state.aq;
+    }
+
+    if (!isEmpty(props.defaultQuery)) {
+      query[LogicalOperators.And] = [
+        ...(query[LogicalOperators.And] || []),
+        ...props.defaultQuery,
+      ];
+    }
+
+    if (!isEmpty(query)) {
+      searchParams.query = query;
+    }
+    if (props.presetConfigs) {
+      if (!isEmpty(props.presetConfigs.query)) {
+        if (searchParams.query) {
+          searchParams.query = {
+            $and: [searchParams.query, props.presetConfigs.query],
+          };
+        } else {
+          searchParams.query = props.presetConfigs.query;
+        }
+      }
+      if (state.fieldIds) {
+        const fields: Record<string, boolean> = {};
+        state.fieldIds.forEach((id) => (fields[id] = true));
+        if (searchParams.fields) {
+          searchParams.fields = Object.assign({}, searchParams.fields, fields);
+        } else {
+          searchParams.fields = fields;
+        }
+      }
+    }
+    if (state.relatedToMe) {
+      searchParams.only_my_instance = state.relatedToMe;
+    }
+    if (state.aliveHosts && props.objectId === "HOST") {
+      searchParams.query = { ...searchParams.query, _agentStatus: "正常" };
+    }
+    return await InstanceApi.postSearch(props.objectId, searchParams);
   };
 
   const refreshInstanceList = async (
