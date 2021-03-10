@@ -232,10 +232,7 @@ export class DatetimeRange extends React.Component<
         <div style={datePickerStyle}>
           <DatePicker.RangePicker
             showTime={{
-              defaultValue: [
-                moment(this.state.format),
-                moment(this.state.format),
-              ],
+              defaultValue: [moment(), moment()],
             }}
             format={this.state.format}
             style={{ width: "380px" }}
