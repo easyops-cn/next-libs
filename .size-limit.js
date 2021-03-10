@@ -9,7 +9,7 @@ module.exports = sizeLimit({
     "cmdb-instances": "73 KB",
     crontab: "25 KB",
     "permission-utils": "18 KB",
-    "storyboard-visualization": "100 KB",
+    "storyboard-visualization": "45 KB",
     "editor-components": "330 KB",
   },
 });
