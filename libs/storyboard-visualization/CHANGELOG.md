@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/storyboard-visualization@2.0.5...@next-libs/storyboard-visualization@3.0.0) (2021-03-10)
+
+
+### Features
+
+* use dll of react-dnd ([8d9fec4](https://github.com/easyops-cn/next-libs/commit/8d9fec45a2e160a3006b9d21564db28297f7bb0a))
+
+
+### BREAKING CHANGES
+
+* require peer dep of @next-dll/react-dnd
+
+
+
+
+
 ## [2.0.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/storyboard-visualization@2.0.3...@next-libs/storyboard-visualization@2.0.5) (2021-02-22)
 
 **Note:** Version bump only for package @next-libs/storyboard-visualization

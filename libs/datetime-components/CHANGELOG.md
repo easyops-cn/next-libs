@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/datetime-components@2.0.5...@next-libs/datetime-components@2.0.6) (2021-03-10)
+
+
+### Bug Fixes
+
+* fix invalid input for moment ([717a342](https://github.com/easyops-cn/next-libs/commit/717a342ae0773dfa52eb1e48d346f587ddf8c6c1))
+
+
+
+
+
 ## [2.0.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/datetime-components@2.0.3...@next-libs/datetime-components@2.0.5) (2021-02-22)
 
 **Note:** Version bump only for package @next-libs/datetime-components
