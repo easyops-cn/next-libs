@@ -147,7 +147,11 @@ export function CmdbInstancesSelectPanel(
         selectDisabled={true}
         onCancel={closeAllSelectedInstancesModal}
       />
-      <a className={style.addButton} onClick={openAddInstancesModal}>
+      <a
+        className={style.addButton}
+        onClick={openAddInstancesModal}
+        style={{ marginBottom: "12px" }}
+      >
         {props.addTitle ?? "选择实例"}
       </a>
       <div className={cs}>
