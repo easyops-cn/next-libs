@@ -57,3 +57,7 @@ jobs:
       with:
         npm-token: ${{ secrets.NPM_TOKEN }}
       if: github.event_name == 'push'
+
+    - name: Sync taobao npm mirror
+      run: npx lerna exec -- curl -sX PUT 'https://npm.taobao.org/sync/\$LERNA_PACKAGE_NAME?sync_upstream=true'
+      if: github.event_name == 'push' && steps.next-publish-from-tags.outputs.has-tags
