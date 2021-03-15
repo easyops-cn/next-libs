@@ -128,7 +128,7 @@ export function RoutesPreview(props: RoutesPreviewProps): React.ReactElement {
   };
 
   return (
-    <DndProvider backend={HTML5Backend} context={window}>
+    <DndProvider backend={HTML5Backend}>
       <PreviewItem>
         {draggingItem && (
           <span className={styles.previewTag}>
