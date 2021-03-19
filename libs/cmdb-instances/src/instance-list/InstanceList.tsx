@@ -382,7 +382,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     let query: Record<string, any> = {};
 
     searchParams.page = page;
-    state.pageSize && (searchParams["page_size"] = state.pageSize);
+    searchParams["page_size"] = state?.pageSize ?? 10;
     sort && (searchParams.sort = { [sort]: asc ? 1 : -1 });
 
     if (state.q) {
