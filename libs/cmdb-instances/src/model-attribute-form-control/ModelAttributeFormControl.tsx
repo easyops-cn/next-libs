@@ -470,6 +470,7 @@ export class ModelAttributeFormControl extends Component<
         const { placeholder, readOnly } = restProps;
         return (
           <Select
+            allowClear={true}
             mode="tags"
             style={{ ...this.props.style, width: "100%" }}
             disabled={readOnly}
