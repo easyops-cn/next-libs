@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.9](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@3.0.8...@next-libs/cmdb-instances@3.0.9) (2021-03-22)
+
+
+### Bug Fixes
+
+* **cmdb:** tags添加allowClear ([f657496](https://github.com/easyops-cn/next-libs/commit/f65749691104d393767a5b18df23c9437092d403))
+* **cmdb-instance:** 输入框需要添加placeholder ([dfdd0b4](https://github.com/easyops-cn/next-libs/commit/dfdd0b485e3dc8d1774cee511598eb8c481e5ae3))
+* **instance:** 实例列表默认pageSize ([6488a30](https://github.com/easyops-cn/next-libs/commit/6488a304a0d677259a01c2210da3b613eb544f3f))
+
+
+
+
+
 ## [3.0.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@3.0.7...@next-libs/cmdb-instances@3.0.8) (2021-03-15)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
