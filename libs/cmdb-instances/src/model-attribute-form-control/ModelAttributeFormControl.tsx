@@ -299,6 +299,9 @@ export class ModelAttributeFormControl extends Component<
     ) {
       placeholders.push("点击选择");
     }
+    if (formControl.type === FormControlTypeEnum.TEXT) {
+      placeholders.push("可以输入多个，以回车间隔");
+    }
     if (formControl.type === FormControlTypeEnum.TAGS) {
       placeholders.push("输入多个，以回车间隔");
     }
