@@ -380,6 +380,16 @@ describe("ModelAttributeFormControl", () => {
       const result = computePlaceholder(formControl);
       expect(result).toEqual("点击选择");
     });
+    it("should return '例如：192.168.100.1' when formControl.id === 'ip' && formControl.name === 'ip'", () => {
+      const formControl: FormControl = {
+        id: "ip",
+        type: FormControlTypeEnum.TEXT,
+        name: "ip",
+      };
+
+      const result = computePlaceholder(formControl);
+      expect(result).toEqual("例如：192.168.100.1");
+    });
   });
 
   describe("test computeFormControl fn", () => {
