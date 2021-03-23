@@ -7,7 +7,7 @@ const locale: Locale = {
   [K.DELETE]: "Delete",
   [K.INVALID_OR_FORBIDDEN_IPS]: "Invalid or forbidden IPs：",
   [K.INVALID]: "Invalid ",
-  [K.SELECT_FROM_CMDB]: "Select from CMDB"
+  [K.SELECT_FROM_CMDB]: "Select from CMDB",
 };
 
 export default locale;

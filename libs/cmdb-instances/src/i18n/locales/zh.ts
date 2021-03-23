@@ -7,7 +7,7 @@ const locale: Locale = {
   [K.DELETE]: "剔除",
   [K.INVALID_OR_FORBIDDEN_IPS]: "无效 IP 或没有权限的 IP：",
   [K.INVALID]: "无效的",
-  [K.SELECT_FROM_CMDB]: "从 CMDB 中筛选"
+  [K.SELECT_FROM_CMDB]: "从 CMDB 中筛选",
 };
 
 export default locale;

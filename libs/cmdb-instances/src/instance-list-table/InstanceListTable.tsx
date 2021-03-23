@@ -116,7 +116,7 @@ export class LegacyInstanceListTable extends React.Component<
       showSizeChanger: this.props.showSizeChanger,
       showTotal: (totals: number) => (
         <span className={styles.totalText}>
-          共<strong className={styles.total}>{totals}</strong> 项
+          共 <strong className={styles.total}>{totals}</strong> 项
         </span>
       ),
     };
@@ -570,7 +570,6 @@ export class LegacyInstanceListTable extends React.Component<
       [styles.shouldEllipsis]: this.props.autoBreakLine,
       [styles.tableWrapper]: true,
     });
-
     return (
       <div
         className={classes}

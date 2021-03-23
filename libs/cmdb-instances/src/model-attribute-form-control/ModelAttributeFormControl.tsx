@@ -5,6 +5,7 @@ import { AddStruct } from "../struct-components";
 import moment, { Moment } from "moment";
 import { AttributeFormControlUrl } from "../attribute-form-control-url/AttributeFormControlUrl";
 import { computeDateFormat } from "../processors";
+import { clusterMap } from "../instance-list-table/constants";
 
 export interface FormControlSelectItem {
   id: any;
@@ -82,6 +83,7 @@ export interface ModelAttributeFormControlProps {
   multiSelect?: boolean;
   className?: string;
   style?: React.CSSProperties;
+  objectId?: string;
 }
 
 export interface ModelAttributeFormControlState {
@@ -112,15 +114,19 @@ export class ModelAttributeFormControl extends Component<
   ): void {
     if (
       this.props.value !== prevProps.value ||
-      this.props.attribute !== prevProps.attribute ||
-      this.props.type !== prevProps.type
+      this.props.type !== prevProps.type ||
+      this.props.attribute.id !== prevProps.attribute.id ||
+      this.props.attribute.name !== prevProps.attribute.name ||
+      this.props.attribute.value.type !== prevProps.attribute.value.type
     ) {
       this.setState({
         value: this.props.value,
         formControl: this.computeFormControl(
           this.props.attribute,
           this.props.id,
-          this.props.type
+          this.props.type,
+          this.props.objectId === "CLUSTER" &&
+            this.props.attribute.id === "type"
         ),
       });
     }
@@ -128,12 +134,19 @@ export class ModelAttributeFormControl extends Component<
 
   constructor(props: ModelAttributeFormControlProps) {
     super(props);
-    const { attribute, id, value, type } = props;
+    const { attribute, id, value, type, objectId } = props;
+    const is = objectId;
     try {
       this.state = {
         value,
         errorMessage: null,
-        formControl: this.computeFormControl(attribute, id, type),
+        formControl: this.computeFormControl(
+          attribute,
+          id,
+          type,
+          this.props.objectId === "CLUSTER" &&
+            this.props.attribute.id === "type"
+        ),
       };
     } catch (error) {
       this.state = {
@@ -163,7 +176,8 @@ export class ModelAttributeFormControl extends Component<
   }
 
   computeFormControlItems(
-    attribute: Partial<CmdbModels.ModelObjectAttr>
+    attribute: Partial<CmdbModels.ModelObjectAttr>,
+    isClusterType?: boolean
   ): FormControlSelectItem[] {
     if (
       attribute.value.type === ModelAttributeValueType.ENUM ||
@@ -172,7 +186,7 @@ export class ModelAttributeFormControl extends Component<
       // The backend guys are notorious to use `regex` as enum candidates. 😢
       return (attribute.value.regex as string[])?.map((enumValue) => ({
         id: enumValue,
-        text: enumValue,
+        text: isClusterType ? clusterMap[enumValue] : enumValue,
       }));
     }
   }
@@ -251,13 +265,14 @@ export class ModelAttributeFormControl extends Component<
   computeFormControl = (
     attribute: Partial<CmdbModels.ModelObjectAttr>,
     id?: string,
-    type?: string
+    type?: string,
+    isClusterType?: boolean
   ): FormControl => {
     const formControlType = ModelAttributeFormControl.computeFormControlType(
       attribute,
       type
     );
-    let items = this.computeFormControlItems(attribute);
+    let items = this.computeFormControlItems(attribute, isClusterType);
 
     if (attribute.value.type === ModelAttributeValueType.BOOLEAN) {
       items = boolOptions;

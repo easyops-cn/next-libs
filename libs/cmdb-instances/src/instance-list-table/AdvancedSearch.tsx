@@ -21,7 +21,7 @@ import {
   RelationNameKeys,
   RelationObjectIdKeys,
 } from "@next-libs/cmdb-utils";
-
+import { clusterMap } from "../instance-list-table/constants";
 import styles from "./AdvancedSearch.module.css";
 import {
   FormControlTypeEnum,
@@ -347,7 +347,8 @@ export function getFieldConditionsAndValues(
   valueType: ModelAttributeValueType,
   isRelation?: boolean,
   relationSideId?: string,
-  index?: number
+  objectId?: string,
+  attrId?: string
 ) {
   let isRelationWithNoExpression = false;
   let expressions = fieldQueryOperatorExpressionsMap[id];
@@ -416,6 +417,9 @@ export function getFieldConditionsAndValues(
             .trim()
             .split(/\s+/)
             .map((value: string) => convertValue(valueType, value));
+          if (objectId === "CLUSTER" && attrId === "type") {
+            values = values.map((value) => clusterMap[value]);
+          }
         }
       }
 
@@ -581,7 +585,7 @@ export class AdvancedSearchForm extends React.Component<
       (attr) => {
         const attrValue: Partial<CmdbModels.ModelObjectAttrValue> & {
           isStruct?: boolean;
-        } = {};
+        } & { isClusterType?: boolean } = {};
 
         switch (attr.value.type) {
           case ModelAttributeValueType.STRUCT:
@@ -637,8 +641,7 @@ export class AdvancedSearchForm extends React.Component<
               id,
               type,
               true,
-              relation[`${sides.this}_id` as RelationNameKeys],
-              index
+              relation[`${sides.this}_id` as RelationNameKeys]
             ),
           });
         });
@@ -818,6 +821,7 @@ export class AdvancedSearchForm extends React.Component<
                             name: field.name,
                             value: attrValue,
                           }}
+                          objectId={this.props.modelData.objectId}
                           multiSelect={multiSelect}
                           onChange={(value: any) =>
                             this.onValueChange(

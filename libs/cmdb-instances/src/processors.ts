@@ -1,7 +1,10 @@
+import { Query } from "./instance-list-table/AdvancedSearch";
 import { getRuntime } from "@next-core/brick-kit";
 import { uniq, compact } from "lodash";
 import moment, { Moment } from "moment";
 import { FormControlTypeEnum } from "./model-attribute-form-control/ModelAttributeFormControl";
+import { CmdbModels } from "@next-sdk/cmdb-sdk";
+import { clusterMap } from "./instance-list-table/constants";
 
 const featureFlags =
   process.env.NODE_ENV === "test"
@@ -58,4 +61,22 @@ export const computeDateFormat = (
     value: value ? moment(value, format) : null,
     format,
   };
+};
+
+export const changeQueryWithCustomRules = (
+  objectId: string,
+  attrId: string,
+  q: Query
+): Query => {
+  let modifiedQuery = q;
+  if (objectId === "CLUSTER" && attrId === "type") {
+    const operator = Object.keys(modifiedQuery["type"])[0];
+    const value = Object.values(modifiedQuery["type"])[0];
+    modifiedQuery = {
+      type: {
+        [operator]: clusterMap[value],
+      },
+    };
+  }
+  return modifiedQuery;
 };

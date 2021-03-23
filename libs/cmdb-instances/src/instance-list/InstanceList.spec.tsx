@@ -13,7 +13,10 @@ import * as storage from "@next-libs/storage";
 import { IconButton } from "./IconButton";
 
 import { InstanceList, getQuery } from "./InstanceList";
-import { getInstanceListData } from "../__mocks__";
+import {
+  getInstanceListData,
+  mockFetchCmdbObjectDetailReturnValueCLuster,
+} from "../__mocks__";
 import {
   AdvancedSearch,
   InstanceListTable,
@@ -310,5 +313,28 @@ describe("InstanceList", () => {
     testdata.forEach((t) => {
       expect(getQuery(HOST, { HOST: HOST }, t.q, t.fields)).toEqual(t.expected);
     });
+  });
+
+  it("should call works with cluster", async () => {
+    const mockOnRelatedToMeChange = jest.fn();
+    const presetConfigs: InstanceListPresetConfigs = {
+      fieldIds: ["name", "type"],
+    };
+    const wrapper = mount(
+      <InstanceList
+        objectId="CLUSTER"
+        objectList={[mockFetchCmdbObjectDetailReturnValueCLuster]}
+        relatedToMe={true}
+        onRelatedToMeChange={mockOnRelatedToMeChange}
+        relationLinkDisabled={true}
+      />
+    );
+    await (global as any).flushPromises();
+    await jest.runAllTimers();
+    wrapper.update();
+    const relatedToMe = wrapper.find("IconButton").get(0);
+    expect(relatedToMe.props["checked"]).toBeTruthy();
+    wrapper.find(IconButton).at(0).invoke("onChange")(false);
+    expect(mockOnRelatedToMeChange).toBeCalledWith(false);
   });
 });

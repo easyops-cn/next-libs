@@ -11,15 +11,15 @@ export const CMDB_RESOURCE_FIELDS_SETTINGS = {
       "memSize",
       "osDistro",
       "cpuModel",
-      "owner"
-    ]
+      "owner",
+    ],
   },
   fixedFields: {
     APP: ["name"],
     USER: ["name"],
     USER_GROUP: ["name"],
     "APP-HOST": ["ip"],
-    HOST: ["hostname", "ip"]
+    HOST: ["hostname", "ip"],
   },
   ignoredFields: {
     APP: [
@@ -31,29 +31,29 @@ export const CMDB_RESOURCE_FIELDS_SETTINGS = {
       "packageId",
       "installPath",
       "runUser",
-      "businessId"
+      "businessId",
     ],
     "APP-HOST": ["deviceId"],
     BUSINESS: ["businessId"],
     CLUSTER: ["_packageList", "clusterId", "packageId"],
-    HOST: ["deviceId"]
-  }
+    HOST: ["deviceId"],
+  },
 };
 
 export const CMDB_MODAL_FIELDS_SETTINGS = {
   defaultFields: {
-    HOST: ["ip", "hostname", "status", "owner", "_agentStatus"]
+    HOST: ["ip", "hostname", "status", "owner", "_agentStatus"],
   },
   fixedFields: {
-    HOST: ["ip"]
+    HOST: ["ip"],
   },
-  ignoredFields: CMDB_RESOURCE_FIELDS_SETTINGS.ignoredFields
+  ignoredFields: CMDB_RESOURCE_FIELDS_SETTINGS.ignoredFields,
 };
 export const MAX_DEFAULT_FIELDS_COUNT = 8;
 export const MAX_DEFAULT_MODAL_FIELDS_COUNT = 4;
 
 export enum otherFieldIds {
-  autoBreakLine = "_autoBreakLine_"
+  autoBreakLine = "_autoBreakLine_",
 }
 
 export const extraFieldAttrs = [
@@ -62,31 +62,37 @@ export const extraFieldAttrs = [
     name: "创建者",
     isRelation: false,
     value: {
-      type: "str"
-    }
+      type: "str",
+    },
   },
   {
     id: "ctime",
     name: "创建时间",
     isRelation: false,
     value: {
-      type: "datetime"
-    }
+      type: "datetime",
+    },
   },
   {
     id: "modifier",
     name: "修改者",
     isRelation: false,
     value: {
-      type: "str"
-    }
+      type: "str",
+    },
   },
   {
     id: "mtime",
     name: "修改时间",
     isRelation: false,
     value: {
-      type: "datetime"
-    }
-  }
+      type: "datetime",
+    },
+  },
 ];
+export const clusterMap: Record<string, string> = {
+  "0": "开发",
+  "1": "测试",
+  "2": "生产",
+  "3": "预发布",
+};
