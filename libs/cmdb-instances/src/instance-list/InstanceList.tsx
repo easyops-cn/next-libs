@@ -220,6 +220,7 @@ interface InstanceListProps {
   selectDisabled?: boolean;
   pageSizeOptions?: string[];
   showSizeChanger?: boolean;
+  onSearchExecute?(value: Record<string, any>): void;
   onSearch?(value: string): void;
   onAdvancedSearch?(queries: Query[]): void;
   onClickItem?(
@@ -429,6 +430,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     if (state.aliveHosts && props.objectId === "HOST") {
       searchParams.query = { ...searchParams.query, _agentStatus: "正常" };
     }
+    props.onSearchExecute?.(searchParams);
     return await InstanceApi.postSearch(props.objectId, searchParams);
   };
 
