@@ -21,7 +21,7 @@ import {
   RelationNameKeys,
   RelationObjectIdKeys,
 } from "@next-libs/cmdb-utils";
-
+import { clusterMap } from "../instance-list-table/constants";
 import styles from "./AdvancedSearch.module.css";
 import {
   FormControlTypeEnum,
@@ -329,7 +329,11 @@ function getCondition(
   };
 }
 
-export function convertValue(valueType: string, value: any): any {
+export function convertValue(
+  valueType: string,
+  value: any,
+  isClusterType?: boolean
+): any {
   if (typeof value !== "boolean") {
     switch (valueType) {
       case ModelAttributeValueType.INTEGER:
@@ -338,7 +342,7 @@ export function convertValue(valueType: string, value: any): any {
         return parseFloat(value);
     }
   }
-  return value;
+  return isClusterType ? clusterMap[value] : value;
 }
 
 export function getFieldConditionsAndValues(
@@ -347,7 +351,7 @@ export function getFieldConditionsAndValues(
   valueType: ModelAttributeValueType,
   isRelation?: boolean,
   relationSideId?: string,
-  index?: number
+  isClusterType?: boolean
 ) {
   let isRelationWithNoExpression = false;
   let expressions = fieldQueryOperatorExpressionsMap[id];
@@ -415,7 +419,9 @@ export function getFieldConditionsAndValues(
           values = expressions[operation.operator]
             .trim()
             .split(/\s+/)
-            .map((value: string) => convertValue(valueType, value));
+            .map((value: string) =>
+              convertValue(valueType, value, isClusterType)
+            );
         }
       }
 
@@ -581,7 +587,7 @@ export class AdvancedSearchForm extends React.Component<
       (attr) => {
         const attrValue: Partial<CmdbModels.ModelObjectAttrValue> & {
           isStruct?: boolean;
-        } = {};
+        } & { isClusterType?: boolean } = {};
 
         switch (attr.value.type) {
           case ModelAttributeValueType.STRUCT:
@@ -637,8 +643,7 @@ export class AdvancedSearchForm extends React.Component<
               id,
               type,
               true,
-              relation[`${sides.this}_id` as RelationNameKeys],
-              index
+              relation[`${sides.this}_id` as RelationNameKeys]
             ),
           });
         });
@@ -818,6 +823,10 @@ export class AdvancedSearchForm extends React.Component<
                             name: field.name,
                             value: attrValue,
                           }}
+                          isClusterType={
+                            this.props.modelData.objectId === "CLUSTER" &&
+                            field.id === "type"
+                          }
                           multiSelect={multiSelect}
                           onChange={(value: any) =>
                             this.onValueChange(

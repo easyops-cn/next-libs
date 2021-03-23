@@ -44,6 +44,7 @@ import {
   MoreButtonsContainer,
   InstanceListTable,
 } from "../instance-list-table";
+import { clusterMap } from "../instance-list-table/constants";
 import styles from "./InstanceList.module.css";
 import {
   extraFieldAttrs,
@@ -55,7 +56,6 @@ import {
 import { JsonStorage } from "@next-libs/storage";
 import { ModelAttributeValueType } from "../model-attribute-form-control/ModelAttributeFormControl";
 import { IconButton } from "./IconButton";
-
 export interface InstanceListPresetConfigs {
   query?: Record<string, any>;
   fieldIds?: string[];
@@ -99,7 +99,8 @@ export function getQuery(
 function translateConditions(
   aq: Query[],
   idObjectMap: Record<string, Partial<CmdbModels.ModelCmdbObject>>,
-  modelData: Partial<CmdbModels.ModelCmdbObject>
+  modelData: Partial<CmdbModels.ModelCmdbObject>,
+  t?: () => string
 ): { attrId: string; condition: string; valuesStr: string }[] {
   const conditions: {
     attrId: string;
@@ -142,10 +143,25 @@ function translateConditions(
           (attr) => attr.id === key || attr.relationSideId === key
         );
         if (attr) {
+          const isClusterType =
+            modelData.objectId === "CLUSTER" && attr.id === "type";
+          let modifiedQuery = query;
+          if (isClusterType) {
+            const operator = Object.keys(modifiedQuery["type"])[0];
+            const value = Object.values(modifiedQuery["type"])[0];
+            modifiedQuery = {
+              type: {
+                [operator]: clusterMap[value],
+              },
+            };
+          }
           const info = getFieldConditionsAndValues(
-            query as any,
+            modifiedQuery as any,
             key,
-            attr.value.type as ModelAttributeValueType
+            attr.value.type as ModelAttributeValueType,
+            undefined,
+            undefined,
+            isClusterType
           );
           if (
             ![

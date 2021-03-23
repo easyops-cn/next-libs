@@ -7,7 +7,7 @@ export enum K {
   DELETE = "DELETE",
   INVALID_OR_FORBIDDEN_IPS = "INVALID_OR_FORBIDDEN_IPS",
   INVALID = "INVALID",
-  SELECT_FROM_CMDB = "SELECT_FROM_CMDB"
+  SELECT_FROM_CMDB = "SELECT_FROM_CMDB",
 }
 
 export type Locale = { [key in K]: string };
