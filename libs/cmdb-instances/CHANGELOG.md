@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@3.0.10...@next-libs/cmdb-instances@3.1.0) (2021-03-23)
+
+
+### Features
+
+* **cmdb-instances:** 实例列表构件支持read.query.execute事件 ([76637ba](https://github.com/easyops-cn/next-libs/commit/76637baee5e53809e1c8932fcffc8c02f42979e2))
+
+
+
+
+
 ## [3.0.10](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@3.0.9...@next-libs/cmdb-instances@3.0.10) (2021-03-23)
 
 
