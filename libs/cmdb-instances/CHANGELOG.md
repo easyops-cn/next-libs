@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@3.1.0...@next-libs/cmdb-instances@3.1.1) (2021-03-24)
+
+
+### Bug Fixes
+
+* **cmdb-instance:** modify ModelAttributeFormControl placeholder ([8406118](https://github.com/easyops-cn/next-libs/commit/8406118d44c2e63519fdc8b2ed75636ecf82d71b))
+
+
+
+
+
 # [3.1.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@3.0.10...@next-libs/cmdb-instances@3.1.0) (2021-03-23)
 
 
