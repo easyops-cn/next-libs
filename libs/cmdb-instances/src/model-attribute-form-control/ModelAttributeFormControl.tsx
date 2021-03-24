@@ -4,6 +4,7 @@ import { DatePicker, Input, InputNumber, Radio, Select } from "antd";
 import { AddStruct } from "../struct-components";
 import moment, { Moment } from "moment";
 import { AttributeFormControlUrl } from "../attribute-form-control-url/AttributeFormControlUrl";
+import { computeDateFormat } from "../processors";
 
 export interface FormControlSelectItem {
   id: any;
@@ -312,21 +313,6 @@ export class ModelAttributeFormControl extends Component<
     return placeholders.join("，");
   }
 
-  static computeDateFormat(type: FormControlTypeEnum, value: Moment) {
-    const dateFormat = "YYYY-MM-DD";
-    const dateTimeFormat = "YYYY-MM-DD HH:mm:ss";
-    let format;
-    if (type === FormControlTypeEnum.DATETIME) {
-      format = dateTimeFormat;
-    } else {
-      format = dateFormat;
-    }
-    return {
-      value: value ? moment(value, format) : null,
-      format,
-    };
-  }
-
   /*computeFormControlAndCatchError = () => {
     const { attribute, objectId } = this.props;
     try {
@@ -499,12 +485,7 @@ export class ModelAttributeFormControl extends Component<
           };
         }
         const { readOnly, placeholder } = restProps;
-
-        const formater = ModelAttributeFormControl.computeDateFormat(
-          type,
-          value
-        );
-
+        const formater = computeDateFormat(type, value);
         return (
           <DatePicker
             value={formater.value}

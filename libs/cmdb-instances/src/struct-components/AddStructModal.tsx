@@ -6,12 +6,13 @@ import styles from "./index.module.css";
 import moment from "moment";
 import { RadioChangeEvent } from "antd/lib/radio";
 import { SelectValue } from "antd/lib/select";
+import { computeDateFormat } from "../processors";
 
 export interface AddStructModalProps {
   structData?: any;
   attribute: Attribute;
-  handleStoreFunction: Function;
-  handleCancelFunction: Function;
+  handleStoreFunction: Function; // eslint-disable-line
+  handleCancelFunction: Function; // eslint-disable-line
   visible: boolean;
 }
 export interface AddStructModalState {
@@ -28,7 +29,7 @@ export class AddStructModal extends React.Component<
     super(props);
     const { attribute } = props;
     this.state = {
-      showError: new Array(attribute.value.struct_define.length).fill(false)
+      showError: new Array(attribute.value.struct_define.length).fill(false),
     };
   }
   componentDidUpdate(prevProps: AddStructModalProps) {
@@ -63,7 +64,7 @@ export class AddStructModal extends React.Component<
       );
     showError[index] = !matched;
     this.setState({
-      showError
+      showError,
     });
     this.handleValueChange(value, define);
   };
@@ -75,7 +76,7 @@ export class AddStructModal extends React.Component<
 
       enumForm = (
         <RadioGroup
-          onChange={e => this.handleInputValueChange(e, define)}
+          onChange={(e) => this.handleInputValueChange(e, define)}
           defaultValue={value}
         >
           {regex.map((item: string) => (
@@ -89,7 +90,7 @@ export class AddStructModal extends React.Component<
       const Option = Select.Option;
       enumForm = (
         <Select
-          {...(value !== null? {defaultValue: value}: {})}
+          {...(value !== null ? { defaultValue: value } : {})}
           style={{ width: "100%" }}
           onChange={(e: SelectValue) => this.handleValueChange(e, define)}
         >
@@ -107,25 +108,27 @@ export class AddStructModal extends React.Component<
     let formType;
     const defaultValue = value ? value[define.id] : null;
     switch (define.type) {
-      case "int":
+      case "int": {
         formType = (
           <InputNumber
             defaultValue={defaultValue}
             style={{ width: "100%" }}
-            onChange={e => this.handleValueChange(e, define)}
+            onChange={(e) => this.handleValueChange(e, define)}
           />
         );
         break;
-      case "enum":
+      }
+      case "enum": {
         formType = this.getEnumForm(define, defaultValue);
         break;
-      case "enums":
+      }
+      case "enums": {
         formType = (
           <Select
             mode="multiple"
             style={{ width: "100%" }}
             onChange={(e: SelectValue) => this.handleValueChange(e, define)}
-            {...(defaultValue !== null ? {defaultValue: defaultValue}: {})}
+            {...(defaultValue !== null ? { defaultValue: defaultValue } : {})}
           >
             {define.regex.map((item: string) => (
               <Select.Option value={item} key={item}>
@@ -135,13 +138,14 @@ export class AddStructModal extends React.Component<
           </Select>
         );
         break;
-      case "bool":
+      }
+      case "bool": {
         formType = (
           <Radio.Group
-            onChange={e => this.handleInputValueChange(e, define)}
+            onChange={(e) => this.handleInputValueChange(e, define)}
             defaultValue={defaultValue}
           >
-            {boolOptions.map(item => (
+            {boolOptions.map((item) => (
               <Radio value={item.id} key={item.text}>
                 {item.text}
               </Radio>
@@ -149,23 +153,26 @@ export class AddStructModal extends React.Component<
           </Radio.Group>
         );
         break;
-      case "arr":
+      }
+      case "arr": {
         formType = (
           <Select
             mode="tags"
             style={{ width: "100%" }}
-            {...(defaultValue !== null ? {defaultValue: defaultValue}: {})}
+            {...(defaultValue !== null ? { defaultValue: defaultValue } : {})}
             onChange={(e: SelectValue) => this.handleValueChange(e, define)}
           />
         );
         break;
+      }
       case "date":
-      case "datetime":
+      case "datetime": {
+        const formater = computeDateFormat(define.type, value);
         formType = (
           <DatePicker
-            defaultValue={moment(defaultValue)}
+            defaultValue={formater.value}
             showTime={define.type === "datetime"}
-            onChange={e =>
+            onChange={(e) =>
               this.handleValueChange(
                 e.format(
                   define.type === "datetime"
@@ -175,20 +182,22 @@ export class AddStructModal extends React.Component<
                 define
               )
             }
+            format={formater.format}
           />
         );
         break;
-      case "ip":
+      }
+      case "ip": {
         formType = (
           <div>
             <Input
               defaultValue={defaultValue}
-              onChange={e => this.handleIpValueChange(e, define, index)}
+              onChange={(e) => this.handleIpValueChange(e, define, index)}
             />
             <label
               style={{
                 display: this.state.showError[index] ? "block" : "none",
-                color: "#fc5043"
+                color: "#fc5043",
               }}
             >
               不满足预设的正则表达式，请修改
@@ -196,13 +205,15 @@ export class AddStructModal extends React.Component<
           </div>
         );
         break;
-      default:
+      }
+      default: {
         formType = (
           <Input
             defaultValue={defaultValue}
-            onChange={e => this.handleInputValueChange(e, define)}
+            onChange={(e) => this.handleInputValueChange(e, define)}
           />
         );
+      }
     }
     return formType;
   };
@@ -224,7 +235,7 @@ export class AddStructModal extends React.Component<
         onCancel={this.handleCloseModal}
         okButtonProps={{
           disabled: this.state.showError.includes(true),
-          id: "okBtn"
+          id: "okBtn",
         }}
         okText="确定"
         cancelText="取消"
