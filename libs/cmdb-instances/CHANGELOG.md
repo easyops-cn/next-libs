@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@3.1.1...@next-libs/cmdb-instances@3.1.2) (2021-03-24)
+
+
+### Bug Fixes
+
+* **cmdb-instances:** 修复instance-create中结构体的时间属性异常显示invalid date的问题 ([f7f851f](https://github.com/easyops-cn/next-libs/commit/f7f851fb69a8c9492e993fb056a1db88f633b669))
+
+
+
+
+
 ## [3.1.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@3.1.0...@next-libs/cmdb-instances@3.1.1) (2021-03-24)
 
 
