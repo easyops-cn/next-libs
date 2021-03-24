@@ -1,5 +1,7 @@
 import { getRuntime } from "@next-core/brick-kit";
 import { uniq, compact } from "lodash";
+import moment, { Moment } from "moment";
+import { FormControlTypeEnum } from "./model-attribute-form-control/ModelAttributeFormControl";
 
 const featureFlags =
   process.env.NODE_ENV === "test"
@@ -38,4 +40,22 @@ export const processAttrValueWithQuote = (
       );
     }
   }
+};
+
+export const computeDateFormat = (
+  type: string,
+  value: any
+): { format: string; value: Moment | null } => {
+  const dateFormat = "YYYY-MM-DD";
+  const dateTimeFormat = "YYYY-MM-DD HH:mm:ss";
+  let format;
+  if (type === FormControlTypeEnum.DATETIME) {
+    format = dateTimeFormat;
+  } else {
+    format = dateFormat;
+  }
+  return {
+    value: value ? moment(value, format) : null,
+    format,
+  };
 };
