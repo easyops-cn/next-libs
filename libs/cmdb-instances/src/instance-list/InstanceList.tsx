@@ -467,12 +467,12 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
 
   useEffect(() => {
     if (isEmpty(state.fieldIds)) return;
-    setState({ page: 1 });
-    refreshInstanceList(state.sort, state.asc, 1);
-    props.onPaginationChange?.({ page: 1, pageSize: state.pageSize });
+    props.onPaginationChange?.({ page: state.page, pageSize: state.pageSize });
+    refreshInstanceList(state.sort, state.asc, state.page);
   }, [
     state.q,
     state.aq,
+    state.page,
     state.pageSize,
     state.aliveHosts,
     state.relatedToMe,
@@ -542,9 +542,11 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
   };
 
   const onPaginationChange = (pagination: ReadPaginationChangeDetail) => {
-    setState({ page: pagination.page, pageSize: pagination.pageSize });
-    props.onPaginationChange?.(pagination);
-    refreshInstanceList(state.sort, state.asc, pagination.page);
+    if (pagination.pageSize !== state.pageSize) {
+      setState({ pageSize: pagination.pageSize, page: 1 });
+    } else if (pagination.page !== state.page) {
+      setState({ page: pagination.page });
+    }
   };
 
   const onRelatedToMeChange = (checked: boolean) => {
