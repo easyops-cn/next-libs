@@ -12,7 +12,7 @@ import { InstanceApi } from "@next-sdk/cmdb-sdk";
 import * as storage from "@next-libs/storage";
 import { IconButton } from "./IconButton";
 
-import { InstanceList } from "./InstanceList";
+import { InstanceList, getQuery } from "./InstanceList";
 import { getInstanceListData } from "../__mocks__";
 import {
   AdvancedSearch,
@@ -63,6 +63,59 @@ const HOST: any = {
       id: "__pipeline",
       name: "流水线信息",
       protected: true,
+    },
+    {
+      id: "hostname",
+      name: "主机名",
+      protected: true,
+      custom: "false",
+      unique: "false",
+      readonly: "false",
+      required: "true",
+      tag: ["默认属性"],
+      description: "",
+      tips: "",
+      value: {
+        type: "str",
+        regex: null,
+        default_type: "value",
+        default: null,
+        struct_define: [],
+        mode: "default",
+        prefix: "",
+        start_value: 0,
+        series_number_length: 0,
+      },
+      wordIndexDenied: false,
+      isInherit: false,
+      notifyDenied: false,
+    },
+    {
+      id: "ip",
+      name: "IP",
+      protected: true,
+      custom: "false",
+      unique: "false",
+      readonly: "false",
+      required: "true",
+      tag: ["默认属性"],
+      description: "",
+      tips: "",
+      value: {
+        type: "ip",
+        regex:
+          "((^\\s*((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))\\s*$)|(^\\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:)))(%.+)?\\s*$))",
+        default_type: "",
+        default: null,
+        struct_define: [],
+        mode: "",
+        prefix: "",
+        start_value: 0,
+        series_number_length: 0,
+      },
+      wordIndexDenied: true,
+      isInherit: false,
+      notifyDenied: false,
     },
   ],
   relation_list: [
@@ -234,5 +287,28 @@ describe("InstanceList", () => {
     expect(aliveHosts.props["checked"]).toBeTruthy();
     wrapper.find(IconButton).at(0).invoke("onChange")(false);
     expect(mockOnAliveHostsChange).toBeCalledWith(false);
+  });
+
+  it("check getQuery should pass", async () => {
+    const testdata: Record<string, any>[] = [
+      {
+        q: "aaa",
+        fields: ["backupowner", "ip"],
+        expected: {
+          $or: [
+            { ip: { $like: "%aaa%" } },
+            { "backupowner.name": { $like: "%aaa%" } },
+          ],
+        },
+      },
+      {
+        q: "aaa",
+        fields: ["hostname"],
+        expected: { $or: [{ hostname: { $like: "%aaa%" } }] },
+      },
+    ];
+    testdata.forEach((t) => {
+      expect(getQuery(HOST, { HOST: HOST }, t.q, t.fields)).toEqual(t.expected);
+    });
   });
 });
