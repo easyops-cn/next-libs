@@ -419,7 +419,7 @@ export function getFieldConditionsAndValues(
         }
       }
 
-      if (typeof values[0] === "string") {
+      if (typeof values[0] === "string" || typeof values[0] === "number") {
         queryValuesStr = values.join(" ");
         values = values.map((value: string) => {
           if (operation.prefix && value.startsWith(operation.prefix)) {
