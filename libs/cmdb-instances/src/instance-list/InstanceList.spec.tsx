@@ -290,7 +290,7 @@ describe("InstanceList", () => {
   });
 
   it("check getQuery should pass", async () => {
-    const testdata: any = [
+    const testdata: Record<string, any>[] = [
       {
         q: "aaa",
         fields: ["backupowner", "ip"],
