@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@3.1.3...@next-libs/cmdb-instances@3.1.4) (2021-03-25)
+
+
+### Bug Fixes
+
+* **cmdb:** 主机列表内存,cpu频率,磁盘单位转换 ([672864b](https://github.com/easyops-cn/next-libs/commit/672864b99ddd912724c3a7ffd4be23a944168e63))
+
+
+
+
+
 ## [3.1.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@3.1.2...@next-libs/cmdb-instances@3.1.3) (2021-03-25)
 
 
