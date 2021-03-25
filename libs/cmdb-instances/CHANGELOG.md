@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@3.1.2...@next-libs/cmdb-instances@3.1.3) (2021-03-25)
+
+
+### Bug Fixes
+
+* **cmdb:** fix筛选条件为整型时关闭不了bug ([3147671](https://github.com/easyops-cn/next-libs/commit/31476718822ef1f07cbe1e4f147e07f4de04f754))
+
+
+
+
+
 ## [3.1.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@3.1.1...@next-libs/cmdb-instances@3.1.2) (2021-03-24)
 
 
