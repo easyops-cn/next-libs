@@ -167,7 +167,7 @@ export class AddStructModal extends React.Component<
       }
       case "date":
       case "datetime": {
-        const formater = computeDateFormat(define.type, value);
+        const formater = computeDateFormat(define.type, defaultValue);
         formType = (
           <DatePicker
             defaultValue={formater.value}
