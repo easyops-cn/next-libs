@@ -2,7 +2,7 @@ import React from "react";
 import { withTranslation, WithTranslation } from "react-i18next";
 import classnames from "classnames";
 import { Button, Popover, Table, Tag } from "antd";
-import { isNil } from "lodash";
+import { isNil, isBoolean, compact } from "lodash";
 import { ColumnType, TablePaginationConfig, TableProps } from "antd/lib/table";
 import {
   SorterResult,
@@ -34,7 +34,7 @@ import { NS_CMDB_INSTANCES } from "./i18n/constants";
 import { ModelAttributeValueType } from "../model-attribute-form-control/ModelAttributeFormControl";
 import { Attribute, StructTable } from "../struct-components";
 import styles from "./InstanceListTable.module.css";
-
+import { customRules } from "./utils";
 enum SortOrder {
   Ascend = "ascend",
   Descend = "descend",
@@ -321,6 +321,24 @@ export class LegacyInstanceListTable extends React.Component<
           column.render = (v: boolean) => (isNil(v) ? "" : "" + v);
           break;
         default:
+          if (object.objectId === "HOST" && attribute.id in customRules) {
+            column.render = (
+              text: any,
+              record: Record<string, any>,
+              index: number
+            ) => {
+              if (!isBoolean(text) && (text || text === 0)) {
+                text = compact(text.toString().split(" "));
+                const valStr = text
+                  .map((item: any) => {
+                    return (customRules as any)[attribute.id](item, attribute);
+                  })
+                  .join(" ");
+                return valStr === "" ? undefined : valStr;
+              }
+              return (customRules as any)[attribute.id](text, attribute);
+            };
+          }
           if (isPrimary && this.props.detailUrlTemplates) {
             const detailUrlTemplate = getTemplateFromMap(
               this.props.detailUrlTemplates,
