@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@3.1.4...@next-libs/cmdb-instances@3.1.5) (2021-03-25)
+
+
+### Bug Fixes
+
+* 实例列表切换页码无效且重复请求的问题 ([407c029](https://github.com/easyops-cn/next-libs/commit/407c029a6d790e3f4b5204197060811ab6e57da8))
+
+
+
+
+
 ## [3.1.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@3.1.3...@next-libs/cmdb-instances@3.1.4) (2021-03-25)
 
 
