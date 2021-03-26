@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/constants@1.0.5...@next-libs/constants@1.0.6) (2021-03-26)
+
+
+### Bug Fixes
+
+* update CMDB_PAGE_SIZE_LIST ([5f0c1c8](https://github.com/easyops-cn/next-libs/commit/5f0c1c820bb50f6563b15ad988c8b3b73ce35586))
+
+
+
+
+
 ## [1.0.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/constants@1.0.3...@next-libs/constants@1.0.5) (2021-02-22)
 
 **Note:** Version bump only for package @next-libs/constants
