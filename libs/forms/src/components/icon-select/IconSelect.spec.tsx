@@ -2,6 +2,7 @@ import React from "react";
 import { mount } from "enzyme";
 import { IconSelectItem } from "./IconSelect";
 import { Modal, Input, Radio } from "antd";
+import { Colors } from "@next-libs/basic-components";
 
 describe("IconSelect", () => {
   it("should work", async () => {
@@ -78,5 +79,33 @@ describe("IconSelect", () => {
     expect(wrapper.find(".colorBox").length).toBe(9);
     wrapper.find(".emptyColor").at(0).simulate("click");
     wrapper.find(".colorBox").at(0).simulate("click");
+  });
+
+  it("should work with defaultColor", async () => {
+    const onChange = jest.fn();
+    const openModal = jest.fn();
+    const handleCancel = jest.fn();
+    const wrapper = mount(
+      <IconSelectItem
+        onChange={onChange}
+        visible={false}
+        value={{
+          lib: "fa",
+          icon: "image",
+        }}
+        defaultColor={"cyan" as Colors}
+        openModal={openModal}
+        handleCancel={handleCancel}
+        bg={true}
+        setColor={false}
+      />
+    );
+    expect(wrapper.find("GeneralIcon").prop("icon")).toMatchInlineSnapshot(`
+      Object {
+        "color": "cyan",
+        "icon": "image",
+        "lib": "fa",
+      }
+    `);
   });
 });
