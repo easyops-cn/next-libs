@@ -372,6 +372,7 @@ export class ModelAttributeForm extends Component<
                       multiSelect={
                         attribute?.value?.type === ModelAttributeValueType.ENUMS
                       }
+                      objectId={this.props.objectId}
                     />
                   )}
                 </Form.Item>

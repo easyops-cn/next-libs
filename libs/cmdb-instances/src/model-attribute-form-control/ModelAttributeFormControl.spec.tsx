@@ -11,6 +11,7 @@ import {
 import {
   mockFetchCmdbInstanceDetailReturnValue,
   mockFetchCmdbObjectDetailReturnValue,
+  mockFetchCmdbObjectDetailReturnValueCLuster,
 } from "../__mocks__/";
 import { CmdbModels } from "@next-sdk/cmdb-sdk";
 import { Input, InputNumber, Radio, Select } from "antd";
@@ -331,6 +332,32 @@ describe("ModelAttributeFormControl", () => {
       );
 
       expect(result).toBeUndefined();
+    });
+
+    it("should return 开发/测试/预发布/生产 instead of 0/1/2/3", () => {
+      const result = instance.computeFormControlItems(
+        mockFetchCmdbObjectDetailReturnValueCLuster.attrList[1],
+        true
+      );
+      const data = [
+        {
+          id: "0",
+          text: "开发",
+        },
+        {
+          id: "1",
+          text: "测试",
+        },
+        {
+          id: "2",
+          text: "生产",
+        },
+        {
+          id: "3",
+          text: "预发布",
+        },
+      ];
+      expect(result).toEqual(data);
     });
   });
 
@@ -746,5 +773,117 @@ describe("ModelAttributeFormControl", () => {
       // ant select li 默认会多一个li
       expect(options).toHaveLength(0);
     });
+  });
+
+  it("should change cluster type", () => {
+    const onChange = jest.fn();
+    const attribute: Partial<CmdbModels.ModelObjectAttr> =
+      mockFetchCmdbObjectDetailReturnValueCLuster.attrList[1];
+    const value = "";
+    const props = Object.assign(Props, {
+      value,
+      attribute,
+      onChange,
+      objectId: "CLUSTER",
+    });
+
+    const wrapper = mount(<ModelAttributeFormControl {...props} />);
+    wrapper.update();
+    const options = wrapper.find("Radio");
+    expect(options).toHaveLength(4);
+    expect(options.get(0).props.children).toEqual("开发");
+    expect(options.get(1).props.children).toEqual("测试");
+    expect(options.get(2).props.children).toEqual("生产");
+    expect(options.get(3).props.children).toEqual("预发布");
+  });
+
+  it("should works with url", () => {
+    const onChange = jest.fn();
+    const attribute: Partial<CmdbModels.ModelObjectAttr> =
+      mockFetchCmdbObjectDetailReturnValue.attrList[4];
+    const value = "";
+    const props = Object.assign(Props, {
+      value,
+      attribute,
+      onChange,
+      objectId: "HOST",
+    });
+
+    const wrapper = mount(<ModelAttributeFormControl {...props} />);
+    wrapper.update();
+    const items = wrapper.find("AttributeFormControlUrl");
+    expect(items).toHaveLength(1);
+  });
+
+  it("should works with json", () => {
+    const onChange = jest.fn();
+    const attribute: Partial<CmdbModels.ModelObjectAttr> =
+      mockFetchCmdbObjectDetailReturnValueCLuster.attrList[2];
+    const value = "";
+    const props = Object.assign(Props, {
+      value,
+      attribute,
+      onChange,
+      objectId: "CLUSTER",
+    });
+
+    const wrapper = mount(<ModelAttributeFormControl {...props} />);
+    wrapper.update();
+    const items = wrapper.find("Input");
+    expect(items).toHaveLength(1);
+  });
+
+  it("should works with date", () => {
+    const onChange = jest.fn();
+    const attribute: Partial<CmdbModels.ModelObjectAttr> =
+      mockFetchCmdbObjectDetailReturnValueCLuster.attrList[3];
+    const value = "";
+    const props = Object.assign(Props, {
+      value,
+      attribute,
+      onChange,
+      objectId: "CLUSTER",
+    });
+
+    const wrapper = mount(<ModelAttributeFormControl {...props} />);
+    wrapper.update();
+    const items = wrapper.find("Picker");
+    expect(items).toHaveLength(2);
+  });
+
+  it("should works with datetime", () => {
+    const onChange = jest.fn();
+    const attribute: Partial<CmdbModels.ModelObjectAttr> =
+      mockFetchCmdbObjectDetailReturnValueCLuster.attrList[4];
+    const value = "";
+    const props = Object.assign(Props, {
+      value,
+      attribute,
+      onChange,
+      objectId: "CLUSTER",
+    });
+
+    const wrapper = mount(<ModelAttributeFormControl {...props} />);
+    wrapper.update();
+    const items = wrapper.find("Picker");
+    expect(items).toHaveLength(2);
+  });
+
+  it("should works with struct", () => {
+    const onChange = jest.fn();
+    const attribute: Partial<CmdbModels.ModelObjectAttr> =
+      mockFetchCmdbObjectDetailReturnValueCLuster.attrList[5];
+    const value = "";
+    const props = Object.assign(Props, {
+      value,
+      attribute,
+      onChange,
+      objectId: "CLUSTER",
+    });
+
+    const wrapper = mount(<ModelAttributeFormControl {...props} />);
+    wrapper.update();
+    const items = wrapper.find("AddStruct");
+    expect(items).toHaveLength(1);
   });
 });
