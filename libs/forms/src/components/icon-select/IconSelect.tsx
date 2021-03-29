@@ -5,11 +5,15 @@ import { FormItemWrapperProps } from "../../FormItemWrapper";
 import { MenuIcon } from "@next-core/brick-types";
 import { Modal, Input, Button, Divider, Radio } from "antd";
 import { RadioChangeEvent } from "antd/lib/radio/interface";
-import { GeneralIcon, getColor, COLORS_MAP } from "@next-libs/basic-components";
+import {
+  GeneralIcon,
+  getColor,
+  COLORS_MAP,
+  Colors,
+} from "@next-libs/basic-components";
 import style from "./IconSelect.module.css";
 import classNames from "classnames";
 import { getIconList, IconType } from "@next-libs/basic-components";
-import { pickBy } from "lodash";
 
 export interface IconSelectProps extends FormItemWrapperProps {
   visible?: boolean;
@@ -21,6 +25,7 @@ export interface IconSelectProps extends FormItemWrapperProps {
   handleCancel?: () => void;
   bg?: boolean;
   setColor?: boolean;
+  defaultColor?: Colors;
 }
 
 export function LegacyIconSelectItem(
@@ -32,7 +37,7 @@ export function LegacyIconSelectItem(
   const [searchQuery, setSearchQuery] = useState("");
   const [category, setCategory] = useState("fa");
   const [value, setValue] = useState<any>(props.value);
-  const [color, setColor] = useState(props.value?.color);
+  const [color, setColor] = useState(props.value?.color ?? props.defaultColor);
 
   useEffect(() => {
     setValue(props.value);
@@ -59,7 +64,14 @@ export function LegacyIconSelectItem(
   }, [category, searchQuery]);
 
   const handleIconSelect = (icon: MenuIcon) => {
-    setValue({ ...icon, ...(props.setColor ? { color } : {}) });
+    setValue({
+      ...icon,
+      ...(props.setColor
+        ? { color }
+        : props.defaultColor
+        ? { color: props.defaultColor }
+        : {}),
+    });
   };
 
   const generateIcons = () => {
@@ -109,11 +121,7 @@ export function LegacyIconSelectItem(
 
   const handleEmptyColor = (): void => {
     setColor(null);
-    let resultValue = value;
-    if (value?.color) {
-      resultValue = pickBy(resultValue, (v, k) => k !== "color") as MenuIcon;
-    }
-    setValue(resultValue);
+    setValue({ ...value, color: null });
   };
 
   const clearValue = (): void => {
@@ -148,7 +156,7 @@ export function LegacyIconSelectItem(
         <div className={style.previewContainer}>
           <div className={style.showArea}>
             <GeneralIcon
-              icon={value}
+              icon={{ color, ...value }}
               bg={props.bg}
               size={70}
               showEmptyIcon={true}
@@ -218,7 +226,7 @@ export function LegacyIconSelectItem(
           <GeneralIcon icon={null} bg={true} size={24} />
         )}
         <GeneralIcon
-          icon={props.value}
+          icon={{ color: props.defaultColor, ...props.value }}
           bg={props.bg}
           size={54}
           showEmptyIcon={true}
