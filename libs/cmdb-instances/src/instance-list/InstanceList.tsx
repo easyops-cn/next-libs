@@ -16,12 +16,13 @@ import {
   startsWith,
   compact,
 } from "lodash";
-import { handleHttpError } from "@next-core/brick-kit";
+import { BrickAsComponent, handleHttpError } from "@next-core/brick-kit";
 import {
   PropertyDisplayConfig,
   ReadPaginationChangeDetail,
   ReadSelectionChangeDetail,
   ReadSortingChangeDetail,
+  UseBrickConf,
 } from "@next-core/brick-types";
 import { CmdbModels, InstanceApi } from "@next-sdk/cmdb-sdk";
 import { Icon as LegacyIcon } from "@ant-design/compatible";
@@ -246,6 +247,9 @@ interface InstanceListProps {
   relationLinkDisabled?: boolean;
   notifyCurrentFields?: (fiels: string[]) => void;
   defaultQuery?: { [fieldId: string]: any }[];
+  extraFilterBricks?: {
+    useBrick: UseBrickConf;
+  };
 }
 
 interface InstanceListState {
@@ -801,6 +805,9 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
                 </Tag>
               ))}
             </div>
+          )}
+          {props.extraFilterBricks?.useBrick && (
+            <BrickAsComponent useBrick={props.extraFilterBricks.useBrick} />
           )}
           <InstanceListTable
             detailUrlTemplates={props.detailUrlTemplates}
