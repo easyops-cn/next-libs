@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.2.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@2.1.2...@next-libs/forms@2.2.0) (2021-03-29)
+
+
+### Features
+
+* **icon-select:** defaultColor ([d7d1b9d](https://github.com/easyops-cn/next-libs/commit/d7d1b9d200851f884be6ff9e2ed7588cee16b556))
+
+
+
+
+
 ## [2.1.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@2.1.1...@next-libs/forms@2.1.2) (2021-03-18)
 
 **Note:** Version bump only for package @next-libs/forms
