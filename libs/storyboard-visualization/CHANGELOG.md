@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/storyboard-visualization@3.0.1...@next-libs/storyboard-visualization@3.0.2) (2021-03-30)
+
+
+### Bug Fixes
+
+* **route-preview:** actionsVisible ([3a339c8](https://github.com/easyops-cn/next-libs/commit/3a339c82b0392c4f21bc3a6f398c946ad605aa8a))
+
+
+
+
+
 ## [3.0.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/storyboard-visualization@3.0.0...@next-libs/storyboard-visualization@3.0.1) (2021-03-15)
 
 
