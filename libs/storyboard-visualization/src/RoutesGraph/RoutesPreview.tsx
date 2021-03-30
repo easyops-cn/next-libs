@@ -105,7 +105,6 @@ export function RoutesPreview(props: RoutesPreviewProps): React.ReactElement {
   const [draggingItem, setDraggingItem] = useState<
     RouteGraphNode | undefined
   >();
-  const [actionsVisible, setActionsVisible] = useState(false);
 
   const getDraggingStatus = (
     dragging: boolean,
@@ -123,10 +122,6 @@ export function RoutesPreview(props: RoutesPreviewProps): React.ReactElement {
     onNodeClick?.(value);
   };
 
-  const handleToolBarClick = (e: React.MouseEvent): void => {
-    e.stopPropagation();
-  };
-
   return (
     <DndProvider backend={HTML5Backend}>
       <PreviewItem>
@@ -137,49 +132,84 @@ export function RoutesPreview(props: RoutesPreviewProps): React.ReactElement {
           </span>
         )}
       </PreviewItem>
-      {routes?.map((item) => {
-        const filteredActions = filterActions(
-          contentItemActions,
-          item.originalData
-        );
-        const ellipsisButtonAvailable = filteredActions.length > 0;
-        return (
-          <Item
-            key={item.originalData.id}
-            id={item.originalData.id}
-            getDraggingStatus={(dragging: boolean, currentOffset?: XYCoord) =>
-              getDraggingStatus(dragging, item, currentOffset)
-            }
-            readOnly={readOnly}
-          >
-            <span
-              key={item.originalData.id}
-              onClick={() => handleClick(item.originalData)}
-              className={classNames(styles.previewTag, {
-                [styles.contentItemEllipsisButtonAvailable]: ellipsisButtonAvailable,
-                [styles.actionsVisible]: actionsVisible,
-              })}
-            >
-              <RouteTypeIcon item={item.originalData} />
-              {item.originalData.alias ?? item.originalData.path}
-              {ellipsisButtonAvailable && (
-                <div
-                  className={styles.contentItemToolbar}
-                  onClick={handleToolBarClick}
-                >
-                  <ItemActionsComponent
-                    filteredActions={filteredActions}
-                    item={item.originalData}
-                    onVisibleChange={(visible) => {
-                      setActionsVisible(visible);
-                    }}
-                  />
-                </div>
-              )}
-            </span>
-          </Item>
-        );
-      })}
+      {routes?.map((item) => (
+        <RouteItem
+          key={item.originalData.id}
+          item={item}
+          onItemClick={handleClick}
+          getDraggingStatus={getDraggingStatus}
+          readOnly={readOnly}
+          contentItemActions={contentItemActions}
+        />
+      ))}
     </DndProvider>
+  );
+}
+
+interface RouteItemProps {
+  item: RouteGraphNode;
+  getDraggingStatus: (
+    dragging: boolean,
+    item: RouteGraphNode,
+    currentOffset: XYCoord
+  ) => void;
+  readOnly?: boolean;
+  onItemClick: (value: ViewItem) => void;
+  contentItemActions?: ContentItemActions;
+}
+
+function RouteItem(props: RouteItemProps): React.ReactElement {
+  const {
+    item,
+    getDraggingStatus,
+    readOnly,
+    onItemClick,
+    contentItemActions,
+  } = props;
+
+  const [actionsVisible, setActionsVisible] = useState(false);
+
+  const filteredActions = filterActions(contentItemActions, item.originalData);
+  const ellipsisButtonAvailable = filteredActions.length > 0;
+
+  const handleToolBarClick = (e: React.MouseEvent): void => {
+    e.stopPropagation();
+  };
+
+  return (
+    <Item
+      key={item.originalData.id}
+      id={item.originalData.id}
+      getDraggingStatus={(dragging: boolean, currentOffset?: XYCoord) =>
+        getDraggingStatus(dragging, item, currentOffset)
+      }
+      readOnly={readOnly}
+    >
+      <span
+        key={item.originalData.id}
+        onClick={() => onItemClick(item.originalData)}
+        className={classNames(styles.previewTag, {
+          [styles.contentItemEllipsisButtonAvailable]: ellipsisButtonAvailable,
+          [styles.actionsVisible]: actionsVisible,
+        })}
+      >
+        <RouteTypeIcon item={item.originalData} />
+        {item.originalData.alias ?? item.originalData.path}
+        {ellipsisButtonAvailable && (
+          <div
+            className={styles.contentItemToolbar}
+            onClick={handleToolBarClick}
+          >
+            <ItemActionsComponent
+              filteredActions={filteredActions}
+              item={item.originalData}
+              onVisibleChange={(visible: boolean) => {
+                setActionsVisible(visible);
+              }}
+            />
+          </div>
+        )}
+      </span>
+    </Item>
   );
 }
