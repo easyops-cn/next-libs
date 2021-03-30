@@ -52,7 +52,7 @@ const mockInstanceListTable = InstanceListTable as jest.Mock;
 const mockInstanceListTableContent = mockInstanceListTable();
 const mockMoreButtonsContainer = MoreButtonsContainer as jest.Mock;
 
-jest.spyOn(InstanceApi, "postSearch").mockResolvedValue(instanceListData);
+jest.spyOn(InstanceApi, "postSearchV3").mockResolvedValue(instanceListData);
 const HOST: any = {
   objectId: "HOST",
   view: {

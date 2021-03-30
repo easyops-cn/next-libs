@@ -74,7 +74,7 @@ export interface InstanceListTableProps extends WithTranslation {
   fieldIds?: string[];
   idObjectMap: Record<string, Partial<CmdbModels.ModelCmdbObject>>;
   modelData: Partial<CmdbModels.ModelCmdbObject>;
-  instanceListData: InstanceApi.PostSearchResponseBody;
+  instanceListData: InstanceApi.PostSearchV3ResponseBody;
   sort?: string;
   asc?: boolean;
   propertyDisplayConfigs?: PropertyDisplayConfig[];

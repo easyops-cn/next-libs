@@ -232,7 +232,10 @@ interface InstanceListProps {
   selectDisabled?: boolean;
   pageSizeOptions?: string[];
   showSizeChanger?: boolean;
-  onSearchExecute?(value: Record<string, any>): void;
+  onSearchExecute?(
+    data: InstanceApi.PostSearchRequestBody,
+    v3Data: InstanceApi.PostSearchV3RequestBody
+  ): void;
   onSearch?(value: string): void;
   onAdvancedSearch?(queries: Query[]): void;
   onClickItem?(
@@ -267,7 +270,7 @@ interface InstanceListState {
   loading: boolean;
   failed: boolean;
   idObjectMap?: Record<string, Partial<CmdbModels.ModelCmdbObject>>;
-  instanceListData?: InstanceApi.PostSearchResponseBody;
+  instanceListData?: InstanceApi.PostSearchV3ResponseBody;
   isAdvancedSearchVisible: boolean;
   fieldIds: string[];
   autoBreakLine: boolean;
@@ -384,23 +387,29 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
   const [selectedRowKeys, setSelectedRowKeys] = useState(
     props.selectedRowKeys ?? []
   );
-  const cache = useRef(new Map<string, InstanceApi.PostSearchResponseBody>());
+  const cache = useRef(new Map<string, InstanceApi.PostSearchV3ResponseBody>());
 
   const getInstanceListData = async (
     sort: string,
     asc: boolean,
     page: number
-  ) => {
-    const searchParams: InstanceApi.PostSearchRequestBody = {};
+  ): Promise<InstanceApi.PostSearchV3ResponseBody> => {
+    const data: InstanceApi.PostSearchRequestBody = {};
+    const v3Data: InstanceApi.PostSearchV3RequestBody = {
+      fields: ["instanceId"],
+    };
     if (!isEmpty(props.permission)) {
-      searchParams.permission = props.permission;
+      v3Data.permission = data.permission = props.permission;
     }
 
     let query: Record<string, any> = {};
 
-    searchParams.page = page;
-    searchParams["page_size"] = state?.pageSize ?? 10;
-    sort && (searchParams.sort = { [sort]: asc ? 1 : -1 });
+    v3Data.page = data.page = page;
+    v3Data["page_size"] = data["page_size"] = state?.pageSize ?? 10;
+    if (sort) {
+      data.sort = { [sort]: asc ? 1 : -1 };
+      v3Data.sort = [{ key: sort, order: asc ? 1 : -1 }];
+    }
 
     if (state.q) {
       query = getQuery(modelData, idObjectMap, state.q, state.fieldIds);
@@ -416,45 +425,43 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
         ...props.defaultQuery,
       ];
     }
-
-    if (!isEmpty(query)) {
-      searchParams.query = query;
-    }
     if (props.presetConfigs) {
       if (!isEmpty(props.presetConfigs.query)) {
-        if (searchParams.query) {
-          searchParams.query = {
-            $and: [searchParams.query, props.presetConfigs.query],
+        if (query) {
+          query = {
+            $and: [query, props.presetConfigs.query],
           };
         } else {
-          searchParams.query = props.presetConfigs.query;
+          query = props.presetConfigs.query;
         }
       }
       if (state.fieldIds) {
-        const fields: Record<string, boolean> = {};
-        state.fieldIds.forEach((id) => (fields[id] = true));
-        if (searchParams.fields) {
-          searchParams.fields = Object.assign({}, searchParams.fields, fields);
-        } else {
-          searchParams.fields = fields;
-        }
+        data.fields = Object.fromEntries(
+          state.fieldIds.map((fieldId) => [fieldId, true])
+        );
+        v3Data.fields = state.fieldIds;
       }
     }
-    if (state.relatedToMe) {
-      searchParams.only_my_instance = state.relatedToMe;
-    }
     if (state.aliveHosts && props.objectId === "HOST") {
-      searchParams.query = { ...searchParams.query, _agentStatus: "正常" };
+      query = { ...query, _agentStatus: "正常" };
     }
-    props.onSearchExecute?.(searchParams);
-    return await InstanceApi.postSearch(props.objectId, searchParams);
+
+    if (!isEmpty(query)) {
+      v3Data.query = data.query = query;
+    }
+
+    if (state.relatedToMe) {
+      v3Data.only_my_instance = data.only_my_instance = state.relatedToMe;
+    }
+    props.onSearchExecute?.(data, v3Data);
+    return await InstanceApi.postSearchV3(props.objectId, v3Data);
   };
 
   const refreshInstanceList = async (
     sort: string,
     asc: boolean,
     page: number
-  ) => {
+  ): Promise<void> => {
     setState({ loading: true });
     try {
       const instanceListData = await getInstanceListData(sort, asc, page);
@@ -509,7 +516,8 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     if (selectedKeys.length > compact(selectedItems).length) {
       const ids = selectedKeys.filter((id) => !cache.current.has(id));
       if (ids.length) {
-        const resp = await InstanceApi.postSearch(props.objectId, {
+        const resp = await InstanceApi.postSearchV3(props.objectId, {
+          fields: ["instanceId"],
           query: {
             instanceId: {
               $in: ids,
