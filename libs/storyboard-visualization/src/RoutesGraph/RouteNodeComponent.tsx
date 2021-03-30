@@ -83,7 +83,7 @@ export function RouteNodeComponent(
               <ItemActionsComponent
                 filteredActions={filteredActions}
                 item={originalData}
-                onVisibleChange={(visible) => {
+                onVisibleChange={(visible: boolean) => {
                   setActionsVisible(visible);
                 }}
               />
