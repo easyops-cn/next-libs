@@ -16,6 +16,7 @@ import {
   ReadPaginationChangeDetail,
   ReadSelectionChangeDetail,
   ReadSortingChangeDetail,
+  UseBrickConf,
 } from "@next-core/brick-types";
 import { CmdbModels, InstanceApi } from "@next-sdk/cmdb-sdk";
 import { Link } from "@next-libs/basic-components";
@@ -35,6 +36,18 @@ import { ModelAttributeValueType } from "../model-attribute-form-control/ModelAt
 import { Attribute, StructTable } from "../struct-components";
 import styles from "./InstanceListTable.module.css";
 import { customRules } from "./utils";
+import { BrickAsComponent } from "@next-core/brick-kit";
+
+export interface CustomColumn extends ColumnType<Record<string, unknown>> {
+  useBrick: UseBrickConf;
+}
+
+export interface InstanceListUseBrickData {
+  cellData: unknown;
+  rowData: Record<string, unknown>;
+  index: number;
+}
+
 enum SortOrder {
   Ascend = "ascend",
   Descend = "descend",
@@ -81,6 +94,7 @@ export interface InstanceListTableProps extends WithTranslation {
   showSizeChanger?: boolean;
   selectedRowKeys?: string[];
   configProps?: TableProps<Record<string, any>>;
+  extraColumns?: CustomColumn[];
 }
 
 interface InstanceListTableState {
@@ -95,6 +109,7 @@ export class LegacyInstanceListTable extends React.Component<
   InstanceListTableState
 > {
   keyDisplayConfigMap: Record<string, PropertyDisplayConfig> = {};
+  recordUseBrickDataMap: Map<unknown, InstanceListUseBrickData>;
 
   constructor(props: InstanceListTableProps) {
     super(props);
@@ -122,7 +137,7 @@ export class LegacyInstanceListTable extends React.Component<
     };
     this.state = {
       list: this.props.instanceListData.list,
-      columns: sortedColumns,
+      columns: this.getMergedColumns(sortedColumns, this.props.extraColumns),
       pagination: {
         ...defaultPagination,
         total: this.props.instanceListData.total,
@@ -181,9 +196,45 @@ export class LegacyInstanceListTable extends React.Component<
     return sortedColumns;
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps: InstanceListTableProps) {
+  getMergedColumns(
+    columns: ColumnType<Record<string, any>>[],
+    extraColumns: CustomColumn[]
+  ): ColumnType<Record<string, any>>[] {
+    return extraColumns
+      ? [...columns, ...this.processExtraColumns(extraColumns)]
+      : columns;
+  }
+
+  processExtraColumns(
+    extraColumns: CustomColumn[]
+  ): ColumnType<Record<string, any>>[] {
+    this.recordUseBrickDataMap = new Map();
+
+    return extraColumns.map((column) => {
+      const { useBrick, ...processedColumn } = column;
+
+      if (useBrick) {
+        processedColumn.render = (value, record, index) => {
+          let data = this.recordUseBrickDataMap.get(record);
+
+          if (!data) {
+            data = { cellData: value, rowData: record, index };
+            this.recordUseBrickDataMap.set(record, data);
+          }
+
+          return <BrickAsComponent useBrick={useBrick} data={data} />;
+        };
+      }
+
+      return processedColumn;
+    });
+  }
+
+  UNSAFE_componentWillReceiveProps(nextProps: InstanceListTableProps): void {
     const columns = this.getChangeColumns(nextProps.fieldIds);
-    this.setState({ columns });
+    this.setState({
+      columns: this.getMergedColumns(columns, nextProps.extraColumns),
+    });
   }
 
   handleClickItem(

@@ -44,8 +44,8 @@ import {
   getFieldConditionsAndValues,
   MoreButtonsContainer,
   InstanceListTable,
+  CustomColumn,
 } from "../instance-list-table";
-import { clusterMap } from "../instance-list-table/constants";
 import styles from "./InstanceList.module.css";
 import {
   extraFieldAttrs,
@@ -250,6 +250,7 @@ interface InstanceListProps {
   extraFilterBricks?: {
     useBrick: UseBrickConf;
   };
+  extraColumns?: CustomColumn[];
 }
 
 interface InstanceListState {
@@ -829,6 +830,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
             relationLinkDisabled={props.relationLinkDisabled}
             pageSizeOptions={props.pageSizeOptions}
             showSizeChanger={props.showSizeChanger}
+            extraColumns={props.extraColumns}
           />
         </React.Fragment>
       ) : null}

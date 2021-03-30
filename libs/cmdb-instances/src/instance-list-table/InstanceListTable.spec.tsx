@@ -1,16 +1,32 @@
 import "@testing-library/jest-dom/extend-expect";
 import React from "react";
 import { render, fireEvent, cleanup, getByText } from "@testing-library/react";
-import { createHistory } from "@next-core/brick-kit";
+import * as kit from "@next-core/brick-kit";
 import {
   ReadPaginationChangeDetail,
   ReadSortingChangeDetail,
   PropertyDisplayType,
+  UseSingleBrickConf,
 } from "@next-core/brick-types";
 
 import { InstanceListTable } from "./InstanceListTable";
 import { getInstanceListData, HOST } from "./data-providers/__mocks__";
-createHistory();
+
+kit.createHistory();
+
+jest.spyOn(kit, "BrickAsComponent").mockImplementation(({ useBrick, data }) => (
+  <>
+    brick:{" "}
+    <span data-testid={`row-${(data as Record<string, any>).index}-brick`}>
+      {(useBrick as UseSingleBrickConf).brick}
+    </span>
+    <br />
+    data:{" "}
+    <span data-testid={`row-${(data as Record<string, any>).index}-data`}>
+      {JSON.stringify(data)}
+    </span>
+  </>
+));
 
 const ipAttr = HOST.attrList.find((attr) => attr.id === "ip");
 const idObjectMap = { HOST };
@@ -336,5 +352,41 @@ describe("InstanceListTable", () => {
       "ant-tag",
       "ant-tag-green"
     );
+  });
+
+  it("should work with extraColumns property", () => {
+    const instanceListData = getInstanceListData(2, 1, 2);
+    const extraFieldKey = "extraField";
+    const brick = "span";
+
+    instanceListData.list = instanceListData.list.map((instance, index) => ({
+      ...instance,
+      [extraFieldKey]: `extra field value ${index}`,
+    }));
+
+    const { getByTestId } = render(
+      <InstanceListTable
+        detailUrlTemplates={detailUrlTemplates}
+        idObjectMap={idObjectMap}
+        modelData={HOST}
+        instanceListData={instanceListData}
+        extraColumns={[
+          {
+            title: "Extra Field",
+            dataIndex: extraFieldKey,
+            useBrick: { brick },
+          },
+        ]}
+      />
+    );
+
+    const index = 0;
+    const instance = instanceListData.list[index];
+    expect(getByTestId(`row-${index}-brick`)).toHaveTextContent(brick);
+    expect(JSON.parse(getByTestId(`row-${index}-data`).textContent)).toEqual({
+      cellData: instance[extraFieldKey],
+      rowData: instance,
+      index,
+    });
   });
 });
