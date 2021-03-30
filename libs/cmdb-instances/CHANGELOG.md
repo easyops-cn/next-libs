@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@3.1.6...@next-libs/cmdb-instances@3.1.7) (2021-03-30)
+
+
+### Bug Fixes
+
+* **instance-edit:** 结构体为浮点型未做校验&单结构体无法删除&markdown不支持编辑 ([765978e](https://github.com/easyops-cn/next-libs/commit/765978e5f54ccfe21cba0d78fe1a3249bf4fc04a))
+
+
+
+
+
 ## [3.1.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@3.1.5...@next-libs/cmdb-instances@3.1.6) (2021-03-26)
 
 
