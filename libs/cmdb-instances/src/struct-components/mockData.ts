@@ -8,6 +8,7 @@ export const structData = {
   date: "2019-05-24",
   datetime: "2019-05-24 12:00:00",
   enums: ["1", "3"],
+  float: 100.1,
 };
 export const structData2 = {
   arr: ["ppp"],
@@ -18,6 +19,7 @@ export const structData2 = {
   date: "2019-05-23",
   datetime: "2019-05-24 23:00:00",
   enums: ["1", "3", "5"],
+  float: 100.1,
 };
 export const structList = [structData, structData2];
 export const attribute: Attribute = {
@@ -67,6 +69,11 @@ export const attribute: Attribute = {
         name: "枚举多选",
         type: "enums",
         regex: ["1", "3", "5", "7", "9"],
+      },
+      {
+        id: "float",
+        name: "浮点型",
+        type: "float",
       },
     ],
   },

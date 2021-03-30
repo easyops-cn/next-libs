@@ -414,7 +414,8 @@ export class ModelAttributeFormControl extends Component<
         );
       }
 
-      case FormControlTypeEnum.TEXTAREA: {
+      case FormControlTypeEnum.TEXTAREA:
+      case FormControlTypeEnum.MARKDOWN: {
         return (
           <Input.TextArea
             value={value}

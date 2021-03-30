@@ -113,6 +113,7 @@ export class AddStructModal extends React.Component<
           <InputNumber
             defaultValue={defaultValue}
             style={{ width: "100%" }}
+            precision={0}
             onChange={(e) => this.handleValueChange(e, define)}
           />
         );
@@ -203,6 +204,16 @@ export class AddStructModal extends React.Component<
               不满足预设的正则表达式，请修改
             </label>
           </div>
+        );
+        break;
+      }
+      case "float": {
+        formType = (
+          <InputNumber
+            defaultValue={defaultValue}
+            style={{ width: "100%" }}
+            onChange={(e) => this.handleValueChange(e, define)}
+          />
         );
         break;
       }

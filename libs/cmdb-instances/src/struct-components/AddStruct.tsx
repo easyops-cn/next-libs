@@ -30,7 +30,11 @@ export class AddStruct extends React.Component<AddStructProps, AddStructState> {
   // 编辑结构体
   handleEditStruct = (formData: any) => {
     const { isLegacy } = this.props;
-    const output = isLegacy ? formData[0] : formData;
+    const output = isLegacy
+      ? Array.isArray(formData)
+        ? formData[0]
+        : formData
+      : formData;
     this.setState({ showModal: false });
     this.props.handleStoreFunction(output);
   };
