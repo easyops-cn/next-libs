@@ -21,7 +21,7 @@ describe("AddStructModal", () => {
   const instance = wrapper.instance() as AddStructModal;
   it("should init addStructModal", () => {
     expect(wrapper).toBeTruthy();
-    expect(instance.state.showError).toEqual(new Array(8).fill(false));
+    expect(instance.state.showError).toEqual(new Array(9).fill(false));
   });
   it("should call the store function", () => {
     const spy = jest.spyOn(props, "handleStoreFunction");
@@ -36,8 +36,15 @@ describe("AddStructModal", () => {
     expect(spy).toBeCalled();
   });
   it("should call the handleValueChange when change the int value", () => {
-    wrapper.find(InputNumber).prop("onChange")(100);
+    expect(wrapper.find(InputNumber).length).toBe(2);
+    const inputNumber = wrapper.find(InputNumber).first();
+    inputNumber.invoke("onChange")(100);
     expect(instance.state.structData["int"]).toEqual(100);
+  });
+  it("should call the handleValueChange when change the float value", () => {
+    const inputNumber = wrapper.find(InputNumber).first();
+    inputNumber.invoke("onChange")(100.1);
+    expect(instance.state.structData["float"]).toEqual(100.1);
   });
   it("should call the handleValueChange when change the string value", () => {
     wrapper.find(Input).at(0).prop("onChange")({

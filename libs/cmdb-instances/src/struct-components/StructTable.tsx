@@ -113,7 +113,7 @@ export class StructTable extends React.Component<
         />
         <Button
           type="link"
-          icon={<DeleteOutlined />}
+          icon={<DeleteOutlined style={{ color: "var(--theme-red-color)" }} />}
           onClick={() => {
             this.openConfirmModal(index);
           }}
