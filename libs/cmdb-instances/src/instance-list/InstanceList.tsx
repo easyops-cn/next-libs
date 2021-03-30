@@ -235,7 +235,7 @@ interface InstanceListProps {
   onSearchExecute?(
     data: InstanceApi.PostSearchRequestBody,
     v3Data: InstanceApi.PostSearchV3RequestBody
-  ): void;
+  ): Promise<InstanceApi.PostSearchV3ResponseBody> | void;
   onSearch?(value: string): void;
   onAdvancedSearch?(queries: Query[]): void;
   onClickItem?(
@@ -453,8 +453,12 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     if (state.relatedToMe) {
       v3Data.only_my_instance = data.only_my_instance = state.relatedToMe;
     }
-    props.onSearchExecute?.(data, v3Data);
-    return await InstanceApi.postSearchV3(props.objectId, v3Data);
+
+    const promise = props.onSearchExecute?.(data, v3Data);
+
+    return promise
+      ? promise
+      : InstanceApi.postSearchV3(props.objectId, v3Data);
   };
 
   const refreshInstanceList = async (
@@ -553,6 +557,10 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
 
   const onSortingChange = (info: ReadSortingChangeDetail) => {
     let asc: boolean;
+    if (!state.sort) {
+      return;
+    }
+
     let sort: string;
     if (info.asc === undefined) {
       setState({ asc: undefined, sort: undefined });
