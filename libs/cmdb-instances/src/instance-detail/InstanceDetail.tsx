@@ -323,6 +323,7 @@ export class LegacyInstanceDetail extends React.Component<
     field: keyof LegacyInstanceDetailState
   ): any {
     return mapValues(oldProperties, (propValue) => {
+      // istanbul ignore else
       // 这个封装的有点过了感觉，他支持所有的字段都支持注入，但感觉应该是只有dataSource支持就ok了，没必要那么复杂，故这里对于array直接返回
       if (isArray(propValue)) {
         return propValue;

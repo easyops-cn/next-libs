@@ -52,6 +52,7 @@ describe("InstanceDetail", () => {
       showCard: false,
     });
     expect(wrapper2.find("Card")).toHaveLength(0);
+    expect(wrapper2.find(".detailCard")).toHaveLength(1);
   });
 
   it("tests isMarkdownField", () => {
