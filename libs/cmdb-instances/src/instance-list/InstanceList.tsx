@@ -456,9 +456,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
 
     const promise = props.onSearchExecute?.(data, v3Data);
 
-    return promise
-      ? promise
-      : InstanceApi.postSearchV3(props.objectId, v3Data);
+    return promise ? promise : InstanceApi.postSearchV3(props.objectId, v3Data);
   };
 
   const refreshInstanceList = async (
@@ -557,12 +555,12 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
 
   const onSortingChange = (info: ReadSortingChangeDetail) => {
     let asc: boolean;
-    if (!state.sort) {
-      return;
-    }
-
     let sort: string;
     if (info.asc === undefined) {
+      if (!state.sort) {
+        return;
+      }
+
       setState({ asc: undefined, sort: undefined });
     } else {
       setState({ asc: info.asc, sort: info.sort });
