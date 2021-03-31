@@ -25,6 +25,7 @@ import {
 } from "../instance-list-table";
 import { InstanceListPresetConfigs } from "../instance-list/InstanceList";
 import { mount, shallow } from "enzyme";
+import { BrickAsComponent } from "@next-core/brick-kit";
 
 jest.mock("@next-libs/storage");
 jest.mock("@next-sdk/cmdb-sdk");
@@ -38,6 +39,10 @@ jest.mock("../instance-list-table", () => ({
   MoreButtonsContainer: jest.fn(() => {
     return "<div>Fake more buttons container loaded!</div>";
   }),
+  LogicalOperators: {
+    And: "$and",
+    Or: "$or",
+  }
 }));
 
 const instanceListData = getInstanceListData();
@@ -47,7 +52,7 @@ const mockInstanceListTable = InstanceListTable as jest.Mock;
 const mockInstanceListTableContent = mockInstanceListTable();
 const mockMoreButtonsContainer = MoreButtonsContainer as jest.Mock;
 
-jest.spyOn(InstanceApi, "postSearch").mockResolvedValue(instanceListData);
+jest.spyOn(InstanceApi, "postSearchV3").mockResolvedValue(instanceListData);
 const HOST: any = {
   objectId: "HOST",
   view: {
@@ -185,7 +190,7 @@ describe("InstanceList", () => {
     const onPaginationChange = jest.fn();
     const onSortingChange = jest.fn();
     const onSelectionChange = jest.fn();
-    const { queryByText } = render(
+    const { findByText } = render(
       <InstanceList
         objectId={objectId}
         objectList={[HOST]}
@@ -202,9 +207,11 @@ describe("InstanceList", () => {
         onSortingChange={onSortingChange}
         onSelectionChange={onSelectionChange}
         relationLinkDisabled={false}
+        defaultQuery={[presetConfigs.query]}
       />
     );
-    await waitForElement(() => queryByText(mockInstanceListTableContent));
+
+    await findByText(mockInstanceListTableContent);
 
     const fields: Record<string, boolean> = {};
     const newFieldIds = ["hostname", "ip", "_deviceList_CLUSTER"];
@@ -229,10 +236,11 @@ describe("InstanceList", () => {
   });
 
   it("should toggle advanced search when click advanced-search-toggle-btn", async () => {
-    const { queryByText, queryByTestId } = render(
+    const { findByText, queryByText, queryByTestId } = render(
       <InstanceList objectId="HOST" objectList={[HOST]} />
     );
-    await waitForElement(() => queryByText(mockInstanceListTableContent));
+
+    await findByText(mockInstanceListTableContent);
 
     const advancedSearchToggleBtn = queryByTestId("advanced-search-toggle-btn");
     const mockAdvancedSearchElement = queryByText(mockAdvancedSearchContent);
@@ -336,5 +344,22 @@ describe("InstanceList", () => {
     expect(relatedToMe.props["checked"]).toBeTruthy();
     wrapper.find(IconButton).at(0).invoke("onChange")(false);
     expect(mockOnRelatedToMeChange).toBeCalledWith(false);
+  });
+
+  it("should work with extraFilterBricks property", async () => {
+    const extraFilterBricks = {useBrick: {brick: 'span'}};
+    const wrapper = mount(
+      <InstanceList
+        objectId="HOST"
+        objectList={[HOST]}
+        extraFilterBricks={extraFilterBricks}
+      />
+    );
+
+    await (global as any).flushPromises();
+    wrapper.update();
+
+    const brickAsComponentProps = wrapper.find(BrickAsComponent).props();
+    expect(brickAsComponentProps.useBrick).toBe(extraFilterBricks.useBrick);
   });
 });
