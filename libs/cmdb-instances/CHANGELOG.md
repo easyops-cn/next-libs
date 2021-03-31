@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.2.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@3.1.7...@next-libs/cmdb-instances@3.2.0) (2021-03-31)
+
+
+### Features
+
+* **InstanceList:** add extraColumns property ([553d713](https://github.com/easyops-cn/next-libs/commit/553d713512fe57220513a902cdd5643361ecf80f))
+* **InstanceList:** add extraFilterBricks property ([973b194](https://github.com/easyops-cn/next-libs/commit/973b194f20ec2045e942dba0243f4e598d36de75))
+* **InstanceList:** onSearchExecute support return external fetch data promise ([5f1d163](https://github.com/easyops-cn/next-libs/commit/5f1d16366c6f2f83907aeed5bc77897408509d43))
+
+
+
+
+
 ## [3.1.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@3.1.6...@next-libs/cmdb-instances@3.1.7) (2021-03-30)
 
 
