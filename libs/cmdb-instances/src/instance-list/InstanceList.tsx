@@ -506,7 +506,16 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     }
 
     refreshInstanceList(state.sort, state.asc, 1);
-  }, [state.q, state.aq, state.pageSize, state.aliveHosts, state.relatedToMe]);
+  }, [
+    state.q,
+    state.aq,
+    state.pageSize,
+    state.aliveHosts,
+    state.relatedToMe,
+    props.objectId,
+    props.permission,
+    props.defaultQuery,
+  ]);
 
   // on other condition change
   useEffect(() => {
