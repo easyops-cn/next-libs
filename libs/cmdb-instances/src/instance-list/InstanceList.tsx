@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState, useRef } from "react";
+import React, { useEffect, useReducer, useState, useRef, useMemo } from "react";
 import {
   difference,
   isEmpty,
@@ -278,21 +278,21 @@ interface InstanceListState {
 }
 
 export function InstanceList(props: InstanceListProps): React.ReactElement {
-  let modelData: Partial<CmdbModels.ModelCmdbObject>;
-  const idObjectMap: Record<string, Partial<CmdbModels.ModelCmdbObject>> = {};
-  const jsonLocalStorage: JsonStorage = new JsonStorage(localStorage);
+  const jsonLocalStorage = new JsonStorage(localStorage);
 
   const reducer = (
     prevState: InstanceListState,
-    updatedProperty: Record<string, any>
-  ) => {
+    updatedProperty: Partial<InstanceListState>
+  ): InstanceListState => {
     return {
       ...prevState,
       ...updatedProperty,
     };
   };
 
-  const setModelData = () => {
+  const { modelData, idObjectMap } = useMemo(() => {
+    let modelData: Partial<CmdbModels.ModelCmdbObject>;
+    const idObjectMap: Record<string, Partial<CmdbModels.ModelCmdbObject>> = {};
     props.objectList.forEach((object) => {
       idObjectMap[object.objectId] = object;
       if (object.objectId === props.objectId) {
@@ -300,7 +300,9 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
         modelData.attrList = union(object.attrList, extraFieldAttrs);
       }
     });
-  };
+
+    return { modelData, idObjectMap };
+  }, [props.objectList, props.objectId]);
 
   const computeDefaultFields = (
     { inModal } = { inModal: false }
@@ -364,8 +366,8 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     return fieldIds;
   };
 
-  setModelData();
-  const initState: InstanceListState = {
+  const [q, setQ] = useState(props.q);
+  const [state, setState] = useReducer(reducer, undefined, () => ({
     q: props.q,
     aq: props.aq,
     aqToShow: props.aqToShow || props.aq,
@@ -381,13 +383,12 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     isAdvancedSearchVisible: false,
     fieldIds: getFields(),
     autoBreakLine: false,
-  };
-  const [q, setQ] = useState(props.q);
-  const [state, setState] = useReducer(reducer, initState);
+  }));
   const [selectedRowKeys, setSelectedRowKeys] = useState(
     props.selectedRowKeys ?? []
   );
   const cache = useRef(new Map<string, InstanceApi.PostSearchV3ResponseBody>());
+  const isFirstRunRef = useRef(true);
 
   const getInstanceListData = async (
     sort: string,
@@ -490,19 +491,29 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     setSelectedRowKeys(props.selectedRowKeys ?? []);
   }, [props.objectId, props.selectedRowKeys]);
 
+  // on filter condition change
+  useEffect(() => {
+    if (isFirstRunRef.current) {
+      isFirstRunRef.current = false;
+      return;
+    }
+
+    if (state.page !== 1) {
+      setState({ page: 1 });
+      props.onPaginationChange?.({ page: 1, pageSize: state.pageSize });
+
+      return;
+    }
+
+    refreshInstanceList(state.sort, state.asc, 1);
+  }, [state.q, state.aq, state.pageSize, state.aliveHosts, state.relatedToMe]);
+
+  // on other condition change
   useEffect(() => {
     if (isEmpty(state.fieldIds)) return;
-    props.onPaginationChange?.({ page: state.page, pageSize: state.pageSize });
+
     refreshInstanceList(state.sort, state.asc, state.page);
-  }, [
-    state.q,
-    state.aq,
-    state.page,
-    state.pageSize,
-    state.aliveHosts,
-    state.relatedToMe,
-    state.fieldIds,
-  ]);
+  }, [state.page, state.sort, state.asc, state.fieldIds]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQ(e.target.value);
@@ -568,15 +579,11 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
       sort = info.sort;
     }
     props.onSortingChange?.(info);
-    refreshInstanceList(sort, asc, state.page);
   };
 
   const onPaginationChange = (pagination: ReadPaginationChangeDetail) => {
-    if (pagination.pageSize !== state.pageSize) {
-      setState({ pageSize: pagination.pageSize, page: 1 });
-    } else if (pagination.page !== state.page) {
-      setState({ page: pagination.page });
-    }
+    setState({ page: pagination.page, pageSize: pagination.pageSize });
+    props.onPaginationChange?.(pagination);
   };
 
   const onRelatedToMeChange = (checked: boolean) => {
