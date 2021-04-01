@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.3.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@3.2.1...@next-libs/cmdb-instances@3.3.0) (2021-04-01)
+
+
+### Bug Fixes
+
+* **InstanceList:** auto reset to page 1 when filter condition changed ([27a28a6](https://github.com/easyops-cn/next-libs/commit/27a28a6692de3626232d2e516ab2d49b3d055e60))
+
+
+### Features
+
+* **InstanceList:** auto refresh list when objectId, permission and defaultQuery properties changed ([365ce15](https://github.com/easyops-cn/next-libs/commit/365ce15f31ed6ce8775675ae0c3114dbe709b0a5))
+
+
+
+
+
 ## [3.2.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@3.2.0...@next-libs/cmdb-instances@3.2.1) (2021-03-31)
 
 
