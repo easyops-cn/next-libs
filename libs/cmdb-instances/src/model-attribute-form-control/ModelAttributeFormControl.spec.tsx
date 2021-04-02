@@ -225,7 +225,7 @@ describe("ModelAttributeFormControl", () => {
       expect(result).toEqual(FormControlTypeEnum.SELECT);
     });
 
-    it("should return 'radio' when type equal 'bool'", () => {
+    it("should return 'select' when type equal 'bool'", () => {
       const result = computeFormControlType({
         value: {
           type: "bool",
