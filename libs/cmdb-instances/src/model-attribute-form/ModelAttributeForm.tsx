@@ -200,12 +200,13 @@ export class ModelAttributeForm extends Component<
     e.preventDefault();
     this.props.form.validateFields(async (err, values) => {
       if (!err) {
+        const { continueCreating } = this.state;
         this.setState({ sending: true });
         const result = await this.props.onSubmit({
-          continueCreating: this.state.continueCreating,
+          continueCreating,
           values,
         });
-        if (result !== "error") {
+        if (result !== "error" && continueCreating) {
           this.props.form.resetFields();
         }
         this.setState({ sending: false });
