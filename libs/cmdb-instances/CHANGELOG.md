@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.3.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@3.3.1...@next-libs/cmdb-instances@3.3.2) (2021-04-02)
+
+
+### Bug Fixes
+
+* **ModelAttributeForm:** only reset form when continueCreating is true ([52afd66](https://github.com/easyops-cn/next-libs/commit/52afd661ae89b474e95e51bc68dcccb040440693))
+
+
+
+
+
 ## [3.3.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@3.3.0...@next-libs/cmdb-instances@3.3.1) (2021-04-02)
 
 
