@@ -74,6 +74,12 @@ export function LegacyIconSelectItem(
     });
   };
 
+  useEffect(() => {
+    if (!color) {
+      setColor(props.defaultColor);
+    }
+  }, [props.defaultColor, color]);
+
   const generateIcons = () => {
     let showIcons = null;
     if (iconList?.list?.length) {
