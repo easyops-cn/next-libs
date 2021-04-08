@@ -431,8 +431,8 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     aqToShow: props.aqToShow || initAqToShow(props.aq, modelData),
     asc: props.asc,
     sort: props.sort,
-    page: props.page,
-    pageSize: props.pageSize,
+    page: props.page ?? 1,
+    pageSize: props.pageSize ?? 10,
     aliveHosts: props.aliveHosts,
     relatedToMe: props.relatedToMe,
     inited: false,
@@ -464,7 +464,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     let query: Record<string, any> = {};
 
     v3Data.page = data.page = page;
-    v3Data["page_size"] = data["page_size"] = state?.pageSize ?? 10;
+    v3Data["page_size"] = data["page_size"] = state.pageSize;
     if (sort) {
       data.sort = { [sort]: asc ? 1 : -1 };
       v3Data.sort = [{ key: sort, order: asc ? 1 : -1 }];
