@@ -494,12 +494,12 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
           query = props.presetConfigs.query;
         }
       }
-      if (state.fieldIds) {
-        data.fields = Object.fromEntries(
-          state.fieldIds.map((fieldId) => [fieldId, true])
-        );
-        v3Data.fields = state.fieldIds;
-      }
+    }
+    if (state.fieldIds) {
+      data.fields = Object.fromEntries(
+        state.fieldIds.map((fieldId) => [fieldId, true])
+      );
+      v3Data.fields = state.fieldIds;
     }
     if (state.aliveHosts && props.objectId === "HOST") {
       query = { ...query, _agentStatus: "正常" };
