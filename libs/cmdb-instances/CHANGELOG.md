@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.3.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@3.3.4...@next-libs/cmdb-instances@3.3.5) (2021-04-08)
+
+
+### Bug Fixes
+
+* **InstanceList:** page and pageSize state add default value ([a770f8e](https://github.com/easyops-cn/next-libs/commit/a770f8e68835e60529d87c88db9026f07cab067f))
+
+
+
+
+
 ## [3.3.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@3.3.3...@next-libs/cmdb-instances@3.3.4) (2021-04-08)
 
 
