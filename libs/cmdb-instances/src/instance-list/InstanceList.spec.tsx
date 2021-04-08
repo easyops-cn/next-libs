@@ -12,7 +12,7 @@ import { InstanceApi } from "@next-sdk/cmdb-sdk";
 import * as storage from "@next-libs/storage";
 import { IconButton } from "./IconButton";
 
-import { InstanceList, getQuery } from "./InstanceList";
+import { InstanceList, getQuery, initAqToShow } from "./InstanceList";
 import {
   getInstanceListData,
   mockFetchCmdbObjectDetailReturnValueCLuster,
@@ -42,7 +42,7 @@ jest.mock("../instance-list-table", () => ({
   LogicalOperators: {
     And: "$and",
     Or: "$or",
-  }
+  },
 }));
 
 const instanceListData = getInstanceListData();
@@ -71,6 +71,17 @@ const HOST: any = {
       id: "__pipeline",
       name: "流水线信息",
       protected: true,
+      value: {
+        type: "str",
+        regex: null,
+        default_type: "",
+        default: null,
+        struct_define: [],
+        mode: "",
+        prefix: "",
+        start_value: 0,
+        series_number_length: 0,
+      },
     },
     {
       id: "hostname",
@@ -124,6 +135,66 @@ const HOST: any = {
       wordIndexDenied: true,
       isInherit: false,
       notifyDenied: false,
+    },
+    {
+      id: "cpu",
+      name: "CPU信息",
+      protected: true,
+      custom: "true",
+      unique: "false",
+      readonly: "false",
+      required: "false",
+      tag: [],
+      description: "",
+      tips: "",
+      value: {
+        type: "struct",
+        regex: null,
+        default_type: "",
+        default: null,
+        struct_define: [
+          {
+            id: "brand",
+            name: "型号",
+            type: "str",
+            regex: null,
+            protected: true,
+          },
+          {
+            id: "architecture",
+            name: "架构",
+            type: "str",
+            regex: null,
+            protected: true,
+          },
+          {
+            id: "hz",
+            name: "频率",
+            type: "str",
+            regex: null,
+            protected: true,
+          },
+          {
+            id: "logical_cores",
+            name: "逻辑核数",
+            type: "int",
+            regex: null,
+            protected: true,
+          },
+          {
+            id: "physical_cores",
+            name: "物理核数",
+            type: "int",
+            regex: null,
+            protected: true,
+          },
+        ],
+        mode: "",
+        prefix: "",
+        start_value: 0,
+        series_number_length: 0,
+      },
+      wordIndexDenied: false,
     },
   ],
   relation_list: [
@@ -347,7 +418,7 @@ describe("InstanceList", () => {
   });
 
   it("should work with extraFilterBricks property", async () => {
-    const extraFilterBricks = {useBrick: {brick: 'span'}};
+    const extraFilterBricks = { useBrick: { brick: "span" } };
     const wrapper = mount(
       <InstanceList
         objectId="HOST"
@@ -361,5 +432,86 @@ describe("InstanceList", () => {
 
     const brickAsComponentProps = wrapper.find(BrickAsComponent).props();
     expect(brickAsComponentProps.useBrick).toBe(extraFilterBricks.useBrick);
+  });
+  it("check initAqToShow should pass", async () => {
+    const testdata: Record<string, any>[] = [
+      {
+        aq: [
+          {
+            $or: [{ ip: { $like: "%aaa%" } }],
+          },
+          {
+            $or: [
+              {
+                _agentStatus: {
+                  $eq: "未安装",
+                },
+              },
+              {
+                _agentStatus: {
+                  $eq: "异常",
+                },
+              },
+            ],
+          },
+        ],
+        expected: [
+          {
+            $or: [{ ip: { $like: "%aaa%" } }],
+          },
+          {
+            $or: [
+              {
+                _agentStatus: {
+                  $eq: "未安装",
+                },
+              },
+              {
+                _agentStatus: {
+                  $eq: "异常",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        aq: [
+          {
+            $or: [
+              {
+                "cpu.brand": {
+                  $like: "%192.168.100.162%",
+                },
+              },
+              {
+                "cpu.architecture": {
+                  $like: "%192.168.100.162%",
+                },
+              },
+              {
+                "cpu.hz": {
+                  $like: "%192.168.100.162%",
+                },
+              },
+              {
+                logical_cores: {
+                  $like: "%192.168.100.162%",
+                },
+              },
+              {
+                physical_cores: {
+                  $like: "%192.168.100.162%",
+                },
+              },
+            ],
+          },
+        ],
+        expected: [{ $or: [{ cpu: { $like: "%192.168.100.162%" } }] }],
+      },
+    ];
+    testdata.forEach((t) => {
+      expect(initAqToShow(t.aq, HOST)).toEqual(t.expected);
+    });
   });
 });
