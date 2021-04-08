@@ -58,6 +58,7 @@ import { JsonStorage } from "@next-libs/storage";
 import { ModelAttributeValueType } from "../model-attribute-form-control/ModelAttributeFormControl";
 import { IconButton } from "./IconButton";
 import { changeQueryWithCustomRules } from "../processors";
+import { ModelObjectAttr } from "@next-sdk/cmdb-sdk/dist/types/model/cmdb";
 export interface InstanceListPresetConfigs {
   query?: Record<string, any>;
   fieldIds?: string[];
@@ -204,6 +205,63 @@ function newKey(fieldIds: string[], aq: Query[]): string {
   }
   return key;
 }
+const isOfStruct = (
+  modelData: Partial<CmdbModels.ModelCmdbObject>,
+  fieldId: string
+) => {
+  const structFields = modelData.attrList
+    .filter(
+      (attr: Partial<ModelObjectAttr>) =>
+        attr.value.type === "struct" || attr.value.type === "structs"
+    )
+    ?.map((attr) => {
+      const structs: string[] = [];
+      attr.value.struct_define.forEach((struct) => {
+        structs.push(`${attr.id}.${struct.id}`);
+      });
+      return structs;
+    })
+    .flat();
+  return structFields.includes(fieldId);
+};
+export const initAqToShow = (
+  aq: Query[],
+  modelData: Partial<CmdbModels.ModelCmdbObject>
+) => {
+  let newAqToShow: any[] = [];
+  if (aq) {
+    aq.forEach((query) => {
+      const aqToShow = Object.entries(query).map(([key, expressions]) => {
+        let newExpressions: any[] = [];
+        if (key === LogicalOperators.Or || key === LogicalOperators.And) {
+          const firstSubQuery = (expressions as Query[])[0];
+          const fieldId = Object.keys(firstSubQuery)[0];
+          const isStruct = isOfStruct(modelData, fieldId);
+          const structQueries: Record<
+            string,
+            any
+          > = (expressions as Query[]).filter(
+            (expression) => Object.keys(expression)[0] === fieldId
+          );
+          if (isStruct) {
+            const structExpressions = structQueries.map((item: any) => ({
+              [fieldId.split(".")[0]]: item[fieldId],
+            }));
+            newExpressions = [...newExpressions, ...structExpressions];
+          } else {
+            newExpressions = [...newExpressions, ...(expressions as Query[])];
+          }
+          return { [key]: newExpressions };
+        } else {
+          return query;
+        }
+      });
+      newAqToShow = [...newAqToShow, ...aqToShow];
+    });
+    return newAqToShow;
+  }
+  return;
+};
 
 interface InstanceListProps {
   objectId: string;
@@ -370,7 +428,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
   const [state, setState] = useReducer(reducer, undefined, () => ({
     q: props.q,
     aq: props.aq,
-    aqToShow: props.aqToShow || props.aq,
+    aqToShow: props.aqToShow || initAqToShow(props.aq, modelData),
     asc: props.asc,
     sort: props.sort,
     page: props.page,
