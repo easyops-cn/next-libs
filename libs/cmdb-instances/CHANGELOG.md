@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.3.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@3.3.3...@next-libs/cmdb-instances@3.3.4) (2021-04-08)
+
+
+### Bug Fixes
+
+* **InstanceList:** fix request data missed fields ([a86ea5d](https://github.com/easyops-cn/next-libs/commit/a86ea5d41dbc1c9ea70ec75e02a4faccd5775be1))
+
+
+
+
+
 ## [3.3.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@3.3.2...@next-libs/cmdb-instances@3.3.3) (2021-04-08)
 
 
