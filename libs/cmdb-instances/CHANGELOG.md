@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.3.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@3.3.2...@next-libs/cmdb-instances@3.3.3) (2021-04-08)
+
+
+### Bug Fixes
+
+* **cmdb-instances:** 实例列表高级搜索接受的结构体数据和aq查询条件中的数据不一致 ([f70885f](https://github.com/easyops-cn/next-libs/commit/f70885fa88d14ad7c6054b3df26b41c447399840))
+
+
+
+
+
 ## [3.3.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@3.3.1...@next-libs/cmdb-instances@3.3.2) (2021-04-02)
 
 
