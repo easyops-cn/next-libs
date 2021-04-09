@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@2.2.1...@next-libs/forms@2.2.2) (2021-04-09)
+
+
+### Bug Fixes
+
+* **icon-select:** set color when props.value changes ([96652cd](https://github.com/easyops-cn/next-libs/commit/96652cd3854885e101dbbaba8b4e8a48f8588e9d))
+
+
+
+
+
 ## [2.2.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@2.2.0...@next-libs/forms@2.2.1) (2021-04-07)
 
 
