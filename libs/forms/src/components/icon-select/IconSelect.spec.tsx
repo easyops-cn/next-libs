@@ -93,7 +93,6 @@ describe("IconSelect", () => {
           lib: "fa",
           icon: "image",
         }}
-        defaultColor={"cyan" as Colors}
         openModal={openModal}
         handleCancel={handleCancel}
         bg={true}
@@ -102,7 +101,17 @@ describe("IconSelect", () => {
     );
     expect(wrapper.find("GeneralIcon").prop("icon")).toMatchInlineSnapshot(`
       Object {
-        "color": "cyan",
+        "color": undefined,
+        "icon": "image",
+        "lib": "fa",
+      }
+    `);
+    wrapper.setProps({
+      defaultColor: "orange",
+    });
+    expect(wrapper.find("GeneralIcon").prop("icon")).toMatchInlineSnapshot(`
+      Object {
+        "color": "orange",
         "icon": "image",
         "lib": "fa",
       }
