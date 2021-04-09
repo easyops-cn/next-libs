@@ -41,7 +41,8 @@ export function LegacyIconSelectItem(
 
   useEffect(() => {
     setValue(props.value);
-  }, [props.value]);
+    setColor(props.value?.color ?? props.defaultColor);
+  }, [props.value, props.defaultColor]);
 
   const handleCancel = () => {
     props.handleCancel && props.handleCancel();
@@ -75,7 +76,7 @@ export function LegacyIconSelectItem(
   };
 
   useEffect(() => {
-    if (!color) {
+    if (!color && props.defaultColor) {
       setColor(props.defaultColor);
     }
   }, [props.defaultColor, color]);
