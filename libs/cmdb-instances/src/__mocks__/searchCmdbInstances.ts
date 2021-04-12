@@ -130,6 +130,10 @@ export function getInstanceListData(total = 2, page = 1, pageSize = 20) {
       owner: [],
       status: "运营中",
       tag: isWithinHalfPage ? ["aaa", "bbb", "ccc"] : null,
+      json: {
+        test: "xxx",
+      },
+      bool: true,
     });
   }
 
