@@ -10,8 +10,8 @@ describe("RoutesGraph", () => {
     const zoomPanelNode = visual.getZoomPanelNode();
     const linksLayer = canvas.querySelector(".linksLayer");
     expect(linksLayer.querySelectorAll(".link").length).toBe(1);
-    expect(routesPreviewNode.querySelectorAll(".previewTag").length).toBe(1);
+    expect(routesPreviewNode.querySelectorAll(".previewTag").length).toBe(0);
     const nodesLayer = canvas.querySelector(".nodesLayer");
-    expect(nodesLayer.querySelectorAll(".nodeWrapper").length).toBe(2);
+    expect(nodesLayer.querySelectorAll(".nodeWrapper").length).toBe(3);
   });
 });
