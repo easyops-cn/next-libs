@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/storyboard-visualization@3.0.2...@next-libs/storyboard-visualization@3.1.0) (2021-04-12)
+
+
+### Features
+
+* **route-graph:** Automatically locate unlocated nodes ([8bbc2ab](https://github.com/easyops-cn/next-libs/commit/8bbc2ab6107d66c0cbb308605e6b4ac8851b4bfb))
+
+
+
+
+
 ## [3.0.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/storyboard-visualization@3.0.1...@next-libs/storyboard-visualization@3.0.2) (2021-03-30)
 
 
