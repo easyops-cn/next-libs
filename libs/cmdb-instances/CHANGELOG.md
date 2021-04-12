@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.3.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@3.3.5...@next-libs/cmdb-instances@3.3.6) (2021-04-12)
+
+
+### Bug Fixes
+
+* **cmdb-instances:** 实例列表,JSON类型属性展示报错 ([ced9dd2](https://github.com/easyops-cn/next-libs/commit/ced9dd2ccd9fee6fcf275f5254a70ad48c6f23dc))
+
+
+
+
+
 ## [3.3.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@3.3.4...@next-libs/cmdb-instances@3.3.5) (2021-04-08)
 
 
