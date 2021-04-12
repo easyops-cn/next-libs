@@ -3,8 +3,6 @@
   max-height: inherit;
   min-height: 200px;
   overflow: hidden;
-  border: 1px dashed #d7d7d9;
-  border-radius: 5px;
 }
 
 .routesPreviewContainer {

@@ -43,55 +43,45 @@ export function RouteNodeComponent(
 
   const ellipsisButtonAvailable = filteredActions.length > 0;
 
-  const menu = (
-    <Menu>
-      <Menu.Item onClick={(e) => props.handleCancelLayout?.(originalData)}>
-        Remove
-      </Menu.Item>
-    </Menu>
-  );
-
   return (
-    <Dropdown overlay={menu} trigger={["contextMenu"]}>
+    <div
+      className={classNames(styles.routeNodeContainer, {
+        [styles.actionsVisible]: actionsVisible,
+      })}
+      onClick={handleNodeClick}
+    >
       <div
-        className={classNames(styles.routeNodeContainer, {
-          [styles.actionsVisible]: actionsVisible,
+        className={classNames(styles.routeTitle, {
+          [styles.contentItemEllipsisButtonAvailable]: ellipsisButtonAvailable,
         })}
-        onClick={handleNodeClick}
       >
-        <div
-          className={classNames(styles.routeTitle, {
-            [styles.contentItemEllipsisButtonAvailable]: ellipsisButtonAvailable,
-          })}
-        >
-          <RouteTypeIcon
-            item={originalData}
-            customStyle={{
-              verticalAlign: undefined,
-              fontSize: "12px",
-              marginRight: "6px",
-              color: "inherit",
-              opacity: 0.8,
-            }}
-          />
-          {originalData.alias ?? originalData.path}
-          {ellipsisButtonAvailable && (
-            <div
-              className={styles.contentItemToolbar}
-              onClick={handleToolBarClick}
-            >
-              <ItemActionsComponent
-                filteredActions={filteredActions}
-                item={originalData}
-                onVisibleChange={(visible: boolean) => {
-                  setActionsVisible(visible);
-                }}
-              />
-            </div>
-          )}
-        </div>
-        {getPreviewSvg(originalData)}
+        <RouteTypeIcon
+          item={originalData}
+          customStyle={{
+            verticalAlign: undefined,
+            fontSize: "12px",
+            marginRight: "6px",
+            color: "inherit",
+            opacity: 0.8,
+          }}
+        />
+        {originalData.alias ?? originalData.path}
+        {ellipsisButtonAvailable && (
+          <div
+            className={styles.contentItemToolbar}
+            onClick={handleToolBarClick}
+          >
+            <ItemActionsComponent
+              filteredActions={filteredActions}
+              item={originalData}
+              onVisibleChange={(visible: boolean) => {
+                setActionsVisible(visible);
+              }}
+            />
+          </div>
+        )}
       </div>
-    </Dropdown>
+      {getPreviewSvg(originalData)}
+    </div>
   );
 }

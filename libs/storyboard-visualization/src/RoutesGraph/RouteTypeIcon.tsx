@@ -1,6 +1,10 @@
 import React from "react";
-import { Icon as LegacyIcon } from "@ant-design/compatible";
 import { ViewItem } from "../shared/interfaces";
+import {
+  BranchesOutlined,
+  DesktopOutlined,
+  ArrowRightOutlined,
+} from "@ant-design/icons";
 
 interface RouteTypeIconProps {
   item: ViewItem;
@@ -11,32 +15,40 @@ export function RouteTypeIcon({
   item,
   customStyle,
 }: RouteTypeIconProps): React.ReactElement {
-  let icon;
-  let color;
+  const style = {
+    marginRight: "8px",
+    fontSize: "14px",
+    verticalAlign: "middle",
+    ...customStyle,
+  };
   if (item.type === "routes") {
-    icon = "branches";
-    color = "var(--theme-orange-color)";
-  } else if (item.type === "bricks") {
-    icon = "desktop";
-    color = "var(--theme-green-color)";
-  } else if (item.type === "redirect" || item.redirect) {
-    icon = "arrow-right";
-    color = "var(--theme-purple-color)";
-  } else {
-    return null;
-  }
-  if (icon) {
     return (
-      <LegacyIcon
+      <BranchesOutlined
         style={{
-          marginRight: "8px",
-          color,
-          fontSize: "14px",
-          verticalAlign: "middle",
-          ...customStyle,
+          color: "var(--theme-orange-color)",
+          ...style,
         }}
-        type={icon}
       />
     );
+  } else if (item.type === "bricks") {
+    return (
+      <DesktopOutlined
+        style={{
+          color: "var(--theme-green-color)",
+          ...style,
+        }}
+      />
+    );
+  } else if (item.type === "redirect" || item.redirect) {
+    return (
+      <ArrowRightOutlined
+        style={{
+          color: "var(--theme-purple-color)",
+          ...style,
+        }}
+      />
+    );
+  } else {
+    return null;
   }
 }

@@ -653,19 +653,9 @@ export class RoutesGraph {
   }
 
   updateElement(data: RouteGraphNode[]): void {
-    const [previewData, graphData] = [
-      filter(data, (item) => {
-        return (
-          isNil(item.originalData.graphInfo?.x) ||
-          isNil(item.originalData.graphInfo?.y)
-        );
-      }),
-      reject(data, (item) => {
-        return (
-          isNil(item.originalData.graphInfo?.x) ||
-          isNil(item.originalData.graphInfo?.y)
-        );
-      }),
+    const [previewData, graphData]: [RouteGraphNode[], RouteGraphNode[]] = [
+      [],
+      data,
     ];
     const updateNode = this.nodes.data(graphData, (d) => {
       const id = d.originalData.id;
@@ -674,16 +664,22 @@ export class RoutesGraph {
     const enterNode = updateNode.enter();
     const exitNode = updateNode.exit();
     exitNode.remove();
-
+    let countNotPositionedNode = 0;
+    const defaultWidth = 180;
     enterNode
       .append("div")
       .attr("class", classNames(styles.nodeWrapper))
       .style("left", (d, i) => {
         d.x = d.x ?? d.originalData?.graphInfo?.x;
+        // Automatically locate unlocated nodes
+        if (isNil(d.x)) {
+          d.x = countNotPositionedNode * defaultWidth;
+          countNotPositionedNode++;
+        }
         return `${d.x}px`;
       })
       .style("top", (d, i) => {
-        d.y = d.y ?? d.originalData?.graphInfo?.y;
+        d.y = d.y ?? d.originalData?.graphInfo?.y ?? 0;
         return `${d.y}px`;
       })
       .call(
