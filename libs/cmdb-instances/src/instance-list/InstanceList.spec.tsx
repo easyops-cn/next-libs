@@ -509,6 +509,32 @@ describe("InstanceList", () => {
         ],
         expected: [{ $or: [{ cpu: { $like: "%192.168.100.162%" } }] }],
       },
+      {
+        aq: [
+          {
+            $and: [
+              {
+                ip: {
+                  $like: "%192.168.100.162%",
+                },
+              },
+            ],
+          },
+          {
+            hostname: {
+              $exist: false,
+            },
+          },
+        ],
+        expected: [
+          { $and: [{ ip: { $like: "%192.168.100.162%" } }] },
+          {
+            hostname: {
+              $exist: false,
+            },
+          },
+        ],
+      },
     ];
     testdata.forEach((t) => {
       expect(initAqToShow(t.aq, HOST)).toEqual(t.expected);

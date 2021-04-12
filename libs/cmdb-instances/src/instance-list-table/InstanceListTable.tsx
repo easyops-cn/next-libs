@@ -371,6 +371,10 @@ export class LegacyInstanceListTable extends React.Component<
         case ModelAttributeValueType.BOOLEAN:
           column.render = (v: boolean) => (isNil(v) ? "" : "" + v);
           break;
+        case ModelAttributeValueType.JSON:
+          column.render = (v: any) =>
+            typeof v === "string" ? v : JSON.stringify(v);
+          break;
         default:
           if (object.objectId === "HOST" && attribute.id in customRules) {
             column.render = (
