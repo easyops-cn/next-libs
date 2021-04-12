@@ -141,7 +141,10 @@ describe("ContentItem", () => {
     );
     expect(wrapper.find(".contentItemToolbar").length).toBe(1);
     wrapper.find(ItemActionsComponent).invoke("onVisibleChange")(true);
-    expect(wrapper.prop("className").includes("actionsVisible")).toBe(true);
+    expect(wrapper.prop("className").includes("actionsVisible")).toBe(false);
+    setTimeout(() => {
+      expect(wrapper.prop("className").includes("actionsVisible")).toBe(true);
+    }, 0);
   });
 
   it("should work for highlight node", () => {
