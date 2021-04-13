@@ -535,7 +535,7 @@ export class AdvancedSearchForm extends React.Component<
             let subQueryValue = "";
             let targetField;
             if (ENABLED_CMDB_ADVANCE_SEARCH_WITH_QUOTE) {
-              targetField = this.props?.fieldToShow.find(
+              targetField = this.props.fieldToShow?.find(
                 (fieldItem) => Object.keys(fieldItem)[0] === fieldId
               );
             }
