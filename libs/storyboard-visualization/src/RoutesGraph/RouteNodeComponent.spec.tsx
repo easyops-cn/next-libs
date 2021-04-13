@@ -26,6 +26,14 @@ describe("RouteNodeComponent", () => {
         .find(".routeNodeContainer")
         .prop("className")
         .includes("actionsVisible")
-    ).toBe(true);
+    ).toBe(false);
+    setTimeout(() => {
+      expect(
+        wrapper
+          .find(".routeNodeContainer")
+          .prop("className")
+          .includes("actionsVisible")
+      ).toBe(true);
+    }, 0);
   });
 });

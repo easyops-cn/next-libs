@@ -218,7 +218,10 @@ export function ContentItem(props: ContentItemProps): React.ReactElement {
             filteredActions={filteredActions}
             item={item}
             onVisibleChange={(visible) => {
-              setActionsVisible(visible);
+              // Wait a macro task to make the dropdown menu disappear smoothly.
+              setTimeout(() => {
+                setActionsVisible(visible);
+              }, 0);
             }}
           />
         </div>

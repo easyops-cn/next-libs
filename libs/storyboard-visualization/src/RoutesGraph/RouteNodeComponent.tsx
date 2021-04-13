@@ -9,7 +9,6 @@ import {
   ContentItemActions,
 } from "@next-libs/basic-components";
 import classNames from "classnames";
-import { Dropdown, Menu } from "antd";
 import { RouteTypeIcon } from "./RouteTypeIcon";
 
 export interface RouteNodeComponentProps {
@@ -75,7 +74,10 @@ export function RouteNodeComponent(
               filteredActions={filteredActions}
               item={originalData}
               onVisibleChange={(visible: boolean) => {
-                setActionsVisible(visible);
+                // Wait a macro task to make the dropdown menu disappear smoothly.
+                setTimeout(() => {
+                  setActionsVisible(visible);
+                }, 0);
               }}
             />
           </div>
