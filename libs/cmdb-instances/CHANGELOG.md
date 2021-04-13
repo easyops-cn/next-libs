@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.3.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@3.3.6...@next-libs/cmdb-instances@3.3.7) (2021-04-13)
+
+
+### Bug Fixes
+
+* **cmdb-instances:** 高级搜索回填问题 ([df2007f](https://github.com/easyops-cn/next-libs/commit/df2007f0526816687eb196547e87a786cc2e3919))
+
+
+
+
+
 ## [3.3.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@3.3.5...@next-libs/cmdb-instances@3.3.6) (2021-04-12)
 
 
