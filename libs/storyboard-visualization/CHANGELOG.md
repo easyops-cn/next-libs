@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/storyboard-visualization@3.1.0...@next-libs/storyboard-visualization@3.1.1) (2021-04-13)
+
+
+### Bug Fixes
+
+* **storyboard-visualization:** Wait a macro task to make the dropdown menu disappear smoothly. ([d79e0ee](https://github.com/easyops-cn/next-libs/commit/d79e0eec156eb9ce516dec9dbb072c4fb1eb996a))
+
+
+
+
+
 # [3.1.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/storyboard-visualization@3.0.2...@next-libs/storyboard-visualization@3.1.0) (2021-04-12)
 
 
