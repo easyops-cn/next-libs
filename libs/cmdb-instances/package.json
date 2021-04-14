@@ -7,9 +7,7 @@
   "main": "dist/index.bundle.js",
   "module": "dist/index.esm.js",
   "typings": "dist/types/index.d.ts",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "repository": {
     "type": "git",
     "url": "git@github.com:easyops-cn/next-libs.git"
@@ -24,13 +22,12 @@
     "build": "npm run build:types && npm run build:rollup",
     "build:rollup": "rollup --config rollup.config.js",
     "build:types": "tsc --emitDeclarationOnly --declaration --declarationDir dist/types",
+    "postbuild": "node scripts/post-build.js",
     "test": "cross-env NODE_ENV='test' jest",
     "test:ci": "cross-env NODE_ENV='test' CI=true jest"
   },
   "sideEffects": false,
-  "peerDependencies": {
-    "@next-core/brick-dll": "*"
-  },
+  "peerDependencies": { "@next-core/brick-dll": "*" },
   "dependencies": {
     "@next-core/brick-types": "^2.16.0",
     "@next-libs/basic-components": "^2.0.5",
