@@ -13970,6 +13970,11 @@ svg-parser@^2.0.2:
   resolved "https://registry.npmjs.org/svg-parser/-/svg-parser-2.0.3.tgz#a38f2e4e5442986f7ecb554c11f1411cfcf8c2b9"
   integrity sha1-o48uTlRCmG9+y1VMEfFBHPz4wrk=
 
+svgaplayerweb@^2.3.2:
+  version "2.3.2"
+  resolved "https://registry.npmjs.org/svgaplayerweb/-/svgaplayerweb-2.3.2.tgz#15595b8dcc20cf4de4adc3103970b7cf5ae19a84"
+  integrity sha512-QuTvNIgy3W6Mi4h74SczEHUtAwb8m3ax7Ai7xRLUuN6hjJh49RGtWOWq1IuF2I7ECcl0HAYn8FcTn99UDz9UiQ==
+
 svgo@^1.0.0, svgo@^1.2.2:
   version "1.3.2"
   resolved "https://registry.npmjs.org/svgo/-/svgo-1.3.2.tgz#b6dc511c063346c9e415b81e43401145b96d4167"
