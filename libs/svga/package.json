@@ -25,6 +25,9 @@
     "test:ci": "cross-env NODE_ENV='test' CI=true jest"
   },
   "sideEffects": false,
+  "peerDependencies": {
+    "@next-core/brick-dll": "*"
+  },
   "dependencies": {
     "svgaplayerweb": "^2.3.2"
   }

@@ -11,5 +11,6 @@ module.exports = sizeLimit({
     "permission-utils": "18 KB",
     "storyboard-visualization": "45 KB",
     "editor-components": "330 KB",
+    svga: "50 KB",
   },
 });
