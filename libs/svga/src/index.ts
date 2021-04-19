@@ -1,0 +1,1 @@
+import "./svga-player/SvgaPlayer";
