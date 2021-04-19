@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/svga@1.1.0...@next-libs/svga@1.1.1) (2021-04-19)
+
+
+### Bug Fixes
+
+* some optimization ([3716196](https://github.com/easyops-cn/next-libs/commit/3716196511ffbe63e1993e3aa5f5e975a4342987))
+
+
+
+
+
 # 1.1.0 (2021-04-19)
 
 
