@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/permission-utils@2.0.6...@next-libs/permission-utils@2.0.7) (2021-04-19)
+
+**Note:** Version bump only for package @next-libs/permission-utils
+
+
+
+
+
 ## [2.0.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/permission-utils@2.0.5...@next-libs/permission-utils@2.0.6) (2021-02-26)
 
 

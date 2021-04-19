@@ -1,13 +1,15 @@
 {
   "name": "@next-libs/cmdb-tree",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "> TODO: description",
   "homepage": "https://github.com/easyops-cn/next-libs/tree/master/libs/cmdb-tree",
   "license": "GPL-3.0",
   "main": "dist/index.bundle.js",
   "module": "dist/index.esm.js",
   "typings": "dist/types/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "git@github.com:easyops-cn/next-libs.git"
@@ -26,7 +28,9 @@
     "test": "cross-env NODE_ENV='test' jest",
     "test:ci": "cross-env NODE_ENV='test' CI=true jest"
   },
-  "devDependencies": { "@next-sdk/cmdb-sdk": "^1.0.1" },
+  "devDependencies": {
+    "@next-sdk/cmdb-sdk": "^1.0.1"
+  },
   "peerDependencies": {
     "@next-core/brick-dll": "*",
     "@next-sdk/cmdb-sdk": "*"

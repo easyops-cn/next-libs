@@ -1,13 +1,15 @@
 {
   "name": "@next-libs/storyboard-visualization",
-  "version": "3.1.1",
+  "version": "3.1.2",
   "description": "> TODO: description",
   "homepage": "https://github.com/easyops-cn/next-libs/tree/master/libs/storyboard-visualization",
   "license": "GPL-3.0",
   "main": "dist/index.bundle.js",
   "module": "dist/index.esm.js",
   "typings": "dist/types/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "git@github.com:easyops-cn/next-libs.git"
@@ -36,7 +38,7 @@
   },
   "dependencies": {
     "@next-core/brick-types": "^2.16.0",
-    "@next-libs/basic-components": "^2.0.5",
+    "@next-libs/basic-components": "^2.0.6",
     "classnames": "^2.2.6"
   }
 }

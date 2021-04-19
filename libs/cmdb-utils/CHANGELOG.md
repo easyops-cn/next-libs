@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@1.0.6...@next-libs/cmdb-utils@1.0.7) (2021-04-19)
+
+**Note:** Version bump only for package @next-libs/cmdb-utils
+
+
+
+
+
 ## [1.0.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@1.0.4...@next-libs/cmdb-utils@1.0.6) (2021-02-22)
 
 **Note:** Version bump only for package @next-libs/cmdb-utils
