@@ -1,1 +1,1 @@
-import "./svga-player/SvgaPlayer";
+export * from "./svga-player/SvgaPlayer";

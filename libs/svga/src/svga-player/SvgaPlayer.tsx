@@ -1,4 +1,10 @@
-import React from "react";
+import React, {
+  useRef,
+  useEffect,
+  useState,
+  useImperativeHandle,
+  forwardRef,
+} from "react";
 import SVGA from "svgaplayerweb";
 
 export interface GeneralPlayerProps {
@@ -29,11 +35,11 @@ export function LeacySvgaPlayer(
     onFinished,
   } = props;
 
-  const containerRef = React.useRef<any>();
-  const playerRef = React.useRef<SVGA.Player>();
-  const [playerInstance, setPlayerInstance] = React.useState<SVGA.Player>();
+  const containerRef = useRef<any>();
+  const playerRef = useRef<SVGA.Player>();
+  const [playerInstance, setPlayerInstance] = useState<SVGA.Player>();
 
-  React.useImperativeHandle(
+  useImperativeHandle(
     ref,
     () => {
       return playerInstance;
@@ -41,7 +47,7 @@ export function LeacySvgaPlayer(
     [playerInstance]
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     // istanbul ignore else
     if (containerRef.current) {
       const player = new SVGA.Player(containerRef.current);
@@ -54,7 +60,7 @@ export function LeacySvgaPlayer(
     }
   }, [containerRef]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     parser.load(
       src,
       (videoItem) => {
@@ -68,11 +74,11 @@ export function LeacySvgaPlayer(
     );
   }, [src]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     playerRef.current?.setContentMode?.(contentMode);
   }, [contentMode]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     onFinished && playerRef.current?.onFinished?.(onFinished);
   }, [onFinished]);
 
@@ -81,4 +87,4 @@ export function LeacySvgaPlayer(
   );
 }
 
-export const SvgaPlayer = React.forwardRef(LeacySvgaPlayer);
+export const SvgaPlayer = forwardRef(LeacySvgaPlayer);
