@@ -1,5 +1,3 @@
-import { InstanceApi } from "@next-sdk/cmdb-sdk";
-
 export const fetchCmdbInstanceAggregateCount = jest.fn(() =>
   Promise.resolve([
     { count: 12, attr: { modifier: "easyops" } },
