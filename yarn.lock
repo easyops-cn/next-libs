@@ -2294,20 +2294,25 @@
   resolved "https://registry.npmjs.org/@next-sdk/auth-sdk/-/auth-sdk-1.0.1.tgz#dc217556d6eddee4c143b419a25d7b3972fb06e2"
   integrity sha1-3CF1Vtbt3uTBQ7QZol17OXL7BuI=
 
-"@next-sdk/cmdb-sdk@^1.0.0", "@next-sdk/cmdb-sdk@^1.0.1":
+"@next-sdk/cmdb-sdk@^1.0.0":
   version "1.0.1"
   resolved "https://registry.npmjs.org/@next-sdk/cmdb-sdk/-/cmdb-sdk-1.0.1.tgz#69ed7830a9fe1f3070068b3af3f3476ab22363e2"
   integrity sha1-ae14MKn+HzBwBos68/NHarIjY+I=
+
+"@next-sdk/cmdb-sdk@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.npmjs.org/@next-sdk/cmdb-sdk/-/cmdb-sdk-2.1.1.tgz#8522f75b71ae3c5772b8631528fe4bcaff9f0e70"
+  integrity sha512-4F9psdHnmSUZg9BK0sSzgmoerhsMucsXdMGhRASaf+kGyh6foKMa2+Lp7lOpIjROUJbqBua1GkwPOtj6AexpsQ==
 
 "@next-sdk/micro-app-sdk@^1.0.0":
   version "1.0.1"
   resolved "https://registry.npmjs.org/@next-sdk/micro-app-sdk/-/micro-app-sdk-1.0.1.tgz#df4ed61ee056b8dee0bbb69c08ef1cd184dc1c0d"
   integrity sha1-307WHuBWuN7gu7acCO8c0YTcHA0=
 
-"@next-sdk/permission-sdk@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.npmjs.org/@next-sdk/permission-sdk/-/permission-sdk-1.1.1.tgz#3a75b4e26d50916908811d82efee7ee4992df557"
-  integrity sha1-OnW04m1QkWkIgR2C7+5+5Jkt9Vc=
+"@next-sdk/permission-sdk@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.npmjs.org/@next-sdk/permission-sdk/-/permission-sdk-2.1.1.tgz#3df9aec28cc2a66acca46f42b7603f6edbfe8752"
+  integrity sha512-aUH+/YtOyEXqKyVtCjDrFnQVd/pRwicM3lhVnW31gh439gKp5z3a180gJYZPI8flwmThzm66ad7l66uD9uDBwg==
 
 "@next-sdk/user-service-sdk@^1.0.0":
   version "1.0.1"
