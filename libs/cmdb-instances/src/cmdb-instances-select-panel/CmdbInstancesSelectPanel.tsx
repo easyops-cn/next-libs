@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import classnames from "classnames";
 
-import { CmdbModels, InstanceApi } from "@next-sdk/cmdb-sdk";
+import { CmdbModels, InstanceApi_postSearch } from "@next-sdk/cmdb-sdk";
 import { InstanceListTable } from "../instance-list-table";
 import { InstanceListModal } from "../instance-list-modal/InstanceListModal";
 
@@ -44,7 +44,7 @@ export function CmdbInstancesSelectPanel(
     let instances: any[] = [];
     if (instanceIdList?.length) {
       instances = (
-        await InstanceApi.postSearch(props.objectId, {
+        await InstanceApi_postSearch(props.objectId, {
           query: {
             instanceId: {
               $in: instanceIdList,

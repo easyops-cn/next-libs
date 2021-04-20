@@ -6,7 +6,7 @@ import {
   SelectUserOrGroupState,
   User,
 } from "../interfaces";
-import * as CmdbSdk from "@next-sdk/cmdb-sdk";
+import { InstanceApi_postSearch } from "@next-sdk/cmdb-sdk";
 import { handleHttpError } from "@next-core/brick-kit";
 import { LabeledValue } from "antd/lib/select";
 
@@ -22,7 +22,7 @@ export class SelectUserOrGroup extends React.Component<
     };
   }
   fetchUser() {
-    return CmdbSdk.InstanceApi.postSearch("USER", {
+    return InstanceApi_postSearch("USER", {
       query: {},
       fields: {
         instanceId: true,
@@ -31,7 +31,7 @@ export class SelectUserOrGroup extends React.Component<
     });
   }
   fetchUserGroup() {
-    return CmdbSdk.InstanceApi.postSearch("USER_GROUP", {
+    return InstanceApi_postSearch("USER_GROUP", {
       query: {},
       fields: {
         instanceId: true,

@@ -1,10 +1,14 @@
-import { InstanceApi } from "@next-sdk/cmdb-sdk";
+import {
+  InstanceApi_SearchTotalRequestBody,
+  InstanceApi_SearchTotalResponseBody,
+  InstanceApi_searchTotal,
+} from "@next-sdk/cmdb-sdk";
 import { HttpOptions } from "@next-core/brick-http";
 
 export function fetchCmdbInstanceCount(
   objectId: string | number,
-  data?: InstanceApi.SearchTotalRequestBody,
+  data?: InstanceApi_SearchTotalRequestBody,
   options?: HttpOptions
-): Promise<InstanceApi.SearchTotalResponseBody> {
-  return InstanceApi.searchTotal(objectId, data, options);
+): Promise<InstanceApi_SearchTotalResponseBody> {
+  return InstanceApi_searchTotal(objectId, data, options);
 }

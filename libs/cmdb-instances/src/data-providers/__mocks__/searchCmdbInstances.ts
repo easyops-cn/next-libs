@@ -1,12 +1,15 @@
-import { InstanceApi } from "@next-sdk/cmdb-sdk";
+import {
+  InstanceApi_PostSearchRequestBody,
+  InstanceApi_PostSearchResponseBody,
+} from "@next-sdk/cmdb-sdk";
 
 export const searchCmdbInstances = jest.fn(
-  (objectId: string, params?: InstanceApi.PostSearchRequestBody) =>
+  (objectId: string, params?: InstanceApi_PostSearchRequestBody) =>
     Promise.resolve(getInstanceListData())
 );
 
 export function getInstanceListData(total = 2, page = 1, pageSize = 20) {
-  const instanceListData: InstanceApi.PostSearchResponseBody = {
+  const instanceListData: InstanceApi_PostSearchResponseBody = {
     total: total,
     page: page,
     page_size: pageSize,

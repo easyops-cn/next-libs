@@ -2,7 +2,7 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 
-import { CmdbModels, InstanceApi } from "@next-sdk/cmdb-sdk";
+import { CmdbModels, InstanceApi_postSearch } from "@next-sdk/cmdb-sdk";
 
 import { CmdbInstancesInputFormItem } from "./CmdbInstancesInputFormItem";
 
@@ -56,7 +56,7 @@ describe("HostInstanceSelect", () => {
   };
 
   it("should work when select instances by InstanceListModal", async () => {
-    jest.spyOn(InstanceApi, "postSearch").mockResolvedValue({
+    (InstanceApi_postSearch as jest.Mock).mockResolvedValue({
       list: [instance],
     });
 
@@ -80,7 +80,7 @@ describe("HostInstanceSelect", () => {
   });
 
   it("should work when input field value", async () => {
-    jest.spyOn(InstanceApi, "postSearch").mockResolvedValue({
+    (InstanceApi_postSearch as jest.Mock).mockResolvedValue({
       list: [instance],
     });
 

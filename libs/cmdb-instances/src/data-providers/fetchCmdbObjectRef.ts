@@ -1,7 +1,10 @@
-import { CmdbObjectApi } from "@next-sdk/cmdb-sdk";
+import {
+  CmdbObjectApi_GetObjectRefResponseBody,
+  CmdbObjectApi_getObjectRef,
+} from "@next-sdk/cmdb-sdk";
 
 export function fetchCmdbObjectRef(
   objectId: string
-): Promise<CmdbObjectApi.GetObjectRefResponseBody> {
-  return CmdbObjectApi.getObjectRef({ ref_object: objectId });
+): Promise<CmdbObjectApi_GetObjectRefResponseBody> {
+  return CmdbObjectApi_getObjectRef({ ref_object: objectId });
 }

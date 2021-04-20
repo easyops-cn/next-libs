@@ -1,4 +1,4 @@
-import { InstanceApi } from "@next-sdk/cmdb-sdk";
+import { InstanceApi_GetDetailResponseBody } from "@next-sdk/cmdb-sdk";
 
 export const fetchCmdbInstanceDetail = jest.fn(() =>
   Promise.resolve({
@@ -289,7 +289,7 @@ export const fetchCmdbInstanceDetail = jest.fn(() =>
   })
 );
 
-export const mockFetchCmdbInstanceDetailReturnValue: Partial<InstanceApi.GetDetailResponseBody> = {
+export const mockFetchCmdbInstanceDetailReturnValue: Partial<InstanceApi_GetDetailResponseBody> = {
   NumberTen: [],
   SWITCH: [],
   SWITCH1: [],

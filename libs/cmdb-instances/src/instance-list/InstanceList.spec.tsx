@@ -8,7 +8,7 @@ import {
 } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 import { PropertyDisplayConfig } from "@next-core/brick-types";
-import { InstanceApi } from "@next-sdk/cmdb-sdk";
+import { InstanceApi_postSearchV3 } from "@next-sdk/cmdb-sdk";
 import * as storage from "@next-libs/storage";
 import { IconButton } from "./IconButton";
 
@@ -52,7 +52,7 @@ const mockInstanceListTable = InstanceListTable as jest.Mock;
 const mockInstanceListTableContent = mockInstanceListTable();
 const mockMoreButtonsContainer = MoreButtonsContainer as jest.Mock;
 
-jest.spyOn(InstanceApi, "postSearchV3").mockResolvedValue(instanceListData);
+(InstanceApi_postSearchV3 as jest.Mock).mockResolvedValue(instanceListData);
 const HOST: any = {
   objectId: "HOST",
   view: {

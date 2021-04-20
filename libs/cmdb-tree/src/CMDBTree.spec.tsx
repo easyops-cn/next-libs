@@ -3,7 +3,11 @@ import { shallow } from "enzyme";
 import { render } from "@testing-library/react";
 import "snapshot-diff";
 import "snapshot-diff/extend-expect";
-import { InstanceTreeApi } from "@next-sdk/cmdb-sdk";
+import {
+  InstanceTreeApi_instanceTreeAnchor,
+  InstanceTreeApi_instanceTreeExpand,
+  InstanceTreeApi_instanceTreeSearch,
+} from "@next-sdk/cmdb-sdk";
 import { CMDBTree } from "./CMDBTree";
 import * as kit from "@next-core/brick-kit";
 
@@ -25,7 +29,7 @@ xdescribe("cmdb tree", () => {
   let component: CMDBTree;
 
   beforeAll(() => {
-    jest.spyOn(InstanceTreeApi, "instanceTreeExpand").mockResolvedValue({
+    (InstanceTreeApi_instanceTreeExpand as jest.Mock).mockResolvedValue({
       BUSINESS: [
         {
           _object_id: "BUSINESS",
@@ -63,7 +67,7 @@ xdescribe("cmdb tree", () => {
   });
 
   it("searchTree should work", async () => {
-    const spy = jest.spyOn(InstanceTreeApi, "instanceTreeSearch");
+    const spy = InstanceTreeApi_instanceTreeSearch as jest.Mock;
     spy.mockResolvedValueOnce({} as any);
     spy.mockRejectedValueOnce("error");
     await component.searchTree("");
@@ -77,15 +81,13 @@ xdescribe("cmdb tree", () => {
   });
 
   it("anchorTree should work", async () => {
-    const spy = jest
-      .spyOn(InstanceTreeApi, "instanceTreeAnchor")
-      .mockResolvedValue({});
+    const spy = (InstanceTreeApi_instanceTreeAnchor as jest.Mock).mockResolvedValue(
+      {}
+    );
     await component.anchorTree("", "");
     expect(spy).toBeCalled();
 
-    jest
-      .spyOn(InstanceTreeApi, "instanceTreeAnchor")
-      .mockRejectedValue("error");
+    spy.mockRejectedValue("error");
     await component.anchorTree("", "");
     expect(spyOnHandleHttpError).toBeCalledWith("error");
   });

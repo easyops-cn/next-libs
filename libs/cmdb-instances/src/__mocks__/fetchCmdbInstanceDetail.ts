@@ -1,6 +1,6 @@
-import { InstanceApi } from "@next-sdk/cmdb-sdk";
+import { InstanceApi_GetDetailResponseBody } from "@next-sdk/cmdb-sdk";
 
-export const mockFetchCmdbInstanceDetailReturnValue: Partial<InstanceApi.GetDetailResponseBody> = {
+export const mockFetchCmdbInstanceDetailReturnValue: Partial<InstanceApi_GetDetailResponseBody> = {
   NumberTen: [],
   SWITCH: [],
   SWITCH1: [],
