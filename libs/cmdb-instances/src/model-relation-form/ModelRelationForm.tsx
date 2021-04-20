@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import { Modal, Table } from "antd";
 import { ColumnProps } from "antd/lib/table";
 
-import { CmdbModels, InstanceApi } from "@next-sdk/cmdb-sdk";
+import {
+  CmdbModels,
+  InstanceApi_PostSearchResponseBody,
+  InstanceApi_postSearch,
+} from "@next-sdk/cmdb-sdk";
 import { InstanceListTable } from "../instance-list-table/InstanceListTable";
 
 import styles from "./model-relation-form.module.css";
@@ -31,7 +35,7 @@ export function ModelRelationForm(
   const [
     modalInstanceListData,
     setModalInstanceListData,
-  ] = useState<InstanceApi.PostSearchResponseBody>();
+  ] = useState<InstanceApi_PostSearchResponseBody>();
 
   let selectedInstanceListTemp: any[] = [];
   const [selectedInstanceList, setSelectedInstanceList] = useState(
@@ -48,7 +52,7 @@ export function ModelRelationForm(
   };
 
   const openSelectInstanceModel = async () => {
-    const instanceListData = await InstanceApi.postSearch(
+    const instanceListData = await InstanceApi_postSearch(
       oppositeModelData.objectId,
       {
         page: 1,
@@ -76,7 +80,7 @@ export function ModelRelationForm(
     page: number;
     pageSize: number;
   }) => {
-    const instanceListData = await InstanceApi.postSearch(
+    const instanceListData = await InstanceApi_postSearch(
       oppositeModelData.objectId,
       {
         page: event.page,

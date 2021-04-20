@@ -6,7 +6,7 @@ import { groupBy } from "lodash";
 
 import { InstanceListModal } from "../instance-list-modal/InstanceListModal";
 import { modifyModelData } from "@next-libs/cmdb-utils";
-import { CmdbModels, InstanceApi } from "@next-sdk/cmdb-sdk";
+import { CmdbModels, InstanceApi_postSearch } from "@next-sdk/cmdb-sdk";
 
 import { useTranslation } from "react-i18next";
 import { NS_LIBS_CMDB_INSTANCES, K } from "../i18n/constants";
@@ -67,7 +67,7 @@ export const LegacyCmdbInstancesInputFormItem = (
   ): Promise<string[]> => {
     if (selectedInstances) {
       const instances = (
-        await InstanceApi.postSearch(props.objectId, {
+        await InstanceApi_postSearch(props.objectId, {
           query: {
             instanceId: {
               $in: selectedInstances.map((instance) => instance.instanceId),
@@ -105,7 +105,7 @@ export const LegacyCmdbInstancesInputFormItem = (
     let selectedInstances: any[] = [];
     if (instanceIds.length) {
       selectedInstances = (
-        await InstanceApi.postSearch(props.objectId, {
+        await InstanceApi_postSearch(props.objectId, {
           page: 1,
           page_size: instanceIds.length,
           query: {
@@ -157,7 +157,7 @@ export const LegacyCmdbInstancesInputFormItem = (
 
     if (fieldValues) {
       const instances = (
-        await InstanceApi.postSearch(props.objectId, {
+        await InstanceApi_postSearch(props.objectId, {
           query: {
             $and: [
               {
@@ -241,7 +241,7 @@ export const LegacyCmdbInstancesInputFormItem = (
             : inputValue.split(seperator);
 
         const instances = (
-          await InstanceApi.postSearch(props.objectId, {
+          await InstanceApi_postSearch(props.objectId, {
             query: {
               $and: [
                 {

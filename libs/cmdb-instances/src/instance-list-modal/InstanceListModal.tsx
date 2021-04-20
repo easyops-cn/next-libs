@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { WarningOutlined } from "@ant-design/icons";
 import { Modal, Button } from "antd";
 
-import { CmdbModels, InstanceApi } from "@next-sdk/cmdb-sdk";
+import { CmdbModels, InstanceApi_postSearch } from "@next-sdk/cmdb-sdk";
 import { InstanceList } from "../instance-list/InstanceList";
 import { InstanceListPresetConfigs } from "../instance-list-table/interfaces";
 import { Query } from "../instance-list-table";
@@ -46,7 +46,7 @@ export function InstanceListModal(
       selectedInstanceListTemp.length &&
       selectedInstanceListTemp.every((i) => typeof i === "string")
     ) {
-      const resp = await InstanceApi.postSearch(props.objectId, {
+      const resp = await InstanceApi_postSearch(props.objectId, {
         query: {
           instanceId: {
             $in: selectedInstanceListTemp,

@@ -2,7 +2,7 @@ import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import { keyBy } from "lodash";
 
-import { InstanceApi } from "@next-sdk/cmdb-sdk";
+import { InstanceApi_postSearch } from "@next-sdk/cmdb-sdk";
 
 import { ModelRelationForm } from "./ModelRelationForm";
 
@@ -11,14 +11,14 @@ import { mockFetchCmdbObjectListReturnValue } from "../__mocks__";
 jest.mock("@next-sdk/cmdb-sdk");
 
 describe("BrickConditionalDisplay", () => {
-  const mockPostSearch = jest
-    .spyOn(InstanceApi, "postSearch")
-    .mockResolvedValue({
+  const mockPostSearch = (InstanceApi_postSearch as jest.Mock).mockResolvedValue(
+    {
       list: [],
       page: 1,
       page_size: 20,
       total: 0,
-    });
+    }
+  );
 
   it("should work", () => {
     const objectList = mockFetchCmdbObjectListReturnValue;

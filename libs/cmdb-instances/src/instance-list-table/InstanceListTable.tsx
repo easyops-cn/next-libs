@@ -18,7 +18,10 @@ import {
   ReadSortingChangeDetail,
   UseBrickConf,
 } from "@next-core/brick-types";
-import { CmdbModels, InstanceApi } from "@next-sdk/cmdb-sdk";
+import {
+  CmdbModels,
+  InstanceApi_PostSearchV3ResponseBody,
+} from "@next-sdk/cmdb-sdk";
 import { Link } from "@next-libs/basic-components";
 import {
   forEachAvailableFields,
@@ -74,7 +77,7 @@ export interface InstanceListTableProps extends WithTranslation {
   fieldIds?: string[];
   idObjectMap: Record<string, Partial<CmdbModels.ModelCmdbObject>>;
   modelData: Partial<CmdbModels.ModelCmdbObject>;
-  instanceListData: InstanceApi.PostSearchV3ResponseBody;
+  instanceListData: InstanceApi_PostSearchV3ResponseBody;
   sort?: string;
   asc?: boolean;
   propertyDisplayConfigs?: PropertyDisplayConfig[];

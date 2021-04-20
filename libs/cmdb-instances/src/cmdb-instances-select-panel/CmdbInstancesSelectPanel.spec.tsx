@@ -2,7 +2,7 @@ import React from "react";
 import { mount } from "enzyme";
 import { act } from "react-dom/test-utils";
 
-import { CmdbModels, InstanceApi } from "@next-sdk/cmdb-sdk";
+import { CmdbModels, InstanceApi_postSearch } from "@next-sdk/cmdb-sdk";
 import { CmdbInstancesSelectPanel } from "./CmdbInstancesSelectPanel";
 import { InstanceListTable } from "../instance-list-table";
 import { InstanceList } from "../instance-list/InstanceList";
@@ -41,7 +41,7 @@ const objectMap: any = {
   },
 };
 
-jest.spyOn(InstanceApi, "postSearch").mockResolvedValue({
+(InstanceApi_postSearch as jest.Mock).mockResolvedValue({
   list: [
     { instanceId: "5c6d122b3c85f" },
     { instanceId: "5c6d122b3c85f" },

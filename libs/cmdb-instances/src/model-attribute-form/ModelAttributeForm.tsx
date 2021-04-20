@@ -2,7 +2,11 @@ import React, { Component, FormEvent } from "react";
 import { Form } from "@ant-design/compatible";
 import { Button, Checkbox, Collapse } from "antd";
 import { ButtonType } from "antd/lib/button";
-import { CmdbModels, InstanceApi } from "@next-sdk/cmdb-sdk";
+import {
+  CmdbModels,
+  InstanceApi_GetDefaultValueTemplateResponseBody,
+  InstanceApi_GetDetailResponseBody,
+} from "@next-sdk/cmdb-sdk";
 import {
   FormComponentProps,
   ValidationRule,
@@ -51,8 +55,8 @@ interface ModelAttributeFormProps extends FormComponentProps {
   objectList?: Partial<CmdbModels.ModelCmdbObject>[];
   modelData?: Partial<CmdbModels.ModelCmdbObject>;
   attributeFormControlInitialValueMap:
-    | InstanceApi.GetDefaultValueTemplateResponseBody
-    | Partial<InstanceApi.GetDetailResponseBody>;
+    | InstanceApi_GetDefaultValueTemplateResponseBody
+    | Partial<InstanceApi_GetDetailResponseBody>;
   showCancelButton?: boolean;
   cancelText?: string;
   cancelType?: ButtonType;

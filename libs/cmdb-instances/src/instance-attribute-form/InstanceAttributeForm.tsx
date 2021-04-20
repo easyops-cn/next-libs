@@ -1,5 +1,9 @@
 import React, { Component } from "react";
-import { CmdbModels, InstanceApi } from "@next-sdk/cmdb-sdk";
+import {
+  CmdbModels,
+  InstanceApi_GetDefaultValueTemplateResponseBody,
+  InstanceApi_GetDetailResponseBody,
+} from "@next-sdk/cmdb-sdk";
 import { Form } from "@ant-design/compatible";
 import { get, keyBy } from "lodash";
 import { FormComponentProps } from "@ant-design/compatible/lib/form";
@@ -27,8 +31,8 @@ export interface InstanceAttributeFormProps extends FormComponentProps {
   objectList?: Partial<CmdbModels.ModelCmdbObject>[];
   basicInfoAttrList?: ModifiedModelObjectField[];
   attributeFormControlInitialValueMap?:
-    | InstanceApi.GetDefaultValueTemplateResponseBody
-    | Partial<InstanceApi.GetDetailResponseBody>;
+    | InstanceApi_GetDefaultValueTemplateResponseBody
+    | Partial<InstanceApi_GetDetailResponseBody>;
 }
 
 export class LegacyInstanceAttributeForm extends Component<InstanceAttributeFormProps> {

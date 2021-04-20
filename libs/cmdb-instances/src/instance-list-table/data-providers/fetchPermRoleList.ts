@@ -1,7 +1,10 @@
-import * as PermissionSdk from "@next-sdk/permission-sdk";
+import {
+  RoleApi_getPermissionRoleList,
+  RoleApi_GetPermissionRoleListResponseBody,
+} from "@next-sdk/permission-sdk";
 
 export function fetchPermRoleList(): Promise<
-  Partial<PermissionSdk.RoleApi.GetPermissionRoleListResponseBody>
+  Partial<RoleApi_GetPermissionRoleListResponseBody>
 > {
-  return PermissionSdk.RoleApi.getPermissionRoleList({});
+  return RoleApi_getPermissionRoleList({});
 }

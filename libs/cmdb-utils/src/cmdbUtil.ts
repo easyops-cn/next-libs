@@ -1,4 +1,7 @@
-import { CmdbModels, InstanceApi } from "@next-sdk/cmdb-sdk";
+import {
+  CmdbModels,
+  InstanceApi_GetDetailResponseBody,
+} from "@next-sdk/cmdb-sdk";
 import { CMDB_RESOURCE_FIELDS_SETTINGS } from "./constants";
 import { getRelationObjectSides } from "./processors";
 import _ from "lodash";
@@ -45,7 +48,7 @@ export const getInstanceNameKey = (objectId: string | number) =>
   objectId === "HOST" ? "hostname" : "name";
 
 export const getInstanceName = (
-  instanceData: Partial<InstanceApi.GetDetailResponseBody>,
+  instanceData: Partial<InstanceApi_GetDetailResponseBody>,
   objectId?: string | number
 ) =>
   objectId

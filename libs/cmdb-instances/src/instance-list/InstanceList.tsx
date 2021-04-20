@@ -24,7 +24,13 @@ import {
   ReadSortingChangeDetail,
   UseBrickConf,
 } from "@next-core/brick-types";
-import { CmdbModels, InstanceApi } from "@next-sdk/cmdb-sdk";
+import {
+  CmdbModels,
+  InstanceApi_PostSearchRequestBody,
+  InstanceApi_PostSearchV3RequestBody,
+  InstanceApi_PostSearchV3ResponseBody,
+  InstanceApi_postSearchV3,
+} from "@next-sdk/cmdb-sdk";
 import { Icon as LegacyIcon } from "@ant-design/compatible";
 import { Button, Spin, Input, Tag } from "antd";
 import {
@@ -291,9 +297,9 @@ interface InstanceListProps {
   pageSizeOptions?: string[];
   showSizeChanger?: boolean;
   onSearchExecute?(
-    data: InstanceApi.PostSearchRequestBody,
-    v3Data: InstanceApi.PostSearchV3RequestBody
-  ): Promise<InstanceApi.PostSearchV3ResponseBody> | void;
+    data: InstanceApi_PostSearchRequestBody,
+    v3Data: InstanceApi_PostSearchV3RequestBody
+  ): Promise<InstanceApi_PostSearchV3ResponseBody> | void;
   onSearch?(value: string): void;
   onAdvancedSearch?(queries: Query[]): void;
   onClickItem?(
@@ -328,7 +334,7 @@ interface InstanceListState {
   loading: boolean;
   failed: boolean;
   idObjectMap?: Record<string, Partial<CmdbModels.ModelCmdbObject>>;
-  instanceListData?: InstanceApi.PostSearchV3ResponseBody;
+  instanceListData?: InstanceApi_PostSearchV3ResponseBody;
   isAdvancedSearchVisible: boolean;
   fieldIds: string[];
   autoBreakLine: boolean;
@@ -445,16 +451,16 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
   const [selectedRowKeys, setSelectedRowKeys] = useState(
     props.selectedRowKeys ?? []
   );
-  const cache = useRef(new Map<string, InstanceApi.PostSearchV3ResponseBody>());
+  const cache = useRef(new Map<string, InstanceApi_PostSearchV3ResponseBody>());
   const isFirstRunRef = useRef(true);
 
   const getInstanceListData = async (
     sort: string,
     asc: boolean,
     page: number
-  ): Promise<InstanceApi.PostSearchV3ResponseBody> => {
-    const data: InstanceApi.PostSearchRequestBody = {};
-    const v3Data: InstanceApi.PostSearchV3RequestBody = {
+  ): Promise<InstanceApi_PostSearchV3ResponseBody> => {
+    const data: InstanceApi_PostSearchRequestBody = {};
+    const v3Data: InstanceApi_PostSearchV3RequestBody = {
       fields: ["instanceId"],
     };
     if (!isEmpty(props.permission)) {
@@ -515,7 +521,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
 
     const promise = props.onSearchExecute?.(data, v3Data);
 
-    return promise ? promise : InstanceApi.postSearchV3(props.objectId, v3Data);
+    return promise ? promise : InstanceApi_postSearchV3(props.objectId, v3Data);
   };
 
   const refreshInstanceList = async (
@@ -596,7 +602,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     if (selectedKeys.length > compact(selectedItems).length) {
       const ids = selectedKeys.filter((id) => !cache.current.has(id));
       if (ids.length) {
-        const resp = await InstanceApi.postSearchV3(props.objectId, {
+        const resp = await InstanceApi_postSearchV3(props.objectId, {
           fields: ["instanceId"],
           query: {
             instanceId: {

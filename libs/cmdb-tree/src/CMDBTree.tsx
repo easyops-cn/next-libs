@@ -6,7 +6,13 @@ import { EventDataNode, DataNode } from "antd/lib/tree";
 import { sortBy, isEmpty, keyBy, get } from "lodash";
 
 import { handleHttpError } from "@next-core/brick-kit";
-import { CmdbObjectApi, InstanceTreeApi, CmdbModels } from "@next-sdk/cmdb-sdk";
+import {
+  CmdbObjectApi_getObjectAll,
+  InstanceTreeApi_instanceTreeExpand,
+  InstanceTreeApi_instanceTreeAnchor,
+  InstanceTreeApi_instanceTreeSearch,
+  CmdbModels,
+} from "@next-sdk/cmdb-sdk";
 
 import {
   search,
@@ -179,7 +185,7 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
 
     const treeRequest = this.props.treeRequestBody.tree;
     const objectId = treeRequest.object_id;
-    const resp = await CmdbObjectApi.getObjectAll({});
+    const resp = await CmdbObjectApi_getObjectAll({});
     const objectList = resp.data as CmdbModels.ModelCmdbObject[];
     this.objectMap = keyBy(objectList, "objectId");
     this.objectId2ShowKeys = getObjectId2ShowKeys(objectList);
@@ -315,7 +321,7 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
       ...this.props.treeRequestBody,
     };
     try {
-      const resp = await InstanceTreeApi.instanceTreeExpand(data);
+      const resp = await InstanceTreeApi_instanceTreeExpand(data);
       return resp;
     } catch (err) {
       handleHttpError(err);
@@ -331,7 +337,7 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
     };
 
     try {
-      const resp = await InstanceTreeApi.instanceTreeAnchor(data);
+      const resp = await InstanceTreeApi_instanceTreeAnchor(data);
       return resp;
     } catch (err) {
       handleHttpError(err);
@@ -362,7 +368,7 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
         ignore_single: false,
         ...this.props.treeRequestBody,
       };
-      const resp = await InstanceTreeApi.instanceTreeSearch(data);
+      const resp = await InstanceTreeApi_instanceTreeSearch(data);
       this.updateTreeNodes(resp);
     } catch (err) {
       handleHttpError(err);
