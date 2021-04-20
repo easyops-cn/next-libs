@@ -29,7 +29,7 @@ export function LeacySvgaPlayer(
     className,
     containerStyle,
     loops = 0,
-    clearsAfterStop = true,
+    clearsAfterStop = false,
     fillMode = "Forward",
     contentMode = "AspectFit",
     onFinished,
