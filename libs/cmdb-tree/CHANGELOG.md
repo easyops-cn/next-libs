@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-tree@2.0.6...@next-libs/cmdb-tree@3.0.0) (2021-04-20)
+
+
+### Features
+
+* migrated usage of sdk ([4a686ad](https://github.com/easyops-cn/next-libs/commit/4a686ad28fedc952993467456be659464e7e0c3c))
+
+
+### BREAKING CHANGES
+
+* use major updates of sdk
+
+
+
+
+
 ## [2.0.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-tree@2.0.5...@next-libs/cmdb-tree@2.0.6) (2021-04-19)
 
 **Note:** Version bump only for package @next-libs/cmdb-tree

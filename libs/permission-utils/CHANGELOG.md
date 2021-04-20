@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/permission-utils@2.0.7...@next-libs/permission-utils@3.0.0) (2021-04-20)
+
+
+### Features
+
+* migrated usage of sdk ([4a686ad](https://github.com/easyops-cn/next-libs/commit/4a686ad28fedc952993467456be659464e7e0c3c))
+
+
+### BREAKING CHANGES
+
+* use major updates of sdk
+
+
+
+
+
 ## [2.0.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/permission-utils@2.0.6...@next-libs/permission-utils@2.0.7) (2021-04-19)
 
 **Note:** Version bump only for package @next-libs/permission-utils
