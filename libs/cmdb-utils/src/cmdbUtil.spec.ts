@@ -8,7 +8,7 @@ import {
   getBatchEditableRelations,
   composeErrorMessage,
   getRelationQuery,
-  modifyModelData
+  modifyModelData,
 } from "./cmdbUtil";
 
 describe("util", () => {
@@ -63,26 +63,26 @@ describe("util", () => {
         {
           id: "name",
           readonly: "false",
-          unique: "false"
+          unique: "false",
         },
         {
           id: "label",
           readonly: "false",
-          unique: "true"
+          unique: "true",
         },
         {
           id: "title",
           readonly: "true",
-          unique: "false"
-        }
-      ]
+          unique: "false",
+        },
+      ],
     };
     expect(getBatchEditableAttributes(modelData)).toEqual([
       {
         id: "name",
         readonly: "false",
-        unique: "false"
-      }
+        unique: "false",
+      },
     ]);
   });
 
@@ -95,8 +95,8 @@ describe("util", () => {
           id: "label",
           readonly: "false",
           unique: "true",
-          isRelation: false
-        }
+          isRelation: false,
+        },
       ],
       relation_list: [
         {
@@ -106,7 +106,7 @@ describe("util", () => {
           left_object_id: "CLUSTER",
           right_id: "_deviceList_CLUSTER_HOST",
           right_object_id: "HOST",
-          right_description: "主机"
+          right_description: "主机",
         },
         {
           relation_id: "_owner_HOST",
@@ -115,37 +115,90 @@ describe("util", () => {
           left_object_id: "HOST",
           right_id: "HOST_owner_USER",
           right_object_id: "USER",
-          right_description: "运维负责人"
-        }
-      ]
+          right_description: "运维负责人",
+        },
+        {
+          left_description: "宿主机",
+          left_id: "LOGICAL_HOST",
+          left_name: "虚拟机",
+          left_object_id: "HOST",
+          right_description: "虚拟机",
+          right_id: "PHYSICAL_HOST",
+          right_name: "宿主机",
+          right_object_id: "HOST",
+        },
+      ],
+      view: {
+        attr_order: ["label"],
+      },
     };
     expect(getBatchEditableRelations(modelData)).toEqual([
       {
-        relation_id: "_deviceList_CLUSTER",
-        left_description: "所属集群",
-        left_id: "deviceList",
-        left_object_id: "CLUSTER",
-        right_id: "_deviceList_CLUSTER_HOST",
-        right_object_id: "HOST",
-        right_description: "主机",
+        __id: "_deviceList_CLUSTER_HOST",
+        __inverted: true,
+        __isRelation: true,
         id: "_deviceList_CLUSTER_HOST",
-        objectId: "CLUSTER",
+        isRelation: true,
+        left_description: "主机",
+        left_id: "_deviceList_CLUSTER_HOST",
+        left_object_id: "HOST",
         name: "所属集群",
-        isRelation: true
+        objectId: "CLUSTER",
+        relation_id: "_deviceList_CLUSTER",
+        right_description: "所属集群",
+        right_id: "deviceList",
+        right_object_id: "CLUSTER",
       },
       {
-        relation_id: "_owner_HOST",
+        __id: "owner",
+        __inverted: false,
+        __isRelation: true,
+        id: "owner",
+        isRelation: true,
         left_description: "负责运维的主机",
         left_id: "owner",
         left_object_id: "HOST",
+        name: "运维负责人",
+        objectId: "USER",
+        relation_id: "_owner_HOST",
+        right_description: "运维负责人",
         right_id: "HOST_owner_USER",
         right_object_id: "USER",
-        right_description: "运维负责人",
-        id: "owner",
-        objectId: "USER",
-        name: "运维负责人",
-        isRelation: true
-      }
+      },
+      {
+        __id: "LOGICAL_HOST",
+        __inverted: false,
+        __isRelation: true,
+        id: "LOGICAL_HOST",
+        isRelation: true,
+        left_description: "宿主机",
+        left_id: "LOGICAL_HOST",
+        left_name: "虚拟机",
+        left_object_id: "HOST",
+        name: "虚拟机",
+        objectId: "HOST",
+        right_description: "虚拟机",
+        right_id: "PHYSICAL_HOST",
+        right_name: "宿主机",
+        right_object_id: "HOST",
+      },
+      {
+        __id: "PHYSICAL_HOST",
+        __inverted: true,
+        __isRelation: true,
+        id: "PHYSICAL_HOST",
+        isRelation: true,
+        left_description: "虚拟机",
+        left_id: "PHYSICAL_HOST",
+        left_name: "宿主机",
+        left_object_id: "HOST",
+        name: "宿主机",
+        objectId: "HOST",
+        right_description: "宿主机",
+        right_id: "LOGICAL_HOST",
+        right_name: "虚拟机",
+        right_object_id: "HOST",
+      },
     ]);
   });
   it("should work with getRelationQuery", () => {
@@ -156,30 +209,30 @@ describe("util", () => {
       left_object_id: "CLUSTER",
       right_id: "_deviceList_CLUSTER_HOST",
       right_object_id: "HOST",
-      right_description: "主机"
+      right_description: "主机",
     };
     expect(getRelationQuery("123", relation1, false, "$eq")).toEqual({
-      "deviceList.instanceId": { $eq: "123" }
+      "deviceList.instanceId": { $eq: "123" },
     });
     expect(getRelationQuery(["123", "456"], relation1, false)).toEqual({
-      "deviceList.instanceId": { $in: ["123", "456"] }
+      "deviceList.instanceId": { $in: ["123", "456"] },
     });
     expect(getRelationQuery(["123", "456"], relation1, true)).toEqual({
-      "_deviceList_CLUSTER_HOST.instanceId": { $in: ["123", "456"] }
+      "_deviceList_CLUSTER_HOST.instanceId": { $in: ["123", "456"] },
     });
   });
   it("should work with composeErrorMessage", () => {
     const failedList = [
       {
         instanceId: "1",
-        hostname: "1"
-      }
+        hostname: "1",
+      },
     ];
     const context = {
       modelData: {
-        name: "主机"
+        name: "主机",
       },
-      nameKey: "hostname"
+      nameKey: "hostname",
     };
 
     let errorData = {
@@ -190,11 +243,11 @@ describe("util", () => {
           error: "找不到实例",
           data: [
             {
-              instanceId: "1"
-            }
-          ]
-        }
-      ]
+              instanceId: "1",
+            },
+          ],
+        },
+      ],
     };
     expect(composeErrorMessage(errorData, failedList, context)).toEqual(
       "批量编辑主机失败（找不到实例：1）。"
@@ -208,11 +261,11 @@ describe("util", () => {
           error: "找不到实例",
           data: [
             {
-              instanceId: "1"
-            }
-          ]
-        }
-      ]
+              instanceId: "1",
+            },
+          ],
+        },
+      ],
     };
     expect(composeErrorMessage(errorData, failedList, context)).toEqual(
       "批量编辑主机部分失败，其中 1 个成功，1 个失败（找不到实例：1）。"
@@ -225,15 +278,15 @@ describe("util", () => {
     attrList: [
       {
         id: "name",
-        name: "名称"
+        name: "名称",
       },
       {
         id: "type",
-        name: "集群类型"
+        name: "集群类型",
       },
       {
-        id: "packageId"
-      }
+        id: "packageId",
+      },
     ],
     relation_list: [
       {
@@ -253,7 +306,7 @@ describe("util", () => {
         right_min: 0,
         right_max: 1,
         right_groups: [],
-        right_tags: []
+        right_tags: [],
       },
       {
         relation_id: "CLUSTER_deviceList_HOST",
@@ -272,12 +325,12 @@ describe("util", () => {
         right_min: 0,
         right_max: 1,
         right_groups: [],
-        right_tags: []
-      }
+        right_tags: [],
+      },
     ],
     view: {
-      attr_order: ["name", "deviceList", "notExistedAttrId"]
-    }
+      attr_order: ["name", "deviceList", "notExistedAttrId"],
+    },
   };
 
   it("should modify objectDataList without attr_order correctly", () => {
@@ -287,7 +340,9 @@ describe("util", () => {
       clusterObjectDataWithoutAttrOrder
     );
 
-    const ids = modifiedClusterObjectData.__fieldList.map(field => field.__id);
+    const ids = modifiedClusterObjectData.__fieldList.map(
+      (field) => field.__id
+    );
     expect(ids).toEqual(["name", "type", "appId", "deviceList"]);
   });
 
@@ -299,7 +354,7 @@ describe("util", () => {
         id: "name",
         name: "名称",
         __id: "name",
-        __isRelation: false
+        __isRelation: false,
       },
       {
         relation_id: "CLUSTER_deviceList_HOST",
@@ -321,13 +376,13 @@ describe("util", () => {
         right_tags: [],
         __id: "deviceList",
         __isRelation: true,
-        __inverted: false
+        __inverted: false,
       },
       {
         id: "type",
         name: "集群类型",
         __id: "type",
-        __isRelation: false
+        __isRelation: false,
       },
       {
         relation_id: "APP_clusters_CLUSTER",
@@ -349,8 +404,8 @@ describe("util", () => {
         right_tags: [],
         __id: "appId",
         __isRelation: true,
-        __inverted: true
-      }
+        __inverted: true,
+      },
     ]);
   });
 });

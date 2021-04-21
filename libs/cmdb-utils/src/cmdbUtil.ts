@@ -77,12 +77,16 @@ export interface BatchEditableRelation extends CmdbModels.ModelCmdbObject {
   name: string;
   isRelation: boolean;
   objectId: string;
+  __id?: string;
+  __inverted?: boolean;
+  __isRelation?: boolean;
 }
 
 export const getBatchEditableRelations = (
   modelData: Partial<CmdbModels.ModelCmdbObject>
 ): Partial<BatchEditableRelation>[] => {
-  modelData.relation_list.forEach((item: any) => {
+  const cloneModelData = modifyModelData(modelData);
+  cloneModelData.relation_list.forEach((item: any) => {
     const side = getRelationObjectSides(item, modelData);
     Object.assign(item, {
       id: item[`${side.this}_id`],
@@ -91,7 +95,7 @@ export const getBatchEditableRelations = (
       objectId: item[`${side.that}_object_id`],
     });
   });
-  return modelData.relation_list;
+  return cloneModelData.relation_list;
 };
 export function getRelationQuery(
   instanceId: any,
