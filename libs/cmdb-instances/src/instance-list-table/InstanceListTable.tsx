@@ -558,7 +558,9 @@ export class LegacyInstanceListTable extends React.Component<
     extra: TableCurrentDataSource<Record<string, any>>
   ) => {
     if (
-      pagination.current !== this.state.pagination.current ||
+      // pagination.current will pass in 0 when total is 0 and sorter has changed
+      (pagination.current > 0 &&
+        pagination.current !== this.state.pagination.current) ||
       pagination.pageSize !== this.state.pagination.pageSize
     ) {
       this.props.onPaginationChange?.({
