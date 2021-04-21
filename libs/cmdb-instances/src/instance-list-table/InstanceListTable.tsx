@@ -28,6 +28,7 @@ import {
   getInstanceNameKeys,
   getTemplateFromMap,
   parseTemplate,
+  modifyModelData,
   RelationIdKeys,
   RelationNameKeys,
   RelationObjectIdKeys,
@@ -154,7 +155,7 @@ export class LegacyInstanceListTable extends React.Component<
   getChangeColumns(ids: string[]) {
     const columns: InstanceListTableState["columns"] = [];
     forEachAvailableFields(
-      this.props.modelData,
+      modifyModelData(this.props.modelData),
       (attr) =>
         columns.push(
           this.setColumnSortOrder(

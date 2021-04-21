@@ -68,7 +68,7 @@ export class MoreButtonsContainer extends React.Component<
           footer={null}
           onCancel={this.handleCancel}
           destroyOnClose={true}
-          width={600}
+          width={780}
           centered={true}
         >
           <Settings

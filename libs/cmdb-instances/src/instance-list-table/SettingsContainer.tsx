@@ -178,7 +178,8 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
         <Row
           style={{
             marginTop: 15,
-            height: 200,
+            minHeight: 200,
+            maxHeight: 500,
             overflow: "auto",
           }}
           className="nextFields"
