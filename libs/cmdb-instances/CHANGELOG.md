@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@4.0.2...@next-libs/cmdb-instances@4.0.3) (2021-04-21)
+
+
+### Bug Fixes
+
+* **cmdb-instances:** 自关联问题&显示字段的弹窗样式 ([fbbb50f](https://github.com/easyops-cn/next-libs/commit/fbbb50f874efc5c814d5874baadb6ad46567ab94))
+* **InstanceListTable:** fix pagination.current pass in 0 ([14e838d](https://github.com/easyops-cn/next-libs/commit/14e838d98aa6597c415f45a5b01acc823d0fa438))
+
+
+
+
+
 ## [4.0.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@4.0.1...@next-libs/cmdb-instances@4.0.2) (2021-04-21)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
