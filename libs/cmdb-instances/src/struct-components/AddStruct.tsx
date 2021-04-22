@@ -1,5 +1,7 @@
 import React, { CSSProperties } from "react";
 import { Button } from "antd";
+import i18n from "i18next";
+import { NS_LIBS_CMDB_INSTANCES, K } from "../i18n/constants";
 import { StructTable } from "./StructTable";
 import { AddStructModal } from "./AddStructModal";
 import { isArray, isEmpty } from "lodash";
@@ -69,7 +71,7 @@ export class AddStruct extends React.Component<AddStructProps, AddStructState> {
           disabled={isLegacy && !isEmpty(structData)}
           onClick={this.handleOpenAddModal}
         >
-          添加
+          {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.ADD}`)}
         </Button>
         <AddStructModal
           attribute={attribute as Attribute}

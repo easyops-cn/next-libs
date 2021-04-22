@@ -1,5 +1,7 @@
 import React from "react";
 import { mount, shallow } from "enzyme";
+import i18n from "i18next";
+import { NS_LIBS_CMDB_INSTANCES, K } from "../i18n/constants";
 import {
   FormControl,
   FormControlTypeEnum,
@@ -17,7 +19,8 @@ import { CmdbModels } from "@next-sdk/cmdb-sdk";
 import { Input, InputNumber, Radio, Select } from "antd";
 
 /* eslint-disable @typescript-eslint/naming-convention */
-
+jest.mock("../i18n");
+jest.spyOn(i18n, "t").mockReturnValue("");
 describe("ModelAttributeFormControl", () => {
   const attribute: Partial<CmdbModels.ModelObjectAttr> =
     mockFetchCmdbObjectDetailReturnValue.attrList[0];
@@ -154,7 +157,12 @@ describe("ModelAttributeFormControl", () => {
           },
         });
       }).toThrowError(
-        new Error("请在资源模型中添加结构体属性, 属性: some name")
+        // new Error("请在资源模型中添加结构体属性, 属性: some name")
+        new Error(
+          i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.STRUCT_ERROR_TIP}`, {
+            attribute: "some name",
+          })
+        )
       );
     });
 
@@ -167,7 +175,12 @@ describe("ModelAttributeFormControl", () => {
           },
         });
       }).toThrowError(
-        new Error("请在资源模型管理中添加枚举值, 属性: some name")
+        // new Error("请在资源模型管理中添加枚举值, 属性: some name")
+        new Error(
+          i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.ENUM_ERROR_TIP}`, {
+            attribute: "some name",
+          })
+        )
       );
 
       expect(() => {
@@ -179,7 +192,12 @@ describe("ModelAttributeFormControl", () => {
           },
         });
       }).toThrowError(
-        new Error("请在资源模型管理中添加枚举值, 属性: some name")
+        // new Error("请在资源模型管理中添加枚举值, 属性: some name")
+        new Error(
+          i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.ENUM_ERROR_TIP}`, {
+            attribute: "some name",
+          })
+        )
       );
 
       expect(() => {
@@ -191,7 +209,12 @@ describe("ModelAttributeFormControl", () => {
           },
         });
       }).toThrowError(
-        new Error("请在资源模型管理中添加枚举值, 属性: some name")
+        // new Error("请在资源模型管理中添加枚举值, 属性: some name")
+        new Error(
+          i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.ENUM_ERROR_TIP}`, {
+            attribute: "some name",
+          })
+        )
       );
     });
 
@@ -263,7 +286,12 @@ describe("ModelAttributeFormControl", () => {
           },
         });
       }).toThrowError(
-        new Error("请在资源模型中添加结构体属性, 属性: some name")
+        // new Error("请在资源模型中添加结构体属性, 属性: some name")
+        new Error(
+          i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.STRUCT_ERROR_TIP}`, {
+            attribute: "some name",
+          })
+        )
       );
     });
 
@@ -372,7 +400,10 @@ describe("ModelAttributeFormControl", () => {
       };
 
       const result = computePlaceholder(formControl);
-      expect(result).toEqual("点击选择");
+      // expect(result).toEqual("点击选择");
+      expect(result).toEqual(
+        i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CLICK_TO_SELECT}`)
+      );
     });
 
     it("should return '点击选择' when formControl.type equal 'datetime' or 'date'", () => {
@@ -383,7 +414,10 @@ describe("ModelAttributeFormControl", () => {
       };
 
       const result = computePlaceholder(formControl);
-      expect(result).toEqual("点击选择");
+      // expect(result).toEqual("点击选择");
+      expect(result).toEqual(
+        i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CLICK_TO_SELECT}`)
+      );
     });
 
     it("should return '输入多个，以回车间隔' when formControl.type equal 'tags'", () => {
@@ -394,7 +428,12 @@ describe("ModelAttributeFormControl", () => {
       };
 
       const result = computePlaceholder(formControl);
-      expect(result).toEqual("输入多个，以回车间隔");
+      // expect(result).toEqual("输入多个，以回车间隔");
+      expect(result).toEqual(
+        i18n.t(
+          `${NS_LIBS_CMDB_INSTANCES}:${K.ENTER_MULTIPLE_STRING_WITH_ENTER_KEY_AS_THE_SEPARATOR}`
+        )
+      );
     });
 
     it("should return '点击选择' when formControl.type equal 'select'", () => {
@@ -405,7 +444,10 @@ describe("ModelAttributeFormControl", () => {
       };
 
       const result = computePlaceholder(formControl);
-      expect(result).toEqual("点击选择");
+      // expect(result).toEqual("点击选择");
+      expect(result).toEqual(
+        i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CLICK_TO_SELECT}`)
+      );
     });
     it("should return '例如：192.168.100.1' when formControl.id === 'ip' && formControl.name === 'ip'", () => {
       const formControl: FormControl = {
@@ -415,7 +457,10 @@ describe("ModelAttributeFormControl", () => {
       };
 
       const result = computePlaceholder(formControl);
-      expect(result).toEqual("例如：192.168.100.1");
+      // expect(result).toEqual("例如：192.168.100.1");
+      expect(result).toEqual(
+        i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.IP_PLACEHOLDER}`)
+      );
     });
   });
 

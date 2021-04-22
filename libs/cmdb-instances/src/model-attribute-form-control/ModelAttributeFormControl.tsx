@@ -1,5 +1,7 @@
 import React, { Component, ReactNode } from "react";
 import { CmdbModels } from "@next-sdk/cmdb-sdk";
+import i18n from "i18next";
+import { NS_LIBS_CMDB_INSTANCES, K } from "../i18n/constants";
 import { DatePicker, Input, InputNumber, Radio, Select } from "antd";
 import { AddStruct } from "../struct-components";
 import moment, { Moment } from "moment";
@@ -220,7 +222,10 @@ export class ModelAttributeFormControl extends Component<
           (attribute.value.regex as string[]).length === 0
         ) {
           throw new Error(
-            "请在资源模型管理中添加枚举值, 属性: " + attribute.name
+            // "请在资源模型管理中添加枚举值, 属性: " + attribute.name
+            i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.ENUM_ERROR_TIP}`, {
+              attribute: attribute.name,
+            })
           );
         }
         if (
@@ -242,14 +247,20 @@ export class ModelAttributeFormControl extends Component<
       case ModelAttributeValueType.STRUCT:
         if (attribute.value.struct_define.length === 0) {
           throw new Error(
-            "请在资源模型中添加结构体属性, 属性: " + attribute.name
+            // "请在资源模型中添加结构体属性, 属性: " + attribute.name
+            i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.STRUCT_ERROR_TIP}`, {
+              attribute: attribute.name,
+            })
           );
         }
         return FormControlTypeEnum.LEGACY_STRUCT;
       case ModelAttributeValueType.STRUCT_LIST:
         if (attribute.value.struct_define.length === 0) {
           throw new Error(
-            "请在资源模型中添加结构体属性, 属性: " + attribute.name
+            // "请在资源模型中添加结构体属性, 属性: " + attribute.name
+            i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.STRUCT_ERROR_TIP}`, {
+              attribute: attribute.name,
+            })
           );
         }
         return FormControlTypeEnum.STRUCT;
@@ -301,29 +312,50 @@ export class ModelAttributeFormControl extends Component<
 
   static computePlaceholder(formControl: FormControl): string {
     if (formControl.id === "ip" && formControl.name === "ip") {
-      return "例如：192.168.100.1";
+      return i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.IP_PLACEHOLDER}`);
     }
 
     const placeholders = [];
     if (formControl.type === FormControlTypeEnum.SELECT) {
-      placeholders.push("点击选择");
+      // placeholders.push("点击选择");
+      placeholders.push(
+        i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CLICK_TO_SELECT}`)
+      );
     }
     if (
       [FormControlTypeEnum.DATETIME, FormControlTypeEnum.DATE].includes(
         formControl.type
       )
     ) {
-      placeholders.push("点击选择");
+      // placeholders.push("点击选择");
+      placeholders.push(
+        i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CLICK_TO_SELECT}`)
+      );
     }
 
     if (formControl.type === FormControlTypeEnum.TAGS) {
-      placeholders.push("输入多个，以回车间隔");
+      placeholders.push(
+        i18n.t(
+          `${NS_LIBS_CMDB_INSTANCES}:${K.ENTER_MULTIPLE_STRING_WITH_ENTER_KEY_AS_THE_SEPARATOR}`
+        )
+      );
+      // placeholders.push("输入多个，以回车间隔");
     }
     if (formControl.pattern !== undefined) {
-      placeholders.push(`匹配正则 ${formControl.pattern}`);
+      // placeholders.push(`匹配正则 ${formControl.pattern}`);
+      placeholders.push(
+        i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.MATCHING_REGULAR}`, {
+          regexp: formControl.pattern,
+        })
+      );
     }
     if (formControl.unique) {
-      placeholders.push(`${formControl.label}唯一不能重复`);
+      // placeholders.push(`${formControl.label}唯一不能重复`);
+      placeholders.push(
+        i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.UNIQUE_NO_REPEAT}`, {
+          label: formControl.label,
+        })
+      );
     }
     return placeholders.join("，");
   }
@@ -369,7 +401,11 @@ export class ModelAttributeFormControl extends Component<
       value,
       formControl: { type, ...restProps },
     } = this.state;
-    const unsupportText = `"${type}"类型暂时不支持编辑`;
+    // const unsupportText = `"${type}"类型暂时不支持编辑`;
+    const unsupportText = i18n.t(
+      `${NS_LIBS_CMDB_INSTANCES}:${K.TYPE_NO_SUPPORT_EDIT}`,
+      { type }
+    );
 
     switch (type) {
       case FormControlTypeEnum.TEXT: {
@@ -446,7 +482,8 @@ export class ModelAttributeFormControl extends Component<
         // NODE: 对非必填单选为空的特殊处理 BY @robertman
         const unselected = {
           id: null as string,
-          text: "暂不选择",
+          // text: "暂不选择",
+          text: i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.TEMPORARILY_NOT_CHOOSE}`),
         };
 
         if (!required) {

@@ -3,6 +3,8 @@ import { Tooltip } from "antd";
 import styles from "./IconButton.module.css";
 import classNames from "classnames";
 import { GeneralIcon } from "@next-libs/basic-components";
+import i18n from "i18next";
+import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
 
 interface IconButtonProps {
   checked?: boolean;
@@ -45,12 +47,20 @@ export function IconButton(props: IconButtonProps) {
       case "normalHost":
       case "allName":
         return checked
-          ? `点击取消筛选"${props.label}"`
-          : `点击筛选"${props.label}"`;
+          ? i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CLICK_TO_CANCEL_FILTER}`, {
+              label: props.label,
+            })
+          : i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CLICK_TO_FILTER}`, {
+              label: props.label,
+            });
       case "showHiddenInfo":
         return checked
-          ? `点击隐藏"${props.label}"`
-          : `点击显示"${props.label}"`;
+          ? i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CLICK_TO_HIDDEN}`, {
+              label: props.label,
+            })
+          : i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CLICK_TO_SHOW}`, {
+              label: props.label,
+            });
     }
   };
 
