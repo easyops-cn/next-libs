@@ -13,12 +13,12 @@ exports[`AttributeFormControlUrl should work 1`] = `
       <label
         className="presetTitle"
       >
-        链接：
+        libs-cmdb-instances:LINK
       </label>
       <Input
         onBlur={[Function]}
         onChange={[Function]}
-        placeholder="请输入链接"
+        placeholder="libs-cmdb-instances:LINK_PLACEHOLDER"
         readOnly={true}
         type="url"
         value="http://www.baidu.com"
@@ -32,7 +32,7 @@ exports[`AttributeFormControlUrl should work 1`] = `
               onChange={[Function]}
               onFocus={[Function]}
               onKeyDown={[Function]}
-              placeholder="请输入链接"
+              placeholder="libs-cmdb-instances:LINK_PLACEHOLDER"
               readOnly={true}
               type="url"
               value="http://www.baidu.com"
@@ -43,7 +43,7 @@ exports[`AttributeFormControlUrl should work 1`] = `
           inputType="input"
           onBlur={[Function]}
           onChange={[Function]}
-          placeholder="请输入链接"
+          placeholder="libs-cmdb-instances:LINK_PLACEHOLDER"
           prefixCls="ant-input"
           readOnly={true}
           triggerFocus={[Function]}
@@ -56,7 +56,7 @@ exports[`AttributeFormControlUrl should work 1`] = `
             onChange={[Function]}
             onFocus={[Function]}
             onKeyDown={[Function]}
-            placeholder="请输入链接"
+            placeholder="libs-cmdb-instances:LINK_PLACEHOLDER"
             readOnly={true}
             type="url"
             value="http://www.baidu.com"
@@ -70,13 +70,13 @@ exports[`AttributeFormControlUrl should work 1`] = `
       <label
         className="presetTitle"
       >
-        标题：
+        libs-cmdb-instances:TITLE
       </label>
       <Input
         defaultValue="百度"
         onBlur={[Function]}
         onChange={[Function]}
-        placeholder="选填，请输入显示的标题"
+        placeholder="libs-cmdb-instances:TITLE_PLACEHOLDER"
         type="text"
       >
         <ClearableLabeledInput
@@ -89,7 +89,7 @@ exports[`AttributeFormControlUrl should work 1`] = `
               onChange={[Function]}
               onFocus={[Function]}
               onKeyDown={[Function]}
-              placeholder="选填，请输入显示的标题"
+              placeholder="libs-cmdb-instances:TITLE_PLACEHOLDER"
               type="text"
             />
           }
@@ -98,7 +98,7 @@ exports[`AttributeFormControlUrl should work 1`] = `
           inputType="input"
           onBlur={[Function]}
           onChange={[Function]}
-          placeholder="选填，请输入显示的标题"
+          placeholder="libs-cmdb-instances:TITLE_PLACEHOLDER"
           prefixCls="ant-input"
           triggerFocus={[Function]}
           type="text"
@@ -110,7 +110,7 @@ exports[`AttributeFormControlUrl should work 1`] = `
             onChange={[Function]}
             onFocus={[Function]}
             onKeyDown={[Function]}
-            placeholder="选填，请输入显示的标题"
+            placeholder="libs-cmdb-instances:TITLE_PLACEHOLDER"
             type="text"
             value="百度"
           />

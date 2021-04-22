@@ -1,5 +1,7 @@
 import { FormControl } from "../model-attribute-form-control/ModelAttributeFormControl";
 import { Input } from "antd";
+import i18n from "i18next";
+import { NS_LIBS_CMDB_INSTANCES, K } from "../i18n/constants";
 import React, { Component, ReactNode } from "react";
 import "./AttributeFormControlUrl.module.css";
 
@@ -8,9 +10,7 @@ export interface AttributeFormControlUrlProps extends Partial<FormControl> {
   onChange: (value: string) => void;
 }
 
-export class AttributeFormControlUrl extends Component<
-  AttributeFormControlUrlProps
-> {
+export class AttributeFormControlUrl extends Component<AttributeFormControlUrlProps> {
   private url: string;
   private title: string;
 
@@ -29,13 +29,13 @@ export class AttributeFormControlUrl extends Component<
     if (arr) {
       return {
         title: arr[1],
-        url: AttributeFormControlUrl.getFormattedUrl(arr[2])
+        url: AttributeFormControlUrl.getFormattedUrl(arr[2]),
       };
     }
 
     return {
       title: value,
-      url: value
+      url: value,
     };
   }
 
@@ -81,25 +81,34 @@ export class AttributeFormControlUrl extends Component<
     return (
       <div>
         <div className="singleContainer">
-          <label className="presetTitle">链接：</label>
+          <label className="presetTitle">
+            {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.LINK}`)}
+          </label>
           <Input
             readOnly={readOnly}
             value={url}
             type="url"
-            onChange={e => this.handleUrlChange(e.target.value)}
+            onChange={(e) => this.handleUrlChange(e.target.value)}
             onBlur={this.preSetValidation}
-            placeholder={placeholder || "请输入链接"}
+            placeholder={
+              placeholder ||
+              i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.LINK_PLACEHOLDER}`)
+            }
           />
         </div>
 
         <div className="singleContainer">
-          <label className="presetTitle">标题：</label>
+          <label className="presetTitle">
+            {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.TITLE}`)}
+          </label>
           <Input
             defaultValue={title}
             type="text"
-            onChange={e => this.handleTitleChange(e.target.value)}
+            onChange={(e) => this.handleTitleChange(e.target.value)}
             onBlur={this.preSetValidation}
-            placeholder="选填，请输入显示的标题"
+            placeholder={i18n.t(
+              `${NS_LIBS_CMDB_INSTANCES}:${K.TITLE_PLACEHOLDER}`
+            )}
           />
         </div>
       </div>

@@ -17,6 +17,8 @@ import {
   compact,
 } from "lodash";
 import { BrickAsComponent, handleHttpError } from "@next-core/brick-kit";
+import i18n from "i18next";
+import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
 import {
   PropertyDisplayConfig,
   ReadPaginationChangeDetail,
@@ -789,7 +791,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
                     }
                     data-testid="advanced-search-toggle-btn"
                   >
-                    高级搜索
+                    {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.ADVANCED_SEARCH}`)}
                     <LegacyIcon
                       type={state.isAdvancedSearchVisible ? "up" : "down"}
                     />
@@ -799,7 +801,12 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
               <div className={styles.options}>
                 {selectedRowKeys.length > 0 && (
                   <div style={{ marginRight: 20 }}>
-                    <span>已选择 {selectedRowKeys.length} 项</span>
+                    <span>
+                      {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CHOSEN_OPTIONS}`, {
+                        count: selectedRowKeys.length,
+                      })}
+                      {/*已选择 {selectedRowKeys.length} 项*/}
+                    </span>
                     <a
                       role="button"
                       onClick={() =>
@@ -810,7 +817,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
                       }
                     >
                       {" "}
-                      清空
+                      {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CLEAR}`)}
                     </a>
                   </div>
                 )}
@@ -821,7 +828,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
                     style={{ marginRight: 10 }}
                     disabled={props.fixAliveHosts}
                     type="normalHost"
-                    label="正常主机"
+                    label={i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.NORMAL_HOST}`)}
                     data-testid="alive-hosts"
                   />
                 )}
@@ -831,7 +838,9 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
                     onChange={onRelatedToMeChange}
                     style={{ marginRight: 10 }}
                     type="relateToMe"
-                    label="与我有关"
+                    label={i18n.t(
+                      `${NS_LIBS_CMDB_INSTANCES}:${K.RELATED_TO_ME}`
+                    )}
                     data-testid="related-to-me"
                   />
                 )}
@@ -840,7 +849,9 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
                   onChange={toggleAutoBreakLine}
                   style={{ marginRight: 10 }}
                   type="showHiddenInfo"
-                  label="省略信息"
+                  label={i18n.t(
+                    `${NS_LIBS_CMDB_INSTANCES}:${K.DISPLAY_OMITTED_INFORMATION}`
+                  )}
                   data-testid="show-hidden-info"
                 />
                 {!props.moreButtonsDisabled && (
@@ -873,7 +884,11 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
           )}
           {(state.q || !isEmpty(conditions)) && (
             <div className={styles.searchConditions}>
-              <span>当前筛选条件：</span>
+              <span>
+                {i18n.t(
+                  `${NS_LIBS_CMDB_INSTANCES}:${K.CURRENT_FILTER_REQUIREMENTS}`
+                )}
+              </span>
               {state.q && (
                 <Tag
                   closable
@@ -882,7 +897,10 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
                     onSearch("");
                   }}
                 >
-                  模糊搜索：{state.q}
+                  {/*模糊搜索：{state.q}*/}
+                  {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.FUZZY_SEARCH}`, {
+                    query: state.q,
+                  })}
                 </Tag>
               )}
               {conditions.map((condition) => (
