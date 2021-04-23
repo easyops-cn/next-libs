@@ -1,4 +1,6 @@
 import { ModelObjectAttrValue } from "@next-sdk/cmdb-sdk/dist/types/model/cmdb";
+import i18n from "i18next";
+import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
 
 export const CMDB_RESOURCE_FIELDS_SETTINGS = {
   defaultFields: {
@@ -68,7 +70,7 @@ export interface extraFieldAttrType {
 export const extraFieldAttrs: extraFieldAttrType[] = [
   {
     id: "creator",
-    name: "创建者",
+    name: i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CREATOR}`),
     isRelation: false,
     value: {
       type: "str",
@@ -76,7 +78,7 @@ export const extraFieldAttrs: extraFieldAttrType[] = [
   },
   {
     id: "ctime",
-    name: "创建时间",
+    name: i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CREATION_TIME}`),
     isRelation: false,
     value: {
       type: "datetime",
@@ -84,7 +86,7 @@ export const extraFieldAttrs: extraFieldAttrType[] = [
   },
   {
     id: "modifier",
-    name: "修改者",
+    name: i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.MODIFIER}`),
     isRelation: false,
     value: {
       type: "str",
@@ -92,7 +94,7 @@ export const extraFieldAttrs: extraFieldAttrType[] = [
   },
   {
     id: "mtime",
-    name: "修改时间",
+    name: i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.LAST_MODIFICATION_TIME}`),
     isRelation: false,
     value: {
       type: "datetime",

@@ -21,8 +21,10 @@ import {
   RelationNameKeys,
   RelationObjectIdKeys,
 } from "@next-libs/cmdb-utils";
-import { clusterMap } from "../instance-list-table/constants";
+import { clusterMap } from "./constants";
 import styles from "./AdvancedSearch.module.css";
+import i18n from "i18next";
+import { NS_LIBS_CMDB_INSTANCES, K } from "../i18n/constants";
 import {
   FormControlTypeEnum,
   ModelAttributeFormControl,
@@ -202,7 +204,7 @@ function getCondition(
 
   switch (conditionType) {
     case ConditionType.Equal:
-      label = "等于";
+      label = i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.OPERATOR_EQUAL_DEFINE}`);
       operations = [
         {
           operator: ComparisonOperators.Equal,
@@ -210,7 +212,9 @@ function getCondition(
       ];
       break;
     case ConditionType.NotEqual:
-      label = "不等于";
+      label = i18n.t(
+        `${NS_LIBS_CMDB_INSTANCES}:${K.OPERATOR_NOT_EQUAL_DEFINE}`
+      );
       operations = [
         {
           operator: ComparisonOperators.NotEqual,
@@ -218,7 +222,7 @@ function getCondition(
       ];
       break;
     case ConditionType.Contain:
-      label = "包含";
+      label = i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.OPERATOR_CONTAIN_DEFINE}`);
       switch (fieldType) {
         case ModelAttributeValueType.ENUMS:
         case ModelAttributeValueType.ARR:
@@ -239,7 +243,9 @@ function getCondition(
       }
       break;
     case ConditionType.NotContain:
-      label = "不包含";
+      label = i18n.t(
+        `${NS_LIBS_CMDB_INSTANCES}:${K.OPERATOR_NOT_CONTAIN_DEFINE}`
+      );
       switch (fieldType) {
         case ModelAttributeValueType.ENUMS:
         case ModelAttributeValueType.ARR:
@@ -260,7 +266,7 @@ function getCondition(
       }
       break;
     case ConditionType.Empty:
-      label = "为空";
+      label = i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.OPERATOR_IS_EMPTY_DEFINE}`);
       operations = [
         {
           operator: ElementOperators.Exists,
@@ -269,7 +275,9 @@ function getCondition(
       ];
       break;
     case ConditionType.NotEmpty:
-      label = "不为空";
+      label = i18n.t(
+        `${NS_LIBS_CMDB_INSTANCES}:${K.OPERATOR_IS_NOT_EMPTY_DEFINE}`
+      );
       operations = [
         {
           operator: ElementOperators.Exists,
@@ -307,17 +315,29 @@ function getCondition(
       switch (fieldType) {
         case ModelAttributeValueType.INTEGER:
         case ModelAttributeValueType.FLOAT:
-          label = "在此区间";
+          // label = "在此区间";
+          label = i18n.t(
+            `${NS_LIBS_CMDB_INSTANCES}:${K.OPERATOR_BETWEEN_DEFINE_TEXT_INT}`
+          );
           break;
         case ModelAttributeValueType.DATE:
         case ModelAttributeValueType.DATETIME:
-          label = "在此期间";
+          // label = "在此期间";
+          label = i18n.t(
+            `${NS_LIBS_CMDB_INSTANCES}:${K.OPERATOR_BETWEEN_DEFINE_TEXT_TIME}`
+          );
           break;
         case ModelAttributeValueType.IP:
-          label = "范围";
+          // label = "范围";
+          label = i18n.t(
+            `${NS_LIBS_CMDB_INSTANCES}:${K.OPERATOR_BETWEEN_DEFINE_TEXT}`
+          );
           break;
         default:
-          label = "在此之间";
+          // label = "在此之间";
+          label = i18n.t(
+            `${NS_LIBS_CMDB_INSTANCES}:${K.OPERATOR_BETWEEN_DEFINE_TEXT_THE}`
+          );
       }
       break;
   }
@@ -400,7 +420,7 @@ export function getFieldConditionsAndValues(
   let queryValuesStr = "";
   let values = currentCondition.operations.map((operation) => {
     let value: any;
-
+    // istanbul ignore else
     if (expressions?.[operation.operator] !== undefined) {
       value = expressions[operation.operator];
       let values = [expressions[operation.operator]];
@@ -1016,14 +1036,14 @@ export class AdvancedSearchForm extends React.Component<
                 htmlType="submit"
                 data-testid="submit-button"
               >
-                搜索
+                {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.SEARCH}`)}
               </Button>
               <Button
                 style={{ marginLeft: 8 }}
                 onClick={this.handleReset}
                 data-testid="reset-button"
               >
-                重置
+                {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.RESET}`)}
               </Button>
             </Col>
           </Row>

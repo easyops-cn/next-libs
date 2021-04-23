@@ -805,7 +805,6 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
                       {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CHOSEN_OPTIONS}`, {
                         count: selectedRowKeys.length,
                       })}
-                      {/*已选择 {selectedRowKeys.length} 项*/}
                     </span>
                     <a
                       role="button"
@@ -897,7 +896,6 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
                     onSearch("");
                   }}
                 >
-                  {/*模糊搜索：{state.q}*/}
                   {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.FUZZY_SEARCH}`, {
                     query: state.q,
                   })}

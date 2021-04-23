@@ -6,9 +6,11 @@ import { InstanceListModal } from "./InstanceListModal";
 import { getInstanceListData } from "../instance-list-table/data-providers/__mocks__";
 import { mockFetchCmdbObjectListReturnValue } from "../__mocks__";
 import { InstanceApi_postSearch } from "@next-sdk/cmdb-sdk";
-
+import i18n from "i18next";
 jest.mock("@next-sdk/cmdb-sdk");
 
+jest.mock("../i18n");
+jest.spyOn(i18n, "t").mockReturnValue("");
 const mockInstanceListData = InstanceApi_postSearch as jest.Mock;
 
 mockInstanceListData.mockResolvedValue(getInstanceListData);

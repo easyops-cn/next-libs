@@ -1,16 +1,11 @@
 import "@testing-library/jest-dom/extend-expect";
 import React from "react";
-import {
-  render,
-  fireEvent,
-  waitForElement,
-  wait,
-} from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 import { Settings } from "./SettingsContainer";
 import { HOST } from "./data-providers/__mocks__";
 import { InstanceListPresetConfigs } from "./interfaces";
-import { getBatchEditableRelations } from "@next-libs/cmdb-utils";
-
+import i18n from "i18next";
+import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
 describe("Settings", () => {
   const objectId = "HOST";
   const modelData = HOST;
@@ -30,7 +25,8 @@ describe("Settings", () => {
         onHideSettings={onHideSetting}
       />
     );
-    fireEvent.click(getByText("确 定"));
+    const confirmText = i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CONFIRM}`);
+    fireEvent.click(getByText(confirmText));
     expect(onHideSetting).toBeCalled();
     expect(onHandleConfirm).toBeCalledWith(
       modelData.attrList.map((attr) => attr.id)
@@ -48,7 +44,8 @@ describe("Settings", () => {
         onHideSettings={onHideSetting}
       />
     );
-    fireEvent.click(getByText("取 消"));
+    const cancelText = i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CANCEL}`);
+    fireEvent.click(getByText(cancelText));
     expect(onHideSetting).toBeCalled();
   });
 
@@ -64,7 +61,10 @@ describe("Settings", () => {
         defaultFields={presetConfigs.fieldIds}
       />
     );
-    fireEvent.click(getByText("恢复默认"));
+    const defaultText = i18n.t(
+      `${NS_LIBS_CMDB_INSTANCES}:${K.RESTORE_DEFAULT}`
+    );
+    fireEvent.click(getByText(defaultText));
     expect(onHideSetting).toBeCalled();
     expect(onHandleReset).toBeCalledWith(presetConfigs.fieldIds);
   });
@@ -102,8 +102,11 @@ describe("Settings", () => {
         defaultFields={presetConfigs.fieldIds}
       />
     );
+    const inputSearchPlaceholder = i18n.t(
+      `${NS_LIBS_CMDB_INSTANCES}:${K.SEARCH_BY_FIELD_NAME}`
+    );
     const inputSearch = getByPlaceholderText(
-      "按字段名称搜索"
+      inputSearchPlaceholder
     ) as HTMLInputElement;
     fireEvent.change(inputSearch, { target: { value: "agent" } });
     // todo 没有触发 filterColTag

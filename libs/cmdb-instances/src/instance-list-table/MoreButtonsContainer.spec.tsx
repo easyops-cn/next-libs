@@ -2,8 +2,9 @@ import "@testing-library/jest-dom/extend-expect";
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import { MoreButtonsContainer } from "./MoreButtonsContainer";
-import { InstanceListPresetConfigs } from "./interfaces";
 import { HOST } from "./data-providers/__mocks__";
+import i18n from "i18next";
+import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
 
 jest.mock("./SettingsContainer", () => ({
   Settings: jest.fn((props: any) => {
@@ -35,7 +36,8 @@ describe("MoreButtonsContainer", () => {
     );
     const moreSettingsButton = getByRole("button");
     fireEvent.click(moreSettingsButton);
-    const settingButton = getByText("显示设置");
+    const settingText = i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.SHOW_SETTINGS}`);
+    const settingButton = getByText(settingText);
     fireEvent.click(settingButton);
     const cancelBtn = getByText("取 消");
     fireEvent.click(cancelBtn);

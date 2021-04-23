@@ -33,7 +33,8 @@ import { Link } from "@next-libs/basic-components";
 import { StructTable } from "../struct-components/StructTable";
 import { FieldsByTag } from "../model-attribute-form/ModelAttributeForm";
 import { InstanceFormat } from "../components";
-import { NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
+import i18n from "i18next";
+import { NS_LIBS_CMDB_INSTANCES, K } from "../i18n/constants";
 import style from "./index.module.css";
 import shared from "./shared.module.css";
 
@@ -96,19 +97,21 @@ export class LegacyInstanceDetail extends React.Component<
       helpTips: [
         {
           value: "creator",
-          label: "创建者",
+          label: i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CREATOR}`),
         },
         {
           value: "ctime",
-          label: "创建时间",
+          label: i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CREATION_TIME}`),
         },
         {
           value: "modifier",
-          label: "修改者",
+          label: i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.MODIFIER}`),
         },
         {
           value: "mtime",
-          label: "修改时间",
+          label: i18n.t(
+            `${NS_LIBS_CMDB_INSTANCES}:${K.LAST_MODIFICATION_TIME}`
+          ),
         },
       ],
       basicInfoGroupList: [],
@@ -189,7 +192,7 @@ export class LegacyInstanceDetail extends React.Component<
     const { instanceData, helpTips } = this.state;
     return (
       <>
-        基本信息
+        {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.BASIC_INFORMATION}`)}
         <Popover
           placement="bottom"
           content={
@@ -273,7 +276,7 @@ export class LegacyInstanceDetail extends React.Component<
         {menu && (
           <Dropdown overlay={menu}>
             <a>
-              更多 <DownOutlined />
+              {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.MORE}`)} <DownOutlined />
             </a>
           </Dropdown>
         )}
@@ -521,10 +524,15 @@ export class LegacyInstanceDetail extends React.Component<
           groupTag =
             field.left_tags?.length && field.left_tags[0].trim() !== ""
               ? field.left_tags[0]
-              : "默认属性";
+              : i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.DEFAULT_ATTRIBUTE}`);
         } else {
+          const basicInfoText = i18n.t(
+            `${NS_LIBS_CMDB_INSTANCES}:${K.BASIC_INFORMATION}`
+          );
           groupTag =
-            field.tag.length > 0 ? field.tag[0] || "基本信息" : "基本信息";
+            field.tag.length > 0
+              ? field.tag[0] || basicInfoText
+              : basicInfoText;
         }
 
         const basicInfoGroup = basicInfoGroupList.find(

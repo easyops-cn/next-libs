@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { WarningOutlined } from "@ant-design/icons";
 import { Modal, Button } from "antd";
-
+import i18n from "i18next";
+import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
 import { CmdbModels, InstanceApi_postSearch } from "@next-sdk/cmdb-sdk";
 import { InstanceList } from "../instance-list/InstanceList";
 import { InstanceListPresetConfigs } from "../instance-list-table/interfaces";
@@ -104,18 +105,20 @@ export function InstanceListModal(
             <WarningOutlined
               style={{ color: "#ff0016", marginRight: "10px" }}
             />
-            只允许选择一个实例
+            {i18n.t(
+              `${NS_LIBS_CMDB_INSTANCES}:${K.ONLY_ONE_INSTANCE_TO_ALLOWED}`
+            )}
           </span>
         )}
         {props.selectDisabled && (
           <Button key="back" onClick={props.onCancel}>
-            关闭
+            {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CLOSE}`)}
           </Button>
         )}
         {!props.selectDisabled && (
           <>
             <Button key="back" onClick={handleCancel}>
-              取消
+              {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CANCEL}`)}
             </Button>
             <Button
               key="submit"
@@ -125,7 +128,7 @@ export function InstanceListModal(
                 props.singleSelect && selectedInstanceListTemp.length > 1
               }
             >
-              确认
+              {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CONFIRM}`)}
             </Button>
           </>
         )}
