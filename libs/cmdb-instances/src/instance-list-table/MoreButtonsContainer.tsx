@@ -2,8 +2,9 @@ import React from "react";
 import { EllipsisOutlined, SettingOutlined } from "@ant-design/icons";
 import { Dropdown, Menu, Modal, Button } from "antd";
 import { CmdbModels } from "@next-sdk/cmdb-sdk";
+import i18n from "i18next";
+import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
 import { Settings } from "./SettingsContainer";
-import { InstanceListPresetConfigs } from "./interfaces";
 import styles from "./InstanceListTable.module.css";
 interface MoreButtonsContainerProps {
   modelData: Partial<CmdbModels.ModelCmdbObject>;
@@ -49,7 +50,8 @@ export class MoreButtonsContainer extends React.Component<
     const menu = (
       <Menu>
         <Menu.Item onClick={this.handleSettingButtonClick}>
-          <SettingOutlined /> 显示设置
+          <SettingOutlined />
+          {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.SHOW_SETTINGS}`)}
         </Menu.Item>
       </Menu>
     );
@@ -74,7 +76,7 @@ export class MoreButtonsContainer extends React.Component<
           <Settings
             currentFields={this.props.fieldIds}
             modelData={this.props.modelData}
-            title={"显示设置"}
+            title={i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.SHOW_SETTINGS}`)}
             onHideSettings={this.handleCancel}
             onHandleConfirm={this.props.onHandleConfirm}
             onHandleReset={this.props.onHandleReset}

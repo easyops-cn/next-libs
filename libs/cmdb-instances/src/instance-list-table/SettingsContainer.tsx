@@ -7,7 +7,8 @@ import {
   CMDB_RESOURCE_FIELDS_SETTINGS,
 } from "@next-libs/cmdb-utils";
 import { CmdbModels } from "@next-sdk/cmdb-sdk";
-
+import i18n from "i18next";
+import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
 interface SettingsProps {
   title?: string;
   currentFields: string[];
@@ -165,12 +166,14 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
       <>
         <Typography.Title level={5}>{title}</Typography.Title>
         <Divider orientation="left" plain>
-          字段设置
+          {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.FIELD_SETTINGS}`)}
         </Divider>
         <div>
           <Input.Search
             value={this.state.q}
-            placeholder="按字段名称搜索"
+            placeholder={i18n.t(
+              `${NS_LIBS_CMDB_INSTANCES}:${K.SEARCH_BY_FIELD_NAME}`
+            )}
             onChange={this.handleChange}
             style={{ width: 200 }}
           />
@@ -198,7 +201,7 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
         <div style={{ display: "flex" }}>
           <div>
             <Button type="default" onClick={this.handleReset}>
-              恢复默认
+              {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.RESTORE_DEFAULT}`)}
             </Button>
           </div>
           <div style={{ marginLeft: "auto" }}>
@@ -207,14 +210,14 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
               onClick={this.handleCancel}
               style={{ marginRight: 10 }}
             >
-              取消
+              {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CANCEL}`)}
             </Button>
             <Button
               type="primary"
               onClick={this.handleConfirm}
               disabled={count === 0}
             >
-              确定
+              {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CONFIRM}`)}
             </Button>
           </div>
         </div>

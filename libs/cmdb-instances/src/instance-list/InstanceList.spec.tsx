@@ -26,7 +26,10 @@ import {
 import { InstanceListPresetConfigs } from "../instance-list/InstanceList";
 import { mount, shallow } from "enzyme";
 import { BrickAsComponent } from "@next-core/brick-kit";
+import i18n from "i18next";
 
+jest.mock("../i18n");
+jest.spyOn(i18n, "t").mockReturnValue("");
 jest.mock("@next-libs/storage");
 jest.mock("@next-sdk/cmdb-sdk");
 jest.mock("../instance-list-table", () => ({

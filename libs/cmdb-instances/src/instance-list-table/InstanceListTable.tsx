@@ -34,13 +34,13 @@ import {
   RelationObjectIdKeys,
   RelationObjectSides,
 } from "@next-libs/cmdb-utils";
-import { NS_CMDB_INSTANCES } from "./i18n/constants";
-
 import { ModelAttributeValueType } from "../model-attribute-form-control/ModelAttributeFormControl";
 import { Attribute, StructTable } from "../struct-components";
 import styles from "./InstanceListTable.module.css";
 import { customRules } from "./utils";
 import { BrickAsComponent } from "@next-core/brick-kit";
+import { NS_LIBS_CMDB_INSTANCES, K } from "../i18n/constants";
+import i18n from "i18next";
 
 export interface CustomColumn extends ColumnType<Record<string, unknown>> {
   useBrick: UseBrickConf;
@@ -357,7 +357,9 @@ export class LegacyInstanceListTable extends React.Component<
                 }
                 placement="bottom"
               >
-                <Button type="link">查看</Button>
+                <Button type="link">
+                  {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.VIEW}`)}
+                </Button>
               </Popover>
             ) : null;
           };
@@ -651,6 +653,6 @@ export class LegacyInstanceListTable extends React.Component<
   }
 }
 
-export const InstanceListTable = withTranslation(NS_CMDB_INSTANCES)(
+export const InstanceListTable = withTranslation(NS_LIBS_CMDB_INSTANCES)(
   LegacyInstanceListTable
 );
