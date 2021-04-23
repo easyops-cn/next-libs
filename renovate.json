@@ -6,7 +6,11 @@
   "commitMessagePrefix": "chore(deps):",
   "ignorePresets": [":ignoreModulesAndTests"],
   "packageRules": [
-    { "automerge": true, "matchDepTypes": ["devDependencies"] },
+    {
+      "automerge": true,
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["minor", "patch"]
+    },
     {
       "enabled": false,
       "matchPackagePatterns": [
@@ -15,7 +19,11 @@
         "^@micro-apps/",
         "^@next-bricks/",
         "^@next-libs/",
-        "^@next-micro-apps/"
+        "^@next-micro-apps/",
+        "^@sdk/",
+        "^@templates/",
+        "^@next-sdk/",
+        "^@next-legacy-templates/"
       ],
       "matchPackageNames": [
         "@ant-design/compatible",
@@ -89,11 +97,6 @@
       },
       "major": { "enabled": false },
       "matchPackagePatterns": ["^@next-core/"]
-    },
-    {
-      "groupName": "sdk packages",
-      "matchPackagePatterns": ["^@next-sdk/", "^@sdk/"],
-      "automerge": false
     }
   ],
   "postUpdateOptions": ["yarnDedupeHighest"]
