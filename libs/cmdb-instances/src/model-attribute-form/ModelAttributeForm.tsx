@@ -29,6 +29,8 @@ import {
   modifyModelData,
 } from "@next-libs/cmdb-utils";
 import styles from "./ModelAttributeForm.module.css";
+import i18n from "i18next";
+import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
 export interface ModelAttributeFormChildren {
   header: string;
   name: string;
@@ -128,7 +130,9 @@ export class ModelAttributeForm extends Component<
       );
     } else {
       props.basicInfoAttrList.forEach((basicInfoAttr) => {
-        const groupTag = basicInfoAttr.tag[0] || "默认属性";
+        const groupTag =
+          basicInfoAttr.tag[0] ||
+          i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.DEFAULT_ATTRIBUTE}`);
 
         const attrs = AttrListGroupByTag.find(([key]) => key === groupTag);
         // 判断是否为黑名单内的属性
@@ -225,7 +229,9 @@ export class ModelAttributeForm extends Component<
   }
 
   get submitBtnText() {
-    return this.props.isCreate ? "保存" : "修改";
+    return this.props.isCreate
+      ? i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.SAVE}`)
+      : i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.MODIFICATION}`);
   }
 
   static tagsValidator(
@@ -233,14 +239,18 @@ export class ModelAttributeForm extends Component<
   ): (rule: any, value: string[], callback: (msg?: string) => void) => void {
     return (rule: any, value: string[], callback: (msg?: string) => void) => {
       if (!Array.isArray(value)) {
-        return callback("不满足预设的正则表达式，请修改");
+        return callback(
+          i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.NOT_MEET_REGEX}`)
+        );
       }
 
       const isValidAll = value.every((v) =>
         ModelAttributeFormControl.computePattern(attribute).test(v)
       );
 
-      isValidAll ? callback() : callback("不满足预设的正则表达式，请修改");
+      isValidAll
+        ? callback()
+        : callback(i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.NOT_MEET_REGEX}`));
     };
   }
 
@@ -251,7 +261,7 @@ export class ModelAttributeForm extends Component<
       const { url } = AttributeFormControlUrl.breakDownValue(value);
       ModelAttributeFormControl.computePattern(attribute).test(url)
         ? callback()
-        : callback("不满足预设的正则表达式，请修改");
+        : callback(i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.NOT_MEET_REGEX}`));
     };
   }
 
@@ -285,7 +295,7 @@ export class ModelAttributeForm extends Component<
       required,
       {
         pattern: ModelAttributeFormControl.computePattern(attribute),
-        message: "不满足预设的正则表达式，请修改",
+        message: i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.NOT_MEET_REGEX}`),
       },
     ];
   }
@@ -315,7 +325,7 @@ export class ModelAttributeForm extends Component<
           <CmdbInstancesSelectPanel
             objectId={relation.right_object_id}
             objectMap={this.modelMap}
-            addTitle="添加"
+            addTitle={i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.ADD}`)}
             singleSelect={relation.left_max === 1}
           />
         )}
@@ -416,7 +426,7 @@ export class ModelAttributeForm extends Component<
           <Form.Item {...this.formItemProps} label=" " colon={false}>
             {allowContinueCreate && (
               <Checkbox onChange={this.handleCheckContinueCreating}>
-                创建另一个
+                {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CREATE_ANOTHER}`)}
               </Checkbox>
             )}
             <Button type="primary" htmlType="submit" disabled={this.disabled}>

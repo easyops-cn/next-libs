@@ -7,6 +7,8 @@ import { InstanceApi_postSearch } from "@next-sdk/cmdb-sdk";
 import { ModelRelationForm } from "./ModelRelationForm";
 
 import { mockFetchCmdbObjectListReturnValue } from "../__mocks__";
+import i18n from "i18next";
+import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
 
 jest.mock("@next-sdk/cmdb-sdk");
 
@@ -36,8 +38,8 @@ describe("BrickConditionalDisplay", () => {
         instanceListData={instanceListData}
       />
     );
-
-    const button = result.getByText("添加");
+    const addText = i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.ADD}`);
+    const button = result.getByText(addText);
     fireEvent.click(button);
     expect(mockPostSearch).toBeCalled();
   });

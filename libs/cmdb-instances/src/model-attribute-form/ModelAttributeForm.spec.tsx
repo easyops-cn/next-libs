@@ -10,7 +10,8 @@ import {
   mockFetchCmdbObjectListReturnValue,
 } from "../__mocks__";
 import { Checkbox } from "antd";
-
+import i18n from "i18next";
+import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
 /* eslint-disable  */
 
 describe("ModelAttributeForm", () => {
@@ -97,7 +98,9 @@ describe("ModelAttributeForm", () => {
       await new Promise((resolve) => setImmediate(resolve));
 
       wrapper.update();
-      expect(instance.submitBtnText).toBe("保存");
+      expect(instance.submitBtnText).toBe(
+        i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.SAVE}`)
+      );
       instance.props.form.validateFields = jest
         .fn()
         .mockImplementation(
@@ -140,7 +143,9 @@ describe("ModelAttributeForm", () => {
     const instance = wrapper
       .find(ModelAttributeForm)
       .instance() as ModelAttributeForm;
-    expect(instance.submitBtnText).toBe("修改");
+    expect(instance.submitBtnText).toBe(
+      i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.MODIFICATION}`)
+    );
     expect(instance.state.sending).toBeFalsy();
 
     wrapper.find("Button").at(1).simulate("click");

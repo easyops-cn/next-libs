@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Modal, Table } from "antd";
 import { ColumnProps } from "antd/lib/table";
-
+import i18n from "i18next";
+import { NS_LIBS_CMDB_INSTANCES, K } from "../i18n/constants";
 import {
   CmdbModels,
   InstanceApi_PostSearchResponseBody,
@@ -118,7 +119,9 @@ export function ModelRelationForm(
   return (
     <div className={styles.modelRelationFormWrapper}>
       <Modal
-        title={`批量添加${props.relation.right_description}`}
+        title={i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.ITEM_ADD_IN_BATCHES}`, {
+          name: props.relation.right_description,
+        })}
         visible={visible}
         width={900}
         onOk={handleOk}
@@ -134,7 +137,9 @@ export function ModelRelationForm(
           onPaginationChange={handlePaginationChange}
         ></InstanceListTable>
       </Modal>
-      <a onClick={openSelectInstanceModel}>添加</a>
+      <a onClick={openSelectInstanceModel}>
+        {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.ADD}`)}
+      </a>
       {renderTable(selectedInstanceList)}
     </div>
   );
