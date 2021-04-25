@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@2.0.1...@next-libs/cmdb-utils@2.1.0) (2021-04-25)
+
+
+### Features
+
+* **cmdb-instances:** cmdb-instances 增加国际化 ([efde23f](https://github.com/easyops-cn/next-libs/commit/efde23fed438b1f97a2576f629e8a3708b1c1ace))
+
+
+
+
+
 ## [2.0.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@2.0.0...@next-libs/cmdb-utils@2.0.1) (2021-04-21)
 
 
