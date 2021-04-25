@@ -75,6 +75,8 @@ const locale: Locale = {
   [K.CHOOSE_INSTANCE]: "选择实例",
   [K.VIEW_ALL_DATA]: "查看全部{{ count }}条数据",
   [K.FILTER_FROM_CMDB]: "从 CMDB 中筛选{{name}}",
+  [K.PAGINATION_TOTAL_TEXT]: "共",
+  [K.PAGINATION_TOTAL_UNIT]: "项",
 };
 
 export default locale;

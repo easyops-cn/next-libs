@@ -80,6 +80,8 @@ const locale: Locale = {
   [K.CHOOSE_INSTANCE]: "Choose instance",
   [K.VIEW_ALL_DATA]: "View all {{count}} data",
   [K.FILTER_FROM_CMDB]: "Filter {{name}} from CMDB",
+  [K.PAGINATION_TOTAL_TEXT]: "total",
+  [K.PAGINATION_TOTAL_UNIT]: "items",
 };
 
 export default locale;
