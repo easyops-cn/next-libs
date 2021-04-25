@@ -3,6 +3,8 @@ import { DatePicker, Input, InputNumber, Modal, Radio, Select } from "antd";
 import { Attribute, Structkey } from "./interfaces";
 import { boolOptions } from "../model-attribute-form-control/ModelAttributeFormControl";
 import styles from "./index.module.css";
+import i18n from "i18next";
+import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
 import moment from "moment";
 import { RadioChangeEvent } from "antd/lib/radio";
 import { SelectValue } from "antd/lib/select";
@@ -201,7 +203,7 @@ export class AddStructModal extends React.Component<
                 color: "#fc5043",
               }}
             >
-              不满足预设的正则表达式，请修改
+              {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.NOT_MEET_REGEX}`)}
             </label>
           </div>
         );
@@ -248,8 +250,8 @@ export class AddStructModal extends React.Component<
           disabled: this.state.showError.includes(true),
           id: "okBtn",
         }}
-        okText="确定"
-        cancelText="取消"
+        okText={i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CONFIRM}`)}
+        cancelText={i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CANCEL}`)}
         cancelButtonProps={{ id: "cancelBtn" }}
         destroyOnClose={true}
       >

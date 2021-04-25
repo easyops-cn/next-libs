@@ -6,6 +6,8 @@ import { InstanceListTable } from "../instance-list-table";
 import { InstanceListModal } from "../instance-list-modal/InstanceListModal";
 
 import style from "./style.module.css";
+import i18n from "i18next";
+import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
 
 export interface CmdbInstancesSelectPanelProps {
   objectMap: { [key: string]: Partial<CmdbModels.ModelCmdbObject> };
@@ -117,7 +119,12 @@ export function CmdbInstancesSelectPanel(
         objectMap={props.objectMap}
         objectId={props.objectId}
         visible={addInstancesModal.visible}
-        title={props.modalTitle ?? `从 CMDB 中筛选${modelData.name}`}
+        title={
+          props.modalTitle ??
+          i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.FILTER_FROM_CMDB}`, {
+            name: modelData.name,
+          })
+        }
         selectedRowKeys={selectedInstanceList.map(
           (instance) => instance.instanceId
         )}
@@ -136,7 +143,9 @@ export function CmdbInstancesSelectPanel(
         objectMap={props.objectMap}
         objectId={props.objectId}
         visible={allSelectedInstancesModal.visible}
-        title="查看所有选择实例"
+        title={i18n.t(
+          `${NS_LIBS_CMDB_INSTANCES}:${K.VIEW_ALL_SELECTED_INSTANCES}`
+        )}
         presetConfigs={{
           query: {
             instanceId: {
@@ -152,7 +161,8 @@ export function CmdbInstancesSelectPanel(
         onClick={openAddInstancesModal}
         style={{ marginBottom: "12px" }}
       >
-        {props.addTitle ?? "选择实例"}
+        {props.addTitle ??
+          i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CHOOSE_INSTANCE}`)}
       </a>
       <div className={cs}>
         <InstanceListTable
@@ -173,7 +183,11 @@ export function CmdbInstancesSelectPanel(
             className={style.showAllSelectedInstancesButton}
             onClick={openAllSelectedInstancesModal}
           >
-            <a>查看全部 {selectedInstanceList.length} 条数据</a>
+            <a>
+              {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.VIEW_ALL_DATA}`, {
+                count: selectedInstanceList.length,
+              })}
+            </a>
           </div>
         )}
       </div>

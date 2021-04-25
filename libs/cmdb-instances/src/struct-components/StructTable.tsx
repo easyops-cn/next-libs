@@ -6,6 +6,8 @@ import { isEmpty } from "lodash";
 import { AddStructModal } from "./AddStructModal";
 import { SizeType } from "antd/lib/config-provider/SizeContext";
 import styles from "./index.module.css";
+import i18n from "i18next";
+import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
 export interface StructTableProps {
   attribute: Attribute;
   structData: any;
@@ -51,7 +53,7 @@ export class StructTable extends React.Component<
     }));
     if (this.props.isEditable) {
       columns.push({
-        title: "操作",
+        title: i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.OPERATION}`),
         className: styles.structTableTd,
         dataIndex: "operation",
         render: (_text: string, record: any, index: number): any => {
@@ -65,10 +67,10 @@ export class StructTable extends React.Component<
     const confirm = Modal.confirm;
 
     confirm({
-      title: "确定要删除该结构体吗？",
-      okText: "确定",
+      title: i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.DELETE_STRUCT_CONFIRM_MSG}`),
+      okText: i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CONFIRM}`),
       okType: "danger",
-      cancelText: "取消",
+      cancelText: i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CANCEL}`),
       onOk: () => {
         this.remove(index);
       },

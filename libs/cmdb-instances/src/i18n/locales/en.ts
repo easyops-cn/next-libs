@@ -67,6 +67,19 @@ const locale: Locale = {
   [K.LAST_MODIFICATION_TIME]: "Last modification time",
   [K.DEVELOPMENT]: "Development",
   [K.VIEW]: "View",
+  [K.ITEM_ADD_IN_BATCHES]: "Add {{name}} in batches",
+  [K.SAVE]: "Save",
+  [K.MODIFICATION]: "Modification",
+  [K.NOT_MEET_REGEX]:
+    "Does not match the preset regular expression, please modify",
+  [K.CREATE_ANOTHER]: "Create another",
+  [K.DELETE_STRUCT_CONFIRM_MSG]:
+    "Are you sure you want to delete the structure?",
+  [K.OPERATION]: "Operation",
+  [K.VIEW_ALL_SELECTED_INSTANCES]: "View all selected instances",
+  [K.CHOOSE_INSTANCE]: "Choose instance",
+  [K.VIEW_ALL_DATA]: "View all {{count}} data",
+  [K.FILTER_FROM_CMDB]: "Filter {{name}} from CMDB",
 };
 
 export default locale;

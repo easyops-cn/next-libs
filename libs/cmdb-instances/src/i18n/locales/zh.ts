@@ -64,6 +64,17 @@ const locale: Locale = {
   [K.LAST_MODIFICATION_TIME]: "修改时间",
   [K.DEVELOPMENT]: "开发",
   [K.VIEW]: "查看",
+  [K.ITEM_ADD_IN_BATCHES]: "批量添加{{name}}",
+  [K.SAVE]: "保存",
+  [K.MODIFICATION]: "修改",
+  [K.NOT_MEET_REGEX]: "不满足预设的正则表达式，请修改",
+  [K.CREATE_ANOTHER]: "创建另一个",
+  [K.DELETE_STRUCT_CONFIRM_MSG]: "确定要删除该结构体吗？",
+  [K.OPERATION]: "操作",
+  [K.VIEW_ALL_SELECTED_INSTANCES]: "查看所有选择实例",
+  [K.CHOOSE_INSTANCE]: "选择实例",
+  [K.VIEW_ALL_DATA]: "查看全部{{ count }}条数据",
+  [K.FILTER_FROM_CMDB]: "从 CMDB 中筛选{{name}}",
 };
 
 export default locale;
