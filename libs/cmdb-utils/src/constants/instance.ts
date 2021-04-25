@@ -1,3 +1,5 @@
+import i18n from "i18next";
+import { NS_LIBS_CMDB_UTILS, K } from "../i18n/constants";
 const { EasyOpsConfig = {} } = window as any;
 export const DefaultNameKey = "name";
 export const BASIC_INFORMATION_RELATION_GROUP_ID = "basic_info";
@@ -16,15 +18,15 @@ export const CMDB_RESOURCE_FIELDS_SETTINGS: any = {
       "memSize",
       "osDistro",
       "owner",
-      "_agentStatus"
-    ]
+      "_agentStatus",
+    ],
   },
   fixedFields: {
     APP: ["name"],
     USER: ["name"],
     USER_GROUP: ["name"],
     "APP-HOST": ["ip"],
-    HOST: ["hostname", "ip"]
+    HOST: ["hostname", "ip"],
   },
   ignoredFields: {
     APP: [
@@ -36,76 +38,76 @@ export const CMDB_RESOURCE_FIELDS_SETTINGS: any = {
       "packageId",
       "installPath",
       "runUser",
-      "businessId"
+      "businessId",
     ],
     "APP-HOST": ["deviceId"],
     BUSINESS: ["businessId"],
     CLUSTER: ["_packageList", "clusterId", "packageId"],
-    HOST: ["deviceId"]
-  }
+    HOST: ["deviceId"],
+  },
 };
 export enum SYSTEM_TYPE {
   MONITOR = "monitor",
-  CMDB = "cmdb"
+  CMDB = "cmdb",
 }
 export const OPERATION_ACTION = [
   {
     value: "create",
-    text: "新建"
+    text: () => i18n.t(`${NS_LIBS_CMDB_UTILS}:${K.CREATE}`),
   },
   {
     value: "modify",
-    text: "编辑"
+    text: () => i18n.t(`${NS_LIBS_CMDB_UTILS}:${K.EDIT}`),
   },
   {
     value: "delete",
-    text: "删除"
+    text: () => i18n.t(`${NS_LIBS_CMDB_UTILS}:${K.DELETE}`),
   },
   {
     value: "active",
-    text: "激活"
+    text: () => i18n.t(`${NS_LIBS_CMDB_UTILS}:${K.ACTIVE}`),
   },
   {
     value: "archive",
-    text: "归档"
+    text: () => i18n.t(`${NS_LIBS_CMDB_UTILS}:${K.ARCHIVE}`),
   },
   {
     value: "auto_discovery",
-    text: "自动发现"
+    text: () => i18n.t(`${NS_LIBS_CMDB_UTILS}:${K.AUTOMATIC_DISCOVERY}`),
   },
   {
     value: "batch_create",
-    text: "批量新建"
+    text: () => i18n.t(`${NS_LIBS_CMDB_UTILS}:${K.CREATE_IN_BATCHES}`),
   },
   {
     value: "batch_modify",
-    text: "批量编辑"
-  }
+    text: () => i18n.t(`${NS_LIBS_CMDB_UTILS}:${K.EDIT_IN_BATCHES}`),
+  },
 ];
 
 export const OPERATION_TYPE = [
   {
     value: "instance",
-    text: "实例"
+    text: () => i18n.t(`${NS_LIBS_CMDB_UTILS}:${K.INSTANCE}`),
   },
   {
     value: "instance_relation",
-    text: "实例关系"
+    text: () => i18n.t(`${NS_LIBS_CMDB_UTILS}:${K.INSTANCE_RELATION}`),
   },
   {
     value: "object",
-    text: "模型"
+    text: () => i18n.t(`${NS_LIBS_CMDB_UTILS}:${K.OBJECT}`),
   },
   {
     value: "object.attribute",
-    text: "模型属性"
+    text: () => i18n.t(`${NS_LIBS_CMDB_UTILS}:${K.OBJECT_ATTRIBUTE}`),
   },
   {
     value: "object_relation",
-    text: "模型关系"
+    text: () => i18n.t(`${NS_LIBS_CMDB_UTILS}:${K.OBJECT_RELATION}`),
   },
   {
     value: "object.relation_group",
-    text: "模型关系分组"
-  }
+    text: () => i18n.t(`${NS_LIBS_CMDB_UTILS}:${K.RELATION_GROUP}`),
+  },
 ];
