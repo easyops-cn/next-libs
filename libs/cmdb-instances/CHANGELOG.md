@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.1.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@4.0.3...@next-libs/cmdb-instances@4.1.0) (2021-04-25)
+
+
+### Features
+
+* **cmdb-instances:** cmdb-instances 增加国际化 ([e051e79](https://github.com/easyops-cn/next-libs/commit/e051e791df35ebcba6ee7f5edcd32fc43e091077))
+* **cmdb-instances:** cmdb-instances 增加国际化 ([a9a543a](https://github.com/easyops-cn/next-libs/commit/a9a543a53a4b9bc210d19e54f7ddc1a6caeaf73b))
+* **cmdb-instances:** cmdb-instances 增加国际化 ([ce3df3e](https://github.com/easyops-cn/next-libs/commit/ce3df3e3c4386a80c713a6acb033f4b487a93a0c))
+
+
+
+
+
 ## [4.0.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@4.0.2...@next-libs/cmdb-instances@4.0.3) (2021-04-21)
 
 
