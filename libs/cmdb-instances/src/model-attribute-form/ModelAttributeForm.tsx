@@ -82,7 +82,7 @@ export class ModelAttributeForm extends Component<
 
   static defaultProps = {
     showCancelButton: true,
-    cancelText: "取消",
+    cancelText: i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CANCEL}`),
     cancelType: "default" as ButtonType,
   };
 

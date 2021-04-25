@@ -135,7 +135,9 @@ export class LegacyInstanceListTable extends React.Component<
       showSizeChanger: this.props.showSizeChanger,
       showTotal: (totals: number) => (
         <span className={styles.totalText}>
-          共 <strong className={styles.total}>{totals}</strong> 项
+          {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.PAGINATION_TOTAL_TEXT}`)}{" "}
+          <strong className={styles.total}>{totals}</strong>{" "}
+          {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.PAGINATION_TOTAL_UNIT}`)}
         </span>
       ),
     };
