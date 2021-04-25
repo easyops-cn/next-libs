@@ -1,4 +1,8 @@
 import moment from "moment";
+import i18n from "i18next";
+import { NS_LIBS_DATETIME, K } from "./i18n/constants";
+import { addResourceBundle } from "./i18n";
+addResourceBundle();
 
 const TIME_OFFSET = 0;
 
@@ -8,7 +12,7 @@ export enum HumanizeTimeFormat {
   relative = "relative",
   future = "future",
   accurate = "accurate",
-  auto = "auto"
+  auto = "auto",
 }
 
 export const humanizeTime = (
@@ -27,8 +31,8 @@ export const humanizeTime = (
   const now = moment().add(TIME_OFFSET);
   const fFull = "LL HH:mm";
   const fMedium = "LL ah:mm";
-  const fShort = "MMMD日 ah:mm";
-  const fShort24 = "MMMD日 HH:mm";
+  const fShort = i18n.t(`${NS_LIBS_DATETIME}:${K.FORMAT_SHORT}`);
+  const fShort24 = i18n.t(`${NS_LIBS_DATETIME}:${K.FORMAT_SHORT_DAY}`);
   const fDefault = "LL HH:mm:ss";
   const fHourMinute = "HH:mm";
   let text;
@@ -57,10 +61,12 @@ export const humanizeTime = (
         : "default";
     switch (retVal) {
       case "sameDay":
-        _text = "今天 " + m.format(fHourMinute);
+        _text =
+          i18n.t(`${NS_LIBS_DATETIME}:${K.TODAY}`) + m.format(fHourMinute);
         break;
       case "yesterday":
-        _text = "昨天 " + m.format(fHourMinute);
+        _text =
+          i18n.t(`${NS_LIBS_DATETIME}:${K.YESTERDAY}`) + m.format(fHourMinute);
         break;
       case "lastYear":
         _text = m.format(fFull);
@@ -86,7 +92,9 @@ export const humanizeTime = (
       text = moment.duration(Math.min(+m - +now, 0)).humanize(true);
       break;
     case HumanizeTimeFormat.future:
-      text = moment.duration(Math.max(+m - +now, 0)).humanize() + "后";
+      text = i18n.t(`${NS_LIBS_DATETIME}:${K.FUTURE_AFTER}`, {
+        time: moment.duration(Math.max(+m - +now, 0)).humanize(),
+      });
       break;
     case HumanizeTimeFormat.accurate:
       text = getAccurateTime();
