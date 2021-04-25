@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/datetime@1.0.6...@next-libs/datetime@1.1.0) (2021-04-25)
+
+
+### Features
+
+* **datetime:** datetime 增加国际化 ([cc1295e](https://github.com/easyops-cn/next-libs/commit/cc1295e51ac82cac91ca2c9bc82498f8f07fcbd2))
+
+
+
+
+
 ## [1.0.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/datetime@1.0.5...@next-libs/datetime@1.0.6) (2021-04-19)
 
 **Note:** Version bump only for package @next-libs/datetime
