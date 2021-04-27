@@ -16,6 +16,7 @@ export interface GeneralPlayerProps {
   fillMode?: "Forward" | "Backward";
   contentMode?: "Fill" | "AspectFill" | "AspectFit";
   onFinished?: () => void;
+  onLoaded?: () => void;
 }
 
 const parser = new SVGA.Parser();
@@ -33,6 +34,7 @@ export function LeacySvgaPlayer(
     fillMode = "Forward",
     contentMode = "AspectFit",
     onFinished,
+    onLoaded,
   } = props;
 
   const containerRef = useRef<any>();
@@ -66,6 +68,7 @@ export function LeacySvgaPlayer(
       (videoItem) => {
         playerRef.current.setVideoItem(videoItem);
         playerRef.current.startAnimation();
+        onLoaded?.();
       },
       (err) => {
         // eslint-disable-next-line no-console
