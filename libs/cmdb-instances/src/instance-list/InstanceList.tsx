@@ -91,15 +91,17 @@ export function getQuery(
     },
     (relation, sides) => {
       const id = relation[`${sides.this}_id` as RelationIdKeys];
-      const nameKey = getInstanceNameKeys(
+      const nameKeys = getInstanceNameKeys(
         idObjectMap[relation[`${sides.that}_object_id` as RelationObjectIdKeys]]
       );
 
-      queryValues.forEach((queryValue) =>
-        query.$or.push({
-          [`${id}.${nameKey}`]: { $like: `%${queryValue}%` },
-        })
-      );
+      queryValues.forEach((queryValue) => {
+        nameKeys.forEach((nameKey) => {
+          query.$or.push({
+            [`${id}.${nameKey}`]: { $like: `%${queryValue}%` },
+          });
+        });
+      });
     },
     fields
   );
