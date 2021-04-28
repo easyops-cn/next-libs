@@ -267,32 +267,33 @@ export class ModelAttributeForm extends Component<
 
   rules(attribute: Partial<CmdbModels.ModelObjectAttr>): ValidationRule[] {
     // historical issues：  如果是INTEGER和URL类型暂时不用正则表达式验证
-    const required = { required: attribute.required !== "false", message: " " };
+    const required = attribute.required !== "false";
+    const requiredRule = { required, whitespace: required, message: " " };
     const type = ModelAttributeFormControl.computeFormControlType(attribute);
     if (
       attribute.value.regex === null ||
       attribute.value.type === ModelAttributeValueType.INTEGER ||
       attribute.value.type === ModelAttributeValueType.ENUMS
     ) {
-      return [required];
+      return [requiredRule];
     }
 
     if (type === FormControlTypeEnum.URL) {
       return [
-        required,
+        requiredRule,
         { validator: ModelAttributeForm.urlValidator(attribute) },
       ];
     }
 
     if (type === FormControlTypeEnum.TAGS) {
       return [
-        required,
+        requiredRule,
         { validator: ModelAttributeForm.tagsValidator(attribute) },
       ];
     }
 
     return [
-      required,
+      requiredRule,
       {
         pattern: ModelAttributeFormControl.computePattern(attribute),
         message: i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.NOT_MEET_REGEX}`),
