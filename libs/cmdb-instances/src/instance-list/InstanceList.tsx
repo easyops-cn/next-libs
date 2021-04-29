@@ -325,6 +325,7 @@ interface InstanceListProps {
 }
 
 interface InstanceListState {
+  objectId: string;
   q: string;
   aq: Query[];
   aqToShow?: Query[];
@@ -436,6 +437,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
 
   const [q, setQ] = useState(props.q);
   const [state, setState] = useReducer(reducer, undefined, () => ({
+    objectId: props.objectId,
     q: props.q,
     aq: props.aq,
     aqToShow: props.aqToShow || initAqToShow(props.aq, modelData),
@@ -548,7 +550,11 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
 
   useEffect(() => {
     const fieldIds = getFields();
-    if (!isEqual(fieldIds, state.fieldIds)) {
+    if (
+      // 当 props.objectId 改变时，总是更新 state.fieldIds
+      props.objectId !== state.objectId ||
+      !isEqual(fieldIds, state.fieldIds)
+    ) {
       setState({
         fieldIds,
       });
@@ -566,10 +572,21 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
       return;
     }
 
+    let skip = false;
+
     if (state.page !== 1) {
       setState({ page: 1 });
       props.onPaginationChange?.({ page: 1, pageSize: state.pageSize });
+      skip = true;
+    }
 
+    // 当 prop.objectId 改变时先跳过，等 state.fieldIds 更新后再获取数据
+    if (props.objectId !== state.objectId) {
+      setState({ objectId: props.objectId });
+      skip = true;
+    }
+
+    if (skip) {
       return;
     }
 
