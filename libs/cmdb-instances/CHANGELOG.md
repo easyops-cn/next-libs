@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.2.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@4.2.2...@next-libs/cmdb-instances@4.2.3) (2021-04-29)
+
+
+### Bug Fixes
+
+* **InstanceList:** refetch until state.fieldIds is updated when props.objectId is changed ([6cba631](https://github.com/easyops-cn/next-libs/commit/6cba631f1324cb8cab79969116b51781a653ec8f))
+
+
+
+
+
 ## [4.2.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@4.2.1...@next-libs/cmdb-instances@4.2.2) (2021-04-28)
 
 
