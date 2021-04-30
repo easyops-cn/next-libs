@@ -13,6 +13,7 @@ describe("Settings", () => {
   const onHandleReset = jest.fn();
   const onHideSetting = jest.fn();
   const presetConfigs: InstanceListPresetConfigs = { fieldIds: [] };
+  const extraDisabledField = "hostname";
 
   it("handleConfirm should work", () => {
     const { getByText } = render(
@@ -79,6 +80,7 @@ describe("Settings", () => {
         onHandleReset={onHandleReset}
         onHideSettings={onHideSetting}
         defaultFields={presetConfigs.fieldIds}
+        extraDisabledField={extraDisabledField}
       />
     );
     const agentStatus = getAllByText("agent状态")[0];
@@ -88,6 +90,10 @@ describe("Settings", () => {
     expect(agentStatusCheckbox.checked).toBe(true);
     fireEvent.click(agentStatus);
     expect(agentStatusCheckbox.checked).toBe(false);
+    const hostname = getAllByText("主机名")[0];
+    const hostnameCheckbox = hostname.parentElement.querySelector("input");
+    expect(hostnameCheckbox.checked).toBe(true);
+    expect(hostnameCheckbox.disabled).toBe(true);
   });
 
   it("handleChange should work", async () => {

@@ -322,6 +322,7 @@ interface InstanceListProps {
     useBrick: UseBrickConf;
   };
   extraColumns?: CustomColumn[];
+  extraDisabledField?: string;
 }
 
 interface InstanceListState {
@@ -429,6 +430,9 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     if (isEmpty(fieldIds)) {
       fieldIds = computeDefaultFields().fieldIds;
     }
+    fieldIds = props.extraDisabledField
+      ? uniq([...fieldIds, props.extraDisabledField])
+      : fieldIds;
     fieldIds = _sortFieldIds(fieldIds);
     const hideModelData: string[] = modelData.view.hide_columns || [];
     fieldIds = fieldIds.filter((field) => !hideModelData.includes(field));
@@ -879,6 +883,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
                     onHandleReset={handleReset}
                     fieldIds={state.fieldIds}
                     defaultFields={handleDefaultFields()}
+                    extraDisabledField={props.extraDisabledField}
                   />
                 )}
               </div>
