@@ -14,6 +14,7 @@ interface MoreButtonsContainerProps {
   onHideSettings?: () => void;
   onHandleReset: (fields: string[]) => void;
   fieldIds?: string[];
+  extraDisabledField?: string;
 }
 
 interface MoreButtonsContainerState {
@@ -81,6 +82,7 @@ export class MoreButtonsContainer extends React.Component<
             onHandleConfirm={this.props.onHandleConfirm}
             onHandleReset={this.props.onHandleReset}
             defaultFields={this.props.defaultFields}
+            extraDisabledField={this.props.extraDisabledField}
           />
         </Modal>
       </div>

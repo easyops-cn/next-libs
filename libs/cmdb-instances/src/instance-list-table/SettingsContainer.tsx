@@ -18,6 +18,7 @@ interface SettingsProps {
   objectId?: string;
   onHandleConfirm: (attrIds: string[]) => void;
   onHandleReset: (fields: string[]) => void;
+  extraDisabledField?: string;
 }
 
 interface SettingsState {
@@ -87,7 +88,7 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
   renderCheckbox(attr: any, field: "nextFields" | "otherFields") {
     const fieldsKey = "nextFields";
     const checked = this.state[fieldsKey].includes(attr.id);
-
+    const disabled = attr.id === this.props.extraDisabledField;
     return (
       <Col
         key={attr.id}
@@ -102,6 +103,7 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
             wordBreak: "break-all",
           }}
           checked={checked}
+          disabled={disabled}
           onChange={(event) => this.handleChecked(event, attr)}
         >
           {attr.name}

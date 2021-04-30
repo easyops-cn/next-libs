@@ -268,7 +268,10 @@ export class ModelAttributeForm extends Component<
   rules(attribute: Partial<CmdbModels.ModelObjectAttr>): ValidationRule[] {
     // historical issues：  如果是INTEGER和URL类型暂时不用正则表达式验证
     const required = attribute.required !== "false";
-    const requiredRule = { required, whitespace: required, message: " " };
+    const requiredRule =
+      attribute.value.type === ModelAttributeValueType.STRING
+        ? { required, whitespace: required, message: "" }
+        : { required, message: " " };
     const type = ModelAttributeFormControl.computeFormControlType(attribute);
     if (
       attribute.value.regex === null ||

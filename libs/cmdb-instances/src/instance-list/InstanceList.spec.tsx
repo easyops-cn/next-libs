@@ -22,6 +22,7 @@ import {
   InstanceListTable,
   MoreButtonsContainer,
   InstanceListTableProps,
+  Query,
 } from "../instance-list-table";
 import { InstanceListPresetConfigs } from "../instance-list/InstanceList";
 import { mount, shallow } from "enzyme";
@@ -45,6 +46,109 @@ jest.mock("../instance-list-table", () => ({
   LogicalOperators: {
     And: "$and",
     Or: "$or",
+  },
+  getFieldConditionsAndValues: jest.fn(() => {
+    return {
+      availableConditions: [
+        {
+          type: "contain",
+          label: "包含",
+          operations: [
+            {
+              operator: "$like",
+              prefix: "%",
+              suffix: "%",
+            },
+          ],
+        },
+        {
+          type: "notContain",
+          label: "不包含",
+          operations: [
+            {
+              operator: "$nlike",
+              prefix: "%",
+              suffix: "%",
+            },
+          ],
+        },
+        {
+          type: "equal",
+          label: "等于",
+          operations: [
+            {
+              operator: "$eq",
+            },
+          ],
+        },
+        {
+          type: "notEqual",
+          label: "不等于",
+          operations: [
+            {
+              operator: "$ne",
+            },
+          ],
+        },
+        {
+          type: "between",
+          label: "范围",
+          operations: [
+            {
+              operator: "$gte",
+            },
+            {
+              operator: "$lte",
+            },
+          ],
+        },
+        {
+          type: "empty",
+          label: "为空",
+          operations: [
+            {
+              operator: "$exists",
+              fixedValue: false,
+            },
+          ],
+        },
+        {
+          type: "notEmpty",
+          label: "不为空",
+          operations: [
+            {
+              operator: "$exists",
+              fixedValue: true,
+            },
+          ],
+        },
+      ],
+      currentCondition: {
+        type: "contain",
+        label: "包含",
+        operations: [
+          {
+            operator: "$like",
+            prefix: "%",
+            suffix: "%",
+          },
+        ],
+      },
+      values: ["192.168.100.162"],
+      queryValuesStr: "%192.168.100.162%",
+      disabled: false,
+    };
+  }),
+  ConditionType: {
+    Equal: "equal",
+    NotEqual: "notEqual",
+    Contain: "contain",
+    NotContain: "notContain",
+    Empty: "empty",
+    NotEmpty: "notEmpty",
+    Between: "between",
+    True: "true",
+    False: "false",
   },
 }));
 
@@ -264,6 +368,7 @@ describe("InstanceList", () => {
     const onPaginationChange = jest.fn();
     const onSortingChange = jest.fn();
     const onSelectionChange = jest.fn();
+    const extraDisabledField = "hostname";
     const { findByText } = render(
       <InstanceList
         objectId={objectId}
@@ -282,6 +387,7 @@ describe("InstanceList", () => {
         onSelectionChange={onSelectionChange}
         relationLinkDisabled={false}
         defaultQuery={[presetConfigs.query]}
+        extraDisabledField={extraDisabledField}
       />
     );
 
@@ -310,8 +416,19 @@ describe("InstanceList", () => {
   });
 
   it("should toggle advanced search when click advanced-search-toggle-btn", async () => {
+    const aq = [
+      {
+        $and: [
+          {
+            ip: {
+              $like: "%192.168.100.162%",
+            },
+          },
+        ],
+      },
+    ];
     const { findByText, queryByText, queryByTestId } = render(
-      <InstanceList objectId="HOST" objectList={[HOST]} />
+      <InstanceList objectId="HOST" objectList={[HOST]} aq={aq as Query[]} />
     );
 
     await findByText(mockInstanceListTableContent);
