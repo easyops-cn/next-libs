@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.3.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@4.2.3...@next-libs/cmdb-instances@4.3.0) (2021-04-30)
+
+
+### Bug Fixes
+
+* **cmdb-instances:** form validate ([fa97983](https://github.com/easyops-cn/next-libs/commit/fa97983a4e62349943d6edc4acbaac986235efc1))
+* **cmdb-instances:** InstanceModelAttributeForm validate ([c0d4101](https://github.com/easyops-cn/next-libs/commit/c0d41012cdb7a28187f0a7e2b97b26f9f528bf1a))
+
+
+### Features
+
+* **cmdb-instances:** add extraDisabledField property ([22651eb](https://github.com/easyops-cn/next-libs/commit/22651eba16db59dfc5ba78114fc493e0ea7bbbd3))
+
+
+
+
+
 ## [4.2.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@4.2.2...@next-libs/cmdb-instances@4.2.3) (2021-04-29)
 
 
