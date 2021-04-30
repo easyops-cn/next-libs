@@ -9,7 +9,7 @@ import {
   mockFetchCmdbObjectDetailReturnValue,
   mockFetchCmdbObjectListReturnValue,
 } from "../__mocks__";
-import { Checkbox } from "antd";
+import { Button, Checkbox } from "antd";
 import i18n from "i18next";
 import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
 /* eslint-disable  */
@@ -109,9 +109,11 @@ describe("ModelAttributeForm", () => {
           }
         );
 
-      const submitBtn = wrapper.find("button[type='submit']");
+      const submitBtn = wrapper
+        .find(Button)
+        .filter("[data-testid='submit-btn']");
 
-      submitBtn.simulate("submit", {
+      submitBtn.simulate("click", {
         preventDefault: jest.fn(),
       });
 
