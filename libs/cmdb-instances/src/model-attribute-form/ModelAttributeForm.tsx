@@ -9,8 +9,8 @@ import {
 } from "@next-sdk/cmdb-sdk";
 import {
   FormComponentProps,
-  ValidationRule,
   FormItemProps,
+  ValidationRule,
 } from "@ant-design/compatible/lib/form";
 import {
   FormControlTypeEnum,
@@ -18,19 +18,20 @@ import {
   ModelAttributeValueType,
 } from "../model-attribute-form-control/ModelAttributeFormControl";
 import { AttributeFormControlUrl } from "../attribute-form-control-url/AttributeFormControlUrl";
-import { isNil, keyBy, get } from "lodash";
+import { get, isNil, keyBy } from "lodash";
 
 import { CmdbInstancesSelectPanel } from "../cmdb-instances-select-panel/CmdbInstancesSelectPanel";
 import {
-  ModifiedModelObjectAttr,
-  ModifiedModelObjectRelation,
-  ModifiedModelObjectField,
   ModifiedModelCmdbObject,
+  ModifiedModelObjectAttr,
+  ModifiedModelObjectField,
+  ModifiedModelObjectRelation,
   modifyModelData,
 } from "@next-libs/cmdb-utils";
 import styles from "./ModelAttributeForm.module.css";
 import i18n from "i18next";
 import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
+
 export interface ModelAttributeFormChildren {
   header: string;
   name: string;
@@ -268,10 +269,13 @@ export class ModelAttributeForm extends Component<
   rules(attribute: Partial<CmdbModels.ModelObjectAttr>): ValidationRule[] {
     // historical issues：  如果是INTEGER和URL类型暂时不用正则表达式验证
     const required = attribute.required !== "false";
-    const requiredRule =
-      attribute.value.type === ModelAttributeValueType.STRING
-        ? { required, whitespace: required, message: "" }
-        : { required, message: " " };
+    const requiredRule = [
+      ModelAttributeValueType.IP,
+      ModelAttributeValueType.STRING,
+      ModelAttributeValueType.JSON,
+    ].includes(attribute.value.type as ModelAttributeValueType)
+      ? { required, whitespace: required, message: "" }
+      : { required, message: "" };
     const type = ModelAttributeFormControl.computeFormControlType(attribute);
     if (
       attribute.value.regex === null ||
@@ -433,7 +437,12 @@ export class ModelAttributeForm extends Component<
                 {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CREATE_ANOTHER}`)}
               </Checkbox>
             )}
-            <Button type="primary" htmlType="submit" disabled={this.disabled}>
+            <Button
+              type="primary"
+              onClick={(e) => this.handleSubmit(e)}
+              disabled={this.disabled}
+              data-testid="submit-btn"
+            >
               {this.submitBtnText}
             </Button>
 
@@ -452,7 +461,7 @@ export class ModelAttributeForm extends Component<
     );
 
     return (
-      <Form onSubmit={(e) => this.handleSubmit(e)}>
+      <Form>
         {collapse}
         {submitContainer}
       </Form>
