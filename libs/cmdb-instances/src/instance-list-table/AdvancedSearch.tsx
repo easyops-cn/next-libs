@@ -442,8 +442,11 @@ export function getFieldConditionsAndValues(
           }
         }
       }
-
-      if (typeof values[0] === "string" || typeof values[0] === "number") {
+      if (
+        typeof values[0] === "string" ||
+        typeof values[0] === "number" ||
+        typeof values[0] === "boolean"
+      ) {
         queryValuesStr = values.join(" ");
         values = values.map((value: string) => {
           if (operation.prefix && value.startsWith(operation.prefix)) {
