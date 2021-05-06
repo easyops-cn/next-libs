@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.3.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@4.3.0...@next-libs/cmdb-instances@4.3.1) (2021-05-06)
+
+
+### Bug Fixes
+
+* **cmdb-instances:** 实例列表的高级搜索筛选“布尔型”数据时，无法清除筛选项 ([eaefbee](https://github.com/easyops-cn/next-libs/commit/eaefbeec580af7a684fb28a44884eec407244d7e))
+
+
+
+
+
 # [4.3.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@4.2.3...@next-libs/cmdb-instances@4.3.0) (2021-04-30)
 
 
