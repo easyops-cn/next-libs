@@ -93,7 +93,13 @@
           "yarn-deduplicate yarn.lock",
           "yarn"
         ],
-        "fileFilters": ["**/*", ".gitlab/**/*", ".github/**/*"]
+        "fileFilters": [
+          "**/*",
+          ".gitlab/**/*",
+          ".huskyrc",
+          ".husky/.gitignore",
+          ".husky/**/*"
+        ]
       },
       "major": { "enabled": false },
       "matchPackagePatterns": ["^@next-core/"]
