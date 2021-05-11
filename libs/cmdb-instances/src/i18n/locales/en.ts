@@ -42,7 +42,7 @@ const locale: Locale = {
   [K.DEFAULT_ATTRIBUTE]: "Default attribute",
   [K.CANCEL]: "Cancel",
   [K.CLOSE]: "Close",
-  [K.SHOW_SETTINGS]: "Show settings",
+  [K.SHOW_SETTINGS]: "Columns to display",
   [K.FIELD_SETTINGS]: "Field settings",
   [K.SEARCH_BY_FIELD_NAME]: "Search by field name",
   [K.RESTORE_DEFAULT]: "Restore default",

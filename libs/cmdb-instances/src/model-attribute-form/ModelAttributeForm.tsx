@@ -97,6 +97,7 @@ export class ModelAttributeForm extends Component<
     if (this.props.objectList) {
       this.modelMap = keyBy(this.props.objectList, "objectId");
     }
+    // istanbul ignore else
     if (this.props.modelData) {
       this.modelData = modifyModelData(this.props.modelData);
     } else {
@@ -229,11 +230,11 @@ export class ModelAttributeForm extends Component<
     return this.handleFormErrors(getFieldsError()) || sending;
   }
 
-  get submitBtnText() {
-    return this.props.isCreate
-      ? i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.SAVE}`)
-      : i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.MODIFICATION}`);
-  }
+  // get submitBtnText() {
+  //   return this.props.isCreate
+  //     ? i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.SAVE}`)
+  //     : i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.MODIFICATION}`);
+  // }
 
   static tagsValidator(
     attribute: Partial<CmdbModels.ModelObjectAttr>
@@ -443,7 +444,7 @@ export class ModelAttributeForm extends Component<
               disabled={this.disabled}
               data-testid="submit-btn"
             >
-              {this.submitBtnText}
+              {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.SAVE}`)}
             </Button>
 
             {showCancelButton && (
