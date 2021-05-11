@@ -6,7 +6,7 @@ module.exports = sizeLimit({
     forms: "12 KB",
     "basic-components": "30 KB",
     charts: "20 KB",
-    "cmdb-instances": "76 KB",
+    "cmdb-instances": "80 KB",
     crontab: "25 KB",
     "permission-utils": "18 KB",
     "storyboard-visualization": "45 KB",
