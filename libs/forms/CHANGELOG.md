@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.3.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@2.2.3...@next-libs/forms@2.3.0) (2021-05-17)
+
+
+### Features
+
+* **forms:** labelTooltip支持string类型以便设置tooltip ([e6ecbcb](https://github.com/easyops-cn/next-libs/commit/e6ecbcb8d1b0a3aed49444ac16887ac96a6d9f13))
+
+
+
+
+
 ## [2.2.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@2.2.2...@next-libs/forms@2.2.3) (2021-04-19)
 
 **Note:** Version bump only for package @next-libs/forms
