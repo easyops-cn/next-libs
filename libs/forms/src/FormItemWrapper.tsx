@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useState } from "react";
+import React, { PropsWithChildren, useState, useCallback } from "react";
 import { unstable_batchedUpdates } from "react-dom";
 import { get, isEmpty } from "lodash";
 import { Form } from "@ant-design/compatible";
@@ -33,7 +33,7 @@ export interface FormItemWrapperProps extends CommonEventProps {
   formElement?: AbstractGeneralFormElement;
   name?: string;
   label?: string;
-  labelTooltip?: LabelTooltipProps;
+  labelTooltip?: LabelTooltipProps | string | number;
   labelBrick?: LabelBrick;
   required?: boolean;
   min?: number;
@@ -42,9 +42,9 @@ export interface FormItemWrapperProps extends CommonEventProps {
   message?: Record<string, string>;
   autofocus?: boolean;
   validator?:
-    | ValidationRule["validator"] // Deprecated
-    | Pick<ValidationRule, "validator" | "message">
-    | Pick<ValidationRule, "validator" | "message">[];
+  | ValidationRule["validator"] // Deprecated
+  | Pick<ValidationRule, "validator" | "message">
+  | Pick<ValidationRule, "validator" | "message">[];
   helpBrick?: HelpBrickProps | string | number;
   className?: string;
   notRender?: boolean;
@@ -212,8 +212,35 @@ export function FormItemWrapper(
   let input: React.ReactNode = isEmpty(eventMap)
     ? props.children
     : (React.cloneElement(props.children as React.ReactElement, {
-        ...eventMap,
-      }) as React.ReactNode);
+      ...eventMap,
+    }) as React.ReactNode);
+
+  const getLabelTooltipNode = () => {
+    if (typeof labelTooltip === "string" || typeof labelTooltip === "number") {
+      return (
+        <Tooltip title={labelTooltip}>
+          <span className={style.labelTooltipIcon}>
+            <GeneralIcon icon={{
+              lib: "antd",
+              icon: "question - circle",
+              theme: "filled"
+            }} />
+          </span>
+        </Tooltip>
+      );
+    } else {
+      return (
+        <Tooltip
+          title={labelTooltip.content}
+          overlayStyle={labelTooltip.style}
+        >
+          <span style={labelTooltip.iconStyle}>
+            <GeneralIcon icon={labelTooltip.icon} />
+          </span>
+        </Tooltip>
+      );
+    }
+  };
 
   const label =
     labelTooltip || labelBrick?.useBrick ? (
@@ -226,16 +253,7 @@ export function FormItemWrapper(
         }}
       >
         {props.label}{" "}
-        {labelTooltip && (
-          <Tooltip
-            title={labelTooltip.content}
-            overlayStyle={labelTooltip.style}
-          >
-            <span style={labelTooltip.iconStyle}>
-              <GeneralIcon icon={labelTooltip.icon} />
-            </span>
-          </Tooltip>
-        )}
+        {labelTooltip && getLabelTooltipNode()}
         {labelBrick?.useBrick && (
           <span
             style={{
@@ -292,13 +310,13 @@ export function FormItemWrapper(
       const layout =
         labelCol || wrapperCol
           ? {
-              labelCol,
-              wrapperCol,
-            }
+            labelCol,
+            wrapperCol,
+          }
           : {
-              labelCol: formElement.labelCol,
-              wrapperCol: formElement.wrapperCol,
-            };
+            labelCol: formElement.labelCol,
+            wrapperCol: formElement.wrapperCol,
+          };
 
       Object.assign(
         formItemProps,

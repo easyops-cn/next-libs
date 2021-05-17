@@ -27,3 +27,14 @@ forms\.general-form .formItem {
   line-height: 20px;
   margin-top: 4px;
 }
+
+.labelTooltipIcon {
+  line-height: initial;
+  color: #8c8c8c;
+  position: relative;
+  top: 1px;
+
+  &:hover {
+    color: #595959;
+  }
+}
