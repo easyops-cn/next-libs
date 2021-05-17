@@ -27,3 +27,16 @@ forms\.general-form .formItem {
   line-height: 20px;
   margin-top: 4px;
 }
+
+.labelTooltipIcon {
+  display: flex;
+  align-items: center;
+}
+
+.labelTooltipQuestionIcon {
+  color: #8c8c8c;
+
+  &:hover {
+    color: #595959;
+  }
+}

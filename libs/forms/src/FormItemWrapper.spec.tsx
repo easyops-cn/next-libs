@@ -10,6 +10,8 @@ import {
 import { MenuIcon } from "@next-core/brick-types";
 import i18n from "i18next";
 import { AbstractGeneralFormElement } from "./interfaces";
+import { Tooltip } from "antd";
+import { GeneralIcon } from "@next-libs/basic-components";
 
 jest.mock("./i18n");
 jest.spyOn(i18n, "t").mockReturnValue("default message");
@@ -376,5 +378,29 @@ describe("FormItemWrapper", () => {
     const helpBrickWrapper = wrapper.find(Form.Item).children();
     expect(helpBrickWrapper.text()).toEqual("<BrickAsComponent />");
     expect(helpBrickWrapper.hasClass("bottomBrick")).toBe(true);
+  });
+
+  it("should work when the type of labelTooltip is string", () => {
+    const wrapper = mount(
+      <FormItemWrapper name="username" label="hello" labelTooltip="this is a tooltip" />
+    );
+    expect(wrapper.find(Tooltip).at(0).prop('title')).toBe("this is a tooltip");
+    expect(wrapper.find(".labelTooltipIcon").length).toBe(1);
+  });
+
+  it("should work when the type of labelTooltip is LabelTooltipProps", () => {
+    const icon: any = {
+      lib: "antd",
+      type: "user",
+    };
+    const wrapper = mount(
+      <FormItemWrapper
+        name="username"
+        label="hello"
+        labelTooltip={{ icon, content: "this is a tooltip" }}
+      />
+    );
+    expect(wrapper.find(Tooltip).at(0).prop('title')).toBe("this is a tooltip");
+    expect(wrapper.find(GeneralIcon).at(0).prop('icon')).toEqual(icon);
   });
 });
