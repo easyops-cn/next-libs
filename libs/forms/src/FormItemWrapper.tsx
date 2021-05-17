@@ -252,7 +252,7 @@ export function FormItemWrapper(
           gridGap: "2px",
         }}
       >
-        {props.label}{" "}
+        {props.label}
         {labelTooltip && getLabelTooltipNode()}
         {labelBrick?.useBrick && (
           <span
