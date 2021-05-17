@@ -29,10 +29,9 @@ forms\.general-form .formItem {
 }
 
 .labelTooltipIcon {
-  line-height: initial;
   color: #8c8c8c;
-  position: relative;
-  top: 1px;
+  display: flex;
+  align-items: center;
 
   &:hover {
     color: #595959;

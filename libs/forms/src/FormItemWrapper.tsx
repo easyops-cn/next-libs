@@ -222,7 +222,7 @@ export function FormItemWrapper(
           <span className={style.labelTooltipIcon}>
             <GeneralIcon icon={{
               lib: "antd",
-              icon: "question - circle",
+              icon: "question-circle",
               theme: "filled"
             }} />
           </span>
