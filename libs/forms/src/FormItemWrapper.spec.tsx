@@ -56,7 +56,7 @@ describe("FormItemWrapper", () => {
 
     const labelWrapper = shallow(<Label />);
     expect(labelWrapper.text()).toEqual(
-      "hello <GeneralIcon /><BrickAsComponent />"
+      "hello<GeneralIcon /><BrickAsComponent />"
     );
     expect(labelWrapper.find("Tooltip").prop("title")).toEqual(
       "这是一个 tooltips"
