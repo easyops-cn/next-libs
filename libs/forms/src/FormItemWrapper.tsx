@@ -219,7 +219,7 @@ export function FormItemWrapper(
     if (typeof labelTooltip === "string" || typeof labelTooltip === "number") {
       return (
         <Tooltip title={labelTooltip}>
-          <span className={style.labelTooltipIcon}>
+          <span className={classNames(style.labelTooltipIcon, style.labelTooltipQuestionIcon)}>
             <GeneralIcon icon={{
               lib: "antd",
               icon: "question-circle",
@@ -234,7 +234,7 @@ export function FormItemWrapper(
           title={labelTooltip.content}
           overlayStyle={labelTooltip.style}
         >
-          <span style={labelTooltip.iconStyle}>
+          <span style={labelTooltip.iconStyle} className={style.labelTooltipIcon}>
             <GeneralIcon icon={labelTooltip.icon} />
           </span>
         </Tooltip>

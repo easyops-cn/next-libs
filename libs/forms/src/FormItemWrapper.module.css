@@ -29,9 +29,12 @@ forms\.general-form .formItem {
 }
 
 .labelTooltipIcon {
-  color: #8c8c8c;
   display: flex;
   align-items: center;
+}
+
+.labelTooltipQuestionIcon {
+  color: #8c8c8c;
 
   &:hover {
     color: #595959;

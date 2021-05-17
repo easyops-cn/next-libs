@@ -102,7 +102,7 @@ export abstract class FormItemElement extends UpdatingElement {
   @property({
     attribute: false,
   })
-  labelTooltip: LabelTooltipProps | string;
+  labelTooltip: LabelTooltipProps | string | number;
 
   /**
    * @property
@@ -115,7 +115,7 @@ export abstract class FormItemElement extends UpdatingElement {
   @property({
     attribute: false,
   })
-  helpBrick: HelpBrickProps | string;
+  helpBrick: HelpBrickProps | string | number;
 
   /**
    * @property
