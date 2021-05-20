@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@2.3.1...@next-libs/forms@2.3.2) (2021-05-20)
+
+
+### Bug Fixes
+
+* **forms:** 修复label内容换行时，label内容排列不正常问题 ([1e80457](https://github.com/easyops-cn/next-libs/commit/1e80457c8b359049d17d17f4c3ac7dcdeb742505))
+
+
+
+
+
 ## [2.3.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@2.3.0...@next-libs/forms@2.3.1) (2021-05-17)
 
 **Note:** Version bump only for package @next-libs/forms
