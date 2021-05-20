@@ -42,9 +42,9 @@ export interface FormItemWrapperProps extends CommonEventProps {
   message?: Record<string, string>;
   autofocus?: boolean;
   validator?:
-  | ValidationRule["validator"] // Deprecated
-  | Pick<ValidationRule, "validator" | "message">
-  | Pick<ValidationRule, "validator" | "message">[];
+    | ValidationRule["validator"] // Deprecated
+    | Pick<ValidationRule, "validator" | "message">
+    | Pick<ValidationRule, "validator" | "message">[];
   helpBrick?: HelpBrickProps | string | number;
   className?: string;
   notRender?: boolean;
@@ -212,29 +212,36 @@ export function FormItemWrapper(
   let input: React.ReactNode = isEmpty(eventMap)
     ? props.children
     : (React.cloneElement(props.children as React.ReactElement, {
-      ...eventMap,
-    }) as React.ReactNode);
+        ...eventMap,
+      }) as React.ReactNode);
 
   const getLabelTooltipNode = () => {
     if (typeof labelTooltip === "string" || typeof labelTooltip === "number") {
       return (
         <Tooltip title={labelTooltip}>
-          <span className={classNames(style.labelTooltipIcon, style.labelTooltipQuestionIcon)}>
-            <GeneralIcon icon={{
-              lib: "antd",
-              icon: "question-circle",
-              theme: "filled"
-            }} />
+          <span
+            className={classNames(
+              style.labelTooltipIcon,
+              style.labelTooltipQuestionIcon
+            )}
+          >
+            <GeneralIcon
+              icon={{
+                lib: "antd",
+                icon: "question-circle",
+                theme: "filled",
+              }}
+            />
           </span>
         </Tooltip>
       );
     } else {
       return (
-        <Tooltip
-          title={labelTooltip.content}
-          overlayStyle={labelTooltip.style}
-        >
-          <span style={labelTooltip.iconStyle} className={style.labelTooltipIcon}>
+        <Tooltip title={labelTooltip.content} overlayStyle={labelTooltip.style}>
+          <span
+            style={labelTooltip.iconStyle}
+            className={style.labelTooltipIcon}
+          >
             <GeneralIcon icon={labelTooltip.icon} />
           </span>
         </Tooltip>
@@ -244,14 +251,7 @@ export function FormItemWrapper(
 
   const label =
     labelTooltip || labelBrick?.useBrick ? (
-      <span
-        style={{
-          display: "inline-grid",
-          gridAutoFlow: "column",
-          alignItems: "center",
-          gridGap: "2px",
-        }}
-      >
+      <span>
         {props.label}
         {labelTooltip && getLabelTooltipNode()}
         {labelBrick?.useBrick && (
@@ -259,6 +259,7 @@ export function FormItemWrapper(
             style={{
               display: "inline-grid",
               gridAutoFlow: "column",
+              marginLeft: "2px",
             }}
           >
             <BrickAsComponent useBrick={labelBrick.useBrick} />
@@ -310,13 +311,13 @@ export function FormItemWrapper(
       const layout =
         labelCol || wrapperCol
           ? {
-            labelCol,
-            wrapperCol,
-          }
+              labelCol,
+              wrapperCol,
+            }
           : {
-            labelCol: formElement.labelCol,
-            wrapperCol: formElement.wrapperCol,
-          };
+              labelCol: formElement.labelCol,
+              wrapperCol: formElement.wrapperCol,
+            };
 
       Object.assign(
         formItemProps,

@@ -29,8 +29,11 @@ forms\.general-form .formItem {
 }
 
 .labelTooltipIcon {
-  display: flex;
-  align-items: center;
+  margin-left: 2px;
+
+  > :global(.anticon) {
+    vertical-align: -0.125em;
+  }
 }
 
 .labelTooltipQuestionIcon {
