@@ -2,6 +2,8 @@ import React from "react";
 import { shallow, mount } from "enzyme";
 import { DatetimeRange, DATE_RANGE, SPECIFIED_DATE } from "./DatetimeRange";
 import moment from "moment";
+import i18n from "i18next";
+import { NS_LIBS_DATETIME_COMPONENTS, K } from "../i18n/constants";
 
 describe("DatetimeRange", () => {
   const wrapper = shallow(<DatetimeRange />);
@@ -10,7 +12,9 @@ describe("DatetimeRange", () => {
     expect(wrapper).toBeTruthy();
   });
   it("test getButtonText now-7d", () => {
-    expect(component.getButtonText()).toBe("近7天");
+    expect(component.getButtonText()).toBe(
+      i18n.t(`${NS_LIBS_DATETIME_COMPONENTS}:${K.LAST_7_DAYS}`)
+    );
   });
   it("test getButtonText now-30d", () => {
     const dateRange = {
@@ -18,7 +22,9 @@ describe("DatetimeRange", () => {
       value: "now-30d",
     };
     wrapper.setState({ dateRange });
-    expect(component.getButtonText()).toBe("近30天");
+    expect(component.getButtonText()).toBe(
+      i18n.t(`${NS_LIBS_DATETIME_COMPONENTS}:${K.NEARLY_30_DAYS}`)
+    );
   });
   it("test getButtonText SPECIFIED_DATE", () => {
     const dateRange = {

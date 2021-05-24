@@ -7,6 +7,10 @@ import { TooltipPlacement } from "antd/lib/tooltip";
 import moment from "moment";
 import { RangeValue } from "rc-picker/lib/interface";
 import { ButtonSize } from "antd/lib/button";
+import i18n from "i18next";
+import { NS_LIBS_DATETIME_COMPONENTS, K } from "../i18n/constants";
+import { addResourceBundle } from "../i18n";
+addResourceBundle();
 
 export type DateRangeType = "dateRange";
 export const DATE_RANGE = "dateRange";
@@ -56,23 +60,23 @@ export interface RangeText {
 export const defaultRangeOptionList: RangeText[] = [
   {
     range: "now-1h",
-    text: "近1小时",
+    text: i18n.t(`${NS_LIBS_DATETIME_COMPONENTS}:${K.NEARLY_AN_HOUR}`),
   },
   {
     range: "now-1d",
-    text: "近24小时",
+    text: i18n.t(`${NS_LIBS_DATETIME_COMPONENTS}:${K.NEARLY_24_HOURS}`),
   },
   {
     range: "now/d",
-    text: "今天",
+    text: i18n.t(`${NS_LIBS_DATETIME_COMPONENTS}:${K.TODAY}`),
   },
   {
     range: "now-7d",
-    text: "近7天",
+    text: i18n.t(`${NS_LIBS_DATETIME_COMPONENTS}:${K.LAST_7_DAYS}`),
   },
   {
     range: "now-30d",
-    text: "近30天",
+    text: i18n.t(`${NS_LIBS_DATETIME_COMPONENTS}:${K.NEARLY_30_DAYS}`),
   },
 ];
 
@@ -210,7 +214,9 @@ export class DatetimeRange extends React.Component<
     };
     const content = (
       <div style={contentStyle}>
-        <div style={labelStyle}>快速选择：</div>
+        <div style={labelStyle}>
+          {i18n.t(`${NS_LIBS_DATETIME_COMPONENTS}:${K.QUICK_SELECTION}`)}：
+        </div>
         <Radio.Group
           value={this.state.range}
           onChange={this.handleRangeChange}
@@ -228,7 +234,9 @@ export class DatetimeRange extends React.Component<
             </Radio.Button>
           ))}
         </Radio.Group>
-        <div style={labelStyle}>指定范围：</div>
+        <div style={labelStyle}>
+          {i18n.t(`${NS_LIBS_DATETIME_COMPONENTS}:${K.SPECIFIED_RANGE}`)}：
+        </div>
         <div style={datePickerStyle}>
           <DatePicker.RangePicker
             showTime={{
@@ -236,14 +244,17 @@ export class DatetimeRange extends React.Component<
             }}
             format={this.state.format}
             style={{ width: "380px" }}
-            placeholder={["开始日期", "结束日期"]}
+            placeholder={[
+              i18n.t(`${NS_LIBS_DATETIME_COMPONENTS}:${K.START_DATE}`),
+              i18n.t(`${NS_LIBS_DATETIME_COMPONENTS}:${K.END_DATE}`),
+            ]}
             value={this.state.specifiedDate}
             onChange={this.onDateChange}
             allowClear={false}
           />
         </div>
         <Button type="primary" onClick={this.save}>
-          确定
+          {i18n.t(`${NS_LIBS_DATETIME_COMPONENTS}:${K.CONFIRM}`)}
         </Button>
       </div>
     );
