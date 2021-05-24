@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/datetime-components@2.0.7...@next-libs/datetime-components@2.1.0) (2021-05-24)
+
+
+### Features
+
+* **datetime-components:** add i18n ([afc1159](https://github.com/easyops-cn/next-libs/commit/afc11595217ba8c0ac7a9c591e84f66e1aef1343))
+
+
+
+
+
 ## [2.0.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/datetime-components@2.0.6...@next-libs/datetime-components@2.0.7) (2021-04-19)
 
 **Note:** Version bump only for package @next-libs/datetime-components
