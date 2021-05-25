@@ -10,7 +10,7 @@ import {
 import { MenuIcon } from "@next-core/brick-types";
 import i18n from "i18next";
 import { AbstractGeneralFormElement } from "./interfaces";
-import { Tooltip } from "antd";
+import { Input, Tooltip } from "antd";
 import { GeneralIcon } from "@next-libs/basic-components";
 
 jest.mock("./i18n");
@@ -382,9 +382,13 @@ describe("FormItemWrapper", () => {
 
   it("should work when the type of labelTooltip is string", () => {
     const wrapper = mount(
-      <FormItemWrapper name="username" label="hello" labelTooltip="this is a tooltip" />
+      <FormItemWrapper
+        name="username"
+        label="hello"
+        labelTooltip="this is a tooltip"
+      />
     );
-    expect(wrapper.find(Tooltip).at(0).prop('title')).toBe("this is a tooltip");
+    expect(wrapper.find(Tooltip).at(0).prop("title")).toBe("this is a tooltip");
     expect(wrapper.find(".labelTooltipIcon").length).toBe(1);
   });
 
@@ -400,7 +404,27 @@ describe("FormItemWrapper", () => {
         labelTooltip={{ icon, content: "this is a tooltip" }}
       />
     );
-    expect(wrapper.find(Tooltip).at(0).prop('title')).toBe("this is a tooltip");
-    expect(wrapper.find(GeneralIcon).at(0).prop('icon')).toEqual(icon);
+    expect(wrapper.find(Tooltip).at(0).prop("title")).toBe("this is a tooltip");
+    expect(wrapper.find(GeneralIcon).at(0).prop("icon")).toEqual(icon);
+  });
+
+  it("should support trim", () => {
+    const originalValue = "   abc  ";
+    let value = originalValue;
+    const wrapper = mount(
+      <FormItemWrapper trim>
+        <Input
+          value={value}
+          onChange={(e) => {
+            value = typeof e === "string" ? e : e.target.value;
+          }}
+        />
+      </FormItemWrapper>
+    );
+
+    wrapper.find(Input).invoke("onBlur")(
+      {} as React.FocusEvent<HTMLInputElement>
+    );
+    expect(value).toBe(originalValue.trim());
   });
 });

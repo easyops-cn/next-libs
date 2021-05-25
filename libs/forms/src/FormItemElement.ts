@@ -158,6 +158,16 @@ export abstract class FormItemElement extends UpdatingElement {
 
   /**
    * @property
+   * @description 是否自动去除前后的空白字符
+   * @group advanced
+   */
+  @property({
+    type: Boolean,
+  })
+  trim: boolean;
+
+  /**
+   * @property
    * @kind boolean
    * @required false
    * @default -

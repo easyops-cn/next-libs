@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useState, useCallback } from "react";
+import React, { PropsWithChildren, useState, useRef } from "react";
 import { unstable_batchedUpdates } from "react-dom";
 import { get, isEmpty } from "lodash";
 import { Form } from "@ant-design/compatible";
@@ -54,6 +54,8 @@ export interface FormItemWrapperProps extends CommonEventProps {
   asyncForceRerender?: boolean;
   labelCol?: ColProps;
   wrapperCol?: ColProps;
+  trim?: boolean; // 为 true 时，会将 trim 后的值作为参数调用 trigger （一般为 onChange）
+  trimTrigger?: string;
 }
 
 export function getRules(props: FormItemWrapperProps): ValidationRule[] {
@@ -201,6 +203,8 @@ export function FormItemWrapper(
     asyncForceRerender,
     wrapperCol,
     labelCol,
+    trim,
+    trimTrigger = "onBlur",
   } = props;
   const [, setId] = useState(0);
 
@@ -274,6 +278,7 @@ export function FormItemWrapper(
     label,
   };
   const { formElement } = props;
+
   if (formElement) {
     if (props.name) {
       const { getFieldDecorator } = formElement.formUtils;
@@ -325,6 +330,22 @@ export function FormItemWrapper(
       );
     }
     formItemProps.colon = !props.formElement.noColon;
+  }
+
+  if (trim && (input as React.ReactElement)?.props) {
+    const value = (input as React.ReactElement).props[valuePropName];
+
+    if (typeof value === "string") {
+      const originalEventHandler = (input as React.ReactElement).props[
+        trimTrigger
+      ];
+      input = React.cloneElement(input as React.ReactElement, {
+        [trimTrigger]: (...args: unknown[]) => {
+          originalEventHandler?.(...args);
+          (input as React.ReactElement).props[trigger](value.trim());
+        },
+      });
+    }
   }
 
   const getHelpBrickNode = () => {
