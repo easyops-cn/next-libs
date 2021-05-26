@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/datetime@1.1.0...@next-libs/datetime@1.1.1) (2021-05-26)
+
+
+### Bug Fixes
+
+* **datetime:** modify i18n ([fb0ee90](https://github.com/easyops-cn/next-libs/commit/fb0ee90d2504dc130bb264ef006649df4b59808d))
+
+
+
+
+
 # [1.1.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/datetime@1.0.6...@next-libs/datetime@1.1.0) (2021-04-25)
 
 

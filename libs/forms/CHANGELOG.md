@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.4.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@2.3.2...@next-libs/forms@2.4.0) (2021-05-26)
+
+
+### Features
+
+* **FormItemWrapper:** add trim support ([00665e4](https://github.com/easyops-cn/next-libs/commit/00665e4b5489d3a9cbea0cab6a77f36fa5e3eda3))
+
+
+
+
+
 ## [2.3.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@2.3.1...@next-libs/forms@2.3.2) (2021-05-20)
 
 
