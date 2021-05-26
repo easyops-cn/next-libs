@@ -52,7 +52,7 @@ describe("humanizeTime", () => {
     // the same day
     const m2 = moment().add(TIME_OFFSET);
     expect(humanizeTime(m2, HumanizeTimeFormat.accurate)).toBe(
-      i18n.t(`${NS_LIBS_DATETIME}:${K.TODAY}`) + m2.format("HH:mm")
+      i18n.t(`${NS_LIBS_DATETIME}:${K.TODAY}`) + " " + m2.format("HH:mm")
     );
     // the other days when using accurate-format except these listed before
     const m3 = moment().add(TIME_OFFSET).add(370, "d");
@@ -65,7 +65,7 @@ describe("humanizeTime", () => {
     // last day of the mock time
     const m = moment("2017-03-06 16:48:00", "YYYY-MM-DD HH:mm:ss");
     expect(humanizeTime(m, HumanizeTimeFormat.accurate)).toBe(
-      i18n.t(`${NS_LIBS_DATETIME}:${K.YESTERDAY}`) + m.format("HH:mm")
+      i18n.t(`${NS_LIBS_DATETIME}:${K.YESTERDAY}`) + " " + m.format("HH:mm")
     );
   });
 

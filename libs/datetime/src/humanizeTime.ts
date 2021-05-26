@@ -62,11 +62,15 @@ export const humanizeTime = (
     switch (retVal) {
       case "sameDay":
         _text =
-          i18n.t(`${NS_LIBS_DATETIME}:${K.TODAY}`) + m.format(fHourMinute);
+          i18n.t(`${NS_LIBS_DATETIME}:${K.TODAY}`) +
+          " " +
+          m.format(fHourMinute);
         break;
       case "yesterday":
         _text =
-          i18n.t(`${NS_LIBS_DATETIME}:${K.YESTERDAY}`) + m.format(fHourMinute);
+          i18n.t(`${NS_LIBS_DATETIME}:${K.YESTERDAY}`) +
+          " " +
+          m.format(fHourMinute);
         break;
       case "lastYear":
         _text = m.format(fFull);
