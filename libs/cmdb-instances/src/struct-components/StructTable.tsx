@@ -2,7 +2,7 @@ import React from "react";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Button, Modal, Table } from "antd";
 import { Attribute, Structkey } from "./interfaces";
-import { isEmpty } from "lodash";
+import { isEmpty, isObject } from "lodash";
 import { AddStructModal } from "./AddStructModal";
 import { SizeType } from "antd/lib/config-provider/SizeContext";
 import styles from "./index.module.css";
@@ -46,6 +46,8 @@ export class StructTable extends React.Component<
           case "enums":
           case "arr":
             return text?.join?.("; ");
+          case "json":
+            return isObject(text) ? JSON.stringify(text) : text;
           default:
             return text;
         }

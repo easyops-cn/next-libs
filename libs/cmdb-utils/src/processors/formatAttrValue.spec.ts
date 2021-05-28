@@ -323,6 +323,17 @@ describe("formatAttrValue", () => {
       "123",
     ],
     [
+      [{ a: "a" }],
+      {
+        id: "app",
+        value: {
+          type: "json",
+        },
+      },
+      "APP",
+      JSON.stringify([{ a: "a" }]),
+    ],
+    [
       undefined,
       {
         id: "app",

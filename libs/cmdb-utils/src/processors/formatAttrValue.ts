@@ -57,6 +57,9 @@ export const formatAttrValue = (value: any, attr: any, objectId: string) => {
           }).join(" | ")
         : value + "";
       break;
+    case "json":
+      display = _.isObject(value) ? JSON.stringify(value) : value;
+      break;
     default:
       display = value + "";
   }
