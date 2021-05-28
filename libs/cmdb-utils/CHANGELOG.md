@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@2.1.0...@next-libs/cmdb-utils@2.1.1) (2021-05-28)
+
+
+### Bug Fixes
+
+* **cmdb-instances:** 结构体信息展示异常 ([e5ac3c5](https://github.com/easyops-cn/next-libs/commit/e5ac3c5509c3b363aaac69bb1c90340c78e75cf2))
+
+
+
+
+
 # [2.1.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@2.0.1...@next-libs/cmdb-utils@2.1.0) (2021-04-25)
 
 
