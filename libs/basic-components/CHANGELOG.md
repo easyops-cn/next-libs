@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@2.0.6...@next-libs/basic-components@2.1.0) (2021-06-02)
+
+
+### Features
+
+* **basic-components:** generalIcon增加round-square样式 ([0327e8e](https://github.com/easyops-cn/next-libs/commit/0327e8e7d19f293ef4efee0984418c6151612bbf))
+
+
+
+
+
 ## [2.0.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@2.0.5...@next-libs/basic-components@2.0.6) (2021-04-19)
 
 **Note:** Version bump only for package @next-libs/basic-components
