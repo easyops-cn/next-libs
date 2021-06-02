@@ -108,4 +108,15 @@ describe("GeneralIcon", () => {
       category: "common",
     });
   });
+
+  it("should render icon if shape is round-square", () => {
+    const wrapper = mount(
+      <GeneralIcon
+        icon={{ lib: "easyops", icon: "idc", category: "app" }}
+        shape="round-square"
+        bg
+      />
+    );
+    expect(wrapper.find("Avatar").hasClass("roundSquareBg")).toBe(true);
+  });
 });

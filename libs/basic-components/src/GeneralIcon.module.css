@@ -1,3 +1,7 @@
 .faIcon:global(.svg-inline--fa) {
   width: 1em;
 }
+
+.roundSquareBg {
+  border-radius: 10%;
+}
