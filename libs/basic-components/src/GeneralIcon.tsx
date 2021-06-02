@@ -1,7 +1,7 @@
 import React from "react";
 import { Icon as LegacyIcon } from "@ant-design/compatible";
 import Icon from "@ant-design/icons";
-import { Avatar } from "antd";
+import { Avatar, AvatarProps } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   MenuIcon,
@@ -12,13 +12,14 @@ import {
 } from "@next-core/brick-types";
 import { BrickIcon } from "@next-core/brick-icons";
 import { Colors, COLORS_MAP, getColor } from "./utils/getColor";
+import classnames from "classnames";
 import cssStyle from "./GeneralIcon.module.css";
 
 interface MenuIconProps {
   icon: MenuIcon;
   bg?: boolean;
   size?: number | "large" | "small" | "default";
-  shape?: "circle" | "square";
+  shape?: "circle" | "square" | "round-square";
   reverseBgColor?: boolean;
   style?: React.CSSProperties;
   onClick?(event: React.MouseEvent<HTMLElement, MouseEvent>): void;
@@ -92,8 +93,11 @@ export function GeneralIcon(props: MenuIconProps): React.ReactElement {
           )
         }
         size={size ?? "default"}
-        shape={shape ?? "circle"}
+        shape={(shape as AvatarProps["shape"]) ?? "circle"}
         style={style}
+        className={classnames({
+          [cssStyle.roundSquareBg]: shape === "round-square",
+        })}
       ></Avatar>
     ) : (
       iconNode
@@ -146,8 +150,11 @@ export function GeneralIcon(props: MenuIconProps): React.ReactElement {
       <Avatar
         icon={iconNode}
         size={size ?? "default"}
-        shape={shape ?? "circle"}
+        shape={(shape as AvatarProps["shape"]) ?? "circle"}
         style={style}
+        className={classnames({
+          [cssStyle.roundSquareBg]: shape === "round-square",
+        })}
       ></Avatar>
     );
   }
