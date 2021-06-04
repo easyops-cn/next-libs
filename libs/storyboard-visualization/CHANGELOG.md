@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/storyboard-visualization@3.1.3...@next-libs/storyboard-visualization@3.1.4) (2021-06-04)
+
+**Note:** Version bump only for package @next-libs/storyboard-visualization
+
+
+
+
+
 ## [3.1.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/storyboard-visualization@3.1.2...@next-libs/storyboard-visualization@3.1.3) (2021-06-02)
 
 **Note:** Version bump only for package @next-libs/storyboard-visualization

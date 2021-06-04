@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.2.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@2.1.0...@next-libs/basic-components@2.2.0) (2021-06-04)
+
+
+### Features
+
+* **gerenal-icon:** 图标支持渐变色 ([32f8664](https://github.com/easyops-cn/next-libs/commit/32f8664ece0e7a87d287dec7336074aac3b8af43))
+
+
+
+
+
 # [2.1.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@2.0.6...@next-libs/basic-components@2.1.0) (2021-06-02)
 
 
