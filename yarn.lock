@@ -2097,10 +2097,10 @@
     request "^2.88.2"
     request-promise-native "^1.0.9"
 
-"@next-core/brick-types@^2.16.0", "@next-core/brick-types@^2.26.0":
-  version "2.26.0"
-  resolved "https://registry.npmjs.org/@next-core/brick-types/-/brick-types-2.26.0.tgz#ed02de91a2658569f81e28fe635151e9099d1b59"
-  integrity sha512-LLdezIogLD+fpx6laBkaJeFjgzSyvknGKL3ErB8CbLrvazA7HrRS+7++3UsSbT2IH/u1JSzTutav0TGgOs6iDQ==
+"@next-core/brick-types@^2.16.0", "@next-core/brick-types@^2.26.0", "@next-core/brick-types@^2.29.0":
+  version "2.29.0"
+  resolved "https://registry.npmjs.org/@next-core/brick-types/-/brick-types-2.29.0.tgz#93dc0f2dd2e2551889ac75d63d4dfd02a74a8b6e"
+  integrity sha512-rII4PbtkFk0ik9+LaoCgJXXM6SkcHuQiQKHcKGnogH20JnPHi++psSmacWDirIu6P1YFA0lbTI2hGVudtmqnug==
 
 "@next-core/brick-utils@^2.16.0":
   version "2.16.0"
