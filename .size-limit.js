@@ -4,7 +4,7 @@ module.exports = sizeLimit({
   libs: {
     "*": "10 KB",
     forms: "12 KB",
-    "basic-components": "30.5 KB",
+    "basic-components": "31 KB",
     charts: "20 KB",
     "cmdb-instances": "80 KB",
     crontab: "25 KB",

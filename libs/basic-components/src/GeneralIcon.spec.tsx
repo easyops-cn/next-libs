@@ -112,11 +112,42 @@ describe("GeneralIcon", () => {
   it("should render icon if shape is round-square", () => {
     const wrapper = mount(
       <GeneralIcon
-        icon={{ lib: "easyops", icon: "idc", category: "app" }}
+        icon={{ lib: "easyops", icon: "idc", category: "app", color: "red" }}
         shape="round-square"
         bg
+        reverseBgColor
       />
     );
     expect(wrapper.find("Avatar").hasClass("roundSquareBg")).toBe(true);
+  });
+
+  it("linearGradient should work", () => {
+    const wrapper = mount(
+      <GeneralIcon icon={{ lib: "easyops", icon: "idc", category: "app" }} />
+    );
+    expect(wrapper.find("linearGradient").length).toBe(0);
+    expect(wrapper.find("style").length).toBe(0);
+
+    wrapper.setProps({
+      icon: {
+        lib: "easyops",
+        icon: "idc",
+        category: "app",
+        color: {
+          startColor: "#FFBB94",
+          endColor: "#FE7D37",
+          direction: "left-to-right",
+        },
+      },
+    });
+    wrapper.update();
+    expect(wrapper.find("linearGradient").length).toBe(1);
+    expect(wrapper.find("style").length).toBe(1);
+    expect(
+      wrapper.find("linearGradient").find("stop").at(0).prop("stopColor")
+    ).toBe("#FFBB94");
+    expect(
+      wrapper.find("linearGradient").find("stop").at(1).prop("stopColor")
+    ).toBe("#FE7D37");
   });
 });

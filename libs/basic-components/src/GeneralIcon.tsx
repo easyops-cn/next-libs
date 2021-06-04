@@ -9,11 +9,13 @@ import {
   LegacyAntdIcon,
   FaIcon,
   EasyopsIcon,
+  GradientColor,
 } from "@next-core/brick-types";
 import { BrickIcon } from "@next-core/brick-icons";
 import { Colors, COLORS_MAP, getColor } from "./utils/getColor";
 import classnames from "classnames";
 import cssStyle from "./GeneralIcon.module.css";
+import { uniqueId } from "lodash";
 
 interface MenuIconProps {
   icon: MenuIcon;
@@ -24,6 +26,16 @@ interface MenuIconProps {
   style?: React.CSSProperties;
   onClick?(event: React.MouseEvent<HTMLElement, MouseEvent>): void;
   showEmptyIcon?: boolean;
+}
+
+function isGradientColor(
+  color: string | GradientColor
+): color is GradientColor {
+  return (
+    color !== undefined &&
+    (color as GradientColor)?.startColor !== undefined &&
+    (color as GradientColor)?.endColor !== undefined
+  );
 }
 
 export function GeneralIcon(props: MenuIconProps): React.ReactElement {
@@ -40,30 +52,37 @@ export function GeneralIcon(props: MenuIconProps): React.ReactElement {
 
   let style: Record<string, any>;
   if (icon?.color) {
-    if (bg) {
-      if (COLORS_MAP[icon.color as Colors]) {
-        if (reverseBgColor) {
+    if (!isGradientColor(icon.color)) {
+      if (bg) {
+        if (COLORS_MAP[icon.color as Colors]) {
+          if (reverseBgColor) {
+            style = {
+              color: "#ffffff",
+              backgroundColor: getColor(icon.color).color,
+            };
+          } else {
+            style = getColor(icon.color);
+          }
+        } else {
           style = {
             color: "#ffffff",
-            backgroundColor: getColor(icon.color).color,
+            backgroundColor: icon.color,
           };
-        } else {
-          style = getColor(icon.color);
         }
       } else {
         style = {
-          color: "#ffffff",
-          backgroundColor: icon.color,
+          color: COLORS_MAP[icon.color as Colors]
+            ? getColor(icon.color).color
+            : icon.color,
         };
       }
     } else {
       style = {
-        color: COLORS_MAP[icon.color as Colors]
-          ? getColor(icon.color).color
-          : icon.color,
+        color: "transparent",
       };
     }
   }
+
   if (props.style) {
     if (style) {
       Object.assign(style, props.style);
@@ -71,6 +90,8 @@ export function GeneralIcon(props: MenuIconProps): React.ReactElement {
       style = props.style;
     }
   }
+
+  const generalIconId = uniqueId("generalIcon");
 
   const iconType =
     (icon as RefinedAntdIcon | FaIcon | EasyopsIcon)?.icon ||
@@ -113,6 +134,7 @@ export function GeneralIcon(props: MenuIconProps): React.ReactElement {
         theme={icon.theme}
         style={style}
         onClick={onClick}
+        className={generalIconId}
       />
     );
   }
@@ -129,6 +151,7 @@ export function GeneralIcon(props: MenuIconProps): React.ReactElement {
           <FontAwesomeIcon icon={faIcon} className={cssStyle.faIcon} />
         )}
         onClick={onClick}
+        className={generalIconId}
       />
     );
   }
@@ -141,7 +164,45 @@ export function GeneralIcon(props: MenuIconProps): React.ReactElement {
           <BrickIcon icon={icon.icon} category={icon.category} />
         )}
         onClick={onClick}
+        className={generalIconId}
       />
+    );
+  }
+
+  if (isGradientColor(icon.color)) {
+    let gradientIconDirection;
+    switch (icon.color?.direction) {
+      case "left-to-right":
+        gradientIconDirection = { x1: "0", y1: "0", x2: "1", y2: "0" };
+        break;
+      case "top-to-bottom":
+      default:
+        gradientIconDirection = { x1: "0", y1: "0", x2: "0", y2: "1" };
+    }
+
+    iconNode = (
+      <>
+        {iconNode}
+        <div style={{ position: "absolute" }}>
+          <svg width="0" height="0" aria-hidden={true} focusable={false}>
+            <defs>
+              <linearGradient
+                id={`linearGradient-${generalIconId}`}
+                {...gradientIconDirection}
+              >
+                `
+                <stop offset="0%" stopColor={icon.color.startColor} />
+                <stop offset="100%" stopColor={icon.color.endColor} />
+              </linearGradient>
+            </defs>
+          </svg>
+          <style>
+            {`.${generalIconId} svg path {
+              fill: url(#linearGradient-${generalIconId});
+          }`}
+          </style>
+        </div>
+      </>
     );
   }
 
@@ -151,7 +212,10 @@ export function GeneralIcon(props: MenuIconProps): React.ReactElement {
         icon={iconNode}
         size={size ?? "default"}
         shape={(shape as AvatarProps["shape"]) ?? "circle"}
-        style={style}
+        style={{
+          ...(isGradientColor(icon.color) ? { backgroundColor: "#fff" } : {}),
+          ...style,
+        }}
         className={classnames({
           [cssStyle.roundSquareBg]: shape === "round-square",
         })}
