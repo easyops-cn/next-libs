@@ -68,6 +68,9 @@ const SELF_RENDER_COLUMNS: { [objectId: string]: PropertyDisplayConfig[] } = {
           value: "type",
         },
         showBg: true,
+        style: {
+          display: "inline-block",
+        },
       },
     },
   ],
@@ -296,6 +299,7 @@ export class LegacyInstanceListTable extends React.Component<
     };
     const displayConfig = this.keyDisplayConfigMap[attribute.id];
     const isPrimary = attribute.id === getInstanceNameKeys(object)[0];
+    let tempColumns: any;
 
     switch (attribute.value.type) {
       case ModelAttributeValueType.STRUCT:
@@ -307,7 +311,17 @@ export class LegacyInstanceListTable extends React.Component<
     }
     if (displayConfig) {
       if (displayConfig.brick) {
-        column.render = this.getCustomPropertyRender(displayConfig, isPrimary);
+        tempColumns = tempColumns = (
+          value: string[],
+          record: Record<string, any>,
+          index: number
+        ) => {
+          return this.getCustomPropertyRender(displayConfig, isPrimary)(
+            value,
+            record,
+            index
+          );
+        };
       } else if (displayConfig.type) {
         switch (displayConfig.type) {
           case PropertyDisplayType.Tag:
@@ -340,7 +354,6 @@ export class LegacyInstanceListTable extends React.Component<
       }
     } else {
       let isLegacy: boolean;
-      let tempColumns: any;
       switch (attribute.value.type) {
         case ModelAttributeValueType.STRUCT:
           isLegacy = true;
@@ -363,7 +376,7 @@ export class LegacyInstanceListTable extends React.Component<
                 }
                 placement="bottom"
               >
-                <Button type="link">
+                <Button type="link" style={{ padding: "4px 0" }}>
                   {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.VIEW}`)}
                 </Button>
               </Popover>
@@ -412,68 +425,94 @@ export class LegacyInstanceListTable extends React.Component<
             tempColumns = (v: string) => v;
           }
       }
-      if (tempColumns) {
-        column.render =
-          firstColumns && this.props.detailUrlTemplates
-            ? (value: string, record: Record<string, any>, index: number) => {
-                //要跳到的路由
-                const detailUrlTemplate = getTemplateFromMap(
-                  this.props.detailUrlTemplates,
-                  object.objectId
-                );
-                if (detailUrlTemplate) {
-                  const data = {
-                    ...record,
-                    objectId: object.objectId,
-                  };
-                  const url = parseTemplate(detailUrlTemplate, data);
+    }
+    if (tempColumns) {
+      column.render =
+        firstColumns && this.props.detailUrlTemplates
+          ? (value: string, record: Record<string, any>, index: number) => {
+              //要跳到的路由
+              const detailUrlTemplate = getTemplateFromMap(
+                this.props.detailUrlTemplates,
+                object.objectId
+              );
+              if (detailUrlTemplate) {
+                const data = {
+                  ...record,
+                  objectId: object.objectId,
+                };
+                const url = parseTemplate(detailUrlTemplate, data);
+                if (
+                  attribute.value.type === ModelAttributeValueType.STRUCT_LIST
+                ) {
                   return (
-                    <Link
-                      to={url}
-                      onClick={(e: any) =>
-                        this.handleClickItem(e, record.instanceId)
-                      }
-                      data-testid="instance-detail-link"
-                    >
-                      <GeneralIcon
-                        icon={{
-                          lib: "antd",
-                          icon: "link",
-                          theme: "outlined",
-                          color: "#167be0",
-                        }}
-                      />
+                    <>
+                      <Link
+                        to={url}
+                        onClick={(e: any) =>
+                          this.handleClickItem(e, record.instanceId)
+                        }
+                        data-testid="instance-detail-link"
+                      >
+                        <GeneralIcon
+                          icon={{
+                            lib: "antd",
+                            icon: "link",
+                            theme: "outlined",
+                            color: "#167be0",
+                          }}
+                        />
+                      </Link>
                       <span className={styles.linkKey}>
                         {tempColumns(value, record, index)}
                       </span>
-                    </Link>
-                  );
-                } else {
-                  return (
-                    <a
-                      role="button"
-                      onClick={(e) =>
-                        this.handleClickItem(e, record.instanceId)
-                      }
-                      data-testid="instance-detail-link"
-                    >
-                      <GeneralIcon
-                        icon={{
-                          lib: "antd",
-                          icon: "link",
-                          theme: "outlined",
-                          color: "#167be0",
-                        }}
-                      />
-                      <span className={styles.linkKey}>{value}</span>
-                    </a>
+                    </>
                   );
                 }
+                return (
+                  <Link
+                    to={url}
+                    onClick={(e: any) =>
+                      this.handleClickItem(e, record.instanceId)
+                    }
+                    data-testid="instance-detail-link"
+                  >
+                    <GeneralIcon
+                      icon={{
+                        lib: "antd",
+                        icon: "link",
+                        theme: "outlined",
+                        color: "#167be0",
+                      }}
+                    />
+                    <span className={styles.linkKey}>
+                      {tempColumns(value, record, index)}
+                    </span>
+                  </Link>
+                );
+              } else {
+                return (
+                  <a
+                    role="button"
+                    onClick={(e) => this.handleClickItem(e, record.instanceId)}
+                    data-testid="instance-detail-link"
+                  >
+                    <GeneralIcon
+                      icon={{
+                        lib: "antd",
+                        icon: "link",
+                        theme: "outlined",
+                        color: "#167be0",
+                      }}
+                    />
+                    <span className={styles.linkKey}>
+                      {tempColumns(value, record, index)}
+                    </span>
+                  </a>
+                );
               }
-            : tempColumns;
-      }
+            }
+          : tempColumns;
     }
-
     return column;
   }
 
