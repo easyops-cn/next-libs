@@ -22,7 +22,7 @@ import {
   CmdbModels,
   InstanceApi_PostSearchV3ResponseBody,
 } from "@next-sdk/cmdb-sdk";
-import { Link } from "@next-libs/basic-components";
+import { Link, GeneralIcon } from "@next-libs/basic-components";
 import {
   forEachAvailableFields,
   getInstanceNameKeys,
@@ -426,7 +426,15 @@ export class LegacyInstanceListTable extends React.Component<
                     onClick={(e) => this.handleClickItem(e, record.instanceId)}
                     data-testid="instance-detail-link"
                   >
-                    {text}
+                    <GeneralIcon
+                      icon={{
+                        lib: "antd",
+                        icon: "link",
+                        theme: "outlined",
+                        color: "#167be0",
+                      }}
+                    />
+                    <span className={styles.linkKey}>{text}</span>
                   </Link>
                 );
               };
@@ -518,7 +526,15 @@ export class LegacyInstanceListTable extends React.Component<
                         this.handleClickItem(e, record.instanceId)
                       }
                     >
-                      {instanceName}
+                      <GeneralIcon
+                        icon={{
+                          lib: "antd",
+                          icon: "link",
+                          theme: "outlined",
+                          color: "#167be0",
+                        }}
+                      />
+                      <span className={styles.linkKey}>{instanceName}</span>
                     </Link>
                   )}
                 </React.Fragment>
