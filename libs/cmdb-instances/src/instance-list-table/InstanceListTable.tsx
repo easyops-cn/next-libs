@@ -58,7 +58,17 @@ enum SortOrder {
 }
 
 const SELF_RENDER_COLUMNS: { [objectId: string]: PropertyDisplayConfig[] } = {
-  HOST: [{ key: "_agentStatus", brick: "presentational-bricks.agent-status" }],
+  HOST: [
+    {
+      key: "_agentStatus",
+      brick: "presentational-bricks.agent-status",
+      properties: {
+        style: {
+          display: "inline-block",
+        },
+      },
+    },
+  ],
   CLUSTER: [
     {
       key: "type",
@@ -584,15 +594,7 @@ export class LegacyInstanceListTable extends React.Component<
                         this.handleClickItem(e, record.instanceId)
                       }
                     >
-                      <GeneralIcon
-                        icon={{
-                          lib: "antd",
-                          icon: "link",
-                          theme: "outlined",
-                          color: "#167be0",
-                        }}
-                      />
-                      <span className={styles.linkKey}>{instanceName}</span>
+                      instanceName
                     </Link>
                   )}
                 </React.Fragment>
