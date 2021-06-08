@@ -125,7 +125,6 @@ export class LegacyInstanceListTable extends React.Component<
     this.props.propertyDisplayConfigs?.forEach(
       (config) => (this.keyDisplayConfigMap[config.key] = config)
     );
-
     const fieldIds = this.props.fieldIds;
     const sortedColumns = this.getChangeColumns(fieldIds);
 
@@ -158,10 +157,14 @@ export class LegacyInstanceListTable extends React.Component<
     const columns: InstanceListTableState["columns"] = [];
     forEachAvailableFields(
       modifyModelData(this.props.modelData),
-      (attr) =>
+      (attr, firstColumns?: boolean) =>
         columns.push(
           this.setColumnSortOrder(
-            this.getAttributeColumnData(attr, this.props.modelData)
+            this.getAttributeColumnData(
+              attr,
+              this.props.modelData,
+              firstColumns
+            )
           )
         ),
       (relation, sides) =>
@@ -283,7 +286,8 @@ export class LegacyInstanceListTable extends React.Component<
 
   getAttributeColumnData(
     attribute: Partial<CmdbModels.ModelObjectAttr>,
-    object: Partial<CmdbModels.ModelCmdbObject>
+    object: Partial<CmdbModels.ModelCmdbObject>,
+    firstColumns?: boolean
   ): ColumnType<Record<string, any>> {
     const column: ColumnType<Record<string, any>> = {
       title: attribute.name,
@@ -301,7 +305,6 @@ export class LegacyInstanceListTable extends React.Component<
       default:
         column.sorter = !this.props.sortDisabled;
     }
-
     if (displayConfig) {
       if (displayConfig.brick) {
         column.render = this.getCustomPropertyRender(displayConfig, isPrimary);
@@ -337,12 +340,13 @@ export class LegacyInstanceListTable extends React.Component<
       }
     } else {
       let isLegacy: boolean;
+      let tempColumns: any;
       switch (attribute.value.type) {
         case ModelAttributeValueType.STRUCT:
           isLegacy = true;
         // falls through
         case ModelAttributeValueType.STRUCT_LIST:
-          column.render = (
+          tempColumns = (
             value: Record<string, any> | Record<string, any>[],
             record: Record<string, any>,
             index: number
@@ -368,7 +372,7 @@ export class LegacyInstanceListTable extends React.Component<
           break;
         case ModelAttributeValueType.ARR:
         case ModelAttributeValueType.ENUMS:
-          column.render = (
+          tempColumns = (
             value: string[],
             record: Record<string, any>,
             index: number
@@ -377,15 +381,18 @@ export class LegacyInstanceListTable extends React.Component<
           };
           break;
         case ModelAttributeValueType.BOOLEAN:
-          column.render = (v: boolean) => (isNil(v) ? "" : "" + v);
+          tempColumns = (v: boolean) => (isNil(v) ? "" : "" + v);
           break;
         case ModelAttributeValueType.JSON:
-          column.render = (v: any) =>
+          tempColumns = (v: any) =>
             typeof v === "string" ? v : JSON.stringify(v);
+          break;
+        case ModelAttributeValueType.STRING:
+          tempColumns = (v: string) => v;
           break;
         default:
           if (object.objectId === "HOST" && attribute.id in customRules) {
-            column.render = (
+            tempColumns = (
               text: any,
               record: Record<string, any>,
               index: number
@@ -401,57 +408,69 @@ export class LegacyInstanceListTable extends React.Component<
               }
               return (customRules as any)[attribute.id](text, attribute);
             };
+          } else {
+            tempColumns = (v: string) => v;
           }
-          if (isPrimary && this.props.detailUrlTemplates) {
-            const detailUrlTemplate = getTemplateFromMap(
-              this.props.detailUrlTemplates,
-              object.objectId
-            );
-            if (detailUrlTemplate) {
-              column.render = (
-                text: string,
-                record: Record<string, any>,
-                index: number
-              ) => {
-                const data = {
-                  ...record,
-                  objectId: object.objectId,
-                };
-                const url = parseTemplate(detailUrlTemplate, data);
-                return (
-                  <Link
-                    // 使用 <Link> 以保持链接的原生能力
-                    to={url}
-                    // 自定义 onClick 以支持事件配置和拦截
-                    onClick={(e) => this.handleClickItem(e, record.instanceId)}
-                    data-testid="instance-detail-link"
-                  >
-                    <GeneralIcon
-                      icon={{
-                        lib: "antd",
-                        icon: "link",
-                        theme: "outlined",
-                        color: "#167be0",
-                      }}
-                    />
-                    <span className={styles.linkKey}>{text}</span>
-                  </Link>
+      }
+      if (tempColumns) {
+        column.render =
+          firstColumns && this.props.detailUrlTemplates
+            ? (value: string, record: Record<string, any>, index: number) => {
+                //要跳到的路由
+                const detailUrlTemplate = getTemplateFromMap(
+                  this.props.detailUrlTemplates,
+                  object.objectId
                 );
-              };
-            } else if (detailUrlTemplate === null) {
-              column.render = (text: string, record: Record<string, any>) => {
-                return (
-                  <a
-                    role="button"
-                    onClick={(e) => this.handleClickItem(e, record.instanceId)}
-                    data-testid="instance-detail-link"
-                  >
-                    {text}
-                  </a>
-                );
-              };
-            }
-          }
+                if (detailUrlTemplate) {
+                  const data = {
+                    ...record,
+                    objectId: object.objectId,
+                  };
+                  const url = parseTemplate(detailUrlTemplate, data);
+                  return (
+                    <Link
+                      to={url}
+                      onClick={(e: any) =>
+                        this.handleClickItem(e, record.instanceId)
+                      }
+                      data-testid="instance-detail-link"
+                    >
+                      <GeneralIcon
+                        icon={{
+                          lib: "antd",
+                          icon: "link",
+                          theme: "outlined",
+                          color: "#167be0",
+                        }}
+                      />
+                      <span className={styles.linkKey}>
+                        {tempColumns(value, record, index)}
+                      </span>
+                    </Link>
+                  );
+                } else {
+                  return (
+                    <a
+                      role="button"
+                      onClick={(e) =>
+                        this.handleClickItem(e, record.instanceId)
+                      }
+                      data-testid="instance-detail-link"
+                    >
+                      <GeneralIcon
+                        icon={{
+                          lib: "antd",
+                          icon: "link",
+                          theme: "outlined",
+                          color: "#167be0",
+                        }}
+                      />
+                      <span className={styles.linkKey}>{value}</span>
+                    </a>
+                  );
+                }
+              }
+            : tempColumns;
       }
     }
 
