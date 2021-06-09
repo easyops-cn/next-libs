@@ -82,6 +82,8 @@ const locale: Locale = {
   [K.FILTER_FROM_CMDB]: "Filter {{name}} from CMDB",
   [K.PAGINATION_TOTAL_TEXT]: "total",
   [K.PAGINATION_TOTAL_UNIT]: "items",
+  [K.JUMP_TO]: "Jump to ",
+  [K.INSTANCE_DETAIL]: "",
 };
 
 export default locale;

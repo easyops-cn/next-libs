@@ -77,6 +77,8 @@ const locale: Locale = {
   [K.FILTER_FROM_CMDB]: "从 CMDB 中筛选{{name}}",
   [K.PAGINATION_TOTAL_TEXT]: "共",
   [K.PAGINATION_TOTAL_UNIT]: "项",
+  [K.JUMP_TO]: "跳转到",
+  [K.INSTANCE_DETAIL]: "实例详情",
 };
 
 export default locale;

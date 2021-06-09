@@ -294,6 +294,71 @@ export class LegacyInstanceListTable extends React.Component<
     };
   }
 
+  getSpecialUrlTemplates(
+    object: Partial<CmdbModels.ModelCmdbObject>,
+    record: any,
+    node: any,
+    url?: string
+  ) {
+    if (!url) {
+      return (
+        <a
+          role="button"
+          onClick={(e) => this.handleClickItem(e, record.instanceId)}
+          data-testid="instance-detail-link"
+        >
+          <Tooltip
+            placement="left"
+            title={`${i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.JUMP_TO}`)}${
+              object.name
+            }${i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.INSTANCE_DETAIL}`)}`}
+          >
+            <span style={{ display: "flex" }}>
+              <span className={styles.iconWrap}>
+                <GeneralIcon
+                  icon={{
+                    lib: "antd",
+                    icon: "link",
+                    theme: "outlined",
+                    color: "#167be0",
+                  }}
+                />
+              </span>
+              <span className={styles.linkKey}>{node}</span>
+            </span>
+          </Tooltip>
+        </a>
+      );
+    }
+    return (
+      <>
+        <Link
+          to={url}
+          onClick={(e: any) => this.handleClickItem(e, record.instanceId)}
+          data-testid="instance-detail-link"
+        >
+          <Tooltip
+            placement="left"
+            title={`${i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.JUMP_TO}`)}${
+              object.name
+            }${i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.INSTANCE_DETAIL}`)}`}
+          >
+            <span>
+              <GeneralIcon
+                icon={{
+                  lib: "antd",
+                  icon: "link",
+                  theme: "outlined",
+                  color: "#167be0",
+                }}
+              />
+            </span>
+          </Tooltip>
+        </Link>
+        <span className={styles.linkKey}>{node}</span>
+      </>
+    );
+  }
   getAttributeColumnData(
     attribute: Partial<CmdbModels.ModelObjectAttr>,
     object: Partial<CmdbModels.ModelCmdbObject>,
@@ -318,7 +383,7 @@ export class LegacyInstanceListTable extends React.Component<
     }
     if (displayConfig) {
       if (displayConfig.brick) {
-        tempColumns = tempColumns = (
+        tempColumns = (
           value: string[],
           record: Record<string, any>,
           index: number
@@ -451,35 +516,11 @@ export class LegacyInstanceListTable extends React.Component<
                 if (
                   attribute.value.type === ModelAttributeValueType.STRUCT_LIST
                 ) {
-                  return (
-                    <>
-                      <Link
-                        to={url}
-                        onClick={(e: any) =>
-                          this.handleClickItem(e, record.instanceId)
-                        }
-                        data-testid="instance-detail-link"
-                      >
-                        <Tooltip
-                          placement="left"
-                          title={`跳转到${object.name}实例详情`}
-                        >
-                          <span>
-                            <GeneralIcon
-                              icon={{
-                                lib: "antd",
-                                icon: "link",
-                                theme: "outlined",
-                                color: "#167be0",
-                              }}
-                            />
-                          </span>
-                        </Tooltip>
-                      </Link>
-                      <span className={styles.linkKey}>
-                        {tempColumns(value, record, index)}
-                      </span>
-                    </>
+                  return this.getSpecialUrlTemplates(
+                    object,
+                    record,
+                    tempColumns(value, record, index),
+                    url
                   );
                 }
                 return (
@@ -492,7 +533,11 @@ export class LegacyInstanceListTable extends React.Component<
                   >
                     <Tooltip
                       placement="left"
-                      title={`跳转到${object.name}实例详情`}
+                      title={`${i18n.t(
+                        `${NS_LIBS_CMDB_INSTANCES}:${K.JUMP_TO}`
+                      )}${object.name}${i18n.t(
+                        `${NS_LIBS_CMDB_INSTANCES}:${K.INSTANCE_DETAIL}`
+                      )}`}
                     >
                       <span style={{ display: "flex" }}>
                         <span className={styles.iconWrap}>
@@ -513,33 +558,10 @@ export class LegacyInstanceListTable extends React.Component<
                   </Link>
                 );
               } else {
-                return (
-                  <a
-                    role="button"
-                    onClick={(e) => this.handleClickItem(e, record.instanceId)}
-                    data-testid="instance-detail-link"
-                  >
-                    <Tooltip
-                      placement="left"
-                      title={`跳转到${object.name}实例详情`}
-                    >
-                      <span style={{ display: "flex" }}>
-                        <span className={styles.iconWrap}>
-                          <GeneralIcon
-                            icon={{
-                              lib: "antd",
-                              icon: "link",
-                              theme: "outlined",
-                              color: "#167be0",
-                            }}
-                          />
-                        </span>
-                        <span className={styles.linkKey}>
-                          {tempColumns(value, record, index)}
-                        </span>
-                      </span>
-                    </Tooltip>
-                  </a>
+                return this.getSpecialUrlTemplates(
+                  object,
+                  record,
+                  tempColumns(value, record, index)
                 );
               }
             }
@@ -662,60 +684,17 @@ export class LegacyInstanceListTable extends React.Component<
                   objectId: object.objectId,
                 };
                 const url = parseTemplate(detailUrlTemplate, data);
-                return (
-                  <>
-                    <Link
-                      to={url}
-                      onClick={(e: any) =>
-                        this.handleClickItem(e, record.instanceId)
-                      }
-                      data-testid="instance-detail-link"
-                    >
-                      <Tooltip
-                        placement="left"
-                        title={`跳转到${object.name}实例详情`}
-                      >
-                        <span>
-                          <GeneralIcon
-                            icon={{
-                              lib: "antd",
-                              icon: "link",
-                              theme: "outlined",
-                              color: "#167be0",
-                            }}
-                          />
-                        </span>
-                      </Tooltip>
-                    </Link>
-                    <span className={styles.linkKey}>
-                      {tempColumns(value, record, index)}
-                    </span>
-                  </>
+                return this.getSpecialUrlTemplates(
+                  object,
+                  record,
+                  tempColumns(value, record, index),
+                  url
                 );
               } else {
-                return (
-                  <a
-                    role="button"
-                    onClick={(e) => this.handleClickItem(e, record.instanceId)}
-                    data-testid="instance-detail-link"
-                  >
-                    <Tooltip
-                      placement="left"
-                      title={`跳转到${object.name}实例详情`}
-                    >
-                      <GeneralIcon
-                        icon={{
-                          lib: "antd",
-                          icon: "link",
-                          theme: "outlined",
-                          color: "#167be0",
-                        }}
-                      />
-                      <span className={styles.linkKey}>
-                        {tempColumns(value, record, index)}
-                      </span>
-                    </Tooltip>
-                  </a>
+                return this.getSpecialUrlTemplates(
+                  object,
+                  record,
+                  tempColumns(value, record, index)
                 );
               }
             }
