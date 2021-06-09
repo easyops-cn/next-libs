@@ -1,7 +1,7 @@
 import React from "react";
 import { withTranslation, WithTranslation } from "react-i18next";
 import classnames from "classnames";
-import { Button, Popover, Table, Tag } from "antd";
+import { Button, Popover, Table, Tag, Tooltip } from "antd";
 import { isNil, isBoolean, compact } from "lodash";
 import { ColumnType, TablePaginationConfig, TableProps } from "antd/lib/table";
 import {
@@ -180,10 +180,15 @@ export class LegacyInstanceListTable extends React.Component<
             )
           )
         ),
-      (relation, sides) =>
+      (relation, sides, firstColumns?: boolean) =>
         columns.push(
           this.setColumnSortOrder(
-            this.getRelationColumnData(relation, this.props.modelData, sides)
+            this.getRelationColumnData(
+              relation,
+              this.props.modelData,
+              sides,
+              firstColumns
+            )
           )
         ),
       ids
@@ -463,14 +468,21 @@ export class LegacyInstanceListTable extends React.Component<
                         }
                         data-testid="instance-detail-link"
                       >
-                        <GeneralIcon
-                          icon={{
-                            lib: "antd",
-                            icon: "link",
-                            theme: "outlined",
-                            color: "#167be0",
-                          }}
-                        />
+                        <Tooltip
+                          placement="left"
+                          title={`跳转到${object.name}实例详情`}
+                        >
+                          <span>
+                            <GeneralIcon
+                              icon={{
+                                lib: "antd",
+                                icon: "link",
+                                theme: "outlined",
+                                color: "#167be0",
+                              }}
+                            />
+                          </span>
+                        </Tooltip>
                       </Link>
                       <span className={styles.linkKey}>
                         {tempColumns(value, record, index)}
@@ -486,17 +498,22 @@ export class LegacyInstanceListTable extends React.Component<
                     }
                     data-testid="instance-detail-link"
                   >
-                    <GeneralIcon
-                      icon={{
-                        lib: "antd",
-                        icon: "link",
-                        theme: "outlined",
-                        color: "#167be0",
-                      }}
-                    />
-                    <span className={styles.linkKey}>
-                      {tempColumns(value, record, index)}
-                    </span>
+                    <Tooltip
+                      placement="left"
+                      title={`跳转到${object.name}实例详情`}
+                    >
+                      <GeneralIcon
+                        icon={{
+                          lib: "antd",
+                          icon: "link",
+                          theme: "outlined",
+                          color: "#167be0",
+                        }}
+                      />
+                      <span className={styles.linkKey}>
+                        {tempColumns(value, record, index)}
+                      </span>
+                    </Tooltip>
                   </Link>
                 );
               } else {
@@ -506,17 +523,22 @@ export class LegacyInstanceListTable extends React.Component<
                     onClick={(e) => this.handleClickItem(e, record.instanceId)}
                     data-testid="instance-detail-link"
                   >
-                    <GeneralIcon
-                      icon={{
-                        lib: "antd",
-                        icon: "link",
-                        theme: "outlined",
-                        color: "#167be0",
-                      }}
-                    />
-                    <span className={styles.linkKey}>
-                      {tempColumns(value, record, index)}
-                    </span>
+                    <Tooltip
+                      placement="left"
+                      title={`跳转到${object.name}实例详情`}
+                    >
+                      <GeneralIcon
+                        icon={{
+                          lib: "antd",
+                          icon: "link",
+                          theme: "outlined",
+                          color: "#167be0",
+                        }}
+                      />
+                      <span className={styles.linkKey}>
+                        {tempColumns(value, record, index)}
+                      </span>
+                    </Tooltip>
                   </a>
                 );
               }
@@ -529,7 +551,8 @@ export class LegacyInstanceListTable extends React.Component<
   getRelationColumnData(
     relation: Partial<CmdbModels.ModelObjectRelation>,
     object: Partial<CmdbModels.ModelCmdbObject>,
-    sides: RelationObjectSides
+    sides: RelationObjectSides,
+    firstColumns?: boolean
   ): ColumnType<Record<string, any>> {
     const key = relation[`${sides.this}_id` as RelationIdKeys];
 
@@ -540,11 +563,22 @@ export class LegacyInstanceListTable extends React.Component<
       className: styles.instanceListTableCell,
     };
     const displayConfig = this.keyDisplayConfigMap[key];
+    let tempColumns: any;
 
     if (displayConfig) {
-      column.render = this.getCustomPropertyRender(displayConfig);
+      tempColumns = (
+        value: string[],
+        record: Record<string, any>,
+        index: number
+      ) => {
+        return this.getCustomPropertyRender(displayConfig)(
+          value,
+          record,
+          index
+        );
+      };
     } else {
-      column.render = (
+      tempColumns = (
         instances: Record<string, any>[],
         record: Record<string, any>,
         index: number
@@ -594,7 +628,7 @@ export class LegacyInstanceListTable extends React.Component<
                         this.handleClickItem(e, record.instanceId)
                       }
                     >
-                      instanceName
+                      {instanceName}
                     </Link>
                   )}
                 </React.Fragment>
@@ -613,7 +647,110 @@ export class LegacyInstanceListTable extends React.Component<
         }
       };
     }
-
+    if (tempColumns) {
+      column.render =
+        firstColumns && this.props.detailUrlTemplates
+          ? (value: string, record: Record<string, any>, index: number) => {
+              //要跳到的路由
+              const detailUrlTemplate = getTemplateFromMap(
+                this.props.detailUrlTemplates,
+                object.objectId
+              );
+              if (detailUrlTemplate) {
+                const data = {
+                  ...record,
+                  objectId: object.objectId,
+                };
+                const url = parseTemplate(detailUrlTemplate, data);
+                if (this.props.relationLinkDisabled) {
+                  return (
+                    <>
+                      <Link
+                        to={url}
+                        onClick={(e: any) =>
+                          this.handleClickItem(e, record.instanceId)
+                        }
+                        data-testid="instance-detail-link"
+                      >
+                        <Tooltip
+                          placement="left"
+                          title={`跳转到${object.name}实例详情`}
+                        >
+                          <GeneralIcon
+                            icon={{
+                              lib: "antd",
+                              icon: "link",
+                              theme: "outlined",
+                              color: "#167be0",
+                            }}
+                          />
+                          <span className={styles.linkKey}>
+                            {tempColumns(value, record, index)}
+                          </span>
+                        </Tooltip>
+                      </Link>
+                    </>
+                  );
+                }
+                return (
+                  <>
+                    <Link
+                      to={url}
+                      onClick={(e: any) =>
+                        this.handleClickItem(e, record.instanceId)
+                      }
+                      data-testid="instance-detail-link"
+                    >
+                      <Tooltip
+                        placement="left"
+                        title={`跳转到${object.name}实例详情`}
+                      >
+                        <span>
+                          <GeneralIcon
+                            icon={{
+                              lib: "antd",
+                              icon: "link",
+                              theme: "outlined",
+                              color: "#167be0",
+                            }}
+                          />
+                        </span>
+                      </Tooltip>
+                    </Link>
+                    <span className={styles.linkKey}>
+                      {tempColumns(value, record, index)}
+                    </span>
+                  </>
+                );
+              } else {
+                return (
+                  <a
+                    role="button"
+                    onClick={(e) => this.handleClickItem(e, record.instanceId)}
+                    data-testid="instance-detail-link"
+                  >
+                    <Tooltip
+                      placement="left"
+                      title={`跳转到${object.name}实例详情`}
+                    >
+                      <GeneralIcon
+                        icon={{
+                          lib: "antd",
+                          icon: "link",
+                          theme: "outlined",
+                          color: "#167be0",
+                        }}
+                      />
+                      <span className={styles.linkKey}>
+                        {tempColumns(value, record, index)}
+                      </span>
+                    </Tooltip>
+                  </a>
+                );
+              }
+            }
+          : tempColumns;
+    }
     return column;
   }
 

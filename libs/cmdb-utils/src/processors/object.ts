@@ -27,7 +27,8 @@ export function forEachAvailableFields(
   ) => void,
   relationCallback?: (
     relation: Partial<CmdbModels.ModelObjectRelation>,
-    sides: RelationObjectSides
+    sides: RelationObjectSides,
+    firstColumn?: boolean
   ) => void,
   fieldIds?: string[]
 ) {
@@ -49,7 +50,9 @@ export function forEachAvailableFields(
         const id = relation[`${sides.this}_id` as RelationIdKeys];
 
         if (fieldIdSet.has(id)) {
-          relationCallback(relation, sides);
+          fieldIds.indexOf(id) === 0
+            ? relationCallback(relation, sides, true)
+            : relationCallback(relation, sides);
         }
       });
     }
