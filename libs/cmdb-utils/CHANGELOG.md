@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@2.1.1...@next-libs/cmdb-utils@2.1.2) (2021-06-09)
+
+
+### Bug Fixes
+
+* 实例列表链接跳转固定在第一列 Closed BRICK_STORE-2143 ([4c962ab](https://github.com/easyops-cn/next-libs/commit/4c962ab2ca7a0843bcba75b9046a64c6d627c127))
+* 请求问题处理 Closed BRICK_STORE-2143 ([edfd4c5](https://github.com/easyops-cn/next-libs/commit/edfd4c5dbe6259d9e90a2aed0d1eccac73ed8a33))
+
+
+
+
+
 ## [2.1.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@2.1.0...@next-libs/cmdb-utils@2.1.1) (2021-05-28)
 
 

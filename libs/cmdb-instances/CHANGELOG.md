@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.3.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@4.3.5...@next-libs/cmdb-instances@4.3.6) (2021-06-09)
+
+
+### Bug Fixes
+
+* test Closed BRICK_STORE-2143 ([90360c7](https://github.com/easyops-cn/next-libs/commit/90360c7551b9885996b7f8f14efd3ea99f6973b9))
+* 代码优化 Closed BRICK_STORE-2143 ([d2a7480](https://github.com/easyops-cn/next-libs/commit/d2a7480add4abeaf41cb4cfb727aa6240edfb245))
+* 实例列表添加图标 Closed BRICK_STORE-2143 ([123859c](https://github.com/easyops-cn/next-libs/commit/123859cbaf8980b1b395da888645d9eda6f46abc))
+* 实例列表结构体和状态类型的链接处理 Closed BRICK_STORE-2143 ([2136179](https://github.com/easyops-cn/next-libs/commit/213617907f6833f60b99b7d85a0c59ecdffe20dc))
+* 实例列表链接跳转固定在第一列 Closed BRICK_STORE-2143 ([4c962ab](https://github.com/easyops-cn/next-libs/commit/4c962ab2ca7a0843bcba75b9046a64c6d627c127))
+* 样式处理 Closed BRICK_STORE-2143 ([a823d58](https://github.com/easyops-cn/next-libs/commit/a823d5802295fbd49d9b1540a1d6e321aa70c0d9))
+* 样式处理 Closed BRICK_STORE-2143 ([e0eb49a](https://github.com/easyops-cn/next-libs/commit/e0eb49a42e796dba1d42354bca636daa3f982eef))
+* 请求问题处理 Closed BRICK_STORE-2143 ([edfd4c5](https://github.com/easyops-cn/next-libs/commit/edfd4c5dbe6259d9e90a2aed0d1eccac73ed8a33))
+
+
+
+
+
 ## [4.3.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@4.3.4...@next-libs/cmdb-instances@4.3.5) (2021-06-04)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
