@@ -32,3 +32,6 @@
 .linkKey {
   padding-left: 5px;
 }
+.iconWrap {
+  transform: translateY(0px);
+}

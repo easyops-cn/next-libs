@@ -62,11 +62,6 @@ const SELF_RENDER_COLUMNS: { [objectId: string]: PropertyDisplayConfig[] } = {
     {
       key: "_agentStatus",
       brick: "presentational-bricks.agent-status",
-      properties: {
-        style: {
-          display: "inline-block",
-        },
-      },
     },
   ],
   CLUSTER: [
@@ -78,9 +73,6 @@ const SELF_RENDER_COLUMNS: { [objectId: string]: PropertyDisplayConfig[] } = {
           value: "type",
         },
         showBg: true,
-        style: {
-          display: "inline-block",
-        },
       },
     },
   ],
@@ -502,16 +494,20 @@ export class LegacyInstanceListTable extends React.Component<
                       placement="left"
                       title={`跳转到${object.name}实例详情`}
                     >
-                      <GeneralIcon
-                        icon={{
-                          lib: "antd",
-                          icon: "link",
-                          theme: "outlined",
-                          color: "#167be0",
-                        }}
-                      />
-                      <span className={styles.linkKey}>
-                        {tempColumns(value, record, index)}
+                      <span style={{ display: "flex" }}>
+                        <span className={styles.iconWrap}>
+                          <GeneralIcon
+                            icon={{
+                              lib: "antd",
+                              icon: "link",
+                              theme: "outlined",
+                              color: "#167be0",
+                            }}
+                          />
+                        </span>
+                        <span className={styles.linkKey}>
+                          {tempColumns(value, record, index)}
+                        </span>
                       </span>
                     </Tooltip>
                   </Link>
@@ -527,16 +523,20 @@ export class LegacyInstanceListTable extends React.Component<
                       placement="left"
                       title={`跳转到${object.name}实例详情`}
                     >
-                      <GeneralIcon
-                        icon={{
-                          lib: "antd",
-                          icon: "link",
-                          theme: "outlined",
-                          color: "#167be0",
-                        }}
-                      />
-                      <span className={styles.linkKey}>
-                        {tempColumns(value, record, index)}
+                      <span style={{ display: "flex" }}>
+                        <span className={styles.iconWrap}>
+                          <GeneralIcon
+                            icon={{
+                              lib: "antd",
+                              icon: "link",
+                              theme: "outlined",
+                              color: "#167be0",
+                            }}
+                          />
+                        </span>
+                        <span className={styles.linkKey}>
+                          {tempColumns(value, record, index)}
+                        </span>
                       </span>
                     </Tooltip>
                   </a>
@@ -662,36 +662,6 @@ export class LegacyInstanceListTable extends React.Component<
                   objectId: object.objectId,
                 };
                 const url = parseTemplate(detailUrlTemplate, data);
-                if (this.props.relationLinkDisabled) {
-                  return (
-                    <>
-                      <Link
-                        to={url}
-                        onClick={(e: any) =>
-                          this.handleClickItem(e, record.instanceId)
-                        }
-                        data-testid="instance-detail-link"
-                      >
-                        <Tooltip
-                          placement="left"
-                          title={`跳转到${object.name}实例详情`}
-                        >
-                          <GeneralIcon
-                            icon={{
-                              lib: "antd",
-                              icon: "link",
-                              theme: "outlined",
-                              color: "#167be0",
-                            }}
-                          />
-                          <span className={styles.linkKey}>
-                            {tempColumns(value, record, index)}
-                          </span>
-                        </Tooltip>
-                      </Link>
-                    </>
-                  );
-                }
                 return (
                   <>
                     <Link
