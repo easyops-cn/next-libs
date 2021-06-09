@@ -21,10 +21,14 @@ export function getRelationObjectSides(
 
 export function forEachAvailableFields(
   object: Partial<CmdbModels.ModelCmdbObject>,
-  attrCallback?: (attr: Partial<CmdbModels.ModelObjectAttr>) => void,
+  attrCallback?: (
+    attr: Partial<CmdbModels.ModelObjectAttr>,
+    firstColumn?: boolean
+  ) => void,
   relationCallback?: (
     relation: Partial<CmdbModels.ModelObjectRelation>,
-    sides: RelationObjectSides
+    sides: RelationObjectSides,
+    firstColumn?: boolean
   ) => void,
   fieldIds?: string[]
 ) {
@@ -33,7 +37,9 @@ export function forEachAvailableFields(
     if (attrCallback) {
       object.attrList.forEach((attr) => {
         if (fieldIdSet.has(attr.id)) {
-          attrCallback(attr);
+          fieldIds.indexOf(attr.id) === 0
+            ? attrCallback(attr, true)
+            : attrCallback(attr);
         }
       });
     }
@@ -44,7 +50,9 @@ export function forEachAvailableFields(
         const id = relation[`${sides.this}_id` as RelationIdKeys];
 
         if (fieldIdSet.has(id)) {
-          relationCallback(relation, sides);
+          fieldIds.indexOf(id) === 0
+            ? relationCallback(relation, sides, true)
+            : relationCallback(relation, sides);
         }
       });
     }

@@ -1,7 +1,7 @@
 import React from "react";
 import { withTranslation, WithTranslation } from "react-i18next";
 import classnames from "classnames";
-import { Button, Popover, Table, Tag } from "antd";
+import { Button, Popover, Table, Tag, Tooltip } from "antd";
 import { isNil, isBoolean, compact } from "lodash";
 import { ColumnType, TablePaginationConfig, TableProps } from "antd/lib/table";
 import {
@@ -22,7 +22,7 @@ import {
   CmdbModels,
   InstanceApi_PostSearchV3ResponseBody,
 } from "@next-sdk/cmdb-sdk";
-import { Link } from "@next-libs/basic-components";
+import { Link, GeneralIcon } from "@next-libs/basic-components";
 import {
   forEachAvailableFields,
   getInstanceNameKeys,
@@ -58,7 +58,12 @@ enum SortOrder {
 }
 
 const SELF_RENDER_COLUMNS: { [objectId: string]: PropertyDisplayConfig[] } = {
-  HOST: [{ key: "_agentStatus", brick: "presentational-bricks.agent-status" }],
+  HOST: [
+    {
+      key: "_agentStatus",
+      brick: "presentational-bricks.agent-status",
+    },
+  ],
   CLUSTER: [
     {
       key: "type",
@@ -125,7 +130,6 @@ export class LegacyInstanceListTable extends React.Component<
     this.props.propertyDisplayConfigs?.forEach(
       (config) => (this.keyDisplayConfigMap[config.key] = config)
     );
-
     const fieldIds = this.props.fieldIds;
     const sortedColumns = this.getChangeColumns(fieldIds);
 
@@ -158,16 +162,25 @@ export class LegacyInstanceListTable extends React.Component<
     const columns: InstanceListTableState["columns"] = [];
     forEachAvailableFields(
       modifyModelData(this.props.modelData),
-      (attr) =>
+      (attr, firstColumns?: boolean) =>
         columns.push(
           this.setColumnSortOrder(
-            this.getAttributeColumnData(attr, this.props.modelData)
+            this.getAttributeColumnData(
+              attr,
+              this.props.modelData,
+              firstColumns
+            )
           )
         ),
-      (relation, sides) =>
+      (relation, sides, firstColumns?: boolean) =>
         columns.push(
           this.setColumnSortOrder(
-            this.getRelationColumnData(relation, this.props.modelData, sides)
+            this.getRelationColumnData(
+              relation,
+              this.props.modelData,
+              sides,
+              firstColumns
+            )
           )
         ),
       ids
@@ -251,7 +264,6 @@ export class LegacyInstanceListTable extends React.Component<
       this.props.onClickItem(e, id);
     }
   }
-
   getCustomPropertyRender(config: PropertyDisplayConfig, isPrimary?: boolean) {
     return (value: any, record: Record<string, any>, index: number) => {
       return (
@@ -280,10 +292,76 @@ export class LegacyInstanceListTable extends React.Component<
       );
     };
   }
-
+  // istanbul ignore next
+  getSpecialUrlTemplates(
+    object: Partial<CmdbModels.ModelCmdbObject>,
+    record: any,
+    node: any,
+    url?: string
+  ) {
+    if (!url) {
+      return (
+        <a
+          role="button"
+          onClick={(e) => this.handleClickItem(e, record.instanceId)}
+          data-testid="instance-detail-link"
+        >
+          <Tooltip
+            placement="left"
+            title={`${i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.JUMP_TO}`)}${
+              object.name
+            }${i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.INSTANCE_DETAIL}`)}`}
+          >
+            <span style={{ display: "flex" }}>
+              <span className={styles.iconWrap}>
+                <GeneralIcon
+                  icon={{
+                    lib: "antd",
+                    icon: "link",
+                    theme: "outlined",
+                    color: "#167be0",
+                  }}
+                />
+              </span>
+              <span className={styles.linkKey}>{node}</span>
+            </span>
+          </Tooltip>
+        </a>
+      );
+    }
+    return (
+      <>
+        <Link
+          to={url}
+          onClick={(e: any) => this.handleClickItem(e, record.instanceId)}
+          data-testid="instance-detail-link"
+        >
+          <Tooltip
+            placement="left"
+            title={`${i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.JUMP_TO}`)}${
+              object.name
+            }${i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.INSTANCE_DETAIL}`)}`}
+          >
+            <span>
+              <GeneralIcon
+                icon={{
+                  lib: "antd",
+                  icon: "link",
+                  theme: "outlined",
+                  color: "#167be0",
+                }}
+              />
+            </span>
+          </Tooltip>
+        </Link>
+        <span className={styles.linkKey}>{node}</span>
+      </>
+    );
+  }
   getAttributeColumnData(
     attribute: Partial<CmdbModels.ModelObjectAttr>,
-    object: Partial<CmdbModels.ModelCmdbObject>
+    object: Partial<CmdbModels.ModelCmdbObject>,
+    firstColumns?: boolean
   ): ColumnType<Record<string, any>> {
     const column: ColumnType<Record<string, any>> = {
       title: attribute.name,
@@ -292,6 +370,7 @@ export class LegacyInstanceListTable extends React.Component<
     };
     const displayConfig = this.keyDisplayConfigMap[attribute.id];
     const isPrimary = attribute.id === getInstanceNameKeys(object)[0];
+    let tempColumns: any;
 
     switch (attribute.value.type) {
       case ModelAttributeValueType.STRUCT:
@@ -301,10 +380,19 @@ export class LegacyInstanceListTable extends React.Component<
       default:
         column.sorter = !this.props.sortDisabled;
     }
-
     if (displayConfig) {
       if (displayConfig.brick) {
-        column.render = this.getCustomPropertyRender(displayConfig, isPrimary);
+        tempColumns = (
+          value: string[],
+          record: Record<string, any>,
+          index: number
+        ) => {
+          return this.getCustomPropertyRender(displayConfig, isPrimary)(
+            value,
+            record,
+            index
+          );
+        };
       } else if (displayConfig.type) {
         switch (displayConfig.type) {
           case PropertyDisplayType.Tag:
@@ -342,7 +430,7 @@ export class LegacyInstanceListTable extends React.Component<
           isLegacy = true;
         // falls through
         case ModelAttributeValueType.STRUCT_LIST:
-          column.render = (
+          tempColumns = (
             value: Record<string, any> | Record<string, any>[],
             record: Record<string, any>,
             index: number
@@ -359,7 +447,7 @@ export class LegacyInstanceListTable extends React.Component<
                 }
                 placement="bottom"
               >
-                <Button type="link">
+                <Button type="link" style={{ padding: "4px 0" }}>
                   {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.VIEW}`)}
                 </Button>
               </Popover>
@@ -368,7 +456,7 @@ export class LegacyInstanceListTable extends React.Component<
           break;
         case ModelAttributeValueType.ARR:
         case ModelAttributeValueType.ENUMS:
-          column.render = (
+          tempColumns = (
             value: string[],
             record: Record<string, any>,
             index: number
@@ -377,15 +465,18 @@ export class LegacyInstanceListTable extends React.Component<
           };
           break;
         case ModelAttributeValueType.BOOLEAN:
-          column.render = (v: boolean) => (isNil(v) ? "" : "" + v);
+          tempColumns = (v: boolean) => (isNil(v) ? "" : "" + v);
           break;
         case ModelAttributeValueType.JSON:
-          column.render = (v: any) =>
+          tempColumns = (v: any) =>
             typeof v === "string" ? v : JSON.stringify(v);
+          break;
+        case ModelAttributeValueType.STRING:
+          tempColumns = (v: string) => v;
           break;
         default:
           if (object.objectId === "HOST" && attribute.id in customRules) {
-            column.render = (
+            tempColumns = (
               text: any,
               record: Record<string, any>,
               index: number
@@ -401,59 +492,89 @@ export class LegacyInstanceListTable extends React.Component<
               }
               return (customRules as any)[attribute.id](text, attribute);
             };
+          } else {
+            tempColumns = (v: string) => v;
           }
-          if (isPrimary && this.props.detailUrlTemplates) {
-            const detailUrlTemplate = getTemplateFromMap(
-              this.props.detailUrlTemplates,
-              object.objectId
-            );
-            if (detailUrlTemplate) {
-              column.render = (
-                text: string,
-                record: Record<string, any>,
-                index: number
-              ) => {
+      }
+    }
+    // istanbul ignore next
+    if (tempColumns) {
+      column.render =
+        firstColumns && this.props.detailUrlTemplates
+          ? (value: string, record: Record<string, any>, index: number) => {
+              //要跳到的路由
+              const detailUrlTemplate = getTemplateFromMap(
+                this.props.detailUrlTemplates,
+                object.objectId
+              );
+              if (detailUrlTemplate) {
                 const data = {
                   ...record,
                   objectId: object.objectId,
                 };
                 const url = parseTemplate(detailUrlTemplate, data);
+                if (
+                  attribute.value.type === ModelAttributeValueType.STRUCT_LIST
+                ) {
+                  return this.getSpecialUrlTemplates(
+                    object,
+                    record,
+                    tempColumns(value, record, index),
+                    url
+                  );
+                }
                 return (
                   <Link
-                    // 使用 <Link> 以保持链接的原生能力
                     to={url}
-                    // 自定义 onClick 以支持事件配置和拦截
-                    onClick={(e) => this.handleClickItem(e, record.instanceId)}
+                    onClick={(e: any) =>
+                      this.handleClickItem(e, record.instanceId)
+                    }
                     data-testid="instance-detail-link"
                   >
-                    {text}
+                    <Tooltip
+                      placement="left"
+                      title={`${i18n.t(
+                        `${NS_LIBS_CMDB_INSTANCES}:${K.JUMP_TO}`
+                      )}${object.name}${i18n.t(
+                        `${NS_LIBS_CMDB_INSTANCES}:${K.INSTANCE_DETAIL}`
+                      )}`}
+                    >
+                      <span style={{ display: "flex" }}>
+                        <span className={styles.iconWrap}>
+                          <GeneralIcon
+                            icon={{
+                              lib: "antd",
+                              icon: "link",
+                              theme: "outlined",
+                              color: "#167be0",
+                            }}
+                          />
+                        </span>
+                        <span className={styles.linkKey}>
+                          {tempColumns(value, record, index)}
+                        </span>
+                      </span>
+                    </Tooltip>
                   </Link>
                 );
-              };
-            } else if (detailUrlTemplate === null) {
-              column.render = (text: string, record: Record<string, any>) => {
-                return (
-                  <a
-                    role="button"
-                    onClick={(e) => this.handleClickItem(e, record.instanceId)}
-                    data-testid="instance-detail-link"
-                  >
-                    {text}
-                  </a>
+              } else {
+                return this.getSpecialUrlTemplates(
+                  object,
+                  record,
+                  tempColumns(value, record, index)
                 );
-              };
+              }
             }
-          }
-      }
+          : tempColumns;
     }
-
     return column;
   }
 
   getRelationColumnData(
     relation: Partial<CmdbModels.ModelObjectRelation>,
     object: Partial<CmdbModels.ModelCmdbObject>,
-    sides: RelationObjectSides
+    sides: RelationObjectSides,
+    firstColumns?: boolean
   ): ColumnType<Record<string, any>> {
     const key = relation[`${sides.this}_id` as RelationIdKeys];
 
@@ -464,11 +585,22 @@ export class LegacyInstanceListTable extends React.Component<
       className: styles.instanceListTableCell,
     };
     const displayConfig = this.keyDisplayConfigMap[key];
+    let tempColumns: any;
 
     if (displayConfig) {
-      column.render = this.getCustomPropertyRender(displayConfig);
+      tempColumns = (
+        value: string[],
+        record: Record<string, any>,
+        index: number
+      ) => {
+        return this.getCustomPropertyRender(displayConfig)(
+          value,
+          record,
+          index
+        );
+      };
     } else {
-      column.render = (
+      tempColumns = (
         instances: Record<string, any>[],
         record: Record<string, any>,
         index: number
@@ -537,7 +669,38 @@ export class LegacyInstanceListTable extends React.Component<
         }
       };
     }
-
+    // istanbul ignore next
+    if (tempColumns) {
+      column.render =
+        firstColumns && this.props.detailUrlTemplates
+          ? (value: string, record: Record<string, any>, index: number) => {
+              //要跳到的路由
+              const detailUrlTemplate = getTemplateFromMap(
+                this.props.detailUrlTemplates,
+                object.objectId
+              );
+              if (detailUrlTemplate) {
+                const data = {
+                  ...record,
+                  objectId: object.objectId,
+                };
+                const url = parseTemplate(detailUrlTemplate, data);
+                return this.getSpecialUrlTemplates(
+                  object,
+                  record,
+                  tempColumns(value, record, index),
+                  url
+                );
+              } else {
+                return this.getSpecialUrlTemplates(
+                  object,
+                  record,
+                  tempColumns(value, record, index)
+                );
+              }
+            }
+          : tempColumns;
+    }
     return column;
   }
 

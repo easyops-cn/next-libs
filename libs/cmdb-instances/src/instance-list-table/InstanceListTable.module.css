@@ -29,3 +29,9 @@
 .moreButtonsContainer:hover {
   background: #f5f5f5;
 }
+.linkKey {
+  padding-left: 5px;
+}
+.iconWrap {
+  transform: translateY(0px);
+}
