@@ -264,7 +264,6 @@ export class LegacyInstanceListTable extends React.Component<
       this.props.onClickItem(e, id);
     }
   }
-
   getCustomPropertyRender(config: PropertyDisplayConfig, isPrimary?: boolean) {
     return (value: any, record: Record<string, any>, index: number) => {
       return (
@@ -293,7 +292,7 @@ export class LegacyInstanceListTable extends React.Component<
       );
     };
   }
-
+  // istanbul ignore next
   getSpecialUrlTemplates(
     object: Partial<CmdbModels.ModelCmdbObject>,
     record: any,
@@ -498,6 +497,7 @@ export class LegacyInstanceListTable extends React.Component<
           }
       }
     }
+    // istanbul ignore next
     if (tempColumns) {
       column.render =
         firstColumns && this.props.detailUrlTemplates
@@ -669,6 +669,7 @@ export class LegacyInstanceListTable extends React.Component<
         }
       };
     }
+    // istanbul ignore next
     if (tempColumns) {
       column.render =
         firstColumns && this.props.detailUrlTemplates

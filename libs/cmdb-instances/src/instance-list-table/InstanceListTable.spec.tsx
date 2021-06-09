@@ -31,6 +31,7 @@ jest.spyOn(kit, "BrickAsComponent").mockImplementation(({ useBrick, data }) => (
 const ipAttr = HOST.attrList.find((attr) => attr.id === "ip");
 const idObjectMap = { HOST };
 const detailUrlTemplates = {
+  HOST: "/cmdb-instances/#{objectId}/instance/#{instanceId}",
   default: "/cmdb-instances/#{objectId}/instance/#{instanceId}",
 };
 
