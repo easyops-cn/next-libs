@@ -79,7 +79,7 @@ const locale: Locale = {
   [K.VIEW_ALL_SELECTED_INSTANCES]: "View all selected instances",
   [K.CHOOSE_INSTANCE]: "Choose instance",
   [K.VIEW_ALL_DATA]: "View all {{count}} data",
-  [K.FILTER_FROM_CMDB]: "Filter {{name}} from CMDB",
+  [K.FILTER_FROM_CMDB]: "Filter {{name}} From CMDB",
   [K.PAGINATION_TOTAL_TEXT]: "total",
   [K.PAGINATION_TOTAL_UNIT]: "items",
   [K.JUMP_TO]: "Jump to ",
