@@ -307,7 +307,7 @@ export class LegacyInstanceListTable extends React.Component<
           data-testid="instance-detail-link"
         >
           <Tooltip
-            placement="left"
+            placement="top"
             title={`${i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.JUMP_TO}`)}${
               object.name
             }${i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.INSTANCE_DETAIL}`)}`}
@@ -316,9 +316,9 @@ export class LegacyInstanceListTable extends React.Component<
               <span className={styles.iconWrap}>
                 <GeneralIcon
                   icon={{
-                    lib: "antd",
-                    icon: "link",
-                    theme: "outlined",
+                    lib: "easyops",
+                    icon: "search",
+                    category: "app",
                     color: "#167be0",
                   }}
                 />
@@ -331,30 +331,34 @@ export class LegacyInstanceListTable extends React.Component<
     }
     return (
       <>
-        <Link
-          to={url}
-          onClick={(e: any) => this.handleClickItem(e, record.instanceId)}
-          data-testid="instance-detail-link"
-        >
-          <Tooltip
-            placement="left"
-            title={`${i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.JUMP_TO}`)}${
-              object.name
-            }${i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.INSTANCE_DETAIL}`)}`}
-          >
-            <span>
-              <GeneralIcon
-                icon={{
-                  lib: "antd",
-                  icon: "link",
-                  theme: "outlined",
-                  color: "#167be0",
-                }}
-              />
-            </span>
-          </Tooltip>
-        </Link>
-        <span className={styles.linkKey}>{node}</span>
+        <span style={{ display: "flex" }}>
+          <span className={styles.iconWrap}>
+            <Link
+              to={url}
+              onClick={(e: any) => this.handleClickItem(e, record.instanceId)}
+              data-testid="instance-detail-link"
+            >
+              <Tooltip
+                placement="top"
+                title={`${i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.JUMP_TO}`)}${
+                  object.name
+                }${i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.INSTANCE_DETAIL}`)}`}
+              >
+                <span>
+                  <GeneralIcon
+                    icon={{
+                      lib: "easyops",
+                      icon: "search",
+                      category: "app",
+                      color: "#167be0",
+                    }}
+                  />
+                </span>
+              </Tooltip>
+            </Link>
+          </span>
+          <span className={styles.linkKey}>{node}</span>
+        </span>
       </>
     );
   }
@@ -514,7 +518,9 @@ export class LegacyInstanceListTable extends React.Component<
                 };
                 const url = parseTemplate(detailUrlTemplate, data);
                 if (
-                  attribute.value.type === ModelAttributeValueType.STRUCT_LIST
+                  attribute.value.type ===
+                    ModelAttributeValueType.STRUCT_LIST ||
+                  (displayConfig && displayConfig.brick)
                 ) {
                   return this.getSpecialUrlTemplates(
                     object,
@@ -532,7 +538,7 @@ export class LegacyInstanceListTable extends React.Component<
                     data-testid="instance-detail-link"
                   >
                     <Tooltip
-                      placement="left"
+                      placement="top"
                       title={`${i18n.t(
                         `${NS_LIBS_CMDB_INSTANCES}:${K.JUMP_TO}`
                       )}${object.name}${i18n.t(
@@ -543,9 +549,9 @@ export class LegacyInstanceListTable extends React.Component<
                         <span className={styles.iconWrap}>
                           <GeneralIcon
                             icon={{
-                              lib: "antd",
-                              icon: "link",
-                              theme: "outlined",
+                              lib: "easyops",
+                              icon: "search",
+                              category: "app",
                               color: "#167be0",
                             }}
                           />
