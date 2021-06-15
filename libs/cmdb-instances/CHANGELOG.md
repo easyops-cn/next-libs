@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.4.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@4.4.2...@next-libs/cmdb-instances@4.4.3) (2021-06-15)
+
+
+### Bug Fixes
+
+* 图标样式调整 Closed BRICK_STORE-2143 ([81a6093](https://github.com/easyops-cn/next-libs/commit/81a60936c9749ceaa9e3ecb45fcfe8e7b6c8a7cd))
+
+
+
+
+
 ## [4.4.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@4.4.1...@next-libs/cmdb-instances@4.4.2) (2021-06-15)
 
 
