@@ -445,7 +445,8 @@ export function getFieldConditionsAndValues(
       if (
         typeof values[0] === "string" ||
         typeof values[0] === "number" ||
-        typeof values[0] === "boolean"
+        (operation.operator !== ElementOperators.Exists &&
+          typeof values[0] === "boolean")
       ) {
         queryValuesStr = values.join(" ");
         values = values.map((value: string) => {
