@@ -297,7 +297,8 @@ export class LegacyInstanceListTable extends React.Component<
     object: Partial<CmdbModels.ModelCmdbObject>,
     record: any,
     node: any,
-    url?: string
+    url?: string,
+    isRenderStructList?: boolean
   ) {
     if (!url) {
       return (
@@ -332,7 +333,11 @@ export class LegacyInstanceListTable extends React.Component<
     return (
       <>
         <span style={{ display: "flex" }}>
-          <span className={styles.iconWrap}>
+          <span
+            className={
+              isRenderStructList ? styles.iconWrapOfStruct : styles.iconWrap
+            }
+          >
             <Link
               to={url}
               onClick={(e: any) => this.handleClickItem(e, record.instanceId)}
@@ -518,10 +523,17 @@ export class LegacyInstanceListTable extends React.Component<
                 };
                 const url = parseTemplate(detailUrlTemplate, data);
                 if (
-                  attribute.value.type ===
-                    ModelAttributeValueType.STRUCT_LIST ||
-                  (displayConfig && displayConfig.brick)
+                  attribute.value.type === ModelAttributeValueType.STRUCT_LIST
                 ) {
+                  return this.getSpecialUrlTemplates(
+                    object,
+                    record,
+                    tempColumns(value, record, index),
+                    url,
+                    true
+                  );
+                }
+                if (displayConfig && displayConfig.brick) {
                   return this.getSpecialUrlTemplates(
                     object,
                     record,
