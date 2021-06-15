@@ -523,6 +523,7 @@ export class LegacyInstanceListTable extends React.Component<
                 };
                 const url = parseTemplate(detailUrlTemplate, data);
                 if (
+                  attribute.value.type === ModelAttributeValueType.STRUCT ||
                   attribute.value.type === ModelAttributeValueType.STRUCT_LIST
                 ) {
                   return this.getSpecialUrlTemplates(
