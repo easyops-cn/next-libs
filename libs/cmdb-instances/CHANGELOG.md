@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.4.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@4.4.3...@next-libs/cmdb-instances@4.4.4) (2021-06-15)
+
+
+### Bug Fixes
+
+* 单结构体图标样式 Closed EASY_WORK-429 ([fc7e670](https://github.com/easyops-cn/next-libs/commit/fc7e670a1a484a01410cd236569984652ada4b95))
+
+
+
+
+
 ## [4.4.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@4.4.2...@next-libs/cmdb-instances@4.4.3) (2021-06-15)
 
 
