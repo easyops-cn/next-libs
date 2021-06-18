@@ -516,6 +516,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
         state.fieldIds.map((fieldId) => [fieldId, true])
       );
       v3Data.fields = [...state.fieldIds, ...v3Data.fields];
+      (v3Data as any).ignore_missing_field_error = true;
     }
     if (state.aliveHosts && props.objectId === "HOST") {
       query = { ...query, _agentStatus: "正常" };
