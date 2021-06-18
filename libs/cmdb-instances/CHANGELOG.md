@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.4.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@4.4.4...@next-libs/cmdb-instances@4.4.5) (2021-06-18)
+
+
+### Bug Fixes
+
+* field不存在字段时会报错 Closed EASYCORE-493 ([0151366](https://github.com/easyops-cn/next-libs/commit/015136661fec593d6a7aef00604e861c99c3b1ee))
+
+
+
+
+
 ## [4.4.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@4.4.3...@next-libs/cmdb-instances@4.4.4) (2021-06-15)
 
 
