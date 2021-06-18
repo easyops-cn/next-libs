@@ -154,6 +154,7 @@ export class LegacyInstanceDetail extends React.Component<
                       CustomDisplay &
                       InstanceDisplay<Partial<CmdbModels.ModelCmdbObject>>
                   ) => {
+                    // istanbul ignore next
                     if (el) {
                       el.value = this.state.instanceData;
                       el.object = this.state.modelData;
