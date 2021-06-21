@@ -2,6 +2,8 @@ import React from "react";
 import { DownOutlined, InfoCircleFilled } from "@ant-design/icons";
 import { Card, Popover, Spin, Button, Menu, Dropdown } from "antd";
 import { withTranslation, WithTranslation } from "react-i18next";
+import marked from "marked";
+import DOMPurify from "dompurify";
 import {
   get,
   keyBy,
@@ -287,6 +289,7 @@ export class LegacyInstanceDetail extends React.Component<
 
   getCardContent(): React.ReactNode {
     const { basicInfoGroupList, basicInfoGroupListShow } = this.state;
+
     return (
       <div className={`${style.detailCard} ${shared.showMultipleLines}`}>
         {basicInfoGroupList.length > 1 && (
@@ -405,6 +408,13 @@ export class LegacyInstanceDetail extends React.Component<
               : style.basicAttr
           }
         >
+          {isMarkdownField(attr) && (
+            <div
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(marked(instanceData[attr.id] || "")),
+              }}
+            ></div>
+          )}
           {attr.__isRelation && (
             <InstanceRelationFieldDisplay
               modelDataMap={modelDataMap}
@@ -438,6 +448,7 @@ export class LegacyInstanceDetail extends React.Component<
           {!isStructs(attr) &&
             !isStruct(attr) &&
             !isRelation(attr) &&
+            !isMarkdownField(attr) &&
             !isComponentMode && (
               <InstanceFormat
                 objectId={modelData.objectId}
