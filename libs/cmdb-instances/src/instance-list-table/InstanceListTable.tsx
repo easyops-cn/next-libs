@@ -1,8 +1,9 @@
 import React from "react";
 import { withTranslation, WithTranslation } from "react-i18next";
 import classnames from "classnames";
-import { Button, Popover, Table, Tag, Tooltip } from "antd";
+import { Button, Popover, Table, Tag, Tooltip, Modal } from "antd";
 import { isNil, isBoolean, compact } from "lodash";
+import { DeleteOutlined } from "@ant-design/icons";
 import { ColumnType, TablePaginationConfig, TableProps } from "antd/lib/table";
 import {
   SorterResult,
@@ -104,6 +105,8 @@ export interface InstanceListTableProps extends WithTranslation {
   selectedRowKeys?: string[];
   configProps?: TableProps<Record<string, any>>;
   extraColumns?: CustomColumn[];
+  isOperate?: boolean;
+  handleDeleteFunction?: (v: any[]) => void;
 }
 
 interface InstanceListTableState {
@@ -157,7 +160,26 @@ export class LegacyInstanceListTable extends React.Component<
       defaultPagination: defaultPagination,
     };
   }
+  openConfirmModal(index: number) {
+    const confirm = Modal.confirm;
 
+    confirm({
+      title: i18n.t(
+        `${NS_LIBS_CMDB_INSTANCES}:${K.DELETE_INSTANCE_CONFIRM_MSG}`
+      ),
+      okText: i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CONFIRM}`),
+      okType: "danger",
+      cancelText: i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CANCEL}`),
+      onOk: () => {
+        this.remove(index);
+      },
+    });
+  }
+  remove(index: number) {
+    const processList = [...this.props.instanceListData.list];
+    processList.splice(index, 1);
+    this.props.handleDeleteFunction(processList);
+  }
   getChangeColumns(ids: string[]) {
     const columns: InstanceListTableState["columns"] = [];
     forEachAvailableFields(
@@ -211,6 +233,27 @@ export class LegacyInstanceListTable extends React.Component<
       idColumnMap.forEach((column) => sortedColumns.push(column));
     } else {
       sortedColumns = columns;
+    }
+    if (this.props.isOperate) {
+      sortedColumns.push({
+        title: i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.OPERATION}`),
+        className: styles.structTableTd,
+        dataIndex: "operation",
+        fixed: "right",
+        render: (_text: string, record: any, index: number): any => {
+          return (
+            <Button
+              type="link"
+              icon={
+                <DeleteOutlined style={{ color: "var(--theme-red-color)" }} />
+              }
+              onClick={() => {
+                this.openConfirmModal(index);
+              }}
+            />
+          );
+        },
+      });
     }
     return sortedColumns;
   }

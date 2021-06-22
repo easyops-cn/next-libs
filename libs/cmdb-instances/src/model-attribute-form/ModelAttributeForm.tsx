@@ -336,6 +336,7 @@ export class ModelAttributeForm extends Component<
             objectMap={this.modelMap}
             addTitle={i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.ADD}`)}
             singleSelect={relation.left_max === 1}
+            isOperate={true}
           />
         )}
       </Form.Item>

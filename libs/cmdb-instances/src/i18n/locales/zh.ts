@@ -70,6 +70,7 @@ const locale: Locale = {
   [K.NOT_MEET_REGEX]: "不满足预设的正则表达式，请修改",
   [K.CREATE_ANOTHER]: "创建另一个",
   [K.DELETE_STRUCT_CONFIRM_MSG]: "确定要删除该结构体吗？",
+  [K.DELETE_INSTANCE_CONFIRM_MSG]: "确定要删除该实例吗？",
   [K.OPERATION]: "操作",
   [K.VIEW_ALL_SELECTED_INSTANCES]: "查看所有选择实例",
   [K.CHOOSE_INSTANCE]: "选择实例",

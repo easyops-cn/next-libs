@@ -75,6 +75,8 @@ const locale: Locale = {
   [K.CREATE_ANOTHER]: "Create another",
   [K.DELETE_STRUCT_CONFIRM_MSG]:
     "Are you sure you want to delete the structure?",
+  [K.DELETE_INSTANCE_CONFIRM_MSG]:
+    "Are you sure you want to delete the instance?",
   [K.OPERATION]: "Operation",
   [K.VIEW_ALL_SELECTED_INSTANCES]: "View all selected instances",
   [K.CHOOSE_INSTANCE]: "Choose instance",
