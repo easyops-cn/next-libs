@@ -133,7 +133,8 @@ export class ModelAttributeForm extends Component<
     } else {
       props.basicInfoAttrList.forEach((basicInfoAttr) => {
         const groupTag =
-          basicInfoAttr.tag[0] ||
+          basicInfoAttr?.tag?.[0] ||
+          (basicInfoAttr as any)?.left_tags?.[0] ||
           i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.DEFAULT_ATTRIBUTE}`);
 
         const attrs = AttrListGroupByTag.find(([key]) => key === groupTag);
@@ -150,7 +151,6 @@ export class ModelAttributeForm extends Component<
         }
       });
     }
-
     this.state = {
       sending: false,
       attrListGroupByTag: AttrListGroupByTag,

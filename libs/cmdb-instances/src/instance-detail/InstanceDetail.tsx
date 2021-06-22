@@ -289,7 +289,6 @@ export class LegacyInstanceDetail extends React.Component<
 
   getCardContent(): React.ReactNode {
     const { basicInfoGroupList, basicInfoGroupListShow } = this.state;
-
     return (
       <div className={`${style.detailCard} ${shared.showMultipleLines}`}>
         {basicInfoGroupList.length > 1 && (
