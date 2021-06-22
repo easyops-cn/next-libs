@@ -160,6 +160,7 @@ export class LegacyInstanceListTable extends React.Component<
       defaultPagination: defaultPagination,
     };
   }
+  // istanbul ignore next
   openConfirmModal(index: number) {
     const confirm = Modal.confirm;
 
@@ -175,6 +176,7 @@ export class LegacyInstanceListTable extends React.Component<
       },
     });
   }
+  // istanbul ignore next
   remove(index: number) {
     const processList = [...this.props.instanceListData.list];
     processList.splice(index, 1);
@@ -243,6 +245,7 @@ export class LegacyInstanceListTable extends React.Component<
         render: (_text: string, record: any, index: number): any => {
           return (
             <Button
+              data-testid={"button-up-" + index}
               type="link"
               icon={
                 <DeleteOutlined style={{ color: "var(--theme-red-color)" }} />

@@ -1,6 +1,12 @@
 import "@testing-library/jest-dom/extend-expect";
 import React from "react";
-import { render, fireEvent, cleanup, getByText } from "@testing-library/react";
+import {
+  render,
+  fireEvent,
+  cleanup,
+  getByText,
+  getByTestId,
+} from "@testing-library/react";
 import * as kit from "@next-core/brick-kit";
 import {
   ReadPaginationChangeDetail,
@@ -38,6 +44,8 @@ const detailUrlTemplates = {
 const mockOnPaginationChange = jest.fn();
 const mockOnSortingChange = jest.fn();
 const mockOnSelectionChange = jest.fn();
+const mockHandleDeleteFunction = jest.fn();
+
 const mockElementName = "mock-element";
 
 function getRelationValue(instances: Record<string, any>[]): string {
@@ -253,7 +261,24 @@ describe("InstanceListTable", () => {
       )
     );
   });
-
+  it(`should work with isOperate`, () => {
+    const instanceListData = getInstanceListData();
+    const { container } = render(
+      <InstanceListTable
+        detailUrlTemplates={detailUrlTemplates}
+        idObjectMap={idObjectMap}
+        modelData={HOST}
+        instanceListData={instanceListData}
+        isOperate={true}
+        handleDeleteFunction={mockHandleDeleteFunction}
+      />
+    );
+    mockHandleDeleteFunction.mockImplementationOnce((v) => {
+      return;
+    });
+    fireEvent.click(getByTestId(container, "button-up-1"));
+    expect(mockHandleDeleteFunction).not.toBeCalled();
+  });
   it(`should call function that is passed to the onSelectionChange property when click the selection checkbox of table row`, () => {
     const instanceListData = getInstanceListData();
     const instance = instanceListData.list[0];

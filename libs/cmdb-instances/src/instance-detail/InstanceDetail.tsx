@@ -3,6 +3,7 @@ import { DownOutlined, InfoCircleFilled } from "@ant-design/icons";
 import { Card, Popover, Spin, Button, Menu, Dropdown } from "antd";
 import { withTranslation, WithTranslation } from "react-i18next";
 import marked from "marked";
+// istanbul ignore next
 import DOMPurify from "dompurify";
 import {
   get,
@@ -407,6 +408,7 @@ export class LegacyInstanceDetail extends React.Component<
               : style.basicAttr
           }
         >
+          {/* istanbul ignore next */}
           {isMarkdownField(attr) && (
             <div
               dangerouslySetInnerHTML={{
