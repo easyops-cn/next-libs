@@ -22,7 +22,7 @@ import {
   InstanceDisplay,
   BrickAction,
 } from "@next-core/brick-types";
-import { InstanceRelationFieldDisplay } from "./components/instance-relation-field-display/instance-relation-field-display";
+import { InstanceRelationTableShow } from "./components/instance-relation-table-show/instance-relation-table-show";
 import {
   getInstanceNameKeys,
   modifyModelData,
@@ -416,12 +416,12 @@ export class LegacyInstanceDetail extends React.Component<
             ></div>
           )}
           {attr.__isRelation && (
-            <InstanceRelationFieldDisplay
+            <InstanceRelationTableShow
               modelDataMap={modelDataMap}
               relationData={attr}
               value={instanceData[attr.__id]}
               relationFieldUrlTemplate={this.props.relationFieldUrlTemplate}
-            ></InstanceRelationFieldDisplay>
+            ></InstanceRelationTableShow>
           )}
           {!isStructs(attr) &&
             !isStruct(attr) &&
@@ -524,11 +524,11 @@ export class LegacyInstanceDetail extends React.Component<
           })
           .filter((attr) => attr);
       } else {
-        basicInfoAttrList = modelData.__fieldList.filter((field) =>
-          attrFilter(field)
-        );
+        // basicInfoAttrList = modelData.__fieldList.filter((field) =>
+        //   attrFilter(field)
+        // );
+        basicInfoAttrList = modelData.__fieldList;
       }
-
       basicInfoAttrList.forEach((field) => {
         let groupTag: string;
         const nameKey = getInstanceNameKeys(modelData)[0];
