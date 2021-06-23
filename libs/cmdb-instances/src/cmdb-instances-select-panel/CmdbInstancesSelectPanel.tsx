@@ -23,6 +23,7 @@ export interface CmdbInstancesSelectPanelProps {
   addInstancesModalPageSize?: number;
   showSizeChanger?: boolean;
   pageSizeOptions?: string[];
+  isOperate?: boolean; //cmdb实例列表支持删除实例
 }
 
 export function CmdbInstancesSelectPanel(
@@ -66,7 +67,6 @@ export function CmdbInstancesSelectPanel(
   useEffect(() => {
     const initInstances = async (): Promise<void> => {
       const instances = await fetchInstances(props.value);
-
       setSelectedInstanceList(instances);
       setPartialSelectedInstances(
         instances.slice(0, displayedSelectedInstancesMaxNumber)
@@ -176,6 +176,12 @@ export function CmdbInstancesSelectPanel(
           sortDisabled={true}
           configProps={{
             pagination: false,
+          }}
+          isOperate={props.isOperate}
+          handleDeleteFunction={(v) => {
+            setSelectedInstanceList(v);
+            setPartialSelectedInstances(v);
+            props.onChange?.(v);
           }}
         ></InstanceListTable>
         {showPreview && (
