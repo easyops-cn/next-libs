@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.4.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@4.4.5...@next-libs/cmdb-instances@4.4.6) (2021-06-23)
+
+
+### Bug Fixes
+
+* 实例编辑页关系用table展示 Closed INSTANCE-1802 ([e018624](https://github.com/easyops-cn/next-libs/commit/e018624e8f21d7af7bad7b83ddc347dac2d1b68e))
+* 实例详情页markdown类型的解析和显示 Closed INSTANCE-1802 ([7627e7f](https://github.com/easyops-cn/next-libs/commit/7627e7f1bb0afb788e27eb3315cd9156cf9bdad3))
+* 实例详情页关系用table展示 Closed INSTANCE-1802 ([a74f6ec](https://github.com/easyops-cn/next-libs/commit/a74f6eca143a47ec34c93b9f442caee1822f2a3d))
+* 编辑table支持删除 Closed INSTANCE-1802 ([b03d9b3](https://github.com/easyops-cn/next-libs/commit/b03d9b3ef0bbb1126c72bc3ea6a68a7b40526f7f))
+* 详情table逻辑调整 Closed INSTANCE-1802 ([6b82c23](https://github.com/easyops-cn/next-libs/commit/6b82c232a25334abb8099f3e3d9e03194e56fc17))
+
+
+
+
+
 ## [4.4.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@4.4.4...@next-libs/cmdb-instances@4.4.5) (2021-06-18)
 
 
