@@ -6128,6 +6128,11 @@ domhandler@^3.0.0:
   dependencies:
     domelementtype "^2.0.1"
 
+dompurify@^2.2.9:
+  version "2.2.9"
+  resolved "https://registry.npmjs.org/dompurify/-/dompurify-2.2.9.tgz#4b42e244238032d9286a0d2c87b51313581d9624"
+  integrity sha512-+9MqacuigMIZ+1+EwoEltogyWGFTJZWU3258Rupxs+2CGs4H914G9er6pZbsme/bvb5L67o2rade9n21e4RW/w==
+
 domutils@1.5.1:
   version "1.5.1"
   resolved "https://registry.npmjs.org/domutils/-/domutils-1.5.1.tgz#dcd8488a26f563d61079e48c9f7b7e32373682cf"
