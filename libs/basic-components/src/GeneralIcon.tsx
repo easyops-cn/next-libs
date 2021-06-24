@@ -18,7 +18,10 @@ import cssStyle from "./GeneralIcon.module.css";
 import { uniqueId } from "lodash";
 
 interface MenuIconProps {
-  icon: MenuIcon;
+  icon: MenuIcon & {
+    imgSrc?: string;
+    imgStyle?: React.CSSProperties;
+  };
   bg?: boolean;
   size?: number | "large" | "small" | "default";
   shape?: "circle" | "square" | "round-square";
@@ -125,48 +128,61 @@ export function GeneralIcon(props: MenuIconProps): React.ReactElement {
     );
   }
 
-  if (icon.lib === "antd") {
-    const type =
-      (icon as RefinedAntdIcon).icon || (icon as LegacyAntdIcon).type;
+  if (icon.imgSrc) {
+    // imgSrc优先级为最高, 如果有imgSrc的存在, 则使用img覆盖其他icon状态
+    style.fontSize = 0; // icon居中
     iconNode = (
-      <LegacyIcon
-        type={type}
-        theme={icon.theme}
-        style={style}
-        onClick={onClick}
-        className={generalIconId}
+      <img
+        src={icon.imgSrc}
+        style={Object.assign(icon.imgStyle ?? {}, {
+          display: "inline-block",
+        })}
       />
     );
-  }
+  } else {
+    if (icon.lib === "antd") {
+      const type =
+        (icon as RefinedAntdIcon).icon || (icon as LegacyAntdIcon).type;
+      iconNode = (
+        <LegacyIcon
+          type={type}
+          theme={icon.theme}
+          style={style}
+          onClick={onClick}
+          className={generalIconId}
+        />
+      );
+    }
 
-  if (icon.lib === "fa") {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const faIcon = icon.prefix ? [icon.prefix, icon.icon] : icon.icon;
+    if (icon.lib === "fa") {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      const faIcon = icon.prefix ? [icon.prefix, icon.icon] : icon.icon;
 
-    iconNode = (
-      <Icon
-        style={{ ...style, verticalAlign: 0 }}
-        component={() => (
-          <FontAwesomeIcon icon={faIcon} className={cssStyle.faIcon} />
-        )}
-        onClick={onClick}
-        className={generalIconId}
-      />
-    );
-  }
+      iconNode = (
+        <Icon
+          style={{ ...style, verticalAlign: 0 }}
+          component={() => (
+            <FontAwesomeIcon icon={faIcon} className={cssStyle.faIcon} />
+          )}
+          onClick={onClick}
+          className={generalIconId}
+        />
+      );
+    }
 
-  if (icon.lib === "easyops") {
-    iconNode = (
-      <Icon
-        style={style}
-        component={() => (
-          <BrickIcon icon={icon.icon} category={icon.category} />
-        )}
-        onClick={onClick}
-        className={generalIconId}
-      />
-    );
+    if (icon.lib === "easyops") {
+      iconNode = (
+        <Icon
+          style={style}
+          component={() => (
+            <BrickIcon icon={icon.icon} category={icon.category} />
+          )}
+          onClick={onClick}
+          className={generalIconId}
+        />
+      );
+    }
   }
 
   if (isGradientColor(icon.color)) {

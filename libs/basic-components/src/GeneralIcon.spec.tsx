@@ -150,4 +150,22 @@ describe("GeneralIcon", () => {
       wrapper.find("linearGradient").find("stop").at(1).prop("stopColor")
     ).toBe("#FE7D37");
   });
+
+  it("use icon imgSrc", () => {
+    const wrapper = mount(
+      <GeneralIcon
+        icon={{
+          lib: "antd",
+          type: "up",
+          theme: "filled",
+          color: "#0071eb",
+          imgSrc: "https://test.com/image.jpg",
+        }}
+      />
+    );
+    const iconElement = wrapper.find(LegacyIcon);
+    const imgElement = wrapper.find("img");
+    expect(iconElement.length).toBe(0);
+    expect(imgElement.at(0).prop("src")).toBe("https://test.com/image.jpg");
+  });
 });
