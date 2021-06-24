@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@2.1.2...@next-libs/cmdb-utils@2.1.3) (2021-06-24)
+
+
+### Bug Fixes
+
+* 关系路径跳转 Closed INSTANCE-1802 ([b762ffa](https://github.com/easyops-cn/next-libs/commit/b762ffa5a552a9df672b35277d9d648e0bf56407))
+
+
+
+
+
 ## [2.1.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@2.1.1...@next-libs/cmdb-utils@2.1.2) (2021-06-09)
 
 

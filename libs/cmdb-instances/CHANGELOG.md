@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.4.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@4.4.6...@next-libs/cmdb-instances@4.4.7) (2021-06-24)
+
+
+### Bug Fixes
+
+* 关系表格逻辑调整 Closed INSTANCE-1802 ([55bd2b7](https://github.com/easyops-cn/next-libs/commit/55bd2b7a4926c5ae77cdbd2afc06ef4c67a872eb))
+* 关系路径跳转 Closed INSTANCE-1802 ([b762ffa](https://github.com/easyops-cn/next-libs/commit/b762ffa5a552a9df672b35277d9d648e0bf56407))
+* 默认属性问题 Closed INSTANCE-1802 ([979a3a3](https://github.com/easyops-cn/next-libs/commit/979a3a3bf1ae77fbacfd97b77e8352beda35613a))
+
+
+
+
+
 ## [4.4.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@4.4.5...@next-libs/cmdb-instances@4.4.6) (2021-06-23)
 
 
