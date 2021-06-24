@@ -244,7 +244,7 @@ export function modifyModelData(
     }
   });
 
-  const currentOrderedFieldIds = clonedModelData.view.attr_order || [];
+  const currentOrderedFieldIds = clonedModelData?.view?.attr_order || [];
   const orderedFieldIds: string[] = [];
   const notOrderedFieldIds: string[] = [];
   currentOrderedFieldIds.forEach((currentOrderedFieldId) => {

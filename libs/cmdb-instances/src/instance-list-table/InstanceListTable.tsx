@@ -125,7 +125,6 @@ export class LegacyInstanceListTable extends React.Component<
 
   constructor(props: InstanceListTableProps) {
     super(props);
-
     const objectId = this.props.modelData.objectId;
     SELF_RENDER_COLUMNS[objectId]?.forEach(
       (config) => (this.keyDisplayConfigMap[config.key] = config)

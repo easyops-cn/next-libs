@@ -64,6 +64,7 @@ interface ModelAttributeFormProps extends FormComponentProps {
   cancelText?: string;
   cancelType?: ButtonType;
   onCancel?(): void;
+  showDetailUrl?: boolean;
 }
 
 export type attributesFieldsByTag = [string, ModifiedModelObjectField[]];
@@ -337,6 +338,7 @@ export class ModelAttributeForm extends Component<
             addTitle={i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.ADD}`)}
             singleSelect={relation.left_max === 1}
             isOperate={true}
+            showDetailUrl={this.props.showDetailUrl}
           />
         )}
       </Form.Item>
