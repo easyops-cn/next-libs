@@ -69,7 +69,9 @@ export function CmdbInstancesSelectPanel(
       const instances = await fetchInstances(props.value);
       setSelectedInstanceList(instances);
       setPartialSelectedInstances(
-        instances.slice(0, displayedSelectedInstancesMaxNumber)
+        props?.isOperate
+          ? instances
+          : instances.slice(0, displayedSelectedInstancesMaxNumber)
       );
     };
 
@@ -98,7 +100,9 @@ export function CmdbInstancesSelectPanel(
     const instances = await fetchInstances(selectedKeys);
     setSelectedInstanceList(instances);
     setPartialSelectedInstances(
-      instances.slice(0, displayedSelectedInstancesMaxNumber)
+      props?.isOperate
+        ? instances
+        : instances.slice(0, displayedSelectedInstancesMaxNumber)
     );
 
     props.onChange?.(instances);
@@ -184,7 +188,7 @@ export function CmdbInstancesSelectPanel(
             props.onChange?.(v);
           }}
         ></InstanceListTable>
-        {showPreview && (
+        {!props?.isOperate && showPreview && (
           <div
             className={style.showAllSelectedInstancesButton}
             onClick={openAllSelectedInstancesModal}
