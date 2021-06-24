@@ -76,7 +76,7 @@ const locale: Locale = {
   [K.DELETE_STRUCT_CONFIRM_MSG]:
     "Are you sure you want to delete the structure?",
   [K.DELETE_INSTANCE_CONFIRM_MSG]:
-    "Are you sure you want to delete the instance?",
+    "Are you sure you want to delete the relation?",
   [K.OPERATION]: "Operation",
   [K.VIEW_ALL_SELECTED_INSTANCES]: "View all selected instances",
   [K.CHOOSE_INSTANCE]: "Choose instance",

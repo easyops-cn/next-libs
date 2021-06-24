@@ -41,7 +41,10 @@ import style from "./index.module.css";
 import shared from "./shared.module.css";
 
 import { fetchCmdbObjectRef, fetchCmdbInstanceDetail } from "../data-providers";
-import { BASIC_INFORMATION_RELATION_GROUP_ID } from "./constants";
+import {
+  DEFAULT_ATTRIBUTE_TAG_STR,
+  BASIC_INFORMATION_RELATION_GROUP_ID,
+} from "./constants";
 import { isArray } from "util";
 import { UseBrickConf } from "@next-core/brick-types";
 
@@ -487,9 +490,14 @@ export class LegacyInstanceDetail extends React.Component<
       }
       return (
         !field.__isRelation ||
-        (field as CmdbModels.ModelObjectRelation).left_groups?.includes(
-          BASIC_INFORMATION_RELATION_GROUP_ID
-        )
+        // 没有分组的关系都不显示,视图设置有默认属性分组的话全部关系都显示
+        modelData.view.attr_category_order.includes(
+          (field as CmdbModels.ModelObjectRelation).left_tags[0]
+        ) ||
+        modelData.view.attr_category_order.includes(DEFAULT_ATTRIBUTE_TAG_STR)
+        // (field as CmdbModels.ModelObjectRelation).left_groups?.includes(
+        //   BASIC_INFORMATION_RELATION_GROUP_ID
+        // )
       );
     }
 
@@ -524,10 +532,9 @@ export class LegacyInstanceDetail extends React.Component<
           })
           .filter((attr) => attr);
       } else {
-        // basicInfoAttrList = modelData.__fieldList.filter((field) =>
-        //   attrFilter(field)
-        // );
-        basicInfoAttrList = modelData.__fieldList;
+        basicInfoAttrList = modelData.__fieldList.filter((field) =>
+          attrFilter(field)
+        );
       }
       basicInfoAttrList.forEach((field) => {
         let groupTag: string;

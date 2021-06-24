@@ -4,7 +4,7 @@ import classnames from "classnames";
 import { CmdbModels, InstanceApi_postSearch } from "@next-sdk/cmdb-sdk";
 import { InstanceListTable } from "../instance-list-table";
 import { InstanceListModal } from "../instance-list-modal/InstanceListModal";
-
+import { modifyModelData } from "@next-libs/cmdb-utils";
 import style from "./style.module.css";
 import i18n from "i18next";
 import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
@@ -24,6 +24,7 @@ export interface CmdbInstancesSelectPanelProps {
   showSizeChanger?: boolean;
   pageSizeOptions?: string[];
   isOperate?: boolean; //cmdb实例列表支持删除实例
+  showDetailUrl?: boolean;
 }
 
 export function CmdbInstancesSelectPanel(
@@ -69,7 +70,9 @@ export function CmdbInstancesSelectPanel(
       const instances = await fetchInstances(props.value);
       setSelectedInstanceList(instances);
       setPartialSelectedInstances(
-        instances.slice(0, displayedSelectedInstancesMaxNumber)
+        props?.isOperate
+          ? instances
+          : instances.slice(0, displayedSelectedInstancesMaxNumber)
       );
     };
 
@@ -98,14 +101,17 @@ export function CmdbInstancesSelectPanel(
     const instances = await fetchInstances(selectedKeys);
     setSelectedInstanceList(instances);
     setPartialSelectedInstances(
-      instances.slice(0, displayedSelectedInstancesMaxNumber)
+      props?.isOperate
+        ? instances
+        : instances.slice(0, displayedSelectedInstancesMaxNumber)
     );
 
     props.onChange?.(instances);
   };
 
-  const fieldIds = modelData.attrList.map((attr) => attr.id);
-
+  const fieldIds = modifyModelData(modelData).attrList.map(
+    (attr: any) => attr.id
+  );
   const showPreview =
     selectedInstanceList.length > displayedSelectedInstancesMaxNumber;
   const cs = classnames({
@@ -166,6 +172,14 @@ export function CmdbInstancesSelectPanel(
       </a>
       <div className={cs}>
         <InstanceListTable
+          {...(props.showDetailUrl
+            ? {
+                detailUrlTemplates: {
+                  [props.objectId]:
+                    "/next-cmdb-instance-management/next/#{objectId}/instance/#{instanceId}",
+                },
+              }
+            : {})}
           idObjectMap={props.objectMap}
           modelData={modelData}
           instanceListData={{
@@ -184,7 +198,7 @@ export function CmdbInstancesSelectPanel(
             props.onChange?.(v);
           }}
         ></InstanceListTable>
-        {showPreview && (
+        {!props?.isOperate && showPreview && (
           <div
             className={style.showAllSelectedInstancesButton}
             onClick={openAllSelectedInstancesModal}
