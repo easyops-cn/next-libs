@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.4.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@4.4.7...@next-libs/cmdb-instances@4.4.8) (2021-06-25)
+
+
+### Bug Fixes
+
+* **cmdb-instances:** 国际化 ([c03f585](https://github.com/easyops-cn/next-libs/commit/c03f585e2cf6a5abe50e52faddf53fb81d1dede3))
+
+
+
+
+
 ## [4.4.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@4.4.6...@next-libs/cmdb-instances@4.4.7) (2021-06-24)
 
 
