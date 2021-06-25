@@ -36,7 +36,9 @@ describe("MoreButtonsContainer", () => {
     );
     const moreSettingsButton = getByRole("button");
     fireEvent.click(moreSettingsButton);
-    const settingText = i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.SHOW_SETTINGS}`);
+    const settingText = i18n.t(
+      `${NS_LIBS_CMDB_INSTANCES}:${K.COLUMNS_TO_DISPLAY}`
+    );
     const settingButton = getByText(settingText);
     fireEvent.click(settingButton);
     const cancelBtn = getByText("取 消");
