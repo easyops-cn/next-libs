@@ -40,7 +40,7 @@ const locale: Locale = {
   [K.DEFAULT_ATTRIBUTE]: "默认属性",
   [K.CANCEL]: "取消",
   [K.CLOSE]: "关闭",
-  [K.SHOW_SETTINGS]: "显示设置",
+  [K.COLUMNS_TO_DISPLAY]: "显示设置",
   [K.FIELD_SETTINGS]: "字段设置",
   [K.SEARCH_BY_FIELD_NAME]: "按字段名称搜索",
   [K.RESTORE_DEFAULT]: "恢复默认",
