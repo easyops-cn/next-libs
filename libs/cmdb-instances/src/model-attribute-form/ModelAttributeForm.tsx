@@ -31,7 +31,7 @@ import {
 import styles from "./ModelAttributeForm.module.css";
 import i18n from "i18next";
 import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
-
+const DEFAULT_ATTRIBUTE_TAG = "基本信息";
 export interface ModelAttributeFormChildren {
   header: string;
   name: string;
@@ -136,7 +136,7 @@ export class ModelAttributeForm extends Component<
         const groupTag =
           basicInfoAttr?.tag?.[0] ||
           (basicInfoAttr as any)?.left_tags?.[0] ||
-          i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.DEFAULT_ATTRIBUTE}`);
+          DEFAULT_ATTRIBUTE_TAG;
 
         const attrs = AttrListGroupByTag.find(([key]) => key === groupTag);
         // 判断是否为黑名单内的属性
