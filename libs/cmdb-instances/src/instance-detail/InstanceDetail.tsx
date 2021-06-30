@@ -44,6 +44,7 @@ import { fetchCmdbObjectRef, fetchCmdbInstanceDetail } from "../data-providers";
 import {
   DEFAULT_ATTRIBUTE_TAG_STR,
   BASIC_INFORMATION_RELATION_GROUP_ID,
+  DEFAULT_ATTRIBUTE_TAG,
 } from "./constants";
 import { isArray } from "util";
 import { UseBrickConf } from "@next-core/brick-types";
@@ -488,16 +489,23 @@ export class LegacyInstanceDetail extends React.Component<
       if (IGNORED_FIELDS[modelData.objectId]?.includes(field.__id)) {
         return false;
       }
+      // 没有分组的关系都不显示
+      if (
+        field.__isRelation &&
+        (field as CmdbModels.ModelObjectRelation).left_tags.length === 0 &&
+        !(field as CmdbModels.ModelObjectRelation).left_groups?.includes(
+          BASIC_INFORMATION_RELATION_GROUP_ID
+        )
+      ) {
+        return false;
+      }
       return (
         !field.__isRelation ||
-        // 没有分组的关系都不显示,视图设置有默认属性分组的话全部关系都显示
+        // 分组中有什么关系就显示什么关系
         modelData.view.attr_category_order.includes(
           (field as CmdbModels.ModelObjectRelation).left_tags[0]
         ) ||
         modelData.view.attr_category_order.includes(DEFAULT_ATTRIBUTE_TAG_STR)
-        // (field as CmdbModels.ModelObjectRelation).left_groups?.includes(
-        //   BASIC_INFORMATION_RELATION_GROUP_ID
-        // )
       );
     }
 
@@ -543,7 +551,7 @@ export class LegacyInstanceDetail extends React.Component<
           groupTag =
             field.left_tags?.length && field.left_tags[0].trim() !== ""
               ? field.left_tags[0]
-              : i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.DEFAULT_ATTRIBUTE}`);
+              : DEFAULT_ATTRIBUTE_TAG;
         } else {
           const basicInfoText = i18n.t(
             `${NS_LIBS_CMDB_INSTANCES}:${K.BASIC_INFORMATION}`
