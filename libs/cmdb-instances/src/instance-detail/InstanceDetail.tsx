@@ -489,23 +489,16 @@ export class LegacyInstanceDetail extends React.Component<
       if (IGNORED_FIELDS[modelData.objectId]?.includes(field.__id)) {
         return false;
       }
-      // 没有分组的关系都不显示
-      if (
-        field.__isRelation &&
-        (field as CmdbModels.ModelObjectRelation).left_tags.length === 0 &&
-        !(field as CmdbModels.ModelObjectRelation).left_groups?.includes(
-          BASIC_INFORMATION_RELATION_GROUP_ID
-        )
-      ) {
-        return false;
-      }
       return (
+        //非关系、left_groups包含basic_info、有left_tags且在分类中
         !field.__isRelation ||
-        // 分组中有什么关系就显示什么关系
+        (field.__isRelation &&
+          (field as CmdbModels.ModelObjectRelation).left_groups?.includes(
+            BASIC_INFORMATION_RELATION_GROUP_ID
+          )) ||
         modelData.view.attr_category_order.includes(
           (field as CmdbModels.ModelObjectRelation).left_tags[0]
-        ) ||
-        modelData.view.attr_category_order.includes(DEFAULT_ATTRIBUTE_TAG_STR)
+        )
       );
     }
 
@@ -544,6 +537,7 @@ export class LegacyInstanceDetail extends React.Component<
           attrFilter(field)
         );
       }
+
       basicInfoAttrList.forEach((field) => {
         let groupTag: string;
         const nameKey = getInstanceNameKeys(modelData)[0];
