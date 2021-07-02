@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.4.11](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@4.4.10...@next-libs/cmdb-instances@4.4.11) (2021-07-02)
+
+
+### Bug Fixes
+
+* 新版页面，关闭用户某个属性视图后，前端页面仍能显示用户信息 closed INSTANCE-1805 ([48ed095](https://github.com/easyops-cn/next-libs/commit/48ed095999745db4743827b3373ad25a984a4e81))
+
+
+
+
+
 ## [4.4.10](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@4.4.9...@next-libs/cmdb-instances@4.4.10) (2021-07-01)
 
 

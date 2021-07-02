@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/charts@1.0.7...@next-libs/charts@1.0.8) (2021-07-02)
+
+
+### Bug Fixes
+
+* 新版页面，关闭用户某个属性视图后，前端页面仍能显示用户信息 closed INSTANCE-1805 ([48ed095](https://github.com/easyops-cn/next-libs/commit/48ed095999745db4743827b3373ad25a984a4e81))
+
+
+
+
+
 ## [1.0.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/charts@1.0.6...@next-libs/charts@1.0.7) (2021-04-19)
 
 **Note:** Version bump only for package @next-libs/charts
