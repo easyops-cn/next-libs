@@ -65,6 +65,7 @@ interface ModelAttributeFormProps extends FormComponentProps {
   cancelType?: ButtonType;
   onCancel?(): void;
   showDetailUrl?: boolean;
+  isFilterView?: boolean;
 }
 
 export type attributesFieldsByTag = [string, ModifiedModelObjectField[]];
@@ -333,6 +334,7 @@ export class ModelAttributeForm extends Component<
       >
         {this.props.form.getFieldDecorator(relation.left_id, { initialValue })(
           <CmdbInstancesSelectPanel
+            isFilterView={this.props.isFilterView}
             objectId={relation.right_object_id}
             objectMap={this.modelMap}
             addTitle={i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.ADD}`)}

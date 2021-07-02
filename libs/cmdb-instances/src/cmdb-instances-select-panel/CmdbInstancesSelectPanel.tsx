@@ -25,13 +25,33 @@ export interface CmdbInstancesSelectPanelProps {
   pageSizeOptions?: string[];
   isOperate?: boolean; //cmdb实例列表支持删除实例
   showDetailUrl?: boolean;
+  isFilterView?: boolean; //是否过滤视图属性
 }
 
 export function CmdbInstancesSelectPanel(
   props: CmdbInstancesSelectPanelProps,
   ref: any
 ): React.ReactElement {
-  const modelData = props.objectMap[props.objectId];
+  let modelData = props.objectMap[props.objectId];
+  if (props.isFilterView) {
+    //过滤掉视图不可见字段
+    const hideModelData = modelData?.view?.hide_columns || [];
+    modelData = {
+      ...modelData,
+      attrList: modelData.attrList.filter(
+        (item: any) => !hideModelData.includes(item.id)
+      ),
+      relation_list: modelData.relation_list.filter(
+        (item: any) =>
+          !(
+            (hideModelData.includes(item.left_id) &&
+              item.left_object_id === props.objectId) ||
+            (hideModelData.includes(item.right_id) &&
+              item.right_object_id === props.objectId)
+          )
+      ),
+    };
+  }
 
   const displayedSelectedInstancesMaxNumber = props.previewMaxNumber ?? 5;
 
