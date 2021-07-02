@@ -63,6 +63,7 @@ describe("CmdbInstancesSelectPanel", () => {
         objectMap={objectMap}
         value={[]}
         onChange={onChange}
+        isFilterView={true}
       />
     );
     expect(wrapper.find(".wrapper").length).toBe(1);
