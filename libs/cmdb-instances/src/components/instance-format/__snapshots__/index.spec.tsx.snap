@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`InstanceFormat should work 1`] = `
-<span
-  className="attr-field"
-/>
+<Fragment>
+  <span
+    className="attr-field"
+  />
+</Fragment>
 `;

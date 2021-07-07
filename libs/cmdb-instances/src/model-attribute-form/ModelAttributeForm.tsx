@@ -18,7 +18,7 @@ import {
   ModelAttributeValueType,
 } from "../model-attribute-form-control/ModelAttributeFormControl";
 import { AttributeFormControlUrl } from "../attribute-form-control-url/AttributeFormControlUrl";
-import { get, isNil, keyBy } from "lodash";
+import _, { get, isNil, keyBy } from "lodash";
 
 import { CmdbInstancesSelectPanel } from "../cmdb-instances-select-panel/CmdbInstancesSelectPanel";
 import {
@@ -392,8 +392,18 @@ export class ModelAttributeForm extends Component<
                 >
                   {getFieldDecorator(attribute.id, {
                     rules: this.rules(attribute),
+                    //默认值为string，但是新建时接口转成了object，故编辑时后台返回的也是object
                     initialValue:
-                      attributeFormControlInitialValueMap[attribute.id],
+                      attribute.value.type === "json" &&
+                      !_.isString(
+                        attributeFormControlInitialValueMap[attribute.id]
+                      )
+                        ? JSON.stringify(
+                            attributeFormControlInitialValueMap[attribute.id],
+                            null,
+                            2
+                          )
+                        : attributeFormControlInitialValueMap[attribute.id],
                   })(
                     <ModelAttributeFormControl
                       isCreate={this.props.isCreate}

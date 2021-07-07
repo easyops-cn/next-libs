@@ -86,6 +86,8 @@ const locale: Locale = {
   [K.PAGINATION_TOTAL_UNIT]: "items",
   [K.JUMP_TO]: "Jump to ",
   [K.INSTANCE_DETAIL]: "",
+  [K.COPY]: "Copy",
+  [K.COPY_SUCCESS]: "Copy success",
 };
 
 export default locale;

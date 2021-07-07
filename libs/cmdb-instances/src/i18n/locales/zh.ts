@@ -80,6 +80,8 @@ const locale: Locale = {
   [K.PAGINATION_TOTAL_UNIT]: "项",
   [K.JUMP_TO]: "跳转到",
   [K.INSTANCE_DETAIL]: "实例详情",
+  [K.COPY]: "复制",
+  [K.COPY_SUCCESS]: "复制成功",
 };
 
 export default locale;

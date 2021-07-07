@@ -47,7 +47,10 @@ export class AddStructModal extends React.Component<
     this.setState({ structData });
   };
   handleInputValueChange = (
-    e: RadioChangeEvent | ChangeEvent<HTMLInputElement>,
+    e:
+      | RadioChangeEvent
+      | ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>,
     define: any
   ) => {
     this.handleValueChange(e.target.value, define);
@@ -109,6 +112,7 @@ export class AddStructModal extends React.Component<
   getFormType = (define: Structkey, value: any, index: number) => {
     let formType;
     const defaultValue = value ? value[define.id] : null;
+
     switch (define.type) {
       case "int": {
         formType = (
@@ -215,6 +219,19 @@ export class AddStructModal extends React.Component<
             defaultValue={defaultValue}
             style={{ width: "100%" }}
             onChange={(e) => this.handleValueChange(e, define)}
+          />
+        );
+        break;
+      }
+      case "json": {
+        formType = (
+          <Input.TextArea
+            defaultValue={
+              define.type === "json"
+                ? JSON.stringify(defaultValue, null, 2)
+                : defaultValue
+            }
+            onChange={(e) => this.handleInputValueChange(e, define)}
           />
         );
         break;
