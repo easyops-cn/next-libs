@@ -875,7 +875,7 @@ describe("ModelAttributeFormControl", () => {
     const wrapper = mount(<ModelAttributeFormControl {...props} />);
     wrapper.update();
     const items = wrapper.find("Input");
-    expect(items).toHaveLength(1);
+    expect(items).toHaveLength(0);
   });
 
   it("should works with date", () => {

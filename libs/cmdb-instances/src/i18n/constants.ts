@@ -79,6 +79,8 @@ export enum K {
   PAGINATION_TOTAL_UNIT = "PAGINATION_TOTAL_UNIT",
   JUMP_TO = "JUMP_TO",
   INSTANCE_DETAIL = "INSTANCE_DETAIL",
+  COPY = "COPY",
+  COPY_SUCCESS = "COPY_SUCCESS",
 }
 
 export type Locale = { [key in K]: string };

@@ -215,7 +215,7 @@ export class ModelAttributeFormControl extends Component<
       case ModelAttributeValueType.IP:
         return FormControlTypeEnum.TEXT;
       case ModelAttributeValueType.JSON:
-        return FormControlTypeEnum.TEXT;
+        return FormControlTypeEnum.TEXTAREA;
       case ModelAttributeValueType.ENUM:
         if (
           !attribute.value.regex ||
