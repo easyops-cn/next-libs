@@ -459,6 +459,7 @@ export class ModelAttributeFormControl extends Component<
             onChange={(e: any) => this.onChange(e)}
             className={this.props.className}
             style={this.props.style}
+            rows={5}
           />
         );
       }

@@ -1,5 +1,5 @@
 import React from "react";
-import { isNil, isArray } from "lodash";
+import _, { isNil, isArray } from "lodash";
 import { formatAttrValue } from "@next-libs/cmdb-utils";
 import { Typography } from "antd";
 import i18n from "i18next";
@@ -23,7 +23,9 @@ export class InstanceFormat extends React.Component<InstanceFormatProps> {
     );
     let text: string;
     if (this.props.attrModel?.value?.type === "json") {
-      text = this.props.attrData;
+      text = _.isString(this.props.attrData)
+        ? this.props.attrData
+        : JSON.stringify(this.props.attrData, null, 2);
       component = (
         <Typography.Paragraph
           copyable={{

@@ -9,6 +9,7 @@ import moment from "moment";
 import { RadioChangeEvent } from "antd/lib/radio";
 import { SelectValue } from "antd/lib/select";
 import { computeDateFormat } from "../processors";
+import _ from "lodash";
 
 export interface AddStructModalProps {
   structData?: any;
@@ -112,7 +113,12 @@ export class AddStructModal extends React.Component<
   getFormType = (define: Structkey, value: any, index: number) => {
     let formType;
     const defaultValue = value ? value[define.id] : null;
-
+    //如果是json类型，数据有可能是字符串、数组或对象等，需要对数据处理
+    if (define.type === "json") {
+      _.isString(defaultValue) || !defaultValue
+        ? defaultValue
+        : JSON.stringify(defaultValue, null, 2);
+    }
     switch (define.type) {
       case "int": {
         formType = (
@@ -226,12 +232,9 @@ export class AddStructModal extends React.Component<
       case "json": {
         formType = (
           <Input.TextArea
-            defaultValue={
-              define.type === "json"
-                ? JSON.stringify(defaultValue, null, 2)
-                : defaultValue
-            }
+            defaultValue={defaultValue}
             onChange={(e) => this.handleInputValueChange(e, define)}
+            rows={5}
           />
         );
         break;
