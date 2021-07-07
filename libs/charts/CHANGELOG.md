@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/charts@1.0.8...@next-libs/charts@1.1.0) (2021-07-07)
+
+
+### Features
+
+* 实例列表、详情、关系展示等页面兼容json格式 closed INSTANCE-1789 ([b3c56b1](https://github.com/easyops-cn/next-libs/commit/b3c56b18868ecad839c411fa11a63b65b2c649f5))
+
+
+
+
+
 ## [1.0.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/charts@1.0.7...@next-libs/charts@1.0.8) (2021-07-02)
 
 
