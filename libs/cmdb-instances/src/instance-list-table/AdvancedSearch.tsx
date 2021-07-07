@@ -167,8 +167,6 @@ const FieldTypeConditionTypesMap: Record<string, ConditionType[]> = {
   [ModelAttributeValueType.JSON]: [
     ConditionType.Contain,
     ConditionType.NotContain,
-    ConditionType.Equal,
-    ConditionType.NotEqual,
     ConditionType.Empty,
     ConditionType.NotEmpty,
   ],
@@ -800,6 +798,10 @@ export class AdvancedSearchForm extends React.Component<
         case ModelAttributeValueType.DATETIME:
           style = { minWidth: "auto" };
           break;
+      }
+      //高级搜索这里即使是json格式，也用input输入框进行搜索
+      if ((attrValue as any).type === "json") {
+        attrValue = { ...attrValue, type: "str" };
       }
       return (
         <Col span={hasBetween ? 12 : 8} key={field.id}>
