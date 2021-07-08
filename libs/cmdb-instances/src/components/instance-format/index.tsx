@@ -26,19 +26,21 @@ export class InstanceFormat extends React.Component<InstanceFormatProps> {
       text = _.isString(this.props.attrData)
         ? this.props.attrData
         : JSON.stringify(this.props.attrData, null, 2);
-      component = (
-        <Typography.Paragraph
-          copyable={{
-            tooltips: [
-              i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.COPY}`),
-              i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.COPY_SUCCESS}`),
-            ],
-            text,
-          }}
-        >
-          {component}
-        </Typography.Paragraph>
-      );
+      if (text) {
+        component = (
+          <Typography.Paragraph
+            copyable={{
+              tooltips: [
+                i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.COPY}`),
+                i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.COPY_SUCCESS}`),
+              ],
+              text,
+            }}
+          >
+            {component}
+          </Typography.Paragraph>
+        );
+      }
     }
     return <>{component}</>;
   }

@@ -67,13 +67,13 @@ export function InstanceListModal(
     );
     props.onSelectedV2?.(selectedInstanceListTemp);
   };
-
+  // istanbul ignore next
   const handleCancel = () => {
     // reset selected
     setSelectedInstanceListTemp(props.selectedRowKeys ?? []);
     props.onCancel();
   };
-
+  // istanbul ignore next
   const handleSelectionChange = (event: {
     selectedKeys: string[];
     selectedItems: any[];
