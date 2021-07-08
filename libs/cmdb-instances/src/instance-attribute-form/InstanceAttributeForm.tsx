@@ -49,15 +49,17 @@ export class LegacyInstanceAttributeForm extends Component<InstanceAttributeForm
   renderRelationFormControl = (
     relation: Partial<ModifiedModelObjectRelation>
   ) => {
+    // istanbul ignore next
     const formItemLayout = {
       labelCol: { span: 4 },
       wrapperCol: { span: 18 },
     };
-
+    // istanbul ignore next
     const InitialRelationValue = get(
       this.props.attributeFormControlInitialValueMap,
       relation.left_id
     );
+    // istanbul ignore next
     const initialValue = InitialRelationValue
       ? InitialRelationValue.map((instanceData: any) => instanceData.instanceId)
       : [];
