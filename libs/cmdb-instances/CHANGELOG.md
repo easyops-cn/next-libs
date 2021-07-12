@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.5.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@4.5.2...@next-libs/cmdb-instances@4.5.3) (2021-07-12)
+
+
+### Bug Fixes
+
+* **cmdb-instances:** 有默认selectedRowKeys时拉取数据 ([692da98](https://github.com/easyops-cn/next-libs/commit/692da980e17451472f67420339f19d0d2269528b))
+
+
+
+
+
 ## [4.5.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@4.5.1...@next-libs/cmdb-instances@4.5.2) (2021-07-08)
 
 
