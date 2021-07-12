@@ -729,6 +729,42 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     props.notifyCurrentFields?.(state.fieldIds);
   }, [props.notifyCurrentFields]);
 
+  // istanbul ignore next
+  useEffect(() => {
+    props.selectedRowKeys &&
+      (async () => {
+        const data: InstanceApi_PostSearchRequestBody = {};
+        const v3Data: InstanceApi_PostSearchV3RequestBody = {
+          fields: ["instanceId"],
+        };
+        if (!isEmpty(props.permission)) {
+          v3Data.permission = data.permission = props.permission;
+        }
+
+        if (state.fieldIds) {
+          data.fields = Object.fromEntries(
+            state.fieldIds.map((fieldId) => [fieldId, true])
+          );
+          v3Data.fields = [...state.fieldIds, ...v3Data.fields];
+          (v3Data as any).ignore_missing_field_error = true;
+        }
+
+        v3Data.query = {
+          instanceId: {
+            $in: props.selectedRowKeys,
+          },
+        };
+        v3Data.page_size = props.selectedRowKeys.length;
+
+        if (state.relatedToMe) {
+          v3Data.only_my_instance = data.only_my_instance = state.relatedToMe;
+        }
+
+        const resp = await InstanceApi_postSearchV3(props.objectId, v3Data);
+        resp.list.forEach((i) => cache.current.set(i.instanceId, i));
+      })();
+  }, [props.selectedRowKeys]);
+
   const onAdvancedSearchCloseGen = (attrId: string, valuesStr: string) => {
     return () => {
       const queries: Query[] = [];
