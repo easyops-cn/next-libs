@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.0.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@4.5.3...@next-libs/cmdb-instances@5.0.0) (2021-07-13)
+
+
+### Features
+
+* cmdb中json编辑采用代码编辑器  closed INSTANCE-1817 ([34666b0](https://github.com/easyops-cn/next-libs/commit/34666b02370d210908eb2e1c3dcaab326fd26b53))
+
+
+### BREAKING CHANGES
+
+* cmdb-instance引入代码编辑器,有需要的构件包按需更新,因为更新后可能会导致构件包体积大量增加
+
+
+
+
+
 ## [4.5.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@4.5.2...@next-libs/cmdb-instances@4.5.3) (2021-07-12)
 
 
