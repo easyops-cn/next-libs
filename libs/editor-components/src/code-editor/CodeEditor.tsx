@@ -8,6 +8,7 @@ import {
   isString,
   map,
   isNil,
+  some,
 } from "lodash";
 import style from "./CodeEditor.module.css";
 import shareStyle from "../share.module.css";
@@ -30,6 +31,8 @@ import storyboardJsonSchema from "@next-core/brick-types/.schema/storyboard.json
 import "brace/ext/language_tools";
 import { brickNextCompleters } from "../custom-mode/brickNextUtil";
 import { CodeEditorProps } from "../interfaces";
+import { FormItemWrapper } from "@next-libs/forms";
+import { ValidationRule } from "@ant-design/compatible/lib/form";
 
 export function CodeEditorItem(
   props: CodeEditorProps,
@@ -286,6 +289,7 @@ export function CodeEditorItem(
         editorProps={{
           $blockScrolling: Infinity,
         }}
+        showPrintMargin={props.showPrintMargin}
         className={style.aceContainer}
       />
       <div
@@ -318,3 +322,69 @@ export function CodeEditorItem(
 }
 
 export const CodeEditorItemWrapper = forwardRef(CodeEditorItem);
+
+export function CodeEditor(props: CodeEditorProps): React.ReactElement {
+  const [, setForceUpdate] = useState();
+  const [hasError, setHasError] = useState(false);
+  const [hasJsonSchemaError, setHasJsonSchemaError] = useState(false);
+
+  const validatorFn = async (
+    rule: any,
+    value: string,
+    callback: (message?: string) => void
+  ) => {
+    if (!hasError) {
+      callback();
+    } else {
+      callback(
+        hasJsonSchemaError
+          ? "请填写正确的数据结构"
+          : `请填写正确的 ${
+              props.mode === "brick_next"
+                ? "json"
+                : props.mode === "brick_next_yaml"
+                ? "yaml"
+                : props.mode
+            } 语法`
+      );
+    }
+  };
+
+  const builtInValidator: Pick<ValidationRule, "validator" | "message">[] = [
+    { validator: validatorFn },
+  ];
+
+  useEffect(() => {
+    if (props.formElement?.formUtils?.isFieldTouched(props.name)) {
+      props.formElement?.formUtils?.validateFields([props.name], {
+        force: true,
+      });
+      // only used for trigger children component re-render to update validate states
+      setForceUpdate({} as any);
+    }
+  }, [hasError]);
+
+  const onValidate = (err: Annotation[]): void => {
+    const error = some(err, ["type", "error"]);
+    const jsonSchemaError =
+      props.validateJsonSchemaMode === "error" &&
+      some(err, (v: any) => v.type === "error" && v.raw?.length > 0);
+    setHasError(error);
+    setHasJsonSchemaError(jsonSchemaError);
+    props.onErrorChange && props.onErrorChange({ err, hasError: error });
+  };
+
+  return (
+    <FormItemWrapper
+      {...props}
+      validator={
+        props.validator
+          ? builtInValidator.concat(props.validator as any)
+          : builtInValidator
+      }
+      asyncForceRerender={true}
+    >
+      <CodeEditorItemWrapper {...props} onValidate={onValidate} />
+    </FormItemWrapper>
+  );
+}
