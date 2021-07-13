@@ -9,6 +9,8 @@ export const structData = {
   datetime: "2019-05-24 12:00:00",
   enums: ["1", "3"],
   float: 100.1,
+  json: "666",
+  json1: { test: "666" },
 };
 export const structData2 = {
   arr: ["ppp"],
@@ -74,6 +76,16 @@ export const attribute: Attribute = {
         id: "float",
         name: "浮点型",
         type: "float",
+      },
+      {
+        id: "json",
+        name: "json",
+        type: "json",
+      },
+      {
+        id: "json1",
+        name: "json1",
+        type: "json",
       },
     ],
   },

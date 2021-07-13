@@ -3068,6 +3068,11 @@
   resolved "https://registry.npmjs.org/@types/file-saver/-/file-saver-2.0.1.tgz#e18eb8b069e442f7b956d313f4fadd3ef887354e"
   integrity sha1-4Y64sGnkQve5VtMT9PrdPviHNU4=
 
+"@types/file-saver@^2.0.3":
+  version "2.0.3"
+  resolved "https://registry.npmjs.org/@types/file-saver/-/file-saver-2.0.3.tgz#b734c4f5a04d20615eaed3dc106e2ab321082009"
+  integrity sha512-MBIou8pd/41jkff7s97B47bc9+p0BszqqDJsO51yDm49uUxeKzrfuNl5fSLC6BpLEWKA8zlwyqALVmXrFwoBHQ==
+
 "@types/geojson@*":
   version "7946.0.7"
   resolved "https://registry.npmjs.org/@types/geojson/-/geojson-7946.0.7.tgz#c8fa532b60a0042219cdf173ca21a975ef0666ad"
@@ -6915,7 +6920,7 @@ file-loader@^6.2.0:
 file-saver@^2.0.5:
   version "2.0.5"
   resolved "https://registry.npmjs.org/file-saver/-/file-saver-2.0.5.tgz#d61cfe2ce059f414d899e9dd6d4107ee25670c38"
-  integrity sha1-1hz+LOBZ9BTYmendbUEH7iVnDDg=
+  integrity sha512-P9bmyZ3h/PRG+Nzga+rbdI4OEpNDzAVyy74uVO9ATgzLK6VtAsYybF/+TOCvrc0MO793d6+42lLyZTw7/ArVzA==
 
 fill-range@^4.0.0:
   version "4.0.0"
