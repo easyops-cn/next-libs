@@ -24,5 +24,10 @@ describe("valueFormatter", () => {
         unit: "KBps",
       })
     ).toEqual(["1.00", "MBps"]);
+    expect(
+      formatValue(1024, {
+        unit: "KBps",
+      })
+    ).toEqual(["1.00", "MBps"]);
   });
 });

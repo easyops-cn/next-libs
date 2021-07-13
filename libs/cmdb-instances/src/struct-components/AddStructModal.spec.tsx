@@ -21,7 +21,7 @@ describe("AddStructModal", () => {
   const instance = wrapper.instance() as AddStructModal;
   it("should init addStructModal", () => {
     expect(wrapper).toBeTruthy();
-    expect(instance.state.showError).toEqual(new Array(9).fill(false));
+    expect(instance.state.showError).toEqual(new Array(11).fill(false));
   });
   it("should call the store function", () => {
     const spy = jest.spyOn(props, "handleStoreFunction");
@@ -152,5 +152,22 @@ describe("AddStructModal", () => {
       target: { value: true },
     } as RadioChangeEvent);
     expect(wrapper2.find(Radio.Group).prop("defaultValue")).toEqual(true);
+  });
+});
+describe("AddStructModal test visible", () => {
+  const handleStoreFunction = jest.fn();
+  const handleCancelFunction = jest.fn();
+  const props = {
+    structData,
+    attribute,
+    handleStoreFunction,
+    handleCancelFunction,
+    visible: true,
+  };
+  const wrapper = shallow<AddStructModalProps>(<AddStructModal {...props} />);
+  const instance = wrapper.instance() as AddStructModal;
+  it("should init addStructModal", () => {
+    expect(wrapper).toBeTruthy();
+    expect(instance.state.showError).toEqual(new Array(11).fill(false));
   });
 });

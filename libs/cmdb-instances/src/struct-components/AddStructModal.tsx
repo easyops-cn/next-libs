@@ -10,6 +10,7 @@ import { RadioChangeEvent } from "antd/lib/radio";
 import { SelectValue } from "antd/lib/select";
 import { computeDateFormat } from "../processors";
 import _ from "lodash";
+import { CodeEditor } from "@next-libs/editor-components";
 
 export interface AddStructModalProps {
   structData?: any;
@@ -117,7 +118,7 @@ export class AddStructModal extends React.Component<
     if (define.type === "json") {
       defaultValue =
         _.isString(defaultValue) || !defaultValue
-          ? defaultValue
+          ? defaultValue || ""
           : JSON.stringify(defaultValue, null, 2);
     }
     switch (define.type) {
@@ -232,10 +233,15 @@ export class AddStructModal extends React.Component<
       }
       case "json": {
         formType = (
-          <Input.TextArea
-            defaultValue={defaultValue}
-            onChange={(e) => this.handleInputValueChange(e, define)}
-            rows={5}
+          <CodeEditor
+            value={defaultValue}
+            mode={"json"}
+            maxLines={"Infinity"}
+            highlightActiveLine={true}
+            onChange={(e: any) => this.handleValueChange(e, define)}
+            minLines={3}
+            showLineNumbers={true}
+            showPrintMargin={false}
           />
         );
         break;

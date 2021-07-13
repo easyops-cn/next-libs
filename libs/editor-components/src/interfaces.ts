@@ -1,12 +1,12 @@
 import { Annotation } from "brace";
+import { FormItemWrapperProps } from "@next-libs/forms";
 
 export interface Error {
   err: Annotation[];
   hasError: boolean;
 }
 
-export interface CodeEditorProps {
-  name?: string;
+export interface CodeEditorProps extends FormItemWrapperProps {
   placeholder?: string;
   value?: string;
   onChange?: (value: string) => void;
@@ -27,6 +27,7 @@ export interface CodeEditorProps {
   showCopyButton?: boolean;
   exportFileName?: string;
   jsonSchema?: Record<string, any>;
+  validateJsonSchemaMode?: "warning" | "error";
   schemaRef?: string;
   enableLiveAutocompletion?: boolean;
   customCompleters?:
@@ -37,4 +38,6 @@ export interface CodeEditorProps {
         meta?: string;
         score?: number;
       }[];
+  loadYamlInJsonMode?: boolean;
+  showPrintMargin?: boolean;
 }

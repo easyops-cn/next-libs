@@ -24,3 +24,8 @@ if (!window.matchMedia) {
     })),
   });
 }
+
+(global as any).ace = {
+  define: jest.fn(),
+  acequire: jest.fn(),
+};
