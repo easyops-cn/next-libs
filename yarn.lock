@@ -3063,12 +3063,7 @@
   resolved "https://registry.npmjs.org/@types/events/-/events-3.0.0.tgz#2862f3f58a9a7f7c3e78d79f130dd4d71c25c2a7"
   integrity sha1-KGLz9Yqaf3w+eNefEw3U1xwlwqc=
 
-"@types/file-saver@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.npmjs.org/@types/file-saver/-/file-saver-2.0.1.tgz#e18eb8b069e442f7b956d313f4fadd3ef887354e"
-  integrity sha1-4Y64sGnkQve5VtMT9PrdPviHNU4=
-
-"@types/file-saver@^2.0.3":
+"@types/file-saver@^2.0.1", "@types/file-saver@^2.0.3":
   version "2.0.3"
   resolved "https://registry.npmjs.org/@types/file-saver/-/file-saver-2.0.3.tgz#b734c4f5a04d20615eaed3dc106e2ab321082009"
   integrity sha512-MBIou8pd/41jkff7s97B47bc9+p0BszqqDJsO51yDm49uUxeKzrfuNl5fSLC6BpLEWKA8zlwyqALVmXrFwoBHQ==
@@ -6133,10 +6128,10 @@ domhandler@^3.0.0:
   dependencies:
     domelementtype "^2.0.1"
 
-dompurify@^2.2.9:
-  version "2.2.9"
-  resolved "https://registry.npmjs.org/dompurify/-/dompurify-2.2.9.tgz#4b42e244238032d9286a0d2c87b51313581d9624"
-  integrity sha512-+9MqacuigMIZ+1+EwoEltogyWGFTJZWU3258Rupxs+2CGs4H914G9er6pZbsme/bvb5L67o2rade9n21e4RW/w==
+dompurify@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.npmjs.org/dompurify/-/dompurify-2.3.0.tgz#07bb39515e491588e5756b1d3e8375b5964814e2"
+  integrity sha512-VV5C6Kr53YVHGOBKO/F86OYX6/iLTw2yVSI721gKetxpHCK/V5TaLEf9ODjRgl1KLSWRMY6cUhAbv/c+IUnwQw==
 
 domutils@1.5.1:
   version "1.5.1"
