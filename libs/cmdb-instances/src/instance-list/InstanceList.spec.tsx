@@ -6,6 +6,7 @@ import {
   waitForElement,
   fireEvent,
 } from "@testing-library/react";
+import { Tag } from "antd";
 import { act } from "react-dom/test-utils";
 import { PropertyDisplayConfig } from "@next-core/brick-types";
 import { InstanceApi_postSearchV3 } from "@next-sdk/cmdb-sdk";
@@ -458,6 +459,24 @@ describe("InstanceList", () => {
     expect(relatedToMe.props["checked"]).toBeTruthy();
     wrapper.find(IconButton).at(1).invoke("onChange")(false);
     expect(mockOnRelatedToMeChange).toBeCalledWith(false);
+  });
+
+  it("should work with hideSearchConditions", async () => {
+    const mockOnRelatedToMeChange = jest.fn();
+    const wrapper = mount(
+      <InstanceList
+        objectId="HOST"
+        objectList={[HOST]}
+        relatedToMe={true}
+        onRelatedToMeChange={mockOnRelatedToMeChange}
+        relationLinkDisabled={true}
+        hideSearchConditions={true}
+      />
+    );
+    await (global as any).flushPromises();
+    await jest.runAllTimers();
+    wrapper.update();
+    expect(wrapper.find("Tag").length).toBe(0);
   });
 
   it("should call onAliveHostsChange when change aliveHosts", async () => {
