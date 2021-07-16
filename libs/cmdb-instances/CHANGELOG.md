@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@5.0.0...@next-libs/cmdb-instances@5.0.1) (2021-07-16)
+
+
+### Bug Fixes
+
+* cmdb实例列表添加属性控制查询条件的显示 closed FULLSEARCH-82 ([4f2a65c](https://github.com/easyops-cn/next-libs/commit/4f2a65ce31cc7071fe48e6eeb7069543ea5eca29))
+
+
+
+
+
 # [5.0.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@4.5.3...@next-libs/cmdb-instances@5.0.0) (2021-07-13)
 
 
