@@ -323,6 +323,7 @@ interface InstanceListProps {
   };
   extraColumns?: CustomColumn[];
   extraDisabledField?: string;
+  hideSearchConditions?: boolean;
 }
 
 interface InstanceListState {
@@ -942,7 +943,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
               />
             </div>
           )}
-          {(state.q || !isEmpty(conditions)) && (
+          {!props.hideSearchConditions && (state.q || !isEmpty(conditions)) && (
             <div className={styles.searchConditions}>
               <span>
                 {i18n.t(
