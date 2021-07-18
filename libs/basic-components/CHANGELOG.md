@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@2.2.0...@next-libs/basic-components@2.2.1) (2021-07-18)
+
+
+### Bug Fixes
+
+* **basic-components:** 折叠时，刷新页面菜单悬浮 ([14fcd6f](https://github.com/easyops-cn/next-libs/commit/14fcd6f90c04f4d3d20b0d3ce58130454e0e7b45))
+
+
+
+
+
 # [2.2.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@2.1.0...@next-libs/basic-components@2.2.0) (2021-06-04)
 
 
