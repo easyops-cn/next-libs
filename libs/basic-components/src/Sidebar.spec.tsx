@@ -172,4 +172,15 @@ describe("Sidebar", () => {
     expect(openedKeys2).toContain("prefix.1");
     expect(openedKeys2).not.toContain("prefix.1.1");
   });
+  it("should work and collapsed", () => {
+    const menuItems: SidebarMenuItem[] = [
+      {
+        text: "for-good",
+        to: "/for/good",
+        activeIncludes: ["/for/good"],
+      },
+    ];
+    const wrapper = shallow(<Sidebar menuItems={menuItems} collapsed={true} />);
+    expect(wrapper.props().defaultOpenKeys).toMatchObject([]);
+  });
 });
