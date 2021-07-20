@@ -76,12 +76,16 @@ export function getQuery(
   modelData: Partial<CmdbModels.ModelCmdbObject>,
   idObjectMap: Record<string, Partial<CmdbModels.ModelCmdbObject>>,
   q: string,
-  fields?: string[]
+  fields?: string[],
+  onlySearchByIp?: boolean
 ) {
   const query: Record<string, any> = { $or: [] };
 
   const queryValues = q.trim().split(/\s+/);
-
+  if (onlySearchByIp) {
+    query.$or.push({ ip: { $like: `%${q.trim()}%` } });
+    return query;
+  }
   forEachAvailableFields(
     modelData,
     (attr) => {
@@ -324,6 +328,7 @@ interface InstanceListProps {
   extraColumns?: CustomColumn[];
   extraDisabledField?: string;
   hideSearchConditions?: boolean;
+  onlySearchByIp?: boolean;
 }
 
 interface InstanceListState {
@@ -488,7 +493,13 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     }
 
     if (state.q) {
-      query = getQuery(modelData, idObjectMap, state.q, state.fieldIds);
+      query = getQuery(
+        modelData,
+        idObjectMap,
+        state.q,
+        state.fieldIds,
+        props.onlySearchByIp
+      );
     }
 
     if (!isEmpty(state.aq)) {
