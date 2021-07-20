@@ -528,8 +528,12 @@ describe("InstanceList", () => {
         expected: { $or: [{ hostname: { $like: "%aaa%" } }] },
       },
     ];
+    const onlySearchByIp = true;
     testdata.forEach((t) => {
       expect(getQuery(HOST, { HOST: HOST }, t.q, t.fields)).toEqual(t.expected);
+      expect(
+        getQuery(HOST, { HOST: HOST }, t.q, t.fields, onlySearchByIp)
+      ).toEqual({ $or: [{ ip: { $like: "%aaa%" } }] });
     });
   });
 
