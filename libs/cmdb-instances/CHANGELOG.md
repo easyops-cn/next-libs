@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@5.0.2...@next-libs/cmdb-instances@5.0.3) (2021-07-20)
+
+
+### Bug Fixes
+
+* 添加onlySearchByIp属性让IP搜索仅搜索IP closed FULLSEARCH-82 ([0db8b1b](https://github.com/easyops-cn/next-libs/commit/0db8b1b0307e0c21117f5816f1f90c29ce6abe2f))
+
+
+
+
+
 ## [5.0.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@5.0.1...@next-libs/cmdb-instances@5.0.2) (2021-07-18)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
