@@ -45,6 +45,7 @@ import {
   DEFAULT_ATTRIBUTE_TAG_STR,
   BASIC_INFORMATION_RELATION_GROUP_ID,
   DEFAULT_ATTRIBUTE_TAG,
+  BASIC_INFO,
 } from "./constants";
 import { isArray } from "util";
 import { UseBrickConf } from "@next-core/brick-types";
@@ -75,6 +76,7 @@ interface LegacyInstanceDetailProps extends WithTranslation {
   fieldsByTag?: FieldsByTag[];
   showCard?: boolean;
   relationFieldUrlTemplate?: string;
+  isRelationInstanceDetail?: boolean;
 }
 
 interface LegacyInstanceDetailState {
@@ -290,7 +292,7 @@ export class LegacyInstanceDetail extends React.Component<
       </div>
     );
   }
-
+  // istanbul ignore next (Temporarily ignored)
   getCardContent(): React.ReactNode {
     const { basicInfoGroupList, basicInfoGroupListShow } = this.state;
     return (
@@ -318,9 +320,21 @@ export class LegacyInstanceDetail extends React.Component<
               {basicInfoGroupList.length > 1 && (
                 <div className={style.groupName}>{basicInfoGroup.name}</div>
               )}
-              {basicInfoGroup.attrList.map((attr: any) =>
-                this.getAttrListNode(attr)
-              )}
+              {basicInfoGroup.attrList.map((attr: any, index: number) => {
+                //当前模型的一对一关系模型的详情并且为基本信息的第一个属性时，跳转到该关系模型的详情页
+                //第一个属性为关系时，取第二个属性，如此类推
+                if (
+                  this.props.isRelationInstanceDetail &&
+                  attr?.tag?.[0] === BASIC_INFO &&
+                  index ===
+                    basicInfoGroup.attrList.findIndex(
+                      (r: any) => !r.__isRelation
+                    )
+                ) {
+                  return this.getAttrListNode(attr, true);
+                }
+                return this.getAttrListNode(attr);
+              })}
             </>
           ))}
         </dl>
@@ -353,7 +367,7 @@ export class LegacyInstanceDetail extends React.Component<
   }
 
   // istanbul ignore next
-  getAttrListNode(attr: any): React.ReactNode {
+  getAttrListNode(attr: any, linkFlag?: boolean): React.ReactNode {
     const { isStruct, isStructs, isRelation, isMarkdownField } = this;
     const { modelDataMap, modelData, instanceData } = this.state;
     let config;
@@ -391,6 +405,7 @@ export class LegacyInstanceDetail extends React.Component<
             isStruct(attr) ||
             isStructs(attr) ||
             isRelation(attr) ||
+            attr.__isRelation ||
             isMarkdownField(attr) ||
             (config && config.isWholeLine)
               ? style.structAttr
@@ -405,6 +420,7 @@ export class LegacyInstanceDetail extends React.Component<
             isStruct(attr) ||
             isStructs(attr) ||
             isRelation(attr) ||
+            attr.__isRelation ||
             isMarkdownField(attr) ||
             (config && config.isWholeLine)
               ? style.structAttr
@@ -453,13 +469,25 @@ export class LegacyInstanceDetail extends React.Component<
             !isStruct(attr) &&
             !isRelation(attr) &&
             !isMarkdownField(attr) &&
-            !isComponentMode && (
+            !isComponentMode &&
+            (linkFlag ? (
+              <Link
+                to={`/next-cmdb-instance-management/next/${instanceData._object_id}/instance/${instanceData.instanceId}`}
+                target={"_blank"}
+              >
+                <InstanceFormat
+                  objectId={modelData.objectId}
+                  attrModel={attr}
+                  attrData={instanceData[attr.id]}
+                />
+              </Link>
+            ) : (
               <InstanceFormat
                 objectId={modelData.objectId}
                 attrModel={attr}
                 attrData={instanceData[attr.id]}
               />
-            )}
+            ))}
           {isStruct(attr) && instanceData[attr.id] && (
             <StructTable
               isLegacy={true}

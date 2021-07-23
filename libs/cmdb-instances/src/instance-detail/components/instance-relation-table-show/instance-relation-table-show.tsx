@@ -42,7 +42,7 @@ export function InstanceRelationTableShow(
   };
 
   return (
-    <div style={{ maxWidth: "500px" }}>
+    <div style={{ display: "grid" }}>
       <InstanceListTable
         detailUrlTemplates={{
           [relationData.right_object_id]:
@@ -59,6 +59,7 @@ export function InstanceRelationTableShow(
         configProps={{
           pagination: false,
         }}
+        target={"_blank"}
       ></InstanceListTable>
     </div>
   );

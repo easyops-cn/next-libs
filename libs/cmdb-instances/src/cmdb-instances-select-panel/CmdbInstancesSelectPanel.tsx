@@ -217,6 +217,7 @@ export function CmdbInstancesSelectPanel(
             setPartialSelectedInstances(v);
             props.onChange?.(v);
           }}
+          target={"_blank"}
         ></InstanceListTable>
         {!props?.isOperate && showPreview && (
           <div
