@@ -42,6 +42,7 @@ describe("InstanceDetail", () => {
             event: "read.single.delete",
           },
         ]}
+        isRelationInstanceDetail={true}
       />
     );
     await (global as any).flushPromises();

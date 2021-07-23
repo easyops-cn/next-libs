@@ -107,6 +107,7 @@ export interface InstanceListTableProps extends WithTranslation {
   extraColumns?: CustomColumn[];
   isOperate?: boolean;
   handleDeleteFunction?: (v: any[]) => void;
+  target?: string;
 }
 
 interface InstanceListTableState {
@@ -594,6 +595,11 @@ export class LegacyInstanceListTable extends React.Component<
                       this.handleClickItem(e, record.instanceId)
                     }
                     data-testid="instance-detail-link"
+                    {...(!firstColumns
+                      ? { target: "_blank" }
+                      : this.props.target
+                      ? { target: this.props.target }
+                      : {})}
                   >
                     <Tooltip
                       placement="top"
@@ -603,7 +609,7 @@ export class LegacyInstanceListTable extends React.Component<
                         `${NS_LIBS_CMDB_INSTANCES}:${K.INSTANCE_DETAIL}`
                       )}`}
                     >
-                      <span style={{ display: "flex" }}>
+                      <span>
                         <span className={styles.iconWrap}>
                           <GeneralIcon
                             icon={{
@@ -707,6 +713,7 @@ export class LegacyInstanceListTable extends React.Component<
                     instanceName
                   ) : (
                     <Link
+                      target={"_blank"}
                       // 使用 <Link> 以保持链接的原生能力
                       to={url}
                       // 自定义 onClick 以支持事件配置和拦截

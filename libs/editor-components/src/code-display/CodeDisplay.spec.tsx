@@ -1,5 +1,5 @@
 import React from "react";
-import { shallow } from "enzyme";
+import { mount } from "enzyme";
 import { CodeDisplay } from "./CodeDisplay";
 import { message } from "antd";
 import { ExportOutlined } from "@ant-design/icons";
@@ -7,7 +7,7 @@ import fileSaver from "file-saver";
 
 describe("CodeDisplay", () => {
   it("should work", () => {
-    const wrapper = shallow(
+    const wrapper = mount(
       <CodeDisplay
         language="javascript"
         showLineNumber={true}
