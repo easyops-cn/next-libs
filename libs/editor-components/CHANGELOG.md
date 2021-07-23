@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/editor-components@1.0.7...@next-libs/editor-components@1.0.8) (2021-07-23)
+
+
+### Bug Fixes
+
+* 列表页详情页配置关系跳转链接及样式调整 closed INSTANCE-1794 ([06aeaa9](https://github.com/easyops-cn/next-libs/commit/06aeaa9ff820d622e6852920fbfef50d4940b5a5))
+
+
+
+
+
 ## [1.0.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/editor-components@1.0.6...@next-libs/editor-components@1.0.7) (2021-07-18)
 
 **Note:** Version bump only for package @next-libs/editor-components
