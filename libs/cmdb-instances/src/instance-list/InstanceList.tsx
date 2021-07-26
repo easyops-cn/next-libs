@@ -329,6 +329,7 @@ interface InstanceListProps {
   extraDisabledField?: string;
   hideSearchConditions?: boolean;
   onlySearchByIp?: boolean;
+  target?: string;
 }
 
 interface InstanceListState {
@@ -1014,6 +1015,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
             pageSizeOptions={props.pageSizeOptions}
             showSizeChanger={props.showSizeChanger}
             extraColumns={props.extraColumns}
+            target={props.target}
           />
         </React.Fragment>
       ) : null}
