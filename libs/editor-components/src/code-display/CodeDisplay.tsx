@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import Prism from "prismjs";
 import "prismjs/themes/prism-tomorrow.css";
 import classNames from "classnames";
@@ -6,7 +6,7 @@ import styles from "./CodeDisplay.module.css";
 import { Clipboard } from "@next-libs/clipboard";
 import { ExportOutlined } from "@ant-design/icons";
 import { message, Tooltip } from "antd";
-import { isNumber } from "lodash";
+import { isNumber, isEmpty, castArray } from "lodash";
 import shareStyle from "../share.module.css";
 import FileSaver from "file-saver";
 import ResizeObserver from "resize-observer-polyfill";
@@ -22,6 +22,8 @@ interface CodeDisplayProps {
   showExportButton?: boolean;
   showCopyButton?: boolean;
   exportFileName?: string;
+  highlightWords?: string[];
+  highlightCaseSensitive?: boolean;
 }
 
 export function CodeDisplay(props: CodeDisplayProps): React.ReactElement {
@@ -62,6 +64,21 @@ export function CodeDisplay(props: CodeDisplayProps): React.ReactElement {
     };
   }, []);
 
+  const markedHtml = useMemo(() => {
+    if (!isEmpty(props.highlightWords)) {
+      return castArray(props.highlightWords).reduce(
+        (content, keyword) =>
+          content.replace(
+            new RegExp(keyword, props.highlightCaseSensitive ? "g" : "ig"),
+            (p) => `<mark>${p}</mark>`
+          ),
+        props.value
+      );
+    }
+
+    return props.value;
+  }, [props.highlightCaseSensitive, props.highlightWords, props.value]);
+
   return (
     <div className={styles.customCodeDisplay} ref={codeContainerRef}>
       <pre
@@ -88,9 +105,8 @@ export function CodeDisplay(props: CodeDisplayProps): React.ReactElement {
           className={`language-${props.language}`}
           style={{ whiteSpace: "pre-wrap" }}
           ref={codeElement}
-        >
-          {props.value}
-        </code>
+          dangerouslySetInnerHTML={{ __html: markedHtml }}
+        ></code>
       </pre>
       <div
         className={classNames(

@@ -81,7 +81,8 @@ export function CodeEditorItem(
             {
               row: position.row,
               column: position.column,
-              type: "warning",
+              type:
+                props.validateJsonSchemaMode === "error" ? "error" : "warning",
               text: errorMessage,
               raw: ajv.errors,
             } as Annotation,
@@ -107,7 +108,7 @@ export function CodeEditorItem(
       try {
         const data = yaml.safeLoad(props.value, {
           schema: yaml.JSON_SCHEMA,
-          json: true,
+          json: props.loadYamlInJsonMode ?? true,
         });
         if (jsonSchema) {
           schemaAnnotations = schemaLint(data);
@@ -332,7 +333,7 @@ export function CodeEditor(props: CodeEditorProps): React.ReactElement {
     rule: any,
     value: string,
     callback: (message?: string) => void
-  ) => {
+  ): Promise<void> => {
     if (!hasError) {
       callback();
     } else {

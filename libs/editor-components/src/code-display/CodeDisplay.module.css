@@ -4,6 +4,13 @@
   code[class*="language-"] {
     font-size: 12px;
     line-height: 16px;
+    mark {
+      background-color: orange;
+      padding: 0;
+      * {
+        color: #000;
+      }
+    }
   }
   pre[class*="language-"] {
     position: relative;
