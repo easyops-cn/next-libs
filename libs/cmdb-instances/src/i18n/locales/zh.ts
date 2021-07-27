@@ -82,6 +82,14 @@ const locale: Locale = {
   [K.INSTANCE_DETAIL]: "实例详情",
   [K.COPY]: "复制",
   [K.COPY_SUCCESS]: "复制成功",
+  [K.FILTER_FROM_CMDB_TYPE]: "从 CMDB 中筛选{{type}}",
+  [K.USERS]: "用户",
+  [K.USER_GROUPS]: "用户组",
+  [K.SWITCH]: "切换{{type}}",
+  [K.USERS_RESULT_LABEL]: "用户（仅显示前20项，更多结果请搜索）",
+  [K.NO_DATA]: "暂无数据",
+  [K.USER_GROUPS_RESULT_LABEL]: "用户组（仅显示前20项，更多结果请搜索）",
+  [K.PERMISSION_WHITELIST]: "权限白名单",
 };
 
 export default locale;

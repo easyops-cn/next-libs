@@ -29,6 +29,8 @@ import {
   modifyModelData,
 } from "@next-libs/cmdb-utils";
 import styles from "./ModelAttributeForm.module.css";
+import { UserOrUserGroupSelect } from "../components";
+import { permissionListMapOfApp } from "./constants";
 import i18n from "i18next";
 import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
 const DEFAULT_ATTRIBUTE_TAG = "基本信息";
@@ -66,6 +68,8 @@ interface ModelAttributeFormProps extends FormComponentProps {
   onCancel?(): void;
   showDetailUrl?: boolean;
   isFilterView?: boolean;
+  objectListOfUser?: Partial<CmdbModels.ModelCmdbObject>[];
+  permissionList?: Record<string, any>[];
 }
 
 export type attributesFieldsByTag = [string, ModifiedModelObjectField[]];
@@ -207,6 +211,52 @@ export class ModelAttributeForm extends Component<
   handleFormErrors(fieldsError: Record<string, string[] | undefined>) {
     return Object.keys(fieldsError).some((field) => fieldsError[field]);
   }
+  permissionAttrProcess = (key: string) => {
+    if (key.includes("instance_access")) return "readAuthorizers";
+    if (key.includes("instance_delete")) return "deleteAuthorizers";
+    if (key.includes("instance_update")) return "updateAuthorizers";
+    // HOST特有
+    if (key.includes("instance_operate")) return "operateAuthorizers";
+    // APP特有
+    return permissionListMapOfApp[key] || key;
+  };
+
+  valuesProcess = (values: Record<string, any>) => {
+    const appPermissionAuthorizers: Record<string, any> = {};
+    Object.values(permissionListMapOfApp).forEach((r) => {
+      appPermissionAuthorizers[r] = values[r]
+        ? values[r].selectedUser.concat(values[r].selectedUserGroup)
+        : [];
+    });
+    return {
+      ...values,
+      deleteAuthorizers: values.deleteAuthorizers
+        ? values.deleteAuthorizers.selectedUser.concat(
+            values.deleteAuthorizers.selectedUserGroup
+          )
+        : [],
+      readAuthorizers: values.readAuthorizers
+        ? values.readAuthorizers.selectedUser.concat(
+            values.readAuthorizers.selectedUserGroup
+          )
+        : [],
+      updateAuthorizers: values.updateAuthorizers
+        ? values.updateAuthorizers.selectedUser.concat(
+            values.updateAuthorizers.selectedUserGroup
+          )
+        : [],
+      ...(this.props.objectId === "HOST"
+        ? {
+            operateAuthorizers: values.operateAuthorizers
+              ? values.operateAuthorizers.selectedUser.concat(
+                  values.operateAuthorizers.selectedUserGroup
+                )
+              : [],
+          }
+        : {}),
+      ...(this.props.objectId === "APP" ? appPermissionAuthorizers : {}),
+    };
+  };
 
   handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -216,7 +266,9 @@ export class ModelAttributeForm extends Component<
         this.setState({ sending: true });
         const result = await this.props.onSubmit({
           continueCreating,
-          values,
+          values: this.props.permissionList
+            ? this.valuesProcess(values)
+            : values,
         });
         if (result !== "error" && continueCreating) {
           this.props.form.resetFields();
@@ -438,6 +490,30 @@ export class ModelAttributeForm extends Component<
               </Form.Item>
             </Panel>
           ))}
+
+        {this.props.permissionList && (
+          <Panel
+            header={i18n.t(
+              `${NS_LIBS_CMDB_INSTANCES}:${K.PERMISSION_WHITELIST}`
+            )}
+            key={"permission"}
+          >
+            {this.props.permissionList.map((r) => {
+              return (
+                <Form.Item label={r.remark} key={r.id} {...this.formItemProps}>
+                  {getFieldDecorator(
+                    this.permissionAttrProcess(r.action) as string,
+                    {}
+                  )(
+                    <UserOrUserGroupSelect
+                      objectMap={keyBy(this.props.objectListOfUser, "objectId")}
+                    ></UserOrUserGroupSelect>
+                  )}
+                </Form.Item>
+              );
+            })}
+          </Panel>
+        )}
       </Collapse>
     );
 
