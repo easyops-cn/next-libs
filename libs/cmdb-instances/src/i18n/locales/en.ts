@@ -88,6 +88,16 @@ const locale: Locale = {
   [K.INSTANCE_DETAIL]: "",
   [K.COPY]: "Copy",
   [K.COPY_SUCCESS]: "Copy success",
+  [K.FILTER_FROM_CMDB_TYPE]: "Filter {{type}} from CMDB",
+  [K.USERS]: "Users",
+  [K.USER_GROUPS]: "User groups",
+  [K.SWITCH]: "Switch to {{type}}",
+  [K.USERS_RESULT_LABEL]:
+    "Users (only display the top 20 items, please search for more results)",
+  [K.NO_DATA]: "No Data",
+  [K.USER_GROUPS_RESULT_LABEL]:
+    "User groups (only display the top 20 items, please search for more results)",
+  [K.PERMISSION_WHITELIST]: "Permission whitelist",
 };
 
 export default locale;
