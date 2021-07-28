@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@5.0.5...@next-libs/cmdb-instances@5.0.6) (2021-07-28)
+
+
+### Bug Fixes
+
+* 新建实例支持白名单权限 closed INSTANCE-1829 ([125da88](https://github.com/easyops-cn/next-libs/commit/125da88c971432656a76bcb8421d13a981ba4d5b))
+* 添加属性控制新建时白名单是否需要输入 closed INSTANCE-1829 ([da78b9c](https://github.com/easyops-cn/next-libs/commit/da78b9cf49591fe1fbc24a5639c859fe6bb0c1bb))
+
+
+
+
+
 ## [5.0.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@5.0.4...@next-libs/cmdb-instances@5.0.5) (2021-07-26)
 
 
