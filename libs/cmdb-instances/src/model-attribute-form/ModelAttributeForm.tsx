@@ -60,8 +60,8 @@ interface ModelAttributeFormProps extends FormComponentProps {
   objectList?: Partial<CmdbModels.ModelCmdbObject>[];
   modelData?: Partial<CmdbModels.ModelCmdbObject>;
   attributeFormControlInitialValueMap:
-    | InstanceApi_GetDefaultValueTemplateResponseBody
-    | Partial<InstanceApi_GetDetailResponseBody>;
+  | InstanceApi_GetDefaultValueTemplateResponseBody
+  | Partial<InstanceApi_GetDetailResponseBody>;
   showCancelButton?: boolean;
   cancelText?: string;
   cancelType?: ButtonType;
@@ -233,27 +233,27 @@ export class ModelAttributeForm extends Component<
       ...values,
       deleteAuthorizers: values.deleteAuthorizers
         ? values.deleteAuthorizers.selectedUser.concat(
-            values.deleteAuthorizers.selectedUserGroup
-          )
+          values.deleteAuthorizers.selectedUserGroup
+        )
         : [],
       readAuthorizers: values.readAuthorizers
         ? values.readAuthorizers.selectedUser.concat(
-            values.readAuthorizers.selectedUserGroup
-          )
+          values.readAuthorizers.selectedUserGroup
+        )
         : [],
       updateAuthorizers: values.updateAuthorizers
         ? values.updateAuthorizers.selectedUser.concat(
-            values.updateAuthorizers.selectedUserGroup
-          )
+          values.updateAuthorizers.selectedUserGroup
+        )
         : [],
       ...(this.props.objectId === "HOST"
         ? {
-            operateAuthorizers: values.operateAuthorizers
-              ? values.operateAuthorizers.selectedUser.concat(
-                  values.operateAuthorizers.selectedUserGroup
-                )
-              : [],
-          }
+          operateAuthorizers: values.operateAuthorizers
+            ? values.operateAuthorizers.selectedUser.concat(
+              values.operateAuthorizers.selectedUserGroup
+            )
+            : [],
+        }
         : {}),
       ...(this.props.objectId === "APP" ? appPermissionAuthorizers : {}),
     };
@@ -449,14 +449,14 @@ export class ModelAttributeForm extends Component<
                     //默认值为string，但是新建时接口转成了object，故编辑时后台返回的也是object
                     initialValue:
                       attribute.value.type === "json" &&
-                      !_.isString(
-                        attributeFormControlInitialValueMap[attribute.id]
-                      )
+                        !_.isString(
+                          attributeFormControlInitialValueMap[attribute.id]
+                        )
                         ? JSON.stringify(
-                            attributeFormControlInitialValueMap[attribute.id],
-                            null,
-                            2
-                          )
+                          attributeFormControlInitialValueMap[attribute.id],
+                          null,
+                          2
+                        )
                         : attributeFormControlInitialValueMap[attribute.id],
                   })(
                     <ModelAttributeFormControl
@@ -486,7 +486,7 @@ export class ModelAttributeForm extends Component<
                   ref={(element: any) => {
                     element &&
                       ((element["value"] = this.props.form.getFieldsValue()),
-                      (element["options"] = brick.options));
+                        (element["options"] = brick.options));
                   }}
                 />
               </Form.Item>
@@ -509,6 +509,7 @@ export class ModelAttributeForm extends Component<
                   )(
                     <UserOrUserGroupSelect
                       objectMap={keyBy(this.props.objectListOfUser, "objectId")}
+                      optionsMode="all"
                     ></UserOrUserGroupSelect>
                   )}
                 </Form.Item>
