@@ -788,6 +788,7 @@ describe("ModelAttributeForm", () => {
             ],
             modelData: mockFetchCmdbObjectDetailReturnValue,
             permissionList,
+            enabledWhiteList: true,
           }
         )}
       />
@@ -840,6 +841,7 @@ describe("ModelAttributeForm", () => {
           ],
           modelData: mockFetchCmdbObjectDetailReturnValue,
           permissionList,
+          enabledWhiteList: true,
         })}
       />
     );
@@ -859,5 +861,93 @@ describe("ModelAttributeForm", () => {
         },
       }).operateAuthorizers
     ).toStrictEqual(["test_name", "test_group"]);
+  });
+
+  describe("handleSubmit with whiteList", () => {
+    it("should submit", async () => {
+      const values: any = {
+        CHECK_IP2: "sdfsdfs",
+        check_array: ["24324"],
+        check_enum: null,
+        check_ip4: "192.168.100.15",
+        check_num_readonly: 4,
+        name: "sdfsdf",
+        check_url2: "[百度哦](http://wwww.baidu.comcc)",
+        check_num: 2,
+        check_read_only: "0.0.0.0",
+        check_string: "sdfdsfsdf",
+        check_url: "[null](http://sdfsfdsdfdsf)",
+      };
+
+      const newValues: any = {
+        CHECK_IP2: "sdfsdfs",
+        check_array: ["24324"],
+        check_enum: null,
+        check_ip4: "192.168.100.15",
+        check_num_readonly: 4,
+        name: "sdfsdf",
+        check_url2: "[百度哦](http://wwww.baidu.comcc)",
+        check_num: 2,
+        check_read_only: "0.0.0.0",
+        check_string: "sdfdsfsdf",
+        check_url: "[null](http://sdfsfdsdfdsf)",
+      };
+      const newProps = Object.assign({}, props, {
+        isCreate: true,
+        allowContinueCreate: true,
+        tagsList: {
+          基本信息: ["timeline"],
+          默认属性: ["deviceId", "_agentStatus", "_agentHeartBeat"],
+        },
+        permissionList,
+        enabledWhiteList: true,
+      });
+      const wrapper = mount(<InstanceModelAttributeForm {...newProps} />);
+      const instance = wrapper
+        .find(ModelAttributeForm)
+        .instance() as ModelAttributeForm;
+
+      const checkBox = wrapper
+        .find(ModelAttributeForm)
+        .find(Checkbox)
+        .find('input[type="checkbox"]');
+
+      checkBox.simulate("change", {
+        target: {
+          checked: true,
+        },
+      });
+      wrapper.update();
+
+      await new Promise((resolve) => setImmediate(resolve));
+
+      wrapper.update();
+      instance.props.form.validateFields = jest
+        .fn()
+        .mockImplementation(
+          (callback: (err: boolean, value: Record<string, any>) => void) => {
+            callback(false, values);
+          }
+        );
+
+      const submitBtn = wrapper
+        .find(Button)
+        .filter("[data-testid='submit-btn']");
+
+      submitBtn.simulate("click", {
+        preventDefault: jest.fn(),
+      });
+      expect(submitBtn.text()).toBe(
+        i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.SAVE}`)
+      );
+      expect(instance.state.sending).toBeTruthy();
+
+      await new Promise((resolve) => setImmediate(resolve));
+      expect(props.onSubmit).toBeCalledWith({
+        continueCreating: true,
+        values: newValues,
+      });
+      expect(instance.state.sending).toBeFalsy();
+    });
   });
 });

@@ -70,6 +70,7 @@ interface ModelAttributeFormProps extends FormComponentProps {
   isFilterView?: boolean;
   objectListOfUser?: Partial<CmdbModels.ModelCmdbObject>[];
   permissionList?: Record<string, any>[];
+  enabledWhiteList?: boolean;
 }
 
 export type attributesFieldsByTag = [string, ModifiedModelObjectField[]];
@@ -266,9 +267,10 @@ export class ModelAttributeForm extends Component<
         this.setState({ sending: true });
         const result = await this.props.onSubmit({
           continueCreating,
-          values: this.props.permissionList
-            ? this.valuesProcess(values)
-            : values,
+          values:
+            this.props.enabledWhiteList && this.props.permissionList
+              ? this.valuesProcess(values)
+              : values,
         });
         if (result !== "error" && continueCreating) {
           this.props.form.resetFields();
@@ -491,7 +493,7 @@ export class ModelAttributeForm extends Component<
             </Panel>
           ))}
 
-        {this.props.permissionList && (
+        {this.props.enabledWhiteList && this.props.permissionList && (
           <Panel
             header={i18n.t(
               `${NS_LIBS_CMDB_INSTANCES}:${K.PERMISSION_WHITELIST}`
