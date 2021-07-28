@@ -882,6 +882,12 @@ export class LegacyInstanceListTable extends React.Component<
           pagination={this.state.pagination}
           rowSelection={rowSelection}
           onChange={this.onChange}
+          expandable={{
+            // ant的table数据中有children字段时会自动展示为树形表格，导致模型设置了id为children的字段或者关系字段时会出现报错或者不必要的展开样式
+            // rowExpandable在dataSource含children属性时不生效，见https://github.com/ant-design/ant-design/issues/30444
+            // 故这里将默认展开的字段设置为不符合模型属性id校验的值
+            childrenColumnName: "0",
+          }}
           {...this.props.configProps}
         />
       </div>
