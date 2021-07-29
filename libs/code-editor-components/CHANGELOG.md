@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 2.0.0 (2021-07-29)
+
+
+### Bug Fixes
+
+* split code-display into a individual lib ([a3489ec](https://github.com/easyops-cn/next-libs/commit/a3489ec913530667974ae8bc434d86e35f41903c))
+
+
+### Features
+
+* use new package name of `code-editor-components` ([d517d28](https://github.com/easyops-cn/next-libs/commit/d517d28341af7cbc4a4229c0175f79dc4fcc70df))
+
+
+### BREAKING CHANGES
+
+* use new package name of `code-editor-components`
+
+
+
+
+
 ## [1.0.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/editor-components@1.0.7...@next-libs/editor-components@1.0.8) (2021-07-23)
 
 ### Bug Fixes

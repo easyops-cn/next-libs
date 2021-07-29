@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.9](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@5.0.8...@next-libs/cmdb-instances@5.0.9) (2021-07-29)
+
+
+### Bug Fixes
+
+* use new package name of `code-editor-components` ([08a2a90](https://github.com/easyops-cn/next-libs/commit/08a2a903d32eec1e168b884e586726482cbaa6f3))
+
+
+
+
+
 ## [5.0.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@5.0.7...@next-libs/cmdb-instances@5.0.8) (2021-07-29)
 
 
