@@ -22,7 +22,7 @@ import classNames from "classnames";
 import yaml from "js-yaml";
 import FileSaver from "file-saver";
 import i18n from "i18next";
-import { NS_CODE_BRICKS, K } from "../i18n/constants";
+import { NS_CODE_EDITOR_COMPONENTS, K } from "../i18n/constants";
 import { BrickNextMode } from "../custom-mode/BrickNextMode";
 import { BrickNextYamlMode } from "../custom-mode/BrickNextYamlMode";
 import { TerraformMode } from "../custom-mode/TerraformMode";
@@ -299,7 +299,9 @@ export function CodeEditorItem(
         })}
       >
         {props.showCopyButton && (
-          <Tooltip title={i18n.t(`${NS_CODE_BRICKS}:${K.COPY_TOOLTIP}`)}>
+          <Tooltip
+            title={i18n.t(`${NS_CODE_EDITOR_COMPONENTS}:${K.COPY_TOOLTIP}`)}
+          >
             <span className={shareStyle.copyIcon}>
               <Clipboard
                 text={props.value}
@@ -310,7 +312,9 @@ export function CodeEditorItem(
           </Tooltip>
         )}
         {props.showExportButton && (
-          <Tooltip title={i18n.t(`${NS_CODE_BRICKS}:${K.EXPORT_TOOLTIP}`)}>
+          <Tooltip
+            title={i18n.t(`${NS_CODE_EDITOR_COMPONENTS}:${K.EXPORT_TOOLTIP}`)}
+          >
             <span className={shareStyle.exportIcon}>
               <ExportOutlined onClick={handleExport} />
             </span>

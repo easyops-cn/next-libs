@@ -1,4 +1,4 @@
-export const NS_CODE_EDITOR_COMPONENTS = "code-editor-components";
+export const NS_CODE_DISPLAY_COMPONENTS = "code-display-components";
 
 export enum K {
   COPY_TOOLTIP = "COPY_TOOLTIP",
