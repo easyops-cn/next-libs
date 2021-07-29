@@ -8,7 +8,7 @@ import moment, { Moment } from "moment";
 import { AttributeFormControlUrl } from "../attribute-form-control-url/AttributeFormControlUrl";
 import { computeDateFormat } from "../processors";
 import { clusterMap } from "../instance-list-table/constants";
-import { CodeEditor } from "@next-libs/editor-components";
+import { CodeEditor } from "@next-libs/code-editor-components";
 
 export interface FormControlSelectItem {
   id: any;

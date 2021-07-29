@@ -10,7 +10,7 @@ import { RadioChangeEvent } from "antd/lib/radio";
 import { SelectValue } from "antd/lib/select";
 import { computeDateFormat } from "../processors";
 import _ from "lodash";
-import { CodeEditor } from "@next-libs/editor-components";
+import { CodeEditor } from "@next-libs/code-editor-components";
 
 export interface AddStructModalProps {
   structData?: any;

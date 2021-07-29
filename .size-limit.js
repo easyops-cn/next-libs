@@ -10,7 +10,8 @@ module.exports = sizeLimit({
     crontab: "25 KB",
     "permission-utils": "18 KB",
     "storyboard-visualization": "45 KB",
-    "editor-components": "365 KB",
+    "code-display-components": "30 KB",
+    "code-editor-components": "365 KB",
     svga: "50 KB",
   },
 });

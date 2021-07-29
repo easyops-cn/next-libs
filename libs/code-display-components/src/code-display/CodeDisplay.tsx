@@ -11,7 +11,7 @@ import shareStyle from "../share.module.css";
 import FileSaver from "file-saver";
 import ResizeObserver from "resize-observer-polyfill";
 import i18n from "i18next";
-import { NS_CODE_BRICKS, K } from "../i18n/constants";
+import { NS_CODE_DISPLAY_COMPONENTS, K } from "../i18n/constants";
 
 interface CodeDisplayProps {
   language: string;
@@ -99,7 +99,9 @@ export function CodeDisplay(props: CodeDisplayProps): React.ReactElement {
         )}
       >
         {props.showCopyButton && (
-          <Tooltip title={i18n.t(`${NS_CODE_BRICKS}:${K.COPY_TOOLTIP}`)}>
+          <Tooltip
+            title={i18n.t(`${NS_CODE_DISPLAY_COMPONENTS}:${K.COPY_TOOLTIP}`)}
+          >
             <span className={shareStyle.copyIcon}>
               <Clipboard
                 text={props.value}
@@ -110,7 +112,9 @@ export function CodeDisplay(props: CodeDisplayProps): React.ReactElement {
           </Tooltip>
         )}
         {props.showExportButton && (
-          <Tooltip title={i18n.t(`${NS_CODE_BRICKS}:${K.EXPORT_TOOLTIP}`)}>
+          <Tooltip
+            title={i18n.t(`${NS_CODE_DISPLAY_COMPONENTS}:${K.EXPORT_TOOLTIP}`)}
+          >
             <span className={shareStyle.exportIcon}>
               <ExportOutlined onClick={handleExport} />
             </span>
