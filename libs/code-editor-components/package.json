@@ -1,8 +1,8 @@
 {
-  "name": "@next-libs/editor-components",
+  "name": "@next-libs/code-editor-components",
   "version": "1.0.8",
   "description": "> TODO: description",
-  "homepage": "https://github.com/easyops-cn/next-libs/tree/master/libs/editor-components",
+  "homepage": "https://github.com/easyops-cn/next-libs/tree/master/libs/code-editor-components",
   "license": "GPL-3.0",
   "main": "dist/index.bundle.js",
   "module": "dist/index.esm.js",
