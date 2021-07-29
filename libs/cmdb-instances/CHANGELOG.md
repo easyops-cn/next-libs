@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@5.0.7...@next-libs/cmdb-instances@5.0.8) (2021-07-29)
+
+
+### Bug Fixes
+
+* 当属性字段或关系字段的ID为children时，会有不同的报错 closed INSTANCE-1844 ([cbebcec](https://github.com/easyops-cn/next-libs/commit/cbebcec88907b2573bf263154ee16ee2ac363fc8))
+
+
+
+
+
 ## [5.0.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@5.0.6...@next-libs/cmdb-instances@5.0.7) (2021-07-28)
 
 
