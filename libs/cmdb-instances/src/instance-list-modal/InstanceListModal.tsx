@@ -34,6 +34,7 @@ export interface InstanceListModalProps {
   showSizeChanger?: boolean;
   pageSizeOptions?: string[];
   defaultQuery?: { [fieldId: string]: any }[];
+  enableSearchByApp?: boolean;
 }
 
 export function InstanceListModal(
@@ -169,6 +170,7 @@ export function InstanceListModal(
           pageSizeOptions={props.pageSizeOptions}
           pageSize={props.pageSize || 10}
           defaultQuery={props.defaultQuery}
+          enableSearchByApp={props.enableSearchByApp}
         />
       </div>
     </Modal>
