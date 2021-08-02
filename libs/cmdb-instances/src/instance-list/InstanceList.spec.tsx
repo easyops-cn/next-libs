@@ -6,7 +6,7 @@ import { PropertyDisplayConfig } from "@next-core/brick-types";
 import { InstanceApi_postSearchV3 } from "@next-sdk/cmdb-sdk";
 import * as storage from "@next-libs/storage";
 import { IconButton } from "./IconButton";
-
+import { Button, Select } from "antd";
 import { InstanceList, getQuery, initAqToShow } from "./InstanceList";
 import {
   getInstanceListData,
@@ -154,7 +154,37 @@ const mockInstanceListTable = InstanceListTable as jest.Mock;
 const mockInstanceListTableContent = mockInstanceListTable();
 const mockMoreButtonsContainer = MoreButtonsContainer as jest.Mock;
 
-(InstanceApi_postSearchV3 as jest.Mock).mockResolvedValue(instanceListData);
+// (InstanceApi_postSearchV3 as jest.Mock).mockResolvedValue(instanceListData);
+(InstanceApi_postSearchV3 as jest.Mock).mockImplementation((r, v) => {
+  if (r !== "APP") {
+    return instanceListData;
+  } else {
+    return [
+      {
+        _object_id: "APP",
+        clusters: [
+          {
+            _deployType: "default",
+            _object_id: "CLUSTER",
+            _object_version: 25,
+            _ts: 1625814682,
+            _version: 1,
+            clusterId: "5c6ab7a9897c1",
+            creator: "easyops",
+            ctime: "2021-07-09 15:11:22",
+            instanceId: "5c6ab7a9897c1",
+            name: "0709test",
+            org: 2988466,
+            type: "0",
+          },
+        ],
+        instanceId: "5c6ab79aa162e",
+        name: "0709test",
+      },
+    ];
+  }
+});
+
 const HOST: any = {
   objectId: "HOST",
   view: {
@@ -682,5 +712,26 @@ describe("InstanceList", () => {
     testdata.forEach((t) => {
       expect(initAqToShow(t.aq, HOST)).toEqual(t.expected);
     });
+  });
+  it("should work with enableSearchByApp", async () => {
+    const mockOnRelatedToMeChange = jest.fn();
+    const wrapper = mount(
+      <InstanceList
+        objectId="HOST"
+        objectList={[HOST]}
+        relatedToMe={true}
+        onRelatedToMeChange={mockOnRelatedToMeChange}
+        relationLinkDisabled={true}
+        hideSearchConditions={true}
+        enableSearchByApp={true}
+      />
+    );
+    await (global as any).flushPromises();
+    await jest.runAllTimers();
+    wrapper.update();
+    wrapper.find(Button).at(0).simulate("click");
+    wrapper.find(Button).at(2).simulate("click");
+    // state not update when testing
+    expect(wrapper.find(Select).length).toBe(0);
   });
 });
