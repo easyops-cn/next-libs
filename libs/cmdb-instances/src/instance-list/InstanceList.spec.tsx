@@ -1,12 +1,6 @@
 import "@testing-library/jest-dom/extend-expect";
 import React from "react";
-import {
-  cleanup,
-  render,
-  waitForElement,
-  fireEvent,
-} from "@testing-library/react";
-import { Tag } from "antd";
+import { cleanup, render, fireEvent } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 import { PropertyDisplayConfig } from "@next-core/brick-types";
 import { InstanceApi_postSearchV3 } from "@next-sdk/cmdb-sdk";
@@ -26,7 +20,7 @@ import {
   Query,
 } from "../instance-list-table";
 import { InstanceListPresetConfigs } from "../instance-list/InstanceList";
-import { mount, shallow } from "enzyme";
+import { mount } from "enzyme";
 import { BrickAsComponent } from "@next-core/brick-kit";
 import i18n from "i18next";
 
@@ -154,7 +148,7 @@ jest.mock("../instance-list-table", () => ({
 }));
 
 const instanceListData = getInstanceListData();
-const mockAdvancedSearch = (AdvancedSearch as any) as jest.Mock;
+const mockAdvancedSearch = AdvancedSearch as any as jest.Mock;
 const mockAdvancedSearchContent = mockAdvancedSearch();
 const mockInstanceListTable = InstanceListTable as jest.Mock;
 const mockInstanceListTableContent = mockInstanceListTable();
@@ -392,7 +386,10 @@ describe("InstanceList", () => {
       />
     );
 
-    await findByText(mockInstanceListTableContent);
+    await act(async () => {
+      await (global as any).flushPromises();
+    });
+    findByText(mockInstanceListTableContent);
 
     const fields: Record<string, boolean> = {};
     const newFieldIds = ["hostname", "ip", "_deviceList_CLUSTER"];
@@ -432,7 +429,10 @@ describe("InstanceList", () => {
       <InstanceList objectId="HOST" objectList={[HOST]} aq={aq as Query[]} />
     );
 
-    await findByText(mockInstanceListTableContent);
+    await act(async () => {
+      await (global as any).flushPromises();
+    });
+    findByText(mockInstanceListTableContent);
 
     const advancedSearchToggleBtn = queryByTestId("advanced-search-toggle-btn");
     const mockAdvancedSearchElement = queryByText(mockAdvancedSearchContent);

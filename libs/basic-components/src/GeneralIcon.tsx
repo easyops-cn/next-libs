@@ -39,15 +39,8 @@ function isGradientColor(
 }
 
 export function GeneralIcon(props: MenuIconProps): React.ReactElement {
-  const {
-    icon,
-    bg,
-    size,
-    shape,
-    reverseBgColor,
-    onClick,
-    showEmptyIcon,
-  } = props;
+  const { icon, bg, size, shape, reverseBgColor, onClick, showEmptyIcon } =
+    props;
   let iconNode = <></>;
 
   let style: Record<string, any>;
@@ -148,7 +141,7 @@ export function GeneralIcon(props: MenuIconProps): React.ReactElement {
       <Icon
         style={{ ...style, verticalAlign: 0 }}
         component={() => (
-          <FontAwesomeIcon icon={faIcon} className={cssStyle.faIcon} />
+          <FontAwesomeIcon icon={faIcon as any} className={cssStyle.faIcon} />
         )}
         onClick={onClick}
         className={generalIconId}

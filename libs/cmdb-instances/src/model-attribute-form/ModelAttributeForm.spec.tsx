@@ -618,7 +618,7 @@ describe("ModelAttributeForm", () => {
       });
       wrapper.update();
 
-      await new Promise((resolve) => setImmediate(resolve));
+      await (global as any).flushPromises();
 
       wrapper.update();
       instance.props.form.validateFields = jest
@@ -641,7 +641,7 @@ describe("ModelAttributeForm", () => {
       );
       expect(instance.state.sending).toBeTruthy();
 
-      await new Promise((resolve) => setImmediate(resolve));
+      await (global as any).flushPromises();
       expect(props.onSubmit).toBeCalledWith({
         continueCreating: true,
         values: newValues,
@@ -919,7 +919,7 @@ describe("ModelAttributeForm", () => {
       });
       wrapper.update();
 
-      await new Promise((resolve) => setImmediate(resolve));
+      await (global as any).flushPromises();
 
       wrapper.update();
       instance.props.form.validateFields = jest
@@ -942,7 +942,7 @@ describe("ModelAttributeForm", () => {
       );
       expect(instance.state.sending).toBeTruthy();
 
-      await new Promise((resolve) => setImmediate(resolve));
+      await (global as any).flushPromises();
       expect(props.onSubmit).toBeCalledWith({
         continueCreating: true,
         values: newValues,
