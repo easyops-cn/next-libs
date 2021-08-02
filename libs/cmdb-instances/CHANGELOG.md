@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.10](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@5.0.9...@next-libs/cmdb-instances@5.0.10) (2021-08-02)
+
+
+### Bug Fixes
+
+* cmdb-动态筛选主机组件支持按应用筛选 closed INSTANCE-1834 ([60ad860](https://github.com/easyops-cn/next-libs/commit/60ad860f9a95bbb7da942397e6b1310e82ad1f47))
+
+
+
+
+
 ## [5.0.9](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@5.0.8...@next-libs/cmdb-instances@5.0.9) (2021-07-29)
 
 
