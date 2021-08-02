@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.11](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@5.0.10...@next-libs/cmdb-instances@5.0.11) (2021-08-02)
+
+
+### Bug Fixes
+
+* 实例弹窗透传应用筛选 closed INSTANCE-1834 ([9c0e280](https://github.com/easyops-cn/next-libs/commit/9c0e280b3677e51fc475d60a9a1472a91bf9517a))
+
+
+
+
+
 ## [5.0.10](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@5.0.9...@next-libs/cmdb-instances@5.0.10) (2021-08-02)
 
 
