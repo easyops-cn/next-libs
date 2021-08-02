@@ -34,7 +34,7 @@ import {
   InstanceApi_postSearchV3,
 } from "@next-sdk/cmdb-sdk";
 import { Icon as LegacyIcon } from "@ant-design/compatible";
-import { Button, Spin, Input, Tag } from "antd";
+import { Button, Spin, Input, Tag, Select } from "antd";
 import {
   getRelationObjectSides,
   forEachAvailableFields,
@@ -251,12 +251,9 @@ export const initAqToShow = (
           const firstSubQuery = (expressions as Query[])[0];
           const fieldId = Object.keys(firstSubQuery)[0];
           const isStruct = isOfStruct(modelData, fieldId);
-          const structQueries: Record<
-            string,
-            any
-          > = (expressions as Query[]).filter(
-            (expression) => Object.keys(expression)[0] === fieldId
-          );
+          const structQueries: Record<string, any> = (
+            expressions as Query[]
+          ).filter((expression) => Object.keys(expression)[0] === fieldId);
           if (isStruct) {
             const structExpressions = structQueries.map((item: any) => ({
               [fieldId.split(".")[0]]: item[fieldId],
@@ -330,6 +327,7 @@ interface InstanceListProps {
   hideSearchConditions?: boolean;
   onlySearchByIp?: boolean;
   target?: string;
+  enableSearchByApp?: boolean;
 }
 
 interface InstanceListState {
@@ -352,11 +350,23 @@ interface InstanceListState {
   fieldIds: string[];
   autoBreakLine: boolean;
   fieldToShow?: Record<string, any[]>[];
+  appSearchInstanceId?: string;
+  currentChangeSelect?: string;
+  appSelectValue?: string;
+  clusterValue?: string;
+  appList?: Record<string, any>[];
+  clusterList?: Record<string, any>[];
+  searchByApp?: boolean;
 }
 
 export function InstanceList(props: InstanceListProps): React.ReactElement {
+  const baseList = [
+    {
+      instanceId: "all",
+      name: i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.ALL_CLUSTER}`),
+    },
+  ];
   const jsonLocalStorage = new JsonStorage(localStorage);
-
   const reducer = (
     prevState: InstanceListState,
     updatedProperty: Partial<InstanceListState>
@@ -464,6 +474,18 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     isAdvancedSearchVisible: false,
     fieldIds: getFields(),
     autoBreakLine: false,
+    appSearchInstanceId: "",
+    currentChangeSelect: "App",
+    appSelectValue: "",
+    clusterValue: "all",
+    appList: [],
+    clusterList: [
+      {
+        instanceId: "all",
+        name: i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.ALL_CLUSTER}`),
+      },
+    ],
+    searchByApp: false,
   }));
   const [selectedRowKeys, setSelectedRowKeys] = useState(
     props.selectedRowKeys ?? []
@@ -542,7 +564,20 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     if (state.relatedToMe) {
       v3Data.only_my_instance = data.only_my_instance = state.relatedToMe;
     }
-
+    //按应用筛选
+    // istanbul ignore next (state is not updated)
+    if (state.searchByApp) {
+      v3Data.query = {
+        [state.currentChangeSelect === "App" ||
+        (state.currentChangeSelect === "Cluster" &&
+          state.clusterValue === "all")
+          ? "_deviceList_CLUSTER.appId.instanceId"
+          : "_deviceList_CLUSTER.instanceId"]: state.appSearchInstanceId,
+        ...(state.aliveHosts && props.objectId === "HOST"
+          ? { _agentStatus: "正常" }
+          : {}),
+      };
+    }
     const promise = props.onSearchExecute?.(data, v3Data);
 
     return promise ? promise : InstanceApi_postSearchV3(props.objectId, v3Data);
@@ -625,7 +660,15 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     if (isEmpty(state.fieldIds)) return;
 
     refreshInstanceList(state.sort, state.asc, state.page);
-  }, [state.page, state.sort, state.asc, state.fieldIds]);
+  }, [
+    state.page,
+    state.sort,
+    state.asc,
+    state.fieldIds,
+    state.appSearchInstanceId,
+    state.currentChangeSelect,
+    state.searchByApp,
+  ]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQ(e.target.value);
@@ -721,7 +764,46 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
   const toggleAutoBreakLine = (autoBreakLine: boolean) => {
     setState({ autoBreakLine });
   };
-
+  // istanbul ignore next (state is not updated)
+  const toggleSearchMode = React.useCallback(async () => {
+    if (!state.searchByApp) {
+      const appListResp = await InstanceApi_postSearchV3("APP", {
+        fields: ["clusters", "instanceId", "name"],
+        sort: [{ key: "name", order: 1 }],
+      });
+      setState({
+        appSearchInstanceId: appListResp.list?.[0].instanceId || "",
+        appList: appListResp.list,
+        clusterList: [...baseList, ...(appListResp.list?.[0].clusters || [])],
+        searchByApp: true,
+        appSelectValue: appListResp.list?.[0].instanceId || "",
+        clusterValue: "all",
+      });
+    } else {
+      setState({ searchByApp: false });
+    }
+  }, [state.searchByApp]);
+  // istanbul ignore next (state is not updated)
+  const appSelectChange = (v: string) => {
+    setState({
+      appSearchInstanceId: v,
+      currentChangeSelect: "App",
+      appSelectValue: v,
+      clusterValue: "all",
+      clusterList: [
+        ...baseList,
+        ...state.appList.find((r) => r.instanceId === v).clusters,
+      ],
+    });
+  };
+  // istanbul ignore next (state is not updated)
+  const clusterSelectChange = (v: string) => {
+    setState({
+      appSearchInstanceId: v === "all" ? state.appSelectValue : v,
+      currentChangeSelect: "Cluster",
+      clusterValue: v,
+    });
+  };
   const handleDefaultFields = () => {
     let defaultFields: string[];
     if (!isEmpty(props.presetConfigs?.fieldIds)) {
@@ -841,34 +923,67 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
             !props.aliveHostsDisabled) && (
             <div className={styles.instanceListToolbar}>
               <div className={styles.searchRelated}>
-                {!props.searchDisabled && (
-                  <Input.Search
-                    enterButton
-                    value={q}
-                    onChange={onChange}
-                    onSearch={onSearch}
-                  />
-                )}
-                {!props.advancedSearchDisabled && (
-                  <Button
-                    type="link"
-                    size="small"
-                    style={{
-                      marginLeft: "8px",
-                      marginRight: "auto",
-                    }}
-                    onClick={() =>
-                      setState({
-                        isAdvancedSearchVisible: !state.isAdvancedSearchVisible,
-                      })
-                    }
-                    data-testid="advanced-search-toggle-btn"
-                  >
-                    {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.ADVANCED_SEARCH}`)}
-                    <LegacyIcon
-                      type={state.isAdvancedSearchVisible ? "up" : "down"}
-                    />
-                  </Button>
+                {/* istanbul ignore next (state is not updated) */}
+                {!state.searchByApp ? (
+                  <>
+                    {!props.searchDisabled && (
+                      <Input.Search
+                        enterButton
+                        value={q}
+                        onChange={onChange}
+                        onSearch={onSearch}
+                      />
+                    )}
+                    {!props.advancedSearchDisabled && (
+                      <Button
+                        type="link"
+                        size="small"
+                        style={{
+                          marginLeft: "8px",
+                          marginRight: "auto",
+                        }}
+                        onClick={() =>
+                          setState({
+                            isAdvancedSearchVisible:
+                              !state.isAdvancedSearchVisible,
+                          })
+                        }
+                        data-testid="advanced-search-toggle-btn"
+                      >
+                        {i18n.t(
+                          `${NS_LIBS_CMDB_INSTANCES}:${K.ADVANCED_SEARCH}`
+                        )}
+                        <LegacyIcon
+                          type={state.isAdvancedSearchVisible ? "up" : "down"}
+                        />
+                      </Button>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    <Select
+                      style={{ width: "150px", marginRight: "10px" }}
+                      value={state.appSelectValue}
+                      onChange={appSelectChange}
+                    >
+                      {state.appList.map((r) => (
+                        <Select.Option key={r.instanceId} value={r.instanceId}>
+                          {r.name}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                    <Select
+                      style={{ width: "150px" }}
+                      value={state.clusterValue}
+                      onChange={clusterSelectChange}
+                    >
+                      {state.clusterList.map((r) => (
+                        <Select.Option key={r.instanceId} value={r.instanceId}>
+                          {r.name}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                  </>
                 )}
               </div>
               <div className={styles.options}>
@@ -892,6 +1007,14 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
                       {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CLEAR}`)}
                     </a>
                   </div>
+                )}
+                {props.objectId === "HOST" && props.enableSearchByApp && (
+                  <Button type={"link"} onClick={toggleSearchMode}>
+                    {/* istanbul ignore next (state is not updated) */}
+                    {state.searchByApp
+                      ? i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.FREE_SELECTION}`)
+                      : i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.APP_SELECTION}`)}
+                  </Button>
                 )}
                 {props.objectId === "HOST" && !props.aliveHostsDisabled && (
                   <IconButton
@@ -955,42 +1078,44 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
               />
             </div>
           )}
-          {!props.hideSearchConditions && (state.q || !isEmpty(conditions)) && (
-            <div className={styles.searchConditions}>
-              <span>
-                {i18n.t(
-                  `${NS_LIBS_CMDB_INSTANCES}:${K.CURRENT_FILTER_REQUIREMENTS}`
-                )}
-              </span>
-              {state.q && (
-                <Tag
-                  closable
-                  onClose={() => {
-                    setQ("");
-                    onSearch("");
-                  }}
-                >
-                  {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.FUZZY_SEARCH}`, {
-                    query: state.q,
-                  })}
-                </Tag>
-              )}
-              {conditions.map((condition) => (
-                <Tag
-                  key={`${condition.attrId}${
-                    condition.valuesStr
-                  }-${uniqueId()}`}
-                  closable
-                  onClose={onAdvancedSearchCloseGen(
-                    condition.attrId,
-                    condition.valuesStr
+          {!props.hideSearchConditions &&
+            !state.searchByApp &&
+            (state.q || !isEmpty(conditions)) && (
+              <div className={styles.searchConditions}>
+                <span>
+                  {i18n.t(
+                    `${NS_LIBS_CMDB_INSTANCES}:${K.CURRENT_FILTER_REQUIREMENTS}`
                   )}
-                >
-                  {condition.condition}
-                </Tag>
-              ))}
-            </div>
-          )}
+                </span>
+                {state.q && (
+                  <Tag
+                    closable
+                    onClose={() => {
+                      setQ("");
+                      onSearch("");
+                    }}
+                  >
+                    {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.FUZZY_SEARCH}`, {
+                      query: state.q,
+                    })}
+                  </Tag>
+                )}
+                {conditions.map((condition) => (
+                  <Tag
+                    key={`${condition.attrId}${
+                      condition.valuesStr
+                    }-${uniqueId()}`}
+                    closable
+                    onClose={onAdvancedSearchCloseGen(
+                      condition.attrId,
+                      condition.valuesStr
+                    )}
+                  >
+                    {condition.condition}
+                  </Tag>
+                ))}
+              </div>
+            )}
           {props.extraFilterBricks?.useBrick && (
             <BrickAsComponent useBrick={props.extraFilterBricks.useBrick} />
           )}

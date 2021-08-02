@@ -98,6 +98,9 @@ const locale: Locale = {
   [K.USER_GROUPS_RESULT_LABEL]:
     "User groups (only display the top 20 items, please search for more results)",
   [K.PERMISSION_WHITELIST]: "Permission whitelist",
+  [K.ALL_CLUSTER]: "All cluster",
+  [K.FREE_SELECTION]: "Free selection",
+  [K.APP_SELECTION]: "App selection",
 };
 
 export default locale;

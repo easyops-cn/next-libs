@@ -90,6 +90,9 @@ const locale: Locale = {
   [K.NO_DATA]: "暂无数据",
   [K.USER_GROUPS_RESULT_LABEL]: "用户组（仅显示前20项，更多结果请搜索）",
   [K.PERMISSION_WHITELIST]: "权限白名单",
+  [K.ALL_CLUSTER]: "所有集群",
+  [K.FREE_SELECTION]: "自由筛选",
+  [K.APP_SELECTION]: "按应用筛选",
 };
 
 export default locale;
