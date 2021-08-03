@@ -1062,7 +1062,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
               </div>
             </div>
           )}
-          {!props.advancedSearchDisabled && (
+          {!props.advancedSearchDisabled && !state.searchByApp && (
             <div
               style={{ marginBottom: "18px" }}
               hidden={!state.isAdvancedSearchVisible}
