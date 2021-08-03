@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/datetime@1.1.1...@next-libs/datetime@1.2.0) (2021-08-03)
+
+
+### Features
+
+* add i18n refs FLOW-443 ([d459361](https://github.com/easyops-cn/next-libs/commit/d459361206dc0b522697fffea8967c094ece3a95))
+
+
+
+
+
 ## [1.1.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/datetime@1.1.0...@next-libs/datetime@1.1.1) (2021-05-26)
 
 
