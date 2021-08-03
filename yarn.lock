@@ -2101,7 +2101,7 @@
   resolved "https://registry.npmjs.org/@next-core/brick-http/-/brick-http-2.2.10.tgz#622584e8a97c7543c12b188f8597cae51f4b2d1a"
   integrity sha512-LL+a4XTkJ69gb8HkyunFPXEOR3HRwXF0AHxh57KnyxY9JgnGSWw+vye8fy+yp0P4XvI0brgfFOIA7bzoQgJDvg==
 
-"@next-core/brick-icons@^2.19.11", "@next-core/brick-icons@^2.19.14":
+"@next-core/brick-icons@^2.19.14":
   version "2.19.14"
   resolved "https://registry.npmjs.org/@next-core/brick-icons/-/brick-icons-2.19.14.tgz#860f511d5fb9a8b6d3882df9ea107a8df34c6ea2"
   integrity sha512-9uglbfcMuKlufPad9QNdvzw7f1k6LmSOBO/uQIGt9DwcyLAp3LnkJ124n9zetfAr+dsDMWnuoqN1kmVw/KaXiQ==
