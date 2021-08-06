@@ -63,7 +63,6 @@ export class AddStruct extends React.Component<AddStructProps, AddStructState> {
   render() {
     const { structData, attribute, isLegacy, className } = this.props;
     const { showModal } = this.state;
-
     return (
       <div className={className}>
         {/* 单结构体并且已经添加过的，添加按钮置灰 */}
@@ -75,7 +74,8 @@ export class AddStruct extends React.Component<AddStructProps, AddStructState> {
           {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.ADD}`)}
         </Button>
         <AddStructModal
-          structData={structData || {}}
+          // 新建的情况下不必给初值
+          // structData={structData || {}}
           attribute={attribute as Attribute}
           visible={showModal}
           handleStoreFunction={(formData: any) =>
