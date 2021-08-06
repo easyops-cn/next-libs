@@ -12,8 +12,6 @@ import {
 } from "lodash";
 import style from "./CodeEditor.module.css";
 import shareStyle from "../share.module.css";
-import "../brace/mode";
-import "../brace/theme";
 import { Annotation } from "brace";
 import { Clipboard } from "@next-libs/clipboard";
 import { ExportOutlined } from "@ant-design/icons";
@@ -23,21 +21,23 @@ import yaml from "js-yaml";
 import FileSaver from "file-saver";
 import i18n from "i18next";
 import { NS_CODE_EDITOR_COMPONENTS, K } from "../i18n/constants";
-import { BrickNextMode } from "../custom-mode/BrickNextMode";
-import { BrickNextYamlMode } from "../custom-mode/BrickNextYamlMode";
-import { TerraformMode } from "../custom-mode/TerraformMode";
+import { getBrickNextMode } from "../custom-mode/BrickNextMode";
+import { getBrickNextYamlMode } from "../custom-mode/BrickNextYamlMode";
+import { getTerraformMode } from "../custom-mode/TerraformMode";
 import Ajv from "ajv";
 import storyboardJsonSchema from "@next-core/brick-types/.schema/storyboard.json";
-import "brace/ext/language_tools";
 import { brickNextCompleters } from "../custom-mode/brickNextUtil";
 import { CodeEditorProps } from "../interfaces";
 import { FormItemWrapper } from "@next-libs/forms";
 import { ValidationRule } from "@ant-design/compatible/lib/form";
+import { loadPluginsForCodeEditor } from "../brace";
 
 export function CodeEditorItem(
   props: CodeEditorProps,
   ref: any
 ): React.ReactElement {
+  loadPluginsForCodeEditor();
+
   const [editor, setEditor] = useState<IEditorProps>();
   const [ajv, setAjv] = useState<any>();
   const [jsonSchema, setJsonSchema] = useState(props.jsonSchema);
@@ -212,19 +212,19 @@ export function CodeEditorItem(
         editor.completers = [...editor.completers];
       }
       if (props.mode === "brick_next_yaml") {
-        const customMode = new BrickNextYamlMode();
+        const customMode = new (getBrickNextYamlMode())();
         editor.getSession()?.setMode(customMode);
         if (!editor.completers?.includes(brickNextCompleters[0])) {
           editor.completers?.push(...brickNextCompleters);
         }
       } else if (props.mode === "brick_next") {
-        const customMode = new BrickNextMode();
+        const customMode = new (getBrickNextMode())();
         editor.getSession()?.setMode(customMode);
         if (!editor.completers?.includes(brickNextCompleters[0])) {
           editor.completers?.push(...brickNextCompleters);
         }
       } else if (props.mode === "terraform") {
-        const customMode = new TerraformMode();
+        const customMode = new (getTerraformMode())();
         editor.getSession()?.setMode(customMode);
       }
     }

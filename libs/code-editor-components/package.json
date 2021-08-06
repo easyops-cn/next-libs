@@ -24,13 +24,14 @@
     "test": "cross-env NODE_ENV='test' jest",
     "test:ci": "cross-env NODE_ENV='test' CI=true jest"
   },
-  "sideEffects": true,
+  "sideEffects": false,
   "peerDependencies": {
     "@next-core/brick-dll": "*",
     "@next-dll/ace": "*",
     "brace": "*"
   },
   "dependencies": {
+    "@next-libs/basic-components": "^2.2.2",
     "@next-libs/clipboard": "^2.2.1",
     "@next-libs/forms": "^2.4.4",
     "ajv": "^6.12.6",
