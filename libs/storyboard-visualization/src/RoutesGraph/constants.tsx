@@ -1,17 +1,17 @@
 import React from "react";
-import CardListSvg from "./svg/CardList.svg";
-import DashboardSvg from "./svg/Dashboard.svg";
-import DefaultSvg from "./svg/Default.svg";
-import DialogSvg from "./svg/Dialog.svg";
-import DrawerSvg from "./svg/Drawer.svg";
-import FormSvg from "./svg/Form.svg";
-import GuideSvg from "./svg/Guide.svg";
-import KanbanSvg from "./svg/Kanban.svg";
-import MenuSvg from "./svg/Menu.svg";
-import MixedSvg from "./svg/Mixed.svg";
-import SubviewSvg from "./svg/Subview.svg";
-import TableListSvg from "./svg/TableList.svg";
-import TabsSvg from "./svg/Tabs.svg";
+import { ReactComponent as CardListSvg } from "./svg/CardList.svg";
+import { ReactComponent as DashboardSvg } from "./svg/Dashboard.svg";
+import { ReactComponent as DefaultSvg } from "./svg/Default.svg";
+import { ReactComponent as DialogSvg } from "./svg/Dialog.svg";
+import { ReactComponent as DrawerSvg } from "./svg/Drawer.svg";
+import { ReactComponent as FormSvg } from "./svg/Form.svg";
+import { ReactComponent as GuideSvg } from "./svg/Guide.svg";
+import { ReactComponent as KanbanSvg } from "./svg/Kanban.svg";
+import { ReactComponent as MenuSvg } from "./svg/Menu.svg";
+import { ReactComponent as MixedSvg } from "./svg/Mixed.svg";
+import { ReactComponent as SubviewSvg } from "./svg/Subview.svg";
+import { ReactComponent as TableListSvg } from "./svg/TableList.svg";
+import { ReactComponent as TabsSvg } from "./svg/Tabs.svg";
 
 export const viewTypeConfig: Record<
   string,

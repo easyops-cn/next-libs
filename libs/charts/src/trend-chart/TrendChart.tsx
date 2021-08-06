@@ -8,7 +8,7 @@ import { Format } from "../interfaces/panel";
 
 import { formatValue } from "../utils/valueFormatter";
 
-import Empty from "../images/empty.svg";
+import { ReactComponent as Empty } from "../images/empty.svg";
 
 import { DataStatus } from "../constants/data";
 
