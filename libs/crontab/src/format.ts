@@ -1,4 +1,5 @@
 import cronstrue from "cronstrue/i18n";
+import i18n from "i18next";
 
 /**
  * format a crontabTimeObj to human-readable string
@@ -14,7 +15,7 @@ function formatCrontabObject({
   hour,
   date,
   month,
-  dow
+  dow,
 }: {
   minute: string;
   hour: string;
@@ -22,8 +23,10 @@ function formatCrontabObject({
   month: string;
   dow: string;
 }): string {
+  const isEn = i18n.language && i18n.language.split("-")[0] === "en";
+
   const crontab = [minute, hour, date, month, dow].join(" ");
-  return cronstrue.toString(crontab, { locale: "zh_CN" });
+  return cronstrue.toString(crontab, { locale: isEn ? "en" : "zh_CN" });
 }
 
 export default formatCrontabObject;
