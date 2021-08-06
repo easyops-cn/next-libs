@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.14](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@5.0.13...@next-libs/cmdb-instances@5.0.14) (2021-08-06)
+
+
+### Bug Fixes
+
+* 关于新建编辑实例时结构体数据结构导致的删除提交等问题 closed INSTANCE-1850 ([a2712d1](https://github.com/easyops-cn/next-libs/commit/a2712d1d12fb255ae89f50ea4c31a351c2051ba1))
+
+
+
+
+
 ## [5.0.13](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@5.0.12...@next-libs/cmdb-instances@5.0.13) (2021-08-06)
 
 
