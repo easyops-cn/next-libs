@@ -770,6 +770,8 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
       const appListResp = await InstanceApi_postSearchV3("APP", {
         fields: ["clusters", "instanceId", "name"],
         sort: [{ key: "name", order: 1 }],
+        page: 1,
+        page_size: 3000,
       });
       setState({
         appSearchInstanceId: appListResp.list?.[0].instanceId || "",
@@ -965,6 +967,8 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
                       style={{ width: "150px", marginRight: "10px" }}
                       value={state.appSelectValue}
                       onChange={appSelectChange}
+                      showSearch={true}
+                      optionFilterProp="children"
                     >
                       {state.appList.map((r) => (
                         <Select.Option key={r.instanceId} value={r.instanceId}>
@@ -976,6 +980,8 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
                       style={{ width: "150px" }}
                       value={state.clusterValue}
                       onChange={clusterSelectChange}
+                      showSearch={true}
+                      optionFilterProp="children"
                     >
                       {state.clusterList.map((r) => (
                         <Select.Option key={r.instanceId} value={r.instanceId}>
