@@ -163,7 +163,7 @@ export class StructTable extends React.Component<
       ? []
       : isLegacy
       ? [structData]
-      : structData;
+      : [...structData];
     return (
       <div style={{ overflowX: "hidden" }}>
         <Table
