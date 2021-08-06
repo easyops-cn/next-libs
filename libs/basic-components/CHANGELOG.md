@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@2.2.2...@next-libs/basic-components@3.0.0) (2021-08-06)
+
+
+### Features
+
+* use build-next-libs ([fbd7242](https://github.com/easyops-cn/next-libs/commit/fbd724251174363ac27974b1804ee5d56d6e3d7c))
+
+
+### BREAKING CHANGES
+
+* no rollup but simply babel transformed
+
+
+
+
+
 ## [2.2.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@2.2.1...@next-libs/basic-components@2.2.2) (2021-08-02)
 
 **Note:** Version bump only for package @next-libs/basic-components

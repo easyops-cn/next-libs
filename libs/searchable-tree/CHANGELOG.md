@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/searchable-tree@2.0.10...@next-libs/searchable-tree@3.0.0) (2021-08-06)
+
+
+### Features
+
+* use build-next-libs ([fbd7242](https://github.com/easyops-cn/next-libs/commit/fbd724251174363ac27974b1804ee5d56d6e3d7c))
+
+
+### BREAKING CHANGES
+
+* no rollup but simply babel transformed
+
+
+
+
+
 ## [2.0.10](https://github.com/easyops-cn/next-libs/compare/@next-libs/searchable-tree@2.0.9...@next-libs/searchable-tree@2.0.10) (2021-08-02)
 
 **Note:** Version bump only for package @next-libs/searchable-tree

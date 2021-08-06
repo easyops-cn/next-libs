@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@5.0.14...@next-libs/cmdb-instances@6.0.0) (2021-08-06)
+
+
+### Bug Fixes
+
+* make code-editor-components side effects free ([c1dc26f](https://github.com/easyops-cn/next-libs/commit/c1dc26fbdd0a08cac0a70ee567f178bff3916e00))
+
+
+### Features
+
+* use build-next-libs ([fbd7242](https://github.com/easyops-cn/next-libs/commit/fbd724251174363ac27974b1804ee5d56d6e3d7c))
+
+
+### BREAKING CHANGES
+
+* no rollup but simply babel transformed
+
+
+
+
+
 ## [5.0.14](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@5.0.13...@next-libs/cmdb-instances@5.0.14) (2021-08-06)
 
 
