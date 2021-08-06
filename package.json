@@ -97,7 +97,7 @@
   ],
   "easyops": {
     "create-next-repo": "0.10.1",
-    "dev-dependencies": "1.10.0"
+    "dev-dependencies": "1.10.1"
   },
   "resolutions": {
     "lodash": "^4.17.21",
