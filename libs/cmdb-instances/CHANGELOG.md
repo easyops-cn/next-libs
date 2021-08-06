@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.13](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@5.0.12...@next-libs/cmdb-instances@5.0.13) (2021-08-06)
+
+
+### Bug Fixes
+
+* 按应用筛选选择支持搜索所有 closed INSTANCE-1834 ([6a6701e](https://github.com/easyops-cn/next-libs/commit/6a6701ee988f878952d96d3e1a88e09fd75cbfaa))
+
+
+
+
+
 ## [5.0.12](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@5.0.11...@next-libs/cmdb-instances@5.0.12) (2021-08-03)
 
 
