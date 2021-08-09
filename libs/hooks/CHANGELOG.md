@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/hooks@2.0.0...@next-libs/hooks@2.0.1) (2021-08-09)
+
+**Note:** Version bump only for package @next-libs/hooks
+
+
+
+
+
 # [2.0.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/hooks@1.0.6...@next-libs/hooks@2.0.0) (2021-08-06)
 
 
