@@ -2036,10 +2036,10 @@
     npmlog "^4.1.2"
     write-file-atomic "^3.0.3"
 
-"@next-core/babel-preset-next@^0.8.0":
-  version "0.8.0"
-  resolved "https://registry.npmjs.org/@next-core/babel-preset-next/-/babel-preset-next-0.8.0.tgz#b93c36160a5bcd3a22661f6f0d0605763fe2fd52"
-  integrity sha512-/LCh5rSlI7P0hJ5D4qDLk7a3tDX4jGiYaYTfQgazXMGIWJqyw+0GDlGB3fhP1ilpOyli0CJ6LESnmsfDY2Apew==
+"@next-core/babel-preset-next@^0.9.0":
+  version "0.9.0"
+  resolved "https://registry.npmjs.org/@next-core/babel-preset-next/-/babel-preset-next-0.9.0.tgz#65efda576b06b80e0c67ba47fb35d7a21b9b4c8f"
+  integrity sha512-BliQiKIQtfSaRd9dX/abiRt1o42Uh+l795rTV6mcNGoCpSeJTO0qJopZp+rKIw9+JERe9E5fCcU9oXeEWEScMw==
   dependencies:
     "@babel/plugin-proposal-class-properties" "^7.14.5"
     "@babel/plugin-proposal-decorators" "^7.14.5"
@@ -2198,10 +2198,10 @@
     typedoc "^0.19.2"
     typedoc-plugin-no-inherit "^1.2.2"
 
-"@next-core/build-next-libs@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.npmjs.org/@next-core/build-next-libs/-/build-next-libs-0.1.0.tgz#5c4836b861e6587ca71585ab7f892b731d7e9879"
-  integrity sha512-9rBDAvPdVH0SSkp+cWHC3xDyy4fNNrBjvSKsm3CbSKpmxEDyB272e6YWpw9HIN/7HsuHB6ZyG4djjZmqlJDLLA==
+"@next-core/build-next-libs@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.npmjs.org/@next-core/build-next-libs/-/build-next-libs-0.2.0.tgz#8c3cda1a227226de0e06a48ed6c221024c101990"
+  integrity sha512-00IUR3ks9g3TdCVfvOeykErDLW5VJtVT2m4x9Si1WRPRLyeLrHGcC9AaX0MICaFeBQGr62q0efT9/3lXuKTufQ==
   dependencies:
     "@babel/cli" "^7.14.8"
     "@babel/core" "^7.14.8"
@@ -2213,24 +2213,24 @@
   resolved "https://registry.npmjs.org/@next-core/custom-antd-styles/-/custom-antd-styles-1.8.9.tgz#7590c0a79cc7d92cc59684e90fa9110d0a85331b"
   integrity sha512-GW+aMVB82ca64saVekCIANfa0SfqrnN6Gj4ujBopAuP01a5U+3ufnnDiz7u31OuXkJY0BqCOdYhWtmUjJYK+UQ==
 
-"@next-core/dev-dependencies@^1.10.1":
-  version "1.10.1"
-  resolved "https://registry.npmjs.org/@next-core/dev-dependencies/-/dev-dependencies-1.10.1.tgz#56a38e6e01da2ad1858e823b40eb0914ad0014cc"
-  integrity sha512-BMnvQbD0iQZF4ZDXCKlZWE3WOb4QF7Y/uBGNNh2pV6U5PR3XJ3X/hfK5SxfR6/BySftUqtGWgGhIuzNo0Zydgg==
+"@next-core/dev-dependencies@^1.10.3":
+  version "1.10.3"
+  resolved "https://registry.npmjs.org/@next-core/dev-dependencies/-/dev-dependencies-1.10.3.tgz#e31022aaf43fadf17db4865449283299bbd8d1d1"
+  integrity sha512-D2gzP0bG9ucZgD1BPIg0Dv4XWiilKk7WZPKrw63SRVOe0w4VRMtojsUJB9IlmLR15xl4kUvE/9nNVjpNmNKuHw==
   dependencies:
     "@babel/core" "^7.14.8"
-    "@next-core/babel-preset-next" "^0.8.0"
+    "@next-core/babel-preset-next" "^0.9.0"
     "@next-core/babel-preset-prismjs" "^1.0.7"
     "@next-core/brick-container" "^2.29.8"
     "@next-core/brick-dll" "^2.19.7"
     "@next-core/brick-scripts" "^2.6.0"
     "@next-core/browserslist-config-next" "^0.1.3"
     "@next-core/build-config-factory" "^2.15.0"
-    "@next-core/build-next-libs" "^0.1.0"
+    "@next-core/build-next-libs" "^0.2.0"
     "@next-core/custom-antd-styles" "^1.8.9"
     "@next-core/eslint-config-next" "^1.0.22"
-    "@next-core/jest-config-factory" "^0.1.2"
-    "@next-core/rollup-config-factory" "^2.3.0"
+    "@next-core/jest-config-factory" "^0.2.0"
+    "@next-core/rollup-config-factory" "^2.4.0"
     "@next-core/webpack-config-factory" "^2.11.0"
     "@next-dll/ace" "^2.0.193"
     "@next-dll/d3" "^2.0.35"
@@ -2300,10 +2300,10 @@
   resolved "https://registry.npmjs.org/@next-core/illustrations/-/illustrations-0.3.10.tgz#a3ef7ad79a90bf2dc8a00275e51cb75f6470b3cd"
   integrity sha512-MRmhWVsacoled+jSK7PWm7s8Mz0n19XnvlSzuiD4W+FNUuiVAAdFSt7LVR77MJaYmiZvPPZksGMHHKOi+M29kA==
 
-"@next-core/jest-config-factory@^0.1.2":
-  version "0.1.2"
-  resolved "https://registry.npmjs.org/@next-core/jest-config-factory/-/jest-config-factory-0.1.2.tgz#b09691d36d8766e9831c43a96a936f4851735eff"
-  integrity sha512-tzmtRWGeahz/cftbgebGxdIoc/HcjkyKBAogHkegJ4Ps+qzbceA4mBSF/5xrCRueZyv2PMIIkSw1QVAHFpaCqQ==
+"@next-core/jest-config-factory@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.npmjs.org/@next-core/jest-config-factory/-/jest-config-factory-0.2.0.tgz#c48f809a79f7950f5e5e9230be47f60bf7e20949"
+  integrity sha512-v9eiUBWQpy8ry3145Z1aaihJpe3NNhWT2n7rnw0AV6jVCACe7LDM0QmkI4osNfIUHDRh+KM9Jnop+MbTZOYRkA==
 
 "@next-core/less-plugin-css-variables@^0.1.5":
   version "0.1.5"
@@ -2315,10 +2315,10 @@
   resolved "https://registry.npmjs.org/@next-core/repo-config/-/repo-config-0.2.1.tgz#b9512c22fbd874bf8a66e8f73c98f8dd190813ba"
   integrity sha1-uVEsIvvYdL+KZuj3PJj43RkIE7o=
 
-"@next-core/rollup-config-factory@^2.3.0":
-  version "2.3.0"
-  resolved "https://registry.npmjs.org/@next-core/rollup-config-factory/-/rollup-config-factory-2.3.0.tgz#2aac2f5815059206f5559a8d1970a6565925d9a2"
-  integrity sha512-ACnuOSWVVSJcRN7qn2mJCFSANflDas9LXLdrdQLkoM/94ymjb5CQvqTz4xvRYozi0b5I5Z4vBzbLZqUsc3O8gQ==
+"@next-core/rollup-config-factory@^2.4.0":
+  version "2.4.0"
+  resolved "https://registry.npmjs.org/@next-core/rollup-config-factory/-/rollup-config-factory-2.4.0.tgz#635bc770db3a62adf5a9dd886d2edff7b55566b1"
+  integrity sha512-oZm3ePUWpkpVZOEmLsS1kW5sVVN2SUKQpTPp9sktpK77uedFxbCNjGXPIl0LJT2MldqjWPznVsS3YKoL/H92kw==
   dependencies:
     "@rollup/plugin-babel" "^5.3.0"
     "@rollup/plugin-commonjs" "^19.0.1"
