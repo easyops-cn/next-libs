@@ -17,11 +17,13 @@ import classnames from "classnames";
 import cssStyle from "./GeneralIcon.module.css";
 import { uniqueId } from "lodash";
 
+type SrcIcon = {
+  imgSrc?: string;
+  imgStyle?: React.CSSProperties;
+};
+
 interface MenuIconProps {
-  icon: MenuIcon & {
-    imgSrc?: string;
-    imgStyle?: React.CSSProperties;
-  };
+  icon: MenuIcon | SrcIcon;
   bg?: boolean;
   size?: number | "large" | "small" | "default";
   shape?: "circle" | "square" | "round-square";
@@ -42,104 +44,96 @@ function isGradientColor(
 }
 
 export function GeneralIcon(props: MenuIconProps): React.ReactElement {
-  const {
-    icon,
-    bg,
-    size,
-    shape,
-    reverseBgColor,
-    onClick,
-    showEmptyIcon,
-  } = props;
+  const { icon, bg, size, shape, reverseBgColor, onClick, showEmptyIcon } =
+    props;
   let iconNode = <></>;
 
   let style: Record<string, any>;
-  if (icon?.color) {
-    if (!isGradientColor(icon.color)) {
-      if (bg) {
-        if (COLORS_MAP[icon.color as Colors]) {
-          if (reverseBgColor) {
+  if ("imgSrc" in icon) {
+    iconNode = (
+      <img
+        src={icon.imgSrc}
+        width={size}
+        height={size}
+        style={icon.imgStyle}
+        onClick={onClick}
+      />
+    );
+  } else if ("lib" in icon) {
+    if (icon?.color) {
+      if (!isGradientColor(icon.color)) {
+        if (bg) {
+          if (COLORS_MAP[icon.color as Colors]) {
+            if (reverseBgColor) {
+              style = {
+                color: "#ffffff",
+                backgroundColor: getColor(icon.color).color,
+              };
+            } else {
+              style = getColor(icon.color);
+            }
+          } else {
             style = {
               color: "#ffffff",
-              backgroundColor: getColor(icon.color).color,
+              backgroundColor: icon.color,
             };
-          } else {
-            style = getColor(icon.color);
           }
         } else {
           style = {
-            color: "#ffffff",
-            backgroundColor: icon.color,
+            color: COLORS_MAP[icon.color as Colors]
+              ? getColor(icon.color).color
+              : icon.color,
           };
         }
       } else {
         style = {
-          color: COLORS_MAP[icon.color as Colors]
-            ? getColor(icon.color).color
-            : icon.color,
+          color: "transparent",
         };
       }
-    } else {
-      style = {
-        color: "transparent",
-      };
     }
-  }
 
-  if (props.style) {
-    if (style) {
-      Object.assign(style, props.style);
-    } else {
-      style = props.style;
+    if (props.style) {
+      if (style) {
+        Object.assign(style, props.style);
+      } else {
+        style = props.style;
+      }
     }
-  }
 
-  const generalIconId = uniqueId("generalIcon");
+    const generalIconId = uniqueId("generalIcon");
 
-  const iconType =
-    (icon as RefinedAntdIcon | FaIcon | EasyopsIcon)?.icon ||
-    (icon as LegacyAntdIcon)?.type;
+    const iconType =
+      (icon as RefinedAntdIcon | FaIcon | EasyopsIcon)?.icon ||
+      (icon as LegacyAntdIcon)?.type;
 
-  if (!icon || (!iconType && showEmptyIcon)) {
-    return bg ? (
-      <Avatar
-        icon={
-          showEmptyIcon ? (
-            <Icon
-              style={style}
-              component={() => (
-                <BrickIcon icon="empty-icon" category="common" />
-              )}
-              onClick={onClick}
-            />
-          ) : (
-            iconNode
-          )
-        }
-        size={size ?? "default"}
-        shape={(shape as AvatarProps["shape"]) ?? "circle"}
-        style={style}
-        className={classnames({
-          [cssStyle.roundSquareBg]: shape === "round-square",
-        })}
-      ></Avatar>
-    ) : (
-      iconNode
-    );
-  }
+    if (!icon || (!iconType && showEmptyIcon)) {
+      return bg ? (
+        <Avatar
+          icon={
+            showEmptyIcon ? (
+              <Icon
+                style={style}
+                component={() => (
+                  <BrickIcon icon="empty-icon" category="common" />
+                )}
+                onClick={onClick}
+              />
+            ) : (
+              iconNode
+            )
+          }
+          size={size ?? "default"}
+          shape={(shape as AvatarProps["shape"]) ?? "circle"}
+          style={style}
+          className={classnames({
+            [cssStyle.roundSquareBg]: shape === "round-square",
+          })}
+        ></Avatar>
+      ) : (
+        iconNode
+      );
+    }
 
-  if (icon.imgSrc) {
-    // imgSrc优先级为最高, 如果有imgSrc的存在, 则使用img覆盖其他icon状态
-    style.fontSize = 0; // icon居中
-    iconNode = (
-      <img
-        src={icon.imgSrc}
-        style={Object.assign(icon.imgStyle ?? {}, {
-          display: "inline-block",
-        })}
-      />
-    );
-  } else {
     if (icon.lib === "antd") {
       const type =
         (icon as RefinedAntdIcon).icon || (icon as LegacyAntdIcon).type;
@@ -163,6 +157,8 @@ export function GeneralIcon(props: MenuIconProps): React.ReactElement {
         <Icon
           style={{ ...style, verticalAlign: 0 }}
           component={() => (
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
             <FontAwesomeIcon icon={faIcon} className={cssStyle.faIcon} />
           )}
           onClick={onClick}
@@ -183,60 +179,60 @@ export function GeneralIcon(props: MenuIconProps): React.ReactElement {
         />
       );
     }
-  }
 
-  if (isGradientColor(icon.color)) {
-    let gradientIconDirection;
-    switch (icon.color?.direction) {
-      case "left-to-right":
-        gradientIconDirection = { x1: "0", y1: "0", x2: "1", y2: "0" };
-        break;
-      case "top-to-bottom":
-      default:
-        gradientIconDirection = { x1: "0", y1: "0", x2: "0", y2: "1" };
-    }
+    if (isGradientColor(icon.color)) {
+      let gradientIconDirection;
+      switch (icon.color?.direction) {
+        case "left-to-right":
+          gradientIconDirection = { x1: "0", y1: "0", x2: "1", y2: "0" };
+          break;
+        case "top-to-bottom":
+        default:
+          gradientIconDirection = { x1: "0", y1: "0", x2: "0", y2: "1" };
+      }
 
-    iconNode = (
-      <>
-        {iconNode}
-        <div style={{ position: "absolute" }}>
-          <svg width="0" height="0" aria-hidden={true} focusable={false}>
-            <defs>
-              <linearGradient
-                id={`linearGradient-${generalIconId}`}
-                {...gradientIconDirection}
-              >
-                `
-                <stop offset="0%" stopColor={icon.color.startColor} />
-                <stop offset="100%" stopColor={icon.color.endColor} />
-              </linearGradient>
-            </defs>
-          </svg>
-          <style>
-            {`.${generalIconId} svg path {
+      iconNode = (
+        <>
+          {iconNode}
+          <div style={{ position: "absolute" }}>
+            <svg width="0" height="0" aria-hidden={true} focusable={false}>
+              <defs>
+                <linearGradient
+                  id={`linearGradient-${generalIconId}`}
+                  {...gradientIconDirection}
+                >
+                  `
+                  <stop offset="0%" stopColor={icon.color.startColor} />
+                  <stop offset="100%" stopColor={icon.color.endColor} />
+                </linearGradient>
+              </defs>
+            </svg>
+            <style>
+              {`.${generalIconId} svg path {
               fill: url(#linearGradient-${generalIconId});
           }`}
-          </style>
-        </div>
-      </>
-    );
-  }
+            </style>
+          </div>
+        </>
+      );
+    }
 
-  if (bg) {
-    iconNode = (
-      <Avatar
-        icon={iconNode}
-        size={size ?? "default"}
-        shape={(shape as AvatarProps["shape"]) ?? "circle"}
-        style={{
-          ...(isGradientColor(icon.color) ? { backgroundColor: "#fff" } : {}),
-          ...style,
-        }}
-        className={classnames({
-          [cssStyle.roundSquareBg]: shape === "round-square",
-        })}
-      ></Avatar>
-    );
+    if (bg) {
+      iconNode = (
+        <Avatar
+          icon={iconNode}
+          size={size ?? "default"}
+          shape={(shape as AvatarProps["shape"]) ?? "circle"}
+          style={{
+            ...(isGradientColor(icon.color) ? { backgroundColor: "#fff" } : {}),
+            ...style,
+          }}
+          className={classnames({
+            [cssStyle.roundSquareBg]: shape === "round-square",
+          })}
+        ></Avatar>
+      );
+    }
   }
 
   return iconNode;
