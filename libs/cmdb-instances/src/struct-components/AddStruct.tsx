@@ -74,6 +74,8 @@ export class AddStruct extends React.Component<AddStructProps, AddStructState> {
           {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.ADD}`)}
         </Button>
         <AddStructModal
+          // 新建的情况下不必给初值
+          // structData={structData || {}}
           attribute={attribute as Attribute}
           visible={showModal}
           handleStoreFunction={(formData: any) =>

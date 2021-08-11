@@ -167,8 +167,6 @@ const FieldTypeConditionTypesMap: Record<string, ConditionType[]> = {
   [ModelAttributeValueType.JSON]: [
     ConditionType.Contain,
     ConditionType.NotContain,
-    ConditionType.Equal,
-    ConditionType.NotEqual,
     ConditionType.Empty,
     ConditionType.NotEmpty,
   ],
@@ -570,10 +568,9 @@ export class AdvancedSearchForm extends React.Component<
             } else {
               subQueryValue = (expressions as Query[])
                 .map((query) => {
-                  const targetValue = (query[fieldId] as Record<
-                    ComparisonOperators,
-                    any
-                  >)[compareOperator as ComparisonOperators];
+                  const targetValue = (
+                    query[fieldId] as Record<ComparisonOperators, any>
+                  )[compareOperator as ComparisonOperators];
                   if (
                     compareOperator === ComparisonOperators.Like ||
                     compareOperator === ComparisonOperators.NotLike
@@ -598,9 +595,8 @@ export class AdvancedSearchForm extends React.Component<
             };
           }
 
-          fieldQueryOperatorExpressionsMap[
-            key
-          ] = expressions as QueryOperatorExpressions;
+          fieldQueryOperatorExpressionsMap[key] =
+            expressions as QueryOperatorExpressions;
         });
       });
     }
@@ -640,9 +636,10 @@ export class AdvancedSearchForm extends React.Component<
         });
       },
       (relation, sides) => {
-        const relationObject = this.props.idObjectMap[
-          relation[`${sides.that}_object_id` as RelationObjectIdKeys]
-        ];
+        const relationObject =
+          this.props.idObjectMap[
+            relation[`${sides.that}_object_id` as RelationObjectIdKeys]
+          ];
         const showKeys = getInstanceNameKeys(relationObject);
         showKeys.forEach((showKey, index) => {
           const nameOfShowKey =
@@ -800,6 +797,10 @@ export class AdvancedSearchForm extends React.Component<
         case ModelAttributeValueType.DATETIME:
           style = { minWidth: "auto" };
           break;
+      }
+      //高级搜索这里即使是json格式，也用input输入框进行搜索
+      if ((attrValue as any).type === "json") {
+        attrValue = { ...attrValue, type: "str" };
       }
       return (
         <Col span={hasBetween ? 12 : 8} key={field.id}>

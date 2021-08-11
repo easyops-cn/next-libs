@@ -18,7 +18,7 @@ import {
   ModelAttributeValueType,
 } from "../model-attribute-form-control/ModelAttributeFormControl";
 import { AttributeFormControlUrl } from "../attribute-form-control-url/AttributeFormControlUrl";
-import { get, isNil, keyBy } from "lodash";
+import _, { get, isNil, keyBy } from "lodash";
 
 import { CmdbInstancesSelectPanel } from "../cmdb-instances-select-panel/CmdbInstancesSelectPanel";
 import {
@@ -29,9 +29,11 @@ import {
   modifyModelData,
 } from "@next-libs/cmdb-utils";
 import styles from "./ModelAttributeForm.module.css";
+import { UserOrUserGroupSelect } from "../components";
+import { permissionListMapOfApp } from "./constants";
 import i18n from "i18next";
 import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
-
+const DEFAULT_ATTRIBUTE_TAG = "基本信息";
 export interface ModelAttributeFormChildren {
   header: string;
   name: string;
@@ -64,6 +66,11 @@ interface ModelAttributeFormProps extends FormComponentProps {
   cancelText?: string;
   cancelType?: ButtonType;
   onCancel?(): void;
+  showDetailUrl?: boolean;
+  isFilterView?: boolean;
+  objectListOfUser?: Partial<CmdbModels.ModelCmdbObject>[];
+  permissionList?: Record<string, any>[];
+  enabledWhiteList?: boolean;
 }
 
 export type attributesFieldsByTag = [string, ModifiedModelObjectField[]];
@@ -135,7 +142,7 @@ export class ModelAttributeForm extends Component<
         const groupTag =
           basicInfoAttr?.tag?.[0] ||
           (basicInfoAttr as any)?.left_tags?.[0] ||
-          i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.DEFAULT_ATTRIBUTE}`);
+          DEFAULT_ATTRIBUTE_TAG;
 
         const attrs = AttrListGroupByTag.find(([key]) => key === groupTag);
         // 判断是否为黑名单内的属性
@@ -205,6 +212,52 @@ export class ModelAttributeForm extends Component<
   handleFormErrors(fieldsError: Record<string, string[] | undefined>) {
     return Object.keys(fieldsError).some((field) => fieldsError[field]);
   }
+  permissionAttrProcess = (key: string) => {
+    if (key.includes("instance_access")) return "readAuthorizers";
+    if (key.includes("instance_delete")) return "deleteAuthorizers";
+    if (key.includes("instance_update")) return "updateAuthorizers";
+    // HOST特有
+    if (key.includes("instance_operate")) return "operateAuthorizers";
+    // APP特有
+    return permissionListMapOfApp[key] || key;
+  };
+
+  valuesProcess = (values: Record<string, any>) => {
+    const appPermissionAuthorizers: Record<string, any> = {};
+    Object.values(permissionListMapOfApp).forEach((r) => {
+      appPermissionAuthorizers[r] = values[r]
+        ? values[r].selectedUser.concat(values[r].selectedUserGroup)
+        : [];
+    });
+    return {
+      ...values,
+      deleteAuthorizers: values.deleteAuthorizers
+        ? values.deleteAuthorizers.selectedUser.concat(
+            values.deleteAuthorizers.selectedUserGroup
+          )
+        : [],
+      readAuthorizers: values.readAuthorizers
+        ? values.readAuthorizers.selectedUser.concat(
+            values.readAuthorizers.selectedUserGroup
+          )
+        : [],
+      updateAuthorizers: values.updateAuthorizers
+        ? values.updateAuthorizers.selectedUser.concat(
+            values.updateAuthorizers.selectedUserGroup
+          )
+        : [],
+      ...(this.props.objectId === "HOST"
+        ? {
+            operateAuthorizers: values.operateAuthorizers
+              ? values.operateAuthorizers.selectedUser.concat(
+                  values.operateAuthorizers.selectedUserGroup
+                )
+              : [],
+          }
+        : {}),
+      ...(this.props.objectId === "APP" ? appPermissionAuthorizers : {}),
+    };
+  };
 
   handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -214,7 +267,10 @@ export class ModelAttributeForm extends Component<
         this.setState({ sending: true });
         const result = await this.props.onSubmit({
           continueCreating,
-          values,
+          values:
+            this.props.enabledWhiteList && this.props.permissionList
+              ? this.valuesProcess(values)
+              : values,
         });
         if (result !== "error" && continueCreating) {
           this.props.form.resetFields();
@@ -332,11 +388,13 @@ export class ModelAttributeForm extends Component<
       >
         {this.props.form.getFieldDecorator(relation.left_id, { initialValue })(
           <CmdbInstancesSelectPanel
+            isFilterView={this.props.isFilterView}
             objectId={relation.right_object_id}
             objectMap={this.modelMap}
             addTitle={i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.ADD}`)}
             singleSelect={relation.left_max === 1}
             isOperate={true}
+            showDetailUrl={this.props.showDetailUrl}
           />
         )}
       </Form.Item>
@@ -388,8 +446,18 @@ export class ModelAttributeForm extends Component<
                 >
                   {getFieldDecorator(attribute.id, {
                     rules: this.rules(attribute),
+                    //默认值为string，但是新建时接口转成了object，故编辑时后台返回的也是object
                     initialValue:
-                      attributeFormControlInitialValueMap[attribute.id],
+                      attribute.value.type === "json" &&
+                      !_.isString(
+                        attributeFormControlInitialValueMap[attribute.id]
+                      )
+                        ? JSON.stringify(
+                            attributeFormControlInitialValueMap[attribute.id],
+                            null,
+                            2
+                          )
+                        : attributeFormControlInitialValueMap[attribute.id],
                   })(
                     <ModelAttributeFormControl
                       isCreate={this.props.isCreate}
@@ -424,6 +492,31 @@ export class ModelAttributeForm extends Component<
               </Form.Item>
             </Panel>
           ))}
+
+        {this.props.enabledWhiteList && this.props.permissionList && (
+          <Panel
+            header={i18n.t(
+              `${NS_LIBS_CMDB_INSTANCES}:${K.PERMISSION_WHITELIST}`
+            )}
+            key={"permission"}
+          >
+            {this.props.permissionList.map((r) => {
+              return (
+                <Form.Item label={r.remark} key={r.id} {...this.formItemProps}>
+                  {getFieldDecorator(
+                    this.permissionAttrProcess(r.action) as string,
+                    {}
+                  )(
+                    <UserOrUserGroupSelect
+                      objectMap={keyBy(this.props.objectListOfUser, "objectId")}
+                      optionsMode="all"
+                    ></UserOrUserGroupSelect>
+                  )}
+                </Form.Item>
+              );
+            })}
+          </Panel>
+        )}
       </Collapse>
     );
 
@@ -471,6 +564,5 @@ export class ModelAttributeForm extends Component<
   }
 }
 
-export const InstanceModelAttributeForm = Form.create<ModelAttributeFormProps>()(
-  ModelAttributeForm
-);
+export const InstanceModelAttributeForm =
+  Form.create<ModelAttributeFormProps>()(ModelAttributeForm);

@@ -8,6 +8,7 @@ import moment, { Moment } from "moment";
 import { AttributeFormControlUrl } from "../attribute-form-control-url/AttributeFormControlUrl";
 import { computeDateFormat } from "../processors";
 import { clusterMap } from "../instance-list-table/constants";
+import { CodeEditor } from "@next-libs/code-editor-components";
 
 export interface FormControlSelectItem {
   id: any;
@@ -58,6 +59,7 @@ export enum FormControlTypeEnum {
   _PLAIN_TEXT = "_plain_text",
   MARKDOWN = "markdown",
   URL = "url",
+  CODE_EDITOR = "code_editor",
 }
 
 export interface FormControl {
@@ -165,16 +167,20 @@ export class ModelAttributeFormControl extends Component<
   static computePattern(
     attribute: Partial<CmdbModels.ModelObjectAttr>
   ): RegExp | undefined {
-    if (
-      attribute.value.type !== ModelAttributeValueType.ENUM &&
-      attribute.value.type !== ModelAttributeValueType.ENUMS &&
-      attribute.value.regex !== undefined &&
-      attribute.value.regex !== null
-    ) {
-      // todo(jhuang): use `u` flag for compliance until https://github.com/angular/angular/pull/20819 is resolved
-      return new RegExp(attribute.value.regex as string, "u");
+    try {
+      if (
+        attribute.value.type !== ModelAttributeValueType.ENUM &&
+        attribute.value.type !== ModelAttributeValueType.ENUMS &&
+        attribute.value.regex !== undefined &&
+        attribute.value.regex !== null
+      ) {
+        // todo(jhuang): use `u` flag for compliance until https://github.com/angular/angular/pull/20819 is resolved
+        return new RegExp(attribute.value.regex as string, "u");
+      }
+      return undefined;
+    } catch (error) {
+      return undefined;
     }
-    return undefined;
   }
 
   computeFormControlItems(
@@ -215,7 +221,8 @@ export class ModelAttributeFormControl extends Component<
       case ModelAttributeValueType.IP:
         return FormControlTypeEnum.TEXT;
       case ModelAttributeValueType.JSON:
-        return FormControlTypeEnum.TEXT;
+        // return FormControlTypeEnum.TEXTAREA;
+        return FormControlTypeEnum.CODE_EDITOR;
       case ModelAttributeValueType.ENUM:
         if (
           !attribute.value.regex ||
@@ -304,9 +311,8 @@ export class ModelAttributeFormControl extends Component<
     if (result.type === FormControlTypeEnum.STRUCT) {
       result["maxlength"] = 1;
     }
-    result["placeholder"] = ModelAttributeFormControl.computePlaceholder(
-      result
-    );
+    result["placeholder"] =
+      ModelAttributeFormControl.computePlaceholder(result);
     return result;
   };
 
@@ -406,6 +412,10 @@ export class ModelAttributeFormControl extends Component<
       `${NS_LIBS_CMDB_INSTANCES}:${K.TYPE_NO_SUPPORT_EDIT}`,
       { type }
     );
+    let jsonSchema: any;
+    if (attribute?.value?.type === "json" && attribute?.value?.regex) {
+      jsonSchema = JSON.parse(attribute?.value?.regex);
+    }
 
     switch (type) {
       case FormControlTypeEnum.TEXT: {
@@ -449,7 +459,21 @@ export class ModelAttributeFormControl extends Component<
           />
         );
       }
-
+      case FormControlTypeEnum.CODE_EDITOR:
+        return (
+          <CodeEditor
+            value={value}
+            mode={"json"}
+            maxLines={"Infinity"}
+            highlightActiveLine={true}
+            onChange={(e: any) => this.onChange(e)}
+            minLines={3}
+            showLineNumbers={true}
+            showPrintMargin={false}
+            validateJsonSchemaMode={"error"}
+            {...(jsonSchema ? { jsonSchema: jsonSchema } : {})}
+          />
+        );
       case FormControlTypeEnum.TEXTAREA:
       case FormControlTypeEnum.MARKDOWN: {
         return (
@@ -459,6 +483,7 @@ export class ModelAttributeFormControl extends Component<
             onChange={(e: any) => this.onChange(e)}
             className={this.props.className}
             style={this.props.style}
+            rows={5}
           />
         );
       }

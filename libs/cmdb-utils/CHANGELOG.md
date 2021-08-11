@@ -3,82 +3,68 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [2.1.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@2.1.1...@next-libs/cmdb-utils@2.1.2) (2021-06-09)
+## [3.0.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@3.0.0...@next-libs/cmdb-utils@3.0.1) (2021-08-09)
 
+**Note:** Version bump only for package @next-libs/cmdb-utils
 
-### Bug Fixes
-
-* 实例列表链接跳转固定在第一列 Closed BRICK_STORE-2143 ([4c962ab](https://github.com/easyops-cn/next-libs/commit/4c962ab2ca7a0843bcba75b9046a64c6d627c127))
-* 请求问题处理 Closed BRICK_STORE-2143 ([edfd4c5](https://github.com/easyops-cn/next-libs/commit/edfd4c5dbe6259d9e90a2aed0d1eccac73ed8a33))
-
-
-
-
-
-## [2.1.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@2.1.0...@next-libs/cmdb-utils@2.1.1) (2021-05-28)
-
-
-### Bug Fixes
-
-* **cmdb-instances:** 结构体信息展示异常 ([e5ac3c5](https://github.com/easyops-cn/next-libs/commit/e5ac3c5509c3b363aaac69bb1c90340c78e75cf2))
-
-
-
-
-
-# [2.1.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@2.0.1...@next-libs/cmdb-utils@2.1.0) (2021-04-25)
-
+# [3.0.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@2.1.3...@next-libs/cmdb-utils@3.0.0) (2021-08-06)
 
 ### Features
 
-* **cmdb-instances:** cmdb-instances 增加国际化 ([efde23f](https://github.com/easyops-cn/next-libs/commit/efde23fed438b1f97a2576f629e8a3708b1c1ace))
-
-
-
-
-
-## [2.0.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@2.0.0...@next-libs/cmdb-utils@2.0.1) (2021-04-21)
-
-
-### Bug Fixes
-
-* **cmdb-utils:** 自关联问题 ([e2adde5](https://github.com/easyops-cn/next-libs/commit/e2adde535afb8d25a5c0311da0b7be8739641bd0))
-
-
-
-
-
-# [2.0.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@1.0.7...@next-libs/cmdb-utils@2.0.0) (2021-04-20)
-
-
-### Features
-
-* migrated usage of sdk ([4a686ad](https://github.com/easyops-cn/next-libs/commit/4a686ad28fedc952993467456be659464e7e0c3c))
-
+- use build-next-libs ([fbd7242](https://github.com/easyops-cn/next-libs/commit/fbd724251174363ac27974b1804ee5d56d6e3d7c))
 
 ### BREAKING CHANGES
 
-* use major updates of sdk
+- no rollup but simply babel transformed
 
+## [2.1.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@2.1.2...@next-libs/cmdb-utils@2.1.3) (2021-06-24)
 
+### Bug Fixes
 
+- 关系路径跳转 Closed INSTANCE-1802 ([b762ffa](https://github.com/easyops-cn/next-libs/commit/b762ffa5a552a9df672b35277d9d648e0bf56407))
 
+## [2.1.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@2.1.1...@next-libs/cmdb-utils@2.1.2) (2021-06-09)
+
+### Bug Fixes
+
+- 实例列表链接跳转固定在第一列 Closed BRICK_STORE-2143 ([4c962ab](https://github.com/easyops-cn/next-libs/commit/4c962ab2ca7a0843bcba75b9046a64c6d627c127))
+- 请求问题处理 Closed BRICK_STORE-2143 ([edfd4c5](https://github.com/easyops-cn/next-libs/commit/edfd4c5dbe6259d9e90a2aed0d1eccac73ed8a33))
+
+## [2.1.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@2.1.0...@next-libs/cmdb-utils@2.1.1) (2021-05-28)
+
+### Bug Fixes
+
+- **cmdb-instances:** 结构体信息展示异常 ([e5ac3c5](https://github.com/easyops-cn/next-libs/commit/e5ac3c5509c3b363aaac69bb1c90340c78e75cf2))
+
+# [2.1.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@2.0.1...@next-libs/cmdb-utils@2.1.0) (2021-04-25)
+
+### Features
+
+- **cmdb-instances:** cmdb-instances 增加国际化 ([efde23f](https://github.com/easyops-cn/next-libs/commit/efde23fed438b1f97a2576f629e8a3708b1c1ace))
+
+## [2.0.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@2.0.0...@next-libs/cmdb-utils@2.0.1) (2021-04-21)
+
+### Bug Fixes
+
+- **cmdb-utils:** 自关联问题 ([e2adde5](https://github.com/easyops-cn/next-libs/commit/e2adde535afb8d25a5c0311da0b7be8739641bd0))
+
+# [2.0.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@1.0.7...@next-libs/cmdb-utils@2.0.0) (2021-04-20)
+
+### Features
+
+- migrated usage of sdk ([4a686ad](https://github.com/easyops-cn/next-libs/commit/4a686ad28fedc952993467456be659464e7e0c3c))
+
+### BREAKING CHANGES
+
+- use major updates of sdk
 
 ## [1.0.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@1.0.6...@next-libs/cmdb-utils@1.0.7) (2021-04-19)
 
 **Note:** Version bump only for package @next-libs/cmdb-utils
 
-
-
-
-
 ## [1.0.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@1.0.4...@next-libs/cmdb-utils@1.0.6) (2021-02-22)
 
 **Note:** Version bump only for package @next-libs/cmdb-utils
-
-
-
-
 
 ## [1.0.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@1.0.4...@next-libs/cmdb-utils@1.0.5) (2021-02-07)
 

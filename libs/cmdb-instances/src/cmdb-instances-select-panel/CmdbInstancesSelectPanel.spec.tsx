@@ -63,6 +63,7 @@ describe("CmdbInstancesSelectPanel", () => {
         objectMap={objectMap}
         value={[]}
         onChange={onChange}
+        isFilterView={true}
       />
     );
     expect(wrapper.find(".wrapper").length).toBe(1);
@@ -79,7 +80,7 @@ describe("CmdbInstancesSelectPanel", () => {
       />
     );
     await act(async () => {
-      await new Promise(setImmediate);
+      await (global as any).flushPromises();
     });
     wrapper.update();
     const selectModal = wrapper.find(InstanceListModal).first();
@@ -126,7 +127,7 @@ describe("CmdbInstancesSelectPanel", () => {
       />
     );
     await act(async () => {
-      await new Promise(setImmediate);
+      await (global as any).flushPromises();
     });
     wrapper.update();
 

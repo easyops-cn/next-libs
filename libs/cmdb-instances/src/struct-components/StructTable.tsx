@@ -8,6 +8,7 @@ import { SizeType } from "antd/lib/config-provider/SizeContext";
 import styles from "./index.module.css";
 import i18n from "i18next";
 import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
+import { Typography } from "antd";
 export interface StructTableProps {
   attribute: Attribute;
   structData: any;
@@ -40,6 +41,8 @@ export class StructTable extends React.Component<
       className: styles.structTableTd,
       dataIndex: item.id,
       render: (text: any, _record: any, _index: number) => {
+        let copyText: string;
+        let showText: string;
         switch (item.type) {
           case "bool":
             return String(text);
@@ -47,7 +50,24 @@ export class StructTable extends React.Component<
           case "arr":
             return text?.join?.("; ");
           case "json":
-            return isObject(text) ? JSON.stringify(text) : text;
+            copyText = isObject(text) ? JSON.stringify(text, null, 2) : text;
+            showText = isObject(text) ? JSON.stringify(text) : text;
+            if (copyText) {
+              return (
+                <Typography.Paragraph
+                  copyable={{
+                    tooltips: [
+                      i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.COPY}`),
+                      i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.COPY_SUCCESS}`),
+                    ],
+                    text: copyText,
+                  }}
+                >
+                  {showText}
+                </Typography.Paragraph>
+              );
+            }
+            return showText;
           default:
             return text;
         }
@@ -143,7 +163,7 @@ export class StructTable extends React.Component<
       ? []
       : isLegacy
       ? [structData]
-      : structData;
+      : [...structData];
     return (
       <div style={{ overflowX: "hidden" }}>
         <Table

@@ -3,37 +3,37 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [3.0.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-tree@2.0.6...@next-libs/cmdb-tree@3.0.0) (2021-04-20)
+## [4.0.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-tree@4.0.0...@next-libs/cmdb-tree@4.0.1) (2021-08-09)
 
+**Note:** Version bump only for package @next-libs/cmdb-tree
+
+# [4.0.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-tree@3.0.0...@next-libs/cmdb-tree@4.0.0) (2021-08-06)
 
 ### Features
 
-* migrated usage of sdk ([4a686ad](https://github.com/easyops-cn/next-libs/commit/4a686ad28fedc952993467456be659464e7e0c3c))
-
+- use build-next-libs ([fbd7242](https://github.com/easyops-cn/next-libs/commit/fbd724251174363ac27974b1804ee5d56d6e3d7c))
 
 ### BREAKING CHANGES
 
-* use major updates of sdk
+- no rollup but simply babel transformed
 
+# [3.0.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-tree@2.0.6...@next-libs/cmdb-tree@3.0.0) (2021-04-20)
 
+### Features
 
+- migrated usage of sdk ([4a686ad](https://github.com/easyops-cn/next-libs/commit/4a686ad28fedc952993467456be659464e7e0c3c))
 
+### BREAKING CHANGES
+
+- use major updates of sdk
 
 ## [2.0.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-tree@2.0.5...@next-libs/cmdb-tree@2.0.6) (2021-04-19)
 
 **Note:** Version bump only for package @next-libs/cmdb-tree
 
-
-
-
-
 ## [2.0.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-tree@2.0.3...@next-libs/cmdb-tree@2.0.5) (2021-02-22)
 
 **Note:** Version bump only for package @next-libs/cmdb-tree
-
-
-
-
 
 ## [2.0.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-tree@2.0.3...@next-libs/cmdb-tree@2.0.4) (2021-02-07)
 

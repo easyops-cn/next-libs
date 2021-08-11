@@ -42,7 +42,7 @@ const locale: Locale = {
   [K.DEFAULT_ATTRIBUTE]: "Default attribute",
   [K.CANCEL]: "Cancel",
   [K.CLOSE]: "Close",
-  [K.SHOW_SETTINGS]: "Columns to display",
+  [K.COLUMNS_TO_DISPLAY]: "Columns to display",
   [K.FIELD_SETTINGS]: "Field settings",
   [K.SEARCH_BY_FIELD_NAME]: "Search by field name",
   [K.RESTORE_DEFAULT]: "Restore default",
@@ -76,7 +76,7 @@ const locale: Locale = {
   [K.DELETE_STRUCT_CONFIRM_MSG]:
     "Are you sure you want to delete the structure?",
   [K.DELETE_INSTANCE_CONFIRM_MSG]:
-    "Are you sure you want to delete the instance?",
+    "Are you sure you want to delete the relation?",
   [K.OPERATION]: "Operation",
   [K.VIEW_ALL_SELECTED_INSTANCES]: "View all selected instances",
   [K.CHOOSE_INSTANCE]: "Choose instance",
@@ -86,6 +86,21 @@ const locale: Locale = {
   [K.PAGINATION_TOTAL_UNIT]: "items",
   [K.JUMP_TO]: "Jump to ",
   [K.INSTANCE_DETAIL]: "",
+  [K.COPY]: "Copy",
+  [K.COPY_SUCCESS]: "Copy success",
+  [K.FILTER_FROM_CMDB_TYPE]: "Filter {{type}} from CMDB",
+  [K.USERS]: "Users",
+  [K.USER_GROUPS]: "User groups",
+  [K.SWITCH]: "Switch to {{type}}",
+  [K.USERS_RESULT_LABEL]:
+    "Users (only display the top 20 items, please search for more results)",
+  [K.NO_DATA]: "No Data",
+  [K.USER_GROUPS_RESULT_LABEL]:
+    "User groups (only display the top 20 items, please search for more results)",
+  [K.PERMISSION_WHITELIST]: "Permission whitelist",
+  [K.ALL_CLUSTER]: "All cluster",
+  [K.FREE_SELECTION]: "Free selection",
+  [K.APP_SELECTION]: "App selection",
 };
 
 export default locale;

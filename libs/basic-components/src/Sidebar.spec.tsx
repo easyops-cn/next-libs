@@ -159,17 +159,26 @@ describe("Sidebar", () => {
     expect(selectedKeys).toEqual(["1.1.0"]);
     expect(openedKeys).toContain("1");
     expect(openedKeys).toContain("1.1");
-    const {
-      selectedKeys: selectedKeys2,
-      openedKeys: openedKeys2,
-    } = initMenuItemAndMatchCurrentPathKeys(
-      menuItems,
-      "/for/perfect",
-      "",
-      "prefix"
-    );
+    const { selectedKeys: selectedKeys2, openedKeys: openedKeys2 } =
+      initMenuItemAndMatchCurrentPathKeys(
+        menuItems,
+        "/for/perfect",
+        "",
+        "prefix"
+      );
     expect(selectedKeys2).toEqual(["prefix.1.0"]);
     expect(openedKeys2).toContain("prefix.1");
     expect(openedKeys2).not.toContain("prefix.1.1");
+  });
+  it("should work and collapsed", () => {
+    const menuItems: SidebarMenuItem[] = [
+      {
+        text: "for-good",
+        to: "/for/good",
+        activeIncludes: ["/for/good"],
+      },
+    ];
+    const wrapper = shallow(<Sidebar menuItems={menuItems} collapsed={true} />);
+    expect(wrapper.props().defaultOpenKeys).toMatchObject([]);
   });
 });

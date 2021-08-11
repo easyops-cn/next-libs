@@ -3,43 +3,49 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [2.2.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@2.1.0...@next-libs/basic-components@2.2.0) (2021-06-04)
+## [3.0.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@3.0.0...@next-libs/basic-components@3.0.1) (2021-08-09)
 
+**Note:** Version bump only for package @next-libs/basic-components
+
+# [3.0.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@2.2.2...@next-libs/basic-components@3.0.0) (2021-08-06)
 
 ### Features
 
-* **gerenal-icon:** 图标支持渐变色 ([32f8664](https://github.com/easyops-cn/next-libs/commit/32f8664ece0e7a87d287dec7336074aac3b8af43))
+- use build-next-libs ([fbd7242](https://github.com/easyops-cn/next-libs/commit/fbd724251174363ac27974b1804ee5d56d6e3d7c))
 
+### BREAKING CHANGES
 
+- no rollup but simply babel transformed
 
+## [2.2.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@2.2.1...@next-libs/basic-components@2.2.2) (2021-08-02)
 
+**Note:** Version bump only for package @next-libs/basic-components
+
+## [2.2.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@2.2.0...@next-libs/basic-components@2.2.1) (2021-07-18)
+
+### Bug Fixes
+
+- **basic-components:** 折叠时，刷新页面菜单悬浮 ([14fcd6f](https://github.com/easyops-cn/next-libs/commit/14fcd6f90c04f4d3d20b0d3ce58130454e0e7b45))
+
+# [2.2.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@2.1.0...@next-libs/basic-components@2.2.0) (2021-06-04)
+
+### Features
+
+- **gerenal-icon:** 图标支持渐变色 ([32f8664](https://github.com/easyops-cn/next-libs/commit/32f8664ece0e7a87d287dec7336074aac3b8af43))
 
 # [2.1.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@2.0.6...@next-libs/basic-components@2.1.0) (2021-06-02)
 
-
 ### Features
 
-* **basic-components:** generalIcon增加round-square样式 ([0327e8e](https://github.com/easyops-cn/next-libs/commit/0327e8e7d19f293ef4efee0984418c6151612bbf))
-
-
-
-
+- **basic-components:** generalIcon 增加 round-square 样式 ([0327e8e](https://github.com/easyops-cn/next-libs/commit/0327e8e7d19f293ef4efee0984418c6151612bbf))
 
 ## [2.0.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@2.0.5...@next-libs/basic-components@2.0.6) (2021-04-19)
 
 **Note:** Version bump only for package @next-libs/basic-components
 
-
-
-
-
 ## [2.0.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@2.0.3...@next-libs/basic-components@2.0.5) (2021-02-22)
 
 **Note:** Version bump only for package @next-libs/basic-components
-
-
-
-
 
 ## [2.0.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@2.0.3...@next-libs/basic-components@2.0.4) (2021-02-07)
 

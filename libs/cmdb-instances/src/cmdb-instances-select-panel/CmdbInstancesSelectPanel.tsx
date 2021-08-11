@@ -4,7 +4,7 @@ import classnames from "classnames";
 import { CmdbModels, InstanceApi_postSearch } from "@next-sdk/cmdb-sdk";
 import { InstanceListTable } from "../instance-list-table";
 import { InstanceListModal } from "../instance-list-modal/InstanceListModal";
-
+import { modifyModelData } from "@next-libs/cmdb-utils";
 import style from "./style.module.css";
 import i18n from "i18next";
 import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
@@ -24,13 +24,34 @@ export interface CmdbInstancesSelectPanelProps {
   showSizeChanger?: boolean;
   pageSizeOptions?: string[];
   isOperate?: boolean; //cmdb实例列表支持删除实例
+  showDetailUrl?: boolean;
+  isFilterView?: boolean; //是否过滤视图属性
 }
 
 export function CmdbInstancesSelectPanel(
   props: CmdbInstancesSelectPanelProps,
   ref: any
 ): React.ReactElement {
-  const modelData = props.objectMap[props.objectId];
+  let modelData = props.objectMap[props.objectId];
+  if (props.isFilterView) {
+    //过滤掉视图不可见字段
+    const hideModelData = modelData?.view?.hide_columns || [];
+    modelData = {
+      ...modelData,
+      attrList: modelData.attrList.filter(
+        (item: any) => !hideModelData.includes(item.id)
+      ),
+      relation_list: modelData.relation_list.filter(
+        (item: any) =>
+          !(
+            (hideModelData.includes(item.left_id) &&
+              item.left_object_id === props.objectId) ||
+            (hideModelData.includes(item.right_id) &&
+              item.right_object_id === props.objectId)
+          )
+      ),
+    };
+  }
 
   const displayedSelectedInstancesMaxNumber = props.previewMaxNumber ?? 5;
 
@@ -69,7 +90,9 @@ export function CmdbInstancesSelectPanel(
       const instances = await fetchInstances(props.value);
       setSelectedInstanceList(instances);
       setPartialSelectedInstances(
-        instances.slice(0, displayedSelectedInstancesMaxNumber)
+        props?.isOperate
+          ? instances
+          : instances.slice(0, displayedSelectedInstancesMaxNumber)
       );
     };
 
@@ -98,14 +121,17 @@ export function CmdbInstancesSelectPanel(
     const instances = await fetchInstances(selectedKeys);
     setSelectedInstanceList(instances);
     setPartialSelectedInstances(
-      instances.slice(0, displayedSelectedInstancesMaxNumber)
+      props?.isOperate
+        ? instances
+        : instances.slice(0, displayedSelectedInstancesMaxNumber)
     );
 
     props.onChange?.(instances);
   };
 
-  const fieldIds = modelData.attrList.map((attr) => attr.id);
-
+  const fieldIds = modifyModelData(modelData).attrList.map(
+    (attr: any) => attr.id
+  );
   const showPreview =
     selectedInstanceList.length > displayedSelectedInstancesMaxNumber;
   const cs = classnames({
@@ -166,6 +192,14 @@ export function CmdbInstancesSelectPanel(
       </a>
       <div className={cs}>
         <InstanceListTable
+          {...(props.showDetailUrl
+            ? {
+                detailUrlTemplates: {
+                  [props.objectId]:
+                    "/next-cmdb-instance-management/next/#{objectId}/instance/#{instanceId}",
+                },
+              }
+            : {})}
           idObjectMap={props.objectMap}
           modelData={modelData}
           instanceListData={{
@@ -183,8 +217,9 @@ export function CmdbInstancesSelectPanel(
             setPartialSelectedInstances(v);
             props.onChange?.(v);
           }}
+          target={"_blank"}
         ></InstanceListTable>
-        {showPreview && (
+        {!props?.isOperate && showPreview && (
           <div
             className={style.showAllSelectedInstancesButton}
             onClick={openAllSelectedInstancesModal}

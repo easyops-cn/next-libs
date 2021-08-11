@@ -3,97 +3,81 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [3.1.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/storyboard-visualization@3.1.3...@next-libs/storyboard-visualization@3.1.4) (2021-06-04)
+## [4.0.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/storyboard-visualization@4.0.0...@next-libs/storyboard-visualization@4.0.1) (2021-08-09)
 
 **Note:** Version bump only for package @next-libs/storyboard-visualization
 
+# [4.0.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/storyboard-visualization@3.1.7...@next-libs/storyboard-visualization@4.0.0) (2021-08-06)
 
+### Features
 
+- use build-next-libs ([fbd7242](https://github.com/easyops-cn/next-libs/commit/fbd724251174363ac27974b1804ee5d56d6e3d7c))
 
+### BREAKING CHANGES
+
+- no rollup but simply babel transformed
+
+## [3.1.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/storyboard-visualization@3.1.6...@next-libs/storyboard-visualization@3.1.7) (2021-08-02)
+
+**Note:** Version bump only for package @next-libs/storyboard-visualization
+
+## [3.1.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/storyboard-visualization@3.1.5...@next-libs/storyboard-visualization@3.1.6) (2021-07-18)
+
+**Note:** Version bump only for package @next-libs/storyboard-visualization
+
+## [3.1.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/storyboard-visualization@3.1.4...@next-libs/storyboard-visualization@3.1.5) (2021-07-16)
+
+**Note:** Version bump only for package @next-libs/storyboard-visualization
+
+## [3.1.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/storyboard-visualization@3.1.3...@next-libs/storyboard-visualization@3.1.4) (2021-06-04)
+
+**Note:** Version bump only for package @next-libs/storyboard-visualization
 
 ## [3.1.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/storyboard-visualization@3.1.2...@next-libs/storyboard-visualization@3.1.3) (2021-06-02)
 
 **Note:** Version bump only for package @next-libs/storyboard-visualization
 
-
-
-
-
 ## [3.1.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/storyboard-visualization@3.1.1...@next-libs/storyboard-visualization@3.1.2) (2021-04-19)
 
 **Note:** Version bump only for package @next-libs/storyboard-visualization
 
-
-
-
-
 ## [3.1.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/storyboard-visualization@3.1.0...@next-libs/storyboard-visualization@3.1.1) (2021-04-13)
-
 
 ### Bug Fixes
 
-* **storyboard-visualization:** Wait a macro task to make the dropdown menu disappear smoothly. ([d79e0ee](https://github.com/easyops-cn/next-libs/commit/d79e0eec156eb9ce516dec9dbb072c4fb1eb996a))
-
-
-
-
+- **storyboard-visualization:** Wait a macro task to make the dropdown menu disappear smoothly. ([d79e0ee](https://github.com/easyops-cn/next-libs/commit/d79e0eec156eb9ce516dec9dbb072c4fb1eb996a))
 
 # [3.1.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/storyboard-visualization@3.0.2...@next-libs/storyboard-visualization@3.1.0) (2021-04-12)
 
-
 ### Features
 
-* **route-graph:** Automatically locate unlocated nodes ([8bbc2ab](https://github.com/easyops-cn/next-libs/commit/8bbc2ab6107d66c0cbb308605e6b4ac8851b4bfb))
-
-
-
-
+- **route-graph:** Automatically locate unlocated nodes ([8bbc2ab](https://github.com/easyops-cn/next-libs/commit/8bbc2ab6107d66c0cbb308605e6b4ac8851b4bfb))
 
 ## [3.0.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/storyboard-visualization@3.0.1...@next-libs/storyboard-visualization@3.0.2) (2021-03-30)
 
-
 ### Bug Fixes
 
-* **route-preview:** actionsVisible ([3a339c8](https://github.com/easyops-cn/next-libs/commit/3a339c82b0392c4f21bc3a6f398c946ad605aa8a))
-
-
-
-
+- **route-preview:** actionsVisible ([3a339c8](https://github.com/easyops-cn/next-libs/commit/3a339c82b0392c4f21bc3a6f398c946ad605aa8a))
 
 ## [3.0.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/storyboard-visualization@3.0.0...@next-libs/storyboard-visualization@3.0.1) (2021-03-15)
 
-
 ### Bug Fixes
 
-* fix multiple HTML5 Backends error ([02cc42d](https://github.com/easyops-cn/next-libs/commit/02cc42d9373b76dc538f1d4aa66288168ef30471))
-
-
-
-
+- fix multiple HTML5 Backends error ([02cc42d](https://github.com/easyops-cn/next-libs/commit/02cc42d9373b76dc538f1d4aa66288168ef30471))
 
 # [3.0.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/storyboard-visualization@2.0.5...@next-libs/storyboard-visualization@3.0.0) (2021-03-10)
 
-
 ### Features
 
-* use dll of react-dnd ([8d9fec4](https://github.com/easyops-cn/next-libs/commit/8d9fec45a2e160a3006b9d21564db28297f7bb0a))
-
+- use dll of react-dnd ([8d9fec4](https://github.com/easyops-cn/next-libs/commit/8d9fec45a2e160a3006b9d21564db28297f7bb0a))
 
 ### BREAKING CHANGES
 
-* require peer dep of @next-dll/react-dnd
-
-
-
-
+- require peer dep of @next-dll/react-dnd
 
 ## [2.0.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/storyboard-visualization@2.0.3...@next-libs/storyboard-visualization@2.0.5) (2021-02-22)
 
 **Note:** Version bump only for package @next-libs/storyboard-visualization
-
-
-
-
 
 ## [2.0.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/storyboard-visualization@2.0.3...@next-libs/storyboard-visualization@2.0.4) (2021-02-07)
 

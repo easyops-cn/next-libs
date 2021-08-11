@@ -175,9 +175,8 @@ export interface ModifiedModelCmdbObject extends CmdbModels.ModelCmdbObject {
 export function modifyModelData(
   modelData: Partial<CmdbModels.ModelCmdbObject>
 ): Partial<ModifiedModelCmdbObject> {
-  const clonedModelData: Partial<ModifiedModelCmdbObject> = _.cloneDeep(
-    modelData
-  );
+  const clonedModelData: Partial<ModifiedModelCmdbObject> =
+    _.cloneDeep(modelData);
 
   const fieldIdList: string[] = [];
   const fieldMap: Record<string, ModifiedModelObjectField> = {};
@@ -200,9 +199,8 @@ export function modifyModelData(
       relation.left_object_id === clonedModelData.objectId &&
       !ignoredFields.includes(relation.left_id)
     ) {
-      const clonedRelation: Partial<ModifiedModelObjectRelation> = _.cloneDeep(
-        relation
-      );
+      const clonedRelation: Partial<ModifiedModelObjectRelation> =
+        _.cloneDeep(relation);
 
       clonedRelation.__isRelation = true;
       clonedRelation.__id = clonedRelation.left_id;
@@ -244,7 +242,7 @@ export function modifyModelData(
     }
   });
 
-  const currentOrderedFieldIds = clonedModelData.view.attr_order || [];
+  const currentOrderedFieldIds = clonedModelData?.view?.attr_order || [];
   const orderedFieldIds: string[] = [];
   const notOrderedFieldIds: string[] = [];
   currentOrderedFieldIds.forEach((currentOrderedFieldId) => {

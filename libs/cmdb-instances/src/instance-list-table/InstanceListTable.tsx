@@ -107,6 +107,7 @@ export interface InstanceListTableProps extends WithTranslation {
   extraColumns?: CustomColumn[];
   isOperate?: boolean;
   handleDeleteFunction?: (v: any[]) => void;
+  target?: string;
 }
 
 interface InstanceListTableState {
@@ -125,7 +126,6 @@ export class LegacyInstanceListTable extends React.Component<
 
   constructor(props: InstanceListTableProps) {
     super(props);
-
     const objectId = this.props.modelData.objectId;
     SELF_RENDER_COLUMNS[objectId]?.forEach(
       (config) => (this.keyDisplayConfigMap[config.key] = config)
@@ -595,6 +595,11 @@ export class LegacyInstanceListTable extends React.Component<
                       this.handleClickItem(e, record.instanceId)
                     }
                     data-testid="instance-detail-link"
+                    {...(!firstColumns
+                      ? { target: "_blank" }
+                      : this.props.target
+                      ? { target: this.props.target }
+                      : {})}
                   >
                     <Tooltip
                       placement="top"
@@ -604,7 +609,7 @@ export class LegacyInstanceListTable extends React.Component<
                         `${NS_LIBS_CMDB_INSTANCES}:${K.INSTANCE_DETAIL}`
                       )}`}
                     >
-                      <span style={{ display: "flex" }}>
+                      <span>
                         <span className={styles.iconWrap}>
                           <GeneralIcon
                             icon={{
@@ -708,6 +713,7 @@ export class LegacyInstanceListTable extends React.Component<
                     instanceName
                   ) : (
                     <Link
+                      target={"_blank"}
                       // 使用 <Link> 以保持链接的原生能力
                       to={url}
                       // 自定义 onClick 以支持事件配置和拦截
@@ -876,6 +882,12 @@ export class LegacyInstanceListTable extends React.Component<
           pagination={this.state.pagination}
           rowSelection={rowSelection}
           onChange={this.onChange}
+          expandable={{
+            // ant的table数据中有children字段时会自动展示为树形表格，导致模型设置了id为children的字段或者关系字段时会出现报错或者不必要的展开样式
+            // rowExpandable在dataSource含children属性时不生效，见https://github.com/ant-design/ant-design/issues/30444
+            // 故这里将默认展开的字段设置为不符合模型属性id校验的值
+            childrenColumnName: "0",
+          }}
           {...this.props.configProps}
         />
       </div>

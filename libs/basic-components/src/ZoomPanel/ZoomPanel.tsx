@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import Icon from "@ant-design/icons";
 import { Slider, Button } from "antd";
 import style from "./ZoomPanel.module.css";
-import zoomIn from "./svg/zoom-in.svg";
-import zoomOut from "./svg/zoom-out.svg";
-import CenterSvg from "./svg/center.svg";
+import { ReactComponent as zoomIn } from "./svg/zoom-in.svg";
+import { ReactComponent as zoomOut } from "./svg/zoom-out.svg";
+import { ReactComponent as CenterSvg } from "./svg/center.svg";
 
 interface ZoomPanelProps {
   scale: number;

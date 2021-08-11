@@ -3,24 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/clipboard@3.0.0...@next-libs/clipboard@3.0.1) (2021-08-09)
+
+**Note:** Version bump only for package @next-libs/clipboard
+
+# [3.0.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/clipboard@2.2.1...@next-libs/clipboard@3.0.0) (2021-08-06)
+
+### Features
+
+- use build-next-libs ([fbd7242](https://github.com/easyops-cn/next-libs/commit/fbd724251174363ac27974b1804ee5d56d6e3d7c))
+
+### BREAKING CHANGES
+
+- no rollup but simply babel transformed
+
 ## [2.2.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/clipboard@2.2.0...@next-libs/clipboard@2.2.1) (2021-04-19)
 
 **Note:** Version bump only for package @next-libs/clipboard
 
-
-
-
-
 # [2.2.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/clipboard@2.0.3...@next-libs/clipboard@2.2.0) (2021-02-22)
-
 
 ### Features
 
-* **Clipboard:** show default message when there is no onCopy property ([e46c6c7](https://github.com/easyops-cn/next-libs/commit/e46c6c7e93f4b25451d5614bec6efac3a749c8a7))
-
-
-
-
+- **Clipboard:** show default message when there is no onCopy property ([e46c6c7](https://github.com/easyops-cn/next-libs/commit/e46c6c7e93f4b25451d5614bec6efac3a749c8a7))
 
 # [2.1.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/clipboard@2.0.3...@next-libs/clipboard@2.1.0) (2021-02-07)
 

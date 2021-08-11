@@ -3,49 +3,44 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [3.0.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/permission-utils@2.0.7...@next-libs/permission-utils@3.0.0) (2021-04-20)
+## [4.0.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/permission-utils@4.0.0...@next-libs/permission-utils@4.0.1) (2021-08-09)
 
+**Note:** Version bump only for package @next-libs/permission-utils
+
+# [4.0.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/permission-utils@3.0.0...@next-libs/permission-utils@4.0.0) (2021-08-06)
 
 ### Features
 
-* migrated usage of sdk ([4a686ad](https://github.com/easyops-cn/next-libs/commit/4a686ad28fedc952993467456be659464e7e0c3c))
-
+- use build-next-libs ([fbd7242](https://github.com/easyops-cn/next-libs/commit/fbd724251174363ac27974b1804ee5d56d6e3d7c))
 
 ### BREAKING CHANGES
 
-* use major updates of sdk
+- no rollup but simply babel transformed
 
+# [3.0.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/permission-utils@2.0.7...@next-libs/permission-utils@3.0.0) (2021-04-20)
 
+### Features
 
+- migrated usage of sdk ([4a686ad](https://github.com/easyops-cn/next-libs/commit/4a686ad28fedc952993467456be659464e7e0c3c))
 
+### BREAKING CHANGES
+
+- use major updates of sdk
 
 ## [2.0.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/permission-utils@2.0.6...@next-libs/permission-utils@2.0.7) (2021-04-19)
 
 **Note:** Version bump only for package @next-libs/permission-utils
 
-
-
-
-
 ## [2.0.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/permission-utils@2.0.5...@next-libs/permission-utils@2.0.6) (2021-02-26)
-
 
 ### Bug Fixes
 
-* **permission:** fix添加用户按钮无效bug ([49469f0](https://github.com/easyops-cn/next-libs/commit/49469f01f17043b2c1dfde8b2dd9ad2a8a1d9bd9))
-* **permissions:** 合并两个setState ([6753b9f](https://github.com/easyops-cn/next-libs/commit/6753b9f5d7c72d2e9176fde1c81bf5996728240b))
-
-
-
-
+- **permission:** fix 添加用户按钮无效 bug ([49469f0](https://github.com/easyops-cn/next-libs/commit/49469f01f17043b2c1dfde8b2dd9ad2a8a1d9bd9))
+- **permissions:** 合并两个 setState ([6753b9f](https://github.com/easyops-cn/next-libs/commit/6753b9f5d7c72d2e9176fde1c81bf5996728240b))
 
 ## [2.0.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/permission-utils@2.0.3...@next-libs/permission-utils@2.0.5) (2021-02-22)
 
 **Note:** Version bump only for package @next-libs/permission-utils
-
-
-
-
 
 ## [2.0.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/permission-utils@2.0.3...@next-libs/permission-utils@2.0.4) (2021-02-07)
 

@@ -216,12 +216,15 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
 
   render(): React.ReactNode {
     const { pathname, search } = this.state.location;
-    const { selectedKeys, openedKeys } = initMenuItemAndMatchCurrentPathKeys(
+    let { selectedKeys, openedKeys } = initMenuItemAndMatchCurrentPathKeys(
       this.props.menuItems,
       pathname,
       search,
       ""
     );
+    if (this.props.collapsed) {
+      openedKeys = [];
+    }
     return (
       <Menu
         mode="inline"

@@ -9,6 +9,8 @@ import moment from "moment";
 import { RadioChangeEvent } from "antd/lib/radio";
 import { SelectValue } from "antd/lib/select";
 import { computeDateFormat } from "../processors";
+import _ from "lodash";
+import { CodeEditor } from "@next-libs/code-editor-components";
 
 export interface AddStructModalProps {
   structData?: any;
@@ -47,7 +49,10 @@ export class AddStructModal extends React.Component<
     this.setState({ structData });
   };
   handleInputValueChange = (
-    e: RadioChangeEvent | ChangeEvent<HTMLInputElement>,
+    e:
+      | RadioChangeEvent
+      | ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>,
     define: any
   ) => {
     this.handleValueChange(e.target.value, define);
@@ -108,7 +113,14 @@ export class AddStructModal extends React.Component<
   };
   getFormType = (define: Structkey, value: any, index: number) => {
     let formType;
-    const defaultValue = value ? value[define.id] : null;
+    let defaultValue = value ? value[define.id] : null;
+    //如果是json类型，数据有可能是字符串、数组或对象等，需要对数据处理
+    if (define.type === "json") {
+      defaultValue =
+        _.isString(defaultValue) || !defaultValue
+          ? defaultValue || ""
+          : JSON.stringify(defaultValue, null, 2);
+    }
     switch (define.type) {
       case "int": {
         formType = (
@@ -215,6 +227,21 @@ export class AddStructModal extends React.Component<
             defaultValue={defaultValue}
             style={{ width: "100%" }}
             onChange={(e) => this.handleValueChange(e, define)}
+          />
+        );
+        break;
+      }
+      case "json": {
+        formType = (
+          <CodeEditor
+            value={defaultValue}
+            mode={"json"}
+            maxLines={"Infinity"}
+            highlightActiveLine={true}
+            onChange={(e: any) => this.handleValueChange(e, define)}
+            minLines={3}
+            showLineNumbers={true}
+            showPrintMargin={false}
           />
         );
         break;

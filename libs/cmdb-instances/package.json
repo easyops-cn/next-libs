@@ -1,11 +1,11 @@
 {
   "name": "@next-libs/cmdb-instances",
-  "version": "4.4.6",
+  "version": "6.0.1",
   "description": "> TODO: description",
   "homepage": "https://github.com/easyops-cn/next-libs/tree/master/libs/cmdb-instances",
   "license": "GPL-3.0",
-  "main": "dist/index.bundle.js",
-  "module": "dist/index.esm.js",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
   "typings": "dist/types/index.d.ts",
   "files": [
     "dist"
@@ -17,12 +17,12 @@
   "scripts": {
     "clean": "rimraf dist",
     "prestart": "npm run clean",
-    "start": "concurrently -k -n tsc,build \"npm run start:types\" \"npm run start:rollup\"",
-    "start:rollup": "rollup --watch --config rollup.config.js",
+    "start": "concurrently -k -n types,main \"npm run start:types\" \"npm run start:main\"",
+    "start:main": "cross-env NODE_ENV=development build-next-libs --watch",
     "start:types": "tsc --watch --emitDeclarationOnly --declaration --declarationDir dist/types",
     "prebuild": "npm run clean",
-    "build": "npm run build:types && npm run build:rollup",
-    "build:rollup": "rollup --config rollup.config.js",
+    "build": "npm run build:types && npm run build:main",
+    "build:main": "cross-env NODE_ENV=production build-next-libs",
     "build:types": "tsc --emitDeclarationOnly --declaration --declarationDir dist/types",
     "postbuild": "node scripts/post-build.js",
     "test": "cross-env NODE_ENV='test' jest",
@@ -30,16 +30,24 @@
   },
   "sideEffects": false,
   "peerDependencies": {
-    "@next-core/brick-dll": "*"
+    "@next-core/brick-dll": "*",
+    "@next-dll/ace": "*",
+    "brace": "*"
   },
   "dependencies": {
     "@next-core/brick-types": "^2.16.0",
-    "@next-libs/basic-components": "^2.2.0",
-    "@next-libs/cmdb-utils": "^2.1.2",
-    "@next-libs/storage": "^1.0.6",
+    "@next-libs/basic-components": "^3.0.1",
+    "@next-libs/cmdb-utils": "^3.0.1",
+    "@next-libs/code-editor-components": "^3.0.1",
+    "@next-libs/forms": "^3.0.1",
+    "@next-libs/storage": "^2.0.1",
     "@next-sdk/cmdb-sdk": "^2.1.1",
     "@next-sdk/permission-sdk": "^2.1.1",
-    "dompurify": "^2.2.9",
-    "immutability-helper": "^3.1.1"
+    "@types/file-saver": "^2.0.3",
+    "classnames": "^2.3.1",
+    "dompurify": "^2.3.0",
+    "file-saver": "^2.0.5",
+    "immutability-helper": "^3.1.1",
+    "marked": "^2.1.3"
   }
 }

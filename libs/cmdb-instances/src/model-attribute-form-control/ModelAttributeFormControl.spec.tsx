@@ -657,7 +657,7 @@ describe("ModelAttributeFormControl", () => {
     const props = Object.assign(Props, { attribute, onChange, value });
 
     const wrapper = mount(<ModelAttributeFormControl {...props} />);
-    const sypOnChange = spyOn(
+    const sypOnChange = jest.spyOn(
       wrapper.instance() as ModelAttributeFormControl,
       "onChange"
     );
@@ -705,7 +705,7 @@ describe("ModelAttributeFormControl", () => {
     const props = Object.assign(Props, { attribute, onChange, value });
 
     const wrapper = mount(<ModelAttributeFormControl {...props} />);
-    const sypOnChange = spyOn(
+    const sypOnChange = jest.spyOn(
       wrapper.instance() as ModelAttributeFormControl,
       "onChange"
     );
@@ -759,16 +759,20 @@ describe("ModelAttributeFormControl", () => {
       mockFetchCmdbObjectDetailReturnValue.attrList[1].value.regex[1]
     );
     expect(
-      (radioEl
-        .at(0)
-        .find("input[type='radio']")
-        .getDOMNode() as HTMLInputElement).checked
+      (
+        radioEl
+          .at(0)
+          .find("input[type='radio']")
+          .getDOMNode() as HTMLInputElement
+      ).checked
     ).toBeFalsy();
     expect(
-      (radioEl
-        .at(1)
-        .find("input[type='radio']")
-        .getDOMNode() as HTMLInputElement).checked
+      (
+        radioEl
+          .at(1)
+          .find("input[type='radio']")
+          .getDOMNode() as HTMLInputElement
+      ).checked
     ).toBeTruthy();
   });
 
@@ -875,7 +879,7 @@ describe("ModelAttributeFormControl", () => {
     const wrapper = mount(<ModelAttributeFormControl {...props} />);
     wrapper.update();
     const items = wrapper.find("Input");
-    expect(items).toHaveLength(1);
+    expect(items).toHaveLength(0);
   });
 
   it("should works with date", () => {

@@ -1,17 +1,12 @@
 import "@testing-library/jest-dom/extend-expect";
 import React from "react";
-import {
-  cleanup,
-  render,
-  waitForElement,
-  fireEvent,
-} from "@testing-library/react";
+import { cleanup, render, fireEvent } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 import { PropertyDisplayConfig } from "@next-core/brick-types";
 import { InstanceApi_postSearchV3 } from "@next-sdk/cmdb-sdk";
 import * as storage from "@next-libs/storage";
 import { IconButton } from "./IconButton";
-
+import { Button, Select } from "antd";
 import { InstanceList, getQuery, initAqToShow } from "./InstanceList";
 import {
   getInstanceListData,
@@ -25,7 +20,7 @@ import {
   Query,
 } from "../instance-list-table";
 import { InstanceListPresetConfigs } from "../instance-list/InstanceList";
-import { mount, shallow } from "enzyme";
+import { mount } from "enzyme";
 import { BrickAsComponent } from "@next-core/brick-kit";
 import i18n from "i18next";
 
@@ -153,13 +148,43 @@ jest.mock("../instance-list-table", () => ({
 }));
 
 const instanceListData = getInstanceListData();
-const mockAdvancedSearch = (AdvancedSearch as any) as jest.Mock;
+const mockAdvancedSearch = AdvancedSearch as any as jest.Mock;
 const mockAdvancedSearchContent = mockAdvancedSearch();
 const mockInstanceListTable = InstanceListTable as jest.Mock;
 const mockInstanceListTableContent = mockInstanceListTable();
 const mockMoreButtonsContainer = MoreButtonsContainer as jest.Mock;
 
-(InstanceApi_postSearchV3 as jest.Mock).mockResolvedValue(instanceListData);
+// (InstanceApi_postSearchV3 as jest.Mock).mockResolvedValue(instanceListData);
+(InstanceApi_postSearchV3 as jest.Mock).mockImplementation((r, v) => {
+  if (r !== "APP") {
+    return instanceListData;
+  } else {
+    return [
+      {
+        _object_id: "APP",
+        clusters: [
+          {
+            _deployType: "default",
+            _object_id: "CLUSTER",
+            _object_version: 25,
+            _ts: 1625814682,
+            _version: 1,
+            clusterId: "5c6ab7a9897c1",
+            creator: "easyops",
+            ctime: "2021-07-09 15:11:22",
+            instanceId: "5c6ab7a9897c1",
+            name: "0709test",
+            org: 2988466,
+            type: "0",
+          },
+        ],
+        instanceId: "5c6ab79aa162e",
+        name: "0709test",
+      },
+    ];
+  }
+});
+
 const HOST: any = {
   objectId: "HOST",
   view: {
@@ -391,7 +416,10 @@ describe("InstanceList", () => {
       />
     );
 
-    await findByText(mockInstanceListTableContent);
+    await act(async () => {
+      await (global as any).flushPromises();
+    });
+    findByText(mockInstanceListTableContent);
 
     const fields: Record<string, boolean> = {};
     const newFieldIds = ["hostname", "ip", "_deviceList_CLUSTER"];
@@ -431,7 +459,10 @@ describe("InstanceList", () => {
       <InstanceList objectId="HOST" objectList={[HOST]} aq={aq as Query[]} />
     );
 
-    await findByText(mockInstanceListTableContent);
+    await act(async () => {
+      await (global as any).flushPromises();
+    });
+    findByText(mockInstanceListTableContent);
 
     const advancedSearchToggleBtn = queryByTestId("advanced-search-toggle-btn");
     const mockAdvancedSearchElement = queryByText(mockAdvancedSearchContent);
@@ -458,6 +489,24 @@ describe("InstanceList", () => {
     expect(relatedToMe.props["checked"]).toBeTruthy();
     wrapper.find(IconButton).at(1).invoke("onChange")(false);
     expect(mockOnRelatedToMeChange).toBeCalledWith(false);
+  });
+
+  it("should work with hideSearchConditions", async () => {
+    const mockOnRelatedToMeChange = jest.fn();
+    const wrapper = mount(
+      <InstanceList
+        objectId="HOST"
+        objectList={[HOST]}
+        relatedToMe={true}
+        onRelatedToMeChange={mockOnRelatedToMeChange}
+        relationLinkDisabled={true}
+        hideSearchConditions={true}
+      />
+    );
+    await (global as any).flushPromises();
+    await jest.runAllTimers();
+    wrapper.update();
+    expect(wrapper.find("Tag").length).toBe(0);
   });
 
   it("should call onAliveHostsChange when change aliveHosts", async () => {
@@ -509,8 +558,12 @@ describe("InstanceList", () => {
         expected: { $or: [{ hostname: { $like: "%aaa%" } }] },
       },
     ];
+    const onlySearchByIp = true;
     testdata.forEach((t) => {
       expect(getQuery(HOST, { HOST: HOST }, t.q, t.fields)).toEqual(t.expected);
+      expect(
+        getQuery(HOST, { HOST: HOST }, t.q, t.fields, onlySearchByIp)
+      ).toEqual({ $or: [{ ip: { $like: "%aaa%" } }] });
     });
   });
 
@@ -659,5 +712,26 @@ describe("InstanceList", () => {
     testdata.forEach((t) => {
       expect(initAqToShow(t.aq, HOST)).toEqual(t.expected);
     });
+  });
+  it("should work with enableSearchByApp", async () => {
+    const mockOnRelatedToMeChange = jest.fn();
+    const wrapper = mount(
+      <InstanceList
+        objectId="HOST"
+        objectList={[HOST]}
+        relatedToMe={true}
+        onRelatedToMeChange={mockOnRelatedToMeChange}
+        relationLinkDisabled={true}
+        hideSearchConditions={true}
+        enableSearchByApp={true}
+      />
+    );
+    await (global as any).flushPromises();
+    await jest.runAllTimers();
+    wrapper.update();
+    wrapper.find(Button).at(0).simulate("click");
+    wrapper.find(Button).at(2).simulate("click");
+    // state not update when testing
+    expect(wrapper.find(Select).length).toBe(0);
   });
 });
