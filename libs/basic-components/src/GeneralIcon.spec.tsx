@@ -14,6 +14,7 @@ describe("GeneralIcon", () => {
 
   it("should render null if icon config is invalid", () => {
     const wrapper = shallow(
+      // @ts-ignore
       <GeneralIcon icon={{ type: "up", theme: "filled", color: "#0071eb" }} />
     );
     expect(wrapper.html()).toBe("");
