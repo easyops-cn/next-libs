@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@3.0.1...@next-libs/basic-components@3.1.0) (2021-08-12)
+
+
+### Features
+
+* **GeneralIcon:** unit test add ts ingore ([0eab4a5](https://github.com/easyops-cn/next-libs/commit/0eab4a54ad3c637a0429a0a0d4ab5ffba6c033ac))
+* **GeneralIcon:** unit test update ([d30ba63](https://github.com/easyops-cn/next-libs/commit/d30ba63019ebd1c22a29817c472157e6c2aa8558))
+* icon support imgSrc ([e6a5467](https://github.com/easyops-cn/next-libs/commit/e6a5467f4eb02a5fd3cb89c1eecc4f942b253d77))
+* icon support imgSrc & imgStyle ([f5e21e0](https://github.com/easyops-cn/next-libs/commit/f5e21e0c93b3345e74e9592dfca12766cdf8954a))
+* unit test fix ([89de28d](https://github.com/easyops-cn/next-libs/commit/89de28d7edfe12cf60b47b226babd7a1ee492a3d))
+
+
+
+
+
 ## [3.0.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@3.0.0...@next-libs/basic-components@3.0.1) (2021-08-09)
 
 **Note:** Version bump only for package @next-libs/basic-components
