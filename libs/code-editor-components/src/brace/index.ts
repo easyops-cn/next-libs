@@ -11,6 +11,7 @@ export function loadPluginsForCodeEditor(): void {
   require("brace/mode/text");
   require("brace/mode/sh");
   require("brace/mode/javascript");
+  require("brace/mode/typescript");
   require("brace/mode/markdown");
   require("brace/mode/python");
   require("brace/mode/java");
