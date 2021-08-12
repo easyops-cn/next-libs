@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@3.0.2...@next-libs/code-editor-components@3.0.3) (2021-08-12)
+
+
+### Bug Fixes
+
+* **code-editor:** add language of typescript ([7ba0139](https://github.com/easyops-cn/next-libs/commit/7ba01398f55cd58aebaa493b21593b886382b21d))
+
+
+
+
+
 ## [3.0.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@3.0.1...@next-libs/code-editor-components@3.0.2) (2021-08-12)
 
 **Note:** Version bump only for package @next-libs/code-editor-components
