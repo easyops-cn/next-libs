@@ -77,7 +77,7 @@ describe("GeneralIcon", () => {
     );
     const event = new MouseEvent("click");
     wrapper.find(LegacyIcon).invoke("onClick")(
-      (event as unknown) as React.MouseEvent<HTMLElement, MouseEvent>
+      event as unknown as React.MouseEvent<HTMLElement, MouseEvent>
     );
     expect(mockedOnClick).toBeCalledWith(event);
   });
@@ -160,12 +160,21 @@ describe("GeneralIcon", () => {
           theme: "filled",
           color: "#0071eb",
           imgSrc: "https://test.com/image.jpg",
+          imgStyle: {
+            width: 12,
+            height: 12,
+          },
         }}
       />
     );
     const iconElement = wrapper.find(LegacyIcon);
     const imgElement = wrapper.find("img");
     expect(iconElement.length).toBe(0);
-    expect(imgElement.at(0).prop("src")).toBe("https://test.com/image.jpg");
+    expect(imgElement.length).toBe(1);
+    expect(imgElement.prop("style")).toEqual({
+      width: 12,
+      height: 12,
+    });
+    expect(imgElement.prop("src")).toBe("https://test.com/image.jpg");
   });
 });

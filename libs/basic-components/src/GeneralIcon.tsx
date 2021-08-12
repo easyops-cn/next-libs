@@ -49,6 +49,8 @@ export function GeneralIcon(props: MenuIconProps): React.ReactElement {
   let iconNode = <></>;
 
   let style: Record<string, any>;
+  if (!icon) return iconNode;
+
   if ("imgSrc" in icon) {
     iconNode = (
       <img
