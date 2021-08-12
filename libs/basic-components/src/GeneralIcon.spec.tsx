@@ -12,6 +12,13 @@ describe("GeneralIcon", () => {
     expect(wrapper.html()).toBe("");
   });
 
+  it("should render null if icon config is invalid", () => {
+    const wrapper = shallow(
+      <GeneralIcon icon={{ type: "up", theme: "filled", color: "#0071eb" }} />
+    );
+    expect(wrapper.html()).toBe("");
+  });
+
   it("should render antd icon", () => {
     const wrapper = shallow(
       <GeneralIcon
@@ -119,6 +126,18 @@ describe("GeneralIcon", () => {
       />
     );
     expect(wrapper.find("Avatar").hasClass("roundSquareBg")).toBe(true);
+  });
+
+  it("icon had color and bg is false", () => {
+    const wrapper = shallow(
+      <GeneralIcon
+        icon={{ lib: "antd", type: "up", theme: "filled", color: "green" }}
+        bg={false}
+      />
+    );
+    expect(wrapper.find(LegacyIcon).prop("style")).toEqual({
+      color: "var(--theme-green-color)",
+    });
   });
 
   it("linearGradient should work", () => {
