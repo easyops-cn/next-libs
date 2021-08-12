@@ -7,166 +7,89 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 **Note:** Version bump only for package @next-libs/forms
 
-
-
-
-
 # [3.0.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@2.4.4...@next-libs/forms@3.0.0) (2021-08-06)
-
 
 ### Features
 
-* use build-next-libs ([fbd7242](https://github.com/easyops-cn/next-libs/commit/fbd724251174363ac27974b1804ee5d56d6e3d7c))
-
+- use build-next-libs ([fbd7242](https://github.com/easyops-cn/next-libs/commit/fbd724251174363ac27974b1804ee5d56d6e3d7c))
 
 ### BREAKING CHANGES
 
-* no rollup but simply babel transformed
-
-
-
-
+- no rollup but simply babel transformed
 
 ## [2.4.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@2.4.3...@next-libs/forms@2.4.4) (2021-08-02)
 
 **Note:** Version bump only for package @next-libs/forms
 
-
-
-
-
 ## [2.4.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@2.4.2...@next-libs/forms@2.4.3) (2021-07-18)
 
 **Note:** Version bump only for package @next-libs/forms
-
-
-
-
 
 ## [2.4.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@2.4.1...@next-libs/forms@2.4.2) (2021-06-04)
 
 **Note:** Version bump only for package @next-libs/forms
 
-
-
-
-
 ## [2.4.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@2.4.0...@next-libs/forms@2.4.1) (2021-06-02)
 
 **Note:** Version bump only for package @next-libs/forms
 
-
-
-
-
 # [2.4.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@2.3.2...@next-libs/forms@2.4.0) (2021-05-26)
-
 
 ### Features
 
-* **FormItemWrapper:** add trim support ([00665e4](https://github.com/easyops-cn/next-libs/commit/00665e4b5489d3a9cbea0cab6a77f36fa5e3eda3))
-
-
-
-
+- **FormItemWrapper:** add trim support ([00665e4](https://github.com/easyops-cn/next-libs/commit/00665e4b5489d3a9cbea0cab6a77f36fa5e3eda3))
 
 ## [2.3.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@2.3.1...@next-libs/forms@2.3.2) (2021-05-20)
 
-
 ### Bug Fixes
 
-* **forms:** 修复label内容换行时，label内容排列不正常问题 ([1e80457](https://github.com/easyops-cn/next-libs/commit/1e80457c8b359049d17d17f4c3ac7dcdeb742505))
-
-
-
-
+- **forms:** 修复 label 内容换行时，label 内容排列不正常问题 ([1e80457](https://github.com/easyops-cn/next-libs/commit/1e80457c8b359049d17d17f4c3ac7dcdeb742505))
 
 ## [2.3.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@2.3.0...@next-libs/forms@2.3.1) (2021-05-17)
 
 **Note:** Version bump only for package @next-libs/forms
 
-
-
-
-
 # [2.3.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@2.2.3...@next-libs/forms@2.3.0) (2021-05-17)
-
 
 ### Features
 
-* **forms:** labelTooltip支持string类型以便设置tooltip ([e6ecbcb](https://github.com/easyops-cn/next-libs/commit/e6ecbcb8d1b0a3aed49444ac16887ac96a6d9f13))
-
-
-
-
+- **forms:** labelTooltip 支持 string 类型以便设置 tooltip ([e6ecbcb](https://github.com/easyops-cn/next-libs/commit/e6ecbcb8d1b0a3aed49444ac16887ac96a6d9f13))
 
 ## [2.2.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@2.2.2...@next-libs/forms@2.2.3) (2021-04-19)
 
 **Note:** Version bump only for package @next-libs/forms
 
-
-
-
-
 ## [2.2.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@2.2.1...@next-libs/forms@2.2.2) (2021-04-09)
-
 
 ### Bug Fixes
 
-* **icon-select:** set color when props.value changes ([96652cd](https://github.com/easyops-cn/next-libs/commit/96652cd3854885e101dbbaba8b4e8a48f8588e9d))
-
-
-
-
+- **icon-select:** set color when props.value changes ([96652cd](https://github.com/easyops-cn/next-libs/commit/96652cd3854885e101dbbaba8b4e8a48f8588e9d))
 
 ## [2.2.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@2.2.0...@next-libs/forms@2.2.1) (2021-04-07)
 
-
 ### Bug Fixes
 
-* **icon-select:** reset color when defaultColor changes ([2db4b76](https://github.com/easyops-cn/next-libs/commit/2db4b7667b1ecba9b0b9d48cfa53499e6a11153d))
-
-
-
-
+- **icon-select:** reset color when defaultColor changes ([2db4b76](https://github.com/easyops-cn/next-libs/commit/2db4b7667b1ecba9b0b9d48cfa53499e6a11153d))
 
 # [2.2.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@2.1.2...@next-libs/forms@2.2.0) (2021-03-29)
 
-
 ### Features
 
-* **icon-select:** defaultColor ([d7d1b9d](https://github.com/easyops-cn/next-libs/commit/d7d1b9d200851f884be6ff9e2ed7588cee16b556))
-
-
-
-
+- **icon-select:** defaultColor ([d7d1b9d](https://github.com/easyops-cn/next-libs/commit/d7d1b9d200851f884be6ff9e2ed7588cee16b556))
 
 ## [2.1.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@2.1.1...@next-libs/forms@2.1.2) (2021-03-18)
 
 **Note:** Version bump only for package @next-libs/forms
 
-
-
-
-
 ## [2.1.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@2.1.0...@next-libs/forms@2.1.1) (2021-02-26)
 
 **Note:** Version bump only for package @next-libs/forms
 
-
-
-
-
 # [2.1.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@2.0.3...@next-libs/forms@2.1.0) (2021-02-22)
-
 
 ### Features
 
-* **forms:** 表单支持简单说明 ([4ae6b16](https://github.com/easyops-cn/next-libs/commit/4ae6b16f1e0b5f2226807969d1920751369ad567))
-
-
-
-
+- **forms:** 表单支持简单说明 ([4ae6b16](https://github.com/easyops-cn/next-libs/commit/4ae6b16f1e0b5f2226807969d1920751369ad567))
 
 ## [2.0.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@2.0.3...@next-libs/forms@2.0.4) (2021-02-07)
 

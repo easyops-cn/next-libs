@@ -7,90 +7,49 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 **Note:** Version bump only for package @next-libs/charts
 
-
-
-
-
 # [2.0.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/charts@1.1.2...@next-libs/charts@2.0.0) (2021-08-06)
-
 
 ### Features
 
-* use build-next-libs ([fbd7242](https://github.com/easyops-cn/next-libs/commit/fbd724251174363ac27974b1804ee5d56d6e3d7c))
-
+- use build-next-libs ([fbd7242](https://github.com/easyops-cn/next-libs/commit/fbd724251174363ac27974b1804ee5d56d6e3d7c))
 
 ### BREAKING CHANGES
 
-* no rollup but simply babel transformed
-
-
-
-
+- no rollup but simply babel transformed
 
 ## [1.1.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/charts@1.1.1...@next-libs/charts@1.1.2) (2021-07-13)
 
 **Note:** Version bump only for package @next-libs/charts
 
-
-
-
-
 ## [1.1.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/charts@1.1.0...@next-libs/charts@1.1.1) (2021-07-07)
-
 
 ### Bug Fixes
 
-* 页面兼容json格式 closed INSTANCE-1789 ([822c32a](https://github.com/easyops-cn/next-libs/commit/822c32a0bd861e4e5f748e4c295e4b089d15156f))
-
-
-
-
+- 页面兼容 json 格式 closed INSTANCE-1789 ([822c32a](https://github.com/easyops-cn/next-libs/commit/822c32a0bd861e4e5f748e4c295e4b089d15156f))
 
 # [1.1.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/charts@1.0.8...@next-libs/charts@1.1.0) (2021-07-07)
 
-
 ### Features
 
-* 实例列表、详情、关系展示等页面兼容json格式 closed INSTANCE-1789 ([b3c56b1](https://github.com/easyops-cn/next-libs/commit/b3c56b18868ecad839c411fa11a63b65b2c649f5))
-
-
-
-
+- 实例列表、详情、关系展示等页面兼容 json 格式 closed INSTANCE-1789 ([b3c56b1](https://github.com/easyops-cn/next-libs/commit/b3c56b18868ecad839c411fa11a63b65b2c649f5))
 
 ## [1.0.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/charts@1.0.7...@next-libs/charts@1.0.8) (2021-07-02)
 
-
 ### Bug Fixes
 
-* 新版页面，关闭用户某个属性视图后，前端页面仍能显示用户信息 closed INSTANCE-1805 ([48ed095](https://github.com/easyops-cn/next-libs/commit/48ed095999745db4743827b3373ad25a984a4e81))
-
-
-
-
+- 新版页面，关闭用户某个属性视图后，前端页面仍能显示用户信息 closed INSTANCE-1805 ([48ed095](https://github.com/easyops-cn/next-libs/commit/48ed095999745db4743827b3373ad25a984a4e81))
 
 ## [1.0.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/charts@1.0.6...@next-libs/charts@1.0.7) (2021-04-19)
 
 **Note:** Version bump only for package @next-libs/charts
 
-
-
-
-
 ## [1.0.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/charts@1.0.5...@next-libs/charts@1.0.6) (2021-03-26)
 
 **Note:** Version bump only for package @next-libs/charts
 
-
-
-
-
 ## [1.0.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/charts@1.0.3...@next-libs/charts@1.0.5) (2021-02-22)
 
 **Note:** Version bump only for package @next-libs/charts
-
-
-
-
 
 ## [1.0.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/charts@1.0.3...@next-libs/charts@1.0.4) (2021-02-07)
 

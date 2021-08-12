@@ -7,41 +7,23 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 **Note:** Version bump only for package @next-libs/visit-history
 
-
-
-
-
 # [2.0.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/visit-history@1.0.6...@next-libs/visit-history@2.0.0) (2021-08-06)
-
 
 ### Features
 
-* use build-next-libs ([fbd7242](https://github.com/easyops-cn/next-libs/commit/fbd724251174363ac27974b1804ee5d56d6e3d7c))
-
+- use build-next-libs ([fbd7242](https://github.com/easyops-cn/next-libs/commit/fbd724251174363ac27974b1804ee5d56d6e3d7c))
 
 ### BREAKING CHANGES
 
-* no rollup but simply babel transformed
-
-
-
-
+- no rollup but simply babel transformed
 
 ## [1.0.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/visit-history@1.0.5...@next-libs/visit-history@1.0.6) (2021-04-19)
 
 **Note:** Version bump only for package @next-libs/visit-history
 
-
-
-
-
 ## [1.0.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/visit-history@1.0.3...@next-libs/visit-history@1.0.5) (2021-02-22)
 
 **Note:** Version bump only for package @next-libs/visit-history
-
-
-
-
 
 ## [1.0.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/visit-history@1.0.3...@next-libs/visit-history@1.0.4) (2021-02-07)
 

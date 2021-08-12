@@ -264,10 +264,12 @@ describe("CodeEditor", () => {
     );
     wrapper.update();
     const callback = jest.fn();
-    (wrapper.find(FormItemWrapper).prop("validator") as Pick<
-      ValidationRule,
-      "validator" | "message"
-    >[])[0].validator([], "12", callback);
+    (
+      wrapper.find(FormItemWrapper).prop("validator") as Pick<
+        ValidationRule,
+        "validator" | "message"
+      >[]
+    )[0].validator([], "12", callback);
     expect(callback).toHaveBeenCalled();
   });
 
@@ -308,10 +310,12 @@ describe("CodeEditor", () => {
     });
     wrapper.update();
     const callback = jest.fn();
-    (wrapper.find(FormItemWrapper).prop("validator") as Pick<
-      ValidationRule,
-      "validator" | "message"
-    >[])[0].validator([], "12", callback);
+    (
+      wrapper.find(FormItemWrapper).prop("validator") as Pick<
+        ValidationRule,
+        "validator" | "message"
+      >[]
+    )[0].validator([], "12", callback);
     expect(callback).toHaveBeenCalled();
 
     const spyOnSaveAs = jest.spyOn(fileSaver, "saveAs").mockReturnValue((() => {

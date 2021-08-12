@@ -7,73 +7,39 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 **Note:** Version bump only for package @next-libs/searchable-tree
 
-
-
-
-
 # [3.0.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/searchable-tree@2.0.10...@next-libs/searchable-tree@3.0.0) (2021-08-06)
-
 
 ### Features
 
-* use build-next-libs ([fbd7242](https://github.com/easyops-cn/next-libs/commit/fbd724251174363ac27974b1804ee5d56d6e3d7c))
-
+- use build-next-libs ([fbd7242](https://github.com/easyops-cn/next-libs/commit/fbd724251174363ac27974b1804ee5d56d6e3d7c))
 
 ### BREAKING CHANGES
 
-* no rollup but simply babel transformed
-
-
-
-
+- no rollup but simply babel transformed
 
 ## [2.0.10](https://github.com/easyops-cn/next-libs/compare/@next-libs/searchable-tree@2.0.9...@next-libs/searchable-tree@2.0.10) (2021-08-02)
 
 **Note:** Version bump only for package @next-libs/searchable-tree
 
-
-
-
-
 ## [2.0.9](https://github.com/easyops-cn/next-libs/compare/@next-libs/searchable-tree@2.0.8...@next-libs/searchable-tree@2.0.9) (2021-07-18)
 
 **Note:** Version bump only for package @next-libs/searchable-tree
-
-
-
-
 
 ## [2.0.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/searchable-tree@2.0.7...@next-libs/searchable-tree@2.0.8) (2021-06-04)
 
 **Note:** Version bump only for package @next-libs/searchable-tree
 
-
-
-
-
 ## [2.0.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/searchable-tree@2.0.6...@next-libs/searchable-tree@2.0.7) (2021-06-02)
 
 **Note:** Version bump only for package @next-libs/searchable-tree
-
-
-
-
 
 ## [2.0.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/searchable-tree@2.0.5...@next-libs/searchable-tree@2.0.6) (2021-04-19)
 
 **Note:** Version bump only for package @next-libs/searchable-tree
 
-
-
-
-
 ## [2.0.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/searchable-tree@2.0.3...@next-libs/searchable-tree@2.0.5) (2021-02-22)
 
 **Note:** Version bump only for package @next-libs/searchable-tree
-
-
-
-
 
 ## [2.0.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/searchable-tree@2.0.3...@next-libs/searchable-tree@2.0.4) (2021-02-07)
 

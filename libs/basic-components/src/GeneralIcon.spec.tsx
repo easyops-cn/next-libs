@@ -12,6 +12,14 @@ describe("GeneralIcon", () => {
     expect(wrapper.html()).toBe("");
   });
 
+  it("should render null if icon config is invalid", () => {
+    const wrapper = shallow(
+      // @ts-ignore
+      <GeneralIcon icon={{ type: "up", theme: "filled", color: "#0071eb" }} />
+    );
+    expect(wrapper.html()).toBe("");
+  });
+
   it("should render antd icon", () => {
     const wrapper = shallow(
       <GeneralIcon
@@ -77,7 +85,7 @@ describe("GeneralIcon", () => {
     );
     const event = new MouseEvent("click");
     wrapper.find(LegacyIcon).invoke("onClick")(
-      (event as unknown) as React.MouseEvent<HTMLElement, MouseEvent>
+      event as unknown as React.MouseEvent<HTMLElement, MouseEvent>
     );
     expect(mockedOnClick).toBeCalledWith(event);
   });
@@ -121,6 +129,18 @@ describe("GeneralIcon", () => {
     expect(wrapper.find("Avatar").hasClass("roundSquareBg")).toBe(true);
   });
 
+  it("icon had color and bg is false", () => {
+    const wrapper = shallow(
+      <GeneralIcon
+        icon={{ lib: "antd", type: "up", theme: "filled", color: "green" }}
+        bg={false}
+      />
+    );
+    expect(wrapper.find(LegacyIcon).prop("style")).toEqual({
+      color: "var(--theme-green-color)",
+    });
+  });
+
   it("linearGradient should work", () => {
     const wrapper = mount(
       <GeneralIcon icon={{ lib: "easyops", icon: "idc", category: "app" }} />
@@ -149,5 +169,32 @@ describe("GeneralIcon", () => {
     expect(
       wrapper.find("linearGradient").find("stop").at(1).prop("stopColor")
     ).toBe("#FE7D37");
+  });
+
+  it("use icon imgSrc", () => {
+    const wrapper = mount(
+      <GeneralIcon
+        icon={{
+          lib: "antd",
+          type: "up",
+          theme: "filled",
+          color: "#0071eb",
+          imgSrc: "https://test.com/image.jpg",
+          imgStyle: {
+            width: 12,
+            height: 12,
+          },
+        }}
+      />
+    );
+    const iconElement = wrapper.find(LegacyIcon);
+    const imgElement = wrapper.find("img");
+    expect(iconElement.length).toBe(0);
+    expect(imgElement.length).toBe(1);
+    expect(imgElement.prop("style")).toEqual({
+      width: 12,
+      height: 12,
+    });
+    expect(imgElement.prop("src")).toBe("https://test.com/image.jpg");
   });
 });

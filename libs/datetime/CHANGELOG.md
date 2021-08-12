@@ -7,74 +7,41 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 **Note:** Version bump only for package @next-libs/datetime
 
-
-
-
-
 # [2.0.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/datetime@1.2.0...@next-libs/datetime@2.0.0) (2021-08-06)
-
 
 ### Features
 
-* use build-next-libs ([fbd7242](https://github.com/easyops-cn/next-libs/commit/fbd724251174363ac27974b1804ee5d56d6e3d7c))
-
+- use build-next-libs ([fbd7242](https://github.com/easyops-cn/next-libs/commit/fbd724251174363ac27974b1804ee5d56d6e3d7c))
 
 ### BREAKING CHANGES
 
-* no rollup but simply babel transformed
-
-
-
-
+- no rollup but simply babel transformed
 
 # [1.2.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/datetime@1.1.1...@next-libs/datetime@1.2.0) (2021-08-03)
 
-
 ### Features
 
-* add i18n refs FLOW-443 ([d459361](https://github.com/easyops-cn/next-libs/commit/d459361206dc0b522697fffea8967c094ece3a95))
-
-
-
-
+- add i18n refs FLOW-443 ([d459361](https://github.com/easyops-cn/next-libs/commit/d459361206dc0b522697fffea8967c094ece3a95))
 
 ## [1.1.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/datetime@1.1.0...@next-libs/datetime@1.1.1) (2021-05-26)
 
-
 ### Bug Fixes
 
-* **datetime:** modify i18n ([fb0ee90](https://github.com/easyops-cn/next-libs/commit/fb0ee90d2504dc130bb264ef006649df4b59808d))
-
-
-
-
+- **datetime:** modify i18n ([fb0ee90](https://github.com/easyops-cn/next-libs/commit/fb0ee90d2504dc130bb264ef006649df4b59808d))
 
 # [1.1.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/datetime@1.0.6...@next-libs/datetime@1.1.0) (2021-04-25)
 
-
 ### Features
 
-* **datetime:** datetime 增加国际化 ([cc1295e](https://github.com/easyops-cn/next-libs/commit/cc1295e51ac82cac91ca2c9bc82498f8f07fcbd2))
-
-
-
-
+- **datetime:** datetime 增加国际化 ([cc1295e](https://github.com/easyops-cn/next-libs/commit/cc1295e51ac82cac91ca2c9bc82498f8f07fcbd2))
 
 ## [1.0.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/datetime@1.0.5...@next-libs/datetime@1.0.6) (2021-04-19)
 
 **Note:** Version bump only for package @next-libs/datetime
 
-
-
-
-
 ## [1.0.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/datetime@1.0.3...@next-libs/datetime@1.0.5) (2021-02-22)
 
 **Note:** Version bump only for package @next-libs/datetime
-
-
-
-
 
 ## [1.0.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/datetime@1.0.3...@next-libs/datetime@1.0.4) (2021-02-07)
 

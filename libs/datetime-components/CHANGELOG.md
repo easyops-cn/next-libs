@@ -7,63 +7,35 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 **Note:** Version bump only for package @next-libs/datetime-components
 
-
-
-
-
 # [3.0.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/datetime-components@2.1.0...@next-libs/datetime-components@3.0.0) (2021-08-06)
-
 
 ### Features
 
-* use build-next-libs ([fbd7242](https://github.com/easyops-cn/next-libs/commit/fbd724251174363ac27974b1804ee5d56d6e3d7c))
-
+- use build-next-libs ([fbd7242](https://github.com/easyops-cn/next-libs/commit/fbd724251174363ac27974b1804ee5d56d6e3d7c))
 
 ### BREAKING CHANGES
 
-* no rollup but simply babel transformed
-
-
-
-
+- no rollup but simply babel transformed
 
 # [2.1.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/datetime-components@2.0.7...@next-libs/datetime-components@2.1.0) (2021-05-24)
 
-
 ### Features
 
-* **datetime-components:** add i18n ([afc1159](https://github.com/easyops-cn/next-libs/commit/afc11595217ba8c0ac7a9c591e84f66e1aef1343))
-
-
-
-
+- **datetime-components:** add i18n ([afc1159](https://github.com/easyops-cn/next-libs/commit/afc11595217ba8c0ac7a9c591e84f66e1aef1343))
 
 ## [2.0.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/datetime-components@2.0.6...@next-libs/datetime-components@2.0.7) (2021-04-19)
 
 **Note:** Version bump only for package @next-libs/datetime-components
 
-
-
-
-
 ## [2.0.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/datetime-components@2.0.5...@next-libs/datetime-components@2.0.6) (2021-03-10)
-
 
 ### Bug Fixes
 
-* fix invalid input for moment ([717a342](https://github.com/easyops-cn/next-libs/commit/717a342ae0773dfa52eb1e48d346f587ddf8c6c1))
-
-
-
-
+- fix invalid input for moment ([717a342](https://github.com/easyops-cn/next-libs/commit/717a342ae0773dfa52eb1e48d346f587ddf8c6c1))
 
 ## [2.0.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/datetime-components@2.0.3...@next-libs/datetime-components@2.0.5) (2021-02-22)
 
 **Note:** Version bump only for package @next-libs/datetime-components
-
-
-
-
 
 ## [2.0.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/datetime-components@2.0.3...@next-libs/datetime-components@2.0.4) (2021-02-07)
 

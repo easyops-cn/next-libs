@@ -7,59 +7,37 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 **Note:** Version bump only for package @next-libs/code-editor-components
 
-
-
-
-
 # [3.0.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@2.0.1...@next-libs/code-editor-components@3.0.0) (2021-08-06)
-
 
 ### Bug Fixes
 
-* make code-editor-components side effects free ([c1dc26f](https://github.com/easyops-cn/next-libs/commit/c1dc26fbdd0a08cac0a70ee567f178bff3916e00))
-
+- make code-editor-components side effects free ([c1dc26f](https://github.com/easyops-cn/next-libs/commit/c1dc26fbdd0a08cac0a70ee567f178bff3916e00))
 
 ### Features
 
-* use build-next-libs ([fbd7242](https://github.com/easyops-cn/next-libs/commit/fbd724251174363ac27974b1804ee5d56d6e3d7c))
-
+- use build-next-libs ([fbd7242](https://github.com/easyops-cn/next-libs/commit/fbd724251174363ac27974b1804ee5d56d6e3d7c))
 
 ### BREAKING CHANGES
 
-* no rollup but simply babel transformed
-
-
-
-
+- no rollup but simply babel transformed
 
 ## [2.0.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@2.0.0...@next-libs/code-editor-components@2.0.1) (2021-08-02)
 
 **Note:** Version bump only for package @next-libs/code-editor-components
 
-
-
-
-
 # 2.0.0 (2021-07-29)
-
 
 ### Bug Fixes
 
-* split code-display into a individual lib ([a3489ec](https://github.com/easyops-cn/next-libs/commit/a3489ec913530667974ae8bc434d86e35f41903c))
-
+- split code-display into a individual lib ([a3489ec](https://github.com/easyops-cn/next-libs/commit/a3489ec913530667974ae8bc434d86e35f41903c))
 
 ### Features
 
-* use new package name of `code-editor-components` ([d517d28](https://github.com/easyops-cn/next-libs/commit/d517d28341af7cbc4a4229c0175f79dc4fcc70df))
-
+- use new package name of `code-editor-components` ([d517d28](https://github.com/easyops-cn/next-libs/commit/d517d28341af7cbc4a4229c0175f79dc4fcc70df))
 
 ### BREAKING CHANGES
 
-* use new package name of `code-editor-components`
-
-
-
-
+- use new package name of `code-editor-components`
 
 ## [1.0.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/editor-components@1.0.7...@next-libs/editor-components@1.0.8) (2021-07-23)
 

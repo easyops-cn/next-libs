@@ -568,10 +568,9 @@ export class AdvancedSearchForm extends React.Component<
             } else {
               subQueryValue = (expressions as Query[])
                 .map((query) => {
-                  const targetValue = (query[fieldId] as Record<
-                    ComparisonOperators,
-                    any
-                  >)[compareOperator as ComparisonOperators];
+                  const targetValue = (
+                    query[fieldId] as Record<ComparisonOperators, any>
+                  )[compareOperator as ComparisonOperators];
                   if (
                     compareOperator === ComparisonOperators.Like ||
                     compareOperator === ComparisonOperators.NotLike
@@ -596,9 +595,8 @@ export class AdvancedSearchForm extends React.Component<
             };
           }
 
-          fieldQueryOperatorExpressionsMap[
-            key
-          ] = expressions as QueryOperatorExpressions;
+          fieldQueryOperatorExpressionsMap[key] =
+            expressions as QueryOperatorExpressions;
         });
       });
     }
@@ -638,9 +636,10 @@ export class AdvancedSearchForm extends React.Component<
         });
       },
       (relation, sides) => {
-        const relationObject = this.props.idObjectMap[
-          relation[`${sides.that}_object_id` as RelationObjectIdKeys]
-        ];
+        const relationObject =
+          this.props.idObjectMap[
+            relation[`${sides.that}_object_id` as RelationObjectIdKeys]
+          ];
         const showKeys = getInstanceNameKeys(relationObject);
         showKeys.forEach((showKey, index) => {
           const nameOfShowKey =

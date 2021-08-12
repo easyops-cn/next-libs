@@ -311,9 +311,8 @@ export class ModelAttributeFormControl extends Component<
     if (result.type === FormControlTypeEnum.STRUCT) {
       result["maxlength"] = 1;
     }
-    result["placeholder"] = ModelAttributeFormControl.computePlaceholder(
-      result
-    );
+    result["placeholder"] =
+      ModelAttributeFormControl.computePlaceholder(result);
     return result;
   };
 
