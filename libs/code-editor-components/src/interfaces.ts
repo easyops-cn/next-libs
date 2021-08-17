@@ -41,3 +41,23 @@ export interface CodeEditorProps extends FormItemWrapperProps {
   loadYamlInJsonMode?: boolean;
   showPrintMargin?: boolean;
 }
+
+export interface AceLanguageRules {
+  [className: string]: AceLanguageRule[];
+}
+
+export interface AceLanguageRule {
+  token?: string | string[] | AceTokenFunction;
+  regex?: string | RegExp;
+  next?: string;
+  defaultToken?: string;
+  consumeLineEnd?: boolean;
+  onMatch?: (
+    val?: string,
+    state?: unknown,
+    stack?: [string, number],
+    line?: string
+  ) => string;
+}
+
+export type AceTokenFunction = (value: string) => string;

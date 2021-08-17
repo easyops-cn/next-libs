@@ -1,18 +1,17 @@
 import React from "react";
 import { mount } from "enzyme";
 import AceEditor from "react-ace";
-import { ClipboardProps } from "@next-libs/clipboard";
 import { message } from "antd";
 import { ExportOutlined } from "@ant-design/icons";
 import { Annotation } from "brace";
 import fileSaver from "file-saver";
+import { FormItemWrapper } from "@next-libs/forms";
+import { ValidationRule } from "@ant-design/compatible/lib/form";
 import {
   CodeEditorItem,
   CodeEditor,
   CodeEditorItemWrapper,
 } from "./CodeEditor";
-import { FormItemWrapper } from "@next-libs/forms";
-import { ValidationRule } from "@ant-design/compatible/lib/form";
 
 describe("CodeEditorItem", () => {
   it("should work", async () => {
@@ -146,7 +145,6 @@ describe("CodeEditorItem", () => {
   it("should work with brick_next_yaml", async () => {
     const onChange = jest.fn();
     const onBlur = jest.fn();
-    const onErrorChange = jest.fn();
     const wrapper = mount(
       <CodeEditorItem
         mode="brick_next_yaml"
@@ -195,7 +193,78 @@ describe("CodeEditorItem", () => {
     expect(setAnnotationsMock).toHaveBeenCalledTimes(2);
     expect(mockSetMock).toHaveBeenCalled();
   });
+
+  it("should work with terraform", async () => {
+    const wrapper = mount(
+      <CodeEditorItem mode="terraform" value="" minLines={5} />
+    );
+    expect(wrapper.find(AceEditor).prop("mode")).toBe("text");
+    const mockSetMode = jest.fn();
+    const setAnnotationsMock = jest.fn();
+    wrapper.find(AceEditor).invoke("onLoad")({
+      getCursorPosition: jest.fn().mockReturnValue({
+        row: 1,
+        column: 1,
+      }),
+      getSession: jest.fn().mockReturnValue({
+        setAnnotations: setAnnotationsMock,
+        getAnnotations: jest.fn().mockReturnValueOnce([]),
+        setMode: mockSetMode,
+      }),
+      getLastVisibleRow: jest.fn().mockReturnValue(2),
+    });
+    expect(mockSetMode).toHaveBeenCalled();
+  });
+
+  it("should work with cel_yaml", async () => {
+    const wrapper = mount(
+      <CodeEditorItem
+        mode="cel_yaml"
+        value="any: 'has(req.one)'"
+        minLines={5}
+      />
+    );
+    expect(wrapper.find(AceEditor).prop("mode")).toBe("text");
+    const mockSetMode = jest.fn();
+    const setAnnotationsMock = jest.fn();
+    wrapper.find(AceEditor).invoke("onLoad")({
+      getCursorPosition: jest.fn().mockReturnValue({
+        row: 1,
+        column: 1,
+      }),
+      getSession: jest.fn().mockReturnValue({
+        setAnnotations: setAnnotationsMock,
+        getAnnotations: jest.fn().mockReturnValueOnce([]),
+        setMode: mockSetMode,
+      }),
+      getLastVisibleRow: jest.fn().mockReturnValue(2),
+    });
+    expect(mockSetMode).toHaveBeenCalled();
+  });
+
+  it("should work with cel", async () => {
+    const wrapper = mount(
+      <CodeEditorItem mode="cel" value="has(req.one)" minLines={5} />
+    );
+    expect(wrapper.find(AceEditor).prop("mode")).toBe("text");
+    const mockSetMode = jest.fn();
+    const setAnnotationsMock = jest.fn();
+    wrapper.find(AceEditor).invoke("onLoad")({
+      getCursorPosition: jest.fn().mockReturnValue({
+        row: 1,
+        column: 1,
+      }),
+      getSession: jest.fn().mockReturnValue({
+        setAnnotations: setAnnotationsMock,
+        getAnnotations: jest.fn().mockReturnValueOnce([]),
+        setMode: mockSetMode,
+      }),
+      getLastVisibleRow: jest.fn().mockReturnValue(2),
+    });
+    expect(mockSetMode).toHaveBeenCalled();
+  });
 });
+
 const formElement = {
   formUtils: {
     validateFields: jest.fn(),

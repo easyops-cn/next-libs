@@ -5,5 +5,8 @@ export default {
     Mode: jest.fn().mockImplementation(() => ({})),
     JsonHighlightRules: jest.fn().mockImplementation(() => ({})),
     TextHighlightRules: jest.fn().mockImplementation(() => ({})),
+    MatchingBraceOutdent: jest.fn().mockImplementation(() => ({})),
+    CstyleBehaviour: jest.fn().mockImplementation(() => ({})),
+    FoldMode: jest.fn().mockImplementation(() => ({})),
   })),
 };
