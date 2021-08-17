@@ -262,8 +262,9 @@ export class CommonSetting extends React.Component<
   // 为单个权限删除一个用户
   removeUser = (e: React.MouseEvent, item: string, record: any) => {
     this.batchHandlePermChange([record.data.action]);
-    this.setState({ temporaryUsers: [item], batchType: "remove" });
-    this.handleUsersChange();
+    this.setState({ temporaryUsers: [item], batchType: "remove" }, () => {
+      this.handleUsersChange();
+    });
   };
   // 关闭单个权限添加用户弹窗
   closeSingleAddUserModel = () => {
