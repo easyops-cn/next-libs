@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/permission-utils@4.0.2...@next-libs/permission-utils@4.0.3) (2021-08-17)
+
+
+### Bug Fixes
+
+* **permission-utils:** fix删除用户时操作类型还是add bug ([de7b7c5](https://github.com/easyops-cn/next-libs/commit/de7b7c590c83fd1099e9fef80b5cebc9b27b9f32))
+
+
+
+
+
 ## [4.0.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/permission-utils@4.0.1...@next-libs/permission-utils@4.0.2) (2021-08-12)
 
 **Note:** Version bump only for package @next-libs/permission-utils
