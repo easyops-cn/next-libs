@@ -75,17 +75,26 @@ export class SelectUserOrGroup extends React.Component<
         mode="multiple"
         placeholder="选择用户（组）"
         onChange={this.handleUsersChange}
+        optionFilterProp="label"
       >
         <Select.OptGroup label="用户">
           {users.map((item: any) => (
-            <Select.Option value={item.instanceId} key={item.instanceId}>
+            <Select.Option
+              value={item.instanceId}
+              key={item.instanceId}
+              label={item.name}
+            >
               {item.name}
             </Select.Option>
           ))}
         </Select.OptGroup>
         <Select.OptGroup label="用户组">
           {userGroups.map((item: any) => (
-            <Select.Option value={item.instanceId} key={item.instanceId}>
+            <Select.Option
+              value={item.instanceId}
+              key={item.instanceId}
+              label={item.name}
+            >
               {item.name}
             </Select.Option>
           ))}
