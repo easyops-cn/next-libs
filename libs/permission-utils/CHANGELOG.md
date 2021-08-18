@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/permission-utils@4.0.3...@next-libs/permission-utils@4.0.4) (2021-08-18)
+
+
+### Bug Fixes
+
+* **permission:** fix user/usergroup filter bug ([d383c02](https://github.com/easyops-cn/next-libs/commit/d383c02fb7d2435b3b7c699e363674c12c4182e3))
+
+
+
+
+
 ## [4.0.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/permission-utils@4.0.2...@next-libs/permission-utils@4.0.3) (2021-08-17)
 
 
