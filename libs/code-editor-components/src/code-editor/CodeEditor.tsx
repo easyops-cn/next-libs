@@ -10,27 +10,30 @@ import {
   isNil,
   some,
 } from "lodash";
-import style from "./CodeEditor.module.css";
-import shareStyle from "../share.module.css";
+import Ajv from "ajv";
 import { Annotation } from "brace";
-import { Clipboard } from "@next-libs/clipboard";
 import { ExportOutlined } from "@ant-design/icons";
+import { ValidationRule } from "@ant-design/compatible/lib/form";
 import { message, Tooltip } from "antd";
 import classNames from "classnames";
 import yaml from "js-yaml";
 import FileSaver from "file-saver";
 import i18n from "i18next";
+import storyboardJsonSchema from "@next-core/brick-types/.schema/storyboard.json";
+import { Clipboard } from "@next-libs/clipboard";
+import { FormItemWrapper } from "@next-libs/forms";
 import { NS_CODE_EDITOR_COMPONENTS, K } from "../i18n/constants";
 import { getBrickNextMode } from "../custom-mode/BrickNextMode";
 import { getBrickNextYamlMode } from "../custom-mode/BrickNextYamlMode";
 import { getTerraformMode } from "../custom-mode/TerraformMode";
-import Ajv from "ajv";
-import storyboardJsonSchema from "@next-core/brick-types/.schema/storyboard.json";
 import { brickNextCompleters } from "../custom-mode/brickNextUtil";
 import { CodeEditorProps } from "../interfaces";
-import { FormItemWrapper } from "@next-libs/forms";
-import { ValidationRule } from "@ant-design/compatible/lib/form";
 import { loadPluginsForCodeEditor } from "../brace";
+import { getCommonExpressionLanguageYamlMode } from "../custom-mode/CommonExpressionLanguageYamlMode";
+import { getCommonExpressionLanguageMode } from "../custom-mode/CommonExpressionLanguageMode";
+
+import style from "./CodeEditor.module.css";
+import shareStyle from "../share.module.css";
 
 export function CodeEditorItem(
   props: CodeEditorProps,
@@ -166,7 +169,12 @@ export function CodeEditorItem(
   }, [editor, props.customCompleters]);
 
   useEffect(() => {
-    if ((props.mode === "yaml" || props.mode === "brick_next_yaml") && editor) {
+    if (
+      (props.mode === "yaml" ||
+        props.mode === "brick_next_yaml" ||
+        props.mode === "cel_yaml") &&
+      editor
+    ) {
       const newAnnotations = yamlLint();
       const oldAnnotations = editor?.getSession()?.getAnnotations();
       if (!isEqual(oldAnnotations, newAnnotations)) {
@@ -178,7 +186,9 @@ export function CodeEditorItem(
   useEffect(() => {
     if (
       props.mode &&
-      ["brick_next", "brick_next_yaml", "json", "yaml"].includes(props.mode) &&
+      ["brick_next", "brick_next_yaml", "cel_yaml", "json", "yaml"].includes(
+        props.mode
+      ) &&
       jsonSchema
     ) {
       const ajv = new Ajv({
@@ -226,6 +236,12 @@ export function CodeEditorItem(
       } else if (props.mode === "terraform") {
         const customMode = new (getTerraformMode())();
         editor.getSession()?.setMode(customMode);
+      } else if (props.mode === "cel_yaml") {
+        const customMode = new (getCommonExpressionLanguageYamlMode())();
+        editor.getSession()?.setMode(customMode);
+      } else if (props.mode === "cel") {
+        const customMode = new (getCommonExpressionLanguageMode())();
+        editor.getSession()?.setMode(customMode);
       }
     }
   }, [editor, props.mode]);
@@ -267,6 +283,8 @@ export function CodeEditorItem(
         mode={
           (props.mode === "brick_next" ||
           props.mode === "brick_next_yaml" ||
+          props.mode === "cel_yaml" ||
+          props.mode === "cel" ||
           props.mode === "terraform"
             ? "text"
             : props.mode) ?? "text"
@@ -346,7 +364,7 @@ export function CodeEditor(props: CodeEditorProps): React.ReactElement {
           : `请填写正确的 ${
               props.mode === "brick_next"
                 ? "json"
-                : props.mode === "brick_next_yaml"
+                : props.mode === "brick_next_yaml" || props.mode === "cel_yaml"
                 ? "yaml"
                 : props.mode
             } 语法`
