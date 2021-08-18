@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@3.0.3...@next-libs/code-editor-components@3.1.0) (2021-08-18)
+
+
+### Features
+
+* support common expression language ([733db4a](https://github.com/easyops-cn/next-libs/commit/733db4a1cbb4d853474a5b7abfd04e7ab94c0bc0))
+
+
+
+
+
 ## [3.0.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@3.0.2...@next-libs/code-editor-components@3.0.3) (2021-08-12)
 
 
