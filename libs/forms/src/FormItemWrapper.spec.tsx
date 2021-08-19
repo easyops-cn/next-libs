@@ -55,7 +55,9 @@ describe("FormItemWrapper", () => {
       wrapper.find(Form.Item).prop("label") as React.ReactElement;
 
     const labelWrapper = shallow(<Label />);
-    expect(labelWrapper.text()).toEqual("hello<BrickAsComponent />");
+    expect(labelWrapper.text()).toEqual(
+      "hello<GeneralIcon /><BrickAsComponent />"
+    );
     expect(labelWrapper.find("Tooltip").prop("title")).toEqual(
       "这是一个 tooltips"
     );
