@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@3.1.2...@next-libs/basic-components@3.1.3) (2021-08-19)
+
+
+### Bug Fixes
+
+* fix ItemActionsComponent flicker ([202348f](https://github.com/easyops-cn/next-libs/commit/202348f393b5676e7c4d058df8d3406e82e613e7))
+
+
+
+
+
 ## [3.1.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@3.1.1...@next-libs/basic-components@3.1.2) (2021-08-19)
 
 
