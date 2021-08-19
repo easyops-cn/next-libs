@@ -72,7 +72,7 @@ exports[`Sidebar should work 1`] = `
           <i
             className="menuItemIcon"
           >
-            <GeneralIcon
+            <Memo(LegacyGeneralIcon)
               icon={
                 Object {
                   "icon": "bug",

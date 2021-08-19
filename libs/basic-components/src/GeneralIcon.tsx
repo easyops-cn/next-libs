@@ -43,12 +43,19 @@ function isGradientColor(
   );
 }
 
-export function GeneralIcon(props: MenuIconProps): React.ReactElement {
-  const { icon, bg, size, shape, reverseBgColor, onClick, showEmptyIcon } =
-    props;
+function LegacyGeneralIcon({
+  icon,
+  bg,
+  size,
+  shape,
+  reverseBgColor,
+  onClick,
+  showEmptyIcon,
+  style,
+}: MenuIconProps): React.ReactElement {
   let iconNode = <></>;
 
-  let style: Record<string, any>;
+  let mergedStyle: React.CSSProperties;
   if (!icon) return iconNode;
 
   if ("imgSrc" in icon) {
@@ -67,38 +74,38 @@ export function GeneralIcon(props: MenuIconProps): React.ReactElement {
         if (bg) {
           if (COLORS_MAP[icon.color as Colors]) {
             if (reverseBgColor) {
-              style = {
+              mergedStyle = {
                 color: "#ffffff",
                 backgroundColor: getColor(icon.color).color,
               };
             } else {
-              style = getColor(icon.color);
+              mergedStyle = getColor(icon.color);
             }
           } else {
-            style = {
+            mergedStyle = {
               color: "#ffffff",
               backgroundColor: icon.color,
             };
           }
         } else {
-          style = {
+          mergedStyle = {
             color: COLORS_MAP[icon.color as Colors]
               ? getColor(icon.color).color
               : icon.color,
           };
         }
       } else {
-        style = {
+        mergedStyle = {
           color: "transparent",
         };
       }
     }
 
-    if (props.style) {
-      if (style) {
-        Object.assign(style, props.style);
+    if (style) {
+      if (mergedStyle) {
+        Object.assign(mergedStyle, style);
       } else {
-        style = props.style;
+        mergedStyle = style;
       }
     }
 
@@ -114,7 +121,7 @@ export function GeneralIcon(props: MenuIconProps): React.ReactElement {
           icon={
             showEmptyIcon ? (
               <Icon
-                style={style}
+                style={mergedStyle}
                 component={() => (
                   <BrickIcon icon="empty-icon" category="common" />
                 )}
@@ -126,7 +133,7 @@ export function GeneralIcon(props: MenuIconProps): React.ReactElement {
           }
           size={size ?? "default"}
           shape={(shape as AvatarProps["shape"]) ?? "circle"}
-          style={style}
+          style={mergedStyle}
           className={classnames({
             [cssStyle.roundSquareBg]: shape === "round-square",
           })}
@@ -143,7 +150,7 @@ export function GeneralIcon(props: MenuIconProps): React.ReactElement {
         <LegacyIcon
           type={type}
           theme={icon.theme}
-          style={style}
+          style={mergedStyle}
           onClick={onClick}
           className={generalIconId}
         />
@@ -157,7 +164,7 @@ export function GeneralIcon(props: MenuIconProps): React.ReactElement {
 
       iconNode = (
         <Icon
-          style={{ ...style, verticalAlign: 0 }}
+          style={{ ...mergedStyle, verticalAlign: 0 }}
           component={() => (
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
@@ -172,7 +179,7 @@ export function GeneralIcon(props: MenuIconProps): React.ReactElement {
     if (icon.lib === "easyops") {
       iconNode = (
         <Icon
-          style={style}
+          style={mergedStyle}
           component={() => (
             <BrickIcon icon={icon.icon} category={icon.category} />
           )}
@@ -227,7 +234,7 @@ export function GeneralIcon(props: MenuIconProps): React.ReactElement {
           shape={(shape as AvatarProps["shape"]) ?? "circle"}
           style={{
             ...(isGradientColor(icon.color) ? { backgroundColor: "#fff" } : {}),
-            ...style,
+            ...mergedStyle,
           }}
           className={classnames({
             [cssStyle.roundSquareBg]: shape === "round-square",
@@ -239,3 +246,5 @@ export function GeneralIcon(props: MenuIconProps): React.ReactElement {
 
   return iconNode;
 }
+
+export const GeneralIcon = React.memo(LegacyGeneralIcon);
