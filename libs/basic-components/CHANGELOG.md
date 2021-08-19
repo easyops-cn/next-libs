@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@3.1.1...@next-libs/basic-components@3.1.2) (2021-08-19)
+
+
+### Bug Fixes
+
+* **general-icon:** useMemo istead of React.memo ([cc4e535](https://github.com/easyops-cn/next-libs/commit/cc4e535b9b91fb535b01891db62077280eada5f0))
+
+
+
+
+
 ## [3.1.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@3.1.0...@next-libs/basic-components@3.1.1) (2021-08-19)
 
 
