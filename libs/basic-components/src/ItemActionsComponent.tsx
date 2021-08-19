@@ -1,41 +1,56 @@
-import React from "react";
-import { Button, Dropdown, Menu } from "antd";
-import { BrickAsComponent } from "@next-core/brick-kit";
-import { GeneralIcon } from "./GeneralIcon";
+import React, { useCallback, useState } from "react";
+import { Button } from "antd";
 import { UseBrickConf } from "@next-core/brick-types";
+import { GeneralIcon } from "./GeneralIcon";
+import { ItemActionsMenu } from "./ItemActionsMenu";
 
 export interface ItemActionsComponentProps {
   filteredActions?: UseBrickConf[];
-  item?: Record<string, any>;
-  onVisibleChange?(visible: boolean): void;
+  item?: unknown;
+  onVisibleChange?: (visible: boolean) => void;
 }
 
-export function ItemActionsComponent(
-  props: ItemActionsComponentProps
-): React.ReactElement {
-  const { item, filteredActions, onVisibleChange } = props;
+export function ItemActionsComponent({
+  item,
+  filteredActions,
+  onVisibleChange,
+}: ItemActionsComponentProps): React.ReactElement {
+  const [visible, setVisible] = useState(false);
+  const [menuPosition, setMenuPosition] = React.useState<React.CSSProperties>();
+
+  const handleTriggerClick = useCallback(
+    (event: React.MouseEvent) => {
+      setMenuPosition({
+        left: event.clientX - 10,
+        top: event.clientY + 10,
+      });
+      setVisible(true);
+      onVisibleChange?.(true);
+    },
+    [onVisibleChange]
+  );
+
+  const handleMenuClick = useCallback(() => {
+    setVisible(false);
+    onVisibleChange?.(false);
+  }, [onVisibleChange]);
 
   if (!filteredActions?.length) {
     return null;
   }
 
   return (
-    <Dropdown
-      trigger={["click"]}
-      overlay={
-        <Menu>
-          {filteredActions.map((action, index) => (
-            <Menu.Item key={index}>
-              <BrickAsComponent useBrick={action} data={{ item }} />
-            </Menu.Item>
-          ))}
-        </Menu>
-      }
-      onVisibleChange={onVisibleChange}
-    >
-      <Button type="link" size="small">
+    <div>
+      <Button type="link" size="small" onClick={handleTriggerClick}>
         <GeneralIcon icon={{ lib: "fa", icon: "ellipsis-h" }} />
       </Button>
-    </Dropdown>
+      <ItemActionsMenu
+        visible={visible}
+        filteredActions={filteredActions}
+        item={item}
+        menuPosition={menuPosition}
+        onClick={handleMenuClick}
+      />
+    </div>
   );
 }
