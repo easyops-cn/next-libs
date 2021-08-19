@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@3.1.0...@next-libs/basic-components@3.1.1) (2021-08-19)
+
+
+### Bug Fixes
+
+* **general-icon:** fix icon flicker ([53ec01f](https://github.com/easyops-cn/next-libs/commit/53ec01febc02cad48ea8de72a6ccd68161d5786b))
+
+
+
+
+
 # [3.1.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@3.0.1...@next-libs/basic-components@3.1.0) (2021-08-12)
 
 
