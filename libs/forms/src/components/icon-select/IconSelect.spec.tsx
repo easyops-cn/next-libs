@@ -1,8 +1,8 @@
 import React from "react";
 import { mount } from "enzyme";
-import { IconSelectItem } from "./IconSelect";
 import { Modal, Input, Radio } from "antd";
-import { Colors } from "@next-libs/basic-components";
+import { GeneralIcon } from "@next-libs/basic-components";
+import { IconSelectItem } from "./IconSelect";
 
 describe("IconSelect", () => {
   it("should work", async () => {
@@ -21,16 +21,16 @@ describe("IconSelect", () => {
         handleCancel={handleCancel}
       />
     );
-    expect(wrapper.find("GeneralIcon").length).toBe(1);
+    expect(wrapper.find(GeneralIcon).length).toBe(1);
     expect(wrapper.find(".colorBox").length).toBe(0);
-    wrapper.find("GeneralIcon").simulate("click");
+    wrapper.find(GeneralIcon).parent().invoke("onClick")();
     expect(openModal).toHaveBeenCalled();
     wrapper.setProps({
       visible: true,
     });
     wrapper.update();
     expect(wrapper.find(".deleteWrapper").length).toBe(1);
-    expect(wrapper.find("GeneralIcon").length).not.toBeLessThan(2);
+    expect(wrapper.find(GeneralIcon).length).not.toBeLessThan(2);
     expect(wrapper.find(".colorBox").length).toBe(0);
     wrapper.find(Radio.Group).invoke("onChange")({
       target: {
@@ -70,7 +70,7 @@ describe("IconSelect", () => {
         setColor={true}
       />
     );
-    wrapper.find("GeneralIcon").simulate("click");
+    wrapper.find(GeneralIcon).parent().invoke("onClick")();
     expect(openModal).toHaveBeenCalled();
     wrapper.setProps({
       visible: true,
@@ -99,7 +99,7 @@ describe("IconSelect", () => {
         setColor={false}
       />
     );
-    expect(wrapper.find("GeneralIcon").prop("icon")).toMatchInlineSnapshot(`
+    expect(wrapper.find(GeneralIcon).prop("icon")).toMatchInlineSnapshot(`
       Object {
         "color": undefined,
         "icon": "image",
@@ -109,7 +109,7 @@ describe("IconSelect", () => {
     wrapper.setProps({
       defaultColor: "orange",
     });
-    expect(wrapper.find("GeneralIcon").prop("icon")).toMatchInlineSnapshot(`
+    expect(wrapper.find(GeneralIcon).prop("icon")).toMatchInlineSnapshot(`
       Object {
         "color": "orange",
         "icon": "image",

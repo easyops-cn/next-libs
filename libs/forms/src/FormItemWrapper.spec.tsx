@@ -55,9 +55,7 @@ describe("FormItemWrapper", () => {
       wrapper.find(Form.Item).prop("label") as React.ReactElement;
 
     const labelWrapper = shallow(<Label />);
-    expect(labelWrapper.text()).toEqual(
-      "hello<GeneralIcon /><BrickAsComponent />"
-    );
+    expect(labelWrapper.text()).toEqual("hello<BrickAsComponent />");
     expect(labelWrapper.find("Tooltip").prop("title")).toEqual(
       "这是一个 tooltips"
     );
@@ -66,7 +64,7 @@ describe("FormItemWrapper", () => {
   it("should work with formElement", () => {
     const wrapper = shallow<FormItemWrapperProps>(
       <FormItemWrapper
-        formElement={(formElement as unknown) as AbstractGeneralFormElement}
+        formElement={formElement as unknown as AbstractGeneralFormElement}
         name="username"
         label="hello"
         required={true}
@@ -96,11 +94,11 @@ describe("FormItemWrapper", () => {
 
     // with responsive layout
     wrapper.setProps({
-      formElement: ({
+      formElement: {
         ...formElement,
         labelCol: { xs: 24, md: { span: 12 }, xl: { span: 10, offset: 2 } },
         wrapperCol: { xs: 24, md: { span: 12 }, xl: { span: 10, offset: 2 } },
-      } as unknown) as AbstractGeneralFormElement,
+      } as unknown as AbstractGeneralFormElement,
     });
     expect(wrapper.find(Form.Item).props()).toMatchObject({
       label: undefined,
@@ -134,7 +132,7 @@ describe("FormItemWrapper", () => {
     const valuePropName = "someValue";
     const wrapper = mount<FormItemWrapperProps>(
       <FormItemWrapper
-        formElement={(formElement as unknown) as AbstractGeneralFormElement}
+        formElement={formElement as unknown as AbstractGeneralFormElement}
         name="username"
         label="hello"
         required={true}
@@ -171,7 +169,7 @@ describe("FormItemWrapper", () => {
   it("should return null when notRender is true", () => {
     const wrapper = shallow<FormItemWrapperProps>(
       <FormItemWrapper
-        formElement={(formElement as unknown) as AbstractGeneralFormElement}
+        formElement={formElement as unknown as AbstractGeneralFormElement}
         name="username"
         label="hello"
         required={true}
