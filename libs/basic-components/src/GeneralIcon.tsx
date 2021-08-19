@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Icon as LegacyIcon } from "@ant-design/compatible";
 import Icon from "@ant-design/icons";
 import { Avatar, AvatarProps } from "antd";
@@ -43,7 +43,7 @@ function isGradientColor(
   );
 }
 
-function LegacyGeneralIcon({
+export function GeneralIcon({
   icon,
   bg,
   size,
@@ -53,198 +53,200 @@ function LegacyGeneralIcon({
   showEmptyIcon,
   style,
 }: MenuIconProps): React.ReactElement {
-  let iconNode = <></>;
+  return useMemo(() => {
+    let iconNode = <></>;
 
-  let mergedStyle: React.CSSProperties;
-  if (!icon) return iconNode;
+    let mergedStyle: React.CSSProperties;
+    if (!icon) return iconNode;
 
-  if ("imgSrc" in icon) {
-    iconNode = (
-      <img
-        src={icon.imgSrc}
-        width={size}
-        height={size}
-        style={icon.imgStyle}
-        onClick={onClick}
-      />
-    );
-  } else if ("lib" in icon) {
-    if (icon?.color) {
-      if (!isGradientColor(icon.color)) {
-        if (bg) {
-          if (COLORS_MAP[icon.color as Colors]) {
-            if (reverseBgColor) {
+    if ("imgSrc" in icon) {
+      iconNode = (
+        <img
+          src={icon.imgSrc}
+          width={size}
+          height={size}
+          style={icon.imgStyle}
+          onClick={onClick}
+        />
+      );
+    } else if ("lib" in icon) {
+      if (icon?.color) {
+        if (!isGradientColor(icon.color)) {
+          if (bg) {
+            if (COLORS_MAP[icon.color as Colors]) {
+              if (reverseBgColor) {
+                mergedStyle = {
+                  color: "#ffffff",
+                  backgroundColor: getColor(icon.color).color,
+                };
+              } else {
+                mergedStyle = getColor(icon.color);
+              }
+            } else {
               mergedStyle = {
                 color: "#ffffff",
-                backgroundColor: getColor(icon.color).color,
+                backgroundColor: icon.color,
               };
-            } else {
-              mergedStyle = getColor(icon.color);
             }
           } else {
             mergedStyle = {
-              color: "#ffffff",
-              backgroundColor: icon.color,
+              color: COLORS_MAP[icon.color as Colors]
+                ? getColor(icon.color).color
+                : icon.color,
             };
           }
         } else {
           mergedStyle = {
-            color: COLORS_MAP[icon.color as Colors]
-              ? getColor(icon.color).color
-              : icon.color,
+            color: "transparent",
           };
         }
-      } else {
-        mergedStyle = {
-          color: "transparent",
-        };
+      }
+
+      if (style) {
+        if (mergedStyle) {
+          Object.assign(mergedStyle, style);
+        } else {
+          mergedStyle = style;
+        }
+      }
+
+      const generalIconId = uniqueId("generalIcon");
+
+      const iconType =
+        (icon as RefinedAntdIcon | FaIcon | EasyopsIcon)?.icon ||
+        (icon as LegacyAntdIcon)?.type;
+
+      if (!icon || (!iconType && showEmptyIcon)) {
+        return bg ? (
+          <Avatar
+            icon={
+              showEmptyIcon ? (
+                <Icon
+                  style={mergedStyle}
+                  component={() => (
+                    <BrickIcon icon="empty-icon" category="common" />
+                  )}
+                  onClick={onClick}
+                />
+              ) : (
+                iconNode
+              )
+            }
+            size={size ?? "default"}
+            shape={(shape as AvatarProps["shape"]) ?? "circle"}
+            style={mergedStyle}
+            className={classnames({
+              [cssStyle.roundSquareBg]: shape === "round-square",
+            })}
+          ></Avatar>
+        ) : (
+          iconNode
+        );
+      }
+
+      if (icon.lib === "antd") {
+        const type =
+          (icon as RefinedAntdIcon).icon || (icon as LegacyAntdIcon).type;
+        iconNode = (
+          <LegacyIcon
+            type={type}
+            theme={icon.theme}
+            style={mergedStyle}
+            onClick={onClick}
+            className={generalIconId}
+          />
+        );
+      }
+
+      if (icon.lib === "fa") {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        const faIcon = icon.prefix ? [icon.prefix, icon.icon] : icon.icon;
+
+        iconNode = (
+          <Icon
+            style={{ ...mergedStyle, verticalAlign: 0 }}
+            component={() => (
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
+              <FontAwesomeIcon icon={faIcon} className={cssStyle.faIcon} />
+            )}
+            onClick={onClick}
+            className={generalIconId}
+          />
+        );
+      }
+
+      if (icon.lib === "easyops") {
+        iconNode = (
+          <Icon
+            style={mergedStyle}
+            component={() => (
+              <BrickIcon icon={icon.icon} category={icon.category} />
+            )}
+            onClick={onClick}
+            className={generalIconId}
+          />
+        );
+      }
+
+      if (isGradientColor(icon.color)) {
+        let gradientIconDirection;
+        switch (icon.color?.direction) {
+          case "left-to-right":
+            gradientIconDirection = { x1: "0", y1: "0", x2: "1", y2: "0" };
+            break;
+          case "top-to-bottom":
+          default:
+            gradientIconDirection = { x1: "0", y1: "0", x2: "0", y2: "1" };
+        }
+
+        iconNode = (
+          <>
+            {iconNode}
+            <div style={{ position: "absolute" }}>
+              <svg width="0" height="0" aria-hidden={true} focusable={false}>
+                <defs>
+                  <linearGradient
+                    id={`linearGradient-${generalIconId}`}
+                    {...gradientIconDirection}
+                  >
+                    `
+                    <stop offset="0%" stopColor={icon.color.startColor} />
+                    <stop offset="100%" stopColor={icon.color.endColor} />
+                  </linearGradient>
+                </defs>
+              </svg>
+              <style>
+                {`.${generalIconId} svg path {
+                fill: url(#linearGradient-${generalIconId});
+            }`}
+              </style>
+            </div>
+          </>
+        );
+      }
+
+      if (bg) {
+        iconNode = (
+          <Avatar
+            icon={iconNode}
+            size={size ?? "default"}
+            shape={(shape as AvatarProps["shape"]) ?? "circle"}
+            style={{
+              ...(isGradientColor(icon.color)
+                ? { backgroundColor: "#fff" }
+                : {}),
+              ...mergedStyle,
+            }}
+            className={classnames({
+              [cssStyle.roundSquareBg]: shape === "round-square",
+            })}
+          ></Avatar>
+        );
       }
     }
 
-    if (style) {
-      if (mergedStyle) {
-        Object.assign(mergedStyle, style);
-      } else {
-        mergedStyle = style;
-      }
-    }
-
-    const generalIconId = uniqueId("generalIcon");
-
-    const iconType =
-      (icon as RefinedAntdIcon | FaIcon | EasyopsIcon)?.icon ||
-      (icon as LegacyAntdIcon)?.type;
-
-    if (!icon || (!iconType && showEmptyIcon)) {
-      return bg ? (
-        <Avatar
-          icon={
-            showEmptyIcon ? (
-              <Icon
-                style={mergedStyle}
-                component={() => (
-                  <BrickIcon icon="empty-icon" category="common" />
-                )}
-                onClick={onClick}
-              />
-            ) : (
-              iconNode
-            )
-          }
-          size={size ?? "default"}
-          shape={(shape as AvatarProps["shape"]) ?? "circle"}
-          style={mergedStyle}
-          className={classnames({
-            [cssStyle.roundSquareBg]: shape === "round-square",
-          })}
-        ></Avatar>
-      ) : (
-        iconNode
-      );
-    }
-
-    if (icon.lib === "antd") {
-      const type =
-        (icon as RefinedAntdIcon).icon || (icon as LegacyAntdIcon).type;
-      iconNode = (
-        <LegacyIcon
-          type={type}
-          theme={icon.theme}
-          style={mergedStyle}
-          onClick={onClick}
-          className={generalIconId}
-        />
-      );
-    }
-
-    if (icon.lib === "fa") {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      const faIcon = icon.prefix ? [icon.prefix, icon.icon] : icon.icon;
-
-      iconNode = (
-        <Icon
-          style={{ ...mergedStyle, verticalAlign: 0 }}
-          component={() => (
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            <FontAwesomeIcon icon={faIcon} className={cssStyle.faIcon} />
-          )}
-          onClick={onClick}
-          className={generalIconId}
-        />
-      );
-    }
-
-    if (icon.lib === "easyops") {
-      iconNode = (
-        <Icon
-          style={mergedStyle}
-          component={() => (
-            <BrickIcon icon={icon.icon} category={icon.category} />
-          )}
-          onClick={onClick}
-          className={generalIconId}
-        />
-      );
-    }
-
-    if (isGradientColor(icon.color)) {
-      let gradientIconDirection;
-      switch (icon.color?.direction) {
-        case "left-to-right":
-          gradientIconDirection = { x1: "0", y1: "0", x2: "1", y2: "0" };
-          break;
-        case "top-to-bottom":
-        default:
-          gradientIconDirection = { x1: "0", y1: "0", x2: "0", y2: "1" };
-      }
-
-      iconNode = (
-        <>
-          {iconNode}
-          <div style={{ position: "absolute" }}>
-            <svg width="0" height="0" aria-hidden={true} focusable={false}>
-              <defs>
-                <linearGradient
-                  id={`linearGradient-${generalIconId}`}
-                  {...gradientIconDirection}
-                >
-                  `
-                  <stop offset="0%" stopColor={icon.color.startColor} />
-                  <stop offset="100%" stopColor={icon.color.endColor} />
-                </linearGradient>
-              </defs>
-            </svg>
-            <style>
-              {`.${generalIconId} svg path {
-              fill: url(#linearGradient-${generalIconId});
-          }`}
-            </style>
-          </div>
-        </>
-      );
-    }
-
-    if (bg) {
-      iconNode = (
-        <Avatar
-          icon={iconNode}
-          size={size ?? "default"}
-          shape={(shape as AvatarProps["shape"]) ?? "circle"}
-          style={{
-            ...(isGradientColor(icon.color) ? { backgroundColor: "#fff" } : {}),
-            ...mergedStyle,
-          }}
-          className={classnames({
-            [cssStyle.roundSquareBg]: shape === "round-square",
-          })}
-        ></Avatar>
-      );
-    }
-  }
-
-  return iconNode;
+    return iconNode;
+  }, [bg, icon, onClick, reverseBgColor, shape, showEmptyIcon, size, style]);
 }
-
-export const GeneralIcon = React.memo(LegacyGeneralIcon);
