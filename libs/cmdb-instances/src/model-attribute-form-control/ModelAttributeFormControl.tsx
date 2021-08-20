@@ -236,6 +236,7 @@ export class ModelAttributeFormControl extends Component<
           );
         }
         if (
+          attribute.value.regex &&
           (attribute.value.regex as string[]).length <= 5 &&
           (!type || type === FormControlTypeEnum.RADIO)
         ) {
@@ -276,7 +277,11 @@ export class ModelAttributeFormControl extends Component<
       case ModelAttributeValueType.ENUMS:
         return FormControlTypeEnum.SELECT;
       default:
-        throw new Error(`unsupported type: ${attribute.value.type}`);
+        throw new Error(
+          i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.TYPE_NO_SUPPORT_EDIT}`, {
+            type: attribute.value.type,
+          })
+        );
     }
   }
 
@@ -406,12 +411,13 @@ export class ModelAttributeFormControl extends Component<
     const {
       value,
       formControl: { type, ...restProps },
+      errorMessage,
     } = this.state;
     // const unsupportText = `"${type}"类型暂时不支持编辑`;
-    const unsupportText = i18n.t(
-      `${NS_LIBS_CMDB_INSTANCES}:${K.TYPE_NO_SUPPORT_EDIT}`,
-      { type }
-    );
+    // const unsupportText = i18n.t(
+    //   `${NS_LIBS_CMDB_INSTANCES}:${K.TYPE_NO_SUPPORT_EDIT}`,
+    //   { type }
+    // );
     let jsonSchema: any;
     if (attribute?.value?.type === "json" && attribute?.value?.regex) {
       jsonSchema = JSON.parse(attribute?.value?.regex);
@@ -606,13 +612,21 @@ export class ModelAttributeFormControl extends Component<
 
       default:
         return (
-          <Input
-            value={unsupportText}
-            readOnly
-            disabled
-            className={this.props.className}
-            style={this.props.style}
-          />
+          // <Input
+          //   value={errorMessage}
+          //   readOnly
+          //   disabled
+          //   className={this.props.className}
+          //   style={this.props.style}
+          // />
+          <div
+            style={{
+              color: "var(--theme-red-color)",
+              ...this.props.style,
+            }}
+          >
+            {errorMessage}
+          </div>
         );
     }
   };

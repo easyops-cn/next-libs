@@ -303,7 +303,13 @@ describe("ModelAttributeFormControl", () => {
             type: "test",
           },
         });
-      }).toThrowError(new Error("unsupported type: test"));
+      }).toThrowError(
+        new Error(
+          i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.TYPE_NO_SUPPORT_EDIT}`, {
+            type: "test",
+          })
+        )
+      );
     });
   });
 
