@@ -1,46 +1,56 @@
 import { AceLanguageRules, AceTokenFunction } from "../interfaces";
 
+const celKeywords = {
+  keyword:
+    "in|as|break|const|continue|else|for|function|if|import|let|loop|package|namespace|return|var|void|while",
+  "constant.language": "null",
+  "constant.language.boolean": "true|false",
+  "support.function":
+    // Built-in functions
+    "bytes|double|duration|dyn|int|matches|size|string|timestamp|type|uint|" +
+    // Built-in extensions
+    "base64|" +
+    // Built-in macros
+    "has|" +
+    // EasyOps primitive_type_ext
+    "printf|isEmpty|repeatArray|" +
+    // EasyOps dyn_type_ext
+    "mergeList",
+};
+
+const celInstanceMethodKeywords = {
+  "support.function":
+    // Built-in methods
+    "contains|endsWith|matches|startsWith|" +
+    // Built-in datetime methods
+    "getDate|getDayOfMonth|getDayOfWeek|getDayOfYear|getFullYear|getHours|getMilliseconds|getMinutes|getMonth|getSeconds|" +
+    // Built-in extensions
+    "charAt|indexOf|lastIndexOf|lowerAscii|replace|split|substring|trim|upperAscii|" +
+    // Built-in macros
+    "all|exists|exists_one|map|filter|" +
+    // EasyOps primitive_type_ext
+    "decodeb64|truncate|parseJSON|parseYAML|parseURL|isBlank|" +
+    // EasyOps dyn_type_ext
+    "marshalJSON|marshalYAML|merge|repeat",
+};
+
+export function getCommonExpressionLanguageCompleterWords(): string[] {
+  // Reserved keywords are not used in CEL actually.
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { keyword, ...restKeywords } = celKeywords;
+  return Object.values(restKeywords)
+    .concat(Object.values(celInstanceMethodKeywords))
+    .flatMap((words) => words.split("|"));
+}
+
 export function getCommonExpressionLanguageRules({
   yamlContext,
 }: {
   yamlContext?: "single-quoted" | "double-quoted" | "multi-line";
 } = {}): AceLanguageRules {
-  const keywordMapper = keywordTokenFactory(
-    {
-      keyword:
-        "in|as|break|const|continue|else|for|function|if|import|let|loop|package|namespace|return|var|void|while",
-      "constant.language": "null",
-      "constant.language.boolean": "true|false",
-      "support.function":
-        // Built-in functions
-        "bool|bytes|double|duration|dyn|int|list|map|matches|size|string|timestamp|type|uint|E|" +
-        // Built-in extensions
-        "base64|" +
-        // Built-in macros
-        "has|" +
-        // EasyOps primitive_type_ext
-        "printf|isEmpty|repeatArray|" +
-        // EasyOps dyn_type_ext
-        "mergeList",
-    },
-    "identifier"
-  );
+  const keywordMapper = keywordTokenFactory(celKeywords, "identifier");
   const instanceMethodKeywordMapper = keywordTokenFactory(
-    {
-      "support.function":
-        // Built-in methods
-        "contains|endsWith|matches|startsWith|" +
-        // Built-in datetime methods
-        "getDate|getDayOfMonth|getDayOfWeek|getDayOfYear|getFullYear|getHours|getMilliseconds|getMinutes|getMonth|getSeconds|" +
-        // Built-in extensions
-        "charAt|indexOf|lastIndexOf|lowerAscii|replace|split|substring|trim|upperAscii|" +
-        // Built-in macros
-        "all|exists|exists_one|map|filter|" +
-        // EasyOps primitive_type_ext
-        "decodeb64|truncate|parseJSON|parseYAML|parseURL|isBlank|" +
-        // EasyOps dyn_type_ext
-        "marshalJSON|marshalYAML|merge|repeat",
-    },
+    celInstanceMethodKeywords,
     "identifier"
   );
 

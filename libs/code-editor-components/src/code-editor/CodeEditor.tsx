@@ -1,15 +1,6 @@
-import React, { useState, useEffect, useRef, forwardRef } from "react";
+import React, { useState, useEffect, useRef, forwardRef, useMemo } from "react";
 import AceEditor, { IEditorProps } from "react-ace";
-import {
-  isEqual,
-  isEmpty,
-  uniqWith,
-  isArray,
-  isString,
-  map,
-  isNil,
-  some,
-} from "lodash";
+import { isEqual, isEmpty, uniqWith, isString, map, isNil, some } from "lodash";
 import Ajv from "ajv";
 import { Annotation } from "brace";
 import { ExportOutlined } from "@ant-design/icons";
@@ -31,6 +22,7 @@ import { CodeEditorProps } from "../interfaces";
 import { loadPluginsForCodeEditor } from "../brace";
 import { getCommonExpressionLanguageYamlMode } from "../custom-mode/CommonExpressionLanguageYamlMode";
 import { getCommonExpressionLanguageMode } from "../custom-mode/CommonExpressionLanguageMode";
+import { getCommonExpressionLanguageCompleterWords } from "../custom-mode/CommonExpressionLanguageRules";
 
 import style from "./CodeEditor.module.css";
 import shareStyle from "../share.module.css";
@@ -47,6 +39,17 @@ export function CodeEditorItem(
   const brickNextError = useRef(null);
   const compileSchema = useRef(false);
   const customCompletersIndex = useRef(null);
+
+  const editorCompleters = useMemo(
+    () =>
+      Array.isArray(props.customCompleters)
+        ? props.customCompleters
+        : (props.mode === "cel" || props.mode === "cel_yaml") &&
+          !props.celCompletersDisabled
+        ? getCommonExpressionLanguageCompleterWords()
+        : [],
+    [props.celCompletersDisabled, props.customCompleters, props.mode]
+  );
 
   useEffect(() => {
     let schemaValue = props.jsonSchema;
@@ -133,7 +136,7 @@ export function CodeEditorItem(
 
   useEffect(() => {
     if (editor) {
-      if (isArray(props.customCompleters) && !isEmpty(props.customCompleters)) {
+      if (editorCompleters.length > 0) {
         if (isNil(customCompletersIndex.current)) {
           customCompletersIndex.current = editor.completers.length;
         }
@@ -147,7 +150,7 @@ export function CodeEditorItem(
           ) {
             callback(
               null,
-              map(props.customCompleters, (v) => {
+              map(editorCompleters, (v) => {
                 if (isString(v)) {
                   return {
                     caption: v,
@@ -166,7 +169,7 @@ export function CodeEditorItem(
         }
       }
     }
-  }, [editor, props.customCompleters]);
+  }, [editor, editorCompleters]);
 
   useEffect(() => {
     if (

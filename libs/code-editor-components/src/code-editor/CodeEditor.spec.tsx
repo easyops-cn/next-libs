@@ -222,11 +222,13 @@ describe("CodeEditorItem", () => {
         mode="cel_yaml"
         value="any: 'has(req.one)'"
         minLines={5}
+        celCompletersDisabled
       />
     );
     expect(wrapper.find(AceEditor).prop("mode")).toBe("text");
     const mockSetMode = jest.fn();
     const setAnnotationsMock = jest.fn();
+    const completers = [{}];
     wrapper.find(AceEditor).invoke("onLoad")({
       getCursorPosition: jest.fn().mockReturnValue({
         row: 1,
@@ -240,6 +242,7 @@ describe("CodeEditorItem", () => {
       getLastVisibleRow: jest.fn().mockReturnValue(2),
     });
     expect(mockSetMode).toHaveBeenCalled();
+    expect(completers.length).toBe(1);
   });
 
   it("should work with cel", async () => {
@@ -249,6 +252,7 @@ describe("CodeEditorItem", () => {
     expect(wrapper.find(AceEditor).prop("mode")).toBe("text");
     const mockSetMode = jest.fn();
     const setAnnotationsMock = jest.fn();
+    const completers = [{}];
     wrapper.find(AceEditor).invoke("onLoad")({
       getCursorPosition: jest.fn().mockReturnValue({
         row: 1,
@@ -260,8 +264,10 @@ describe("CodeEditorItem", () => {
         setMode: mockSetMode,
       }),
       getLastVisibleRow: jest.fn().mockReturnValue(2),
+      completers,
     });
     expect(mockSetMode).toHaveBeenCalled();
+    expect(completers.length).toBe(2);
   });
 });
 

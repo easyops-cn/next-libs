@@ -1,4 +1,7 @@
-import { getCommonExpressionLanguageRules } from "./CommonExpressionLanguageRules";
+import {
+  getCommonExpressionLanguageCompleterWords,
+  getCommonExpressionLanguageRules,
+} from "./CommonExpressionLanguageRules";
 import { AceTokenFunction } from "../interfaces";
 
 describe("CommonExpressionLanguageRules", () => {
@@ -56,5 +59,13 @@ describe("CommonExpressionLanguageRules", () => {
         className.startsWith("cel-double-quoted-")
       )
     ).toBe(true);
+  });
+});
+
+describe("getCommonExpressionLanguageCompleterWords", () => {
+  it("should work", () => {
+    const words = getCommonExpressionLanguageCompleterWords();
+    expect(words.length).toBeGreaterThan(0);
+    expect(words.every((word) => typeof word === "string" && word)).toBe(true);
   });
 });
