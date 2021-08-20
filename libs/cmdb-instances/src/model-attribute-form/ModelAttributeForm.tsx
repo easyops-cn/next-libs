@@ -333,36 +333,41 @@ export class ModelAttributeForm extends Component<
     ].includes(attribute.value.type as ModelAttributeValueType)
       ? { required, whitespace: required, message: "" }
       : { required, message: "" };
-    const type = ModelAttributeFormControl.computeFormControlType(attribute);
-    if (
-      attribute.value.regex === null ||
-      attribute.value.type === ModelAttributeValueType.INTEGER ||
-      attribute.value.type === ModelAttributeValueType.ENUMS
-    ) {
+    try {
+      const type = ModelAttributeFormControl.computeFormControlType(attribute);
+      if (
+        attribute.value.regex === null ||
+        attribute.value.type === ModelAttributeValueType.INTEGER ||
+        attribute.value.type === ModelAttributeValueType.ENUMS
+      ) {
+        return [requiredRule];
+      }
+
+      if (type === FormControlTypeEnum.URL) {
+        return [
+          requiredRule,
+          { validator: ModelAttributeForm.urlValidator(attribute) },
+        ];
+      }
+
+      if (type === FormControlTypeEnum.TAGS) {
+        return [
+          requiredRule,
+          { validator: ModelAttributeForm.tagsValidator(attribute) },
+        ];
+      }
+
+      return [
+        requiredRule,
+        {
+          pattern: ModelAttributeFormControl.computePattern(attribute),
+          message: i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.NOT_MEET_REGEX}`),
+        },
+      ];
+    } catch (error) {
+      // 例如无枚举值、结构体未添加字段等
       return [requiredRule];
     }
-
-    if (type === FormControlTypeEnum.URL) {
-      return [
-        requiredRule,
-        { validator: ModelAttributeForm.urlValidator(attribute) },
-      ];
-    }
-
-    if (type === FormControlTypeEnum.TAGS) {
-      return [
-        requiredRule,
-        { validator: ModelAttributeForm.tagsValidator(attribute) },
-      ];
-    }
-
-    return [
-      requiredRule,
-      {
-        pattern: ModelAttributeFormControl.computePattern(attribute),
-        message: i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.NOT_MEET_REGEX}`),
-      },
-    ];
   }
 
   handleCheckContinueCreating = (e: any) => {
