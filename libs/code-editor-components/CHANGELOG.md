@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.2.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@3.1.3...@next-libs/code-editor-components@3.2.0) (2021-08-20)
+
+
+### Features
+
+* support cel completers ([7a32116](https://github.com/easyops-cn/next-libs/commit/7a32116038fccb742dba71f8a18cf0915f303424))
+
+
+
+
+
 ## [3.1.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@3.1.2...@next-libs/code-editor-components@3.1.3) (2021-08-19)
 
 **Note:** Version bump only for package @next-libs/code-editor-components
