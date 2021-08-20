@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.10](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.0.9...@next-libs/cmdb-instances@6.0.10) (2021-08-20)
+
+
+### Bug Fixes
+
+* **model-attribute-form:** 修复CANCEL的i18n问题 ([0620b8b](https://github.com/easyops-cn/next-libs/commit/0620b8bdd7c9f8bfb65582bb7c1c247fe3c9a53c))
+
+
+
+
+
 ## [6.0.9](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.0.8...@next-libs/cmdb-instances@6.0.9) (2021-08-20)
 
 
