@@ -90,7 +90,6 @@ export class ModelAttributeForm extends Component<
 
   static defaultProps = {
     showCancelButton: true,
-    cancelText: i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CANCEL}`),
     cancelType: "default" as ButtonType,
   };
 
@@ -552,7 +551,7 @@ export class ModelAttributeForm extends Component<
                 style={{ marginLeft: 8 }}
                 onClick={this.handleCancel}
               >
-                {cancelText}
+                {cancelText ?? i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CANCEL}`)}
               </Button>
             )}
           </Form.Item>
