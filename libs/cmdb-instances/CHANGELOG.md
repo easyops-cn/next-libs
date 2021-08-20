@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.9](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.0.8...@next-libs/cmdb-instances@6.0.9) (2021-08-20)
+
+
+### Bug Fixes
+
+* **model-attribute-form:** 修复结构体无属性字段,无枚举值时不应该整体报错的问题 ([0c035c1](https://github.com/easyops-cn/next-libs/commit/0c035c113b70ec4de1a9cb7f3bb09265ec3bc5d1))
+
+
+
+
+
 ## [6.0.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.0.7...@next-libs/cmdb-instances@6.0.8) (2021-08-19)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
