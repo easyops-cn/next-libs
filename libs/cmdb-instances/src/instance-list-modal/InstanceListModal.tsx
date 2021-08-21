@@ -7,7 +7,8 @@ import { CmdbModels, InstanceApi_postSearch } from "@next-sdk/cmdb-sdk";
 import { InstanceList } from "../instance-list/InstanceList";
 import { InstanceListPresetConfigs } from "../instance-list-table/interfaces";
 import { Query } from "../instance-list-table";
-
+import { addResourceBundle } from "../i18n";
+addResourceBundle();
 export interface InstanceListModalProps {
   objectMap: { [key: string]: Partial<CmdbModels.ModelCmdbObject> };
   objectId: string;
