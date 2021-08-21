@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@3.0.5...@next-libs/forms@3.1.0) (2021-08-21)
+
+
+### Features
+
+* add i18n refs INSTANCE-1903 ([150c5e9](https://github.com/easyops-cn/next-libs/commit/150c5e9bd3997cf82eda7b0c0026d25c555fcacb))
+
+
+
+
+
 ## [3.0.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@3.0.4...@next-libs/forms@3.0.5) (2021-08-19)
 
 **Note:** Version bump only for package @next-libs/forms

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.1.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.0.11...@next-libs/cmdb-instances@6.1.0) (2021-08-21)
+
+
+### Features
+
+* add i18n refs INSTANCE-1903 ([150c5e9](https://github.com/easyops-cn/next-libs/commit/150c5e9bd3997cf82eda7b0c0026d25c555fcacb))
+
+
+
+
+
 ## [6.0.11](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.0.10...@next-libs/cmdb-instances@6.0.11) (2021-08-20)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
