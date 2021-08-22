@@ -67,6 +67,8 @@ import { ModelAttributeValueType } from "../model-attribute-form-control/ModelAt
 import { IconButton } from "./IconButton";
 import { changeQueryWithCustomRules } from "../processors";
 import { ModelObjectAttr } from "@next-sdk/cmdb-sdk/dist/types/model/cmdb";
+import { addResourceBundle } from "../i18n";
+addResourceBundle();
 export interface InstanceListPresetConfigs {
   query?: Record<string, any>;
   fieldIds?: string[];

@@ -49,7 +49,8 @@ import {
 } from "./constants";
 import { isArray } from "util";
 import { UseBrickConf } from "@next-core/brick-types";
-
+import { addResourceBundle } from "../i18n";
+addResourceBundle();
 export interface AttrCustomConfigs {
   [attrId: string]: LegacyCustomComponent;
 }

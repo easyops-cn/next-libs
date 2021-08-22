@@ -1,8 +1,6 @@
 import { ModelObjectAttrValue } from "@next-sdk/cmdb-sdk/dist/types/model/cmdb";
 import i18n from "i18next";
 import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
-import { addResourceBundle } from "../i18n";
-addResourceBundle();
 
 export const CMDB_RESOURCE_FIELDS_SETTINGS = {
   defaultFields: {
