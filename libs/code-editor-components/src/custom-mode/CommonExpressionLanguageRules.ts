@@ -1,3 +1,4 @@
+import { IEditorProps } from "react-ace";
 import { AceLanguageRules, AceTokenFunction } from "../interfaces";
 
 const celKeywords = {
@@ -34,14 +35,41 @@ const celInstanceMethodKeywords = {
     "marshalJSON|marshalYAML|merge|repeat",
 };
 
+let memoizedCompleterWords: string[];
+
 export function getCommonExpressionLanguageCompleterWords(): string[] {
-  // Reserved keywords are not used in CEL actually.
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { keyword, ...restKeywords } = celKeywords;
-  return Object.values(restKeywords)
-    .concat(Object.values(celInstanceMethodKeywords))
-    .flatMap((words) => words.split("|"));
+  if (!memoizedCompleterWords) {
+    // Reserved keywords are not used in CEL actually.
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { keyword, ...restKeywords } = celKeywords;
+    memoizedCompleterWords = Object.values(restKeywords)
+      .concat(Object.values(celInstanceMethodKeywords))
+      .flatMap((words) => words.split("|"));
+  }
+  return memoizedCompleterWords;
 }
+
+export const CommonExpressionLanguageCompleter = {
+  getCompletions(
+    editor: IEditorProps,
+    session: any,
+    pos: any,
+    prefix: string,
+    callback: any
+  ): void {
+    callback(
+      null,
+      getCommonExpressionLanguageCompleterWords().map((v) =>
+        typeof v === "string"
+          ? {
+              caption: v,
+              value: v,
+            }
+          : v
+      )
+    );
+  },
+};
 
 export function getCommonExpressionLanguageRules({
   yamlContext,

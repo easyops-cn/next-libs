@@ -222,7 +222,6 @@ describe("CodeEditorItem", () => {
         mode="cel_yaml"
         value="any: 'has(req.one)'"
         minLines={5}
-        celCompletersDisabled
       />
     );
     expect(wrapper.find(AceEditor).prop("mode")).toBe("text");
@@ -267,7 +266,7 @@ describe("CodeEditorItem", () => {
       completers,
     });
     expect(mockSetMode).toHaveBeenCalled();
-    expect(completers.length).toBe(2);
+    expect(completers.length).toBe(1);
   });
 });
 

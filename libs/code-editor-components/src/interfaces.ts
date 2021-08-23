@@ -40,7 +40,6 @@ export interface CodeEditorProps extends FormItemWrapperProps {
       }[];
   loadYamlInJsonMode?: boolean;
   showPrintMargin?: boolean;
-  celCompletersDisabled?: boolean;
 }
 
 export interface AceLanguageRules {
