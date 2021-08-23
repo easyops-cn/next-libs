@@ -6,8 +6,6 @@ import i18n from "i18next";
 import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
 import { Settings } from "./SettingsContainer";
 import styles from "./InstanceListTable.module.css";
-import { addResourceBundle } from "../i18n";
-addResourceBundle();
 interface MoreButtonsContainerProps {
   modelData: Partial<CmdbModels.ModelCmdbObject>;
   currentFields?: string[];

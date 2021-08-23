@@ -1,6 +1,8 @@
 import i18n from "i18next";
 import { K, NS_LIBS_FORM } from "./i18n/constants";
 import { FormItemWrapperProps } from "./FormItemWrapper";
+import { addResourceBundle } from "./i18n";
+addResourceBundle();
 export function getDefaultMessage(
   attr: string,
   props: FormItemWrapperProps
