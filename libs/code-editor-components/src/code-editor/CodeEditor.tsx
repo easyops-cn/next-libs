@@ -22,7 +22,7 @@ import { CodeEditorProps } from "../interfaces";
 import { loadPluginsForCodeEditor } from "../brace";
 import { getCommonExpressionLanguageYamlMode } from "../custom-mode/CommonExpressionLanguageYamlMode";
 import { getCommonExpressionLanguageMode } from "../custom-mode/CommonExpressionLanguageMode";
-import { getCommonExpressionLanguageCompleterWords } from "../custom-mode/CommonExpressionLanguageRules";
+import { CommonExpressionLanguageCompleter } from "../custom-mode/CommonExpressionLanguageRules";
 
 import style from "./CodeEditor.module.css";
 import shareStyle from "../share.module.css";
@@ -38,18 +38,6 @@ export function CodeEditorItem(
   const [jsonSchema, setJsonSchema] = useState(props.jsonSchema);
   const brickNextError = useRef(null);
   const compileSchema = useRef(false);
-  const customCompletersIndex = useRef(null);
-
-  const editorCompleters = useMemo(
-    () =>
-      Array.isArray(props.customCompleters)
-        ? props.customCompleters
-        : (props.mode === "cel" || props.mode === "cel_yaml") &&
-          !props.celCompletersDisabled
-        ? getCommonExpressionLanguageCompleterWords()
-        : [],
-    [props.celCompletersDisabled, props.customCompleters, props.mode]
-  );
 
   useEffect(() => {
     let schemaValue = props.jsonSchema;
@@ -134,42 +122,47 @@ export function CodeEditorItem(
     return [...yamlLintAnnotations, ...schemaAnnotations];
   };
 
+  const localCompleter = useMemo(
+    () => ({
+      getCompletions(
+        editor: IEditorProps,
+        session: any,
+        pos: any,
+        prefix: string,
+        callback: any
+      ) {
+        callback(
+          null,
+          map(props.customCompleters, (v) => {
+            if (isString(v)) {
+              return {
+                caption: v,
+                value: v,
+              };
+            } else {
+              return v;
+            }
+          })
+        );
+      },
+    }),
+    [props.customCompleters]
+  );
+
   useEffect(() => {
-    if (editor) {
-      if (editorCompleters.length > 0) {
-        if (isNil(customCompletersIndex.current)) {
-          customCompletersIndex.current = editor.completers.length;
+    if (editor && editor.completers) {
+      const completersShallowClone = [...editor.completers];
+      const index = completersShallowClone.indexOf(localCompleter);
+      if (props.customCompleters?.length) {
+        if (index === -1) {
+          completersShallowClone.push(localCompleter);
         }
-        editor.completers.splice(customCompletersIndex.current, 1, {
-          getCompletions(
-            editor: IEditorProps,
-            session: any,
-            pos: any,
-            prefix: string,
-            callback: any
-          ) {
-            callback(
-              null,
-              map(editorCompleters, (v) => {
-                if (isString(v)) {
-                  return {
-                    caption: v,
-                    value: v,
-                  };
-                } else {
-                  return v;
-                }
-              })
-            );
-          },
-        });
-      } else {
-        if (!isNil(customCompletersIndex.current)) {
-          editor.completers.splice(customCompletersIndex.current, 1);
-        }
+      } else if (index > -1) {
+        completersShallowClone.splice(index, 1);
       }
+      editor.completers = completersShallowClone;
     }
-  }, [editor, editorCompleters]);
+  }, [editor, localCompleter, props.customCompleters]);
 
   useEffect(() => {
     if (
@@ -242,9 +235,15 @@ export function CodeEditorItem(
       } else if (props.mode === "cel_yaml") {
         const customMode = new (getCommonExpressionLanguageYamlMode())();
         editor.getSession()?.setMode(customMode);
+        if (!editor.completers?.includes(CommonExpressionLanguageCompleter)) {
+          editor.completers?.push(CommonExpressionLanguageCompleter);
+        }
       } else if (props.mode === "cel") {
         const customMode = new (getCommonExpressionLanguageMode())();
         editor.getSession()?.setMode(customMode);
+        if (!editor.completers?.includes(CommonExpressionLanguageCompleter)) {
+          editor.completers?.push(CommonExpressionLanguageCompleter);
+        }
       }
     }
   }, [editor, props.mode]);
