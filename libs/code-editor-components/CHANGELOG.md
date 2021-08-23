@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@3.2.3...@next-libs/code-editor-components@3.2.4) (2021-08-23)
+
+
+### Bug Fixes
+
+* refine completers ([f05a319](https://github.com/easyops-cn/next-libs/commit/f05a319c4a08f514a18c87f66fc35098f80a013d))
+
+
+
+
+
 ## [3.2.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@3.2.2...@next-libs/code-editor-components@3.2.3) (2021-08-23)
 
 **Note:** Version bump only for package @next-libs/code-editor-components
