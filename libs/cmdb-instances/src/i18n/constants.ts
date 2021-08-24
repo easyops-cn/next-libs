@@ -93,6 +93,7 @@ export enum K {
   ALL_CLUSTER = "ALL_CLUSTER",
   FREE_SELECTION = "FREE_SELECTION",
   APP_SELECTION = "APP_SELECTION",
+  ATTRIBUTE_NAME_REQUIRED = "ATTRIBUTE_NAME_REQUIRED",
 }
 
 export type Locale = { [key in K]: string };

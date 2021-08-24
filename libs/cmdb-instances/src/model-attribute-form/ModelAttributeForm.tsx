@@ -330,8 +330,21 @@ export class ModelAttributeForm extends Component<
       ModelAttributeValueType.STRING,
       ModelAttributeValueType.JSON,
     ].includes(attribute.value.type as ModelAttributeValueType)
-      ? { required, whitespace: required, message: "" }
-      : { required, message: "" };
+      ? {
+          required,
+          whitespace: required,
+          message: i18n.t(
+            `${NS_LIBS_CMDB_INSTANCES}:${K.ATTRIBUTE_NAME_REQUIRED}`,
+            { attribute_name: attribute.name }
+          ),
+        }
+      : {
+          required,
+          message: i18n.t(
+            `${NS_LIBS_CMDB_INSTANCES}:${K.ATTRIBUTE_NAME_REQUIRED}`,
+            { attribute_name: attribute.name }
+          ),
+        };
     try {
       const type = ModelAttributeFormControl.computeFormControlType(attribute);
       if (
