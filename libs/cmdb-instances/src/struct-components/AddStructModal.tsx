@@ -233,16 +233,32 @@ export class AddStructModal extends React.Component<
       }
       case "json": {
         formType = (
-          <CodeEditor
-            value={defaultValue}
-            mode={"json"}
-            maxLines={"Infinity"}
-            highlightActiveLine={true}
-            onChange={(e: any) => this.handleValueChange(e, define)}
-            minLines={3}
-            showLineNumbers={true}
-            showPrintMargin={false}
-          />
+          <div>
+            <CodeEditor
+              value={defaultValue}
+              mode={"json"}
+              maxLines={"Infinity"}
+              highlightActiveLine={true}
+              onChange={(e: any) => this.handleValueChange(e, define)}
+              minLines={3}
+              showLineNumbers={true}
+              showPrintMargin={false}
+              onValidate={(err: any) => {
+                const { showError } = this.state;
+                const error = _.some(err, ["type", "error"]);
+                showError[index] = error;
+                this.setState({ showError });
+              }}
+            />
+            <label
+              style={{
+                display: this.state.showError[index] ? "block" : "none",
+                color: "#fc5043",
+              }}
+            >
+              {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.NOT_MEET_JSON}`)}
+            </label>
+          </div>
         );
         break;
       }
