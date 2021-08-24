@@ -111,6 +111,12 @@ export class AddStructModal extends React.Component<
     }
     return enumForm;
   };
+  validateJson = (err: any, index: number) => {
+    const { showError } = this.state;
+    const error = _.some(err, ["type", "error"]);
+    showError[index] = error;
+    this.setState({ showError });
+  };
   getFormType = (define: Structkey, value: any, index: number) => {
     let formType;
     let defaultValue = value ? value[define.id] : null;
@@ -243,12 +249,7 @@ export class AddStructModal extends React.Component<
               minLines={3}
               showLineNumbers={true}
               showPrintMargin={false}
-              onValidate={(err: any) => {
-                const { showError } = this.state;
-                const error = _.some(err, ["type", "error"]);
-                showError[index] = error;
-                this.setState({ showError });
-              }}
+              onValidate={(err: any) => this.validateJson(err, index)}
             />
             <label
               style={{
