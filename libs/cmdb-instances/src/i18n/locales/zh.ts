@@ -93,6 +93,7 @@ const locale: Locale = {
   [K.ALL_CLUSTER]: "所有集群",
   [K.FREE_SELECTION]: "自由筛选",
   [K.APP_SELECTION]: "按应用筛选",
+  [K.ATTRIBUTE_NAME_REQUIRED]: "{{attribute_name}} 为必填项",
 };
 
 export default locale;

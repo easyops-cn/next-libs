@@ -101,6 +101,7 @@ const locale: Locale = {
   [K.ALL_CLUSTER]: "All cluster",
   [K.FREE_SELECTION]: "Free selection",
   [K.APP_SELECTION]: "App selection",
+  [K.ATTRIBUTE_NAME_REQUIRED]: "{{attribute_name}} is required",
 };
 
 export default locale;
