@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/permission-utils@4.0.4...@next-libs/permission-utils@4.0.5) (2021-08-25)
+
+
+### Bug Fixes
+
+* **permission-utils:** 删除白名单说明tooltip ([bd73c41](https://github.com/easyops-cn/next-libs/commit/bd73c412f27ba3c738dd21d238e3f2bc89b15b3d))
+
+
+
+
+
 ## [4.0.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/permission-utils@4.0.3...@next-libs/permission-utils@4.0.4) (2021-08-18)
 
 
