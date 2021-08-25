@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.3.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.3.1...@next-libs/cmdb-instances@6.3.2) (2021-08-25)
+
+
+### Bug Fixes
+
+* json输入框主题色 Closed INSTANCE-1859 ([1ebf340](https://github.com/easyops-cn/next-libs/commit/1ebf340e3555acb98767f995701c685a926baa8d))
+
+
+
+
+
 ## [6.3.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.3.0...@next-libs/cmdb-instances@6.3.1) (2021-08-25)
 
 
