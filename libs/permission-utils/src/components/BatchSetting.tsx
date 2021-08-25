@@ -188,12 +188,7 @@ export class BatchSetting extends React.Component<
               />
             </div>
             <div className={styles.formRow}>
-              <label className={styles.formLabel}>
-                白名单：
-                <Tooltip title="白名单必定包含当前用户">
-                  <QuestionCircleOutlined />
-                </Tooltip>
-              </label>
+              <label className={styles.formLabel}>白名单：</label>
               <div>
                 <Switch
                   defaultChecked={false}
