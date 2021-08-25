@@ -478,6 +478,7 @@ export class ModelAttributeFormControl extends Component<
             showPrintMargin={false}
             validateJsonSchemaMode={"error"}
             {...(jsonSchema ? { jsonSchema: jsonSchema } : {})}
+            theme="tomorrow"
           />
         );
       case FormControlTypeEnum.TEXTAREA:

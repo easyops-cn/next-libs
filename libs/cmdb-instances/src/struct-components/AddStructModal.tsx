@@ -250,6 +250,7 @@ export class AddStructModal extends React.Component<
               showLineNumbers={true}
               showPrintMargin={false}
               onValidate={(err: any) => this.validateJson(err, index)}
+              theme="tomorrow"
             />
             <label
               style={{
