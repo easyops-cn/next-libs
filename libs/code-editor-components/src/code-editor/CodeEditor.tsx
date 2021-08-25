@@ -408,7 +408,10 @@ export function CodeEditor(props: CodeEditorProps): React.ReactElement {
       }
       asyncForceRerender={true}
     >
-      <CodeEditorItemWrapper {...props} onValidate={onValidate} />
+      <CodeEditorItemWrapper
+        {...props}
+        onValidate={props.onValidate ? props.onValidate : onValidate}
+      />
     </FormItemWrapper>
   );
 }

@@ -6,6 +6,7 @@ import moment from "moment";
 import { attribute, structData } from "./mockData";
 import { RadioChangeEvent } from "antd/lib/radio";
 import { Attribute } from "./interfaces";
+import { CodeEditor } from "@next-libs/code-editor-components";
 
 describe("AddStructModal", () => {
   const handleStoreFunction = jest.fn();
@@ -124,7 +125,30 @@ describe("AddStructModal", () => {
     const selectWrapper = shallow(instance.getEnumForm(define, "1"));
     expect(selectWrapper).toBeTruthy();
   });
-
+  it("should change the json", () => {
+    wrapper.find(CodeEditor).at(0).invoke("onChange")("100");
+    wrapper.find(CodeEditor).at(0).invoke("onValidate")([
+      {
+        column: 0,
+        row: 0,
+        text: "Unexpected 's'",
+        type: "error",
+      },
+    ]);
+    expect(instance.state.showError).toEqual([
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+    ]);
+  });
   it("should render Radio base on bool type", () => {
     const attribute: Attribute = {
       name: "结构体",
