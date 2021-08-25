@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@3.2.4...@next-libs/code-editor-components@3.2.5) (2021-08-25)
+
+
+### Bug Fixes
+
+* 结构体数组校验问题,结构体添加数据时json无法输入问题 Closed INSTANCE-1859 ([27abe72](https://github.com/easyops-cn/next-libs/commit/27abe72c7f09ab384fa1b2de8388ed7e66626e71))
+
+
+
+
+
 ## [3.2.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@3.2.3...@next-libs/code-editor-components@3.2.4) (2021-08-23)
 
 
