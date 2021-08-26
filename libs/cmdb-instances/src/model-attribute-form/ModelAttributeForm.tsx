@@ -79,6 +79,7 @@ interface ModelAttributeFormState {
   sending: boolean;
   attrListGroupByTag: attributesFieldsByTag[];
   continueCreating: boolean;
+  showError?: Record<string, any>;
 }
 
 export class ModelAttributeForm extends Component<
@@ -161,6 +162,7 @@ export class ModelAttributeForm extends Component<
       sending: false,
       attrListGroupByTag: AttrListGroupByTag,
       continueCreating: false,
+      showError: {},
     };
   }
 
@@ -452,41 +454,48 @@ export class ModelAttributeForm extends Component<
       >
         {this.state.attrListGroupByTag.map(([tag, list]) => (
           <Panel header={tag} key={tag} forceRender={true}>
-            {list.map((attribute: Partial<ModifiedModelObjectAttr>) =>
-              attribute.__isRelation ? (
-                this.renderRelationFormControl(attribute)
-              ) : (
-                <Form.Item
-                  label={attribute.name}
-                  key={attribute.name}
-                  {...this.formItemProps}
-                >
-                  {getFieldDecorator(attribute.id, {
-                    rules: this.rules(attribute),
-                    //默认值为string，但是新建时接口转成了object，故编辑时后台返回的也是object
-                    initialValue:
-                      attribute.value.type === "json" &&
-                      !_.isString(
-                        attributeFormControlInitialValueMap[attribute.id]
-                      )
-                        ? JSON.stringify(
-                            attributeFormControlInitialValueMap[attribute.id],
-                            null,
-                            2
-                          )
-                        : attributeFormControlInitialValueMap[attribute.id],
-                  })(
-                    <ModelAttributeFormControl
-                      isCreate={this.props.isCreate}
-                      attribute={attribute}
-                      multiSelect={
-                        attribute?.value?.type === ModelAttributeValueType.ENUMS
-                      }
-                      objectId={this.props.objectId}
-                    />
-                  )}
-                </Form.Item>
-              )
+            {list.map(
+              (attribute: Partial<ModifiedModelObjectAttr>, index: number) =>
+                attribute.__isRelation ? (
+                  this.renderRelationFormControl(attribute)
+                ) : (
+                  <Form.Item
+                    label={attribute.name}
+                    key={attribute.name}
+                    {...this.formItemProps}
+                  >
+                    {getFieldDecorator(attribute.id, {
+                      rules: this.rules(attribute),
+                      //默认值为string，但是新建时接口转成了object，故编辑时后台返回的也是object
+                      initialValue:
+                        attribute.value.type === "json" &&
+                        !_.isString(
+                          attributeFormControlInitialValueMap[attribute.id]
+                        )
+                          ? JSON.stringify(
+                              attributeFormControlInitialValueMap[attribute.id],
+                              null,
+                              2
+                            )
+                          : attributeFormControlInitialValueMap[attribute.id],
+                    })(
+                      <ModelAttributeFormControl
+                        isCreate={this.props.isCreate}
+                        attribute={attribute}
+                        multiSelect={
+                          attribute?.value?.type ===
+                          ModelAttributeValueType.ENUMS
+                        }
+                        objectId={this.props.objectId}
+                        jsonValidate={(err: any) => {
+                          const showError = { ...this.state.showError };
+                          showError[tag + index] = err;
+                          this.setState({ showError });
+                        }}
+                      />
+                    )}
+                  </Form.Item>
+                )
             )}
           </Panel>
         ))}
@@ -536,7 +545,6 @@ export class ModelAttributeForm extends Component<
         )}
       </Collapse>
     );
-
     const submitContainer = (
       <div
         className="ant-collapse-content"
@@ -552,7 +560,10 @@ export class ModelAttributeForm extends Component<
             <Button
               type="primary"
               onClick={(e) => this.handleSubmit(e)}
-              disabled={this.disabled}
+              disabled={
+                this.disabled ||
+                Object.values(this.state.showError).includes(true)
+              }
               data-testid="submit-btn"
             >
               {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.SAVE}`)}
