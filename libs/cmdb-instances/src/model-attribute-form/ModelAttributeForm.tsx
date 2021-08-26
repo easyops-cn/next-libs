@@ -487,7 +487,7 @@ export class ModelAttributeForm extends Component<
                           ModelAttributeValueType.ENUMS
                         }
                         objectId={this.props.objectId}
-                        jsonValidate={(err: any) => {
+                        jsonValidateCollection={(err: any) => {
                           const showError = { ...this.state.showError };
                           showError[tag + index] = err;
                           this.setState({ showError });

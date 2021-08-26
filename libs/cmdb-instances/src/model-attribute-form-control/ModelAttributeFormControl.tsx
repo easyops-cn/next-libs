@@ -88,7 +88,7 @@ export interface ModelAttributeFormControlProps {
   className?: string;
   style?: React.CSSProperties;
   objectId?: string;
-  jsonValidate?: (err: boolean) => void;
+  jsonValidateCollection?: (err: boolean) => void;
 }
 
 export interface ModelAttributeFormControlState {
@@ -409,7 +409,7 @@ export class ModelAttributeFormControl extends Component<
   };
   validateJson = (err: any) => {
     const error = some(err, ["type", "error"]);
-    this.props.jsonValidate(error);
+    this.props.jsonValidateCollection(error);
     this.setState({ showError: error });
   };
 
