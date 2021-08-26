@@ -17,6 +17,7 @@ import {
 } from "../__mocks__/";
 import { CmdbModels } from "@next-sdk/cmdb-sdk";
 import { Input, InputNumber, Radio, Select } from "antd";
+import { CodeEditor } from "@next-libs/code-editor-components";
 
 /* eslint-disable @typescript-eslint/naming-convention */
 jest.mock("../i18n");
@@ -35,7 +36,6 @@ describe("ModelAttributeFormControl", () => {
   describe("test computeFormControlType function", () => {
     const computeFormControlType =
       ModelAttributeFormControl.computeFormControlType;
-
     it("should return 'text'", () => {
       const result = computeFormControlType({
         value: {
@@ -940,5 +940,29 @@ describe("ModelAttributeFormControl", () => {
     wrapper.update();
     const items = wrapper.find("AddStruct");
     expect(items).toHaveLength(1);
+  });
+  it("should works with json validate", () => {
+    const jsonValidateCollection = jest.fn();
+    const attribute: Partial<CmdbModels.ModelObjectAttr> =
+      mockFetchCmdbObjectDetailReturnValueCLuster.attrList[2];
+    const value = "";
+    const props = Object.assign(Props, {
+      value,
+      attribute,
+      jsonValidateCollection,
+      objectId: "CLUSTER",
+    });
+    const wrapper = mount(<ModelAttributeFormControl {...props} />);
+    wrapper.update();
+    wrapper.find(CodeEditor).at(0).invoke("onChange")("100");
+    wrapper.find(CodeEditor).at(0).invoke("onValidate")([
+      {
+        column: 0,
+        row: 0,
+        text: "Unexpected 's'",
+        type: "error",
+      },
+    ]);
+    expect(jsonValidateCollection).toBeCalled();
   });
 });

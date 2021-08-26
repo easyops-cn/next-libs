@@ -9,7 +9,7 @@ import { AttributeFormControlUrl } from "../attribute-form-control-url/Attribute
 import { computeDateFormat } from "../processors";
 import { clusterMap } from "../instance-list-table/constants";
 import { CodeEditor } from "@next-libs/code-editor-components";
-
+import { some } from "lodash";
 export interface FormControlSelectItem {
   id: any;
   text: string;
@@ -88,12 +88,14 @@ export interface ModelAttributeFormControlProps {
   className?: string;
   style?: React.CSSProperties;
   objectId?: string;
+  jsonValidateCollection?: (err: boolean) => void;
 }
 
 export interface ModelAttributeFormControlState {
   value?: any;
   formControl: FormControl;
   errorMessage: string;
+  showError?: boolean;
 }
 
 export const boolOptions: FormControlSelectItem[] = [
@@ -405,6 +407,11 @@ export class ModelAttributeFormControl extends Component<
   handleDateChange = (date: Moment, dateString: string) => {
     this.onChange(dateString || undefined);
   };
+  validateJson = (err: any) => {
+    const error = some(err, ["type", "error"]);
+    this.props.jsonValidateCollection(error);
+    this.setState({ showError: error });
+  };
 
   FormControlTypeMap = (): ReactNode => {
     const { attribute } = this.props;
@@ -467,19 +474,30 @@ export class ModelAttributeFormControl extends Component<
       }
       case FormControlTypeEnum.CODE_EDITOR:
         return (
-          <CodeEditor
-            value={value}
-            mode={"json"}
-            maxLines={"Infinity"}
-            highlightActiveLine={true}
-            onChange={(e: any) => this.onChange(e)}
-            minLines={3}
-            showLineNumbers={true}
-            showPrintMargin={false}
-            validateJsonSchemaMode={"error"}
-            {...(jsonSchema ? { jsonSchema: jsonSchema } : {})}
-            theme="tomorrow"
-          />
+          <>
+            <CodeEditor
+              value={value}
+              mode={"json"}
+              maxLines={"Infinity"}
+              highlightActiveLine={true}
+              onChange={(e: any) => this.onChange(e)}
+              minLines={3}
+              showLineNumbers={true}
+              showPrintMargin={false}
+              validateJsonSchemaMode={"error"}
+              {...(jsonSchema ? { jsonSchema: jsonSchema } : {})}
+              theme="tomorrow"
+              onValidate={(err: any) => this.validateJson(err)}
+            />
+            <label
+              style={{
+                display: this.state.showError ? "block" : "none",
+                color: "#fc5043",
+              }}
+            >
+              {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.NOT_MEET_JSON}`)}
+            </label>
+          </>
         );
       case FormControlTypeEnum.TEXTAREA:
       case FormControlTypeEnum.MARKDOWN: {

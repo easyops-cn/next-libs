@@ -4,6 +4,7 @@ import {
   InstanceModelAttributeForm,
   ModelAttributeForm,
 } from "./ModelAttributeForm";
+import { ModelAttributeFormControl } from "../model-attribute-form-control/ModelAttributeFormControl";
 import {
   mockFetchCmdbInstanceDetailReturnValue,
   mockFetchCmdbObjectDetailReturnValue,
@@ -949,5 +950,31 @@ describe("ModelAttributeForm", () => {
       });
       expect(instance.state.sending).toBeFalsy();
     });
+  });
+  it("should work with json validate", () => {
+    const wrapper = mount(
+      <InstanceModelAttributeForm
+        {...Object.assign({}, props, {
+          isCreate: false,
+          fieldsByTag: [
+            {
+              name: "基本信息",
+              fields: ["_agentHeartBeat", "_agentStatus"],
+            },
+          ],
+          modelData: mockFetchCmdbObjectDetailReturnValue,
+          permissionList,
+          enabledWhiteList: true,
+        })}
+      />
+    );
+    const instance = wrapper
+      .find(ModelAttributeForm)
+      .instance() as ModelAttributeForm;
+    wrapper
+      .find(ModelAttributeFormControl)
+      .at(0)
+      .invoke("jsonValidateCollection")(true);
+    expect(instance.state.showError).toEqual({ 基本信息0: true });
   });
 });
