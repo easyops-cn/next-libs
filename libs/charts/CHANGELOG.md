@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/charts@2.0.2...@next-libs/charts@2.1.0) (2021-08-27)
+
+
+### Features
+
+* 图表支持负数单位运算 ([255ce8b](https://github.com/easyops-cn/next-libs/commit/255ce8b64b5a8b424a4551680109f95bd7e6512f))
+
+
+
+
+
 ## [2.0.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/charts@2.0.1...@next-libs/charts@2.0.2) (2021-08-12)
 
 **Note:** Version bump only for package @next-libs/charts
