@@ -8,6 +8,8 @@ export function humanizeDataRateValue(
 ): [number, string] {
   let baseDataRateUnitGroupIndex = dataRateFormatUnits.length - 1;
   let baseDataRateUnitIndex = 0;
+  const sign = Math.sign(value);
+  const positiveValue = Math.abs(value);
 
   if (unit) {
     for (let i = 0; i < dataRateFormatUnits.length; ++i) {
@@ -36,7 +38,7 @@ export function humanizeDataRateValue(
     ++i
   ) {
     if (
-      value /
+      positiveValue /
         (dataRateFormatUnitGroup[i].divisor /
           dataRateFormatUnitGroup[baseDataRateUnitIndex].divisor) >=
       1
@@ -48,9 +50,10 @@ export function humanizeDataRateValue(
   }
 
   return [
-    value /
+    (positiveValue /
       (dataRateFormatUnit.divisor /
-        dataRateFormatUnitGroup[baseDataRateUnitIndex].divisor),
+        dataRateFormatUnitGroup[baseDataRateUnitIndex].divisor)) *
+      sign,
     dataRateFormatUnit.display,
   ];
 }
