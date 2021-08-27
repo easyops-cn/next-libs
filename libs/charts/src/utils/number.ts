@@ -6,7 +6,8 @@ export const humanizeNumberValue = (
   precision?: number
 ): string => {
   let baseNumberUnitIndex = 0;
-
+  const sign = Math.sign(value);
+  const positiveValue = Math.abs(value);
   if (unit) {
     const numberUnitIndex = numberFormatUnits.findIndex(
       (numberUnit) =>
@@ -20,7 +21,7 @@ export const humanizeNumberValue = (
   let numberFormatUnit = numberFormatUnits[baseNumberUnitIndex];
   for (let i = baseNumberUnitIndex + 1; i < numberFormatUnits.length; ++i) {
     if (
-      value /
+      positiveValue /
         (numberFormatUnits[i].divisor /
           numberFormatUnits[baseNumberUnitIndex].divisor) >=
       1
@@ -32,13 +33,14 @@ export const humanizeNumberValue = (
   }
 
   if (numberFormatUnit.id === ShortUnitId.None) {
-    return value.toFixed(precision ?? 2);
+    return (sign * positiveValue).toFixed(precision ?? 2);
   } else {
     return (
       (
-        value /
-        (numberFormatUnit.divisor /
-          numberFormatUnits[baseNumberUnitIndex].divisor)
+        (positiveValue /
+          (numberFormatUnit.divisor /
+            numberFormatUnits[baseNumberUnitIndex].divisor)) *
+        sign
       ).toFixed(precision ?? 2) + numberFormatUnit.display
     );
   }
