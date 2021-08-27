@@ -8,6 +8,8 @@ export function humanizeDataValue(
 ): [number, string] {
   let baseDataUnitGroupIndex = dataFormatUnits.length - 1;
   let baseDataUnitIndex = 0;
+  const sign = Math.sign(value);
+  const positiveValue = Math.abs(value);
 
   if (unit) {
     for (let i = 0; i < dataFormatUnits.length; ++i) {
@@ -16,7 +18,7 @@ export function humanizeDataValue(
           dataUnit.id.toLocaleLowerCase() === unit.toLocaleLowerCase() ||
           (dataUnit.alias &&
             dataUnit.alias
-              .map((alias) => alias.toLocaleLowerCase())
+              //  .map((alias) => alias.toLocaleLowerCase())
               .includes(unit))
       );
       if (dataUnitIndex !== -1) {
@@ -31,7 +33,7 @@ export function humanizeDataValue(
   let dataFormatUnit = dataFormatUnitGroup[baseDataUnitIndex];
   for (let i = baseDataUnitIndex + 1; i < dataFormatUnitGroup.length; ++i) {
     if (
-      value /
+      positiveValue /
         (dataFormatUnitGroup[i].divisor /
           dataFormatUnitGroup[baseDataUnitIndex].divisor) >=
       1
@@ -43,8 +45,10 @@ export function humanizeDataValue(
   }
 
   return [
-    value /
-      (dataFormatUnit.divisor / dataFormatUnitGroup[baseDataUnitIndex].divisor),
+    (positiveValue /
+      (dataFormatUnit.divisor /
+        dataFormatUnitGroup[baseDataUnitIndex].divisor)) *
+      sign,
     dataFormatUnit.display,
   ];
 }
