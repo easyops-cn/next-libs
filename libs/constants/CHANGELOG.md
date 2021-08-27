@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/constants@2.0.2...@next-libs/constants@2.0.3) (2021-08-27)
+
+
+### Bug Fixes
+
+* 修复字节单位换算bug ([f9a0872](https://github.com/easyops-cn/next-libs/commit/f9a0872728192edb3d3eb03f5a8ad8bea25a0cda))
+
+
+
+
+
 ## [2.0.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/constants@2.0.1...@next-libs/constants@2.0.2) (2021-08-12)
 
 **Note:** Version bump only for package @next-libs/constants
