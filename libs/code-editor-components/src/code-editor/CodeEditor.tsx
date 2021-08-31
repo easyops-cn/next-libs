@@ -1,6 +1,14 @@
 import React, { useState, useEffect, useRef, forwardRef, useMemo } from "react";
 import AceEditor, { IEditorProps } from "react-ace";
-import { isEqual, isEmpty, uniqWith, isString, map, isNil, some } from "lodash";
+import {
+  isEqual,
+  isEmpty,
+  uniqWith,
+  isString,
+  map,
+  some,
+  debounce,
+} from "lodash";
 import Ajv from "ajv";
 import { Annotation } from "brace";
 import { ExportOutlined } from "@ant-design/icons";
@@ -271,6 +279,17 @@ export function CodeEditorItem(
     props.onValidate?.(newAnnotations);
   };
 
+  const handleSelectionChange = useMemo(
+    () =>
+      props.onDebounceSelectionChange
+        ? debounce(
+            props.onDebounceSelectionChange,
+            props.debounceSelectionChangeDelay ?? 300
+          )
+        : undefined,
+    [props.debounceSelectionChangeDelay, props.onDebounceSelectionChange]
+  );
+
   return (
     <div className={style.wrapper}>
       <AceEditor
@@ -305,6 +324,7 @@ export function CodeEditorItem(
         onChange={props.onChange}
         onValidate={onValidate}
         onBlur={handleOnBlur}
+        onSelectionChange={handleSelectionChange}
         // Tips: Automatically scrolling cursor into view after selection change this will be disabled in the next version set editor.$blockScrolling = Infinity to disable this message
         editorProps={{
           $blockScrolling: Infinity,

@@ -40,6 +40,9 @@ export interface CodeEditorProps extends FormItemWrapperProps {
       }[];
   loadYamlInJsonMode?: boolean;
   showPrintMargin?: boolean;
+  onDebounceSelectionChange?: (event: unknown) => void;
+  // See https://ace.c9.io/api/selection.html
+  debounceSelectionChangeDelay?: number;
 }
 
 export interface AceLanguageRules {
