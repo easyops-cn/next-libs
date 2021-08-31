@@ -8,7 +8,7 @@ export const GetBrickNextRules = (
     {
       token: "support.class.builtin.js",
       regex:
-        "\\b(?:EVENT|DATA|PIPES|PARAMS|PATH|QUERY(?:_ARRAY)?|APP|HASH|ANCHOR|SYS|FLAGS|I18N|CTX|SEGUE|ALIAS|PROCESSORS|IMAGES|TPL|PERMISSIONS)\\b",
+        "\\b(?:EVENT|DATA|PIPES|PARAMS|PATH|QUERY(?:_ARRAY)?|APP|HASH|ANCHOR|SYS|FLAGS|I18N|CTX|SEGUE|ALIAS|PROCESSORS|IMAGES|TPL|PERMISSIONS|LOCAL_STORAGE|TAG_URL|SAFE_TAG_URL|FN)\\b",
     },
     {
       token: "placeholder.end",
