@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.3.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@3.2.5...@next-libs/code-editor-components@3.3.0) (2021-08-31)
+
+
+### Bug Fixes
+
+* add some evaluation keywords ([9395860](https://github.com/easyops-cn/next-libs/commit/93958607ae280c0a6debac6d5329919802982d31))
+
+
+### Features
+
+* support debounce selection change event ([bce3af7](https://github.com/easyops-cn/next-libs/commit/bce3af74ecb88727621f2af549f9facf9ad9307f))
+
+
+
+
+
 ## [3.2.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@3.2.4...@next-libs/code-editor-components@3.2.5) (2021-08-25)
 
 
