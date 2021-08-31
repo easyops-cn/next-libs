@@ -504,4 +504,24 @@ describe("CodeEditor", () => {
     ] as any);
     expect(onErrorChange).toHaveBeenCalled();
   });
+
+  it("should work with onSelectionChange", async () => {
+    const onDebounceSelectionChange = jest.fn();
+    const wrapper = mount(
+      <CodeEditorItem
+        mode="text"
+        value="hello, world"
+        minLines={5}
+        onDebounceSelectionChange={onDebounceSelectionChange}
+      />
+    );
+    wrapper.find(AceEditor).invoke("onSelectionChange")({ range: "fake-1" });
+    jest.advanceTimersByTime(200);
+    wrapper.find(AceEditor).invoke("onSelectionChange")({ range: "fake-2" });
+    jest.advanceTimersByTime(200);
+    expect(onDebounceSelectionChange).not.toBeCalled();
+    jest.advanceTimersByTime(100);
+    expect(onDebounceSelectionChange).toBeCalledTimes(1);
+    expect(onDebounceSelectionChange).toBeCalledWith({ range: "fake-2" });
+  });
 });
