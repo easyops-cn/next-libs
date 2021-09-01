@@ -14,7 +14,7 @@ const locale: Locale = {
   [K.ADD]: "Add",
   [K.ENTER_MULTIPLE_STRING_WITH_ENTER_KEY_AS_THE_SEPARATOR]:
     "Enter multiple string with enter key as the separator",
-  [K.UNIQUE_NO_REPEAT]: "{{label}} can only be repeated",
+  [K.UNIQUE_NO_REPEAT]: "{{label}} is unique and cannot be repeated",
   [K.TYPE_NO_SUPPORT_EDIT]: "{{type}} does not support editing for now",
   [K.TEMPORARILY_NOT_CHOOSE]: "Temporarily not choose",
   [K.ENUM_ERROR_TIP]:
