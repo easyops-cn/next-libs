@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.3.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.3.4...@next-libs/cmdb-instances@6.3.5) (2021-09-01)
+
+
+### Bug Fixes
+
+* i18n Closed PERMISSION-178 ([1ce0e0a](https://github.com/easyops-cn/next-libs/commit/1ce0e0abbab348545fe38fb7d1c91e31a360ffcd))
+
+
+
+
+
 ## [6.3.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.3.3...@next-libs/cmdb-instances@6.3.4) (2021-08-31)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
