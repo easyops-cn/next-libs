@@ -938,7 +938,8 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
           {(!props.searchDisabled ||
             !props.advancedSearchDisabled ||
             !props.relatedToMeDisabled ||
-            !props.aliveHostsDisabled) && (
+            !props.aliveHostsDisabled ||
+            !props.moreButtonsDisabled) && (
             <div className={styles.instanceListToolbar}>
               <div className={styles.searchRelated}>
                 {/* istanbul ignore next (state is not updated) */}

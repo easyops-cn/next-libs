@@ -724,6 +724,7 @@ describe("InstanceList", () => {
         advancedSearchDisabled={true}
         notifyCurrentFields={jest.fn()}
         enableSearchByApp={true}
+        moreButtonsDisabled={true}
         dataSource={{
           list: [
             {
