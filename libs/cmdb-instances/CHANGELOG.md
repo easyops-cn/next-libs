@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.4.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.4.0...@next-libs/cmdb-instances@6.4.1) (2021-09-04)
+
+
+### Bug Fixes
+
+* **cmdb-instances:** instance-list 右上角显示问题 ([79f738f](https://github.com/easyops-cn/next-libs/commit/79f738fb6471fc81a086e540083498d16953db67))
+
+
+
+
+
 # [6.4.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.3.5...@next-libs/cmdb-instances@6.4.0) (2021-09-04)
 
 
