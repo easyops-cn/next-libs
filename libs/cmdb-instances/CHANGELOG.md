@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.4.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.3.5...@next-libs/cmdb-instances@6.4.0) (2021-09-04)
+
+
+### Features
+
+* **cmdb-instances:** add dataSource property, apply to specific scenarios without requiring a request ([e7f2c3c](https://github.com/easyops-cn/next-libs/commit/e7f2c3cd898e48a607cfaf3371e8979aaa160a97))
+
+
+
+
+
 ## [6.3.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.3.4...@next-libs/cmdb-instances@6.3.5) (2021-09-01)
 
 
