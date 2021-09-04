@@ -713,6 +713,48 @@ describe("InstanceList", () => {
       expect(initAqToShow(t.aq, HOST)).toEqual(t.expected);
     });
   });
+  it("show work and dataSource", async () => {
+    const { findByText } = render(
+      <InstanceList
+        objectId="HOST"
+        objectList={[HOST]}
+        asc={false}
+        searchDisabled={true}
+        relatedToMeDisabled={true}
+        advancedSearchDisabled={true}
+        notifyCurrentFields={jest.fn()}
+        enableSearchByApp={true}
+        dataSource={{
+          list: [
+            {
+              instanceId: "58650c75662fc",
+            },
+          ],
+          total: 1,
+          page: 1,
+          pageSize: 10,
+        }}
+      />
+    );
+    await act(async () => {
+      await (global as any).flushPromises();
+    });
+    findByText(mockInstanceListTableContent);
+    const instanceListTableProps: InstanceListTableProps =
+      mockInstanceListTable.mock.calls[
+        mockInstanceListTable.mock.calls.length - 1
+      ][0];
+    expect(instanceListTableProps.instanceListData).toMatchObject({
+      list: [
+        {
+          instanceId: "58650c75662fc",
+        },
+      ],
+      total: 1,
+      page: 1,
+      pageSize: 10,
+    });
+  });
   it("should work with enableSearchByApp", async () => {
     const mockOnRelatedToMeChange = jest.fn();
     const wrapper = mount(

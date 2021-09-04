@@ -328,6 +328,12 @@ interface InstanceListProps {
   onlySearchByIp?: boolean;
   target?: string;
   enableSearchByApp?: boolean;
+  dataSource?: {
+    list: Record<string, any>[];
+    total?: number;
+    page?: number;
+    pageSize?: number;
+  };
 }
 
 interface InstanceListState {
@@ -464,8 +470,8 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     aqToShow: props.aqToShow || initAqToShow(props.aq, modelData),
     asc: props.asc,
     sort: props.sort,
-    page: props.page ?? 1,
-    pageSize: props.pageSize ?? 10,
+    page: props.dataSource?.page ?? props.page ?? 1,
+    pageSize: props.dataSource?.pageSize ?? props.pageSize ?? 10,
     aliveHosts: props.aliveHosts,
     relatedToMe: props.relatedToMe,
     inited: false,
@@ -590,9 +596,18 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
   ): Promise<void> => {
     setState({ loading: true });
     try {
-      const instanceListData = await getInstanceListData(sort, asc, page);
-      instanceListData.list.forEach((i) => cache.current.set(i.instanceId, i));
-      setState({ idObjectMap: idObjectMap, instanceListData });
+      if (props.dataSource) {
+        setState({
+          idObjectMap: idObjectMap,
+          instanceListData: props.dataSource,
+        });
+      } else {
+        const instanceListData = await getInstanceListData(sort, asc, page);
+        instanceListData.list.forEach((i) =>
+          cache.current.set(i.instanceId, i)
+        );
+        setState({ idObjectMap: idObjectMap, instanceListData });
+      }
     } catch (e) {
       handleHttpError(e);
       setState({ failed: true });
@@ -668,6 +683,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     state.appSearchInstanceId,
     state.currentChangeSelect,
     state.searchByApp,
+    props.dataSource,
   ]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
