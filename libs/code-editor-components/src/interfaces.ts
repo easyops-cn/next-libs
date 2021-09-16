@@ -1,9 +1,15 @@
 import { Annotation } from "brace";
 import { FormItemWrapperProps } from "@next-libs/forms";
+import { IMarker } from "react-ace";
 
 export interface Error {
   err: Annotation[];
   hasError: boolean;
+}
+
+export interface ExtendedMarker extends IMarker {
+  highlightType: HighlightTokenType;
+  identifier: string;
 }
 
 export interface CodeEditorProps extends FormItemWrapperProps {
@@ -40,10 +46,19 @@ export interface CodeEditorProps extends FormItemWrapperProps {
       }[];
   loadYamlInJsonMode?: boolean;
   showPrintMargin?: boolean;
-  onDebounceSelectionChange?: (event: unknown) => void;
-  // See https://ace.c9.io/api/selection.html
-  debounceSelectionChangeDelay?: number;
+  highlightTokens?: HighlightTokenSettings[];
+  onClickHighlightToken?: (token: {
+    type: HighlightTokenType;
+    value: string;
+  }) => void;
 }
+
+export interface HighlightTokenSettings {
+  type: HighlightTokenType;
+  clickable?: boolean;
+}
+
+export type HighlightTokenType = "storyboard-function" | "storyboard-context";
 
 export interface AceLanguageRules {
   [className: string]: AceLanguageRule[];
