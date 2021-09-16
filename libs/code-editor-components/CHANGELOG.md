@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@3.3.0...@next-libs/code-editor-components@4.0.0) (2021-09-16)
+
+
+### Features
+
+* **code-editor:** support to highlight tokens ([9af1ee0](https://github.com/easyops-cn/next-libs/commit/9af1ee03dece9f6fdcc88392f1b171f87cde65f7))
+
+
+### BREAKING CHANGES
+
+* **code-editor:** drop support for debounce selection change
+
+
+
+
+
 # [3.3.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@3.2.5...@next-libs/code-editor-components@3.3.0) (2021-08-31)
 
 
