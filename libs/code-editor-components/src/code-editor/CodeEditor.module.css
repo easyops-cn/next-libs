@@ -23,7 +23,11 @@
 
 .aceMarkerOfHighlight {
   position: absolute;
-  border-bottom: 1px solid cyan;
+  border-bottom: 1px solid darkturquoise;
   border-radius: 0;
   /* z-index: 3; */
+}
+
+:global(.ace-monokai) .aceMarkerOfHighlight {
+  border-bottom-color: cyan;
 }

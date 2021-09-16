@@ -540,6 +540,7 @@ propB: <% FN.def %>
       }
     };
     const setCursorStyle = jest.fn();
+    const toSingleRange = jest.fn();
     const mockEditor = {
       on: jest.fn((eventType, fn) => {
         let registry = eventRegistry.get(eventType);
@@ -560,6 +561,9 @@ propB: <% FN.def %>
       renderer: {
         setCursorStyle,
       },
+      session: {
+        selection: { toSingleRange },
+      },
     };
     wrapper.find(AceEditor).invoke("onLoad")(mockEditor);
 
@@ -577,12 +581,14 @@ propB: <% FN.def %>
     mockGetClickableMarker.mockReturnValueOnce(undefined);
     triggerEvent("click");
     expect(onClickHighlightToken).not.toBeCalled();
+    expect(toSingleRange).not.toBeCalled();
 
     mockGetClickableMarker.mockReturnValueOnce({
       highlightType: "storyboard-function",
       identifier: "abc",
     });
     triggerEvent("click");
+    expect(toSingleRange).toBeCalled();
     expect(onClickHighlightToken).toBeCalledWith({
       type: "storyboard-function",
       value: "abc",
