@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.0.0...@next-libs/code-editor-components@4.0.1) (2021-09-16)
+
+
+### Bug Fixes
+
+* prevent the default behavior of multi-selection when click on highlight tokens ([23e84ca](https://github.com/easyops-cn/next-libs/commit/23e84cad9d558bc9ed7b42075510fe9eb7e67488))
+
+
+
+
+
 # [4.0.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@3.3.0...@next-libs/code-editor-components@4.0.0) (2021-09-16)
 
 
