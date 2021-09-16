@@ -329,6 +329,8 @@ export function CodeEditorItem(
     const onClick = (e: any): void => {
       const marker = getClickableMarker(e, clickableTypes, markersRef.current);
       if (marker) {
+        // Prevent the default behavior of multi-selection.
+        editor.session.selection.toSingleRange();
         props.onClickHighlightToken?.({
           type: marker.highlightType,
           value: marker.identifier,
