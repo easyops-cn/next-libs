@@ -1,14 +1,13 @@
-import React, { useState, useEffect, useRef, forwardRef, useMemo } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  forwardRef,
+  useMemo,
+  useCallback,
+} from "react";
 import AceEditor, { IEditorProps } from "react-ace";
-import {
-  isEqual,
-  isEmpty,
-  uniqWith,
-  isString,
-  map,
-  some,
-  debounce,
-} from "lodash";
+import { isEqual, isEmpty, uniqWith, isString, map, some } from "lodash";
 import Ajv from "ajv";
 import { Annotation } from "brace";
 import { ExportOutlined } from "@ant-design/icons";
@@ -26,11 +25,13 @@ import { getBrickNextMode } from "../custom-mode/BrickNextMode";
 import { getBrickNextYamlMode } from "../custom-mode/BrickNextYamlMode";
 import { getTerraformMode } from "../custom-mode/TerraformMode";
 import { brickNextCompleters } from "../custom-mode/brickNextUtil";
-import { CodeEditorProps } from "../interfaces";
+import { CodeEditorProps, ExtendedMarker } from "../interfaces";
 import { loadPluginsForCodeEditor } from "../brace";
 import { getCommonExpressionLanguageYamlMode } from "../custom-mode/CommonExpressionLanguageYamlMode";
 import { getCommonExpressionLanguageMode } from "../custom-mode/CommonExpressionLanguageMode";
 import { CommonExpressionLanguageCompleter } from "../custom-mode/CommonExpressionLanguageRules";
+import { getHighlightMarkers } from "./getHighlightMarkers";
+import { getClickableMarker } from "./getClickableMarker";
 
 import style from "./CodeEditor.module.css";
 import shareStyle from "../share.module.css";
@@ -279,16 +280,70 @@ export function CodeEditorItem(
     props.onValidate?.(newAnnotations);
   };
 
-  const handleSelectionChange = useMemo(
-    () =>
-      props.onDebounceSelectionChange
-        ? debounce(
-            props.onDebounceSelectionChange,
-            props.debounceSelectionChangeDelay ?? 300
-          )
-        : undefined,
-    [props.debounceSelectionChangeDelay, props.onDebounceSelectionChange]
+  const [markers, setMarkers] = useState<ExtendedMarker[]>();
+
+  const findHighlightTokens = useCallback(() => {
+    setMarkers(
+      getHighlightMarkers({
+        editor,
+        markerClassName: style.aceMarkerOfHighlight,
+        highlightTokenTypes: props.highlightTokens?.map((item) => item.type),
+      })
+    );
+  }, [editor, props.highlightTokens]);
+
+  const handleChange = useCallback(
+    (value: string) => {
+      props.onChange?.(value);
+      findHighlightTokens();
+    },
+    [props.onChange, findHighlightTokens]
   );
+
+  useEffect(() => {
+    findHighlightTokens();
+  }, [props.value, findHighlightTokens]);
+
+  const markersRef = useRef<ExtendedMarker[]>();
+  useEffect(() => {
+    markersRef.current = markers;
+  }, [markers]);
+
+  useEffect(() => {
+    const clickableTypes = props.highlightTokens
+      ?.filter((item) => item.clickable)
+      .map((item) => item.type);
+    if (!editor || !clickableTypes?.length) {
+      return;
+    }
+    const onMouseMove = (e: any): void => {
+      editor.renderer.setCursorStyle(
+        getClickableMarker(e, clickableTypes, markersRef.current)
+          ? "pointer"
+          : ""
+      );
+    };
+    const onMouseOut = (): void => {
+      editor.renderer.setCursorStyle("");
+    };
+    const onClick = (e: any): void => {
+      const marker = getClickableMarker(e, clickableTypes, markersRef.current);
+      if (marker) {
+        props.onClickHighlightToken?.({
+          type: marker.highlightType,
+          value: marker.identifier,
+        });
+      }
+    };
+    editor.on("mousemove", onMouseMove);
+    editor.on("mouseout", onMouseOut);
+    editor.on("click", onClick);
+    return () => {
+      editor.off("mousemove", onMouseMove);
+      editor.off("mouseout", onMouseOut);
+      editor.off("click", onClick);
+    };
+  }, [editor, props.highlightTokens, props.onClickHighlightToken]);
 
   return (
     <div className={style.wrapper}>
@@ -321,16 +376,16 @@ export function CodeEditorItem(
           highlightActiveLine: props.highlightActiveLine,
           enableLiveAutocompletion: props.enableLiveAutocompletion,
         }}
-        onChange={props.onChange}
+        onChange={handleChange}
         onValidate={onValidate}
         onBlur={handleOnBlur}
-        onSelectionChange={handleSelectionChange}
         // Tips: Automatically scrolling cursor into view after selection change this will be disabled in the next version set editor.$blockScrolling = Infinity to disable this message
         editorProps={{
           $blockScrolling: Infinity,
         }}
         showPrintMargin={props.showPrintMargin}
         className={style.aceContainer}
+        markers={markers}
       />
       <div
         className={classNames(style.aceToolbar, shareStyle.toolbarContainer, {
@@ -372,11 +427,11 @@ export function CodeEditor(props: CodeEditorProps): React.ReactElement {
   const [hasError, setHasError] = useState(false);
   const [hasJsonSchemaError, setHasJsonSchemaError] = useState(false);
 
-  const validatorFn = async (
+  const validatorFn = (
     rule: any,
     value: string,
     callback: (message?: string) => void
-  ) => {
+  ): void => {
     if (!hasError) {
       callback();
     } else {

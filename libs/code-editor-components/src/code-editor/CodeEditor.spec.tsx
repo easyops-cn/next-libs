@@ -12,6 +12,12 @@ import {
   CodeEditor,
   CodeEditorItemWrapper,
 } from "./CodeEditor";
+import { getClickableMarker } from "./getClickableMarker";
+
+jest.mock("./getHighlightMarkers");
+jest.mock("./getClickableMarker");
+
+const mockGetClickableMarker = getClickableMarker as jest.Mock;
 
 describe("CodeEditorItem", () => {
   it("should work", async () => {
@@ -505,23 +511,85 @@ describe("CodeEditor", () => {
     expect(onErrorChange).toHaveBeenCalled();
   });
 
-  it("should work with onSelectionChange", async () => {
-    const onDebounceSelectionChange = jest.fn();
+  it("should highlight clickable tokens", async () => {
+    const onClickHighlightToken = jest.fn();
     const wrapper = mount(
-      <CodeEditorItem
-        mode="text"
-        value="hello, world"
-        minLines={5}
-        onDebounceSelectionChange={onDebounceSelectionChange}
+      <CodeEditor
+        mode="brick_next_yaml"
+        value={`propA: <% CTX.abc %>
+propB: <% FN.def %>
+`}
+        highlightTokens={[
+          {
+            type: "storyboard-function",
+            clickable: true,
+          },
+        ]}
+        onClickHighlightToken={onClickHighlightToken}
       />
     );
-    wrapper.find(AceEditor).invoke("onSelectionChange")({ range: "fake-1" });
-    jest.advanceTimersByTime(200);
-    wrapper.find(AceEditor).invoke("onSelectionChange")({ range: "fake-2" });
-    jest.advanceTimersByTime(200);
-    expect(onDebounceSelectionChange).not.toBeCalled();
-    jest.advanceTimersByTime(100);
-    expect(onDebounceSelectionChange).toBeCalledTimes(1);
-    expect(onDebounceSelectionChange).toBeCalledWith({ range: "fake-2" });
+
+    const eventRegistry = new Map<string, Set<any>>();
+    const triggerEvent = (eventType: string, e?: any): void => {
+      const registry = eventRegistry.get(eventType);
+      if (!registry) {
+        return;
+      }
+      for (const fn of registry) {
+        fn(e);
+      }
+    };
+    const setCursorStyle = jest.fn();
+    const mockEditor = {
+      on: jest.fn((eventType, fn) => {
+        let registry = eventRegistry.get(eventType);
+        if (!registry) {
+          registry = new Set();
+          eventRegistry.set(eventType, registry);
+        }
+        registry.add(fn);
+      }),
+      off: jest.fn((eventType, fn) => {
+        const registry = eventRegistry.get(eventType);
+        if (!registry) {
+          return;
+        }
+        registry.delete(fn);
+      }),
+      getSession: jest.fn(),
+      renderer: {
+        setCursorStyle,
+      },
+    };
+    wrapper.find(AceEditor).invoke("onLoad")(mockEditor);
+
+    mockGetClickableMarker.mockReturnValueOnce(undefined);
+    triggerEvent("mousemove");
+    expect(setCursorStyle).toHaveBeenNthCalledWith(1, "");
+
+    mockGetClickableMarker.mockReturnValueOnce({ identifier: "abc" });
+    triggerEvent("mousemove");
+    expect(setCursorStyle).toHaveBeenNthCalledWith(2, "pointer");
+
+    triggerEvent("mouseout");
+    expect(setCursorStyle).toHaveBeenNthCalledWith(3, "");
+
+    mockGetClickableMarker.mockReturnValueOnce(undefined);
+    triggerEvent("click");
+    expect(onClickHighlightToken).not.toBeCalled();
+
+    mockGetClickableMarker.mockReturnValueOnce({
+      highlightType: "storyboard-function",
+      identifier: "abc",
+    });
+    triggerEvent("click");
+    expect(onClickHighlightToken).toBeCalledWith({
+      type: "storyboard-function",
+      value: "abc",
+    });
+
+    wrapper.unmount();
+    expect(mockEditor.on).toBeCalledTimes(3);
+    expect(mockEditor.off).toBeCalledTimes(3);
   });
 });
