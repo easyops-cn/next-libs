@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.0.1...@next-libs/code-editor-components@4.0.2) (2021-09-18)
+
+
+### Bug Fixes
+
+* editor add resizeObserver ([ac1d268](https://github.com/easyops-cn/next-libs/commit/ac1d2683cca82e92b132fee1eb5ecfa428509c25))
+
+
+
+
+
 ## [4.0.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.0.0...@next-libs/code-editor-components@4.0.1) (2021-09-16)
 
 
