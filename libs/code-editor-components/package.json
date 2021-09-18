@@ -1,7 +1,7 @@
 {
   "name": "@next-libs/code-editor-components",
   "version": "4.0.2",
-  "description": "> TODO: description",
+  "description": "Code editor components",
   "homepage": "https://github.com/easyops-cn/next-libs/tree/master/libs/code-editor-components",
   "license": "GPL-3.0",
   "main": "dist/cjs/index.js",
