@@ -32,6 +32,7 @@ import { getCommonExpressionLanguageMode } from "../custom-mode/CommonExpression
 import { CommonExpressionLanguageCompleter } from "../custom-mode/CommonExpressionLanguageRules";
 import { getHighlightMarkers } from "./getHighlightMarkers";
 import { getClickableMarker } from "./getClickableMarker";
+import ResizeObserver from "resize-observer-polyfill";
 
 import style from "./CodeEditor.module.css";
 import shareStyle from "../share.module.css";
@@ -47,6 +48,7 @@ export function CodeEditorItem(
   const [jsonSchema, setJsonSchema] = useState(props.jsonSchema);
   const brickNextError = useRef(null);
   const compileSchema = useRef(false);
+  const containerRef = useRef<HTMLDivElement>();
 
   useEffect(() => {
     let schemaValue = props.jsonSchema;
@@ -347,8 +349,18 @@ export function CodeEditorItem(
     };
   }, [editor, props.highlightTokens, props.onClickHighlightToken]);
 
+  useEffect(() => {
+    const resizeObserver = new ResizeObserver(() => {
+      editor?.resize();
+    });
+    resizeObserver.observe(containerRef.current);
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, [editor]);
+
   return (
-    <div className={style.wrapper}>
+    <div className={style.wrapper} ref={containerRef}>
       <AceEditor
         ref={ref}
         onLoad={onLoad}
