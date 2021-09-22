@@ -72,6 +72,8 @@ const locale: Locale = {
   [K.MODIFICATION]: "Modification",
   [K.NOT_MEET_REGEX]:
     "Does not match the preset regular expression, please modify",
+  [K.NOT_MEET_REGEX_DETAIL]:
+    "Does not match the preset regular expression: {{regex}} , please modify",
   [K.NOT_MEET_JSON]: "Please fill in the correct json syntax",
   [K.CREATE_ANOTHER]: "Create another",
   [K.DELETE_STRUCT_CONFIRM_MSG]:
