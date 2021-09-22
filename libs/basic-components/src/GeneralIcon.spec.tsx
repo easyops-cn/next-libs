@@ -29,11 +29,13 @@ describe("GeneralIcon", () => {
     expect(wrapper.find(LegacyIcon).prop("style")).toEqual({
       color: "#0071eb",
     });
+    expect(wrapper.find(LegacyIcon).prop("data-icon")).toBe("up");
   });
 
   it("should render font-awesome icon", () => {
     const wrapper = mount(<GeneralIcon icon={{ lib: "fa", icon: "heart" }} />);
     expect(wrapper.find(FontAwesomeIcon).prop("icon")).toBe("heart");
+    expect(wrapper.find(Icon).prop("data-icon")).toBe("heart");
   });
 
   it("should render easyops icon", () => {
@@ -44,6 +46,7 @@ describe("GeneralIcon", () => {
       icon: "idc",
       category: "app",
     });
+    expect(wrapper.find(Icon).prop("data-icon")).toBe("idc");
   });
 
   it("should render null if icon is invalid", () => {
