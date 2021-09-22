@@ -39,10 +39,18 @@ export class AddStructModal extends React.Component<
   componentDidUpdate(prevProps: AddStructModalProps) {
     if (prevProps.visible !== this.props.visible) {
       if (this.props.visible) {
-        this.setState({ structData: this.props.structData || {} });
+        this.setState({
+          structData: this.props.structData || {},
+          showError: new Array(
+            this.props.attribute.value.struct_define.length
+          ).fill(false),
+        });
       }
     }
   }
+  hasRegex = (regex: any): boolean => !_.isNil(regex) && regex !== "";
+  hasValueWithRegex = (value: any, regex: any): boolean =>
+    !_.isNil(value) && value !== "" && this.hasRegex(regex);
   handleValueChange = (e: SelectValue, define: Structkey) => {
     const structData = this.state.structData;
     structData[define.id] = e;
@@ -56,6 +64,25 @@ export class AddStructModal extends React.Component<
     define: any
   ) => {
     this.handleValueChange(e.target.value, define);
+  };
+  validateRegex = (value: any, define: any, index: number) => {
+    const { showError } = this.state;
+    const regex = new RegExp(define.regex);
+    let matched;
+    if (define.type === "arr") {
+      matched = this.hasRegex(define.regex)
+        ? value.every((item: string) => regex.test(item))
+        : true;
+    } else {
+      matched = this.hasValueWithRegex(value, define.regex)
+        ? regex.test(value)
+        : true;
+    }
+    showError[index] = !matched;
+    this.setState({
+      showError,
+    });
+    this.handleValueChange(value, define);
   };
   handleIpValueChange = (
     e: ChangeEvent<HTMLInputElement>,
@@ -113,7 +140,7 @@ export class AddStructModal extends React.Component<
   };
   validateJson = (err: any, index: number) => {
     const { showError } = this.state;
-    const error = _.some(err, ["type", "error"]);
+    const error = err.some((v: any) => ["error", "warning"].includes(v.type));
     showError[index] = error;
     this.setState({ showError });
   };
@@ -130,12 +157,30 @@ export class AddStructModal extends React.Component<
     switch (define.type) {
       case "int": {
         formType = (
-          <InputNumber
-            defaultValue={defaultValue}
-            style={{ width: "100%" }}
-            precision={0}
-            onChange={(e) => this.handleValueChange(e, define)}
-          />
+          <div>
+            <InputNumber
+              defaultValue={defaultValue}
+              style={{ width: "100%" }}
+              precision={0}
+              onChange={(e) => this.validateRegex(e, define, index)}
+              placeholder={
+                this.hasRegex(define.regex) &&
+                i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.MATCHING_REGULAR}`, {
+                  regexp: define.regex,
+                })
+              }
+            />
+            <label
+              style={{
+                display: this.state.showError[index] ? "block" : "none",
+                color: "#fc5043",
+              }}
+            >
+              {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.NOT_MEET_REGEX_DETAIL}`, {
+                regex: define.regex,
+              })}
+            </label>
+          </div>
         );
         break;
       }
@@ -177,12 +222,32 @@ export class AddStructModal extends React.Component<
       }
       case "arr": {
         formType = (
-          <Select
-            mode="tags"
-            style={{ width: "100%" }}
-            {...(defaultValue !== null ? { defaultValue: defaultValue } : {})}
-            onChange={(e: SelectValue) => this.handleValueChange(e, define)}
-          />
+          <div>
+            <Select
+              mode="tags"
+              style={{ width: "100%" }}
+              {...(defaultValue !== null ? { defaultValue: defaultValue } : {})}
+              onChange={(e: SelectValue) =>
+                this.validateRegex(e, define, index)
+              }
+              placeholder={
+                this.hasRegex(define.regex) &&
+                i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.MATCHING_REGULAR}`, {
+                  regexp: define.regex,
+                })
+              }
+            />
+            <label
+              style={{
+                display: this.state.showError[index] ? "block" : "none",
+                color: "#fc5043",
+              }}
+            >
+              {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.NOT_MEET_REGEX_DETAIL}`, {
+                regex: define.regex,
+              })}
+            </label>
+          </div>
         );
         break;
       }
@@ -238,6 +303,10 @@ export class AddStructModal extends React.Component<
         break;
       }
       case "json": {
+        let jsonSchema: any;
+        if (this.hasRegex(define.regex)) {
+          jsonSchema = JSON.parse(define.regex);
+        }
         formType = (
           <div>
             <CodeEditor
@@ -250,6 +319,7 @@ export class AddStructModal extends React.Component<
               showLineNumbers={true}
               showPrintMargin={false}
               onValidate={(err: any) => this.validateJson(err, index)}
+              {...(jsonSchema ? { jsonSchema: jsonSchema } : {})}
               theme="tomorrow"
             />
             <label
@@ -266,10 +336,30 @@ export class AddStructModal extends React.Component<
       }
       default: {
         formType = (
-          <Input
-            defaultValue={defaultValue}
-            onChange={(e) => this.handleInputValueChange(e, define)}
-          />
+          <div>
+            <Input
+              defaultValue={defaultValue}
+              placeholder={
+                this.hasRegex(define.regex) &&
+                i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.MATCHING_REGULAR}`, {
+                  regexp: define.regex,
+                })
+              }
+              onChange={(e) =>
+                this.validateRegex(e.target.value, define, index)
+              }
+            />
+            <label
+              style={{
+                display: this.state.showError[index] ? "block" : "none",
+                color: "#fc5043",
+              }}
+            >
+              {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.NOT_MEET_REGEX_DETAIL}`, {
+                regex: define.regex,
+              })}
+            </label>
+          </div>
         );
       }
     }
