@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.5.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.4.5...@next-libs/cmdb-instances@6.5.0) (2021-09-22)
+
+
+### Features
+
+* **cmdb-instances:** 创建实例时校验结构体正则 ([9f243e4](https://github.com/easyops-cn/next-libs/commit/9f243e4a8f6ab13f8fe2284abd9662ed96e11184))
+
+
+
+
+
 ## [6.4.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.4.4...@next-libs/cmdb-instances@6.4.5) (2021-09-18)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
