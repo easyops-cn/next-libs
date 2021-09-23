@@ -5,6 +5,7 @@ import { BrickIcon } from "@next-core/brick-icons";
 import { GeneralIcon } from "./GeneralIcon";
 import { Icon as LegacyIcon } from "@ant-design/compatible";
 import Icon from "@ant-design/icons";
+import { MenuIcon } from "@next-core/brick-types";
 
 describe("GeneralIcon", () => {
   it("should render null if icon is falsy", () => {
@@ -133,7 +134,11 @@ describe("GeneralIcon", () => {
 
   it("icon should render while has color", () => {
     const wrapper = mount(
-      <GeneralIcon showEmptyIcon={true} bg={true} icon={{ color: "#000" }} />
+      <GeneralIcon
+        showEmptyIcon={true}
+        bg={true}
+        icon={{ color: "#000" } as MenuIcon}
+      />
     );
     expect(wrapper.find("span").at(0).props().style).toEqual({
       color: "#ffffff",

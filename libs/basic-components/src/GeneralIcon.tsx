@@ -198,7 +198,10 @@ export function GeneralIcon({
           <Icon
             style={mergedStyle}
             component={() => (
-              <BrickIcon icon={icon.icon} category={icon.category} />
+              <BrickIcon
+                icon={(icon as EasyopsIcon).icon}
+                category={(icon as EasyopsIcon).category}
+              />
             )}
             onClick={onClick}
             className={generalIconId}
