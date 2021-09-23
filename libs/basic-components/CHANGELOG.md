@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.2.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@3.1.3...@next-libs/basic-components@3.2.0) (2021-09-23)
+
+
+### Features
+
+* **GeneralIcon:** add data-icon attribute ([9ba9637](https://github.com/easyops-cn/next-libs/commit/9ba9637f9bbe7972207df1acc0566982d293f161))
+
+
+
+
+
 ## [3.1.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@3.1.2...@next-libs/basic-components@3.1.3) (2021-08-19)
 
 
