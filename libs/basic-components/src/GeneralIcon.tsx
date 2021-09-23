@@ -53,6 +53,41 @@ export function GeneralIcon({
   showEmptyIcon,
   style,
 }: MenuIconProps): React.ReactElement {
+  const getStyle = (icon: MenuIcon): React.CSSProperties => {
+    let mergedStyle: React.CSSProperties;
+    if (icon?.color) {
+      if (!isGradientColor(icon.color)) {
+        if (bg) {
+          if (COLORS_MAP[icon.color as Colors]) {
+            if (reverseBgColor) {
+              mergedStyle = {
+                color: "#ffffff",
+                backgroundColor: getColor(icon.color).color,
+              };
+            } else {
+              mergedStyle = getColor(icon.color);
+            }
+          } else {
+            mergedStyle = {
+              color: "#ffffff",
+              backgroundColor: icon.color,
+            };
+          }
+        } else {
+          mergedStyle = {
+            color: COLORS_MAP[icon.color as Colors]
+              ? getColor(icon.color).color
+              : icon.color,
+          };
+        }
+      } else {
+        mergedStyle = {
+          color: "transparent",
+        };
+      }
+    }
+    return mergedStyle;
+  };
   const getDefaultIcon = (
     bg: boolean,
     mergedStyle: React.CSSProperties,
@@ -88,9 +123,9 @@ export function GeneralIcon({
     let iconNode = <></>;
 
     let mergedStyle: React.CSSProperties;
-    if (!icon) {
-      return getDefaultIcon(bg, mergedStyle, iconNode);
-    } else if ("imgSrc" in icon) {
+    if (!icon) icon = {} as any;
+
+    if ("imgSrc" in icon) {
       iconNode = (
         <img
           src={icon.imgSrc}
@@ -101,37 +136,7 @@ export function GeneralIcon({
         />
       );
     } else if ("lib" in icon) {
-      if (icon?.color) {
-        if (!isGradientColor(icon.color)) {
-          if (bg) {
-            if (COLORS_MAP[icon.color as Colors]) {
-              if (reverseBgColor) {
-                mergedStyle = {
-                  color: "#ffffff",
-                  backgroundColor: getColor(icon.color).color,
-                };
-              } else {
-                mergedStyle = getColor(icon.color);
-              }
-            } else {
-              mergedStyle = {
-                color: "#ffffff",
-                backgroundColor: icon.color,
-              };
-            }
-          } else {
-            mergedStyle = {
-              color: COLORS_MAP[icon.color as Colors]
-                ? getColor(icon.color).color
-                : icon.color,
-            };
-          }
-        } else {
-          mergedStyle = {
-            color: "transparent",
-          };
-        }
-      }
+      mergedStyle = getStyle(icon);
 
       if (style) {
         if (mergedStyle) {
@@ -257,6 +262,8 @@ export function GeneralIcon({
           ></Avatar>
         );
       }
+    } else {
+      return getDefaultIcon(bg, getStyle(icon as MenuIcon), iconNode);
     }
 
     return iconNode;

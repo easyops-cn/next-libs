@@ -131,6 +131,20 @@ describe("GeneralIcon", () => {
     });
   });
 
+  it("icon should render while has color", () => {
+    const wrapper = mount(
+      <GeneralIcon showEmptyIcon={true} bg={true} icon={{ color: "#000" }} />
+    );
+    expect(wrapper.find("span").at(0).props().style).toEqual({
+      color: "#ffffff",
+      backgroundColor: "#000",
+    });
+    expect(wrapper.find(BrickIcon).props()).toMatchObject({
+      icon: "empty-icon",
+      category: "common",
+    });
+  });
+
   it("should render icon if shape is round-square", () => {
     const wrapper = mount(
       <GeneralIcon
