@@ -120,6 +120,17 @@ describe("GeneralIcon", () => {
     });
   });
 
+  it("icon is null and showEmptyIcon is true should show default Icon", () => {
+    const wrapper = mount(
+      <GeneralIcon bg={true} showEmptyIcon={true} icon={null} />
+    );
+
+    expect(wrapper.find(BrickIcon).props()).toMatchObject({
+      icon: "empty-icon",
+      category: "common",
+    });
+  });
+
   it("should render icon if shape is round-square", () => {
     const wrapper = mount(
       <GeneralIcon

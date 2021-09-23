@@ -53,12 +53,44 @@ export function GeneralIcon({
   showEmptyIcon,
   style,
 }: MenuIconProps): React.ReactElement {
+  const getDefaultIcon = (
+    bg: boolean,
+    mergedStyle: React.CSSProperties,
+    iconNode: JSX.Element
+  ) => {
+    return bg ? (
+      <Avatar
+        icon={
+          showEmptyIcon ? (
+            <Icon
+              style={mergedStyle}
+              component={() => (
+                <BrickIcon icon="empty-icon" category="common" />
+              )}
+              onClick={onClick}
+            />
+          ) : (
+            iconNode
+          )
+        }
+        size={size ?? "default"}
+        shape={(shape as AvatarProps["shape"]) ?? "circle"}
+        style={mergedStyle}
+        className={classnames({
+          [cssStyle.roundSquareBg]: shape === "round-square",
+        })}
+      ></Avatar>
+    ) : (
+      iconNode
+    );
+  };
   return useMemo(() => {
     let iconNode = <></>;
 
     let mergedStyle: React.CSSProperties;
-
-    if ("imgSrc" in icon) {
+    if (!icon) {
+      return getDefaultIcon(bg, mergedStyle, iconNode);
+    } else if ("imgSrc" in icon) {
       iconNode = (
         <img
           src={icon.imgSrc}
@@ -110,6 +142,14 @@ export function GeneralIcon({
       }
 
       const generalIconId = uniqueId("generalIcon");
+
+      const iconType =
+        (icon as RefinedAntdIcon | FaIcon | EasyopsIcon)?.icon ||
+        (icon as LegacyAntdIcon)?.type;
+
+      if (!icon || (!iconType && showEmptyIcon)) {
+        return getDefaultIcon(bg, mergedStyle, iconNode);
+      }
 
       if (icon.lib === "antd") {
         const type =
@@ -215,37 +255,6 @@ export function GeneralIcon({
               [cssStyle.roundSquareBg]: shape === "round-square",
             })}
           ></Avatar>
-        );
-      }
-    } else {
-      const iconType =
-        (icon as RefinedAntdIcon | FaIcon | EasyopsIcon)?.icon ||
-        (icon as LegacyAntdIcon)?.type;
-      if (!icon || (!iconType && showEmptyIcon)) {
-        return bg ? (
-          <Avatar
-            icon={
-              showEmptyIcon ? (
-                <Icon
-                  style={mergedStyle}
-                  component={() => (
-                    <BrickIcon icon="empty-icon" category="common" />
-                  )}
-                  onClick={onClick}
-                />
-              ) : (
-                iconNode
-              )
-            }
-            size={size ?? "default"}
-            shape={(shape as AvatarProps["shape"]) ?? "circle"}
-            style={mergedStyle}
-            className={classnames({
-              [cssStyle.roundSquareBg]: shape === "round-square",
-            })}
-          ></Avatar>
-        ) : (
-          iconNode
         );
       }
     }
