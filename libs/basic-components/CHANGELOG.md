@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@3.2.1...@next-libs/basic-components@3.2.2) (2021-09-23)
+
+
+### Bug Fixes
+
+* 修复ts问题 ([0977813](https://github.com/easyops-cn/next-libs/commit/09778139cfb03ca906991756dff01cee929fbb00))
+* 支持单独颜色入参渲染情况 ([834d8fa](https://github.com/easyops-cn/next-libs/commit/834d8fa79ca0118a5312b19c63eb04b423ee9bd5))
+
+
+
+
+
 ## [3.2.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@3.2.0...@next-libs/basic-components@3.2.1) (2021-09-23)
 
 
