@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@3.2.0...@next-libs/basic-components@3.2.1) (2021-09-23)
+
+
+### Bug Fixes
+
+* update unit test ([ea721e4](https://github.com/easyops-cn/next-libs/commit/ea721e40ad0b3b1e828ef70a9450e810bf44cdf2))
+* 图标判断逻辑问题,导致icon传空,无法选择图标的问题 ([7f98394](https://github.com/easyops-cn/next-libs/commit/7f98394a509c75fb92ea980572de69c0c2c1f568))
+
+
+
+
+
 # [3.2.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@3.1.3...@next-libs/basic-components@3.2.0) (2021-09-23)
 
 
