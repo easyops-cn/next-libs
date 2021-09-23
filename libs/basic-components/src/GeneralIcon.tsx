@@ -154,6 +154,9 @@ export function GeneralIcon({
             style={mergedStyle}
             onClick={onClick}
             className={generalIconId}
+            data-icon={
+              (icon as RefinedAntdIcon).icon || (icon as LegacyAntdIcon).type
+            }
           />
         );
       }
@@ -173,6 +176,7 @@ export function GeneralIcon({
             )}
             onClick={onClick}
             className={generalIconId}
+            data-icon={icon.icon}
           />
         );
       }
@@ -186,6 +190,7 @@ export function GeneralIcon({
             )}
             onClick={onClick}
             className={generalIconId}
+            data-icon={icon.icon}
           />
         );
       }
