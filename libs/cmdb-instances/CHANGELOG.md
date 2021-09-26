@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.6.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.5.3...@next-libs/cmdb-instances@6.6.0) (2021-09-26)
+
+
+### Features
+
+* **cmdb-instances:** 创建结构体弹窗使用form ([c5cb42a](https://github.com/easyops-cn/next-libs/commit/c5cb42ad77367c0a76ef1471ac05c417d61ed8fb))
+
+
+
+
+
 ## [6.5.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.5.2...@next-libs/cmdb-instances@6.5.3) (2021-09-23)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
