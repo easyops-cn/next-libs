@@ -121,9 +121,9 @@ export function GeneralIcon({
   };
   return useMemo(() => {
     let iconNode = <></>;
-
+    if (typeof icon === "number" || typeof icon === "string") return iconNode;
+    if (!icon) icon = {};
     let mergedStyle: React.CSSProperties;
-    if (!icon) icon = {} as any;
 
     if ("imgSrc" in icon) {
       iconNode = (

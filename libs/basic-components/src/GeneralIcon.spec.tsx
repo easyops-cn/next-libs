@@ -132,6 +132,18 @@ describe("GeneralIcon", () => {
     });
   });
 
+  it("should work while icon was string", () => {
+    const wrapper = mount(<GeneralIcon icon="string" />);
+
+    expect(wrapper.html()).toEqual(null);
+  });
+
+  it("should work while icon was number", () => {
+    const wrapper = mount(<GeneralIcon icon={123} />);
+
+    expect(wrapper.html()).toEqual(null);
+  });
+
   it("icon should render while has color", () => {
     const wrapper = mount(
       <GeneralIcon
