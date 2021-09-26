@@ -133,12 +133,14 @@ describe("GeneralIcon", () => {
   });
 
   it("should work while icon was string", () => {
+    // @ts-ignore
     const wrapper = mount(<GeneralIcon icon="string" />);
 
     expect(wrapper.html()).toEqual(null);
   });
 
   it("should work while icon was number", () => {
+    // @ts-ignore
     const wrapper = mount(<GeneralIcon icon={123} />);
 
     expect(wrapper.html()).toEqual(null);
