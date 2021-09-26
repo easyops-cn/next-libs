@@ -1,12 +1,26 @@
-import React, { ChangeEvent } from "react";
-import { shallow } from "enzyme";
+import React from "react";
+import { mount, ReactWrapper } from "enzyme";
 import { AddStructModal, AddStructModalProps } from "./AddStructModal";
-import { DatePicker, Input, InputNumber, Radio, Select } from "antd";
+import {
+  DatePicker,
+  Input,
+  InputNumber,
+  Radio,
+  Select,
+  Modal,
+  Form,
+} from "antd";
 import moment from "moment";
-import { attribute, structData } from "./mockData";
-import { RadioChangeEvent } from "antd/lib/radio";
-import { Attribute } from "./interfaces";
+import { attribute, structData, attributeWithRegex } from "./mockData";
 import { CodeEditor } from "@next-libs/code-editor-components";
+import { act } from "react-dom/test-utils";
+
+const structDataReturn = {
+  ...structData,
+  json1: `{
+  "test": "666"
+}`,
+};
 
 describe("AddStructModal", () => {
   const handleStoreFunction = jest.fn();
@@ -16,118 +30,270 @@ describe("AddStructModal", () => {
     attribute,
     handleStoreFunction,
     handleCancelFunction,
-    visible: false,
+    visible: true,
   };
-  const wrapper = shallow<AddStructModalProps>(<AddStructModal {...props} />);
-  const instance = wrapper.instance() as AddStructModal;
+  let wrapper: ReactWrapper;
+  beforeEach(() => {
+    wrapper = mount(<AddStructModal {...props} />);
+  });
+
+  afterEach(() => {
+    handleStoreFunction.mockClear();
+    handleCancelFunction.mockClear();
+  });
+
   it("should init addStructModal", () => {
     expect(wrapper).toBeTruthy();
-    expect(instance.state.showError).toEqual(new Array(11).fill(false));
   });
-  it("should call the store function", () => {
-    const spy = jest.spyOn(props, "handleStoreFunction");
 
-    wrapper.setProps({ visible: true });
-    instance.handleStore();
-    expect(spy).toBeCalledWith(structData);
-  });
   it("should call the cancel function", () => {
-    const spy = jest.spyOn(props, "handleCancelFunction");
-    instance.handleCloseModal();
-    expect(spy).toBeCalled();
-  });
-  it("should call the handleValueChange when change the int value", () => {
-    expect(wrapper.find(InputNumber).length).toBe(2);
-    const inputNumber = wrapper.find(InputNumber).first();
-    inputNumber.invoke("onChange")(100);
-    expect(instance.state.structData["int"]).toEqual(100);
-  });
-  it("should call the handleValueChange when change the float value", () => {
-    const inputNumber = wrapper.find(InputNumber).first();
-    inputNumber.invoke("onChange")(100.1);
-    expect(instance.state.structData["float"]).toEqual(100.1);
-  });
-  it("should call the handleValueChange when change the string value", () => {
-    wrapper.find(Input).at(0).prop("onChange")({
-      target: { value: "newString" },
-    } as ChangeEvent<HTMLInputElement>);
-    expect(instance.state.structData["str"]).toEqual("newString");
+    wrapper.find(Modal).invoke("onCancel")(null);
+    expect(handleCancelFunction).toBeCalled();
+    expect(handleStoreFunction).not.toBeCalled();
   });
 
-  it("should call the handleIpValueChange when change the ip value", () => {
-    wrapper.find(Input).at(1).prop("onChange")({
-      target: { value: "1.1.1.1" },
-    } as ChangeEvent<HTMLInputElement>);
-    expect(instance.state.structData["ip"]).toEqual("1.1.1.1");
+  it("should call the store function", async () => {
+    wrapper.find(Modal).invoke("onOk")(null);
+    await (global as any).flushPromises();
+    expect(handleCancelFunction).not.toBeCalled();
+    expect(handleStoreFunction).toBeCalledWith(structDataReturn);
   });
-  it("should show the error message when give a invalid ip", () => {
-    wrapper.find(Input).at(1).prop("onChange")({
-      target: { value: "1.1.1" },
-    } as ChangeEvent<HTMLInputElement>);
-    expect(instance.state.showError[3]).toEqual(true);
+
+  it.each([
+    [
+      "str",
+      {
+        name: "str",
+        changeValue: "newString",
+        returnValue: "newString",
+        component: Input,
+      },
+    ],
+    [
+      "int",
+      {
+        name: "int",
+        changeValue: 1234,
+        returnValue: 1234,
+        component: InputNumber,
+      },
+    ],
+    [
+      "enum (length < 6)",
+      {
+        name: "enum1",
+        changeValue: "9",
+        returnValue: "9",
+        component: Radio.Group,
+      },
+    ],
+    [
+      "enum (length >= 6)",
+      {
+        name: "enum2",
+        changeValue: "11",
+        returnValue: "11",
+        component: Select,
+      },
+    ],
+    [
+      "enums",
+      {
+        name: "enums",
+        changeValue: ["1", "3", "9"],
+        returnValue: ["1", "3", "9"],
+        component: Select,
+      },
+    ],
+    [
+      "arr",
+      {
+        name: "arr",
+        changeValue: ["a", "b", "c"],
+        returnValue: ["a", "b", "c"],
+        component: Select,
+      },
+    ],
+    [
+      "date",
+      {
+        name: "date",
+        changeValue: moment("2019-01-01"),
+        returnValue: "2019-01-01",
+        component: DatePicker,
+      },
+    ],
+    [
+      "datetime",
+      {
+        name: "datetime",
+        changeValue: moment("2019-01-01 23:59:59"),
+        returnValue: "2019-01-01 23:59:59",
+        component: DatePicker,
+      },
+    ],
+    [
+      "ip",
+      {
+        name: "ip",
+        changeValue: "192.168.100.119",
+        returnValue: "192.168.100.119",
+        component: Input,
+      },
+    ],
+    [
+      "float",
+      {
+        name: "float",
+        changeValue: 12.345,
+        returnValue: 12.345,
+        component: InputNumber,
+      },
+    ],
+    [
+      "bool",
+      {
+        name: "bool",
+        changeValue: false,
+        returnValue: false,
+        component: Radio.Group,
+      },
+    ],
+    [
+      "json",
+      {
+        name: "json",
+        changeValue: "abcd",
+        returnValue: "abcd",
+        component: CodeEditor,
+      },
+    ],
+  ])(
+    "should work when change the %s value",
+    async (type, { name, changeValue, returnValue, component }) => {
+      wrapper
+        .find(Form.Item)
+        .filter({ name })
+        .find(component)
+        .invoke("onChange")(changeValue);
+      wrapper.find(Modal).invoke("onOk")(null);
+      await (global as any).flushPromises();
+      expect(handleStoreFunction).toBeCalledWith({
+        ...structDataReturn,
+        [name]: returnValue,
+      });
+    }
+  );
+});
+
+describe("AddStructModal test regex", () => {
+  const handleStoreFunction = jest.fn();
+  const handleCancelFunction = jest.fn();
+  const props = {
+    attribute: attributeWithRegex,
+    handleStoreFunction,
+    handleCancelFunction,
+    visible: true,
+  };
+  let wrapper: ReactWrapper;
+  beforeEach(() => {
+    wrapper = mount(<AddStructModal {...props} />);
   });
-  it("should render radios group when enum's count is smaller than 6", () => {
-    expect(wrapper.find(Radio.Group).length).toEqual(1);
+
+  afterEach(() => {
+    handleStoreFunction.mockClear();
+    handleCancelFunction.mockClear();
   });
-  it("should change the enum value", () => {
-    wrapper.find(Radio.Group).prop("onChange")({
-      target: { value: "3" },
-    } as RadioChangeEvent);
-    expect(instance.state.structData["enum"]).toEqual("3");
-  });
-  it("should change the arr value", () => {
-    wrapper.find(Select).at(0).prop("onChange")(
-      ["abc", "xyz"],
-      expect.anything()
-    );
-    expect(instance.state.structData["arr"]).toEqual(["abc", "xyz"]);
-  });
-  it("should change the date value", () => {
-    wrapper.find(DatePicker).at(0).prop("onChange")(
-      moment("2019-01-01"),
-      expect.anything()
-    );
-    expect(instance.state.structData["date"]).toEqual("2019-01-01");
-  });
-  it("should change the datetime value", () => {
-    wrapper.find(DatePicker).at(1).prop("onChange")(
-      moment("2019-01-01 23:59:59"),
-      expect.anything()
-    );
-    expect(instance.state.structData["datetime"]).toEqual(
-      "2019-01-01 23:59:59"
-    );
-  });
-  it("should change the enums value", () => {
-    wrapper.find(Select).at(1).prop("onChange")(
-      ["3", "5", "7"],
-      expect.anything()
-    );
-    expect(instance.state.structData["enums"]).toEqual(["3", "5", "7"]);
-  });
-  it("should render radio group", () => {
-    const define = {
-      id: "enum",
-      name: "枚举",
-      type: "enum",
-      regex: ["1", "3", "5", "7", "9"],
-    };
-    const radioWrapper = shallow(instance.getEnumForm(define, "1"));
-    expect(radioWrapper).toBeTruthy();
-  });
-  it("should render Select when enum", () => {
-    const define = {
-      id: "enum",
-      name: "枚举",
-      type: "enum",
-      regex: ["1", "3", "5", "7", "9", "11"],
-    };
-    const selectWrapper = shallow(instance.getEnumForm(define, "1"));
-    expect(selectWrapper).toBeTruthy();
-  });
-  it("should change the json", () => {
-    wrapper.find(CodeEditor).at(0).invoke("onChange")("100");
-    wrapper.find(CodeEditor).at(0).invoke("onValidate")([
+
+  it.each([
+    [
+      "str",
+      {
+        name: "str",
+        invalidValue: "1245",
+        validValue: "abcdd",
+        returnValue: "abcdd",
+        component: Input,
+      },
+    ],
+    [
+      "int",
+      {
+        name: "int",
+        invalidValue: 111,
+        validValue: 110,
+        returnValue: 110,
+        component: InputNumber,
+      },
+    ],
+    [
+      "arr",
+      {
+        name: "arr",
+        invalidValue: ["1678", "6782", "6783"],
+        validValue: ["6781", "6782", "6783"],
+        returnValue: ["6781", "6782", "6783"],
+        component: Select,
+      },
+    ],
+    [
+      "ip",
+      {
+        name: "ip",
+        invalidValue: "192.168.100",
+        validValue: "192.168.100.119",
+        returnValue: "192.168.100.119",
+        component: Input,
+      },
+    ],
+  ])(
+    "regex should work when change the %s value",
+    async (
+      type,
+      { name, invalidValue, validValue, returnValue, component }
+    ) => {
+      wrapper
+        .find(Form.Item)
+        .filter({ name })
+        .find(component)
+        .invoke("onChange")(invalidValue);
+      await (global as any).flushPromises();
+      const errors = wrapper.find(Form).props().form.getFieldError(name);
+      expect(errors.length).not.toBe(0);
+
+      wrapper
+        .find(Form.Item)
+        .filter({ name })
+        .find(component)
+        .invoke("onChange")(validValue);
+      wrapper.find(Modal).invoke("onOk")(null);
+      await (global as any).flushPromises();
+      expect(handleStoreFunction).toBeCalledWith({ [name]: returnValue });
+    }
+  );
+
+  it.each([
+    ["enum (length < 6)", { name: "enum1", component: Radio }],
+    // ["enum (length >= 6)", { name: "enum2", component: "Option" }],
+    // ["enums", { name: "enums", component: "Option" }],
+  ])(
+    "regex should work when change the %s value",
+    async (type, { name, component }) => {
+      const options = wrapper.find(Form.Item).filter({ name }).find(component);
+      expect(options.length).toBe(
+        attributeWithRegex.value.struct_define.find((v) => v.id === name).regex
+          .length
+      );
+    }
+  );
+
+  it("JSON schema should work when change the json value", async () => {
+    const name = "json";
+    wrapper
+      .find(Form.Item)
+      .filter({ name })
+      .find(CodeEditor)
+      .invoke("onValidate")([
       {
         column: 0,
         row: 0,
@@ -135,63 +301,8 @@ describe("AddStructModal", () => {
         type: "error",
       },
     ]);
-    expect(instance.state.showError).toEqual([
-      false,
-      false,
-      false,
-      true,
-      false,
-      false,
-      false,
-      false,
-      false,
-      true,
-      false,
-    ]);
-  });
-  it("should render Radio base on bool type", () => {
-    const attribute: Attribute = {
-      name: "结构体",
-      id: "struct",
-      value: {
-        type: "structs",
-        struct_define: [
-          {
-            id: "isShow",
-            name: "显示",
-            type: "bool",
-          },
-        ],
-      },
-    };
-
-    const wrapper2 = shallow<AddStructModalProps>(
-      <AddStructModal {...props} attribute={attribute} />
-    );
-    wrapper2.setProps({
-      visible: true,
-    });
-
-    wrapper2.find(Radio.Group).invoke("onChange")({
-      target: { value: true },
-    } as RadioChangeEvent);
-    expect(wrapper2.find(Radio.Group).prop("defaultValue")).toEqual(true);
-  });
-});
-describe("AddStructModal test visible", () => {
-  const handleStoreFunction = jest.fn();
-  const handleCancelFunction = jest.fn();
-  const props = {
-    structData,
-    attribute,
-    handleStoreFunction,
-    handleCancelFunction,
-    visible: true,
-  };
-  const wrapper = shallow<AddStructModalProps>(<AddStructModal {...props} />);
-  const instance = wrapper.instance() as AddStructModal;
-  it("should init addStructModal", () => {
-    expect(wrapper).toBeTruthy();
-    expect(instance.state.showError).toEqual(new Array(11).fill(false));
+    await (global as any).flushPromises();
+    const errors = wrapper.find(Form).props().form.getFieldError(name);
+    expect(errors.length).not.toBe(0);
   });
 });

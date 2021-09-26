@@ -409,7 +409,7 @@ export class ModelAttributeFormControl extends Component<
   };
   validateJson = (err: any) => {
     const error = some(err, ["type", "error"]);
-    this.props.jsonValidateCollection(error);
+    this.props.jsonValidateCollection?.(error);
     this.setState({ showError: error });
   };
 
