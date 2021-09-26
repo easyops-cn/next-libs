@@ -26,3 +26,17 @@ export interface Attribute {
   tips?: string;
   description?: string;
 }
+
+export enum StructDefineType {
+  STRING = "str",
+  INTEGER = "int",
+  ENUM = "enum",
+  ENUMS = "enums",
+  ARR = "arr",
+  DATE = "date",
+  DATETIME = "datetime",
+  IP = "ip",
+  FLOAT = "float",
+  BOOLEAN = "bool",
+  JSON = "json",
+}
