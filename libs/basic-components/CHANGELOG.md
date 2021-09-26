@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@3.2.2...@next-libs/basic-components@3.2.3) (2021-09-26)
+
+
+### Bug Fixes
+
+* **GeneralIcon:** add ts ignore ([def641f](https://github.com/easyops-cn/next-libs/commit/def641ff321e07f7e07e7a6285d1ed5eabba0f28))
+* **GeneralIcon:** error while props.icon was number or string ([c22d203](https://github.com/easyops-cn/next-libs/commit/c22d20317032b0b9e4246e3c056a24340b6438fb))
+
+
+
+
+
 ## [3.2.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@3.2.1...@next-libs/basic-components@3.2.2) (2021-09-23)
 
 
