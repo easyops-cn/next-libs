@@ -15,6 +15,7 @@ import {
   find,
   startsWith,
   compact,
+  omit,
 } from "lodash";
 import { BrickAsComponent, handleHttpError } from "@next-core/brick-kit";
 import i18n from "i18next";
@@ -53,6 +54,7 @@ import {
   MoreButtonsContainer,
   InstanceListTable,
   CustomColumn,
+  ElementOperators,
 } from "../instance-list-table";
 import styles from "./InstanceList.module.css";
 import {
@@ -145,6 +147,12 @@ function translateConditions(
         relationSideId: relation[`${sides.this}_id` as RelationIdKeys],
       });
     });
+    relations.push({
+      id: `${objectId}.`,
+      name: `${relation[`${sides.this}_name` as RelationNameKeys]}`,
+      value: { type: "str" },
+      relationSideId: relation[`${sides.this}_id` as RelationIdKeys],
+    });
   });
   const attrAndRelationList = [...modelData.attrList, ...relations];
   if (!isEmpty(aq)) {
@@ -156,9 +164,20 @@ function translateConditions(
 
       queries.forEach((query) => {
         const key = Object.keys(query)[0];
-        const attr = attrAndRelationList.find(
+        const value = Object.values(query)[0];
+        let attr = attrAndRelationList.find(
           (attr) => attr.id === key || attr.relationSideId === key
         );
+        if (
+          Object.keys(value)[0] === ElementOperators.Exists &&
+          attr.relationSideId
+        ) {
+          const relationSideId = attr.relationSideId;
+          attr =
+            attrAndRelationList.find(
+              (attr) => attr.id === `${relationSideId}.`
+            ) || attr;
+        }
         if (attr) {
           query = changeQueryWithCustomRules(
             modelData.objectId,
@@ -196,11 +215,18 @@ function translateConditions(
           ) {
             condition += `"${info.values.join(" ~ ")}"`;
           }
-          conditions.push({
+          const curCondition = {
             attrId: key,
             condition,
             valuesStr: info.queryValuesStr,
-          });
+          };
+          if (
+            conditions.every(
+              (v) => !isEqual(omit(v, "attrId"), omit(curCondition, "attrId"))
+            )
+          ) {
+            conditions.push(curCondition);
+          }
         }
       });
     }
