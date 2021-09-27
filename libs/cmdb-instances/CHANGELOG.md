@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.6.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.6.1...@next-libs/cmdb-instances@6.6.2) (2021-09-27)
+
+
+### Bug Fixes
+
+* **cmdb-instances:** 修复实例列表高级搜索-关系字段查询回填不正确 ([1fed048](https://github.com/easyops-cn/next-libs/commit/1fed0482fb166e345b6ff5230d3b933dd7cff187))
+
+
+
+
+
 ## [6.6.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.6.0...@next-libs/cmdb-instances@6.6.1) (2021-09-26)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
