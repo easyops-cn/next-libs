@@ -48,7 +48,7 @@ enum ComparisonOperators {
   NotIn = "$nin",
 }
 
-enum ElementOperators {
+export enum ElementOperators {
   Exists = "$exists",
 }
 
@@ -373,8 +373,9 @@ export function getFieldConditionsAndValues(
   let expressionsKeysStr: string;
   if (!expressions && isRelation) {
     isRelationWithNoExpression = true;
-    const relatedKey = findKey(fieldQueryOperatorExpressionsMap, (v, k) =>
-      startsWith(k, `${relationSideId}.`)
+    const relatedKey = findKey(
+      fieldQueryOperatorExpressionsMap,
+      (v, k) => startsWith(k, `${relationSideId}.`) || k === relationSideId
     );
     const relatedExpressions = fieldQueryOperatorExpressionsMap[relatedKey];
     if (
@@ -416,7 +417,7 @@ export function getFieldConditionsAndValues(
     currentCondition = availableConditions[0];
   }
   let queryValuesStr = "";
-  let values = currentCondition.operations.map((operation) => {
+  const values = currentCondition.operations.map((operation) => {
     let value: any;
     // istanbul ignore else
     if (expressions?.[operation.operator] !== undefined) {
@@ -468,19 +469,19 @@ export function getFieldConditionsAndValues(
     return value;
   });
 
-  let disabled = false;
+  const disabled = false;
 
-  if (
-    isRelation &&
-    expressions &&
-    currentCondition.operations[0].operator === ElementOperators.Exists &&
-    isRelationWithNoExpression
-  ) {
-    disabled = true;
-    currentCondition = availableConditions[0];
-    values = [null];
-    queryValuesStr = "";
-  }
+  // if (
+  //   isRelation &&
+  //   expressions &&
+  //   currentCondition.operations[0].operator === ElementOperators.Exists &&
+  //   isRelationWithNoExpression
+  // ) {
+  //   disabled = true;
+  //   currentCondition = availableConditions[0];
+  //   values = [null];
+  //   queryValuesStr = "";
+  // }
 
   return {
     availableConditions,
@@ -738,23 +739,27 @@ export class AdvancedSearchForm extends React.Component<
     );
     if (relatedFieldIndex !== -1) {
       const relatedField = newFields[relatedFieldIndex];
+      const relatedCondition = relatedField.availableConditions.find(
+        (condition) => condition.type === value
+      );
       if (condition.operations[0].operator === ElementOperators.Exists) {
+        newFields = update(newFields, {
+          [relatedFieldIndex]: {
+            currentCondition: { $set: relatedCondition },
+            values: {
+              $set: [null],
+            },
+          },
+        });
+      } else if (
+        relatedField.currentCondition.operations[0].operator ===
+        ElementOperators.Exists
+      ) {
         newFields = update(newFields, {
           [relatedFieldIndex]: {
             currentCondition: { $set: relatedField.availableConditions[0] },
             values: {
               $set: [null],
-            },
-            disabled: {
-              $set: true,
-            },
-          },
-        });
-      } else {
-        newFields = update(newFields, {
-          [relatedFieldIndex]: {
-            disabled: {
-              $set: false,
             },
           },
         });

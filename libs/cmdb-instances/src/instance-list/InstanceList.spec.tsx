@@ -145,6 +145,9 @@ jest.mock("../instance-list-table", () => ({
     True: "true",
     False: "false",
   },
+  ElementOperators: {
+    Exists: "$exists",
+  },
 }));
 
 const instanceListData = getInstanceListData();
@@ -507,6 +510,49 @@ describe("InstanceList", () => {
     await jest.runAllTimers();
     wrapper.update();
     expect(wrapper.find("Tag").length).toBe(0);
+  });
+
+  it("should work with hideSearchConditions", async () => {
+    const wrapper = mount(
+      <InstanceList
+        objectId="HOST"
+        objectList={[HOST]}
+        aq={[
+          {
+            $or: [
+              {
+                hostname: {
+                  $like: "%bug%",
+                },
+              },
+            ],
+          },
+          {
+            ip: {
+              $exists: true,
+            },
+          },
+          {
+            $or: [
+              {
+                cpu: {
+                  $eq: "closed",
+                },
+              },
+            ],
+          },
+          {
+            "backupowner.name": {
+              $exists: false,
+            },
+          },
+        ]}
+      />
+    );
+    await (global as any).flushPromises();
+    await jest.runAllTimers();
+    wrapper.update();
+    expect(wrapper.find("Tag").length).toBe(4);
   });
 
   it("should call onAliveHostsChange when change aliveHosts", async () => {
