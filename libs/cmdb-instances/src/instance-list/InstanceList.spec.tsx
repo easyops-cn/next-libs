@@ -331,6 +331,32 @@ const HOST: any = {
       },
       wordIndexDenied: false,
     },
+    {
+      id: "testSort",
+      name: "流水号",
+      protected: true,
+      custom: "false",
+      unique: "false",
+      readonly: "false",
+      required: "true",
+      tag: ["默认属性"],
+      description: "",
+      tips: "",
+      value: {
+        type: "str",
+        regex: null,
+        default_type: "series-number",
+        default: null,
+        struct_define: [],
+        mode: "default",
+        prefix: "aa",
+        start_value: 0,
+        series_number_length: 2,
+      },
+      wordIndexDenied: false,
+      isInherit: false,
+      notifyDenied: false,
+    },
   ],
   relation_list: [
     {
@@ -387,7 +413,7 @@ describe("InstanceList", () => {
     };
     const page = 1;
     const pageSize = 20;
-    const sort = "name";
+    const sort = "testSort";
     const asc = true;
     const q = "aaa";
     const propertyDisplayConfigs: PropertyDisplayConfig[] = [];
@@ -444,6 +470,23 @@ describe("InstanceList", () => {
     );
     expect(instanceListTableProps.fieldIds).toEqual(newFieldIds);
     expect(instanceListTableProps.onClickItem).toBe(onClickItem);
+
+    expect(InstanceApi_postSearchV3).toBeCalledWith(objectId, {
+      fields: ["hostname", "ip", "_deviceList_CLUSTER", "instanceId"],
+      ignore_missing_field_error: true,
+      page: page,
+      page_size: pageSize,
+      query: {
+        $and: [
+          {
+            $and: [{ status: "运营中" }],
+            $or: [{ hostname: { $like: "%aaa%" } }, { ip: { $like: "%aaa%" } }],
+          },
+          { status: "运营中" },
+        ],
+      },
+      sort: [{ key: sort, order: 2 }],
+    });
   });
 
   it("should toggle advanced search when click advanced-search-toggle-btn", async () => {
