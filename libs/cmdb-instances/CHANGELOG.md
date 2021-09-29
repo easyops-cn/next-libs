@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.6.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.6.2...@next-libs/cmdb-instances@6.6.3) (2021-09-29)
+
+
+### Bug Fixes
+
+* **cmdb-instances:** 实例列表自增id流水号属性排序使用自然排序 ([1eeada1](https://github.com/easyops-cn/next-libs/commit/1eeada18741c0564fb03d84b5622f8b77576ed46))
+
+
+
+
+
 ## [6.6.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.6.1...@next-libs/cmdb-instances@6.6.2) (2021-09-27)
 
 
