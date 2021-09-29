@@ -542,9 +542,18 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
 
     v3Data.page = data.page = page;
     v3Data["page_size"] = data["page_size"] = state.pageSize;
+    const sortType = modelData?.attrList?.find((attr) => attr.id === sort)
+      ?.value?.default_type;
+    const order = ["series-number", "auto-increment-id"].includes(sortType)
+      ? asc
+        ? 2
+        : -2
+      : asc
+      ? 1
+      : -1;
     if (sort) {
-      data.sort = { [sort]: asc ? 1 : -1 };
-      v3Data.sort = [{ key: sort, order: asc ? 1 : -1 }];
+      data.sort = { [sort]: order };
+      v3Data.sort = [{ key: sort, order }];
     }
 
     if (state.q) {
