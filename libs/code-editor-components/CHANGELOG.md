@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.0.7...@next-libs/code-editor-components@4.0.8) (2021-10-11)
+
+
+### Bug Fixes
+
+* support recursive flag in expression ([1ade2e8](https://github.com/easyops-cn/next-libs/commit/1ade2e8726fecbb6243fa3d05bc303d635a9efc8))
+
+
+
+
+
 ## [4.0.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.0.6...@next-libs/code-editor-components@4.0.7) (2021-09-26)
 
 **Note:** Version bump only for package @next-libs/code-editor-components
