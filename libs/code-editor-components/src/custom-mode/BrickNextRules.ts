@@ -238,7 +238,7 @@ export const brickNextEntryRules = (
 ) => [
   {
     token: "placeholder.start",
-    regex: "(<%)(\\s|$)",
+    regex: "(<%)(~?)(\\s|$)",
     push: `brickNext${quotedType}-jscode-start`,
   },
   {
