@@ -2,7 +2,7 @@
   "$schema": "http://json.schemastore.org/renovate",
   "extends": ["config:base"],
   "rangeStrategy": "bump",
-  "semanticCommits": true,
+  "semanticCommits": "enabled",
   "commitMessagePrefix": "chore(deps):",
   "ignorePresets": [":ignoreModulesAndTests"],
   "packageRules": [
@@ -84,27 +84,14 @@
       ]
     },
     {
-      "automerge": false,
       "groupName": "next-core packages",
-      "postUpgradeTasks": {
-        "commands": [
-          "yarn renew",
-          "yarn extract",
-          "./node_modules/.bin/prettier --write package.json",
-          "yarn-deduplicate yarn.lock",
-          "yarn"
-        ],
-        "fileFilters": [
-          "**/*",
-          ".gitignore",
-          ".gitlab/**/*",
-          ".huskyrc",
-          ".husky/.gitignore",
-          ".husky/**/*"
-        ]
-      },
-      "major": { "enabled": false },
-      "matchPackagePatterns": ["^@next-core/"]
+      "matchPackagePatterns": ["^@next-core/"],
+      "automerge": false
+    },
+    {
+      "matchPackagePatterns": ["^@next-core/"],
+      "matchUpdateTypes": ["major"],
+      "enabled": false
     }
   ],
   "postUpdateOptions": ["yarnDedupeHighest"]
