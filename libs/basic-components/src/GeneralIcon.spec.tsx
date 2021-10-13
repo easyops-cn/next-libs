@@ -48,6 +48,24 @@ describe("GeneralIcon", () => {
       category: "app",
     });
     expect(wrapper.find(Icon).prop("data-icon")).toBe("idc");
+
+    // Set to the same icon.
+    wrapper.setProps({
+      icon: { lib: "easyops", icon: "idc", category: "app" },
+    });
+    expect(wrapper.find(BrickIcon).props()).toMatchObject({
+      icon: "idc",
+      category: "app",
+    });
+
+    // Set to the another icon.
+    wrapper.setProps({
+      icon: { lib: "easyops", icon: "f5", category: "app" },
+    });
+    expect(wrapper.find(BrickIcon).props()).toMatchObject({
+      icon: "f5",
+      category: "app",
+    });
   });
 
   it("should render null if icon is invalid", () => {

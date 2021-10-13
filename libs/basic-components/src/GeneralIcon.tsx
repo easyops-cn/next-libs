@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useRef } from "react";
 import { Icon as LegacyIcon } from "@ant-design/compatible";
 import Icon from "@ant-design/icons";
 import { Avatar, AvatarProps } from "antd";
@@ -15,7 +15,7 @@ import { BrickIcon } from "@next-core/brick-icons";
 import { Colors, COLORS_MAP, getColor } from "./utils/getColor";
 import classnames from "classnames";
 import cssStyle from "./GeneralIcon.module.css";
-import { uniqueId } from "lodash";
+import { isEqual, uniqueId } from "lodash";
 
 type SrcIcon = {
   imgSrc?: string;
@@ -44,7 +44,7 @@ function isGradientColor(
 }
 
 export function GeneralIcon({
-  icon,
+  icon: _icon,
   bg,
   size,
   shape,
@@ -53,6 +53,7 @@ export function GeneralIcon({
   showEmptyIcon,
   style,
 }: MenuIconProps): React.ReactElement {
+  const memoizedIcon = useDeepEqualMemo(_icon);
   const getStyle = (icon: MenuIcon): React.CSSProperties => {
     let mergedStyle: React.CSSProperties;
     if (icon?.color) {
@@ -119,8 +120,10 @@ export function GeneralIcon({
       iconNode
     );
   };
+
   return useMemo(() => {
     let iconNode = <></>;
+    let icon = memoizedIcon;
     if (typeof icon === "number" || typeof icon === "string") return iconNode;
     if (!icon) icon = {};
     let mergedStyle: React.CSSProperties;
@@ -270,5 +273,25 @@ export function GeneralIcon({
     }
 
     return iconNode;
-  }, [bg, icon, onClick, reverseBgColor, shape, showEmptyIcon, size, style]);
+  }, [
+    bg,
+    memoizedIcon,
+    onClick,
+    reverseBgColor,
+    shape,
+    showEmptyIcon,
+    size,
+    style,
+  ]);
+}
+
+// Use deepEqual to compare icons, to avoid flicker of easyops icon.
+function useDeepEqualMemo<T>(value: T): T {
+  const ref = useRef<T>(undefined);
+
+  if (!isEqual(ref.current, value)) {
+    ref.current = value;
+  }
+
+  return ref.current;
 }
