@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.1.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/storyboard-visualization@4.0.10...@next-libs/storyboard-visualization@4.1.0) (2021-10-19)
+
+
+### Features
+
+* draw segue link ([f972958](https://github.com/easyops-cn/next-libs/commit/f972958d9a87f5fac9bc966f892f7039cf461f65))
+
+
+
+
+
 ## [4.0.10](https://github.com/easyops-cn/next-libs/compare/@next-libs/storyboard-visualization@4.0.9...@next-libs/storyboard-visualization@4.0.10) (2021-10-13)
 
 **Note:** Version bump only for package @next-libs/storyboard-visualization
