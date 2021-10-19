@@ -1,44 +1,55 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { create, Selection, select } from "d3-selection";
+import { zoomIdentity } from "d3-zoom";
+import { drag } from "d3-drag";
 import {
   uniqueId,
-  values,
-  compact,
-  find,
   isNil,
   filter,
-  reject,
   findIndex,
   maxBy,
   minBy,
   sortBy,
   map,
 } from "lodash";
-import classNames from "classnames";
-import { RouteNodeComponent } from "./RouteNodeComponent";
-import { drag } from "d3-drag";
-import { RouteGraphNode, Edge } from "./interfaces";
-import { RoutesPreview } from "./RoutesPreview";
-import { XYCoord } from "react-dnd";
-import styles from "./RoutesGraph.module.css";
-import { getLinkPath } from "./processors";
-import { ViewItem } from "../shared/interfaces";
+import { PlusOutlined } from "@ant-design/icons";
 import { ContentItemActions, ZoomPanel } from "@next-libs/basic-components";
+import { XYCoord } from "react-dnd";
+import { RouteNodeComponent } from "./RouteNodeComponent";
+import {
+  RouteGraphNode,
+  Edge,
+  LinkVertex,
+  ControlPoint,
+  SnappedLinkVertex,
+  SegueLinkData,
+  SegueLinkError,
+} from "./interfaces";
+import styles from "./RoutesGraph.module.css";
+import nodeComponentStyles from "./RouteNodeComponent.module.css";
+import { ViewItem } from "../shared/interfaces";
 import {
   nodeWidth,
   ZOOM_STEP,
   ZOOM_SCALE_MIN,
   ZOOM_SCALE_MAX,
 } from "./constants";
-import { zoomIdentity } from "d3-zoom";
-import { PlusOutlined } from "@ant-design/icons";
+import { getLinkVertex } from "./processors/getLinkVertex";
+import { getEdgePath } from "./processors/getEdgePath";
+import { getTargetVertex } from "./processors/getTargetVertex";
+import { getEdgesByNodes } from "./processors/getEdgesByNodes";
+import { updateDrawingLink } from "./processors/updateDrawingLink";
+import { handleSegueLink } from "./processors/handleSegueLink";
+import { TargetControlPointManager } from "./processors/TargetControlPointManager";
 
 interface RenderOptions {
   contentItemActions?: ContentItemActions;
   onNodeClick?: (node: ViewItem) => void;
   handleCancelLayout?: (node: ViewItem) => void;
   onNodeDrag?: (node: ViewItem) => void;
+  onSegueLink?: (segue: SegueLinkData) => void;
+  onSegueLinkError?: (error: SegueLinkError) => void;
   readOnly?: boolean;
   showReferenceLines?: boolean;
   alignSize?: number;
@@ -70,8 +81,27 @@ export class RoutesGraph {
     null,
     undefined
   >;
+  private readonly drawingLinkLayer: Selection<
+    SVGSVGElement,
+    undefined,
+    null,
+    undefined
+  >;
+  private readonly drawingLinkContainer: Selection<
+    SVGGElement,
+    undefined,
+    null,
+    undefined
+  >;
+  private readonly drawingLink: Selection<
+    SVGPathElement,
+    undefined,
+    null,
+    undefined
+  >;
   private readonly defs: Selection<SVGDefsElement, undefined, null, undefined>;
   private readonly arrowMarkerId: string;
+  private readonly drawingArrowMarkerId: string;
   private readonly linksContainer: Selection<
     SVGGElement,
     undefined,
@@ -91,12 +121,6 @@ export class RoutesGraph {
     undefined
   >;
   private readonly nodesContainer: Selection<
-    HTMLDivElement,
-    undefined,
-    null,
-    undefined
-  >;
-  private readonly routesPreviewContainer: Selection<
     HTMLDivElement,
     undefined,
     null,
@@ -130,6 +154,8 @@ export class RoutesGraph {
 
   private onNodeClick: (node: ViewItem) => void;
   private onNodeDrag: (node: ViewItem) => void;
+  private onSegueLink: (segue: SegueLinkData) => void;
+  private onSegueLinkError: (error: SegueLinkError) => void;
   private readOnly: boolean;
   private contentItemActions: ContentItemActions;
   private showReferenceLines: boolean;
@@ -289,7 +315,7 @@ export class RoutesGraph {
   }
 
   /* istanbul ignore next */
-  onDragSvg(event: Event, d: RouteGraphNode): void {
+  private onDragSvg = (event: Event, d: RouteGraphNode): void => {
     if (!this.readOnly) {
       // Todo(steve): fixing types (https://github.com/DefinitelyTyped/DefinitelyTyped/issues/38939#issuecomment-683879719)
       const { dx, dy } = event as any;
@@ -325,10 +351,10 @@ export class RoutesGraph {
       }
       this.renderLink();
     }
-  }
+  };
 
   /* istanbul ignore next */
-  onDragSvgEnd(event: Event, d: RouteGraphNode): void {
+  private onDragSvgEnd = (event: Event, d: RouteGraphNode): void => {
     if (!this.readOnly) {
       this.canvas.node().style.borderColor = "#d7d7d9";
       const targetX = roundSize(d.x, this.alignSize);
@@ -356,7 +382,7 @@ export class RoutesGraph {
       }
       this.finalPositionAnchorContainer.style("display", "none");
     }
-  }
+  };
 
   /* istanbul ignore next */
   updateReferenceLines(
@@ -369,17 +395,13 @@ export class RoutesGraph {
         link.append("path");
         return link;
       })
-      .attr("class", classNames(styles.referenceLine));
+      .attr("class", styles.referenceLine);
     this.referenceLines?.selectAll("path").attr("d", (d: any) => {
       return `M${d.x1},${d.y1}L${d.x2},${d.y2}`;
     });
   }
 
   constructor() {
-    this.routesPreviewContainer = create("div").attr(
-      "class",
-      styles.routesPreviewContainer
-    );
     this.zoomPanel = create("div").attr("class", styles.zoomPanel);
     this.canvas = create("div").attr("class", styles.canvas);
     this.linksLayer = this.canvas
@@ -388,24 +410,38 @@ export class RoutesGraph {
     this.nodesLayer = this.canvas
       .append("div")
       .attr("class", styles.nodesLayer);
+    this.drawingLinkLayer = this.canvas
+      .append("svg")
+      .attr("class", styles.drawingLinkLayer);
     this.defs = this.linksLayer.append("defs");
     this.arrowMarkerId = uniqueId("arrow-");
-    this.defs
-      .append("marker")
-      .attr("id", this.arrowMarkerId)
-      .attr("class", styles.arrowMarker)
-      .attr("viewBox", "0 0 10 10")
-      .attr("refX", 5)
-      .attr("refY", 5)
-      .attr("markerWidth", 10)
-      .attr("markerHeight", 10)
-      .attr("orient", "auto")
-      .append("path")
-      .attr("d", "M 0 0 L 10 5 L 0 10 z");
+    this.drawingArrowMarkerId = uniqueId("arrow-");
+    for (const [id, className] of [
+      [this.arrowMarkerId, styles.arrowMarker],
+      [this.drawingArrowMarkerId, styles.drawingArrowMarker],
+    ]) {
+      this.defs
+        .append("marker")
+        .attr("id", id)
+        .attr("class", className)
+        .attr("viewBox", "0 0 10 10")
+        .attr("refX", 5)
+        .attr("refY", 5)
+        .attr("markerWidth", 10)
+        .attr("markerHeight", 10)
+        .attr("orient", "auto")
+        .append("path")
+        .attr("d", "M 0 0 L 10 5 L 0 10 z");
+    }
     this.linksContainer = this.linksLayer.append("g");
     this.links = this.linksContainer.selectAll("g");
     this.referenceLinesContainer = this.linksLayer.append("g");
     this.referenceLines = this.referenceLinesContainer.selectAll("g");
+    this.drawingLinkContainer = this.drawingLinkLayer.append("g");
+    this.drawingLink = this.drawingLinkContainer
+      .append("path")
+      .attr("class", styles.drawingLink)
+      .attr("marker-end", `url(#${this.arrowMarkerId})`);
     this.nodesContainer = this.nodesLayer
       .append("div")
       .attr("class", styles.nodesContainer);
@@ -459,40 +495,8 @@ export class RoutesGraph {
     return this.canvas.node();
   }
 
-  getRoutesPreviewNode(): HTMLDivElement {
-    return this.routesPreviewContainer.node();
-  }
-
   getZoomPanelNode(): HTMLDivElement {
     return this.zoomPanel.node();
-  }
-
-  getEdges(nodes: RouteGraphNode[]): Edge[] {
-    if (nodes) {
-      const edges: Edge[] = [];
-      nodes.forEach((node, index) => {
-        if (node.originalData?.segues) {
-          const targets = compact(
-            values(node.originalData.segues).map((targetItem) => {
-              const target = find(
-                nodes,
-                (n) => n.originalData.alias === targetItem.target
-              );
-              if (!target) {
-                return null;
-              } else {
-                return {
-                  source: node,
-                  target,
-                };
-              }
-            })
-          );
-          edges.push(...targets);
-        }
-      });
-      return edges;
-    }
   }
 
   /* istanbul ignore next */
@@ -525,28 +529,7 @@ export class RoutesGraph {
     }
   }
 
-  /* istanbul ignore next */
-  handleCancelLayout(item: ViewItem): void {
-    const index = findIndex(this.routesData, ["originalData.id", item.id]);
-    if (index !== -1) {
-      const newData = this.routesData;
-      delete newData[index].originalData.graphInfo.x;
-      delete newData[index].originalData.graphInfo.y;
-      delete newData[index].x;
-      delete newData[index].y;
-      this.updateElement(newData);
-      this.onNodeDrag?.({
-        id: item.id,
-        graphInfo: newData[index].originalData.graphInfo,
-        instanceId: item.instanceId,
-      });
-      if (this.showReferenceLines) {
-        this.updateReferenceLines([]);
-      }
-    }
-  }
-
-  transform(dx: number, dy: number, scale: number) {
+  transform(dx: number, dy: number, scale: number): void {
     this.offsetX += dx;
     this.offsetY += dy;
     const transformToNodes = `translate(${-this.offsetX}px, ${-this
@@ -557,12 +540,13 @@ export class RoutesGraph {
     this.scale = scale;
     this.linksContainer.attr("transform", transform.toString());
     this.referenceLinesContainer.attr("transform", transform.toString());
+    this.drawingLinkContainer.attr("transform", transform.toString());
     this.nodesLayer.style("transform", transformToNodes);
-    this.renterZoomPanel();
+    this.renderZoomPanel();
     this.getCanvasSize();
   }
 
-  autoCenter() {
+  autoCenter(): void {
     const elemContainerRect = this.canvas.node().getBoundingClientRect();
     const { minX, maxX, minY, maxY } = this.getNodesPositionInfo();
     this.autoScale(minX, maxX, minY, maxY);
@@ -631,11 +615,11 @@ export class RoutesGraph {
     this.scale = scale;
   }
 
-  renterZoomPanel() {
-    const handleZoom = (scale: number) => {
+  renderZoomPanel(): void {
+    const handleZoom = (scale: number): void => {
       this.transform(0, 0, scale);
     };
-    const autoCenter = () => {
+    const autoCenter = (): void => {
       this.autoCenter();
     };
     this.zoomPanel.datum({ scale: this.scale }).each(function (d) {
@@ -652,24 +636,17 @@ export class RoutesGraph {
     });
   }
 
-  updateElement(data: RouteGraphNode[]): void {
-    const [previewData, graphData]: [RouteGraphNode[], RouteGraphNode[]] = [
-      [],
-      data,
-    ];
-    const updateNode = this.nodes.data(graphData, (d) => {
-      const id = d.originalData.id;
-      return id;
-    });
+  updateElement(graphData: RouteGraphNode[]): void {
+    const updateNode = this.nodes.data(graphData, (d) => d.originalData.id);
     const enterNode = updateNode.enter();
     const exitNode = updateNode.exit();
     exitNode.remove();
     let countNotPositionedNode = 0;
     const defaultWidth = 180;
-    enterNode
+    const enterWrapper = enterNode
       .append("div")
-      .attr("class", classNames(styles.nodeWrapper))
-      .style("left", (d, i) => {
+      .attr("class", `${styles.nodeWrapper} ${nodeComponentStyles.nodeWrapper}`)
+      .style("left", (d) => {
         d.x = d.x ?? d.originalData?.graphInfo?.x;
         // Automatically locate unlocated nodes
         if (isNil(d.x)) {
@@ -678,18 +655,97 @@ export class RoutesGraph {
         }
         return `${d.x}px`;
       })
-      .style("top", (d, i) => {
+      .style("top", (d) => {
         d.y = d.y ?? d.originalData?.graphInfo?.y ?? 0;
         return `${d.y}px`;
       })
       .call(
         drag<HTMLDivElement, RouteGraphNode>()
-          .on("drag", this.onDragSvg.bind(this) as any)
-          .on("end", this.onDragSvgEnd.bind(this) as any)
+          .on("drag", this.onDragSvg)
+          .on("end", this.onDragSvgEnd)
       );
+    enterWrapper.append("div").attr("class", styles.nodeInnerWrapper);
+
+    const controls = ["top", "right", "bottom", "left"] as const;
+    const drawingLinkContainer = this.drawingLinkContainer.node();
+    const { canvas, drawingLink, arrowMarkerId, drawingArrowMarkerId } = this;
+    let sourceVertex: SnappedLinkVertex, targetVertex: LinkVertex;
+    const updateTargetControlPoint = TargetControlPointManager(styles);
+    const getSegueLinkHandlers = () => ({
+      onSegueLink: this.onSegueLink,
+      onSegueLinkError: this.onSegueLinkError,
+    });
+    for (const control of controls) {
+      enterWrapper
+        .append("div")
+        .attr("class", `${styles.controlPoint} ${styles[control]}`)
+        .call(
+          drag<HTMLDivElement, RouteGraphNode>()
+            .on(
+              "start",
+              /* istanbul ignore next */ function (e: any, d) {
+                e.sourceEvent.stopPropagation();
+                canvas.node().classList.add(styles.drawing);
+                this.parentElement.classList.add(
+                  styles.active,
+                  nodeComponentStyles.active
+                );
+                const sourceControl = (
+                  ["left", "top", "bottom", "right"] as ControlPoint[]
+                ).find((item) => this.classList.contains(styles[item]));
+                sourceVertex = getLinkVertex({
+                  control: sourceControl,
+                  node: d,
+                });
+                drawingLink.attr("d", `M${sourceVertex.x} ${sourceVertex.y}`);
+                drawingLink.classed(styles.available, true);
+                drawingLink.attr("marker-end", `url(#${arrowMarkerId})`);
+              }
+            )
+            .on(
+              "drag",
+              /* istanbul ignore next */ function (event: any) {
+                targetVertex = getTargetVertex({
+                  event,
+                  sourceVertex,
+                  nodeWrapperClassName: styles.nodeWrapper,
+                  drawingLinkContainer,
+                  updateTargetControlPoint,
+                });
+                updateDrawingLink({
+                  sourceVertex,
+                  targetVertex,
+                  linkSnappedClassName: styles.linkSnapped,
+                  drawingLink,
+                  arrowMarkerId,
+                  drawingArrowMarkerId,
+                });
+              }
+            )
+            .on(
+              "end",
+              /* istanbul ignore next */ function (e: any) {
+                canvas.node().classList.remove(styles.drawing);
+                this.parentElement.classList.remove(
+                  styles.active,
+                  nodeComponentStyles.active
+                );
+                drawingLink.classed(styles.available, false);
+                drawingLink.attr("marker-end", `url(#${arrowMarkerId})`);
+                updateTargetControlPoint(null);
+                handleSegueLink({
+                  sourceVertex,
+                  targetVertex,
+                  ...getSegueLinkHandlers(),
+                });
+                sourceVertex = null;
+                targetVertex = null;
+              }
+            )
+        );
+    }
     this.nodes = this.nodesContainer.selectAll(`.${styles.nodeWrapper}`);
     const onNodeClick = this.onNodeClick;
-    const handleCancelLayout = this.handleCancelLayout.bind(this);
     const contentItemActions = this.contentItemActions;
     this.nodes.each(function (d) {
       d.node = this;
@@ -697,16 +753,15 @@ export class RoutesGraph {
         <RouteNodeComponent
           originalData={d.originalData}
           onNodeClick={onNodeClick}
-          handleCancelLayout={handleCancelLayout}
           contentItemActions={contentItemActions}
         />,
-        this
+        this.firstElementChild
       );
     });
     this.finalPositionAnchorContainer.each(function (d) {
       ReactDOM.render(<PlusOutlined />, this);
     });
-    const edges = this.getEdges(graphData);
+    const edges = getEdgesByNodes(graphData);
 
     this.links = this.links
       .data(
@@ -719,23 +774,9 @@ export class RoutesGraph {
         link.append("path").attr("marker-end", `url(#${this.arrowMarkerId})`);
         return link;
       })
-      .attr("class", classNames(styles.link));
+      .attr("class", styles.link);
 
-    const onDragEnd = this.onDragEnd.bind(this);
-    const readOnly = this.readOnly;
-    this.routesPreviewContainer.datum(previewData).each(function (d) {
-      ReactDOM.render(
-        <RoutesPreview
-          routes={d}
-          onDragEnd={onDragEnd}
-          onNodeClick={onNodeClick}
-          readOnly={readOnly}
-          contentItemActions={contentItemActions}
-        />,
-        this
-      );
-    });
-    this.renterZoomPanel();
+    this.renderZoomPanel();
     this.renderLink();
   }
 
@@ -744,6 +785,8 @@ export class RoutesGraph {
     this.height = this.canvas.node().offsetHeight;
     this.linksLayer.attr("width", this.width);
     this.linksLayer.attr("height", this.height);
+    this.drawingLinkLayer.attr("width", this.width);
+    this.drawingLinkLayer.attr("height", this.height);
   }
 
   render(builderData: any[], options?: RenderOptions): void {
@@ -752,6 +795,7 @@ export class RoutesGraph {
     this.alignSize = options?.alignSize;
     this.onNodeClick = options?.onNodeClick;
     this.onNodeDrag = options?.onNodeDrag;
+    this.onSegueLink = options?.onSegueLink;
     this.contentItemActions = options?.contentItemActions;
     this.routesData = builderData;
     if (!builderData) {
@@ -763,8 +807,6 @@ export class RoutesGraph {
   }
 
   renderLink(): void {
-    this.links?.selectAll("path").attr("d", (d: any) => {
-      return getLinkPath(d);
-    });
+    this.links?.selectAll<SVGPathElement, Edge>("path").attr("d", getEdgePath);
   }
 }

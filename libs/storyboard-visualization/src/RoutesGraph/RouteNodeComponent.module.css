@@ -1,21 +1,29 @@
 .routeNodeContainer {
+  padding: 5px;
+  cursor: pointer;
+}
+
+.routeNodeInner {
   border-radius: 6px;
-  padding: 8px 14px;
-  margin: 5px;
+  padding: 7px 7px;
   width: 150px;
   color: #6d6d6d;
   font-weight: 600;
   word-break: break-all;
-  cursor: pointer;
-  background-color: white;
-  display: grid;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border-radius: 4px;
+  border: 1px dashed transparent;
 }
-.routeNodeContainer svg {
-  justify-self: center;
+
+.nodeWrapper:hover .routeNodeInner,
+.nodeWrapper.active .routeNodeInner {
+  background-color: rgba(0, 113, 235, 0.05);
+  border-color: rgba(0, 113, 235, 0.12);
 }
-.routeNodeContainer:hover {
-  background-color: var(--theme-blue-background);
-}
+
 .routeTitle {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -25,6 +33,7 @@
   text-align: center;
   position: relative;
 }
+
 .contentItemToolbar {
   position: absolute;
   right: 0;
@@ -32,8 +41,8 @@
   bottom: 0;
   align-items: center;
   display: none;
-  background-color: var(--theme-blue-background);
 }
+
 .routeNodeContainer {
   &:hover,
   &.actionsVisible {
@@ -42,9 +51,16 @@
     }
   }
 }
+
 .routeNodeContainer:hover .contentItemEllipsisButtonAvailable {
   padding-right: 30px;
 }
+
 .contentItemToolbar :global(.ant-btn) {
   vertical-align: middle;
+}
+
+.preview {
+  display: flex;
+  justify-content: center;
 }

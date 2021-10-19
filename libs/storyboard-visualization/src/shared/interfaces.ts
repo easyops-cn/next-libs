@@ -1,4 +1,4 @@
-import { UseBrickConf } from "@next-core/brick-types";
+import { ControlPointPair } from "../RoutesGraph/interfaces";
 
 export interface ViewItem {
   alias?: string;
@@ -14,11 +14,24 @@ export interface ViewItem {
   path?: string;
   templateId?: string;
   children?: ViewItem[];
-  segues?: { [segueId: string]: { target: string } };
+  segues?: SeguesDevConf;
   graphInfo?: {
     x?: number;
     y?: number;
     viewType?: string;
   };
   _highlight?: boolean;
+}
+
+export interface SeguesDevConf {
+  [segueId: string]: SegueDevConf;
+}
+
+export interface SegueDevConf {
+  target: string;
+  _view?: SegueDevView;
+}
+
+export interface SegueDevView {
+  controls?: ControlPointPair;
 }

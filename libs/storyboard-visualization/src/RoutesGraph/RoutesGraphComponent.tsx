@@ -1,13 +1,16 @@
 import React from "react";
 import { RoutesGraph } from "./RoutesGraph";
 import { ViewItem } from "../shared/interfaces";
-import { viewsToGraph } from "./processors";
 import { ContentItemActions } from "@next-libs/basic-components";
+import { viewsToGraph } from "./processors/viewsToGraph";
+import { SegueLinkData, SegueLinkError } from "./interfaces";
 
 export interface RoutesGraphComponentProps {
   data?: ViewItem[];
   onNodeClick?: (node: ViewItem) => void;
   onNodeDrag?: (node: ViewItem) => void;
+  onSegueLink?: (segue: SegueLinkData) => void;
+  onSegueLinkError?: (error: SegueLinkError) => void;
   readOnly?: boolean;
   contentItemActions?: ContentItemActions;
   showReferenceLines?: boolean;
@@ -22,6 +25,8 @@ export function RoutesGraphComponent(
     onNodeClick,
     readOnly,
     onNodeDrag,
+    onSegueLink,
+    onSegueLinkError,
     contentItemActions,
     showReferenceLines,
     alignSize,
@@ -57,7 +62,6 @@ export function RoutesGraphComponent(
     }
     resize();
     node.appendChild(visual.getZoomPanelNode());
-    node.appendChild(visual.getRoutesPreviewNode());
     node.appendChild(visual.getDOMNode());
   }, [visual, resize]);
 
@@ -73,15 +77,20 @@ export function RoutesGraphComponent(
       readOnly,
       onNodeClick,
       onNodeDrag,
+      onSegueLink,
+      onSegueLinkError,
       contentItemActions,
       showReferenceLines,
       alignSize,
     });
   }, [
+    visual,
     data,
     onNodeClick,
     readOnly,
     onNodeDrag,
+    onSegueLink,
+    onSegueLinkError,
     contentItemActions,
     showReferenceLines,
     alignSize,
@@ -96,11 +105,6 @@ export function RoutesGraphComponent(
       <div
         ref={ref}
         style={{
-          width: "100%",
-          overflow: "auto",
-          display: "grid",
-          gridTemplateRows: "max-content",
-          gridGap: "10px",
           position: "relative",
         }}
       ></div>

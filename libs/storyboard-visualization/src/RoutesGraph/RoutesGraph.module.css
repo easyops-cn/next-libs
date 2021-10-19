@@ -1,13 +1,12 @@
 .canvas {
-  position: relative;
-  max-height: inherit;
-  min-height: 200px;
-  overflow: hidden;
-}
+  --control-point-size: 14px;
+  --control-point-shift: calc(-1 / 2 * var(--control-point-size));
+  --control-point-shift-offset: calc(5px + var(--control-point-shift));
+  --control-point-inner-size: 8px;
 
-.routesPreviewContainer {
-  max-height: inherit;
-  overflow: auto;
+  position: relative;
+  height: 100%;
+  overflow: hidden;
 }
 
 .zoomPanel {
@@ -19,6 +18,7 @@
 
 .linksLayer,
 .nodesLayer,
+.drawingLinkLayer,
 .nodesContainer,
 .nodeWrapper {
   position: absolute;
@@ -53,4 +53,95 @@
 
 .arrowMarker path {
   fill: #b9b9b9;
+}
+
+.controlPoint {
+  position: absolute;
+  display: none;
+  width: var(--control-point-size);
+  height: var(--control-point-size);
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  cursor: move;
+
+  &::after {
+    content: "";
+    display: block;
+    width: var(--control-point-inner-size);
+    height: var(--control-point-inner-size);
+    background-color: #99c6f7;
+    border-radius: 50%;
+  }
+
+  &.top {
+    top: 0;
+    left: 50%;
+    margin-top: var(--control-point-shift-offset);
+  }
+
+  &.right {
+    top: 50%;
+    right: 0;
+    margin-right: var(--control-point-shift-offset);
+  }
+
+  &.bottom {
+    bottom: 0;
+    left: 50%;
+    margin-bottom: var(--control-point-shift-offset);
+  }
+
+  &.left {
+    top: 50%;
+    left: 0;
+    margin-left: var(--control-point-shift-offset);
+  }
+
+  &.top,
+  &.bottom {
+    margin-left: var(--control-point-shift);
+  }
+
+  &.left,
+  &.right {
+    margin-top: var(--control-point-shift);
+  }
+}
+
+.nodeWrapper:hover .controlPoint,
+.nodeWrapper.active .controlPoint {
+  display: flex;
+
+  &:hover,
+  &:active,
+  &.nearest {
+    background-color: rgba(0, 113, 235, 0.2);
+  }
+}
+
+.drawingLinkLayer {
+  pointer-events: none;
+}
+
+.drawingLink {
+  stroke-width: 1px;
+  stroke: #b9b9b9;
+  fill: none;
+
+  &:not(.available) {
+    display: none;
+  }
+}
+
+.drawingArrowMarker path {
+  fill: #99c6f7;
+}
+
+.linkSnapped {
+  stroke: #99c6f7;
+}
+
+.drawing .linksLayer {
+  cursor: move;
 }
