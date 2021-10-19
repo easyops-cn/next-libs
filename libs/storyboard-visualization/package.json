@@ -33,8 +33,7 @@
     "@next-core/brick-dll": "*",
     "@next-dll/ace": "*",
     "@next-dll/d3": "*",
-    "@next-dll/react-dnd": "*",
-    "@next-libs/basic-components": "*"
+    "@next-dll/react-dnd": "*"
   },
   "dependencies": {
     "@next-core/brick-types": "^2.16.0",

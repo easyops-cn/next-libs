@@ -6,11 +6,9 @@ describe("RoutesGraph", () => {
     const visual = new RoutesGraph();
     visual.render(fakeRoutesGraphNodes());
     const canvas = visual.getDOMNode();
-    const routesPreviewNode = visual.getRoutesPreviewNode();
     const zoomPanelNode = visual.getZoomPanelNode();
     const linksLayer = canvas.querySelector(".linksLayer");
     expect(linksLayer.querySelectorAll(".link").length).toBe(1);
-    expect(routesPreviewNode.querySelectorAll(".previewTag").length).toBe(0);
     const nodesLayer = canvas.querySelector(".nodesLayer");
     expect(nodesLayer.querySelectorAll(".nodeWrapper").length).toBe(3);
   });
