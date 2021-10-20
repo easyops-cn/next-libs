@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/storyboard-visualization@4.1.0...@next-libs/storyboard-visualization@4.1.1) (2021-10-20)
+
+
+### Bug Fixes
+
+* refine ellipsis icon in route graph ([2433858](https://github.com/easyops-cn/next-libs/commit/24338582d9e5106d67a41564f2df2e7aac2fdd17))
+
+
+
+
+
 # [4.1.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/storyboard-visualization@4.0.10...@next-libs/storyboard-visualization@4.1.0) (2021-10-19)
 
 

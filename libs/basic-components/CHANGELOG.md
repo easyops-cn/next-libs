@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@3.2.4...@next-libs/basic-components@3.2.5) (2021-10-20)
+
+
+### Bug Fixes
+
+* refine ellipsis icon in route graph ([2433858](https://github.com/easyops-cn/next-libs/commit/24338582d9e5106d67a41564f2df2e7aac2fdd17))
+
+
+
+
+
 ## [3.2.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@3.2.3...@next-libs/basic-components@3.2.4) (2021-10-13)
 
 
