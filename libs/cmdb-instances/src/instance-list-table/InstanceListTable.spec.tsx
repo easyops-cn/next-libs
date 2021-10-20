@@ -441,6 +441,7 @@ describe("InstanceListTable", () => {
         modelData={{ ...HOST, isAbstract: true }}
         instanceListData={instanceListData}
         onInstanceSourceChange={onInstanceSourceChange}
+        filterInstanceSourceDisabled={true}
       />
     );
     expect(mockCmdbObjectApi_getIdMapName).toBeCalled();
@@ -453,7 +454,7 @@ describe("InstanceListTable", () => {
 
     await act(async () => {
       wrapper.setProps({
-        showFilterInstanceSource: true,
+        filterInstanceSourceDisabled: false,
         instanceSourceQuery: "HOST",
         inheritanceModelIdNameMap: {
           HOST: "主机",

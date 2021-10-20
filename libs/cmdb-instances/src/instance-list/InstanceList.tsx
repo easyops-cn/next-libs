@@ -328,7 +328,7 @@ interface InstanceListProps {
   selectDisabled?: boolean;
   pageSizeOptions?: string[];
   showSizeChanger?: boolean;
-  showFilterInstanceSource?: boolean;
+  filterInstanceSourceDisabled?: boolean;
   instanceSourceQuery?: string;
   onSearchExecute?(
     data: InstanceApi_PostSearchRequestBody,
@@ -1250,7 +1250,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
             onInstanceSourceChange={onInstanceSourceChange}
             instanceSourceQuery={state.instanceSourceQuery}
             inheritanceModelIdNameMap={inheritanceModelIdNameMap}
-            showFilterInstanceSource={props.showFilterInstanceSource}
+            filterInstanceSourceDisabled={props.filterInstanceSourceDisabled}
             autoBreakLine={state.autoBreakLine}
             relationLinkDisabled={props.relationLinkDisabled}
             pageSizeOptions={props.pageSizeOptions}

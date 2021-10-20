@@ -94,7 +94,7 @@ export interface InstanceListTableProps extends WithTranslation {
   sortDisabled?: boolean;
   instanceSourceQuery?: string;
   inheritanceModelIdNameMap?: Record<string, string>;
-  showFilterInstanceSource?: boolean;
+  filterInstanceSourceDisabled?: boolean;
   onClickItem?(
     evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
     id: string
@@ -300,7 +300,7 @@ export class LegacyInstanceListTable extends React.Component<
         {
           title: this.instanceSourceTitle,
           dataIndex: "_object_id",
-          ...(this.props.showFilterInstanceSource
+          ...(!this.props.filterInstanceSourceDisabled
             ? {
                 filters: map(this.inheritanceModelIdNameMap, (value, key) => ({
                   text: value,

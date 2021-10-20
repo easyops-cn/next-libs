@@ -18,11 +18,13 @@ export interface InstanceListModalProps {
   presetConfigs?: InstanceListPresetConfigs;
   permission?: string[];
   aq?: Query[];
+  instanceSourceQuery?: string;
   searchDisabled?: boolean;
   advancedSearchDisabled?: boolean;
   aliveHostsDisabled?: boolean;
   relatedToMeDisabled?: boolean;
   moreButtonsDisabled?: boolean;
+  filterInstanceSourceDisabled?: boolean;
   sortDisabled?: boolean;
   selectDisabled?: boolean;
   singleSelect?: boolean;
@@ -158,7 +160,9 @@ export function InstanceListModal(
           permission={props.permission}
           aliveHosts={fixAliveHosts}
           fixAliveHosts={fixAliveHosts}
+          instanceSourceQuery={props.instanceSourceQuery}
           searchDisabled={props.searchDisabled}
+          filterInstanceSourceDisabled={props.filterInstanceSourceDisabled}
           advancedSearchDisabled={props.advancedSearchDisabled}
           aliveHostsDisabled={props.aliveHostsDisabled}
           relatedToMeDisabled={props.relatedToMeDisabled}
