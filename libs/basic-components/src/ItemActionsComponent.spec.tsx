@@ -1,5 +1,6 @@
 import React from "react";
 import { mount, shallow } from "enzyme";
+import { Button } from "antd";
 import { ItemActionsComponent } from "./ItemActionsComponent";
 import { ItemActionsMenu } from "./ItemActionsMenu";
 
@@ -39,6 +40,19 @@ describe("ItemActionsComponent", () => {
     expect(wrapper.find("BrickAsComponent").length).toBe(2);
     wrapper.find(ItemActionsMenu).invoke("onClick")(null);
     expect(mockedOnVisibleChange).toHaveBeenNthCalledWith(2, false);
+  });
+
+  it("should work when setting button shape and type", async () => {
+    const wrapper = shallow(<ItemActionsComponent filteredActions={actions} />);
+    expect(wrapper.find(Button).prop("shape")).toBe(undefined);
+    expect(wrapper.find(Button).prop("type")).toBe("link");
+
+    wrapper.setProps({
+      buttonShape: "circle",
+      buttonType: "primary",
+    });
+    expect(wrapper.find(Button).prop("shape")).toBe("circle");
+    expect(wrapper.find(Button).prop("type")).toBe("primary");
   });
 
   it("should work when action is empty", async () => {

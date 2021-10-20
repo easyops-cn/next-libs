@@ -7,10 +7,6 @@
   border-radius: 6px;
   padding: 7px 7px;
   width: 150px;
-  color: #6d6d6d;
-  font-weight: 600;
-  word-break: break-all;
-  background-color: #fff;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -28,32 +24,27 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  color: #6d6d6d;
+  font-weight: 600;
   font-size: 12px;
   margin-bottom: 4px;
   text-align: center;
-  position: relative;
 }
 
 .contentItemToolbar {
   position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
+  right: -14px;
+  top: -14px;
+  transform: scale(0.857);
   align-items: center;
   display: none;
 }
 
-.routeNodeContainer {
-  &:hover,
-  &.actionsVisible {
-    .contentItemToolbar {
-      display: flex;
-    }
+.nodeWrapper:hover,
+.actionsVisible {
+  .contentItemToolbar {
+    display: flex;
   }
-}
-
-.routeNodeContainer:hover .contentItemEllipsisButtonAvailable {
-  padding-right: 30px;
 }
 
 .contentItemToolbar :global(.ant-btn) {
@@ -63,4 +54,8 @@
 .preview {
   display: flex;
   justify-content: center;
+
+  svg {
+    background-color: #fff;
+  }
 }

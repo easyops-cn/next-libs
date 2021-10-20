@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import styles from "./RouteNodeComponent.module.css";
-import { ViewItem } from "../shared/interfaces";
 import {
   ItemActionsComponent,
   filterActions,
   ContentItemActions,
 } from "@next-libs/basic-components";
 import classNames from "classnames";
+import { ViewItem } from "../shared/interfaces";
 import { RouteTypeIcon } from "./RouteTypeIcon";
 import { getViewTypeConfig } from "./processors/getViewTypeConfig";
 
@@ -48,12 +48,7 @@ export function RouteNodeComponent({
       onClick={handleNodeClick}
     >
       <div className={styles.routeNodeInner}>
-        <div
-          className={classNames(styles.routeTitle, {
-            [styles.contentItemEllipsisButtonAvailable]:
-              ellipsisButtonAvailable,
-          })}
-        >
+        <div className={styles.routeTitle}>
           <RouteTypeIcon
             item={originalData}
             customStyle={{
@@ -65,25 +60,27 @@ export function RouteNodeComponent({
             }}
           />
           {originalData.alias ?? originalData.path}
-          {ellipsisButtonAvailable && (
-            <div
-              className={styles.contentItemToolbar}
-              onClick={handleToolBarClick}
-            >
-              <ItemActionsComponent
-                filteredActions={filteredActions}
-                item={originalData}
-                onVisibleChange={(visible: boolean) => {
-                  // Wait a macro task to make the dropdown menu disappear smoothly.
-                  setTimeout(() => {
-                    setActionsVisible(visible);
-                  }, 0);
-                }}
-              />
-            </div>
-          )}
         </div>
         <div className={styles.preview}>{getPreviewSvg(originalData)}</div>
+        {ellipsisButtonAvailable && (
+          <div
+            className={styles.contentItemToolbar}
+            onClick={handleToolBarClick}
+          >
+            <ItemActionsComponent
+              filteredActions={filteredActions}
+              item={originalData}
+              buttonShape="circle"
+              buttonType="primary"
+              onVisibleChange={(visible: boolean) => {
+                // Wait a macro task to make the dropdown menu disappear smoothly.
+                setTimeout(() => {
+                  setActionsVisible(visible);
+                }, 0);
+              }}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

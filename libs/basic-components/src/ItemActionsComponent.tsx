@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { Button } from "antd";
+import { ButtonShape, ButtonType } from "antd/lib/button";
 import { UseBrickConf } from "@next-core/brick-types";
 import { GeneralIcon } from "./GeneralIcon";
 import { ItemActionsMenu } from "./ItemActionsMenu";
@@ -7,12 +8,16 @@ import { ItemActionsMenu } from "./ItemActionsMenu";
 export interface ItemActionsComponentProps {
   filteredActions?: UseBrickConf[];
   item?: unknown;
+  buttonShape?: ButtonShape;
+  buttonType?: ButtonType;
   onVisibleChange?: (visible: boolean) => void;
 }
 
 export function ItemActionsComponent({
   item,
   filteredActions,
+  buttonShape,
+  buttonType,
   onVisibleChange,
 }: ItemActionsComponentProps): React.ReactElement {
   const [visible, setVisible] = useState(false);
@@ -41,7 +46,12 @@ export function ItemActionsComponent({
 
   return (
     <div>
-      <Button type="link" size="small" onClick={handleTriggerClick}>
+      <Button
+        shape={buttonShape}
+        type={buttonType ?? "link"}
+        size="small"
+        onClick={handleTriggerClick}
+      >
         <GeneralIcon icon={{ lib: "fa", icon: "ellipsis-h" }} />
       </Button>
       <ItemActionsMenu
