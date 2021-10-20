@@ -2,7 +2,7 @@ import React from "react";
 import { withTranslation, WithTranslation } from "react-i18next";
 import classnames from "classnames";
 import { Button, Popover, Table, Tag, Tooltip, Modal } from "antd";
-import { isNil, isBoolean, compact } from "lodash";
+import { isNil, isBoolean, compact, map } from "lodash";
 import { DeleteOutlined } from "@ant-design/icons";
 import { ColumnType, TablePaginationConfig, TableProps } from "antd/lib/table";
 import {
@@ -22,6 +22,7 @@ import {
 import {
   CmdbModels,
   InstanceApi_PostSearchV3ResponseBody,
+  CmdbObjectApi_getIdMapName,
 } from "@next-sdk/cmdb-sdk";
 import { Link, GeneralIcon } from "@next-libs/basic-components";
 import {
@@ -91,6 +92,9 @@ export interface InstanceListTableProps extends WithTranslation {
   selectDisabled?: boolean;
   autoBreakLine?: boolean;
   sortDisabled?: boolean;
+  instanceSourceQuery?: string;
+  inheritanceModelIdNameMap?: Record<string, string>;
+  showFilterInstanceSource?: boolean;
   onClickItem?(
     evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
     id: string
@@ -98,6 +102,7 @@ export interface InstanceListTableProps extends WithTranslation {
   onPaginationChange?(pagination: ReadPaginationChangeDetail): void;
   onSortingChange?(sorting: ReadSortingChangeDetail): void;
   onSelectionChange?(selection: ReadSelectionChangeDetail): void;
+  onInstanceSourceChange?(instanceSourceQuery: string): void;
   relationLinkDisabled?: boolean;
   paginationDisabled?: boolean;
   pageSizeOptions?: string[];
@@ -112,6 +117,7 @@ export interface InstanceListTableProps extends WithTranslation {
 
 interface InstanceListTableState {
   list: Record<string, any>[];
+  instanceSourceQuery?: string;
   columns?: ColumnType<Record<string, any>>[];
   pagination: TablePaginationConfig;
   defaultPagination: TablePaginationConfig;
@@ -123,6 +129,25 @@ export class LegacyInstanceListTable extends React.Component<
 > {
   keyDisplayConfigMap: Record<string, PropertyDisplayConfig> = {};
   recordUseBrickDataMap: Map<unknown, InstanceListUseBrickData>;
+  inheritanceModelIdNameMap: Record<string, string>;
+  instanceSourceTitle: React.ReactElement = (
+    <>
+      <span>{i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.INSTANCE_SOURCE}`)}</span>
+      <Tooltip
+        title={i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.INSTANCE_SOURCE_TOOLTIP}`)}
+      >
+        <span className={styles.titleTooltipIcon}>
+          <GeneralIcon
+            icon={{
+              lib: "antd",
+              icon: "question-circle",
+              theme: "filled",
+            }}
+          />
+        </span>
+      </Tooltip>
+    </>
+  );
 
   constructor(props: InstanceListTableProps) {
     super(props);
@@ -135,6 +160,7 @@ export class LegacyInstanceListTable extends React.Component<
     );
     const fieldIds = this.props.fieldIds;
     const sortedColumns = this.getChangeColumns(fieldIds);
+    this.inheritanceModelIdNameMap = this.props.inheritanceModelIdNameMap;
 
     const defaultPagination = {
       disabled: this.props.paginationDisabled,
@@ -150,6 +176,7 @@ export class LegacyInstanceListTable extends React.Component<
     };
     this.state = {
       list: this.props.instanceListData.list,
+      instanceSourceQuery: this.props.instanceSourceQuery,
       columns: this.getMergedColumns(sortedColumns, this.props.extraColumns),
       pagination: {
         ...defaultPagination,
@@ -265,9 +292,34 @@ export class LegacyInstanceListTable extends React.Component<
     columns: ColumnType<Record<string, any>>[],
     extraColumns: CustomColumn[]
   ): ColumnType<Record<string, any>>[] {
-    return extraColumns
+    let mergedColumns = extraColumns
       ? [...columns, ...this.processExtraColumns(extraColumns)]
       : columns;
+    if (this.props.modelData.isAbstract) {
+      mergedColumns = [
+        {
+          title: this.instanceSourceTitle,
+          dataIndex: "_object_id",
+          ...(this.props.showFilterInstanceSource
+            ? {
+                filters: map(this.inheritanceModelIdNameMap, (value, key) => ({
+                  text: value,
+                  value: key,
+                })),
+                filterMultiple: false,
+                filteredValue: this.props.instanceSourceQuery && [
+                  this.props.instanceSourceQuery,
+                ],
+              }
+            : {}),
+          render: (value, record, index) => (
+            <Tag>{this.inheritanceModelIdNameMap?.[value] || value}</Tag>
+          ),
+        },
+        ...mergedColumns.filter((c) => c.dataIndex !== "_object_id"),
+      ];
+    }
+    return mergedColumns;
   }
 
   processExtraColumns(
@@ -295,7 +347,26 @@ export class LegacyInstanceListTable extends React.Component<
     });
   }
 
+  async componentDidMount(): Promise<void> {
+    if (
+      this.props.modelData.isAbstract &&
+      isNil(this.inheritanceModelIdNameMap)
+    ) {
+      this.inheritanceModelIdNameMap = await CmdbObjectApi_getIdMapName({
+        parentObjectId: this.props.modelData.objectId,
+      } as any);
+    }
+    const columns = this.getChangeColumns(this.props.fieldIds);
+    this.setState({
+      columns: this.getMergedColumns(columns, this.props.extraColumns),
+    });
+  }
+
   UNSAFE_componentWillReceiveProps(nextProps: InstanceListTableProps): void {
+    this.inheritanceModelIdNameMap = {
+      ...this.inheritanceModelIdNameMap,
+      ...nextProps.inheritanceModelIdNameMap,
+    };
     const columns = this.getChangeColumns(nextProps.fieldIds);
     this.setState({
       columns: this.getMergedColumns(columns, nextProps.extraColumns),
@@ -565,7 +636,9 @@ export class LegacyInstanceListTable extends React.Component<
               if (detailUrlTemplate) {
                 const data = {
                   ...record,
-                  objectId: object.objectId,
+                  objectId: object.isAbstract
+                    ? record._object_id
+                    : object.objectId,
                 };
                 const url = parseTemplate(detailUrlTemplate, data);
                 if (
@@ -595,7 +668,7 @@ export class LegacyInstanceListTable extends React.Component<
                       this.handleClickItem(e, record.instanceId)
                     }
                     data-testid="instance-detail-link"
-                    {...(!firstColumns
+                    {...(!firstColumns || object.isAbstract
                       ? { target: "_blank" }
                       : this.props.target
                       ? { target: this.props.target }
@@ -605,7 +678,13 @@ export class LegacyInstanceListTable extends React.Component<
                       placement="top"
                       title={`${i18n.t(
                         `${NS_LIBS_CMDB_INSTANCES}:${K.JUMP_TO}`
-                      )}${object.name}${i18n.t(
+                      )}${
+                        object.isAbstract
+                          ? this.inheritanceModelIdNameMap?.[
+                              record._object_id
+                            ] || record._object_id
+                          : object.name
+                      }${i18n.t(
                         `${NS_LIBS_CMDB_INSTANCES}:${K.INSTANCE_DETAIL}`
                       )}`}
                     >
@@ -796,6 +875,10 @@ export class LegacyInstanceListTable extends React.Component<
       | SorterResult<Record<string, any>>[],
     extra: TableCurrentDataSource<Record<string, any>>
   ) => {
+    const newInstanceSourceQuery = filters?._object_id?.[0] as string;
+    if (newInstanceSourceQuery !== this.state.instanceSourceQuery) {
+      this.props.onInstanceSourceChange(newInstanceSourceQuery);
+    }
     if (
       // pagination.current will pass in 0 when total is 0 and sorter has changed
       (pagination.current > 0 &&
@@ -851,6 +934,11 @@ export class LegacyInstanceListTable extends React.Component<
         columns.push(this.setColumnSortOrder(column))
       );
       this.setState({ columns });
+    }
+    if (this.props.instanceSourceQuery !== prevProps.instanceSourceQuery) {
+      this.setState({
+        instanceSourceQuery: this.props.instanceSourceQuery,
+      });
     }
   }
 

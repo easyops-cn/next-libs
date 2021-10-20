@@ -3,7 +3,10 @@ import React from "react";
 import { cleanup, render, fireEvent } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 import { PropertyDisplayConfig } from "@next-core/brick-types";
-import { InstanceApi_postSearchV3 } from "@next-sdk/cmdb-sdk";
+import {
+  InstanceApi_postSearchV3,
+  CmdbObjectApi_getIdMapName,
+} from "@next-sdk/cmdb-sdk";
 import * as storage from "@next-libs/storage";
 import { IconButton } from "./IconButton";
 import { Button, Select } from "antd";
@@ -156,6 +159,7 @@ const mockAdvancedSearchContent = mockAdvancedSearch();
 const mockInstanceListTable = InstanceListTable as jest.Mock;
 const mockInstanceListTableContent = mockInstanceListTable();
 const mockMoreButtonsContainer = MoreButtonsContainer as jest.Mock;
+const mockCmdbObjectApi_getIdMapName = CmdbObjectApi_getIdMapName as jest.Mock;
 
 // (InstanceApi_postSearchV3 as jest.Mock).mockResolvedValue(instanceListData);
 (InstanceApi_postSearchV3 as jest.Mock).mockImplementation((r, v) => {
@@ -487,6 +491,57 @@ describe("InstanceList", () => {
       },
       sort: [{ key: sort, order: 2 }],
     });
+  });
+
+  it("should work when model's isAbstract is true", async () => {
+    const objectId = "HOST";
+    const modelData = { ...HOST, isAbstract: true };
+    const presetConfigs: InstanceListPresetConfigs = {
+      fieldIds: ["hostname", "ip", "_deviceList_CLUSTER"],
+    };
+    const onInstanceSourceChange = jest.fn();
+
+    const wrapper = mount(
+      <InstanceList
+        objectId={objectId}
+        objectList={[modelData]}
+        presetConfigs={presetConfigs}
+        relationLinkDisabled={false}
+        instanceSourceQuery={"HOST"}
+        onInstanceSourceChange={onInstanceSourceChange}
+      />
+    );
+
+    await act(async () => {
+      await (global as any).flushPromises();
+    });
+
+    expect(mockCmdbObjectApi_getIdMapName).toBeCalled();
+
+    const fields: Record<string, boolean> = {};
+    const newFieldIds = [
+      "hostname",
+      "ip",
+      "_deviceList_CLUSTER",
+      "_object_id",
+      "instanceId",
+    ];
+    newFieldIds.forEach((id) => (fields[id] = true));
+
+    expect(InstanceApi_postSearchV3).lastCalledWith(
+      "HOST",
+      expect.objectContaining({
+        fields: newFieldIds,
+        query: { _object_id: "HOST" },
+      })
+    );
+
+    const instanceListTableProps: InstanceListTableProps =
+      mockInstanceListTable.mock.calls[
+        mockInstanceListTable.mock.calls.length - 1
+      ][0];
+    instanceListTableProps.onInstanceSourceChange("APP");
+    expect(onInstanceSourceChange).lastCalledWith("APP");
   });
 
   it("should toggle advanced search when click advanced-search-toggle-btn", async () => {

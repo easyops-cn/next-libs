@@ -96,6 +96,9 @@ const locale: Locale = {
   [K.FREE_SELECTION]: "自由筛选",
   [K.APP_SELECTION]: "按应用筛选",
   [K.ATTRIBUTE_NAME_REQUIRED]: "{{attribute_name}} 为必填项",
+  [K.INSTANCE_SOURCE]: "实例来源",
+  [K.INSTANCE_SOURCE_TOOLTIP]: "实例来源于继承当前父模型的普通模型",
+  [K.INSTANCE_SOURCE_TAG_TEXT]: '实例来源：等于"{{query}}"',
 };
 
 export default locale;

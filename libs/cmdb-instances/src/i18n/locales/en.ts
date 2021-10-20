@@ -105,6 +105,10 @@ const locale: Locale = {
   [K.FREE_SELECTION]: "Free selection",
   [K.APP_SELECTION]: "App selection",
   [K.ATTRIBUTE_NAME_REQUIRED]: "{{attribute_name}} is required",
+  [K.INSTANCE_SOURCE]: "Instance source",
+  [K.INSTANCE_SOURCE_TOOLTIP]:
+    "The instance comes from a common model that inherits the current parent model",
+  [K.INSTANCE_SOURCE_TAG_TEXT]: 'Instance source: equal to "{{query}}"',
 };
 
 export default locale;
