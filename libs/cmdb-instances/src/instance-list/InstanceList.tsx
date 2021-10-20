@@ -33,6 +33,7 @@ import {
   InstanceApi_PostSearchV3RequestBody,
   InstanceApi_PostSearchV3ResponseBody,
   InstanceApi_postSearchV3,
+  CmdbObjectApi_getIdMapName,
 } from "@next-sdk/cmdb-sdk";
 import { Icon as LegacyIcon } from "@ant-design/compatible";
 import { Button, Spin, Input, Tag, Select } from "antd";
@@ -327,6 +328,8 @@ interface InstanceListProps {
   selectDisabled?: boolean;
   pageSizeOptions?: string[];
   showSizeChanger?: boolean;
+  showFilterInstanceSource?: boolean;
+  instanceSourceQuery?: string;
   onSearchExecute?(
     data: InstanceApi_PostSearchRequestBody,
     v3Data: InstanceApi_PostSearchV3RequestBody
@@ -342,6 +345,7 @@ interface InstanceListProps {
   onSelectionChange?(selection: ReadSelectionChangeDetail): void;
   onRelatedToMeChange?(value: boolean): void;
   onAliveHostsChange?(value: boolean): void;
+  onInstanceSourceChange?(instanceResource: string): void;
   relationLinkDisabled?: boolean;
   notifyCurrentFields?: (fiels: string[]) => void;
   defaultQuery?: { [fieldId: string]: any }[];
@@ -367,6 +371,7 @@ interface InstanceListState {
   q: string;
   aq: Query[];
   aqToShow?: Query[];
+  instanceSourceQuery: string;
   asc: boolean;
   sort: string;
   page: number;
@@ -422,6 +427,26 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
 
     return { modelData, idObjectMap };
   }, [props.objectList, props.objectId]);
+
+  const [inheritanceModelIdNameMap, setInheritanceModelIdNameMap] = useState<
+    Record<string, string>
+  >({});
+
+  const fetchInheritanceModelIdNameMap = async (
+    modelData: Partial<CmdbModels.ModelCmdbObject>
+  ): Promise<void> => {
+    let idNameMap = {};
+    if (modelData.isAbstract) {
+      idNameMap = await CmdbObjectApi_getIdMapName({
+        parentObjectId: modelData.objectId,
+      } as any);
+    }
+    setInheritanceModelIdNameMap(idNameMap);
+  };
+
+  useEffect(() => {
+    fetchInheritanceModelIdNameMap(modelData);
+  }, [modelData]);
 
   const computeDefaultFields = (
     { inModal } = { inModal: false }
@@ -485,6 +510,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     fieldIds = _sortFieldIds(fieldIds);
     const hideModelData: string[] = modelData.view.hide_columns || [];
     fieldIds = fieldIds.filter((field) => !hideModelData.includes(field));
+    modelData.isAbstract && fieldIds.push("_object_id");
     return fieldIds;
   };
 
@@ -494,6 +520,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     q: props.q,
     aq: props.aq,
     aqToShow: props.aqToShow || initAqToShow(props.aq, modelData),
+    instanceSourceQuery: props.instanceSourceQuery,
     asc: props.asc,
     sort: props.sort,
     page: props.dataSource?.page ?? props.page ?? 1,
@@ -597,6 +624,9 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     if (state.aliveHosts && props.objectId === "HOST") {
       query = { ...query, _agentStatus: "正常" };
     }
+    if (state.instanceSourceQuery) {
+      query = { ...query, _object_id: state.instanceSourceQuery };
+    }
 
     if (!isEmpty(query)) {
       v3Data.query = data.query = query;
@@ -697,6 +727,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
   }, [
     state.q,
     state.aq,
+    state.instanceSourceQuery,
     state.pageSize,
     state.aliveHosts,
     state.relatedToMe,
@@ -790,6 +821,11 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
   const onPaginationChange = (pagination: ReadPaginationChangeDetail) => {
     setState({ page: pagination.page, pageSize: pagination.pageSize });
     props.onPaginationChange?.(pagination);
+  };
+
+  const onInstanceSourceChange = (instanceSourceQuery: string) => {
+    setState({ instanceSourceQuery });
+    props.onInstanceSourceChange?.(instanceSourceQuery);
   };
 
   const onRelatedToMeChange = (checked: boolean) => {
@@ -1138,7 +1174,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
           )}
           {!props.hideSearchConditions &&
             !state.searchByApp &&
-            (state.q || !isEmpty(conditions)) && (
+            (state.instanceSourceQuery || state.q || !isEmpty(conditions)) && (
               <div className={styles.searchConditions}>
                 <span>
                   {i18n.t(
@@ -1156,6 +1192,24 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
                     {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.FUZZY_SEARCH}`, {
                       query: state.q,
                     })}
+                  </Tag>
+                )}
+                {state.instanceSourceQuery && (
+                  <Tag
+                    closable
+                    onClose={() => {
+                      onInstanceSourceChange("");
+                    }}
+                  >
+                    {i18n.t(
+                      `${NS_LIBS_CMDB_INSTANCES}:${K.INSTANCE_SOURCE_TAG_TEXT}`,
+                      {
+                        query:
+                          inheritanceModelIdNameMap?.[
+                            state.instanceSourceQuery
+                          ] || state.instanceSourceQuery,
+                      }
+                    )}
                   </Tag>
                 )}
                 {conditions.map((condition) => (
@@ -1193,6 +1247,10 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
             onPaginationChange={onPaginationChange}
             onSortingChange={onSortingChange}
             onSelectionChange={onSelectionChange}
+            onInstanceSourceChange={onInstanceSourceChange}
+            instanceSourceQuery={state.instanceSourceQuery}
+            inheritanceModelIdNameMap={inheritanceModelIdNameMap}
+            showFilterInstanceSource={props.showFilterInstanceSource}
             autoBreakLine={state.autoBreakLine}
             relationLinkDisabled={props.relationLinkDisabled}
             pageSizeOptions={props.pageSizeOptions}

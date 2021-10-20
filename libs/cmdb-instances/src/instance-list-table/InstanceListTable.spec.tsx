@@ -7,6 +7,7 @@ import {
   getByText,
   getByTestId,
 } from "@testing-library/react";
+import { act } from "@testing-library/react";
 import * as kit from "@next-core/brick-kit";
 import {
   ReadPaginationChangeDetail,
@@ -14,9 +15,12 @@ import {
   PropertyDisplayType,
   UseSingleBrickConf,
 } from "@next-core/brick-types";
+import { CmdbObjectApi_getIdMapName } from "@next-sdk/cmdb-sdk";
 
 import { InstanceListTable } from "./InstanceListTable";
 import { getInstanceListData, HOST } from "./data-providers/__mocks__";
+import { mount } from "enzyme";
+import { Table } from "antd";
 
 kit.createHistory();
 
@@ -33,6 +37,9 @@ jest.spyOn(kit, "BrickAsComponent").mockImplementation(({ useBrick, data }) => (
     </span>
   </>
 ));
+
+jest.mock("@next-sdk/cmdb-sdk");
+const mockCmdbObjectApi_getIdMapName = CmdbObjectApi_getIdMapName as jest.Mock;
 
 const ipAttr = HOST.attrList.find((attr) => attr.id === "ip");
 const idObjectMap = { HOST };
@@ -134,7 +141,11 @@ describe("InstanceListTable", () => {
     let page = 1;
     let pageSize = 2;
     let instanceListData = getInstanceListData(total, page, pageSize);
-    const { container, rerender, getByText: getByTextWithContainer } = render(
+    const {
+      container,
+      rerender,
+      getByText: getByTextWithContainer,
+    } = render(
       <InstanceListTable
         detailUrlTemplates={detailUrlTemplates}
         idObjectMap={idObjectMap}
@@ -195,7 +206,11 @@ describe("InstanceListTable", () => {
 
   it(`should call function that is passed to the onSortingChange property when click table head "${ipAttr.name}"`, () => {
     const instanceListData = getInstanceListData();
-    const { container, rerender, getByText: getByTextWithContainer } = render(
+    const {
+      container,
+      rerender,
+      getByText: getByTextWithContainer,
+    } = render(
       <InstanceListTable
         detailUrlTemplates={detailUrlTemplates}
         idObjectMap={idObjectMap}
@@ -414,5 +429,47 @@ describe("InstanceListTable", () => {
       rowData: instance,
       index,
     });
+  });
+
+  it("should work when model's isAbstract is true", async () => {
+    const instanceListData = getInstanceListData();
+    const onInstanceSourceChange = jest.fn();
+    const wrapper = mount(
+      <InstanceListTable
+        detailUrlTemplates={detailUrlTemplates}
+        idObjectMap={idObjectMap}
+        modelData={{ ...HOST, isAbstract: true }}
+        instanceListData={instanceListData}
+        onInstanceSourceChange={onInstanceSourceChange}
+      />
+    );
+    expect(mockCmdbObjectApi_getIdMapName).toBeCalled();
+    expect((wrapper.find(Table).prop("columns")[0] as any).dataIndex).toBe(
+      "_object_id"
+    );
+    expect(wrapper.find(Table).prop("columns")[0]).not.toHaveProperty(
+      "filters"
+    );
+
+    await act(async () => {
+      wrapper.setProps({
+        showFilterInstanceSource: true,
+        instanceSourceQuery: "HOST",
+        inheritanceModelIdNameMap: {
+          HOST: "主机",
+          APP: "应用",
+        },
+      });
+
+      await (global as any).flushPromises();
+    });
+    wrapper.update();
+    expect(wrapper.find(Table).prop("columns")[0]).toHaveProperty("filters");
+    expect(wrapper.find(Table).prop("columns")[0].filteredValue).toEqual([
+      "HOST",
+    ]);
+
+    (wrapper.instance() as any).onChange({}, { _object_id: ["APP"] }, {}, {});
+    expect(onInstanceSourceChange).lastCalledWith("APP");
   });
 });
