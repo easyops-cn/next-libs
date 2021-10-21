@@ -181,4 +181,29 @@ describe("adoptLink", () => {
       ).toEqual(resultWithDefaultOptions);
     }
   );
+
+  it("should return empty path if no adoptable link", () => {
+    expect(
+      adoptLink(
+        {
+          source: {
+            top: 10,
+            left: 20,
+            width: 30,
+            height: 40,
+          },
+          target: {
+            top: 12,
+            left: 22,
+            width: 30,
+            height: 40,
+          },
+        },
+        baseOptions
+      )
+    ).toEqual({
+      direction: undefined,
+      path: "",
+    });
+  });
 });
