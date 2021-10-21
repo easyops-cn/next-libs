@@ -19,7 +19,7 @@ export function adoptLink(
   },
   linkOptions: LinkOptions = {}
 ): {
-  direction: ControlPointPair;
+  direction?: ControlPointPair;
   path: string;
 } {
   const sourceRect = getControlRect(source);
@@ -34,7 +34,9 @@ export function adoptLink(
   );
   return {
     direction,
-    path: getLinkPath([sourceRect, targetRect], direction, linkOptions),
+    path: direction
+      ? getLinkPath([sourceRect, targetRect], direction, linkOptions)
+      : "",
   };
 }
 
