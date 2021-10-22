@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.7.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.7.3...@next-libs/cmdb-instances@6.7.4) (2021-10-22)
+
+
+### Bug Fixes
+
+* **cmdb-instance:** 修复显示设置_object_id字段 ([da3c688](https://github.com/easyops-cn/next-libs/commit/da3c688bf2eba62ed96c386a4901649ecbca8eb3))
+
+
+
+
+
 ## [6.7.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.7.2...@next-libs/cmdb-instances@6.7.3) (2021-10-22)
 
 
