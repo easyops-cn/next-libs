@@ -153,7 +153,9 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
   render() {
     const { title } = this.props;
     const filterList = this.state.filterList;
-    const count = this.state.nextFields.length;
+    const count = this.state.nextFields?.filter(
+      (v) => v !== "_object_id"
+    ).length;
     const extraAttrIds = extraFieldAttrs.map(
       (extraFieldAttr) => extraFieldAttr.id
     );
