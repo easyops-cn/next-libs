@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.7.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.7.4...@next-libs/cmdb-instances@6.7.5) (2021-10-22)
+
+
+### Bug Fixes
+
+* **cmdb-instances:** instance-list icon tooltip translation issue ([10e6c0f](https://github.com/easyops-cn/next-libs/commit/10e6c0f07e8cce58414049716e8eb96ebded7ba0))
+
+
+
+
+
 ## [6.7.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.7.3...@next-libs/cmdb-instances@6.7.4) (2021-10-22)
 
 
