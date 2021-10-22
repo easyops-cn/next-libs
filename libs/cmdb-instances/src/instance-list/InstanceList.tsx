@@ -1198,7 +1198,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
                   <Tag
                     closable
                     onClose={() => {
-                      onInstanceSourceChange(undefined);
+                      onInstanceSourceChange(null);
                     }}
                   >
                     {i18n.t(
