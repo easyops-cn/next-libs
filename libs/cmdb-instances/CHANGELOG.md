@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.7.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.7.2...@next-libs/cmdb-instances@6.7.3) (2021-10-22)
+
+
+### Bug Fixes
+
+* **cmdb-instance:** 修复实例来源筛选后删除筛选条件未清空控件选择的值 ([8e34847](https://github.com/easyops-cn/next-libs/commit/8e34847489b181ad8499cdc3ecbaae9340dc51ff))
+
+
+
+
+
 ## [6.7.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.7.1...@next-libs/cmdb-instances@6.7.2) (2021-10-20)
 
 
