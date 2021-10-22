@@ -838,6 +838,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     props.onAliveHostsChange?.(checked);
   };
 
+  // istanbul ignore next
   const handleConfirm = (selectAttrIds: string[]) => {
     setState({
       fieldIds: _sortFieldIds(selectAttrIds),
@@ -903,8 +904,10 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     return defaultFields;
   };
 
+  // istanbul ignore next
   const handleReset = () => {
     const fieldIds = handleDefaultFields();
+    modelData.isAbstract && fieldIds.push("_object_id");
     setState({ fieldIds });
     jsonLocalStorage.removeItem(`${modelData.objectId}-selectAttrIds`);
   };
