@@ -2416,12 +2416,7 @@
   resolved "https://registry.npmjs.org/@next-sdk/auth-sdk/-/auth-sdk-1.0.1.tgz#dc217556d6eddee4c143b419a25d7b3972fb06e2"
   integrity sha1-3CF1Vtbt3uTBQ7QZol17OXL7BuI=
 
-"@next-sdk/cmdb-sdk@^2.1.1":
-  version "2.1.1"
-  resolved "https://registry.npmjs.org/@next-sdk/cmdb-sdk/-/cmdb-sdk-2.1.1.tgz#8522f75b71ae3c5772b8631528fe4bcaff9f0e70"
-  integrity sha512-4F9psdHnmSUZg9BK0sSzgmoerhsMucsXdMGhRASaf+kGyh6foKMa2+Lp7lOpIjROUJbqBua1GkwPOtj6AexpsQ==
-
-"@next-sdk/cmdb-sdk@^2.1.13":
+"@next-sdk/cmdb-sdk@^2.1.1", "@next-sdk/cmdb-sdk@^2.1.13":
   version "2.1.13"
   resolved "https://registry.npmjs.org/@next-sdk/cmdb-sdk/-/cmdb-sdk-2.1.13.tgz#5add6d5e0e79ac4298c0516bdcb73a42558d7e54"
   integrity sha512-Z6DbCGFEeTJZ0s3wTeXXsn+kd3Adkhz3dzNm7SQD7Us7RdI8SeDrxfmdTk7NVkiQ0B0m+CkLbL51I2aZA1uWtQ==
@@ -3306,10 +3301,10 @@
   resolved "https://registry.npmjs.org/@types/lolex/-/lolex-5.1.1.tgz#86799c00c8d0b75e4e45dcb6befb79932e9ea3f6"
   integrity sha512-FqJj5xmnDe/RBy9jt0c6dybENYXS0A5Wdt0e1OsG6m+KDCMx2SmY7OobTBQ6jqIqaA6yvIiCjbPET/zn7cx12g==
 
-"@types/marked@^2.0.4":
-  version "2.0.4"
-  resolved "https://registry.npmjs.org/@types/marked/-/marked-2.0.4.tgz#34a0ea548afe6e0c01095229d47b48b2af650613"
-  integrity sha512-L9VRSe0Id8xbPL99mUo/4aKgD7ZoRwFZqUQScNKHi2pFjF9ZYSMNShUHD6VlMT6J/prQq0T1mxuU25m3R7dFzg==
+"@types/marked@^3.0.2":
+  version "3.0.2"
+  resolved "https://registry.npmjs.org/@types/marked/-/marked-3.0.2.tgz#4a639575542ae7715fabbe450b08118e9093eb35"
+  integrity sha512-mGYI9qFs+i5eYaytWKBbtEMbIkrXGKuhsDpDcj70ogKS2gk1NmgEy9Z3VEKz922Lfms6eITXXqv5idlX7C/irw==
 
 "@types/minimatch@*", "@types/minimatch@^3.0.3":
   version "3.0.3"
@@ -9896,10 +9891,10 @@ marked@^1.1.1:
   resolved "https://registry.npmjs.org/marked/-/marked-1.1.1.tgz#e5d61b69842210d5df57b05856e0c91572703e6a"
   integrity sha1-5dYbaYQiENXfV7BYVuDJFXJwPmo=
 
-marked@^2.1.3:
-  version "2.1.3"
-  resolved "https://registry.npmjs.org/marked/-/marked-2.1.3.tgz#bd017cef6431724fd4b27e0657f5ceb14bff3753"
-  integrity sha512-/Q+7MGzaETqifOMWYEA7HVMaZb4XbcRfaOzcSsHZEith83KGlvaSG33u0SKu89Mj5h+T8V2hM+8O45Qc5XTgwA==
+marked@^3.0.8:
+  version "3.0.8"
+  resolved "https://registry.npmjs.org/marked/-/marked-3.0.8.tgz#2785f0dc79cbdc6034be4bb4f0f0a396bd3f8aeb"
+  integrity sha512-0gVrAjo5m0VZSJb4rpL59K1unJAMb/hm8HRXqasD8VeC8m91ytDPMritgFSlKonfdt+rRYYpP/JfLxgIX8yoSw==
 
 md5.js@^1.3.4:
   version "1.3.5"
