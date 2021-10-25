@@ -48,6 +48,7 @@ export interface LinkOptions {
   linkOffsetStart?: number;
   linkOffsetEnd?: number;
   cornerRadius?: number;
+  sameAxis?: boolean;
 }
 
 export interface SegueLinkData {
