@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/storyboard-visualization@4.1.2...@next-libs/storyboard-visualization@4.1.3) (2021-10-25)
+
+
+### Bug Fixes
+
+* **routes-graph:** link same axis by default ([6e2c2f4](https://github.com/easyops-cn/next-libs/commit/6e2c2f460c0ea866456c4cc6dbfe46e1a56431d1))
+
+
+
+
+
 ## [4.1.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/storyboard-visualization@4.1.1...@next-libs/storyboard-visualization@4.1.2) (2021-10-21)
 
 
