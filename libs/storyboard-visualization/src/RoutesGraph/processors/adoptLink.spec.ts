@@ -18,6 +18,7 @@ describe("adoptLink", () => {
     linkOffsetStart: 3,
     linkOffsetEnd: 5,
     cornerRadius: 4,
+    sameAxis: false,
   };
 
   it.each<
@@ -78,8 +79,8 @@ describe("adoptLink", () => {
         path: "M53 30H211a4 4 0 0 1 4 4L215 50",
       },
       {
-        direction: ["right", "top"],
-        path: "M50 30H215a0 0 0 0 1 0 0L215 55",
+        direction: ["bottom", "top"],
+        path: "M35,50C35,52.5,215,52.5,215,55",
       },
     ],
     [
@@ -111,8 +112,8 @@ describe("adoptLink", () => {
         path: "M35 53V71a4 4 0 0 0 4 4L195 75",
       },
       {
-        direction: ["bottom", "left"],
-        path: "M35 50V75a0 0 0 0 0 0 0L200 75",
+        direction: ["bottom", "top"],
+        path: "M35,50C35,52.5,215,52.5,215,55",
       },
     ],
     [

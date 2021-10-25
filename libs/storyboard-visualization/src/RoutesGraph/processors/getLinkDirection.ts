@@ -11,22 +11,31 @@ export function getLinkDirection(
     target: ControlRect;
     preferDirection?: ControlPointPair;
   },
-  { linkOffsetStart = 0, linkOffsetEnd = 0, cornerRadius = 0 }: LinkOptions = {}
+  {
+    linkOffsetStart = 0,
+    linkOffsetEnd = 0,
+    cornerRadius = 0,
+    sameAxis = true,
+  }: LinkOptions = {}
 ): ControlPointPair {
   const linkDirections: ControlPointPair[] = [
     ["bottom", "top"],
     ["right", "left"],
     ["top", "bottom"],
     ["left", "right"],
-    ["right", "top"],
-    ["left", "top"],
-    ["top", "left"],
-    ["bottom", "left"],
-    ["right", "bottom"],
-    ["left", "bottom"],
-    ["top", "right"],
-    ["bottom", "right"],
   ];
+  if (!sameAxis) {
+    linkDirections.push(
+      ["right", "top"],
+      ["left", "top"],
+      ["top", "left"],
+      ["bottom", "left"],
+      ["right", "bottom"],
+      ["left", "bottom"],
+      ["top", "right"],
+      ["bottom", "right"]
+    );
+  }
   let recommended: ControlPointPair;
   for (const direction of linkDirections) {
     const [d0, d1] = direction;
