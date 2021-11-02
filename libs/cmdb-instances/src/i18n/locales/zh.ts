@@ -71,7 +71,7 @@ const locale: Locale = {
   [K.NOT_MEET_REGEX_DETAIL]: "不满足预设的正则表达式 {{regex}} ，请修改",
   [K.NOT_MEET_JSON]: "请填写正确的 json 语法",
   [K.CREATE_ANOTHER]: "创建另一个",
-  [K.DELETE_STRUCT_CONFIRM_MSG]: "确定要删除该结构体吗？",
+  [K.DELETE_STRUCT_CONFIRM_MSG]: "确定要删除该结构项吗？",
   [K.DELETE_INSTANCE_CONFIRM_MSG]: "确定要删除该关系吗？",
   [K.OPERATION]: "操作",
   [K.VIEW_ALL_SELECTED_INSTANCES]: "查看所有选择实例",
