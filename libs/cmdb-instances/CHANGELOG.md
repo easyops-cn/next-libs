@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.9.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.8.1...@next-libs/cmdb-instances@6.9.0) (2021-11-02)
+
+
+### Features
+
+* **cmdb-instances:**  IP类型字段支持批量选择后复制所选IP ([3d1896c](https://github.com/easyops-cn/next-libs/commit/3d1896c271f41516e64490f7070ca9221c1f845a))
+
+
+
+
+
 ## [6.8.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.8.0...@next-libs/cmdb-instances@6.8.1) (2021-11-02)
 
 
