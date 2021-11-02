@@ -43,6 +43,7 @@ import { customRules } from "./utils";
 import { BrickAsComponent } from "@next-core/brick-kit";
 import { NS_LIBS_CMDB_INSTANCES, K } from "../i18n/constants";
 import i18n from "i18next";
+import { CmdbUrlLink } from "../cmdb-url-link/CmdbUrlLink";
 
 export interface CustomColumn extends ColumnType<Record<string, unknown>> {
   useBrick: UseBrickConf;
@@ -302,15 +303,15 @@ export class LegacyInstanceListTable extends React.Component<
           dataIndex: "_object_id",
           ...(!this.props.filterInstanceSourceDisabled
             ? {
-                filters: map(this.inheritanceModelIdNameMap, (value, key) => ({
-                  text: value,
-                  value: key,
-                })),
-                filterMultiple: false,
-                filteredValue: this.props.instanceSourceQuery && [
-                  this.props.instanceSourceQuery,
-                ],
-              }
+              filters: map(this.inheritanceModelIdNameMap, (value, key) => ({
+                text: value,
+                value: key,
+              })),
+              filterMultiple: false,
+              filteredValue: this.props.instanceSourceQuery && [
+                this.props.instanceSourceQuery,
+              ],
+            }
             : {}),
           render: (value, record, index) => (
             <Tag>{this.inheritanceModelIdNameMap?.[value] || value}</Tag>
@@ -426,9 +427,8 @@ export class LegacyInstanceListTable extends React.Component<
         >
           <Tooltip
             placement="top"
-            title={`${i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.JUMP_TO}`)}${
-              object.name
-            }${i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.INSTANCE_DETAIL}`)}`}
+            title={`${i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.JUMP_TO}`)}${object.name
+              }${i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.INSTANCE_DETAIL}`)}`}
           >
             <span style={{ display: "flex" }}>
               <span className={styles.iconWrap}>
@@ -462,9 +462,8 @@ export class LegacyInstanceListTable extends React.Component<
             >
               <Tooltip
                 placement="top"
-                title={`${i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.JUMP_TO}`)}${
-                  object.name
-                }${i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.INSTANCE_DETAIL}`)}`}
+                title={`${i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.JUMP_TO}`)}${object.name
+                  }${i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.INSTANCE_DETAIL}`)}`}
               >
                 <span>
                   <GeneralIcon
@@ -628,92 +627,91 @@ export class LegacyInstanceListTable extends React.Component<
       column.render =
         firstColumns && this.props.detailUrlTemplates
           ? (value: string, record: Record<string, any>, index: number) => {
-              //要跳到的路由
-              const detailUrlTemplate = getTemplateFromMap(
-                this.props.detailUrlTemplates,
-                object.objectId
-              );
-              if (detailUrlTemplate) {
-                const data = {
-                  ...record,
-                  objectId: object.isAbstract
-                    ? record._object_id
-                    : object.objectId,
-                };
-                const url = parseTemplate(detailUrlTemplate, data);
-                if (
-                  attribute.value.type === ModelAttributeValueType.STRUCT ||
-                  attribute.value.type === ModelAttributeValueType.STRUCT_LIST
-                ) {
-                  return this.getSpecialUrlTemplates(
-                    object,
-                    record,
-                    tempColumns(value, record, index),
-                    url,
-                    true
-                  );
-                }
-                if (displayConfig && displayConfig.brick) {
-                  return this.getSpecialUrlTemplates(
-                    object,
-                    record,
-                    tempColumns(value, record, index),
-                    url
-                  );
-                }
-                return (
-                  <Link
-                    to={url}
-                    onClick={(e: any) =>
-                      this.handleClickItem(e, record.instanceId)
-                    }
-                    data-testid="instance-detail-link"
-                    {...(!firstColumns || object.isAbstract
-                      ? { target: "_blank" }
-                      : this.props.target
-                      ? { target: this.props.target }
-                      : {})}
-                  >
-                    <Tooltip
-                      placement="top"
-                      title={`${i18n.t(
-                        `${NS_LIBS_CMDB_INSTANCES}:${K.JUMP_TO}`
-                      )}${
-                        object.isAbstract
-                          ? this.inheritanceModelIdNameMap?.[
-                              record._object_id
-                            ] || record._object_id
-                          : object.name
-                      }${i18n.t(
-                        `${NS_LIBS_CMDB_INSTANCES}:${K.INSTANCE_DETAIL}`
-                      )}`}
-                    >
-                      <span>
-                        <span className={styles.iconWrap}>
-                          <GeneralIcon
-                            icon={{
-                              lib: "easyops",
-                              icon: "search",
-                              category: "app",
-                              color: "#167be0",
-                            }}
-                          />
-                        </span>
-                        <span className={styles.linkKey}>
-                          {tempColumns(value, record, index)}
-                        </span>
-                      </span>
-                    </Tooltip>
-                  </Link>
-                );
-              } else {
+            //要跳到的路由
+            const detailUrlTemplate = getTemplateFromMap(
+              this.props.detailUrlTemplates,
+              object.objectId
+            );
+            if (detailUrlTemplate) {
+              const data = {
+                ...record,
+                objectId: object.isAbstract
+                  ? record._object_id
+                  : object.objectId,
+              };
+              const url = parseTemplate(detailUrlTemplate, data);
+              if (
+                attribute.value.type === ModelAttributeValueType.STRUCT ||
+                attribute.value.type === ModelAttributeValueType.STRUCT_LIST
+              ) {
                 return this.getSpecialUrlTemplates(
                   object,
                   record,
-                  tempColumns(value, record, index)
+                  tempColumns(value, record, index),
+                  url,
+                  true
                 );
               }
+              if (displayConfig && displayConfig.brick) {
+                return this.getSpecialUrlTemplates(
+                  object,
+                  record,
+                  tempColumns(value, record, index),
+                  url
+                );
+              }
+              return (
+                <Link
+                  to={url}
+                  onClick={(e: any) =>
+                    this.handleClickItem(e, record.instanceId)
+                  }
+                  data-testid="instance-detail-link"
+                  {...(!firstColumns || object.isAbstract
+                    ? { target: "_blank" }
+                    : this.props.target
+                      ? { target: this.props.target }
+                      : {})}
+                >
+                  <Tooltip
+                    placement="top"
+                    title={`${i18n.t(
+                      `${NS_LIBS_CMDB_INSTANCES}:${K.JUMP_TO}`
+                    )}${object.isAbstract
+                      ? this.inheritanceModelIdNameMap?.[
+                      record._object_id
+                      ] || record._object_id
+                      : object.name
+                      }${i18n.t(
+                        `${NS_LIBS_CMDB_INSTANCES}:${K.INSTANCE_DETAIL}`
+                      )}`}
+                  >
+                    <span>
+                      <span className={styles.iconWrap}>
+                        <GeneralIcon
+                          icon={{
+                            lib: "easyops",
+                            icon: "search",
+                            category: "app",
+                            color: "#167be0",
+                          }}
+                        />
+                      </span>
+                      <span className={styles.linkKey}>
+                        {tempColumns(value, record, index)}
+                      </span>
+                    </span>
+                  </Tooltip>
+                </Link>
+              );
+            } else {
+              return this.getSpecialUrlTemplates(
+                object,
+                record,
+                tempColumns(value, record, index)
+              );
             }
+          }
           : tempColumns;
     }
     return column;
@@ -824,31 +822,31 @@ export class LegacyInstanceListTable extends React.Component<
       column.render =
         firstColumns && this.props.detailUrlTemplates
           ? (value: string, record: Record<string, any>, index: number) => {
-              //要跳到的路由
-              const detailUrlTemplate = getTemplateFromMap(
-                this.props.detailUrlTemplates,
-                object.objectId
+            //要跳到的路由
+            const detailUrlTemplate = getTemplateFromMap(
+              this.props.detailUrlTemplates,
+              object.objectId
+            );
+            if (detailUrlTemplate) {
+              const data = {
+                ...record,
+                objectId: object.objectId,
+              };
+              const url = parseTemplate(detailUrlTemplate, data);
+              return this.getSpecialUrlTemplates(
+                object,
+                record,
+                tempColumns(value, record, index),
+                url
               );
-              if (detailUrlTemplate) {
-                const data = {
-                  ...record,
-                  objectId: object.objectId,
-                };
-                const url = parseTemplate(detailUrlTemplate, data);
-                return this.getSpecialUrlTemplates(
-                  object,
-                  record,
-                  tempColumns(value, record, index),
-                  url
-                );
-              } else {
-                return this.getSpecialUrlTemplates(
-                  object,
-                  record,
-                  tempColumns(value, record, index)
-                );
-              }
+            } else {
+              return this.getSpecialUrlTemplates(
+                object,
+                record,
+                tempColumns(value, record, index)
+              );
             }
+          }
           : tempColumns;
     }
     return column;
@@ -948,15 +946,20 @@ export class LegacyInstanceListTable extends React.Component<
       .selectDisabled
       ? null
       : {
-          preserveSelectedRowKeys: true,
-          selectedRowKeys,
-          onChange: this.onSelectChange,
-        };
+        preserveSelectedRowKeys: true,
+        selectedRowKeys,
+        onChange: this.onSelectChange,
+      };
 
     const classes = classnames({
       [styles.shouldEllipsis]: this.props.autoBreakLine,
       [styles.tableWrapper]: true,
     });
+    this.state.columns.map(column => {
+      if (column.dataIndex === 'url') {
+        column.render = (text, row, index) => (CmdbUrlLink({ linkStr: text }))
+      }
+    })
     return (
       <div
         className={classes}
