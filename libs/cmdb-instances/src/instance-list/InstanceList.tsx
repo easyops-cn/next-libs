@@ -357,6 +357,7 @@ interface InstanceListProps {
   hideSearchConditions?: boolean;
   onlySearchByIp?: boolean;
   target?: string;
+  ipCopy?: boolean;
   enableSearchByApp?: boolean;
   dataSource?: {
     list: Record<string, any>[];
@@ -1260,6 +1261,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
             showSizeChanger={props.showSizeChanger}
             extraColumns={props.extraColumns}
             target={props.target}
+            ipCopy={props.ipCopy}
           />
         </React.Fragment>
       ) : null}
