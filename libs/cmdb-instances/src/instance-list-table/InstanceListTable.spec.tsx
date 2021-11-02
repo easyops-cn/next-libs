@@ -37,6 +37,7 @@ jest.spyOn(kit, "BrickAsComponent").mockImplementation(({ useBrick, data }) => (
     </span>
   </>
 ));
+document.execCommand = jest.fn()
 
 jest.mock("@next-sdk/cmdb-sdk");
 const mockCmdbObjectApi_getIdMapName = CmdbObjectApi_getIdMapName as jest.Mock;
@@ -304,6 +305,7 @@ describe("InstanceListTable", () => {
         modelData={HOST}
         instanceListData={instanceListData}
         onSelectionChange={mockOnSelectionChange}
+        ipCopy={true}
       />
     );
     fireEvent.click(
@@ -316,6 +318,11 @@ describe("InstanceListTable", () => {
       selectedKeys: [instance.instanceId],
       selectedItems: [instance],
     });
+
+    fireEvent.click(
+      container
+        .querySelector('.copyBtn')
+    );
   });
 
   it(`should not throw error after table head "${ipAttr.name}" clicked, when there is not function passed to the onSelectionChange property`, () => {

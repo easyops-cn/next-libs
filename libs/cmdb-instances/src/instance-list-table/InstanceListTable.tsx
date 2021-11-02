@@ -1,8 +1,8 @@
 import React from "react";
 import { withTranslation, WithTranslation } from "react-i18next";
 import classnames from "classnames";
-import { Button, Popover, Table, Tag, Tooltip, Modal } from "antd";
-import { isNil, isBoolean, compact, map } from "lodash";
+import { Button, Popover, Table, Tag, Tooltip, Modal, message } from "antd";
+import { isNil, isBoolean, compact, map, uniq } from "lodash";
 import { DeleteOutlined } from "@ant-design/icons";
 import { ColumnType, TablePaginationConfig, TableProps } from "antd/lib/table";
 import {
@@ -114,6 +114,7 @@ export interface InstanceListTableProps extends WithTranslation {
   isOperate?: boolean;
   handleDeleteFunction?: (v: any[]) => void;
   target?: string;
+  ipCopy?: boolean;
 }
 
 interface InstanceListTableState {
@@ -131,6 +132,8 @@ export class LegacyInstanceListTable extends React.Component<
   keyDisplayConfigMap: Record<string, PropertyDisplayConfig> = {};
   recordUseBrickDataMap: Map<unknown, InstanceListUseBrickData>;
   inheritanceModelIdNameMap: Record<string, string>;
+  selectedRows: Record<string, any>[] = [];
+  ipCopyText: string = "复制选中 IP";
   instanceSourceTitle: React.ReactElement = (
     <>
       <span>{i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.INSTANCE_SOURCE}`)}</span>
@@ -905,12 +908,22 @@ export class LegacyInstanceListTable extends React.Component<
     selectedRowKeys: (string | number)[],
     selectedRows: Record<string, any>[]
   ) => {
+    this.selectedRows = selectedRows
     this.props.onSelectionChange?.({
       selectedKeys: selectedRowKeys as string[],
       selectedItems: selectedRows,
     });
   };
-
+  handelIpCopyText = (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>, dataIndex: string) => {
+    ev.stopPropagation()
+    const inputDom = document.createElement('input');
+    inputDom.value = uniq(map(this.selectedRows, dataIndex)).join(" ");
+    document.body.appendChild(inputDom)
+    inputDom.select()//选择对象
+    document.execCommand("copy")
+    inputDom.remove()
+    message.success('复制成功')
+  }
   componentDidUpdate(prevProps: InstanceListTableProps) {
     if (this.props.instanceListData !== prevProps.instanceListData) {
       this.setState({
@@ -956,10 +969,21 @@ export class LegacyInstanceListTable extends React.Component<
       [styles.tableWrapper]: true,
     });
     this.state.columns.map(column => {
-      if (column.dataIndex === 'url') {
+      const dataIndex = (column.dataIndex) as string
+      if (dataIndex === 'url') {
         column.render = (text, row, index) => (CmdbUrlLink({ linkStr: text }))
       }
+      if (this.props.ipCopy && this.props.modelData.attrList.find(attr => attr.id === dataIndex)?.value?.type === 'ip') {
+        const title = column.title
+        column.title = () => {
+          return (<div className={styles.copyWrap}>
+            <span >{title}</span>
+            <button className={styles.copyBtn} disabled={this.selectedRows?.length < 1} onClick={(ev) => this.handelIpCopyText(ev, dataIndex)}>{this.ipCopyText}</button>
+          </div >)
+        }
+      }
     })
+
     return (
       <div
         className={classes}
