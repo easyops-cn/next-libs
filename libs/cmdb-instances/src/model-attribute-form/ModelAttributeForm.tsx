@@ -297,6 +297,9 @@ export class ModelAttributeForm extends Component<
     attribute: Partial<CmdbModels.ModelObjectAttr>
   ): (rule: any, value: string[], callback: (msg?: string) => void) => void {
     return (rule: any, value: string[], callback: (msg?: string) => void) => {
+      if (!value) {
+        return callback();
+      }
       if (!Array.isArray(value)) {
         return callback(
           i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.NOT_MEET_REGEX}`)
