@@ -77,7 +77,7 @@ const locale: Locale = {
   [K.NOT_MEET_JSON]: "Please fill in the correct json syntax",
   [K.CREATE_ANOTHER]: "Create another",
   [K.DELETE_STRUCT_CONFIRM_MSG]:
-    "Are you sure you want to delete the structure?",
+    "Are you sure you want to delete this structure item?",
   [K.DELETE_INSTANCE_CONFIRM_MSG]:
     "Are you sure you want to delete the relation?",
   [K.OPERATION]: "Operation",
