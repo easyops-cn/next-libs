@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.8.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.8.0...@next-libs/cmdb-instances@6.8.1) (2021-11-02)
+
+
+### Bug Fixes
+
+* **cmdb-instances:**  删除结构体，提示不对 ([8065b4f](https://github.com/easyops-cn/next-libs/commit/8065b4f58e37904d239a8a364eb4152a8aa2315b))
+
+
+
+
+
 # [6.8.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.7.5...@next-libs/cmdb-instances@6.8.0) (2021-11-02)
 
 
