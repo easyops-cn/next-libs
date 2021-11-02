@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.9.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.9.0...@next-libs/cmdb-instances@6.9.1) (2021-11-02)
+
+
+### Bug Fixes
+
+* **cmdb-instances:** 当数组不必填有正则的时候，不填的时候不触发校验正则 ([2fe6888](https://github.com/easyops-cn/next-libs/commit/2fe68888cc1ba4cd88f10abfc43cb4b6288482bc))
+
+
+
+
+
 # [6.9.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.8.1...@next-libs/cmdb-instances@6.9.0) (2021-11-02)
 
 
