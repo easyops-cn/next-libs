@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.8.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.7.5...@next-libs/cmdb-instances@6.8.0) (2021-11-02)
+
+
+### Features
+
+* **cmdb-instances:**  实例列表，url 类型支持跳转功能 ([f38a735](https://github.com/easyops-cn/next-libs/commit/f38a7358707cde22018923937fbacf69b9ba9f5f))
+
+
+
+
+
 ## [6.7.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.7.4...@next-libs/cmdb-instances@6.7.5) (2021-10-22)
 
 
