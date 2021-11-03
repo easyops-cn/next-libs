@@ -33,9 +33,10 @@ import { CommonExpressionLanguageCompleter } from "../custom-mode/CommonExpressi
 import { getHighlightMarkers } from "./getHighlightMarkers";
 import { getClickableMarker } from "./getClickableMarker";
 import ResizeObserver from "resize-observer-polyfill";
-
 import style from "./CodeEditor.module.css";
 import shareStyle from "../share.module.css";
+import { addResourceBundle } from "../i18n";
+addResourceBundle();
 
 export function CodeEditorItem(
   props: CodeEditorProps,
