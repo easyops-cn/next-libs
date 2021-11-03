@@ -109,6 +109,7 @@ const locale: Locale = {
   [K.INSTANCE_SOURCE_TOOLTIP]:
     "The instance comes from a common model that inherits the current parent model",
   [K.INSTANCE_SOURCE_TAG_TEXT]: 'Instance source: equal to "{{query}}"',
+  [K.COPY_SELECTED_IP]: 'Copy selected IP',
 };
 
 export default locale;

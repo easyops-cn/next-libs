@@ -35,6 +35,7 @@ describe("StructTable", () => {
   );
   const formData = { str: "newString" };
   it("should render", () => {
+    expect(structsWrapper.find("Table").length).toBe(1);
     expect(structsWrapper).toBeTruthy();
     expect(structWrapper).toBeTruthy();
     expect(structsOperationWrapper).toBeTruthy();
@@ -54,6 +55,9 @@ describe("StructTable", () => {
       expect.anything()
     );
     expect(spyOnModalConfirm).toBeCalled();
+    expect(spyOnModalConfirm.mock.calls[
+      spyOnModalConfirm.mock.calls.length - 1
+    ][0].title).toEqual("libs-cmdb-instances:DELETE_STRUCT_CONFIRM_MSG");
   });
   //编辑结构体
   it("should call the edit structs function", () => {
