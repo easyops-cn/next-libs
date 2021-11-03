@@ -99,6 +99,7 @@ const locale: Locale = {
   [K.INSTANCE_SOURCE]: "实例来源",
   [K.INSTANCE_SOURCE_TOOLTIP]: "实例来源于继承当前父模型的普通模型",
   [K.INSTANCE_SOURCE_TAG_TEXT]: '实例来源：等于"{{query}}"',
+  [K.COPY_SELECTED_IP]: '复制选中IP',
 };
 
 export default locale;

@@ -133,7 +133,6 @@ export class LegacyInstanceListTable extends React.Component<
   recordUseBrickDataMap: Map<unknown, InstanceListUseBrickData>;
   inheritanceModelIdNameMap: Record<string, string>;
   selectedRows: Record<string, any>[] = [];
-  ipCopyText: string = "复制选中 IP";
   instanceSourceTitle: React.ReactElement = (
     <>
       <span>{i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.INSTANCE_SOURCE}`)}</span>
@@ -914,10 +913,10 @@ export class LegacyInstanceListTable extends React.Component<
       selectedItems: selectedRows,
     });
   };
-  handelIpCopyText = (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>, dataIndex: string) => {
+  handelIpCopyText = (ev: React.MouseEvent<HTMLElement, MouseEvent>, dataIndex: string) => {
     ev.stopPropagation()
-    const inputDom = document.createElement('input');
-    inputDom.value = uniq(map(this.selectedRows, dataIndex)).join(" ");
+    const inputDom = document.createElement('textarea');
+    inputDom.value = map(this.selectedRows, dataIndex).join("\n");
     document.body.appendChild(inputDom)
     inputDom.select()//选择对象
     document.execCommand("copy")
@@ -970,6 +969,7 @@ export class LegacyInstanceListTable extends React.Component<
     });
     this.state.columns.map(column => {
       const dataIndex = (column.dataIndex) as string
+      // istanbul ignore next
       if (dataIndex === 'url') {
         column.render = (text, row, index) => (CmdbUrlLink({ linkStr: text }))
       }
@@ -978,7 +978,13 @@ export class LegacyInstanceListTable extends React.Component<
         column.title = () => {
           return (<div className={styles.copyWrap}>
             <span >{title}</span>
-            <button className={styles.copyBtn} disabled={this.selectedRows?.length < 1} onClick={(ev) => this.handelIpCopyText(ev, dataIndex)}>{this.ipCopyText}</button>
+            <Button
+              className={styles.copyBtn}
+              size="small"
+              disabled={this.selectedRows?.length < 1}
+              onClick={(ev) => this.handelIpCopyText(ev, dataIndex)}>
+              {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.COPY_SELECTED_IP}`)}
+            </Button>
           </div >)
         }
       }
