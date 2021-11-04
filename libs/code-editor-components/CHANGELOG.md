@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.11](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.0.10...@next-libs/code-editor-components@4.0.11) (2021-11-04)
+
+
+### Bug Fixes
+
+* dashboard新建仪表盘--构件翻译失败 MONITOR-2122 ([56ea514](https://github.com/easyops-cn/next-libs/commit/56ea514eb76c1ff1976cb22e4532eca0e77d5329))
+
+
+
+
+
 ## [4.0.10](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.0.9...@next-libs/code-editor-components@4.0.10) (2021-10-20)
 
 **Note:** Version bump only for package @next-libs/code-editor-components
