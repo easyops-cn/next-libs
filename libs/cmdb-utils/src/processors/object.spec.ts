@@ -2,7 +2,8 @@ import {
   getRelationObjectSides,
   getDescription,
   getRelation,
-  forEachAvailableFields
+  forEachAvailableFields,
+  isSelfRelation,
 } from "./object";
 const modelData = {
   objectId: "HOST",
@@ -10,8 +11,8 @@ const modelData = {
   attrList: [
     {
       id: "name",
-      name: "名称"
-    }
+      name: "名称",
+    },
   ],
   relation_list: [
     {
@@ -34,7 +35,7 @@ const modelData = {
       right_max: -1,
       right_groups: [],
       right_tags: [],
-      _version: 0
+      _version: 0,
     },
     {
       left_description: "负责备份的主机",
@@ -56,12 +57,12 @@ const modelData = {
       right_name: "负责备份的主机",
       right_object_id: "USER",
       right_tags: [],
-      _version: 0
-    }
+      _version: 0,
+    },
   ],
   view: {
-    hide_columns: ["_deviceList_CLUSTER"]
-  }
+    hide_columns: ["_deviceList_CLUSTER"],
+  },
 };
 describe("getRelationObjectSides", () => {
   it("should work", () => {
@@ -69,13 +70,13 @@ describe("getRelationObjectSides", () => {
       getRelationObjectSides(modelData.relation_list[0], modelData)
     ).toEqual({
       this: "right",
-      that: "left"
+      that: "left",
     });
     expect(
       getRelationObjectSides(modelData.relation_list[1], modelData)
     ).toEqual({
       this: "left",
-      that: "right"
+      that: "right",
     });
   });
 });
@@ -110,9 +111,48 @@ describe("forEachAvailableFields", () => {
 
     forEachAvailableFields(modelData, attrCallback, relationCallback, [
       "name",
-      "backupowner"
+      "backupowner",
     ]);
     expect(attrCallback).toBeCalled();
     expect(relationCallback).toBeCalled();
+  });
+});
+describe("isSelfRelation", () => {
+  it("should work", () => {
+    expect(
+      isSelfRelation({
+        left_object_id: "A",
+        right_object_id: "B",
+      })
+    ).toBe(false);
+
+    expect(
+      isSelfRelation({
+        left_object_id: "A",
+        right_object_id: "A",
+      })
+    ).toBe(true);
+
+    const attrCallback = jest.fn();
+    const relationCallback = jest.fn();
+    const _modelData = {
+      ...modelData,
+      relation_list: [
+        ...modelData.relation_list,
+        {
+          left_id: "HOST_A",
+          left_object_id: "HOST",
+          relation_id: "HOST_SELF",
+          right_id: "HOST_B",
+          right_object_id: "HOST",
+        },
+      ],
+    };
+
+    forEachAvailableFields(_modelData, attrCallback, relationCallback);
+    forEachAvailableFields(modelData, attrCallback, relationCallback, [
+      "name",
+      "backupowner",
+    ]);
   });
 });
