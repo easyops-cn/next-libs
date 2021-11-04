@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@3.0.2...@next-libs/cmdb-utils@3.0.3) (2021-11-04)
+
+
+### Bug Fixes
+
+* **cmdb-instance:** 修复自关联模型只有一个字段 ([5d39854](https://github.com/easyops-cn/next-libs/commit/5d39854b36fdcbe8545347561b106af82e56e16a))
+
+
+
+
+
 ## [3.0.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@3.0.1...@next-libs/cmdb-utils@3.0.2) (2021-08-12)
 
 **Note:** Version bump only for package @next-libs/cmdb-utils
