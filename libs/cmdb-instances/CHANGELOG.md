@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.9.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.9.3...@next-libs/cmdb-instances@6.9.4) (2021-11-04)
+
+
+### Bug Fixes
+
+* 告警事件中心CMDB通用实例列表模态框v2弹窗的取消按钮应使用文字按钮样式 EVENT-275 ([394f9ab](https://github.com/easyops-cn/next-libs/commit/394f9abfe4a7bde4ef843c5a0052aca82fb009e6))
+
+
+
+
+
 ## [6.9.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.9.2...@next-libs/cmdb-instances@6.9.3) (2021-11-04)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
