@@ -121,7 +121,7 @@ export function InstanceListModal(
         )}
         {!props.selectDisabled && (
           <>
-            <Button key="back" onClick={handleCancel}>
+            <Button key="back" onClick={handleCancel} type="text">
               {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CANCEL}`)}
             </Button>
             <Button
