@@ -70,6 +70,7 @@ import { ModelAttributeValueType } from "../model-attribute-form-control/ModelAt
 import { IconButton } from "./IconButton";
 import { changeQueryWithCustomRules } from "../processors";
 import { ModelObjectAttr } from "@next-sdk/cmdb-sdk/dist/types/model/cmdb";
+import { RelationObjectSides, isSelfRelation } from "@next-libs/cmdb-utils";
 export interface InstanceListPresetConfigs {
   query?: Record<string, any>;
   fieldIds?: string[];
@@ -129,30 +130,42 @@ function translateConditions(
   }[] = [];
   const relations: any[] = [];
   modelData.relation_list.forEach((relation) => {
-    const sides = getRelationObjectSides(relation, modelData);
-    const objectId = relation[`${sides.this}_id` as RelationIdKeys];
-    const relationObject =
-      idObjectMap[relation[`${sides.that}_object_id` as RelationObjectIdKeys]];
-    const nameKeys = getInstanceNameKeys(relationObject);
-    nameKeys.forEach((nameKey) => {
-      const nameOfNameKey =
-        find(relationObject?.attrList, ["id", nameKey])?.name ?? nameKey;
-      const id = `${objectId}.${nameKey}`;
-      const name = `${
-        relation[`${sides.this}_name` as RelationNameKeys]
-      }(${nameOfNameKey})`;
+    let sidesArr: RelationObjectSides[] = [];
+    if (isSelfRelation(relation)) {
+      sidesArr = [
+        { this: "left", that: "right" },
+        { this: "right", that: "left" },
+      ];
+    } else {
+      sidesArr = [getRelationObjectSides(relation, modelData)];
+    }
+    sidesArr.forEach((sides) => {
+      const objectId = relation[`${sides.this}_id` as RelationIdKeys];
+      const relationObject =
+        idObjectMap[
+          relation[`${sides.that}_object_id` as RelationObjectIdKeys]
+        ];
+      const nameKeys = getInstanceNameKeys(relationObject);
+      nameKeys.forEach((nameKey) => {
+        const nameOfNameKey =
+          find(relationObject?.attrList, ["id", nameKey])?.name ?? nameKey;
+        const id = `${objectId}.${nameKey}`;
+        const name = `${
+          relation[`${sides.this}_name` as RelationNameKeys]
+        }(${nameOfNameKey})`;
+        relations.push({
+          id,
+          name,
+          value: { type: "str" },
+          relationSideId: relation[`${sides.this}_id` as RelationIdKeys],
+        });
+      });
       relations.push({
-        id,
-        name,
+        id: `${objectId}.`,
+        name: `${relation[`${sides.this}_name` as RelationNameKeys]}`,
         value: { type: "str" },
         relationSideId: relation[`${sides.this}_id` as RelationIdKeys],
       });
-    });
-    relations.push({
-      id: `${objectId}.`,
-      name: `${relation[`${sides.this}_name` as RelationNameKeys]}`,
-      value: { type: "str" },
-      relationSideId: relation[`${sides.this}_id` as RelationIdKeys],
     });
   });
   const attrAndRelationList = [...modelData.attrList, ...relations];

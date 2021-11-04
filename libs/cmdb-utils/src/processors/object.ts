@@ -19,6 +19,12 @@ export function getRelationObjectSides(
     : { this: "right", that: "left" };
 }
 
+export function isSelfRelation(
+  relation: Partial<CmdbModels.ModelObjectRelation>
+): boolean {
+  return relation.left_object_id === relation.right_object_id;
+}
+
 export function forEachAvailableFields(
   object: Partial<CmdbModels.ModelCmdbObject>,
   attrCallback?: (
@@ -46,14 +52,24 @@ export function forEachAvailableFields(
 
     if (relationCallback) {
       object.relation_list.forEach((relation) => {
-        const sides = getRelationObjectSides(relation, object);
-        const id = relation[`${sides.this}_id` as RelationIdKeys];
-
-        if (fieldIdSet.has(id)) {
-          fieldIds.indexOf(id) === 0
-            ? relationCallback(relation, sides, true)
-            : relationCallback(relation, sides);
+        let sidesArr: RelationObjectSides[] = [];
+        if (isSelfRelation(relation)) {
+          sidesArr = [
+            { this: "left", that: "right" },
+            { this: "right", that: "left" },
+          ];
+        } else {
+          sidesArr = [getRelationObjectSides(relation, object)];
         }
+        sidesArr.forEach((sides) => {
+          const id = relation[`${sides.this}_id` as RelationIdKeys];
+
+          if (fieldIdSet.has(id)) {
+            fieldIds.indexOf(id) === 0
+              ? relationCallback(relation, sides, true)
+              : relationCallback(relation, sides);
+          }
+        });
       });
     }
   } else {
@@ -73,12 +89,22 @@ export function forEachAvailableFields(
 
     if (relationCallback) {
       object.relation_list.forEach((relation) => {
-        const sides = getRelationObjectSides(relation, object);
-        const id = relation[`${sides.this}_id` as RelationIdKeys];
-
-        if (!hideColumnsSet || !hideColumnsSet.has(id)) {
-          relationCallback(relation, sides);
+        let sidesArr: RelationObjectSides[] = [];
+        if (isSelfRelation(relation)) {
+          sidesArr = [
+            { this: "left", that: "right" },
+            { this: "right", that: "left" },
+          ];
+        } else {
+          sidesArr = [getRelationObjectSides(relation, object)];
         }
+        sidesArr.forEach((sides) => {
+          const id = relation[`${sides.this}_id` as RelationIdKeys];
+
+          if (!hideColumnsSet || !hideColumnsSet.has(id)) {
+            relationCallback(relation, sides);
+          }
+        });
       });
     }
   }

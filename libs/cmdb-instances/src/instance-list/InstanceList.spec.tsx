@@ -611,10 +611,23 @@ describe("InstanceList", () => {
   });
 
   it("should work with hideSearchConditions", async () => {
+    const _HOST = {
+      ...HOST,
+      relation_list: [
+        ...HOST.relation_list,
+        {
+          left_id: "HOST_A",
+          left_object_id: "HOST",
+          relation_id: "HOST_SELF",
+          right_id: "HOST_B",
+          right_object_id: "HOST",
+        },
+      ],
+    };
     const wrapper = mount(
       <InstanceList
         objectId="HOST"
-        objectList={[HOST]}
+        objectList={[_HOST]}
         aq={[
           {
             $or: [
