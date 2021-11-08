@@ -49,6 +49,7 @@ import {
 } from "./constants";
 import { isArray } from "util";
 import { UseBrickConf } from "@next-core/brick-types";
+import { CmdbUrlLink } from "../cmdb-url-link/CmdbUrlLink";
 
 export interface AttrCustomConfigs {
   [attrId: string]: LegacyCustomComponent;
@@ -327,9 +328,9 @@ export class LegacyInstanceDetail extends React.Component<
                   this.props.isRelationInstanceDetail &&
                   attr?.tag?.[0] === BASIC_INFO &&
                   index ===
-                    basicInfoGroup.attrList.findIndex(
-                      (r: any) => !r.__isRelation
-                    )
+                  basicInfoGroup.attrList.findIndex(
+                    (r: any) => !r.__isRelation
+                  )
                 ) {
                   return this.getAttrListNode(attr, true);
                 }
@@ -368,7 +369,7 @@ export class LegacyInstanceDetail extends React.Component<
 
   // istanbul ignore next
   getAttrListNode(attr: any, linkFlag?: boolean): React.ReactNode {
-    const { isStruct, isStructs, isRelation, isMarkdownField } = this;
+    const { isStruct, isStructs, isRelation, isMarkdownField, isUrl } = this;
     const { modelDataMap, modelData, instanceData } = this.state;
     let config;
     let isComponentMode = false;
@@ -403,11 +404,11 @@ export class LegacyInstanceDetail extends React.Component<
         <dt
           className={
             isStruct(attr) ||
-            isStructs(attr) ||
-            isRelation(attr) ||
-            attr.__isRelation ||
-            isMarkdownField(attr) ||
-            (config && config.isWholeLine)
+              isStructs(attr) ||
+              isRelation(attr) ||
+              attr.__isRelation ||
+              isMarkdownField(attr) ||
+              (config && config.isWholeLine)
               ? style.structAttr
               : style.basicAttr
           }
@@ -418,24 +419,29 @@ export class LegacyInstanceDetail extends React.Component<
         <dd
           className={
             isStruct(attr) ||
-            isStructs(attr) ||
-            isRelation(attr) ||
-            attr.__isRelation ||
-            isMarkdownField(attr) ||
-            (config && config.isWholeLine)
+              isStructs(attr) ||
+              isRelation(attr) ||
+              attr.__isRelation ||
+              isMarkdownField(attr) ||
+              (config && config.isWholeLine)
               ? style.structAttr
               : style.basicAttr
           }
         >
           {/* istanbul ignore next */}
-          {isMarkdownField(attr) && (
+          {isUrl(attr) && (
+            <CmdbUrlLink
+              linkStr={instanceData[attr.id]}
+            />
+          )}
+          {isMarkdownField(attr) && !isUrl(attr) && (
             <div
               dangerouslySetInnerHTML={{
                 __html: DOMPurify.sanitize(marked(instanceData[attr.id] || "")),
               }}
             ></div>
           )}
-          {attr.__isRelation && (
+          {attr.__isRelation && !isUrl(attr) && (
             <InstanceRelationTableShow
               modelDataMap={modelDataMap}
               relationData={attr}
@@ -446,7 +452,7 @@ export class LegacyInstanceDetail extends React.Component<
           {!isStructs(attr) &&
             !isStruct(attr) &&
             !isRelation(attr) &&
-            isComponentMode &&
+            isComponentMode && !isUrl(attr) &&
             (attrCustomConfig.useBrick ? (
               <BrickAsComponent
                 useBrick={attrCustomConfig.useBrick}
@@ -469,7 +475,7 @@ export class LegacyInstanceDetail extends React.Component<
             !isStruct(attr) &&
             !isRelation(attr) &&
             !isMarkdownField(attr) &&
-            !isComponentMode &&
+            !isComponentMode && !isUrl(attr) &&
             (linkFlag ? (
               <Link
                 to={`/next-cmdb-instance-management/next/${instanceData._object_id}/instance/${instanceData.instanceId}`}
@@ -488,7 +494,7 @@ export class LegacyInstanceDetail extends React.Component<
                 attrData={instanceData[attr.id]}
               />
             ))}
-          {isStruct(attr) && instanceData[attr.id] && (
+          {isStruct(attr) && instanceData[attr.id] && !isUrl(attr) && (
             <StructTable
               isLegacy={true}
               attribute={attr}
@@ -496,7 +502,7 @@ export class LegacyInstanceDetail extends React.Component<
               isEditable={false}
             />
           )}
-          {isStructs(attr) && instanceData[attr.id] && (
+          {isStructs(attr) && instanceData[attr.id] && !isUrl(attr) && (
             <StructTable
               attribute={attr}
               structData={instanceData[attr.id]}
@@ -725,6 +731,9 @@ export class LegacyInstanceDetail extends React.Component<
 
   isStructs(attr: any) {
     return attr.value?.type === "structs";
+  }
+  isUrl(attr: any) {
+    return attr.id === "url" && attr.name === "URL";
   }
 
   isRelation(attr: any) {
