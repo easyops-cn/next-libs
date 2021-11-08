@@ -104,6 +104,16 @@ describe("InstanceDetail", () => {
 
     expect(instance.isStruct({})).toBeFalsy();
   });
+  it("tests isUrl", () => {
+    expect(
+      instance.isUrl({
+        id: 'url',
+        name:'URL'
+      })
+    ).toBeTruthy();
+
+    expect(instance.isUrl({})).toBeFalsy();
+  });
 
   it("tests isSpecialDisplayField", () => {
     let data = {
