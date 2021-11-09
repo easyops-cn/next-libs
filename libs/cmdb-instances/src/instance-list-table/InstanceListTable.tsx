@@ -1,9 +1,9 @@
 import React from "react";
 import { withTranslation, WithTranslation } from "react-i18next";
 import classnames from "classnames";
-import { Button, Popover, Table, Tag, Tooltip, Modal, message } from "antd";
+import { Button, Popover, Table, Tag, Tooltip, Modal, message, Typography } from "antd";
 import { isNil, isBoolean, compact, map, uniq } from "lodash";
-import { DeleteOutlined } from "@ant-design/icons";
+import { CopyOutlined, DeleteOutlined } from "@ant-design/icons";
 import { ColumnType, TablePaginationConfig, TableProps } from "antd/lib/table";
 import {
   SorterResult,
@@ -44,7 +44,7 @@ import { BrickAsComponent } from "@next-core/brick-kit";
 import { NS_LIBS_CMDB_INSTANCES, K } from "../i18n/constants";
 import i18n from "i18next";
 import { CmdbUrlLink } from "../cmdb-url-link/CmdbUrlLink";
-
+const { Paragraph } = Typography;
 export interface CustomColumn extends ColumnType<Record<string, unknown>> {
   useBrick: UseBrickConf;
 }
@@ -915,13 +915,17 @@ export class LegacyInstanceListTable extends React.Component<
   };
   handelIpCopyText = (ev: React.MouseEvent<HTMLElement, MouseEvent>, dataIndex: string) => {
     ev.stopPropagation()
+    if (this.selectedRows.length < 1) {
+      message.warning(i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.SELECT_COPY_DATA}`))
+      return false
+    }
     const inputDom = document.createElement('textarea');
-    inputDom.value = map(this.selectedRows, dataIndex).join("\n");
+    inputDom.value = map(this.selectedRows.filter(v => v[dataIndex]), dataIndex).join("\n");
     document.body.appendChild(inputDom)
     inputDom.select()//选择对象
     document.execCommand("copy")
     inputDom.remove()
-    message.success('复制成功')
+    message.success(i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.COPY_SUCCESS}`))
   }
   componentDidUpdate(prevProps: InstanceListTableProps) {
     if (this.props.instanceListData !== prevProps.instanceListData) {
@@ -974,22 +978,12 @@ export class LegacyInstanceListTable extends React.Component<
         column.render = (text, row, index) => (CmdbUrlLink({ linkStr: text }))
       }
       if (this.props.ipCopy && this.props.modelData.attrList.find(attr => attr.id === dataIndex)?.value?.type === 'ip') {
-        const title = column.title
-        column.title = () => {
-          return (<div className={styles.copyWrap}>
-            <span >{title}</span>
-            <Button
-              className={styles.copyBtn}
-              size="small"
-              disabled={this.selectedRows?.length < 1}
-              onClick={(ev) => this.handelIpCopyText(ev, dataIndex)}>
-              {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.COPY_SELECTED_IP}`)}
-            </Button>
-          </div >)
-        }
+        column.filterDropdown = () => (<div></div>);
+        column.filterIcon = () => (<Tooltip className={styles.copyWrap} title={i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.COPY_SELECTED_IP}`)} >
+          <CopyOutlined style={{ fontSize: 16 }} onClick={(ev) => this.handelIpCopyText(ev, dataIndex)} />
+        </Tooltip>);
       }
     })
-
     return (
       <div
         className={classes}
