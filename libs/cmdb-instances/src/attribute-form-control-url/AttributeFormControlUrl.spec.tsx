@@ -39,7 +39,25 @@ describe("AttributeFormControlUrl", () => {
 
     urlEle.simulate("blur");
     expect(props.onChange).toHaveBeenCalledWith(
-      "[百度](http://www.google.com)"
+      "[百度](www.google.com)"
+    );
+    urlEle.simulate("change", {
+      target: {
+        value: "/google.com",
+      },
+    });
+    urlEle.simulate("blur");
+    expect(props.onChange).toHaveBeenCalledWith(
+      "[百度](www.google.com)"
+    );
+    urlEle.simulate("change", {
+      target: {
+        value: null,
+      },
+    });
+    urlEle.simulate("blur");
+    expect(props.onChange).toHaveBeenCalledWith(
+      "[百度](www.google.com)"
     );
   });
 
