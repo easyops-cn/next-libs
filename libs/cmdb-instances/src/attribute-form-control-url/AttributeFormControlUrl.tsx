@@ -41,9 +41,12 @@ export class AttributeFormControlUrl extends Component<AttributeFormControlUrlPr
 
   static getFormattedUrl(url: string): string {
     if (url) {
-      const pattern = /^(http|https):\/\/.*$/;
-
-      return pattern.test(url) ? url : "http://" + url;
+      // const pattern = /^(http|https):\/\/.*$/;
+      // return pattern.test(url) ? url : "http://" + url;
+      const urlReg = /^((http|https):\/\/)?(([A-Za-z0-9]+-[A-Za-z0-9]+|[A-Za-z0-9]+)\.)+([A-Za-z]+)[/\?\:]?.*$/;
+      const reg = /^\//
+      const origin = window.location.origin;
+      return urlReg.test(url) ? url : `${origin}${reg.test(url) ? url : '/' + url} `;
     }
     return "";
   }
