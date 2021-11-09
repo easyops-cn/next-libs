@@ -18,7 +18,6 @@
         "^@libs/",
         "^@micro-apps/",
         "^@next-bricks/",
-        "^@next-libs/",
         "^@next-micro-apps/",
         "^@sdk/",
         "^@templates/",
@@ -40,6 +39,7 @@
         "@next-core/editor-bricks-helper",
         "@next-core/fontawesome-library",
         "@next-core/illustrations",
+        "@next-core/pipes",
         "@size-limit/file",
         "@types/classnames",
         "@types/d3",
@@ -92,6 +92,11 @@
       "matchPackagePatterns": ["^@next-core/"],
       "matchUpdateTypes": ["major"],
       "enabled": false
+    },
+    {
+      "groupName": "next-libs packages",
+      "matchPackagePatterns": ["^@next-libs/"],
+      "automerge": false
     }
   ],
   "postUpdateOptions": ["yarnDedupeHighest"]
