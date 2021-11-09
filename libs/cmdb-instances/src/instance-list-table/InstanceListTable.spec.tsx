@@ -310,6 +310,10 @@ describe("InstanceListTable", () => {
     );
     fireEvent.click(
       container
+        .querySelector('.copyWrap svg')
+    );
+    fireEvent.click(
+      container
         .querySelector(`[data-row-key="${instance.instanceId}"]`)
         .getElementsByClassName("ant-table-selection-column")[0]
         .querySelector("label.ant-checkbox-wrapper")
@@ -321,7 +325,7 @@ describe("InstanceListTable", () => {
 
     fireEvent.click(
       container
-        .querySelector('.copyBtn')
+        .querySelector('.copyWrap svg')
     );
   });
 
