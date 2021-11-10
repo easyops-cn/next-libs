@@ -16,7 +16,6 @@ exports[`AttributeFormControlUrl should work 1`] = `
         libs-cmdb-instances:LINK
       </label>
       <Input
-        onBlur={[Function]}
         onChange={[Function]}
         placeholder="libs-cmdb-instances:LINK_PLACEHOLDER"
         readOnly={true}
@@ -41,7 +40,6 @@ exports[`AttributeFormControlUrl should work 1`] = `
           focused={false}
           handleReset={[Function]}
           inputType="input"
-          onBlur={[Function]}
           onChange={[Function]}
           placeholder="libs-cmdb-instances:LINK_PLACEHOLDER"
           prefixCls="ant-input"
@@ -74,7 +72,6 @@ exports[`AttributeFormControlUrl should work 1`] = `
       </label>
       <Input
         defaultValue="百度"
-        onBlur={[Function]}
         onChange={[Function]}
         placeholder="libs-cmdb-instances:TITLE_PLACEHOLDER"
         type="text"
@@ -96,7 +93,6 @@ exports[`AttributeFormControlUrl should work 1`] = `
           focused={false}
           handleReset={[Function]}
           inputType="input"
-          onBlur={[Function]}
           onChange={[Function]}
           placeholder="libs-cmdb-instances:TITLE_PLACEHOLDER"
           prefixCls="ant-input"

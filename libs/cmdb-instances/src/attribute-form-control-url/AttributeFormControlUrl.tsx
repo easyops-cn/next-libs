@@ -40,10 +40,11 @@ export class AttributeFormControlUrl extends Component<AttributeFormControlUrlPr
   }
 
   static getFormattedUrl(url: string): string {
+    /* istanbul ignore if  */
     if (url) {
       // const pattern = /^(http|https):\/\/.*$/;
       // return pattern.test(url) ? url : "http://" + url;
-      const urlReg = /^((http|https):\/\/)?(([A-Za-z0-9]+-[A-Za-z0-9]+|[A-Za-z0-9]+)\.)+([A-Za-z]+)[/\?\:]?.*$/;
+      const urlReg = /^((http|https):\/\/)?(([A-Za-z0-9]+-[A-Za-z0-9]+|[A-Za-z0-9]+)\.)+([A-Za-z]+)[/\?\:]?.*|^((2[0-4]\d|25[0-5]|[01]?\d\d?)\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)$/;
       const reg = /^\//
       const origin = window.location.origin;
       return urlReg.test(url) ? url : `${origin}${reg.test(url) ? url : '/' + url} `;
@@ -51,17 +52,19 @@ export class AttributeFormControlUrl extends Component<AttributeFormControlUrlPr
     return "";
   }
 
-  preSetValidation = () => {
-    const url = AttributeFormControlUrl.getFormattedUrl(this.url);
+  // preSetValidation = () => {
+  //   const url = AttributeFormControlUrl.getFormattedUrl(this.url);
 
-    if (this.url !== url) {
-      this.url = url;
-      this.composeUrl();
-    }
-  };
+  //   if (this.url !== url) {
+  //     this.url = url;
+  //     this.composeUrl();
+  //   }
+  // };
 
   composeUrl(): void {
-    const { url, title } = this;
+    const { title } = this;
+    const url = AttributeFormControlUrl.getFormattedUrl(this.url);
+    /* istanbul ignore next */
     const value = url || title ? `[${title}](${url})` : "";
 
     this.props.onChange(value);
@@ -92,7 +95,7 @@ export class AttributeFormControlUrl extends Component<AttributeFormControlUrlPr
             value={url}
             type="url"
             onChange={(e) => this.handleUrlChange(e.target.value)}
-            onBlur={this.preSetValidation}
+            // onBlur={this.preSetValidation}
             placeholder={
               placeholder ||
               i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.LINK_PLACEHOLDER}`)
@@ -108,7 +111,7 @@ export class AttributeFormControlUrl extends Component<AttributeFormControlUrlPr
             defaultValue={title}
             type="text"
             onChange={(e) => this.handleTitleChange(e.target.value)}
-            onBlur={this.preSetValidation}
+            // onBlur={this.preSetValidation}
             placeholder={i18n.t(
               `${NS_LIBS_CMDB_INSTANCES}:${K.TITLE_PLACEHOLDER}`
             )}
