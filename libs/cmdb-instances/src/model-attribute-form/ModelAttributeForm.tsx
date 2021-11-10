@@ -195,7 +195,7 @@ export class ModelAttributeForm extends Component<
     tagList: { [s: string]: string[] }
   ): { [s: string]: Partial<CmdbModels.ModelObjectAttr>[] } {
     const store: { [s: string]: Partial<CmdbModels.ModelObjectAttr>[] } = {};
-
+    /* istanbul ignore next */
     for (const tag in tagList) {
       if (!store[tag]) {
         store[tag] = [];
