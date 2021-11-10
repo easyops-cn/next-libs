@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.9.9](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.9.8...@next-libs/cmdb-instances@6.9.9) (2021-11-10)
+
+
+### Bug Fixes
+
+* **AttributeFormControlUrl:**  修复编辑自动为null的问题 ([ed90b92](https://github.com/easyops-cn/next-libs/commit/ed90b92ccde78693706b0fa331a45e873a43d309))
+
+
+
+
+
 ## [6.9.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.9.7...@next-libs/cmdb-instances@6.9.8) (2021-11-10)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
