@@ -41,12 +41,15 @@ export class AttributeFormControlUrl extends Component<AttributeFormControlUrlPr
   static getFormattedUrl(url: string): string {
     /* istanbul ignore if  */
     if (url) {
-      const pattern = /^(http|https):\/\/.*$/;
-      // return pattern.test(url) ? url : "http://" + url;
-      const urlReg = /^((http|https):\/\/)?(([A-Za-z0-9]+-[A-Za-z0-9]+|[A-Za-z0-9]+)\.)+([A-Za-z]+)[/\?\:]?.*|^((2[0-4]\d|25[0-5]|[01]?\d\d?)\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)$/;
+      // const pattern = /^(http|https):\/\/.*$/;
+      // // return pattern.test(url) ? url : "http://" + url;
+      // const urlReg = /^((http|https):\/\/)?(([A-Za-z0-9]+-[A-Za-z0-9]+|[A-Za-z0-9]+)\.)+([A-Za-z]+)[/\?\:]?.*|^((2[0-4]\d|25[0-5]|[01]?\d\d?)\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)$/;
+      // const reg = /^\//
+      // const origin = window.location.origin;
+      // return pattern.test(url) ? url : urlReg.test(url) ? url : `${origin}${reg.test(url) ? url : '/' + url} `;
       const reg = /^\//
       const origin = window.location.origin;
-      return pattern.test(url) ? url : urlReg.test(url) ? url : `${origin}${reg.test(url) ? url : '/' + url} `;
+      return reg.test(url) ? `${origin}${url}` : url;
     }
     return "";
   }
