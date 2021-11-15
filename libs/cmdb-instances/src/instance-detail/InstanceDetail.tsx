@@ -326,11 +326,11 @@ export class LegacyInstanceDetail extends React.Component<
                 //第一个属性为关系时，取第二个属性，如此类推
                 if (
                   this.props.isRelationInstanceDetail &&
-                  attr?.tag?.[0] === BASIC_INFO &&
+                  attr?.tag?.[0] === basicInfoGroupList?.[0]?.name &&
                   index ===
-                  basicInfoGroup.attrList.findIndex(
-                    (r: any) => !r.__isRelation
-                  )
+                    basicInfoGroup.attrList.findIndex(
+                      (r: any) => !r.__isRelation
+                    )
                 ) {
                   return this.getAttrListNode(attr, true);
                 }
@@ -404,11 +404,11 @@ export class LegacyInstanceDetail extends React.Component<
         <dt
           className={
             isStruct(attr) ||
-              isStructs(attr) ||
-              isRelation(attr) ||
-              attr.__isRelation ||
-              isMarkdownField(attr) ||
-              (config && config.isWholeLine)
+            isStructs(attr) ||
+            isRelation(attr) ||
+            attr.__isRelation ||
+            isMarkdownField(attr) ||
+            (config && config.isWholeLine)
               ? style.structAttr
               : style.basicAttr
           }
@@ -419,21 +419,17 @@ export class LegacyInstanceDetail extends React.Component<
         <dd
           className={
             isStruct(attr) ||
-              isStructs(attr) ||
-              isRelation(attr) ||
-              attr.__isRelation ||
-              isMarkdownField(attr) ||
-              (config && config.isWholeLine)
+            isStructs(attr) ||
+            isRelation(attr) ||
+            attr.__isRelation ||
+            isMarkdownField(attr) ||
+            (config && config.isWholeLine)
               ? style.structAttr
               : style.basicAttr
           }
         >
           {/* istanbul ignore next */}
-          {isUrl(attr) && (
-            <CmdbUrlLink
-              linkStr={instanceData[attr.id]}
-            />
-          )}
+          {isUrl(attr) && <CmdbUrlLink linkStr={instanceData[attr.id]} />}
           {isMarkdownField(attr) && !isUrl(attr) && (
             <div
               dangerouslySetInnerHTML={{
@@ -452,7 +448,8 @@ export class LegacyInstanceDetail extends React.Component<
           {!isStructs(attr) &&
             !isStruct(attr) &&
             !isRelation(attr) &&
-            isComponentMode && !isUrl(attr) &&
+            isComponentMode &&
+            !isUrl(attr) &&
             (attrCustomConfig.useBrick ? (
               <BrickAsComponent
                 useBrick={attrCustomConfig.useBrick}
@@ -475,7 +472,8 @@ export class LegacyInstanceDetail extends React.Component<
             !isStruct(attr) &&
             !isRelation(attr) &&
             !isMarkdownField(attr) &&
-            !isComponentMode && !isUrl(attr) &&
+            !isComponentMode &&
+            !isUrl(attr) &&
             (linkFlag ? (
               <Link
                 to={`/next-cmdb-instance-management/next/${instanceData._object_id}/instance/${instanceData.instanceId}`}
