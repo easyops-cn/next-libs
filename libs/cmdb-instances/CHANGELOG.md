@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.9.11](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.9.10...@next-libs/cmdb-instances@6.9.11) (2021-11-16)
+
+
+### Bug Fixes
+
+* 实例详情页关系详情跳转入口由基本信息的第一个调整为第一个分类的第一个 closed INSTANCE-2030 ([d97ad0c](https://github.com/easyops-cn/next-libs/commit/d97ad0c9236c9ab049a2602e42fa37d0fb717050))
+* 编辑结构体/结构体数组，不填布尔类型时，应回填空字符串 ([87db0f4](https://github.com/easyops-cn/next-libs/commit/87db0f49f662803d1b319afe156f227e3f1dcdb8)), closes [Refs#INSTANCE-2024](https://github.com/Refs/issues/INSTANCE-2024)
+
+
+
+
+
 ## [6.9.10](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.9.9...@next-libs/cmdb-instances@6.9.10) (2021-11-11)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
