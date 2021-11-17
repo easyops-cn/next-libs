@@ -1,7 +1,16 @@
 import React from "react";
 import { withTranslation, WithTranslation } from "react-i18next";
 import classnames from "classnames";
-import { Button, Popover, Table, Tag, Tooltip, Modal, message, Typography } from "antd";
+import {
+  Button,
+  Popover,
+  Table,
+  Tag,
+  Tooltip,
+  Modal,
+  message,
+  Typography,
+} from "antd";
 import { isNil, isBoolean, compact, map, uniq } from "lodash";
 import { CopyOutlined, DeleteOutlined } from "@ant-design/icons";
 import { ColumnType, TablePaginationConfig, TableProps } from "antd/lib/table";
@@ -305,15 +314,15 @@ export class LegacyInstanceListTable extends React.Component<
           dataIndex: "_object_id",
           ...(!this.props.filterInstanceSourceDisabled
             ? {
-              filters: map(this.inheritanceModelIdNameMap, (value, key) => ({
-                text: value,
-                value: key,
-              })),
-              filterMultiple: false,
-              filteredValue: this.props.instanceSourceQuery && [
-                this.props.instanceSourceQuery,
-              ],
-            }
+                filters: map(this.inheritanceModelIdNameMap, (value, key) => ({
+                  text: value,
+                  value: key,
+                })),
+                filterMultiple: false,
+                filteredValue: this.props.instanceSourceQuery && [
+                  this.props.instanceSourceQuery,
+                ],
+              }
             : {}),
           render: (value, record, index) => (
             <Tag>{this.inheritanceModelIdNameMap?.[value] || value}</Tag>
@@ -429,8 +438,9 @@ export class LegacyInstanceListTable extends React.Component<
         >
           <Tooltip
             placement="top"
-            title={`${i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.JUMP_TO}`)}${object.name
-              }${i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.INSTANCE_DETAIL}`)}`}
+            title={`${i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.JUMP_TO}`)}${
+              object.name
+            }${i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.INSTANCE_DETAIL}`)}`}
           >
             <span style={{ display: "flex" }}>
               <span className={styles.iconWrap}>
@@ -464,8 +474,9 @@ export class LegacyInstanceListTable extends React.Component<
             >
               <Tooltip
                 placement="top"
-                title={`${i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.JUMP_TO}`)}${object.name
-                  }${i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.INSTANCE_DETAIL}`)}`}
+                title={`${i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.JUMP_TO}`)}${
+                  object.name
+                }${i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.INSTANCE_DETAIL}`)}`}
               >
                 <span>
                   <GeneralIcon
@@ -629,91 +640,92 @@ export class LegacyInstanceListTable extends React.Component<
       column.render =
         firstColumns && this.props.detailUrlTemplates
           ? (value: string, record: Record<string, any>, index: number) => {
-            //要跳到的路由
-            const detailUrlTemplate = getTemplateFromMap(
-              this.props.detailUrlTemplates,
-              object.objectId
-            );
-            if (detailUrlTemplate) {
-              const data = {
-                ...record,
-                objectId: object.isAbstract
-                  ? record._object_id
-                  : object.objectId,
-              };
-              const url = parseTemplate(detailUrlTemplate, data);
-              if (
-                attribute.value.type === ModelAttributeValueType.STRUCT ||
-                attribute.value.type === ModelAttributeValueType.STRUCT_LIST
-              ) {
-                return this.getSpecialUrlTemplates(
-                  object,
-                  record,
-                  tempColumns(value, record, index),
-                  url,
-                  true
-                );
-              }
-              if (displayConfig && displayConfig.brick) {
-                return this.getSpecialUrlTemplates(
-                  object,
-                  record,
-                  tempColumns(value, record, index),
-                  url
-                );
-              }
-              return (
-                <Link
-                  to={url}
-                  onClick={(e: any) =>
-                    this.handleClickItem(e, record.instanceId)
-                  }
-                  data-testid="instance-detail-link"
-                  {...(!firstColumns || object.isAbstract
-                    ? { target: "_blank" }
-                    : this.props.target
+              //要跳到的路由
+              const detailUrlTemplate = getTemplateFromMap(
+                this.props.detailUrlTemplates,
+                object.objectId
+              );
+              if (detailUrlTemplate) {
+                const data = {
+                  ...record,
+                  objectId: object.isAbstract
+                    ? record._object_id
+                    : object.objectId,
+                };
+                const url = parseTemplate(detailUrlTemplate, data);
+                if (
+                  attribute.value.type === ModelAttributeValueType.STRUCT ||
+                  attribute.value.type === ModelAttributeValueType.STRUCT_LIST
+                ) {
+                  return this.getSpecialUrlTemplates(
+                    object,
+                    record,
+                    tempColumns(value, record, index),
+                    url,
+                    true
+                  );
+                }
+                if (displayConfig && displayConfig.brick) {
+                  return this.getSpecialUrlTemplates(
+                    object,
+                    record,
+                    tempColumns(value, record, index),
+                    url
+                  );
+                }
+                return (
+                  <Link
+                    to={url}
+                    onClick={(e: any) =>
+                      this.handleClickItem(e, record.instanceId)
+                    }
+                    data-testid="instance-detail-link"
+                    {...(!firstColumns || object.isAbstract
+                      ? { target: "_blank" }
+                      : this.props.target
                       ? { target: this.props.target }
                       : {})}
-                >
-                  <Tooltip
-                    placement="top"
-                    title={`${i18n.t(
-                      `${NS_LIBS_CMDB_INSTANCES}:${K.JUMP_TO}`
-                    )}${object.isAbstract
-                      ? this.inheritanceModelIdNameMap?.[
-                      record._object_id
-                      ] || record._object_id
-                      : object.name
+                  >
+                    <Tooltip
+                      placement="top"
+                      title={`${i18n.t(
+                        `${NS_LIBS_CMDB_INSTANCES}:${K.JUMP_TO}`
+                      )}${
+                        object.isAbstract
+                          ? this.inheritanceModelIdNameMap?.[
+                              record._object_id
+                            ] || record._object_id
+                          : object.name
                       }${i18n.t(
                         `${NS_LIBS_CMDB_INSTANCES}:${K.INSTANCE_DETAIL}`
                       )}`}
-                  >
-                    <span>
-                      <span className={styles.iconWrap}>
-                        <GeneralIcon
-                          icon={{
-                            lib: "easyops",
-                            icon: "search",
-                            category: "app",
-                            color: "#167be0",
-                          }}
-                        />
+                    >
+                      <span>
+                        <span className={styles.iconWrap}>
+                          <GeneralIcon
+                            icon={{
+                              lib: "easyops",
+                              icon: "search",
+                              category: "app",
+                              color: "#167be0",
+                            }}
+                          />
+                        </span>
+                        <span className={styles.linkKey}>
+                          {tempColumns(value, record, index)}
+                        </span>
                       </span>
-                      <span className={styles.linkKey}>
-                        {tempColumns(value, record, index)}
-                      </span>
-                    </span>
-                  </Tooltip>
-                </Link>
-              );
-            } else {
-              return this.getSpecialUrlTemplates(
-                object,
-                record,
-                tempColumns(value, record, index)
-              );
+                    </Tooltip>
+                  </Link>
+                );
+              } else {
+                return this.getSpecialUrlTemplates(
+                  object,
+                  record,
+                  tempColumns(value, record, index)
+                );
+              }
             }
-          }
           : tempColumns;
     }
     return column;
@@ -787,7 +799,7 @@ export class LegacyInstanceListTable extends React.Component<
               });
               return (
                 <React.Fragment key={instance.instanceId}>
-                  {index > 0 && "; "}
+                  {index > 0 && "、"}
                   {this.props.relationLinkDisabled ? (
                     instanceName
                   ) : (
@@ -807,7 +819,7 @@ export class LegacyInstanceListTable extends React.Component<
               );
             } else {
               if (index > 0) {
-                instanceName = "; " + instanceName;
+                instanceName = "、" + instanceName;
               }
               return instanceName;
             }
@@ -824,31 +836,31 @@ export class LegacyInstanceListTable extends React.Component<
       column.render =
         firstColumns && this.props.detailUrlTemplates
           ? (value: string, record: Record<string, any>, index: number) => {
-            //要跳到的路由
-            const detailUrlTemplate = getTemplateFromMap(
-              this.props.detailUrlTemplates,
-              object.objectId
-            );
-            if (detailUrlTemplate) {
-              const data = {
-                ...record,
-                objectId: object.objectId,
-              };
-              const url = parseTemplate(detailUrlTemplate, data);
-              return this.getSpecialUrlTemplates(
-                object,
-                record,
-                tempColumns(value, record, index),
-                url
+              //要跳到的路由
+              const detailUrlTemplate = getTemplateFromMap(
+                this.props.detailUrlTemplates,
+                object.objectId
               );
-            } else {
-              return this.getSpecialUrlTemplates(
-                object,
-                record,
-                tempColumns(value, record, index)
-              );
+              if (detailUrlTemplate) {
+                const data = {
+                  ...record,
+                  objectId: object.objectId,
+                };
+                const url = parseTemplate(detailUrlTemplate, data);
+                return this.getSpecialUrlTemplates(
+                  object,
+                  record,
+                  tempColumns(value, record, index),
+                  url
+                );
+              } else {
+                return this.getSpecialUrlTemplates(
+                  object,
+                  record,
+                  tempColumns(value, record, index)
+                );
+              }
             }
-          }
           : tempColumns;
     }
     return column;
@@ -907,26 +919,34 @@ export class LegacyInstanceListTable extends React.Component<
     selectedRowKeys: (string | number)[],
     selectedRows: Record<string, any>[]
   ) => {
-    this.selectedRows = selectedRows
+    this.selectedRows = selectedRows;
     this.props.onSelectionChange?.({
       selectedKeys: selectedRowKeys as string[],
       selectedItems: selectedRows,
     });
   };
-  handelIpCopyText = (ev: React.MouseEvent<HTMLElement, MouseEvent>, dataIndex: string) => {
-    ev.stopPropagation()
+  handelIpCopyText = (
+    ev: React.MouseEvent<HTMLElement, MouseEvent>,
+    dataIndex: string
+  ) => {
+    ev.stopPropagation();
     if (this.selectedRows.length < 1) {
-      message.warning(i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.SELECT_COPY_DATA}`))
-      return false
+      message.warning(
+        i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.SELECT_COPY_DATA}`)
+      );
+      return false;
     }
-    const inputDom = document.createElement('textarea');
-    inputDom.value = map(this.selectedRows.filter(v => v[dataIndex]), dataIndex).join("\n");
-    document.body.appendChild(inputDom)
-    inputDom.select()//选择对象
-    document.execCommand("copy")
-    inputDom.remove()
-    message.success(i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.COPY_SUCCESS}`))
-  }
+    const inputDom = document.createElement("textarea");
+    inputDom.value = map(
+      this.selectedRows.filter((v) => v[dataIndex]),
+      dataIndex
+    ).join("\n");
+    document.body.appendChild(inputDom);
+    inputDom.select(); //选择对象
+    document.execCommand("copy");
+    inputDom.remove();
+    message.success(i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.COPY_SUCCESS}`));
+  };
   componentDidUpdate(prevProps: InstanceListTableProps) {
     if (this.props.instanceListData !== prevProps.instanceListData) {
       this.setState({
@@ -962,28 +982,40 @@ export class LegacyInstanceListTable extends React.Component<
       .selectDisabled
       ? null
       : {
-        preserveSelectedRowKeys: true,
-        selectedRowKeys,
-        onChange: this.onSelectChange,
-      };
+          preserveSelectedRowKeys: true,
+          selectedRowKeys,
+          onChange: this.onSelectChange,
+        };
 
     const classes = classnames({
       [styles.shouldEllipsis]: this.props.autoBreakLine,
       [styles.tableWrapper]: true,
     });
-    this.state.columns.map(column => {
-      const dataIndex = (column.dataIndex) as string
+    this.state.columns.map((column) => {
+      const dataIndex = column.dataIndex as string;
       // istanbul ignore next
-      if (dataIndex === 'url') {
-        column.render = (text, row, index) => (CmdbUrlLink({ linkStr: text }))
+      if (dataIndex === "url") {
+        column.render = (text, row, index) => CmdbUrlLink({ linkStr: text });
       }
-      if (this.props.ipCopy && this.props.modelData.attrList.find(attr => attr.id === dataIndex)?.value?.type === 'ip') {
-        column.filterDropdown = () => (<div></div>);
-        column.filterIcon = () => (<Tooltip className={styles.copyWrap} title={i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.COPY_SELECTED_IP}`)} >
-          <CopyOutlined style={{ fontSize: 16 }} onClick={(ev) => this.handelIpCopyText(ev, dataIndex)} />
-        </Tooltip>);
+      if (
+        this.props.ipCopy &&
+        this.props.modelData.attrList.find((attr) => attr.id === dataIndex)
+          ?.value?.type === "ip"
+      ) {
+        column.filterDropdown = () => <div></div>;
+        column.filterIcon = () => (
+          <Tooltip
+            className={styles.copyWrap}
+            title={i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.COPY_SELECTED_IP}`)}
+          >
+            <CopyOutlined
+              style={{ fontSize: 16 }}
+              onClick={(ev) => this.handelIpCopyText(ev, dataIndex)}
+            />
+          </Tooltip>
+        );
       }
-    })
+    });
     return (
       <div
         className={classes}
