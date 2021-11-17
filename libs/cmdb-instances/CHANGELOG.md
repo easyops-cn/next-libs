@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.10.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.9.11...@next-libs/cmdb-instances@6.10.0) (2021-11-17)
+
+
+### Features
+
+* change the seperator of the content in instance-list-table ([c01297c](https://github.com/easyops-cn/next-libs/commit/c01297cc040de1f7891f04aeea1dd7761696a2a5)), closes [Refs#INSTANCE-2033](https://github.com/Refs/issues/INSTANCE-2033)
+
+
+
+
+
 ## [6.9.11](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.9.10...@next-libs/cmdb-instances@6.9.11) (2021-11-16)
 
 
