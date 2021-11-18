@@ -124,6 +124,7 @@ export interface InstanceListTableProps extends WithTranslation {
   handleDeleteFunction?: (v: any[]) => void;
   target?: string;
   ipCopy?: boolean;
+  separatorUsedInRelationData?: string;
 }
 
 interface InstanceListTableState {
@@ -799,7 +800,8 @@ export class LegacyInstanceListTable extends React.Component<
               });
               return (
                 <React.Fragment key={instance.instanceId}>
-                  {index > 0 && "、"}
+                  {index > 0 &&
+                    (this.props.separatorUsedInRelationData ?? "; ")}
                   {this.props.relationLinkDisabled ? (
                     instanceName
                   ) : (
@@ -819,7 +821,9 @@ export class LegacyInstanceListTable extends React.Component<
               );
             } else {
               if (index > 0) {
-                instanceName = "、" + instanceName;
+                instanceName =
+                  (this.props.separatorUsedInRelationData ?? "; ") +
+                  instanceName;
               }
               return instanceName;
             }

@@ -37,7 +37,7 @@ jest.spyOn(kit, "BrickAsComponent").mockImplementation(({ useBrick, data }) => (
     </span>
   </>
 ));
-document.execCommand = jest.fn()
+document.execCommand = jest.fn();
 
 jest.mock("@next-sdk/cmdb-sdk");
 const mockCmdbObjectApi_getIdMapName = CmdbObjectApi_getIdMapName as jest.Mock;
@@ -308,10 +308,7 @@ describe("InstanceListTable", () => {
         ipCopy={true}
       />
     );
-    fireEvent.click(
-      container
-        .querySelector('.copyWrap svg')
-    );
+    fireEvent.click(container.querySelector(".copyWrap svg"));
     fireEvent.click(
       container
         .querySelector(`[data-row-key="${instance.instanceId}"]`)
@@ -323,10 +320,7 @@ describe("InstanceListTable", () => {
       selectedItems: [instance],
     });
 
-    fireEvent.click(
-      container
-        .querySelector('.copyWrap svg')
-    );
+    fireEvent.click(container.querySelector(".copyWrap svg"));
   });
 
   it(`should not throw error after table head "${ipAttr.name}" clicked, when there is not function passed to the onSelectionChange property`, () => {
