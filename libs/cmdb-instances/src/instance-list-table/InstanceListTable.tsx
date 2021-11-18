@@ -998,7 +998,8 @@ export class LegacyInstanceListTable extends React.Component<
     this.state.columns.map((column) => {
       const dataIndex = column.dataIndex as string;
       // istanbul ignore next
-      if (dataIndex === "url") {
+      if (this.props.modelData.attrList.find((attr) => attr.id === dataIndex)
+      ?.value?.mode === "url") {
         column.render = (text, row, index) => CmdbUrlLink({ linkStr: text });
       }
       if (
