@@ -107,8 +107,7 @@ describe("InstanceDetail", () => {
   it("tests isUrl", () => {
     expect(
       instance.isUrl({
-        id: 'url',
-        name:'URL'
+        value: {mode:'url',type:'str'},
       })
     ).toBeTruthy();
 
