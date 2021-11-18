@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.11.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.11.0...@next-libs/cmdb-instances@6.11.1) (2021-11-18)
+
+
+### Bug Fixes
+
+* **instance-detail:** 修复cmdb url类型跳转老数据不生效的问题 ([be1982c](https://github.com/easyops-cn/next-libs/commit/be1982cc59308ac81e2c7c601fa1141abec6a1c7))
+
+
+
+
+
 # [6.11.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.10.0...@next-libs/cmdb-instances@6.11.0) (2021-11-18)
 
 
