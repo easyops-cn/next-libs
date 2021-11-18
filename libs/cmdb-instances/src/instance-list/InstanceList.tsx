@@ -378,6 +378,7 @@ interface InstanceListProps {
     page?: number;
     pageSize?: number;
   };
+  separatorUsedInRelationData?: string;
 }
 
 interface InstanceListState {
@@ -1275,6 +1276,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
             extraColumns={props.extraColumns}
             target={props.target}
             ipCopy={props.ipCopy}
+            separatorUsedInRelationData={props.separatorUsedInRelationData}
           />
         </React.Fragment>
       ) : null}
