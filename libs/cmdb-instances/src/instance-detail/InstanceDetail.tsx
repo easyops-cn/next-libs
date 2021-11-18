@@ -328,9 +328,9 @@ export class LegacyInstanceDetail extends React.Component<
                   this.props.isRelationInstanceDetail &&
                   attr?.tag?.[0] === basicInfoGroupList?.[0]?.name &&
                   index ===
-                    basicInfoGroup.attrList.findIndex(
-                      (r: any) => !r.__isRelation
-                    )
+                  basicInfoGroup.attrList.findIndex(
+                    (r: any) => !r.__isRelation
+                  )
                 ) {
                   return this.getAttrListNode(attr, true);
                 }
@@ -404,11 +404,11 @@ export class LegacyInstanceDetail extends React.Component<
         <dt
           className={
             isStruct(attr) ||
-            isStructs(attr) ||
-            isRelation(attr) ||
-            attr.__isRelation ||
-            isMarkdownField(attr) ||
-            (config && config.isWholeLine)
+              isStructs(attr) ||
+              isRelation(attr) ||
+              attr.__isRelation ||
+              isMarkdownField(attr) ||
+              (config && config.isWholeLine)
               ? style.structAttr
               : style.basicAttr
           }
@@ -419,11 +419,11 @@ export class LegacyInstanceDetail extends React.Component<
         <dd
           className={
             isStruct(attr) ||
-            isStructs(attr) ||
-            isRelation(attr) ||
-            attr.__isRelation ||
-            isMarkdownField(attr) ||
-            (config && config.isWholeLine)
+              isStructs(attr) ||
+              isRelation(attr) ||
+              attr.__isRelation ||
+              isMarkdownField(attr) ||
+              (config && config.isWholeLine)
               ? style.structAttr
               : style.basicAttr
           }
@@ -731,7 +731,7 @@ export class LegacyInstanceDetail extends React.Component<
     return attr.value?.type === "structs";
   }
   isUrl(attr: any) {
-    return attr.id === "url" && attr.name === "URL";
+    return attr.value?.type === "str" && attr.value?.mode === "url"
   }
 
   isRelation(attr: any) {
