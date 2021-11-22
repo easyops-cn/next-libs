@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.12.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.11.2...@next-libs/cmdb-instances@6.12.0) (2021-11-22)
+
+
+### Features
+
+* add DisplaySettingsModal ([a54c507](https://github.com/easyops-cn/next-libs/commit/a54c507d54c702c23dde8097dcd6d8f4bed4a183))
+
+
+
+
+
 ## [6.11.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.11.1...@next-libs/cmdb-instances@6.11.2) (2021-11-18)
 
 
