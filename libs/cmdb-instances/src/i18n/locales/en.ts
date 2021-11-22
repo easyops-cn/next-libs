@@ -42,7 +42,7 @@ const locale: Locale = {
   [K.DEFAULT_ATTRIBUTE]: "Default attribute",
   [K.CANCEL]: "Cancel",
   [K.CLOSE]: "Close",
-  [K.COLUMNS_TO_DISPLAY]: "Columns to display",
+  [K.DISPLAY_SETTINGS]: "Display Settings",
   [K.FIELD_SETTINGS]: "Field settings",
   [K.SEARCH_BY_FIELD_NAME]: "Search by field name",
   [K.RESTORE_DEFAULT]: "Restore default",
@@ -109,8 +109,8 @@ const locale: Locale = {
   [K.INSTANCE_SOURCE_TOOLTIP]:
     "The instance comes from a common model that inherits the current parent model",
   [K.INSTANCE_SOURCE_TAG_TEXT]: 'Instance source: equal to "{{query}}"',
-  [K.COPY_SELECTED_IP]: 'Copy selected IP',
-  [K.SELECT_COPY_DATA]: 'Select the data to be copied',
+  [K.COPY_SELECTED_IP]: "Copy selected IP",
+  [K.SELECT_COPY_DATA]: "Select the data to be copied",
 };
 
 export default locale;

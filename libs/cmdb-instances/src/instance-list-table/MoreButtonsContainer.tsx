@@ -1,18 +1,20 @@
 import React from "react";
 import { EllipsisOutlined, SettingOutlined } from "@ant-design/icons";
-import { Dropdown, Menu, Modal, Button } from "antd";
+import { Dropdown, Menu, Button } from "antd";
 import { CmdbModels } from "@next-sdk/cmdb-sdk";
 import i18n from "i18next";
 import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
-import { Settings } from "./SettingsContainer";
 import styles from "./InstanceListTable.module.css";
+import {
+  DisplaySettingsModal,
+  DisplaySettingsModalData,
+} from "./DisplaySettingsModal";
 interface MoreButtonsContainerProps {
   modelData: Partial<CmdbModels.ModelCmdbObject>;
   currentFields?: string[];
   defaultFields: string[];
-  onHandleConfirm: (attrIds: string[]) => void;
+  onConfirm: (data: DisplaySettingsModalData) => void;
   onHideSettings?: () => void;
-  onHandleReset: (fields: string[]) => void;
   fieldIds?: string[];
   extraDisabledField?: string;
 }
@@ -41,6 +43,13 @@ export class MoreButtonsContainer extends React.Component<
     });
   };
 
+  handleOk = (data: DisplaySettingsModalData): void => {
+    this.setState({
+      visible: false,
+    });
+    this.props?.onConfirm(data);
+  };
+
   handleCancel = () => {
     this.setState({
       visible: false,
@@ -52,13 +61,13 @@ export class MoreButtonsContainer extends React.Component<
       <Menu>
         <Menu.Item onClick={this.handleSettingButtonClick}>
           <SettingOutlined />
-          {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.COLUMNS_TO_DISPLAY}`)}
+          {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.DISPLAY_SETTINGS}`)}
         </Menu.Item>
       </Menu>
     );
 
     return (
-      <div>
+      <>
         <Dropdown
           overlay={menu}
           trigger={["click"]}
@@ -66,26 +75,16 @@ export class MoreButtonsContainer extends React.Component<
         >
           <Button shape="circle" icon={<EllipsisOutlined />} />
         </Dropdown>
-        <Modal
+        <DisplaySettingsModal
           visible={this.state.visible}
-          footer={null}
+          currentFields={this.props.fieldIds}
+          modelData={this.props.modelData}
           onCancel={this.handleCancel}
-          destroyOnClose={true}
-          width={780}
-          centered={true}
-        >
-          <Settings
-            currentFields={this.props.fieldIds}
-            modelData={this.props.modelData}
-            title={i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.COLUMNS_TO_DISPLAY}`)}
-            onHideSettings={this.handleCancel}
-            onHandleConfirm={this.props.onHandleConfirm}
-            onHandleReset={this.props.onHandleReset}
-            defaultFields={this.props.defaultFields}
-            extraDisabledField={this.props.extraDisabledField}
-          />
-        </Modal>
-      </div>
+          onOk={this.handleOk}
+          defaultFields={this.props.defaultFields}
+          extraDisabledField={this.props.extraDisabledField}
+        />
+      </>
     );
   }
 }

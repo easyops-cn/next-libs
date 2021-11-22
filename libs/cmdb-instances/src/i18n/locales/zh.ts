@@ -40,7 +40,7 @@ const locale: Locale = {
   [K.DEFAULT_ATTRIBUTE]: "默认属性",
   [K.CANCEL]: "取消",
   [K.CLOSE]: "关闭",
-  [K.COLUMNS_TO_DISPLAY]: "显示设置",
+  [K.DISPLAY_SETTINGS]: "显示设置",
   [K.FIELD_SETTINGS]: "字段设置",
   [K.SEARCH_BY_FIELD_NAME]: "按字段名称搜索",
   [K.RESTORE_DEFAULT]: "恢复默认",
@@ -99,8 +99,8 @@ const locale: Locale = {
   [K.INSTANCE_SOURCE]: "实例来源",
   [K.INSTANCE_SOURCE_TOOLTIP]: "实例来源于继承当前父模型的普通模型",
   [K.INSTANCE_SOURCE_TAG_TEXT]: '实例来源：等于"{{query}}"',
-  [K.COPY_SELECTED_IP]: '复制选中IP',
-  [K.SELECT_COPY_DATA]: '请选择需要复制的数据',
+  [K.COPY_SELECTED_IP]: "复制选中IP",
+  [K.SELECT_COPY_DATA]: "请选择需要复制的数据",
 };
 
 export default locale;

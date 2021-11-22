@@ -71,6 +71,7 @@ import { IconButton } from "./IconButton";
 import { changeQueryWithCustomRules } from "../processors";
 import { ModelObjectAttr } from "@next-sdk/cmdb-sdk/dist/types/model/cmdb";
 import { RelationObjectSides, isSelfRelation } from "@next-libs/cmdb-utils";
+import { DisplaySettingsModalData } from "../instance-list-table/DisplaySettingsModal";
 export interface InstanceListPresetConfigs {
   query?: Record<string, any>;
   fieldIds?: string[];
@@ -853,17 +854,6 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     props.onAliveHostsChange?.(checked);
   };
 
-  // istanbul ignore next
-  const handleConfirm = (selectAttrIds: string[]) => {
-    setState({
-      fieldIds: _sortFieldIds(selectAttrIds),
-    });
-    jsonLocalStorage.setItem(
-      `${modelData.objectId}-selectAttrIds`,
-      selectAttrIds
-    );
-  };
-
   const toggleAutoBreakLine = (autoBreakLine: boolean) => {
     setState({ autoBreakLine });
   };
@@ -909,7 +899,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
       clusterValue: v,
     });
   };
-  const handleDefaultFields = () => {
+  const defaultFields = useMemo(() => {
     let defaultFields: string[];
     if (!isEmpty(props.presetConfigs?.fieldIds)) {
       defaultFields = props.presetConfigs.fieldIds;
@@ -917,14 +907,21 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
       defaultFields = computeDefaultFields().fieldIds;
     }
     return defaultFields;
-  };
+  }, [props.presetConfigs, modelData]);
 
   // istanbul ignore next
-  const handleReset = () => {
-    const fieldIds = handleDefaultFields();
-    modelData.isAbstract && fieldIds.push("_object_id");
-    setState({ fieldIds });
-    jsonLocalStorage.removeItem(`${modelData.objectId}-selectAttrIds`);
+  const handleConfirm = ({ fields, isReset }: DisplaySettingsModalData) => {
+    if (isReset) {
+      const fieldIds = defaultFields;
+      modelData.isAbstract && fieldIds.push("_object_id");
+      setState({ fieldIds });
+      jsonLocalStorage.removeItem(`${modelData.objectId}-selectAttrIds`);
+    } else {
+      setState({
+        fieldIds: _sortFieldIds(fields),
+      });
+      jsonLocalStorage.setItem(`${modelData.objectId}-selectAttrIds`, fields);
+    }
   };
 
   useEffect(() => {
@@ -1164,10 +1161,9 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
                 {!props.moreButtonsDisabled && (
                   <MoreButtonsContainer
                     modelData={modelData}
-                    onHandleConfirm={handleConfirm}
-                    onHandleReset={handleReset}
+                    onConfirm={handleConfirm}
                     fieldIds={state.fieldIds}
-                    defaultFields={handleDefaultFields()}
+                    defaultFields={defaultFields}
                     extraDisabledField={props.extraDisabledField}
                   />
                 )}
