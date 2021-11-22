@@ -1,10 +1,10 @@
 import React from "react";
 import { shallow } from "enzyme";
-import { Settings } from "./SettingsContainer";
+import { DisplaySettings } from "./DisplaySettings";
 import { HOST } from "./data-providers/__mocks__";
 import { Checkbox, Input } from "antd";
 import { CheckboxChangeEvent } from "antd/lib/checkbox";
-describe("Settings", () => {
+describe("DisplaySettings", () => {
   const objectId = "HOST";
   const modelData = HOST;
   const extraDisabledField = "hostname";
@@ -13,7 +13,7 @@ describe("Settings", () => {
     const handleChange = jest.fn();
     const currentFields = modelData.attrList.map((attr) => attr.id);
     const wrapper = shallow(
-      <Settings
+      <DisplaySettings
         objectId={objectId}
         currentFields={currentFields}
         modelData={modelData}

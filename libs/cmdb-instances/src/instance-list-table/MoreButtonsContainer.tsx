@@ -61,7 +61,7 @@ export class MoreButtonsContainer extends React.Component<
       <Menu>
         <Menu.Item onClick={this.handleSettingButtonClick}>
           <SettingOutlined />
-          {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.COLUMNS_TO_DISPLAY}`)}
+          {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.DISPLAY_SETTINGS}`)}
         </Menu.Item>
       </Menu>
     );

@@ -2,14 +2,14 @@ import { Button, Modal } from "antd";
 import React, { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
-import { Settings, SettingsProps } from "./SettingsContainer";
+import { DisplaySettings, DisplaySettingsProps } from "./DisplaySettings";
 
 export interface DisplaySettingsModalData {
   fields: string[];
   isReset?: boolean;
 }
 
-export interface DisplaySettingsModalProps extends SettingsProps {
+export interface DisplaySettingsModalProps extends DisplaySettingsProps {
   visible?: boolean;
   defaultFields?: string[];
   onOk?(data: DisplaySettingsModalData): void;
@@ -44,7 +44,7 @@ export function DisplaySettingsModal(
 
   return (
     <Modal
-      title={t(K.COLUMNS_TO_DISPLAY)}
+      title={t(K.DISPLAY_SETTINGS)}
       visible={visible}
       footer={
         <div style={{ display: "flex" }}>
@@ -82,7 +82,7 @@ export function DisplaySettingsModal(
       width={780}
       centered={true}
     >
-      <Settings
+      <DisplaySettings
         objectId={objectId}
         modelData={modelData}
         currentFields={currentFields}

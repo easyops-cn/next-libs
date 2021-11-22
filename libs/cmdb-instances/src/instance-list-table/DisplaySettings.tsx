@@ -9,7 +9,7 @@ import {
 import { CmdbModels } from "@next-sdk/cmdb-sdk";
 import i18n from "i18next";
 import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
-export interface SettingsProps {
+export interface DisplaySettingsProps {
   currentFields: string[];
   modelData: Partial<CmdbModels.ModelCmdbObject>;
   objectId?: string;
@@ -17,17 +17,20 @@ export interface SettingsProps {
   onChange?(fields: string[]): void;
 }
 
-interface SettingsState {
+interface DisplaySettingsState {
   nextFields: string[];
   q: string;
   filteredList: any;
 }
 
-export class Settings extends React.Component<SettingsProps, SettingsState> {
+export class DisplaySettings extends React.Component<
+  DisplaySettingsProps,
+  DisplaySettingsState
+> {
   debounceHandleSearch: () => void;
   attrAndRelationList: { id: string; name: string }[] = [];
 
-  constructor(props: SettingsProps) {
+  constructor(props: DisplaySettingsProps) {
     super(props);
 
     const relationList = getBatchEditableRelations(this.props.modelData);
@@ -63,7 +66,7 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
     this.debounceHandleSearch = debounce(this.filterColTag, 300);
   }
 
-  componentDidUpdate(prevProps: SettingsProps) {
+  componentDidUpdate(prevProps: DisplaySettingsProps) {
     if (this.props.currentFields !== prevProps.currentFields) {
       this.setState({ nextFields: this.props.currentFields.slice() });
     }
