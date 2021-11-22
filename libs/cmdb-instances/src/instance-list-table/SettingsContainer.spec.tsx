@@ -1,121 +1,54 @@
-import "@testing-library/jest-dom/extend-expect";
 import React from "react";
-import { render, fireEvent } from "@testing-library/react";
+import { shallow } from "enzyme";
 import { Settings } from "./SettingsContainer";
 import { HOST } from "./data-providers/__mocks__";
-import { InstanceListPresetConfigs } from "./interfaces";
-import i18n from "i18next";
-import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
+import { Checkbox, Input } from "antd";
+import { CheckboxChangeEvent } from "antd/lib/checkbox";
 describe("Settings", () => {
   const objectId = "HOST";
   const modelData = HOST;
-  const onHandleConfirm = jest.fn();
-  const onHandleReset = jest.fn();
-  const onHideSetting = jest.fn();
-  const presetConfigs: InstanceListPresetConfigs = { fieldIds: [] };
   const extraDisabledField = "hostname";
 
-  it("handleConfirm should work", () => {
-    const { getByText } = render(
+  it("should work", async () => {
+    const handleChange = jest.fn();
+    const currentFields = modelData.attrList.map((attr) => attr.id);
+    const wrapper = shallow(
       <Settings
         objectId={objectId}
-        currentFields={modelData.attrList.map((attr) => attr.id)}
+        currentFields={currentFields}
         modelData={modelData}
-        onHandleConfirm={onHandleConfirm}
-        onHandleReset={onHandleReset}
-        onHideSettings={onHideSetting}
-      />
-    );
-    const confirmText = i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CONFIRM}`);
-    fireEvent.click(getByText(confirmText));
-    expect(onHideSetting).toBeCalled();
-    expect(onHandleConfirm).toBeCalledWith(
-      modelData.attrList.map((attr) => attr.id)
-    );
-  });
-
-  it("handleCancel should work", () => {
-    const { getByText } = render(
-      <Settings
-        objectId={objectId}
-        currentFields={modelData.attrList.map((attr) => attr.id)}
-        modelData={modelData}
-        onHandleConfirm={onHandleConfirm}
-        onHandleReset={onHandleReset}
-        onHideSettings={onHideSetting}
-      />
-    );
-    const cancelText = i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CANCEL}`);
-    fireEvent.click(getByText(cancelText));
-    expect(onHideSetting).toBeCalled();
-  });
-
-  it("handleReset should work", () => {
-    const { getByText } = render(
-      <Settings
-        objectId={objectId}
-        currentFields={modelData.attrList.map((attr) => attr.id)}
-        modelData={modelData}
-        onHandleConfirm={onHandleConfirm}
-        onHandleReset={onHandleReset}
-        onHideSettings={onHideSetting}
-        defaultFields={presetConfigs.fieldIds}
-      />
-    );
-    const defaultText = i18n.t(
-      `${NS_LIBS_CMDB_INSTANCES}:${K.RESTORE_DEFAULT}`
-    );
-    fireEvent.click(getByText(defaultText));
-    expect(onHideSetting).toBeCalled();
-    expect(onHandleReset).toBeCalledWith(presetConfigs.fieldIds);
-  });
-
-  it("handleChecked should work", async () => {
-    const { getByText, getAllByText } = render(
-      <Settings
-        objectId={objectId}
-        currentFields={modelData.attrList.map((attr) => attr.id)}
-        modelData={modelData}
-        onHandleConfirm={onHandleConfirm}
-        onHandleReset={onHandleReset}
-        onHideSettings={onHideSetting}
-        defaultFields={presetConfigs.fieldIds}
         extraDisabledField={extraDisabledField}
+        onChange={handleChange}
       />
     );
-    const agentStatus = getAllByText("agent状态")[0];
-    const agentStatusCheckbox = agentStatus.parentElement.querySelector(
-      "input"
-    );
-    expect(agentStatusCheckbox.checked).toBe(true);
-    fireEvent.click(agentStatus);
-    expect(agentStatusCheckbox.checked).toBe(false);
-    const hostname = getAllByText("主机名")[0];
-    const hostnameCheckbox = hostname.parentElement.querySelector("input");
-    expect(hostnameCheckbox.checked).toBe(true);
-    expect(hostnameCheckbox.disabled).toBe(true);
-  });
 
-  it("handleChange should work", async () => {
-    const { getByPlaceholderText, container } = render(
-      <Settings
-        objectId={objectId}
-        currentFields={modelData.attrList.map((attr) => attr.id)}
-        modelData={modelData}
-        onHandleConfirm={onHandleConfirm}
-        onHandleReset={onHandleReset}
-        onHideSettings={onHideSetting}
-        defaultFields={presetConfigs.fieldIds}
-      />
+    // check
+    const getCheckbox = (field: string) =>
+      wrapper.find(Checkbox).filter(`[data-testid='${field}-checkbox']`);
+    const checkbox = getCheckbox("_agentStatus");
+    expect(checkbox.prop("checked")).toBe(true);
+    checkbox.invoke("onChange")({
+      target: { checked: false },
+    } as unknown as CheckboxChangeEvent);
+    expect(getCheckbox("_agentStatus").prop("checked")).toBe(false);
+    expect(getCheckbox("hostname").props()).toEqual(
+      expect.objectContaining({ checked: true, disabled: true })
     );
-    const inputSearchPlaceholder = i18n.t(
-      `${NS_LIBS_CMDB_INSTANCES}:${K.SEARCH_BY_FIELD_NAME}`
+    expect(handleChange).toBeCalledWith(
+      currentFields.filter((field) => field !== "_agentStatus")
     );
-    const inputSearch = getByPlaceholderText(
-      inputSearchPlaceholder
-    ) as HTMLInputElement;
-    fireEvent.change(inputSearch, { target: { value: "agent" } });
-    // todo 没有触发 filterColTag
-    // expect(container.querySelectorAll(".nextFields input").length).toBe(3);
+
+    // search
+    expect(getCheckbox("_agentStatus")).toHaveLength(1);
+    expect(getCheckbox("hostname")).toHaveLength(1);
+    wrapper
+      .find(Input.Search)
+      .filter("[data-testid='search-input']")
+      .invoke("onChange")({
+      target: { value: "agent" },
+    } as React.ChangeEvent<HTMLInputElement>);
+    jest.runAllTimers();
+    expect(getCheckbox("_agentStatus")).toHaveLength(1);
+    expect(getCheckbox("hostname")).toHaveLength(0);
   });
 });

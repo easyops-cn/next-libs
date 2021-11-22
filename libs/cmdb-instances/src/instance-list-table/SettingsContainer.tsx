@@ -1,7 +1,7 @@
 import React from "react";
-import { debounce, isEqual, remove, without, get, isEmpty } from "lodash";
-import { extraFieldAttrs, otherFieldIds } from "./constants";
-import { Button, Checkbox, Col, Divider, Input, Row, Typography } from "antd";
+import { debounce, remove, without, get, isEmpty } from "lodash";
+import { extraFieldAttrs } from "./constants";
+import { Checkbox, Col, Divider, Input, Row } from "antd";
 import {
   getBatchEditableRelations,
   CMDB_RESOURCE_FIELDS_SETTINGS,
@@ -9,22 +9,18 @@ import {
 import { CmdbModels } from "@next-sdk/cmdb-sdk";
 import i18n from "i18next";
 import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
-interface SettingsProps {
-  title?: string;
+export interface SettingsProps {
   currentFields: string[];
-  defaultFields?: string[];
   modelData: Partial<CmdbModels.ModelCmdbObject>;
-  onHideSettings: () => void;
   objectId?: string;
-  onHandleConfirm: (attrIds: string[]) => void;
-  onHandleReset: (fields: string[]) => void;
   extraDisabledField?: string;
+  onChange?(fields: string[]): void;
 }
 
 interface SettingsState {
   nextFields: string[];
   q: string;
-  filterList: any;
+  filteredList: any;
 }
 
 export class Settings extends React.Component<SettingsProps, SettingsState> {
@@ -33,11 +29,6 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
 
   constructor(props: SettingsProps) {
     super(props);
-    this.handleChecked = this.handleChecked.bind(this);
-    this.handleReset = this.handleReset.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleCancel = this.handleCancel.bind(this);
-    this.handleConfirm = this.handleConfirm.bind(this);
 
     const relationList = getBatchEditableRelations(this.props.modelData);
     const attrAndRelationList = [
@@ -67,22 +58,25 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
     this.state = {
       nextFields: props.currentFields.slice(),
       q: "",
-      filterList: this.attrAndRelationList,
+      filteredList: this.attrAndRelationList,
     };
     this.debounceHandleSearch = debounce(this.filterColTag, 300);
   }
 
+  componentDidUpdate(prevProps: SettingsProps) {
+    if (this.props.currentFields !== prevProps.currentFields) {
+      this.setState({ nextFields: this.props.currentFields.slice() });
+    }
+  }
+
   handleChecked(event: any, attr: any) {
     const fieldsKey = "nextFields";
-    if (event.target.checked) {
-      // eslint-disable-next-line
-      // @ts-ignore
-      this.setState({ [fieldsKey]: this.state[fieldsKey].concat(attr.id) });
-    } else {
-      // eslint-disable-next-line
-      // @ts-ignore
-      this.setState({ [fieldsKey]: without(this.state[fieldsKey], attr.id) });
-    }
+    const fields = event.target.checked
+      ? this.state[fieldsKey].concat(attr.id)
+      : without(this.state[fieldsKey], attr.id);
+
+    this.setState({ [fieldsKey]: fields });
+    this.props.onChange?.(fields);
   }
 
   renderCheckbox(attr: any, field: "nextFields" | "otherFields") {
@@ -105,6 +99,7 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
           checked={checked}
           disabled={disabled}
           onChange={(event) => this.handleChecked(event, attr)}
+          data-testid={`${attr.id}-checkbox`}
         >
           {attr.name}
         </Checkbox>
@@ -112,28 +107,20 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
     );
   }
 
-  handleReset = () => {
-    if (!isEqual(this.props.defaultFields, this.state.nextFields)) {
-      this.setState({ nextFields: this.props.defaultFields.slice() });
-    }
-    this.props.onHideSettings();
-    this.props.onHandleReset(this.props.defaultFields);
-  };
-
   filterColTag = () => {
-    let filterList = this.attrAndRelationList;
+    let filteredList = this.attrAndRelationList;
     const q = this.state.q.trim().toLowerCase();
     if (q) {
-      filterList = filterList.filter((attr) => {
+      filteredList = filteredList.filter((attr) => {
         return attr.name.toLowerCase().includes(q);
       });
     }
     this.setState({
-      filterList,
+      filteredList,
     });
   };
 
-  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     this.setState({
       q: value,
@@ -141,35 +128,21 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
     this.debounceHandleSearch();
   };
 
-  handleCancel = () => {
-    this.props.onHideSettings();
-  };
-
-  handleConfirm = () => {
-    this.props.onHideSettings();
-    this.props.onHandleConfirm(this.state.nextFields);
-  };
-
   render() {
-    const { title } = this.props;
-    const filterList = this.state.filterList;
-    const count = this.state.nextFields?.filter(
-      (v) => v !== "_object_id"
-    ).length;
+    const filteredList = this.state.filteredList;
     const extraAttrIds = extraFieldAttrs.map(
       (extraFieldAttr) => extraFieldAttr.id
     );
-    const attrs = filterList.filter(
+    const attrs = filteredList.filter(
       (attr: any) => !extraAttrIds.includes(attr.id)
     );
-    const extraAttrs = filterList.filter((attr: any) =>
+    const extraAttrs = filteredList.filter((attr: any) =>
       extraAttrIds.includes(attr.id)
     );
 
     return (
       <>
-        <Typography.Title level={5}>{title}</Typography.Title>
-        <Divider orientation="left" plain>
+        <Divider orientation="left" plain style={{ marginTop: 0 }}>
           {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.FIELD_SETTINGS}`)}
         </Divider>
         <div>
@@ -178,11 +151,12 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
             placeholder={i18n.t(
               `${NS_LIBS_CMDB_INSTANCES}:${K.SEARCH_BY_FIELD_NAME}`
             )}
-            onChange={this.handleChange}
+            onChange={this.handleSearchChange}
             style={{ width: 200 }}
+            data-testid="search-input"
           />
         </div>
-        <Row
+        <div
           style={{
             marginTop: 15,
             minHeight: 200,
@@ -191,39 +165,17 @@ export class Settings extends React.Component<SettingsProps, SettingsState> {
           }}
           className="nextFields"
         >
-          {attrs.map((attr: any) => this.renderCheckbox(attr, "nextFields"))}
-          {extraAttrs.length > 0 ? (
-            <>
-              <Divider />
-              {extraAttrs.map((attr: any) =>
-                this.renderCheckbox(attr, "nextFields")
-              )}
-            </>
-          ) : null}
-        </Row>
-        <Divider style={{ marginBottom: 15 }} />
-        <div style={{ display: "flex" }}>
-          <div>
-            <Button type="default" onClick={this.handleReset}>
-              {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.RESTORE_DEFAULT}`)}
-            </Button>
-          </div>
-          <div style={{ marginLeft: "auto" }}>
-            <Button
-              type="default"
-              onClick={this.handleCancel}
-              style={{ marginRight: 10 }}
-            >
-              {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CANCEL}`)}
-            </Button>
-            <Button
-              type="primary"
-              onClick={this.handleConfirm}
-              disabled={count === 0}
-            >
-              {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CONFIRM}`)}
-            </Button>
-          </div>
+          <Row>
+            {attrs.map((attr: any) => this.renderCheckbox(attr, "nextFields"))}
+            {extraAttrs.length > 0 ? (
+              <>
+                <Divider />
+                {extraAttrs.map((attr: any) =>
+                  this.renderCheckbox(attr, "nextFields")
+                )}
+              </>
+            ) : null}
+          </Row>
         </div>
       </>
     );

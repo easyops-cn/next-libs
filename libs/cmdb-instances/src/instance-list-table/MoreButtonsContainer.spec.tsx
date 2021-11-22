@@ -19,16 +19,14 @@ jest.mock("./SettingsContainer", () => ({
 
 describe("MoreButtonsContainer", () => {
   const modelData = HOST;
-  const onHandleConfirm = jest.fn();
-  const onHandleReset = jest.fn();
+  const handleConfirm = jest.fn();
   const onHideSettings = jest.fn();
 
   it("handleSettingButtonClick should work", () => {
     const { getByRole, getByText, queryByText } = render(
       <MoreButtonsContainer
         modelData={modelData}
-        onHandleConfirm={onHandleConfirm}
-        onHandleReset={onHandleReset}
+        onConfirm={handleConfirm}
         currentFields={modelData.attrList.map((attr) => attr.id)}
         onHideSettings={onHideSettings}
         defaultFields={[]}
