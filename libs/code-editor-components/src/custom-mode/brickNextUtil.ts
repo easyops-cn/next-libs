@@ -41,7 +41,7 @@ export const brickNextKeywords = [
   "SEGUE",
   "ALIAS",
   "PROCESSORS",
-  "IMAGES",
+  "IMG",
   "TPL",
   "PERMISSIONS",
   "LOCAL_STORAGE",
