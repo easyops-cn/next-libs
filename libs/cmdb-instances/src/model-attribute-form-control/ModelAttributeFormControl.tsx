@@ -527,7 +527,7 @@ export class ModelAttributeFormControl extends Component<
         );
 
       case FormControlTypeEnum.RADIO: {
-        let { items, required } = restProps;
+        let { items, required, readOnly } = restProps;
 
         // NODE: 对非必填单选为空的特殊处理 BY @robertman
         const unselected = {
@@ -546,6 +546,7 @@ export class ModelAttributeFormControl extends Component<
             value={value !== undefined ? value : unselected.id}
             className={this.props.className}
             style={this.props.style}
+            disabled={readOnly}
           >
             {items.map((item) => (
               <Radio value={item.id} key={String(item.id)}>
