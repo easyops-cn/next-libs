@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.12.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.12.2...@next-libs/cmdb-instances@6.12.3) (2021-11-25)
+
+
+### Bug Fixes
+
+* **cmdb:** enum readonly disabled ([3653a8c](https://github.com/easyops-cn/next-libs/commit/3653a8c8ac004277e3b9adf725edc826c4df6537))
+
+
+
+
+
 ## [6.12.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.12.1...@next-libs/cmdb-instances@6.12.2) (2021-11-23)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
