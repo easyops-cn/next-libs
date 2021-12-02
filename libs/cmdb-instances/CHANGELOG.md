@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.12.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.12.3...@next-libs/cmdb-instances@6.12.4) (2021-12-02)
+
+
+### Bug Fixes
+
+* **cmdb-instances:** 针对默认显示字段的隐藏逻辑去除 ([d803542](https://github.com/easyops-cn/next-libs/commit/d803542552e3dedc8d090943e21a45dd6f9bf6ab))
+
+
+
+
+
 ## [6.12.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.12.2...@next-libs/cmdb-instances@6.12.3) (2021-11-25)
 
 
