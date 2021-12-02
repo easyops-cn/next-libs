@@ -467,17 +467,10 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
   const computeDefaultFields = (
     { inModal } = { inModal: false }
   ): { fieldIds: string[] } => {
-    const settings: any = inModal
-      ? CMDB_MODAL_FIELDS_SETTINGS
-      : CMDB_RESOURCE_FIELDS_SETTINGS;
-    const ignoredFields: string[] =
-      settings.ignoredFields[modelData.objectId] || [];
-    let fieldIds: string[] =
-      settings.defaultFields[modelData.objectId] ||
-      difference(uniq(map(modelData.attrList, "id")), ignoredFields).slice(
-        0,
-        inModal ? MAX_DEFAULT_MODAL_FIELDS_COUNT : MAX_DEFAULT_FIELDS_COUNT
-      );
+    // 原来有隐藏逻辑，针对 APP、HOST、USER、USER_GROUP模型，默认字段特殊处理了，现产品要求干掉，统一取8个默认字段，也不区分是否是内置模型
+    let fieldIds: string[] = difference(
+      uniq(map(modelData.attrList, "id"))
+    ).slice(0, 8);
     const hideModelData: string[] = modelData.view.hide_columns || [];
     fieldIds = fieldIds.filter((field) => !hideModelData.includes(field));
     return { fieldIds };
