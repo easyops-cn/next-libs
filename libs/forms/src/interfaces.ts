@@ -26,6 +26,8 @@ export interface GeneralComplexOption<T = string | number | boolean> {
 export interface LabelTooltipProps {
   content: string;
   icon: MenuIcon;
+  popUpType?: "tooltip" | "popover";
+  contentType?: "text" | "markdown";
   style?: React.CSSProperties;
   iconStyle?: React.CSSProperties;
 }

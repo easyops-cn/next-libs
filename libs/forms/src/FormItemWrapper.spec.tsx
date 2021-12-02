@@ -10,7 +10,7 @@ import {
 import { MenuIcon } from "@next-core/brick-types";
 import i18n from "i18next";
 import { AbstractGeneralFormElement } from "./interfaces";
-import { Input, Tooltip } from "antd";
+import { Input, Popover, Tooltip } from "antd";
 import { GeneralIcon } from "@next-libs/basic-components";
 
 jest.mock("./i18n");
@@ -406,6 +406,31 @@ describe("FormItemWrapper", () => {
     );
     expect(wrapper.find(Tooltip).at(0).prop("title")).toBe("this is a tooltip");
     expect(wrapper.find(GeneralIcon).at(0).prop("icon")).toEqual(icon);
+
+    wrapper.setProps({
+      labelTooltip: {
+        icon,
+        content: "<div>popover</div>",
+        popUpType: "popover",
+      },
+    });
+    wrapper.update();
+    expect(wrapper.find(Popover).at(0).prop("content")).toBe(
+      "<div>popover</div>"
+    );
+
+    wrapper.setProps({
+      labelTooltip: {
+        icon,
+        content: "<div>popover</div>",
+        popUpType: "popover",
+        contentType: "markdown",
+      },
+    });
+    wrapper.update();
+    expect(
+      React.isValidElement(wrapper.find(Popover).at(0).prop("content"))
+    ).toBe(true);
   });
 
   it("should support trim", () => {

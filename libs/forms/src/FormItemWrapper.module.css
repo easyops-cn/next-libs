@@ -43,3 +43,7 @@ forms\.general-form .formItem {
     color: #595959;
   }
 }
+
+.markdownText > p {
+  margin-bottom: 0;
+}

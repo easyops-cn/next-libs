@@ -2,12 +2,14 @@ import React, { PropsWithChildren, useState, useRef } from "react";
 import { unstable_batchedUpdates } from "react-dom";
 import { get, isEmpty } from "lodash";
 import { Form } from "@ant-design/compatible";
-import { Tooltip } from "antd";
+import { Popover, Tooltip } from "antd";
 import { GeneralIcon } from "@next-libs/basic-components";
 import { BrickAsComponent } from "@next-core/brick-kit";
 import { getDefaultMessage } from "./message";
 import { ValidationRule } from "@ant-design/compatible/lib/form";
 import { ColProps, ColSize } from "antd/lib/grid";
+import marked from "marked";
+import DOMPurify from "dompurify";
 import {
   AbstractGeneralFormElement,
   LabelTooltipProps,
@@ -166,10 +168,12 @@ export function convertLabelSpanToWrapperOffset(
       };
     } else {
       const convertedWrapperCol: ColProps = {};
-      (Object.entries(wrapperCol) as [
-        "xs" | "sm" | "md" | "lg" | "xl" | "xxl",
-        ColSize
-      ][]).forEach(([key, value]) => {
+      (
+        Object.entries(wrapperCol) as [
+          "xs" | "sm" | "md" | "lg" | "xl" | "xxl",
+          ColSize
+        ][]
+      ).forEach(([key, value]) => {
         const labelColSpanOrSize = labelCol[key];
 
         convertedWrapperCol[key] = labelColSpanOrSize
@@ -240,14 +244,33 @@ export function FormItemWrapper(
         </Tooltip>
       );
     } else {
-      return (
-        <Tooltip title={labelTooltip.content} overlayStyle={labelTooltip.style}>
-          <span
-            style={labelTooltip.iconStyle}
-            className={style.labelTooltipIcon}
-          >
-            <GeneralIcon icon={labelTooltip.icon} />
-          </span>
+      const icon = (
+        <span style={labelTooltip.iconStyle} className={style.labelTooltipIcon}>
+          <GeneralIcon icon={labelTooltip.icon} />
+        </span>
+      );
+      const popupContent =
+        labelTooltip.contentType === "markdown" ? (
+          <div
+            className={style.markdownText}
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(
+                marked(labelTooltip.content || "", {
+                  breaks: true,
+                })
+              ),
+            }}
+          />
+        ) : (
+          labelTooltip.content
+        );
+      return labelTooltip.popUpType === "popover" ? (
+        <Popover content={popupContent} overlayStyle={labelTooltip.style}>
+          {icon}
+        </Popover>
+      ) : (
+        <Tooltip title={popupContent} overlayStyle={labelTooltip.style}>
+          {icon}
         </Tooltip>
       );
     }
