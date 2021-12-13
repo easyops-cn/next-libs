@@ -967,35 +967,4 @@ describe("InstanceList", () => {
     // state not update when testing
     expect(wrapper.find(Select).length).toBe(0);
   });
-
-  // it("instanceListTable should be hidden", async () => {
-  //   const wrapper = mount(
-  //     <InstanceList
-  //       objectId="HOST"
-  //       objectList={[HOST]}
-  //       hideInstanceList
-  //     />
-  //   );
-  //   await (global as any).flushPromises();
-  //   await jest.runAllTimers();
-  //   wrapper.update();
-  //   expect(wrapper.find(InstanceList)).toBeUndefined();
-  //   expect(InstanceApi_postSearchV3).not.toBeCalled();
-  // });
-
-  // it("disabledDefaultFields should work", async () => {
-  //   const mockOnRelatedToMeChange = jest.fn();
-  //   const wrapper = mount(
-  //     <InstanceList
-  //       objectId="HOST"
-  //       objectList={[HOST]}
-  //       disabledDefaultFields
-  //       relatedToMe={true}
-  //     />
-  //   );
-  //   await (global as any).flushPromises();
-  //   await jest.runAllTimers();
-  //   wrapper.update();
-  //   expect(mockInstanceListTable).lastCalledWith([]);
-  // })
 });
