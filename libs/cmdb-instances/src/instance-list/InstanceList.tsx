@@ -44,6 +44,8 @@ import {
   RelationIdKeys,
   RelationNameKeys,
   RelationObjectIdKeys,
+  RelationObjectSides,
+  isSelfRelation,
 } from "@next-libs/cmdb-utils";
 
 import {
@@ -56,6 +58,7 @@ import {
   InstanceListTable,
   CustomColumn,
   ElementOperators,
+  Field,
 } from "../instance-list-table";
 import styles from "./InstanceList.module.css";
 import {
@@ -70,7 +73,6 @@ import { ModelAttributeValueType } from "../model-attribute-form-control/ModelAt
 import { IconButton } from "./IconButton";
 import { changeQueryWithCustomRules } from "../processors";
 import { ModelObjectAttr } from "@next-sdk/cmdb-sdk/dist/types/model/cmdb";
-import { RelationObjectSides, isSelfRelation } from "@next-libs/cmdb-utils";
 import { DisplaySettingsModalData } from "../instance-list-table/DisplaySettingsModal";
 export interface InstanceListPresetConfigs {
   query?: Record<string, any>;
@@ -333,6 +335,7 @@ interface InstanceListProps {
   asc?: boolean;
   relatedToMe?: boolean;
   relatedToMeDisabled?: boolean;
+  showHiddenInfoDisabled?: boolean;
   moreButtonsDisabled?: boolean;
   aliveHosts?: boolean;
   fixAliveHosts?: boolean;
@@ -380,6 +383,9 @@ interface InstanceListProps {
     pageSize?: number;
   };
   separatorUsedInRelationData?: string;
+  hideInstanceList?: boolean;
+  autoSearch?: (fields: Field[]) => void;
+  disabledDefaultFields?: boolean;
 }
 
 interface InstanceListState {
@@ -437,7 +443,9 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
       idObjectMap[object.objectId] = object;
       if (object.objectId === props.objectId) {
         modelData = object;
-        modelData.attrList = union(object.attrList, extraFieldAttrs);
+        modelData.attrList = !props.disabledDefaultFields
+          ? union(object.attrList, extraFieldAttrs)
+          : object.attrList;
       }
     });
 
@@ -676,11 +684,18 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
           instanceListData: props.dataSource,
         });
       } else {
-        const instanceListData = await getInstanceListData(sort, asc, page);
-        instanceListData.list.forEach((i) =>
-          cache.current.set(i.instanceId, i)
-        );
-        setState({ idObjectMap: idObjectMap, instanceListData });
+        if (!props.hideInstanceList) {
+          const instanceListData = await getInstanceListData(sort, asc, page);
+          instanceListData.list.forEach((i) =>
+            cache.current.set(i.instanceId, i)
+          );
+          setState({ idObjectMap: idObjectMap, instanceListData });
+        } else {
+          setState({
+            idObjectMap: idObjectMap,
+            instanceListData: [] as InstanceApi_PostSearchV3ResponseBody,
+          });
+        }
       }
     } catch (e) {
       handleHttpError(e);
@@ -1141,16 +1156,18 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
                     data-testid="related-to-me"
                   />
                 )}
-                <IconButton
-                  checked={state.autoBreakLine}
-                  onChange={toggleAutoBreakLine}
-                  style={{ marginRight: 10 }}
-                  type="showHiddenInfo"
-                  label={i18n.t(
-                    `${NS_LIBS_CMDB_INSTANCES}:${K.DISPLAY_OMITTED_INFORMATION}`
-                  )}
-                  data-testid="show-hidden-info"
-                />
+                {!props.showHiddenInfoDisabled && (
+                  <IconButton
+                    checked={state.autoBreakLine}
+                    onChange={toggleAutoBreakLine}
+                    style={{ marginRight: 10 }}
+                    type="showHiddenInfo"
+                    label={i18n.t(
+                      `${NS_LIBS_CMDB_INSTANCES}:${K.DISPLAY_OMITTED_INFORMATION}`
+                    )}
+                    data-testid="show-hidden-info"
+                  />
+                )}
                 {!props.moreButtonsDisabled && (
                   <MoreButtonsContainer
                     modelData={modelData}
@@ -1176,6 +1193,11 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
                 q={state.aqToShow}
                 fieldToShow={state.fieldToShow}
                 onSearch={onAdvancedSearch}
+                {...(props.autoSearch
+                  ? {
+                      autoSearch: props.autoSearch,
+                    }
+                  : null)}
               />
             </div>
           )}
@@ -1238,35 +1260,37 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
           {props.extraFilterBricks?.useBrick && (
             <BrickAsComponent useBrick={props.extraFilterBricks.useBrick} />
           )}
-          <InstanceListTable
-            detailUrlTemplates={props.detailUrlTemplates}
-            fieldIds={state.fieldIds}
-            idObjectMap={state.idObjectMap}
-            modelData={modelData}
-            instanceListData={state.instanceListData}
-            sort={state.sort}
-            asc={state.asc}
-            selectedRowKeys={selectedRowKeys}
-            selectDisabled={props.selectDisabled}
-            sortDisabled={props.sortDisabled}
-            propertyDisplayConfigs={props.propertyDisplayConfigs}
-            onClickItem={props.onClickItem}
-            onPaginationChange={onPaginationChange}
-            onSortingChange={onSortingChange}
-            onSelectionChange={onSelectionChange}
-            onInstanceSourceChange={onInstanceSourceChange}
-            instanceSourceQuery={state.instanceSourceQuery}
-            inheritanceModelIdNameMap={inheritanceModelIdNameMap}
-            filterInstanceSourceDisabled={props.filterInstanceSourceDisabled}
-            autoBreakLine={state.autoBreakLine}
-            relationLinkDisabled={props.relationLinkDisabled}
-            pageSizeOptions={props.pageSizeOptions}
-            showSizeChanger={props.showSizeChanger}
-            extraColumns={props.extraColumns}
-            target={props.target}
-            ipCopy={props.ipCopy}
-            separatorUsedInRelationData={props.separatorUsedInRelationData}
-          />
+          {!props.hideInstanceList && (
+            <InstanceListTable
+              detailUrlTemplates={props.detailUrlTemplates}
+              fieldIds={state.fieldIds}
+              idObjectMap={state.idObjectMap}
+              modelData={modelData}
+              instanceListData={state.instanceListData}
+              sort={state.sort}
+              asc={state.asc}
+              selectedRowKeys={selectedRowKeys}
+              selectDisabled={props.selectDisabled}
+              sortDisabled={props.sortDisabled}
+              propertyDisplayConfigs={props.propertyDisplayConfigs}
+              onClickItem={props.onClickItem}
+              onPaginationChange={onPaginationChange}
+              onSortingChange={onSortingChange}
+              onSelectionChange={onSelectionChange}
+              onInstanceSourceChange={onInstanceSourceChange}
+              instanceSourceQuery={state.instanceSourceQuery}
+              inheritanceModelIdNameMap={inheritanceModelIdNameMap}
+              filterInstanceSourceDisabled={props.filterInstanceSourceDisabled}
+              autoBreakLine={state.autoBreakLine}
+              relationLinkDisabled={props.relationLinkDisabled}
+              pageSizeOptions={props.pageSizeOptions}
+              showSizeChanger={props.showSizeChanger}
+              extraColumns={props.extraColumns}
+              target={props.target}
+              ipCopy={props.ipCopy}
+              separatorUsedInRelationData={props.separatorUsedInRelationData}
+            />
+          )}
         </React.Fragment>
       ) : null}
     </Spin>

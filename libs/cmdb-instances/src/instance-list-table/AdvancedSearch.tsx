@@ -35,7 +35,7 @@ import {
   ENABLED_CMDB_ADVANCE_SEARCH_WITH_QUOTE,
 } from "../processors";
 
-enum ComparisonOperators {
+export enum ComparisonOperators {
   Equal = "$eq",
   NotEqual = "$ne",
   Like = "$like",
@@ -492,7 +492,7 @@ export function getFieldConditionsAndValues(
   };
 }
 
-interface Field {
+export interface Field {
   id: string;
   name: string;
   attrValue: Partial<CmdbModels.ModelObjectAttrValue>;
@@ -515,6 +515,7 @@ export interface AdvancedSearchFormProps extends FormComponentProps {
     queriesToShow?: Query[],
     fieldToShow?: Record<string, any[]>[]
   ): void;
+  autoSearch?: (fields: Field[]) => void;
   fieldToShow?: Record<string, any[]>[]; // 回填高级搜索的field值（根据query回填丢失了引号信息）
   onChange?(e: ChangeEvent<HTMLInputElement>): void;
 }
@@ -880,6 +881,7 @@ export class AdvancedSearchForm extends React.Component<
 
   handleSearch = (e: FormEvent<any>): void => {
     e.preventDefault();
+    this.props?.autoSearch(this.state.fields);
     if (this.props.onSearch) {
       // 当过滤字段为relation并且过滤条件为ElementOperators.Exists的时候，发起后台请求的搜索queries与负责前端展示的query不同。需要额外处理。
       let queries: Query[] = [];
@@ -1026,6 +1028,7 @@ export class AdvancedSearchForm extends React.Component<
   };
 
   handleReset = () => {
+    if (this.props.autoSearch) this.props.autoSearch([]);
     this.props.onSearch([], [], []);
     this.props.form.resetFields();
   };

@@ -7,6 +7,7 @@ import { HOST } from "./data-providers/__mocks__/fetchCmdbObjectDetail";
 import { ModelAttributeValueType } from "../model-attribute-form-control/ModelAttributeFormControl";
 import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
 const mockOnSearch = jest.fn((query) => null);
+const mockAutoSearch = jest.fn();
 
 afterEach(() => {
   cleanup();
@@ -68,6 +69,7 @@ describe("AdvancedSearch", () => {
       <AdvancedSearch
         idObjectMap={{ HOST }}
         modelData={HOST}
+        autoSearch={mockAutoSearch}
         onSearch={mockOnSearch}
       />
     );
@@ -77,6 +79,7 @@ describe("AdvancedSearch", () => {
     expect(mockOnSearch).not.toBeCalled();
     fireEvent.change(input, { target: { value } });
     fireEvent.click(submitButton);
+    expect(mockAutoSearch).toBeCalledTimes(2);
     expect(mockOnSearch).toBeCalledWith(
       [{ $or: [{ [attr.id]: { $like: `%${value}%` } }] }],
       [{ $or: [{ [attr.id]: { $like: `%${value}%` } }] }],
@@ -94,6 +97,7 @@ describe("AdvancedSearch", () => {
         idObjectMap={{ HOST }}
         modelData={HOST}
         onSearch={mockOnSearch}
+        autoSearch={mockAutoSearch}
       />
     );
     const input = getByLabelText(attr.name);
@@ -103,6 +107,7 @@ describe("AdvancedSearch", () => {
     fireEvent.click(resetButton);
     fireEvent.click(submitButton);
     expect(mockOnSearch).toBeCalledWith([], [], []);
+    expect(mockAutoSearch).toBeCalledTimes(4);
   });
   it("getFieldConditionsAndValues as pass", () => {
     expect(
