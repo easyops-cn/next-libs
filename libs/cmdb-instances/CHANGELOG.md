@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.13.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.12.4...@next-libs/cmdb-instances@6.13.0) (2021-12-15)
+
+
+### Features
+
+* delete unuse code ([3a3259b](https://github.com/easyops-cn/next-libs/commit/3a3259b63ab1dbaf8bd0ee2af4781e99b6487051))
+* support senior search ([1d2f267](https://github.com/easyops-cn/next-libs/commit/1d2f267bdd3d03d52f7ad2a4086743da78f47ad1))
+
+
+
+
+
 ## [6.12.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.12.3...@next-libs/cmdb-instances@6.12.4) (2021-12-02)
 
 
