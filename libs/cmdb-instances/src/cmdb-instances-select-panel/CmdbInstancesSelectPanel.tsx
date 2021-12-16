@@ -26,6 +26,7 @@ export interface CmdbInstancesSelectPanelProps {
   isOperate?: boolean; //cmdb实例列表支持删除实例
   showDetailUrl?: boolean;
   isFilterView?: boolean; //是否过滤视图属性
+  onFetchedInstances?: (instanceList: any[]) => void; // objectId改变后触发
 }
 
 export function CmdbInstancesSelectPanel(
@@ -94,6 +95,7 @@ export function CmdbInstancesSelectPanel(
           ? instances
           : instances.slice(0, displayedSelectedInstancesMaxNumber)
       );
+      props.onFetchedInstances?.(instances);
     };
 
     initInstances();
