@@ -55,8 +55,9 @@ const objectMap: any = {
 const RefCmdbInstancesSelectPanel = React.forwardRef(CmdbInstancesSelectPanel);
 
 describe("CmdbInstancesSelectPanel", () => {
-  it("should work", () => {
+  it("should work", async () => {
     const onChange = jest.fn();
+    const onFetchedInstances = jest.fn();
     const wrapper = mount(
       <RefCmdbInstancesSelectPanel
         objectId="APP"
@@ -64,9 +65,15 @@ describe("CmdbInstancesSelectPanel", () => {
         value={[]}
         onChange={onChange}
         isFilterView={true}
+        onFetchedInstances={onFetchedInstances}
       />
     );
+    await act(async () => {
+      await (global as any).flushPromises();
+    });
+    wrapper.update();
     expect(wrapper.find(".wrapper").length).toBe(1);
+    expect(onFetchedInstances).toHaveBeenCalledTimes(1);
   });
 
   it("pre selected value should work", async () => {
