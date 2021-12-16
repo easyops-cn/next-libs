@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.14.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.13.0...@next-libs/cmdb-instances@6.14.0) (2021-12-16)
+
+
+### Features
+
+* **cmdb-instances:** add property onFetchedInstances ([e89a2fd](https://github.com/easyops-cn/next-libs/commit/e89a2fd0e5cf9799d70ee15e357e1d80609b6cf0))
+
+
+
+
+
 # [6.13.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.12.4...@next-libs/cmdb-instances@6.13.0) (2021-12-15)
 
 
