@@ -881,7 +881,7 @@ export class AdvancedSearchForm extends React.Component<
 
   handleSearch = (e: FormEvent<any>): void => {
     e.preventDefault();
-    this.props?.autoSearch(this.state.fields);
+    if (this.props?.autoSearch) this.props.autoSearch(this.state.fields);
     if (this.props.onSearch) {
       // 当过滤字段为relation并且过滤条件为ElementOperators.Exists的时候，发起后台请求的搜索queries与负责前端展示的query不同。需要额外处理。
       let queries: Query[] = [];
