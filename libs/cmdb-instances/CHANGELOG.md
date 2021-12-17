@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.14.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.14.0...@next-libs/cmdb-instances@6.14.1) (2021-12-17)
+
+
+### Bug Fixes
+
+* **cmdb-instance:** fix handleSearch when autoSearch was undefined ([c545e22](https://github.com/easyops-cn/next-libs/commit/c545e2282f0d1104466c7e78f2f4750b7b1ae849))
+
+
+
+
+
 # [6.14.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.13.0...@next-libs/cmdb-instances@6.14.0) (2021-12-16)
 
 
