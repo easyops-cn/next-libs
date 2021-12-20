@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-tree@4.0.2...@next-libs/cmdb-tree@4.0.3) (2021-12-20)
+
+
+### Bug Fixes
+
+* **cmdb-tree:** cmdb-tree高亮节点颜色，可隐藏模型名称tooltip ([d462d37](https://github.com/easyops-cn/next-libs/commit/d462d3755e4450555e0b1df3df0ede99e699a8b3))
+
+
+
+
+
 ## [4.0.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-tree@4.0.1...@next-libs/cmdb-tree@4.0.2) (2021-08-12)
 
 **Note:** Version bump only for package @next-libs/cmdb-tree
