@@ -1,7 +1,13 @@
 .easyopsCustomizeAntTree {
   :global(.ant-tree) :global(.ant-tree-node-content-wrapper) {
+    &:global(.ant-tree-node-selected) {
+      background-color: var(--theme-blue-color);
+      color: #fff;
+    }
     padding-left: 0px;
-
+    :global(.ant-tree-icon__customize) {
+      color: #fff;
+    }
     :global(.ant-tree-treenode-disabled)
       :global(.ant-tree-node-content-wrapper)
       span {
