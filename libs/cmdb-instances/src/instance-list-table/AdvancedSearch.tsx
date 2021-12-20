@@ -223,7 +223,7 @@ function getCondition(
       label = i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.OPERATOR_CONTAIN_DEFINE}`);
       switch (fieldType) {
         case ModelAttributeValueType.ENUMS:
-          // case ModelAttributeValueType.ARR:
+        case ModelAttributeValueType.ARR:
           operations = [
             {
               operator: ComparisonOperators.In,

@@ -92,6 +92,7 @@ interface CMDBTreeProps {
   selectedObjectId?: string;
   selectedInstanceId?: string;
   style?: React.CSSProperties;
+  hideObjectNameTooltip?: boolean;
 }
 
 interface CMDBTreeState {
@@ -173,7 +174,19 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
   scrollIntoView() {
     const selected = document.getElementsByClassName("ant-tree-node-selected");
     if (selected.length > 0) {
-      selected[0].scrollIntoView({ block: "center", inline: "center" });
+      /* eslint-disable */
+      // @ts-ignore: fix page scroll bug
+      if (typeof selected[0].scrollIntoViewIfNeeded === "function") {
+        // @ts-ignore: fix page scroll bug
+        selected[0].scrollIntoViewIfNeeded();
+        /* eslint-disable */
+      } else {
+        selected[0].scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+          inline: "center",
+        });
+      }
     }
   }
 
@@ -479,7 +492,9 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
       });
       titleNode = <span className="ant-tree-title">{nodes.slice(0, -1)}</span>;
     }
-    return (
+    return this.props.hideObjectNameTooltip ? (
+      <span>{titleNode}</span>
+    ) : (
       <Tooltip title={objectName} placement="right">
         {titleNode}
       </Tooltip>
