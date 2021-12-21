@@ -1,6 +1,10 @@
 import React from "react";
-import { DownOutlined, InfoCircleFilled } from "@ant-design/icons";
-import { Card, Popover, Spin, Button, Menu, Dropdown } from "antd";
+import {
+  DownOutlined,
+  InfoCircleFilled,
+  InfoCircleOutlined,
+} from "@ant-design/icons";
+import { Card, Popover, Spin, Button, Menu, Dropdown, Tooltip } from "antd";
 import { withTranslation, WithTranslation } from "react-i18next";
 import marked from "marked";
 import DOMPurify from "dompurify";
@@ -328,9 +332,9 @@ export class LegacyInstanceDetail extends React.Component<
                   this.props.isRelationInstanceDetail &&
                   attr?.tag?.[0] === basicInfoGroupList?.[0]?.name &&
                   index ===
-                  basicInfoGroup.attrList.findIndex(
-                    (r: any) => !r.__isRelation
-                  )
+                    basicInfoGroup.attrList.findIndex(
+                      (r: any) => !r.__isRelation
+                    )
                 ) {
                   return this.getAttrListNode(attr, true);
                 }
@@ -404,26 +408,34 @@ export class LegacyInstanceDetail extends React.Component<
         <dt
           className={
             isStruct(attr) ||
-              isStructs(attr) ||
-              isRelation(attr) ||
-              attr.__isRelation ||
-              isMarkdownField(attr) ||
-              (config && config.isWholeLine)
+            isStructs(attr) ||
+            isRelation(attr) ||
+            attr.__isRelation ||
+            isMarkdownField(attr) ||
+            (config && config.isWholeLine)
               ? style.structAttr
               : style.basicAttr
           }
         >
-          {attr.__isRelation ? attr.right_description : attr.name}:
+          {attr.__isRelation ? attr.right_description : attr.name}
+          {attr.description && attr.description !== "" && (
+            <Tooltip title={attr.description}>
+              <InfoCircleOutlined
+                style={{ padding: "0 2px", color: "var(--theme-blue-color)" }}
+              />
+            </Tooltip>
+          )}
+          :
         </dt>
 
         <dd
           className={
             isStruct(attr) ||
-              isStructs(attr) ||
-              isRelation(attr) ||
-              attr.__isRelation ||
-              isMarkdownField(attr) ||
-              (config && config.isWholeLine)
+            isStructs(attr) ||
+            isRelation(attr) ||
+            attr.__isRelation ||
+            isMarkdownField(attr) ||
+            (config && config.isWholeLine)
               ? style.structAttr
               : style.basicAttr
           }
@@ -731,7 +743,7 @@ export class LegacyInstanceDetail extends React.Component<
     return attr.value?.type === "structs";
   }
   isUrl(attr: any) {
-    return attr.value?.type === "str" && attr.value?.mode === "url"
+    return attr.value?.type === "str" && attr.value?.mode === "url";
   }
 
   isRelation(attr: any) {

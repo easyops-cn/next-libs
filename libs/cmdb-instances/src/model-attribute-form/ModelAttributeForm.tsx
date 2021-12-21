@@ -1,7 +1,8 @@
 import React, { Component, FormEvent } from "react";
 import { Form } from "@ant-design/compatible";
-import { Button, Checkbox, Collapse } from "antd";
+import { Button, Checkbox, Collapse, Tooltip } from "antd";
 import { ButtonType } from "antd/lib/button";
+import { InfoCircleOutlined } from "@ant-design/icons";
 import {
   CmdbModels,
   InstanceApi_GetDefaultValueTemplateResponseBody,
@@ -463,7 +464,21 @@ export class ModelAttributeForm extends Component<
                   this.renderRelationFormControl(attribute)
                 ) : (
                   <Form.Item
-                    label={attribute.name}
+                    label={
+                      <span>
+                        <span>{attribute.name}</span>
+                        {attribute.description && attribute.description !== "" && (
+                          <Tooltip title={attribute.description}>
+                            <InfoCircleOutlined
+                              style={{
+                                padding: "0 2px",
+                                color: "var(--theme-blue-color)",
+                              }}
+                            />
+                          </Tooltip>
+                        )}
+                      </span>
+                    }
                     key={attribute.name}
                     {...this.formItemProps}
                   >
