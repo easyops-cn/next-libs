@@ -36,10 +36,23 @@ describe("StructTable", () => {
   const formData = { str: "newString" };
   it("should render", () => {
     expect(structsWrapper.find("Table").length).toBe(1);
+    expect(
+      (structsWrapper.find("Table") as any).props("colunms")["columns"]
+    ).toHaveLength(14);
     expect(structsWrapper).toBeTruthy();
     expect(structWrapper).toBeTruthy();
     expect(structsOperationWrapper).toBeTruthy();
     expect(structOperationWrapper).toBeTruthy();
+  });
+  it("should render", () => {
+    const newProps = {
+      ...structsProps,
+      isEditable: false,
+    };
+    const structsWrapper2 = shallow(<StructTable {...newProps} />);
+    expect(
+      (structsWrapper2.find("Table") as any).props("colunms")["columns"]
+    ).toHaveLength(13);
   });
   // 打开结构体编辑弹窗
   it("should call handleOpenEditModal function", () => {
@@ -55,9 +68,10 @@ describe("StructTable", () => {
       expect.anything()
     );
     expect(spyOnModalConfirm).toBeCalled();
-    expect(spyOnModalConfirm.mock.calls[
-      spyOnModalConfirm.mock.calls.length - 1
-    ][0].title).toEqual("libs-cmdb-instances:DELETE_STRUCT_CONFIRM_MSG");
+    expect(
+      spyOnModalConfirm.mock.calls[spyOnModalConfirm.mock.calls.length - 1][0]
+        .title
+    ).toEqual("libs-cmdb-instances:DELETE_STRUCT_CONFIRM_MSG");
   });
   //编辑结构体
   it("should call the edit structs function", () => {

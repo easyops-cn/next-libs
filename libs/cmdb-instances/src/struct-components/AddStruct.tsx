@@ -15,6 +15,7 @@ export interface AddStructProps {
   handleStoreFunction: (value: any) => void;
   isLegacy?: boolean;
   className?: string;
+  isCreate?: boolean;
 }
 export interface AddStructState {
   showModal: boolean;
@@ -68,7 +69,10 @@ export class AddStruct extends React.Component<AddStructProps, AddStructState> {
         {/* 单结构体并且已经添加过的，添加按钮置灰 */}
         <Button
           type="link"
-          disabled={isLegacy && !isEmpty(structData)}
+          disabled={
+            (isLegacy && !isEmpty(structData)) ||
+            (attribute.readonly === "true" && !this.props.isCreate)
+          }
           onClick={this.handleOpenAddModal}
         >
           {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.ADD}`)}
@@ -86,7 +90,7 @@ export class AddStruct extends React.Component<AddStructProps, AddStructState> {
         <StructTable
           structData={structData}
           attribute={attribute as Attribute}
-          isEditable={true}
+          isEditable={this.props.attribute.readonly === "false"}
           isLegacy={isLegacy}
           handleStoreFunction={this.handleEditStruct}
         />

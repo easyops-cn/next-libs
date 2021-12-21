@@ -523,6 +523,7 @@ export class ModelAttributeFormControl extends Component<
             handleStoreFunction={(formData: any) => this.onChange(formData)}
             className={this.props.className}
             style={this.props.style}
+            isCreate={this.props.isCreate}
           />
         );
 
