@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.15.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.14.2...@next-libs/cmdb-instances@6.15.0) (2021-12-21)
+
+
+### Features
+
+* **cmdb:** 增加属性说明tooltip ([fac504f](https://github.com/easyops-cn/next-libs/commit/fac504f91e3ddf21f6ac4ba863d25ea4b5599b20))
+
+
+
+
+
 ## [6.14.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.14.1...@next-libs/cmdb-instances@6.14.2) (2021-12-21)
 
 
