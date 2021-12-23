@@ -72,6 +72,8 @@ interface ModelAttributeFormProps extends FormComponentProps {
   objectListOfUser?: Partial<CmdbModels.ModelCmdbObject>[];
   permissionList?: Record<string, any>[];
   enabledWhiteList?: boolean;
+  scrollToFirstError?: boolean;
+  offsetTop?: number;
 }
 
 export type attributesFieldsByTag = [string, ModifiedModelObjectField[]];
@@ -260,32 +262,47 @@ export class ModelAttributeForm extends Component<
       ...(this.props.objectId === "APP" ? appPermissionAuthorizers : {}),
     };
   };
-
+  /* istanbul ignore next */
+  validateFieldsCallback = async (err: any, values: any) => {
+    if (!err) {
+      const { continueCreating } = this.state;
+      this.setState({ sending: true });
+      const result = await this.props.onSubmit({
+        continueCreating,
+        values:
+          this.props.enabledWhiteList && this.props.permissionList
+            ? this.valuesProcess(values)
+            : values,
+      });
+      if (result !== "error" && continueCreating) {
+        this.props.form.resetFields();
+      }
+      this.setState({ sending: false });
+    }
+  };
+  /* istanbul ignore next */
   handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    this.props.form.validateFields(async (err, values) => {
-      if (!err) {
-        const { continueCreating } = this.state;
-        this.setState({ sending: true });
-        const result = await this.props.onSubmit({
-          continueCreating,
-          values:
-            this.props.enabledWhiteList && this.props.permissionList
-              ? this.valuesProcess(values)
-              : values,
+    this.props.scrollToFirstError
+      ? this.props.form.validateFieldsAndScroll(
+          {
+            scroll: {
+              offsetTop: this.props.offsetTop || 60,
+            },
+          },
+          async (err, values) => {
+            await this.validateFieldsCallback(err, values);
+          }
+        )
+      : this.props.form.validateFields(async (err, values) => {
+          await this.validateFieldsCallback(err, values);
         });
-        if (result !== "error" && continueCreating) {
-          this.props.form.resetFields();
-        }
-        this.setState({ sending: false });
-      }
-    });
   };
 
   get disabled(): boolean {
     const { sending } = this.state;
-    const { getFieldsError } = this.props.form;
-    return this.handleFormErrors(getFieldsError()) || sending;
+    // const { getFieldsError } = this.props.form;
+    return sending;
   }
 
   // get submitBtnText() {
