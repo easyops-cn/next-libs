@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.16.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.15.0...@next-libs/cmdb-instances@6.16.0) (2021-12-23)
+
+
+### Features
+
+* **cmdb-instances:** add scrollToFirstError、 offsetTop properties ([74c833c](https://github.com/easyops-cn/next-libs/commit/74c833cf30e2618939fc42e46e016e17d8ae5cd5))
+
+
+
+
+
 # [6.15.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.14.2...@next-libs/cmdb-instances@6.15.0) (2021-12-21)
 
 
