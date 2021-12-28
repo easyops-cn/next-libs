@@ -90,7 +90,9 @@ export class AddStruct extends React.Component<AddStructProps, AddStructState> {
         <StructTable
           structData={structData}
           attribute={attribute as Attribute}
-          isEditable={this.props.attribute.readonly === "false"}
+          isEditable={
+            this.props.attribute.readonly === "false" || this.props.isCreate
+          }
           isLegacy={isLegacy}
           handleStoreFunction={this.handleEditStruct}
         />
