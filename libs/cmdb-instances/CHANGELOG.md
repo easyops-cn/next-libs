@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.16.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.16.0...@next-libs/cmdb-instances@6.16.1) (2021-12-28)
+
+
+### Bug Fixes
+
+* **cmdb:** fix新建实例结构体不能编辑bug ([3af8506](https://github.com/easyops-cn/next-libs/commit/3af8506bd1114c72fb0a1292a06b3c34c4d619ac))
+
+
+
+
+
 # [6.16.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.15.0...@next-libs/cmdb-instances@6.16.0) (2021-12-23)
 
 
