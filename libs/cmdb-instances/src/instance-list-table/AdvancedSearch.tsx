@@ -140,6 +140,8 @@ const FieldTypeConditionTypesMap: Record<string, ConditionType[]> = {
   [ModelAttributeValueType.ARR]: [
     ConditionType.Contain,
     ConditionType.NotContain,
+    ConditionType.Equal,
+    ConditionType.NotEqual,
     ConditionType.Empty,
     ConditionType.NotEmpty,
   ],
@@ -193,7 +195,7 @@ const multiValueSearchOperators = [
 FieldTypeConditionTypesMap[ModelAttributeValueType.STRUCT_LIST] =
   FieldTypeConditionTypesMap[ModelAttributeValueType.STRUCT];
 
-function getCondition(
+export function getCondition(
   conditionType: ConditionType,
   fieldType: ModelAttributeValueType
 ): Condition {
@@ -203,27 +205,46 @@ function getCondition(
   switch (conditionType) {
     case ConditionType.Equal:
       label = i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.OPERATOR_EQUAL_DEFINE}`);
-      operations = [
-        {
-          operator: ComparisonOperators.Equal,
-        },
-      ];
+      switch (fieldType) {
+        case ModelAttributeValueType.ARR:
+          operations = [
+            {
+              operator: ComparisonOperators.In,
+            },
+          ];
+          break;
+        default:
+          operations = [
+            {
+              operator: ComparisonOperators.Equal,
+            },
+          ];
+      }
       break;
     case ConditionType.NotEqual:
       label = i18n.t(
         `${NS_LIBS_CMDB_INSTANCES}:${K.OPERATOR_NOT_EQUAL_DEFINE}`
       );
-      operations = [
-        {
-          operator: ComparisonOperators.NotEqual,
-        },
-      ];
+      switch (fieldType) {
+        case ModelAttributeValueType.ARR:
+          operations = [
+            {
+              operator: ComparisonOperators.NotIn,
+            },
+          ];
+          break;
+        default:
+          operations = [
+            {
+              operator: ComparisonOperators.NotEqual,
+            },
+          ];
+      }
       break;
     case ConditionType.Contain:
       label = i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.OPERATOR_CONTAIN_DEFINE}`);
       switch (fieldType) {
         case ModelAttributeValueType.ENUMS:
-        case ModelAttributeValueType.ARR:
           operations = [
             {
               operator: ComparisonOperators.In,
@@ -246,7 +267,6 @@ function getCondition(
       );
       switch (fieldType) {
         case ModelAttributeValueType.ENUMS:
-        case ModelAttributeValueType.ARR:
           operations = [
             {
               operator: ComparisonOperators.NotIn,
@@ -457,10 +477,12 @@ export function getFieldConditionsAndValues(
           }
           return value;
         });
-        value =
-          valueType === ModelAttributeValueType.ENUM
-            ? values
-            : values.join(" ");
+        value = [
+          ModelAttributeValueType.ENUM,
+          ModelAttributeValueType.ARR,
+        ].includes(valueType)
+          ? values
+          : values.join(" ");
       }
     } else {
       value = operation.fixedValue !== undefined ? operation.fixedValue : null;
@@ -920,7 +942,10 @@ export class AdvancedSearchForm extends React.Component<
             );
             if (multiValueSearchOperator) {
               let values: any[];
-              if (field.attrValue.type === ModelAttributeValueType.ENUM) {
+              if (
+                field.attrValue.type === ModelAttributeValueType.ENUM ||
+                field.attrValue.type === ModelAttributeValueType.ARR
+              ) {
                 values = value;
               } else if (typeof value === "string") {
                 if (
