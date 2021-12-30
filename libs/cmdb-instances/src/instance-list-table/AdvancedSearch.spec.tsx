@@ -2,7 +2,12 @@ import React from "react";
 import { cleanup, fireEvent, render } from "@testing-library/react";
 import { CmdbModels } from "@next-sdk/cmdb-sdk";
 import i18n from "i18next";
-import { AdvancedSearch, getFieldConditionsAndValues } from "./AdvancedSearch";
+import {
+  AdvancedSearch,
+  getFieldConditionsAndValues,
+  getCondition,
+  ConditionType,
+} from "./AdvancedSearch";
 import { HOST } from "./data-providers/__mocks__/fetchCmdbObjectDetail";
 import { ModelAttributeValueType } from "../model-attribute-form-control/ModelAttributeFormControl";
 import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
@@ -273,6 +278,66 @@ describe("AdvancedSearch", () => {
       disabled: false,
       queryValuesStr: "2021-04-27",
       values: ["2021-04-06", "2021-04-27"],
+    });
+  });
+  it("getCondition should work", () => {
+    expect(
+      getCondition(ConditionType.Contain, ModelAttributeValueType.STRING)
+    ).toEqual({
+      label: "libs-cmdb-instances:OPERATOR_CONTAIN_DEFINE",
+      operations: [{ operator: "$like", prefix: "%", suffix: "%" }],
+      type: "contain",
+    });
+    expect(
+      getCondition(ConditionType.Contain, ModelAttributeValueType.ENUMS)
+    ).toEqual({
+      label: "libs-cmdb-instances:OPERATOR_CONTAIN_DEFINE",
+      operations: [{ operator: "$in" }],
+      type: "contain",
+    });
+    expect(
+      getCondition(ConditionType.NotContain, ModelAttributeValueType.STRING)
+    ).toEqual({
+      label: "libs-cmdb-instances:OPERATOR_NOT_CONTAIN_DEFINE",
+      operations: [{ operator: "$nlike", prefix: "%", suffix: "%" }],
+      type: "notContain",
+    });
+    expect(
+      getCondition(ConditionType.NotContain, ModelAttributeValueType.ENUMS)
+    ).toEqual({
+      label: "libs-cmdb-instances:OPERATOR_NOT_CONTAIN_DEFINE",
+      operations: [{ operator: "$nin" }],
+      type: "notContain",
+    });
+
+    expect(
+      getCondition(ConditionType.Equal, ModelAttributeValueType.STRING)
+    ).toEqual({
+      label: "libs-cmdb-instances:OPERATOR_EQUAL_DEFINE",
+      operations: [{ operator: "$eq" }],
+      type: "equal",
+    });
+    expect(
+      getCondition(ConditionType.Equal, ModelAttributeValueType.ARR)
+    ).toEqual({
+      label: "libs-cmdb-instances:OPERATOR_EQUAL_DEFINE",
+      operations: [{ operator: "$in" }],
+      type: "equal",
+    });
+
+    expect(
+      getCondition(ConditionType.NotEqual, ModelAttributeValueType.STRING)
+    ).toEqual({
+      label: "libs-cmdb-instances:OPERATOR_NOT_EQUAL_DEFINE",
+      operations: [{ operator: "$ne" }],
+      type: "notEqual",
+    });
+    expect(
+      getCondition(ConditionType.NotEqual, ModelAttributeValueType.ARR)
+    ).toEqual({
+      label: "libs-cmdb-instances:OPERATOR_NOT_EQUAL_DEFINE",
+      operations: [{ operator: "$nin" }],
+      type: "notEqual",
     });
   });
 });
