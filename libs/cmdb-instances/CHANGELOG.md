@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.17.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.16.1...@next-libs/cmdb-instances@6.17.0) (2021-12-30)
+
+
+### Features
+
+* **cmdb:** 数组支持等于/不等于 ([7f33a05](https://github.com/easyops-cn/next-libs/commit/7f33a056114300d395ba8a5e419287d222f54fd9))
+
+
+
+
+
 ## [6.16.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.16.0...@next-libs/cmdb-instances@6.16.1) (2021-12-28)
 
 
