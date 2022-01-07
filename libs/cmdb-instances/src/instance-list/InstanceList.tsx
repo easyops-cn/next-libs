@@ -146,16 +146,15 @@ function translateConditions(
       const objectId = relation[`${sides.this}_id` as RelationIdKeys];
       const relationObject =
         idObjectMap[
-          relation[`${sides.that}_object_id` as RelationObjectIdKeys]
+        relation[`${sides.that}_object_id` as RelationObjectIdKeys]
         ];
       const nameKeys = getInstanceNameKeys(relationObject);
       nameKeys.forEach((nameKey) => {
         const nameOfNameKey =
           find(relationObject?.attrList, ["id", nameKey])?.name ?? nameKey;
         const id = `${objectId}.${nameKey}`;
-        const name = `${
-          relation[`${sides.this}_name` as RelationNameKeys]
-        }(${nameOfNameKey})`;
+        const name = `${relation[`${sides.this}_name` as RelationNameKeys]
+          }(${nameOfNameKey})`;
         relations.push({
           id,
           name,
@@ -593,8 +592,8 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
         ? 2
         : -2
       : asc
-      ? 1
-      : -1;
+        ? 1
+        : -1;
     if (sort) {
       data.sort = { [sort]: order };
       v3Data.sort = [{ key: sort, order }];
@@ -645,6 +644,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
       query = { ...query, _object_id: state.instanceSourceQuery };
     }
 
+
     if (!isEmpty(query)) {
       v3Data.query = data.query = query;
     }
@@ -657,13 +657,39 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     if (state.searchByApp) {
       v3Data.query = {
         [state.currentChangeSelect === "App" ||
-        (state.currentChangeSelect === "Cluster" &&
-          state.clusterValue === "all")
+          (state.currentChangeSelect === "Cluster" &&
+            state.clusterValue === "all")
           ? "_deviceList_CLUSTER.appId.instanceId"
           : "_deviceList_CLUSTER.instanceId"]: state.appSearchInstanceId,
         ...(state.aliveHosts && props.objectId === "HOST"
           ? { _agentStatus: "正常" }
           : {}),
+      };
+    }
+    if (!isEmpty(v3Data.query)) {
+      v3Data.query = {
+        ...query,
+        $and: query.$and.map((q: Query) => {
+          let queries: Query[] = [];
+          const andKey = Object.keys(q)[0];
+          if (andKey === "$or" || andKey === "$and") {
+            queries = q[andKey] as Query[];
+            const params = queries.map((query) => {
+              const key = Object.keys(query)[0];
+              const value = Object.values(query)[0];
+              let attr = modelData.attrList.find(
+                (attr) => attr.id === key);
+              if (attr && attr.value.type === ModelAttributeValueType.BOOLEAN) {
+                query[key] = {
+                  [Object.keys(value)[0]]: Boolean(Object.values(value)[0])
+                }
+              }
+              return query
+            })
+            q[andKey] = [...params]
+          }
+          return q
+        })
       };
     }
     const promise = props.onSearchExecute?.(data, v3Data);
@@ -1034,152 +1060,152 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
             !props.relatedToMeDisabled ||
             !props.aliveHostsDisabled ||
             !props.moreButtonsDisabled) && (
-            <div className={styles.instanceListToolbar}>
-              <div className={styles.searchRelated}>
-                {/* istanbul ignore next (state is not updated) */}
-                {!state.searchByApp ? (
-                  <>
-                    {!props.searchDisabled && (
-                      <Input.Search
-                        enterButton
-                        value={q}
-                        onChange={onChange}
-                        onSearch={onSearch}
-                      />
-                    )}
-                    {!props.advancedSearchDisabled && (
-                      <Button
-                        type="link"
-                        size="small"
-                        style={{
-                          marginLeft: "8px",
-                          marginRight: "auto",
-                        }}
+              <div className={styles.instanceListToolbar}>
+                <div className={styles.searchRelated}>
+                  {/* istanbul ignore next (state is not updated) */}
+                  {!state.searchByApp ? (
+                    <>
+                      {!props.searchDisabled && (
+                        <Input.Search
+                          enterButton
+                          value={q}
+                          onChange={onChange}
+                          onSearch={onSearch}
+                        />
+                      )}
+                      {!props.advancedSearchDisabled && (
+                        <Button
+                          type="link"
+                          size="small"
+                          style={{
+                            marginLeft: "8px",
+                            marginRight: "auto",
+                          }}
+                          onClick={() =>
+                            setState({
+                              isAdvancedSearchVisible:
+                                !state.isAdvancedSearchVisible,
+                            })
+                          }
+                          data-testid="advanced-search-toggle-btn"
+                        >
+                          {i18n.t(
+                            `${NS_LIBS_CMDB_INSTANCES}:${K.ADVANCED_SEARCH}`
+                          )}
+                          <LegacyIcon
+                            type={state.isAdvancedSearchVisible ? "up" : "down"}
+                          />
+                        </Button>
+                      )}
+                    </>
+                  ) : (
+                    <>
+                      <Select
+                        style={{ width: "150px", marginRight: "10px" }}
+                        value={state.appSelectValue}
+                        onChange={appSelectChange}
+                        showSearch={true}
+                        optionFilterProp="children"
+                      >
+                        {state.appList.map((r) => (
+                          <Select.Option key={r.instanceId} value={r.instanceId}>
+                            {r.name}
+                          </Select.Option>
+                        ))}
+                      </Select>
+                      <Select
+                        style={{ width: "150px" }}
+                        value={state.clusterValue}
+                        onChange={clusterSelectChange}
+                        showSearch={true}
+                        optionFilterProp="children"
+                      >
+                        {state.clusterList.map((r) => (
+                          <Select.Option key={r.instanceId} value={r.instanceId}>
+                            {r.name}
+                          </Select.Option>
+                        ))}
+                      </Select>
+                    </>
+                  )}
+                </div>
+                <div className={styles.options}>
+                  {selectedRowKeys.length > 0 && (
+                    <div style={{ marginRight: 20 }}>
+                      <span>
+                        {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CHOSEN_OPTIONS}`, {
+                          count: selectedRowKeys.length,
+                        })}
+                      </span>
+                      <a
+                        role="button"
                         onClick={() =>
-                          setState({
-                            isAdvancedSearchVisible:
-                              !state.isAdvancedSearchVisible,
+                          onSelectionChange({
+                            selectedKeys: [],
+                            selectedItems: [],
                           })
                         }
-                        data-testid="advanced-search-toggle-btn"
                       >
-                        {i18n.t(
-                          `${NS_LIBS_CMDB_INSTANCES}:${K.ADVANCED_SEARCH}`
-                        )}
-                        <LegacyIcon
-                          type={state.isAdvancedSearchVisible ? "up" : "down"}
-                        />
-                      </Button>
-                    )}
-                  </>
-                ) : (
-                  <>
-                    <Select
-                      style={{ width: "150px", marginRight: "10px" }}
-                      value={state.appSelectValue}
-                      onChange={appSelectChange}
-                      showSearch={true}
-                      optionFilterProp="children"
-                    >
-                      {state.appList.map((r) => (
-                        <Select.Option key={r.instanceId} value={r.instanceId}>
-                          {r.name}
-                        </Select.Option>
-                      ))}
-                    </Select>
-                    <Select
-                      style={{ width: "150px" }}
-                      value={state.clusterValue}
-                      onChange={clusterSelectChange}
-                      showSearch={true}
-                      optionFilterProp="children"
-                    >
-                      {state.clusterList.map((r) => (
-                        <Select.Option key={r.instanceId} value={r.instanceId}>
-                          {r.name}
-                        </Select.Option>
-                      ))}
-                    </Select>
-                  </>
-                )}
+                        {" "}
+                        {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CLEAR}`)}
+                      </a>
+                    </div>
+                  )}
+                  {props.objectId === "HOST" && props.enableSearchByApp && (
+                    <Button type={"link"} onClick={toggleSearchMode}>
+                      {/* istanbul ignore next (state is not updated) */}
+                      {state.searchByApp
+                        ? i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.FREE_SELECTION}`)
+                        : i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.APP_SELECTION}`)}
+                    </Button>
+                  )}
+                  {props.objectId === "HOST" && !props.aliveHostsDisabled && (
+                    <IconButton
+                      checked={state.aliveHosts}
+                      onChange={onAliveHostsChange}
+                      style={{ marginRight: 10 }}
+                      disabled={props.fixAliveHosts}
+                      type="normalHost"
+                      label={i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.NORMAL_HOST}`)}
+                      data-testid="alive-hosts"
+                    />
+                  )}
+                  {!props.relatedToMeDisabled && (
+                    <IconButton
+                      checked={state.relatedToMe}
+                      onChange={onRelatedToMeChange}
+                      style={{ marginRight: 10 }}
+                      type="relateToMe"
+                      label={i18n.t(
+                        `${NS_LIBS_CMDB_INSTANCES}:${K.RELATED_TO_ME}`
+                      )}
+                      data-testid="related-to-me"
+                    />
+                  )}
+                  {!props.showHiddenInfoDisabled && (
+                    <IconButton
+                      checked={state.autoBreakLine}
+                      onChange={toggleAutoBreakLine}
+                      style={{ marginRight: 10 }}
+                      type="showHiddenInfo"
+                      label={i18n.t(
+                        `${NS_LIBS_CMDB_INSTANCES}:${K.DISPLAY_OMITTED_INFORMATION}`
+                      )}
+                      data-testid="show-hidden-info"
+                    />
+                  )}
+                  {!props.moreButtonsDisabled && (
+                    <MoreButtonsContainer
+                      modelData={modelData}
+                      onConfirm={handleConfirm}
+                      fieldIds={state.fieldIds}
+                      defaultFields={defaultFields}
+                      extraDisabledField={props.extraDisabledField}
+                    />
+                  )}
+                </div>
               </div>
-              <div className={styles.options}>
-                {selectedRowKeys.length > 0 && (
-                  <div style={{ marginRight: 20 }}>
-                    <span>
-                      {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CHOSEN_OPTIONS}`, {
-                        count: selectedRowKeys.length,
-                      })}
-                    </span>
-                    <a
-                      role="button"
-                      onClick={() =>
-                        onSelectionChange({
-                          selectedKeys: [],
-                          selectedItems: [],
-                        })
-                      }
-                    >
-                      {" "}
-                      {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CLEAR}`)}
-                    </a>
-                  </div>
-                )}
-                {props.objectId === "HOST" && props.enableSearchByApp && (
-                  <Button type={"link"} onClick={toggleSearchMode}>
-                    {/* istanbul ignore next (state is not updated) */}
-                    {state.searchByApp
-                      ? i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.FREE_SELECTION}`)
-                      : i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.APP_SELECTION}`)}
-                  </Button>
-                )}
-                {props.objectId === "HOST" && !props.aliveHostsDisabled && (
-                  <IconButton
-                    checked={state.aliveHosts}
-                    onChange={onAliveHostsChange}
-                    style={{ marginRight: 10 }}
-                    disabled={props.fixAliveHosts}
-                    type="normalHost"
-                    label={i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.NORMAL_HOST}`)}
-                    data-testid="alive-hosts"
-                  />
-                )}
-                {!props.relatedToMeDisabled && (
-                  <IconButton
-                    checked={state.relatedToMe}
-                    onChange={onRelatedToMeChange}
-                    style={{ marginRight: 10 }}
-                    type="relateToMe"
-                    label={i18n.t(
-                      `${NS_LIBS_CMDB_INSTANCES}:${K.RELATED_TO_ME}`
-                    )}
-                    data-testid="related-to-me"
-                  />
-                )}
-                {!props.showHiddenInfoDisabled && (
-                  <IconButton
-                    checked={state.autoBreakLine}
-                    onChange={toggleAutoBreakLine}
-                    style={{ marginRight: 10 }}
-                    type="showHiddenInfo"
-                    label={i18n.t(
-                      `${NS_LIBS_CMDB_INSTANCES}:${K.DISPLAY_OMITTED_INFORMATION}`
-                    )}
-                    data-testid="show-hidden-info"
-                  />
-                )}
-                {!props.moreButtonsDisabled && (
-                  <MoreButtonsContainer
-                    modelData={modelData}
-                    onConfirm={handleConfirm}
-                    fieldIds={state.fieldIds}
-                    defaultFields={defaultFields}
-                    extraDisabledField={props.extraDisabledField}
-                  />
-                )}
-              </div>
-            </div>
-          )}
+            )}
           {!props.advancedSearchDisabled && !state.searchByApp && (
             <div
               style={{ marginBottom: "18px" }}
@@ -1195,8 +1221,8 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
                 onSearch={onAdvancedSearch}
                 {...(props.autoSearch
                   ? {
-                      autoSearch: props.autoSearch,
-                    }
+                    autoSearch: props.autoSearch,
+                  }
                   : null)}
               />
             </div>
@@ -1235,7 +1261,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
                       {
                         query:
                           inheritanceModelIdNameMap?.[
-                            state.instanceSourceQuery
+                          state.instanceSourceQuery
                           ] || state.instanceSourceQuery,
                       }
                     )}
@@ -1243,9 +1269,8 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
                 )}
                 {conditions.map((condition) => (
                   <Tag
-                    key={`${condition.attrId}${
-                      condition.valuesStr
-                    }-${uniqueId()}`}
+                    key={`${condition.attrId}${condition.valuesStr
+                      }-${uniqueId()}`}
                     closable
                     onClose={onAdvancedSearchCloseGen(
                       condition.attrId,
