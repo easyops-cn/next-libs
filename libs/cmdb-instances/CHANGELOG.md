@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.17.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.17.0...@next-libs/cmdb-instances@6.17.1) (2022-01-11)
+
+
+### Bug Fixes
+
+* add placeholder for the advanced search ([f6473a9](https://github.com/easyops-cn/next-libs/commit/f6473a934e88a241e661d85adee1c0b7ffb422f5)), closes [Refs#INSTANCE-2048](https://github.com/Refs/issues/INSTANCE-2048)
+
+
+
+
+
 # [6.17.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.16.1...@next-libs/cmdb-instances@6.17.0) (2021-12-30)
 
 
