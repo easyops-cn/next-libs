@@ -329,31 +329,33 @@ export class ModelAttributeFormControl extends Component<
     }
 
     const placeholders = [];
-    if (formControl.type === FormControlTypeEnum.SELECT) {
-      // placeholders.push("点击选择");
-      placeholders.push(
-        i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CLICK_TO_SELECT}`)
-      );
-    }
-    if (
-      [FormControlTypeEnum.DATETIME, FormControlTypeEnum.DATE].includes(
-        formControl.type
-      )
-    ) {
-      // placeholders.push("点击选择");
-      placeholders.push(
-        i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CLICK_TO_SELECT}`)
-      );
+    switch (formControl.type) {
+      case FormControlTypeEnum.SELECT:
+        placeholders.push(
+          i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CLICK_TO_SELECT}`)
+        );
+        break;
+      case FormControlTypeEnum.DATETIME:
+      case FormControlTypeEnum.DATE:
+        placeholders.push(
+          i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CLICK_TO_SELECT}`)
+        );
+        break;
+      case FormControlTypeEnum.TAGS:
+        placeholders.push(
+          i18n.t(
+            `${NS_LIBS_CMDB_INSTANCES}:${K.ENTER_MULTIPLE_STRING_WITH_ENTER_KEY_AS_THE_SEPARATOR}`
+          )
+        );
+        break;
+      default:
+        placeholders.push(
+          i18n.t(
+            `${NS_LIBS_CMDB_INSTANCES}:${K.ADVANCE_SEARCH_SINGLE_INPUT_PLACEHOLDER}`
+          )
+        );
     }
 
-    if (formControl.type === FormControlTypeEnum.TAGS) {
-      placeholders.push(
-        i18n.t(
-          `${NS_LIBS_CMDB_INSTANCES}:${K.ENTER_MULTIPLE_STRING_WITH_ENTER_KEY_AS_THE_SEPARATOR}`
-        )
-      );
-      // placeholders.push("输入多个，以回车间隔");
-    }
     if (formControl.pattern !== undefined) {
       // placeholders.push(`匹配正则 ${formControl.pattern}`);
       placeholders.push(
