@@ -111,6 +111,8 @@ const locale: Locale = {
   [K.INSTANCE_SOURCE_TAG_TEXT]: 'Instance source: equal to "{{query}}"',
   [K.COPY_SELECTED_IP]: "Copy selected IP",
   [K.SELECT_COPY_DATA]: "Select the data to be copied",
+  [K.ADVANCE_SEARCH_SINGLE_INPUT_PLACEHOLDER]:
+    "Please enter keywords, multiple values ​​separated by spaces",
 };
 
 export default locale;
