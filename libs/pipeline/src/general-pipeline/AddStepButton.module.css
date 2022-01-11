@@ -1,0 +1,32 @@
+.addStepBtn {
+  height: 42px;
+  background: #f0f6ff;
+  border-radius: 6px;
+  border: 1px dashed #0071eb;
+  display: grid;
+  grid-template-columns: 20px 12px 18px 1fr 16px 15px;
+  align-items: center;
+  cursor: pointer;
+  color: #0071eb;
+
+  &:hover {
+    opacity: 0.65;
+  }
+
+  &.addStepBtnActive {
+    opacity: 0.65;
+  }
+
+  &.addStepBtnDisabled {
+    opacity: 1;
+    color: var(--text-color-disabled);
+    border-color: var(--text-color-disabled);
+    cursor: not-allowed;
+  }
+
+  .addStepBtnName {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}

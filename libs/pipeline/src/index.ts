@@ -1,1 +1,1 @@
-export * from "./general-pipeline/GeneralPipeline";
+export * from "./general-pipeline";
