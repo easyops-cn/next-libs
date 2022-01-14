@@ -15,21 +15,21 @@
 }
 
 .totalText {
-  color: #bfbfbf;
+  color: var(--antd-paination-total-text, #bfbfbf);
 }
 
 .totalText .total {
   font-weight: normal;
-  color: #595959;
+  color: var(--antd-pagination-total-strong-text, #595959);
 }
 
 .moreButtonsContainer {
-  background: #f5f5f5;
+  background: var(--antd-btn-special-icon-type-bg, #f5f5f5);
   border: none;
 }
 
 .moreButtonsContainer:hover {
-  background: #f5f5f5;
+  background: var(--antd-btn-special-icon-type-bg, #f5f5f5);
 }
 
 .linkKey {
