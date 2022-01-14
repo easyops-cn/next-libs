@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.17.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.17.1...@next-libs/cmdb-instances@6.17.2) (2022-01-14)
+
+
+### Bug Fixes
+
+* modal list refine ([589c677](https://github.com/easyops-cn/next-libs/commit/589c677b60da25a7f48f870e900293337856cadf))
+
+
+
+
+
 ## [6.17.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.17.0...@next-libs/cmdb-instances@6.17.1) (2022-01-11)
 
 
