@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-tree@4.0.3...@next-libs/cmdb-tree@4.0.4) (2022-01-14)
+
+
+### Bug Fixes
+
+* **cmdb:** cmdbTree 未选中节点颜色不能为白色 ([ddfdbef](https://github.com/easyops-cn/next-libs/commit/ddfdbef3aa704fb391f324552757def9c36d3d1a))
+
+
+
+
+
 ## [4.0.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-tree@4.0.2...@next-libs/cmdb-tree@4.0.3) (2021-12-20)
 
 
