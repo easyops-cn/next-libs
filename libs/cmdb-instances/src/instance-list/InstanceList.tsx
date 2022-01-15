@@ -16,6 +16,7 @@ import {
   startsWith,
   compact,
   omit,
+  keyBy,
 } from "lodash";
 import { BrickAsComponent, handleHttpError } from "@next-core/brick-kit";
 import i18n from "i18next";
@@ -59,6 +60,7 @@ import {
   CustomColumn,
   ElementOperators,
   Field,
+  ComparisonOperators,
 } from "../instance-list-table";
 import styles from "./InstanceList.module.css";
 import {
@@ -281,9 +283,19 @@ const isOfStruct = (
     .flat();
   return structFields.includes(fieldId);
 };
+
+const isOfBoolean = (
+  attrList: Partial<CmdbModels.ModelObjectAttr>[],
+  fieldId: string
+): boolean => {
+  const keyAttrMap = keyBy(attrList, "id");
+  return keyAttrMap[fieldId]?.value.type === ModelAttributeValueType.BOOLEAN;
+};
+
 export const initAqToShow = (
   aq: Query[],
-  modelData: Partial<CmdbModels.ModelCmdbObject>
+  modelData: Partial<CmdbModels.ModelCmdbObject>,
+  isToShow = true
 ) => {
   let newAqToShow: any[] = [];
   if (aq) {
@@ -294,14 +306,35 @@ export const initAqToShow = (
           const firstSubQuery = (expressions as Query[])[0];
           const fieldId = Object.keys(firstSubQuery)[0];
           const isStruct = isOfStruct(modelData, fieldId);
+          const isBool = isOfBoolean(modelData.attrList, fieldId);
           const structQueries: Record<string, any> = (
             expressions as Query[]
           ).filter((expression) => Object.keys(expression)[0] === fieldId);
-          if (isStruct) {
+          if (isStruct && isToShow) {
             const structExpressions = structQueries.map((item: any) => ({
               [fieldId.split(".")[0]]: item[fieldId],
             }));
             newExpressions = [...newExpressions, ...structExpressions];
+          } else if (isBool && !isToShow) {
+            const boolExpressions = (expressions as Query[]).map(
+              (expression) => {
+                const targetValue = expression[fieldId] as Record<
+                  ComparisonOperators,
+                  any
+                >;
+                if (typeof Object.values(targetValue)[0] === "string") {
+                  return {
+                    [fieldId]: {
+                      [Object.keys(targetValue)[0]]:
+                        Object.values(targetValue)[0] === "true" ? true : false,
+                    },
+                  };
+                } else {
+                  return expression;
+                }
+              }
+            );
+            newExpressions = [...newExpressions, ...boolExpressions];
           } else {
             newExpressions = [...newExpressions, ...(expressions as Query[])];
           }
@@ -535,7 +568,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
   const [state, setState] = useReducer(reducer, undefined, () => ({
     objectId: props.objectId,
     q: props.q,
-    aq: props.aq,
+    aq: initAqToShow(props.aq, modelData, false),
     aqToShow: props.aqToShow || initAqToShow(props.aq, modelData),
     instanceSourceQuery: props.instanceSourceQuery,
     asc: props.asc,

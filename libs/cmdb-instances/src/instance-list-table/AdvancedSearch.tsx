@@ -374,6 +374,8 @@ export function convertValue(valueType: string, value: any): any {
         return parseInt(value);
       case ModelAttributeValueType.FLOAT:
         return parseFloat(value);
+      case ModelAttributeValueType.BOOLEAN:
+        return value === "true";
     }
   }
   return value;
