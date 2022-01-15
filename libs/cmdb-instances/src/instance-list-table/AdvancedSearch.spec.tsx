@@ -7,6 +7,7 @@ import {
   getFieldConditionsAndValues,
   getCondition,
   ConditionType,
+  convertValue,
 } from "./AdvancedSearch";
 import { HOST } from "./data-providers/__mocks__/fetchCmdbObjectDetail";
 import { ModelAttributeValueType } from "../model-attribute-form-control/ModelAttributeFormControl";
@@ -339,5 +340,10 @@ describe("AdvancedSearch", () => {
       operations: [{ operator: "$nin" }],
       type: "notEqual",
     });
+  });
+  it("convertValue should work", () => {
+    expect(convertValue(ModelAttributeValueType.INTEGER, "1")).toEqual(1);
+    expect(convertValue(ModelAttributeValueType.FLOAT, "1.1")).toEqual(1.1);
+    expect(convertValue(ModelAttributeValueType.BOOLEAN, "true")).toEqual(true);
   });
 });

@@ -361,6 +361,32 @@ const HOST: any = {
       isInherit: false,
       notifyDenied: false,
     },
+    {
+      id: "bool",
+      name: "布尔值",
+      protected: true,
+      custom: "false",
+      unique: "false",
+      readonly: "false",
+      required: "true",
+      tag: ["默认属性"],
+      description: "",
+      tips: "",
+      value: {
+        type: "bool",
+        regex: null,
+        default_type: "",
+        default: null,
+        struct_define: [],
+        mode: "default",
+        prefix: "aa",
+        start_value: 0,
+        series_number_length: "",
+      },
+      wordIndexDenied: false,
+      isInherit: false,
+      notifyDenied: false,
+    },
   ],
   relation_list: [
     {
@@ -763,7 +789,7 @@ describe("InstanceList", () => {
     const brickAsComponentProps = wrapper.find(BrickAsComponent).props();
     expect(brickAsComponentProps.useBrick).toBe(extraFilterBricks.useBrick);
   });
-  it("check initAqToShow should pass", async () => {
+  it("check initAq should pass", async () => {
     const testdata: Record<string, any>[] = [
       {
         aq: [
@@ -867,7 +893,90 @@ describe("InstanceList", () => {
       },
     ];
     testdata.forEach((t) => {
-      expect(initAqToShow(t.aq, HOST)).toEqual(t.expected);
+      expect(initAqToShow(t.aq, HOST, true)).toEqual(t.expected);
+    });
+    const testdata2: Record<string, any>[] = [
+      {
+        aq: [
+          {
+            $or: [
+              {
+                "cpu.brand": {
+                  $like: "%192.168.100.162%",
+                },
+              },
+              {
+                "cpu.architecture": {
+                  $like: "%192.168.100.162%",
+                },
+              },
+              {
+                "cpu.hz": {
+                  $like: "%192.168.100.162%",
+                },
+              },
+              {
+                logical_cores: {
+                  $like: "%192.168.100.162%",
+                },
+              },
+              {
+                physical_cores: {
+                  $like: "%192.168.100.162%",
+                },
+              },
+            ],
+          },
+        ],
+        expected: [
+          {
+            $or: [
+              {
+                "cpu.brand": {
+                  $like: "%192.168.100.162%",
+                },
+              },
+              {
+                "cpu.architecture": {
+                  $like: "%192.168.100.162%",
+                },
+              },
+              {
+                "cpu.hz": {
+                  $like: "%192.168.100.162%",
+                },
+              },
+              {
+                logical_cores: {
+                  $like: "%192.168.100.162%",
+                },
+              },
+              {
+                physical_cores: {
+                  $like: "%192.168.100.162%",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        aq: [
+          {
+            $and: [
+              {
+                bool: {
+                  $eq: "true",
+                },
+              },
+            ],
+          },
+        ],
+        expected: [{ $and: [{ bool: { $eq: true } }] }],
+      },
+    ];
+    testdata2.forEach((t) => {
+      expect(initAqToShow(t.aq, HOST, false)).toEqual(t.expected);
     });
   });
   it("show work and dataSource", async () => {
