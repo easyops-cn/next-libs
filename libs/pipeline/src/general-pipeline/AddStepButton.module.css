@@ -30,3 +30,10 @@
     overflow: hidden;
   }
 }
+
+.menuItemText {
+  width: 100%;
+  display: inline-block;
+  margin: -5px -12px;
+  padding: 5px 12px;
+}

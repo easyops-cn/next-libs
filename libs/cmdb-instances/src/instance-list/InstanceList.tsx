@@ -971,7 +971,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
 
   // istanbul ignore next
   useEffect(() => {
-    props.selectedRowKeys &&
+    props.selectedRowKeys?.length &&
       (async () => {
         const data: InstanceApi_PostSearchRequestBody = {};
         const v3Data: InstanceApi_PostSearchV3RequestBody = {
