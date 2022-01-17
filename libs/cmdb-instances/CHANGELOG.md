@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.18.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.17.2...@next-libs/cmdb-instances@6.18.0) (2022-01-17)
+
+
+### Bug Fixes
+
+* **cmdb-instances:** cmdb第二次查询, 布尔值转化为字符串导致查询错误 ([b44295c](https://github.com/easyops-cn/next-libs/commit/b44295c3cc8ea25345a7c90f8e24715d2f56aae5))
+
+
+### Features
+
+* **pipeline:** AddStepButton支持tooltip ([6b69b3d](https://github.com/easyops-cn/next-libs/commit/6b69b3d54f3957f7ee6228b2e11d727a9aeea13a))
+
+
+
+
+
 ## [6.17.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.17.1...@next-libs/cmdb-instances@6.17.2) (2022-01-14)
 
 
