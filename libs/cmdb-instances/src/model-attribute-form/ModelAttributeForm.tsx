@@ -435,6 +435,7 @@ export class ModelAttributeForm extends Component<
             singleSelect={relation.left_max === 1}
             isOperate={true}
             showDetailUrl={this.props.showDetailUrl}
+            relation={relation}
           />
         )}
       </Form.Item>

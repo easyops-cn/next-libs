@@ -4,7 +4,10 @@ import classnames from "classnames";
 import { CmdbModels, InstanceApi_postSearch } from "@next-sdk/cmdb-sdk";
 import { InstanceListTable } from "../instance-list-table";
 import { InstanceListModal } from "../instance-list-modal/InstanceListModal";
-import { modifyModelData } from "@next-libs/cmdb-utils";
+import {
+  modifyModelData,
+  ModifiedModelObjectRelation,
+} from "@next-libs/cmdb-utils";
 import style from "./style.module.css";
 import i18n from "i18next";
 import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
@@ -27,6 +30,7 @@ export interface CmdbInstancesSelectPanelProps {
   showDetailUrl?: boolean;
   isFilterView?: boolean; //是否过滤视图属性
   onFetchedInstances?: (instanceList: any[]) => void; // objectId改变后触发
+  relation?: Partial<ModifiedModelObjectRelation>;
 }
 
 export function CmdbInstancesSelectPanel(
@@ -140,7 +144,12 @@ export function CmdbInstancesSelectPanel(
     [style.selectedInstancesTableWrapper]: true,
     [style.withPreview]: showPreview,
   });
-
+  const { relation } = props;
+  let relationLimit;
+  if (relation?.right_max === 1) {
+    relationLimit = { [relation.right_id]: { $size: { $lt: 1 } } };
+  }
+  const query = props.instanceQuery ?? relationLimit;
   return (
     <div className={style.wrapper} ref={ref}>
       <InstanceListModal
@@ -160,7 +169,7 @@ export function CmdbInstancesSelectPanel(
         onCancel={closeAddInstancesModal}
         singleSelect={props.singleSelect}
         presetConfigs={{
-          query: props.instanceQuery,
+          query,
           fieldIds: props.fields,
         }}
         pageSize={props.addInstancesModalPageSize}

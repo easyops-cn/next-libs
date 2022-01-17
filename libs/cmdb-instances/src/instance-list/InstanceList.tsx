@@ -655,7 +655,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     }
     if (props.presetConfigs) {
       if (!isEmpty(props.presetConfigs.query)) {
-        if (query) {
+        if (Object.keys(query).length) {
           query = {
             $and: [query, props.presetConfigs.query],
           };
