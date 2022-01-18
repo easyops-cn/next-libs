@@ -9,6 +9,7 @@
   grid-template-columns: 6px 20px 16px 8px 1fr 30px;
   align-items: center;
   cursor: pointer;
+  position: relative;
 
   .colorTip {
     width: 100%;
@@ -46,20 +47,23 @@
   left: 0;
   right: 0;
   z-index: 110;
+}
 
-  .operateList {
-    position: relative;
-    height: 40px;
-    padding: 0 4px;
-    background: #ffffff;
-    box-shadow: -4px 0px 8px 0px rgba(143, 143, 143, 0.5);
-    border-radius: 6px;
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
+.operateList {
+  position: absolute;
+  right: 0;
+  z-index: 111;
+  height: 40px;
+  padding: 0 4px;
+  background: #ffffff;
+  box-shadow: -4px 0px 8px 0px rgba(143, 143, 143, 0.5);
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: default;
 
-    :global(.ant-btn) {
-      padding: 4px 8px;
-    }
+  :global(.ant-btn) {
+    padding: 4px 8px;
   }
 }
