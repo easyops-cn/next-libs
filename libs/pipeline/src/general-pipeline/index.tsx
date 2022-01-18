@@ -79,6 +79,7 @@ export function GeneralPipeline(
                 {v.stageName}
               </span>
             </div>
+            <div className={style.whiteGap} />
           </div>
         ))}
       </div>
