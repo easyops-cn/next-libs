@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import style from "./index.module.css";
 import { GeneralIcon } from "@next-libs/basic-components";
 import { AddStepButton, ButtonProps } from "./AddStepButton";
@@ -9,6 +9,7 @@ export interface GeneralPipelineProps {
   stageConfig: {
     stageName: string;
     color: string;
+    textColor?: string;
     icon: any;
     key: string;
     addStepButton?: ButtonProps & {
@@ -47,7 +48,6 @@ export function GeneralPipeline(
       onOperateClick?.(null, data);
     }
   };
-
   const handleOperateButtonClick = (e: any, data: any) => {
     onOperateClick?.(e, data);
   };
@@ -61,8 +61,8 @@ export function GeneralPipeline(
     onAddStepClick?.({ key: e.key });
   };
 
-  return (
-    <>
+  const stageHeader = useMemo(
+    () => (
       <div className={style.stageHeader}>
         {stageConfig.map((v) => (
           <div
@@ -72,15 +72,27 @@ export function GeneralPipeline(
           >
             <div className={style.herderTitle}>
               <GeneralIcon icon={v.icon} />
-              <span className={style.herderTitleText}>{v.stageName}</span>
+              <span
+                className={style.herderTitleText}
+                style={{ color: v.textColor }}
+              >
+                {v.stageName}
+              </span>
             </div>
           </div>
         ))}
       </div>
+    ),
+    [stageConfig]
+  );
+
+  return (
+    <>
+      {stageHeader}
       <div className={style.stageWrapper}>
-        {stageConfig.map((stage) => (
+        {stageConfig.map((stage, stageIndex) => (
           <div key={stage.key} className={style.stageItemWrapper}>
-            {dataSource[stage.key]?.map((item) => {
+            {dataSource[stage.key]?.map((item, itemIndex) => {
               return (
                 <StepItem
                   key={item.key}

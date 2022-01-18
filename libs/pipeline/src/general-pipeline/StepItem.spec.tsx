@@ -69,6 +69,10 @@ describe("StepItem", () => {
       disabled: true,
     });
     expect(wrapper.find(".operateList").prop("children")).toHaveLength(2);
+    wrapper
+      .find(".operateList")
+      .at(0)
+      .simulate("click", { stopPropagation: () => jest.fn() });
     wrapper.find(Button).at(0).simulate("click");
     expect(onOperateButtonClick).toHaveBeenLastCalledWith({ key: "aa" });
     wrapper.find(".operateWrapper").simulate("click");

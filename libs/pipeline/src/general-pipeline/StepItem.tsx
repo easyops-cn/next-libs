@@ -37,8 +37,6 @@ export function StepItem(props: StepItemProps): React.ReactElement {
   } = props;
 
   const [operateVisible, setOperateVisible] = useState(false);
-  const [operatePosition, setOperatePosition] =
-    React.useState<React.CSSProperties>();
 
   const handleStepItemClick = (e: any): void => {
     onStepItemClick?.({
@@ -49,18 +47,10 @@ export function StepItem(props: StepItemProps): React.ReactElement {
       return;
     }
     setOperateVisible(true);
-    setOperatePosition({
-      left: e.clientX,
-      top: e.clientY,
-    });
   };
 
   const handleHideOperate = () => {
     setOperateVisible(false);
-    setOperatePosition({
-      left: -9999,
-      top: -9999,
-    });
   };
 
   return (
@@ -75,7 +65,7 @@ export function StepItem(props: StepItemProps): React.ReactElement {
         <div
           className={style.colorTip}
           style={{ backgroundColor: disabled ? "#D9D9D9" : color }}
-        ></div>
+        />
         <div />
         <GeneralIcon
           icon={{
@@ -89,19 +79,8 @@ export function StepItem(props: StepItemProps): React.ReactElement {
           {title}
         </span>
         <div />
-      </div>
-      <div
-        className={style.operateWrapper}
-        style={{
-          display: operateVisible ? "block" : "none",
-        }}
-        onClick={handleHideOperate}
-      >
         {operateButtons && operateVisible && (
           <div
-            style={{
-              ...operatePosition,
-            }}
             className={style.operateList}
             onClick={(e) => e.stopPropagation()}
           >
@@ -122,6 +101,13 @@ export function StepItem(props: StepItemProps): React.ReactElement {
           </div>
         )}
       </div>
+      <div
+        className={style.operateWrapper}
+        style={{
+          display: operateVisible ? "block" : "none",
+        }}
+        onClick={handleHideOperate}
+      />
     </>
   );
 }
