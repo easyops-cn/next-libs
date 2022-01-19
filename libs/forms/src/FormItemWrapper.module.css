@@ -1,6 +1,10 @@
 /* 兼容表单项独立使用时，造成的样式排列问题  */
 .formItem {
   margin-bottom: 0;
+
+  :global(.ant-legacy-form-item-children) {
+    display: block;
+  }
 }
 
 forms\.general-form .formItem {
