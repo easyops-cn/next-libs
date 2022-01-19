@@ -1,9 +1,10 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import style from "./index.module.css";
 import { GeneralIcon } from "@next-libs/basic-components";
 import { AddStepButton, ButtonProps } from "./AddStepButton";
 import { OperateButton, StepItem } from "./StepItem";
 import { MenuIcon } from "@next-core/brick-types";
+import G6 from "@antv/g6";
 
 export interface GeneralPipelineProps {
   stageConfig: {
@@ -43,6 +44,9 @@ export function GeneralPipeline(
     onAddStepClick,
   } = props;
 
+  React.useEffect(() => {
+    // console.log(G6)
+  }, []);
   const handleStepItemClick = (e: any, data: any) => {
     if (!e.hasOperateButtons) {
       onOperateClick?.(null, data);
