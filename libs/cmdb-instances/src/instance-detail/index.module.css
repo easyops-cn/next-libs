@@ -4,8 +4,8 @@
 .detailCard .basicInfoGroupLabel {
   display: inline-block;
   height: 26px;
-  background: #f5f5f5;
-  color: #333;
+  background: var(--cmdb-instance-detail-group-label-bg, #f5f5f5);
+  color: var(--cmdb-instance-detail-group-label-color, #333);
   margin: 8px 5px;
   border-radius: 13px;
   line-height: 26px;
@@ -17,8 +17,8 @@
   text-decoration: none;
 }
 .detailCard .basicInfoGroupLabel.active {
-  background: #167be0;
-  color: #fff;
+  background: var(--cmdb-instance-detail-group-label-active-bg, #167be0);
+  color: var(--cmdb-instance-detail-group-label-active-color, #fff);
 }
 .detailCard h6 {
   line-height: 20px;
@@ -32,7 +32,7 @@
   padding: 0 0 12px 0;
   font-size: 14px;
   font-weight: bold;
-  color: #404143;
+  color: var(--cmdb-instance-detail-description-group-color, #404143);
   grid-column: 1 / 5;
 }
 .detailCard dl {
@@ -43,7 +43,10 @@
   margin-bottom: 0;
 }
 .detailCard dt {
-  color: rgba(0, 0, 0, 0.65);
+  color: var(
+    --cmdb-instance-detail-detail-description-item-label,
+    rgba(0, 0, 0, 0.65)
+  );
   font-weight: normal;
   text-align: right;
 }
@@ -59,7 +62,10 @@
 .detailCard dd {
   margin-bottom: 0;
   word-break: break-all;
-  color: rgba(0, 0, 0, 0.85);
+  color: var(
+    --cmdb-instance-detail-detail-description-item-content,
+    rgba(0, 0, 0, 0.85)
+  );
 }
 .detailCard dd .structAttr:nth-of-type(2n + 1) {
   grid-column: 2;
