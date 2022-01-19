@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@3.2.7...@next-libs/forms@3.2.8) (2022-01-19)
+
+
+### Bug Fixes
+
+* **FormItemWrapper:** change display of .ant-legacy-form-item-children to fix helpBrick position ([ae4066a](https://github.com/easyops-cn/next-libs/commit/ae4066a41adb071a625c5c516bdc1d4e564778b6))
+
+
+
+
+
 ## [3.2.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@3.2.6...@next-libs/forms@3.2.7) (2021-10-20)
 
 **Note:** Version bump only for package @next-libs/forms
