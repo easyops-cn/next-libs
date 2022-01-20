@@ -1,5 +1,5 @@
 import { GeneralIcon } from "@next-libs/basic-components";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import style from "./StepItem.module.css";
 import classnames from "classnames";
 import { Button, Tooltip } from "antd";
@@ -23,6 +23,8 @@ interface StepItemProps {
     hasOperateButtons: boolean;
     disabled: boolean;
   }) => void;
+  nodeKey?: string;
+  refRepository?: Map<string, HTMLElement>;
 }
 
 export function StepItem(props: StepItemProps): React.ReactElement {
@@ -34,7 +36,18 @@ export function StepItem(props: StepItemProps): React.ReactElement {
     operateButtons,
     onOperateButtonClick,
     onStepItemClick,
+    nodeKey,
+    refRepository,
   } = props;
+
+  const ref = useRef<HTMLDivElement>();
+
+  useEffect(() => {
+    refRepository?.set(nodeKey, ref.current);
+    return () => {
+      refRepository?.delete(nodeKey);
+    };
+  }, []);
 
   const [operateVisible, setOperateVisible] = useState(false);
 
@@ -60,6 +73,7 @@ export function StepItem(props: StepItemProps): React.ReactElement {
           [style.stepItemActive]: operateVisible,
           [style.stepItemDisabled]: disabled,
         })}
+        ref={ref}
         onClick={handleStepItemClick}
       >
         <div
