@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.18.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.18.2...@next-libs/cmdb-instances@6.18.3) (2022-01-20)
+
+
+### Bug Fixes
+
+* use css variables ([ac6fc28](https://github.com/easyops-cn/next-libs/commit/ac6fc28e06f43de2d3464c5b3411c3f0a4643f61))
+
+
+
+
+
 ## [6.18.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.18.1...@next-libs/cmdb-instances@6.18.2) (2022-01-19)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/pipeline@0.3.1...@next-libs/pipeline@0.4.0) (2022-01-20)
+
+
+### Features
+
+* **pipeline:** general-pipeline支持serialLine ([deba93a](https://github.com/easyops-cn/next-libs/commit/deba93a6c943f562bd6abeec9d299fd90334d018))
+
+
+
+
+
 ## [0.3.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/pipeline@0.3.0...@next-libs/pipeline@0.3.1) (2022-01-19)
 
 **Note:** Version bump only for package @next-libs/pipeline
