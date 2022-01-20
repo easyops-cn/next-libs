@@ -6,6 +6,8 @@
   overflow: hidden;
   background-color: #fff;
   gap: 20px;
+  position: relative;
+  z-index: 1;
 
   .stageHeaderItem {
     background-color: currentColor;
@@ -61,6 +63,7 @@
 
 .stageWrapper {
   display: flex;
+  position: relative;
   overflow: hidden;
   gap: 20px;
   margin-top: -10px;

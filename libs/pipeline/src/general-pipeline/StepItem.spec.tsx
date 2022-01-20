@@ -6,7 +6,8 @@ import { Button } from "antd";
 describe("StepItem", () => {
   it("should work", () => {
     const onStepItemClick = jest.fn();
-    const wrapper = shallow(
+    const refRepository = new Map();
+    const wrapper = mount(
       <StepItem
         title="title"
         icon={{
@@ -15,14 +16,19 @@ describe("StepItem", () => {
           theme: "outlined",
         }}
         color="cyan"
+        nodeKey="0,0"
         onStepItemClick={onStepItemClick}
+        refRepository={refRepository}
       />
     );
+    expect(refRepository.has("0,0")).toBe(true);
     wrapper.find(".stepItem").simulate("click");
     expect(onStepItemClick).toHaveBeenLastCalledWith({
       hasOperateButtons: false,
       disabled: false,
     });
+    wrapper.unmount();
+    expect(refRepository.has("0,0")).toBe(false);
   });
 
   it("should work with operateButtons", () => {

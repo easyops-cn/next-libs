@@ -133,7 +133,7 @@ describe("GeneralPipeline", () => {
   it("should work", () => {
     const onOperateClick = jest.fn();
     const onAddStepClick = jest.fn();
-    const wrapper = shallow(
+    const wrapper = mount(
       <GeneralPipeline
         stageConfig={stageConfig}
         dataSource={dataSource}
@@ -174,5 +174,22 @@ describe("GeneralPipeline", () => {
       key: ["a", "sub"],
     });
     expect(onAddStepClick).lastCalledWith({ key: ["a", "sub"] });
+  });
+
+  it("showSerialLine should work", () => {
+    const onOperateClick = jest.fn();
+    const onAddStepClick = jest.fn();
+    const wrapper = mount(
+      <GeneralPipeline
+        stageConfig={stageConfig}
+        dataSource={dataSource}
+        renderOperates={renderOperates}
+        onOperateClick={onOperateClick}
+        onAddStepClick={onAddStepClick}
+        showSerialLine={true}
+      />
+    );
+    expect(wrapper.find("animateMotion")).toHaveLength(5);
+    wrapper.unmount();
   });
 });
