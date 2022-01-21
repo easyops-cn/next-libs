@@ -1,83 +1,224 @@
+/* eslint-disable no-console */
 import { sortBy, reduce } from "lodash";
+import { path, Path } from "d3-path";
+import { Position, Direction, RADIUS, NodeType } from "./constants";
 
-const hasStep = ({
-  preStageIndex,
-  preStepIndex,
-  curStageIndex,
-  curStepIndex,
-}: any): boolean => {
-  return preStageIndex !== curStageIndex && preStepIndex !== curStepIndex;
+export const getPosition = ({
+  source,
+  target,
+}: {
+  source: NodeType;
+  target: NodeType;
+}): Position => {
+  const { x: sourceX, y: sourceY } = source;
+  const { x: targetX, y: targetY } = target;
+  const xDirection = targetX > sourceX ? "R" : targetX < sourceX ? "L" : "";
+  const yDirection = targetY > sourceY ? "B" : targetY < sourceY ? "T" : "";
+  const position = `${xDirection}${yDirection}` as Position;
+  return position || Position.COINCIDE;
 };
 
-const getStepNodes = ({ preX, preY, curX, curY }: any) => {
-  const middle = (preX + curX) / 2;
-  const stepA = { x: middle, y: preY };
-  const stepB = { x: middle, y: curY };
-
-  return [stepA, stepB];
+export const getControlPoint = ({
+  source,
+  target,
+  ratio = { x: 0.5, y: 0.5 },
+}: {
+  source: NodeType;
+  target: NodeType;
+  ratio?: { x: number; y: number };
+}): NodeType => {
+  const { x: sourceX, y: sourceY } = source;
+  const { x: targetX, y: targetY } = target;
+  return {
+    x: targetX * ratio.x + sourceX * (1 - ratio.x),
+    y: targetY * ratio.y + sourceY * (1 - ratio.y),
+  };
 };
 
-export const getPathByNodes = (data: any) => {
-  const _data = sortBy(data, (item) => item[0]);
-  const radius = 8;
-  const nodes: any[] = [];
-  let d = "";
+export const drawPolylineWithRoundedCorners = ({
+  source,
+  target,
+  context,
+  direction = Direction.HORIZONTAL,
+}: {
+  source: NodeType;
+  target: NodeType;
+  context: Path;
+  direction?: Direction;
+}): void => {
+  // context.moveTo(source.x, source.y);
+  let controlPoint, controlPointS, controlPointT;
+  switch (direction) {
+    case Direction.HORIZONTAL: {
+      controlPoint = { x: target.x, y: source.y };
+      controlPointS = {
+        x:
+          controlPoint.x > source.x
+            ? controlPoint.x - RADIUS
+            : controlPoint.x + RADIUS,
+        y: controlPoint.y,
+      };
+      controlPointT = {
+        x: controlPoint.x,
+        y:
+          controlPoint.y > target.y
+            ? controlPoint.y - RADIUS
+            : controlPoint.y + RADIUS,
+      };
+      break;
+    }
+    case Direction.VERTICAL: {
+      controlPoint = { x: source.x, y: target.y };
+      controlPointS = {
+        x: controlPoint.x,
+        y:
+          controlPoint.y > source.y
+            ? controlPoint.y - RADIUS
+            : controlPoint.y + RADIUS,
+      };
+      controlPointT = {
+        x:
+          controlPoint.x > target.x
+            ? controlPoint.x - RADIUS
+            : controlPoint.x + RADIUS,
+        y: controlPoint.y,
+      };
+      break;
+    }
+    default: {
+      console.error(
+        `Unknown direction: ${direction}\n`,
+        "source: ",
+        source,
+        "target: ",
+        target
+      );
+      context.moveTo(target.x, target.y);
+      return;
+    }
+  }
+  context.lineTo(controlPointS.x, controlPointS.y);
+  context.quadraticCurveTo(
+    controlPoint.x,
+    controlPoint.y,
+    controlPointT.x,
+    controlPointT.y
+  );
+  context.lineTo(target.x, target.y);
+};
+
+export const drawStepWithRoundedCorners = ({
+  source,
+  target,
+  context,
+  direction = Direction.HORIZONTAL,
+}: {
+  source: NodeType;
+  target: NodeType;
+  context: Path;
+  direction?: Direction;
+}): void => {
+  const controlPoint = getControlPoint({ source, target });
+  switch (direction) {
+    case Direction.HORIZONTAL: {
+      drawPolylineWithRoundedCorners({
+        source,
+        target: controlPoint,
+        context,
+        direction: Direction.HORIZONTAL,
+      });
+      drawPolylineWithRoundedCorners({
+        source: controlPoint,
+        target,
+        context,
+        direction: Direction.VERTICAL,
+      });
+      break;
+    }
+    case Direction.VERTICAL: {
+      drawPolylineWithRoundedCorners({
+        source,
+        target: controlPoint,
+        context,
+        direction: Direction.VERTICAL,
+      });
+      drawPolylineWithRoundedCorners({
+        source: controlPoint,
+        target,
+        context,
+        direction: Direction.HORIZONTAL,
+      });
+      break;
+    }
+    default: {
+      console.error(
+        `Unknown direction: ${direction}\n`,
+        "source: ",
+        source,
+        "target: ",
+        target
+      );
+      context.moveTo(target.x, target.y);
+      return;
+    }
+  }
+};
+
+export const getPathByNodes = (data: [string, HTMLElement][]): string => {
+  const _data = sortBy(data, (item) => item[0]).map(([key, ele]) => {
+    const x = ele.offsetLeft + ele.offsetWidth / 2;
+    const y = ele.offsetTop + ele.offsetHeight / 2;
+    const [stageIndex, stepIndex] = key.split(",");
+    return { stageIndex, stepIndex, x, y, ele, key };
+  });
+  const context = path();
+
   reduce(
     _data,
-    (pre, cur, index) => {
-      const [curKey, curEle] = cur;
-      const [curStageIndex, curStepIndex] = curKey.split(",");
-      const curX = curEle.offsetLeft + curEle.offsetWidth / 2;
-      const curY = curEle.offsetTop + curEle.offsetHeight / 2;
-
-      if (pre) {
-        const [preKey, preEle] = pre;
-        const [preStageIndex, preStepIndex] = preKey.split(",");
-        const _hasStep = hasStep({
-          preStageIndex,
-          preStepIndex,
-          curStageIndex,
-          curStepIndex,
-        });
-        if (_hasStep) {
-          const preX = preEle.offsetLeft + preEle.offsetWidth / 2;
-          const preY = preEle.offsetTop + preEle.offsetHeight / 2;
-          const stepNodes = getStepNodes({ preX, preY, curX, curY });
-          stepNodes.map((node) =>
-            nodes.push({
-              type: "stepNode",
-              ...node,
-            })
-          );
-
-          const [stepNodeA, stepNodeB] = stepNodes;
-          const lineA = `L${stepNodeA.x - radius} ${stepNodeA.y}`;
-          const bezierA = `Q${stepNodeA.x} ${stepNodeA.y} ${stepNodeA.x} ${
-            stepNodeA.y - radius
-          }`;
-          const lineB = `L${stepNodeB.x} ${stepNodeB.y + radius}`;
-          const bezierB = `Q${stepNodeB.x} ${stepNodeB.y} ${
-            stepNodeB.x + radius
-          } ${stepNodeB.y}`;
-          d = d.concat(lineA, bezierA, lineB, bezierB);
+    (source, target) => {
+      if (!source) {
+        context.moveTo(target.x, target.y);
+      } else {
+        const position = getPosition({ source, target });
+        switch (position) {
+          case Position.L:
+          case Position.R:
+          case Position.B:
+          case Position.T: {
+            context.lineTo(target.x, target.y);
+            break;
+          }
+          case Position.LT:
+          case Position.LB:
+          case Position.RT:
+          case Position.RB: {
+            drawStepWithRoundedCorners({
+              source,
+              target,
+              context,
+              direction: Direction.HORIZONTAL,
+            });
+            break;
+          }
+          // istanbul ignore next
+          default: {
+            console.error(
+              `Unknown position: ${position}\n`,
+              "source: ",
+              source,
+              "target: ",
+              target
+            );
+            context.moveTo(target.x, target.y);
+            return;
+          }
         }
       }
 
-      nodes.push({
-        type: "dataNode",
-        stageIndex: curStageIndex,
-        stepIndex: curStepIndex,
-        x: curX,
-        y: curY,
-      });
-      const dAction = index === 0 ? "M" : "L";
-      const instruction = `${dAction}${curX} ${curY}`;
-      d = d.concat(instruction);
-
-      return cur;
+      return target;
     },
     null
   );
 
-  return d;
+  return context.toString();
 };
