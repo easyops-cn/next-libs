@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.18.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.18.3...@next-libs/cmdb-instances@6.18.4) (2022-01-21)
+
+
+### Bug Fixes
+
+* style refine ([cc007af](https://github.com/easyops-cn/next-libs/commit/cc007afdb72d29a3d6ae2da9a46a48e3ba65dfc6))
+
+
+
+
+
 ## [6.18.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.18.2...@next-libs/cmdb-instances@6.18.3) (2022-01-20)
 
 
