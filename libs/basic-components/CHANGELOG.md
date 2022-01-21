@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@3.2.5...@next-libs/basic-components@3.2.6) (2022-01-21)
+
+
+### Bug Fixes
+
+* omit inner background for icon with bg ([0456a8b](https://github.com/easyops-cn/next-libs/commit/0456a8be822cb9fa651cdbca647c4f5da539292e))
+
+
+
+
+
 ## [3.2.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@3.2.4...@next-libs/basic-components@3.2.5) (2021-10-20)
 
 

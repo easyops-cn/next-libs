@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.10](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@3.2.9...@next-libs/forms@3.2.10) (2022-01-21)
+
+
+### Bug Fixes
+
+* support dark theme for IconSelect ([4f21506](https://github.com/easyops-cn/next-libs/commit/4f215064356bbd3f59ddc849a7b4923f8194a928))
+
+
+
+
+
 ## [3.2.9](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@3.2.8...@next-libs/forms@3.2.9) (2022-01-21)
 
 
