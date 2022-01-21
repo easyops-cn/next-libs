@@ -15,7 +15,7 @@ import { BrickIcon } from "@next-core/brick-icons";
 import { Colors, COLORS_MAP, getColor } from "./utils/getColor";
 import classnames from "classnames";
 import cssStyle from "./GeneralIcon.module.css";
-import { isEqual, uniqueId } from "lodash";
+import { isEqual, omit, uniqueId } from "lodash";
 
 type SrcIcon = {
   imgSrc?: string;
@@ -99,7 +99,7 @@ export function GeneralIcon({
         icon={
           showEmptyIcon ? (
             <Icon
-              style={mergedStyle}
+              style={omit(mergedStyle, "background")}
               component={() => (
                 <BrickIcon icon="empty-icon" category="common" />
               )}
@@ -159,6 +159,10 @@ export function GeneralIcon({
         return getDefaultIcon(bg, mergedStyle, iconNode);
       }
 
+      const mergedStyleByBg = bg
+        ? omit(mergedStyle, "background")
+        : mergedStyle;
+
       if (icon.lib === "antd") {
         const type =
           (icon as RefinedAntdIcon).icon || (icon as LegacyAntdIcon).type;
@@ -166,7 +170,7 @@ export function GeneralIcon({
           <LegacyIcon
             type={type}
             theme={icon.theme}
-            style={mergedStyle}
+            style={mergedStyleByBg}
             onClick={onClick}
             className={generalIconId}
             data-icon={
@@ -183,7 +187,7 @@ export function GeneralIcon({
 
         iconNode = (
           <Icon
-            style={{ ...mergedStyle, verticalAlign: 0 }}
+            style={{ ...mergedStyleByBg, verticalAlign: 0 }}
             component={() => (
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-ignore
@@ -199,7 +203,7 @@ export function GeneralIcon({
       if (icon.lib === "easyops") {
         iconNode = (
           <Icon
-            style={mergedStyle}
+            style={mergedStyleByBg}
             component={() => (
               <BrickIcon
                 icon={(icon as EasyopsIcon).icon}

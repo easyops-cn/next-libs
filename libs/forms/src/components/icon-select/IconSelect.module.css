@@ -89,22 +89,22 @@
 .colorBox {
   width: 38px;
   height: 38px;
-  border-radius: 6px;
+  border-radius: var(--larger-border-radius);
   cursor: pointer;
 }
 .emptyColor {
-  border: 2px solid rgba(217, 217, 217, 1);
-  background-color: #ffffff;
+  border: var(--border-width-double-base) solid var(--color-border-divider-line);
+  background-color: var(--color-info-white);
   position: relative;
   overflow: hidden;
 }
 .emptyLine {
-  background: #d0021b;
+  background: var(--palette-red-6);
   position: absolute;
   transform: translateX(-10px) rotate(-45deg);
   width: 50px;
   margin: 19px 0;
-  height: 2px;
+  height: var(--border-width-double-base);
 }
 .colorBox:not(:last-child) {
   margin-right: 30px;
