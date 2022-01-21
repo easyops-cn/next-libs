@@ -140,7 +140,7 @@ export function GeneralPipeline(
                     d="M0 0 L6.75 5 L0 10 L0 0 M6.75 0 L13.5 5 L6.75 10 L6.75 0"
                     fill="#0b5ad9"
                     fillRule="evenodd"
-                    transform="translate(0, -5) "
+                    transform="translate(-10, -5) "
                     key={i}
                     opacity={opacity}
                   >
