@@ -363,7 +363,7 @@ export class ModelAttributeForm extends Component<
     };
 
     if (leftRequired) {
-      return getRules(leftRequired, attribute.left_name);
+      return getRules(leftRequired, attribute.right_description);
     }
 
     return [];
