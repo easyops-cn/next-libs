@@ -156,15 +156,15 @@
   white-space: nowrap;
   height: 100%;
   overflow: hidden;
-  color: #43a1ff;
+  color: var(--color-brand-hover);
 }
 
 .iconContainer:hover .iconInnerContainer {
-  color: #43a1ff;
+  color: var(--color-brand-hover);
 }
 
 .iconContainer .iconInnerContainer {
-  color: #595959;
+  color: var(--color-normal-text);
 }
 
 .iconArea {
@@ -175,5 +175,6 @@
   width: 616px;
   height: 218px;
   font-size: 20px;
-  background: rgba(251, 251, 251, 1);
+  background: var(--color-fill-bg-base-4);
+  border-radius: var(--larger-border-radius);
 }
