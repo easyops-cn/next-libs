@@ -1,6 +1,7 @@
 import { GeneralIcon } from "@next-libs/basic-components";
 import { Dropdown, Menu, Tooltip } from "antd";
 import classnames from "classnames";
+import { isEmpty } from "lodash";
 import React, { useState } from "react";
 import style from "./AddStepButton.module.css";
 
@@ -12,7 +13,7 @@ export type ButtonProps = {
 };
 
 interface AddStepButtonProps {
-  addButtonProps: ButtonProps;
+  addButtonProps?: ButtonProps;
   subButtons?: ButtonProps[];
   onAddStepButtonClick?(data: { key: string; hasSubButtons: boolean }): void;
   onSubButtonClick?(data: { key: [string, string] }): void;
@@ -23,6 +24,8 @@ export function AddStepButton(props: AddStepButtonProps): React.ReactElement {
     props;
   const hasSubButtons = !!subButtons;
   const [visible, setVisible] = useState(false);
+
+  if (isEmpty(addButtonProps)) return null;
 
   const handleAddStepButtonClick = () => {
     if (addButtonProps.disabled) return;

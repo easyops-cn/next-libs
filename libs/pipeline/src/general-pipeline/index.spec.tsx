@@ -5,6 +5,9 @@ import { AddStepButton } from "./AddStepButton";
 import { StepItem } from "./StepItem";
 import { Graphics } from "./Graphics";
 
+(SVGElement as any).prototype.getTotalLength = jest.fn();
+(SVGElement as any).prototype.getPointAtLength = jest.fn();
+
 const stageConfig = [
   {
     color: "#B4A9F4",
