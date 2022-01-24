@@ -30,6 +30,9 @@
 .conditionInputGroup .separatorInput {
   width: 30px;
   pointer-events: none;
+  border-left: 0;
+  border-right: 0;
+  background: var(--input-fill-bg, var(--antd-input-disabled-bg));
 }
 
 .conditionInputGroup :global(.ant-select-selection-selected-value) {
