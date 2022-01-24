@@ -156,11 +156,11 @@
   white-space: nowrap;
   height: 100%;
   overflow: hidden;
-  color: var(--color-brand-hover);
+  color: var(--color-brand);
 }
 
 .iconContainer:hover .iconInnerContainer {
-  color: var(--color-brand-hover);
+  color: var(--color-brand);
 }
 
 .iconContainer .iconInnerContainer {
