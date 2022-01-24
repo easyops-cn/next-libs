@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.18.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.18.5...@next-libs/cmdb-instances@6.18.6) (2022-01-24)
+
+
+### Bug Fixes
+
+* **cmdb-instances:** cmdb开启开关"cmdb-advance-search-with-quote", 多次搜索enum类型有问题 ([b24ebd7](https://github.com/easyops-cn/next-libs/commit/b24ebd7429b725714b94edf4149521eca9e9c23c))
+
+
+
+
+
 ## [6.18.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.18.4...@next-libs/cmdb-instances@6.18.5) (2022-01-21)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
