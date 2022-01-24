@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.11](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@3.2.10...@next-libs/forms@3.2.11) (2022-01-24)
+
+
+### Bug Fixes
+
+* fix icon color of IconSelect ([006f4d0](https://github.com/easyops-cn/next-libs/commit/006f4d0db5f6daf502516d0ab9e0f02f8481bacf))
+
+
+
+
+
 ## [3.2.10](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@3.2.9...@next-libs/forms@3.2.10) (2022-01-21)
 
 
