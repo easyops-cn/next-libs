@@ -135,10 +135,7 @@ export function GeneralPipeline(
       {stageHeader}
       <div className={style.stageWrapper} ref={stageWrapperRef}>
         {showSerialLine && _refRepository.current.size !== 0 && (
-          <Graphics
-            pathData={pathData}
-            nodeLength={_refRepository.current.size}
-          />
+          <Graphics pathData={pathData} />
         )}
         {stageConfig.map((stage, stageIndex) => (
           <div key={stage.key} className={style.stageItemWrapper}>

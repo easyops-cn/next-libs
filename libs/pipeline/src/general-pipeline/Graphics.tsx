@@ -1,16 +1,23 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { PathData } from "./util";
 
 interface GraphicsProps {
   pathData: PathData;
-  nodeLength: number;
 }
 
 export function Graphics(props: GraphicsProps): React.ReactElement {
   const {
     pathData: { paths, d },
-    nodeLength,
   } = props;
+
+  const pathLength = useMemo(() => {
+    const pathElement = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "path"
+    );
+    pathElement.setAttribute("d", d);
+    return pathElement.getTotalLength();
+  }, [d]);
 
   return (
     <svg style={{ position: "absolute", width: "100%", height: "100%" }}>
@@ -19,9 +26,7 @@ export function Graphics(props: GraphicsProps): React.ReactElement {
         .fill(undefined)
         .map((v, i, arr) => {
           const arrowLength = arr.length;
-          const minDur = 5;
-          let dur = nodeLength * 1;
-          dur = dur > minDur ? dur : minDur;
+          const dur = pathLength / 150;
           const interval = dur / arrowLength;
           const opacity = 1 - 0.15 * i;
           return (
