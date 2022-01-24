@@ -3,6 +3,10 @@ import { mount, shallow } from "enzyme";
 import { GeneralPipeline, GeneralPipelineProps } from "./";
 import { AddStepButton } from "./AddStepButton";
 import { StepItem } from "./StepItem";
+import { Graphics } from "./Graphics";
+
+(SVGElement as any).prototype.getTotalLength = jest.fn();
+(SVGElement as any).prototype.getPointAtLength = jest.fn();
 
 const stageConfig = [
   {
@@ -189,7 +193,7 @@ describe("GeneralPipeline", () => {
         showSerialLine={true}
       />
     );
-    expect(wrapper.find("animateMotion")).toHaveLength(5);
+    expect(wrapper.find(Graphics)).toHaveLength(1);
     wrapper.unmount();
   });
 });

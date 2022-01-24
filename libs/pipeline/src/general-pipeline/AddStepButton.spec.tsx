@@ -71,4 +71,9 @@ describe("AddStepButton", () => {
     wrapper.find(Menu.Item).at(1).simulate("click");
     expect(onSubButtonClick).toHaveBeenLastCalledWith({ key: ["aaa", "qqq"] });
   });
+
+  it("should work when addButtonProps is nil", () => {
+    const wrapper = shallow(<AddStepButton addButtonProps={{} as any} />);
+    expect(wrapper.find(".addStepBtn")).toHaveLength(0);
+  });
 });

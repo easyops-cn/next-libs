@@ -6,6 +6,7 @@ import {
   drawPolylineWithRoundedCorners,
   drawStepWithRoundedCorners,
   getPathByNodes,
+  getPointByProportion,
 } from "./util";
 
 const consoleError = jest.fn();
@@ -31,43 +32,31 @@ const data1 = [
 ];
 
 const data2 = [
-  [
-    "0,0",
-    {
-      offsetLeft: 100,
-      offsetTop: 100,
-      offsetWidth: 20,
-      offsetHeight: 10,
-    },
-  ],
-  [
-    "1,0",
-    {
-      offsetLeft: 200,
-      offsetTop: 100,
-      offsetWidth: 20,
-      offsetHeight: 10,
-    },
-  ],
-  [
-    "1,1",
-    {
-      offsetLeft: 200,
-      offsetTop: 200,
-      offsetWidth: 20,
-      offsetHeight: 10,
-    },
-  ],
-  [
-    "2,0",
-    {
-      offsetLeft: 300,
-      offsetTop: 100,
-      offsetWidth: 20,
-      offsetHeight: 10,
-    },
-  ],
-] as any;
+  {
+    stageIndex: 0,
+    stepIndex: 0,
+    x: 110,
+    y: 105,
+  },
+  {
+    stageIndex: 1,
+    stepIndex: 0,
+    x: 210,
+    y: 105,
+  },
+  {
+    stageIndex: 1,
+    stepIndex: 1,
+    x: 210,
+    y: 205,
+  },
+  {
+    stageIndex: 2,
+    stepIndex: 0,
+    x: 310,
+    y: 105,
+  },
+];
 
 describe("util", () => {
   afterEach(() => {
@@ -196,8 +185,20 @@ describe("util", () => {
   });
 
   it("getPathByNodes should work", () => {
-    expect(getPathByNodes(data2)).toEqual(
-      "M110,105L210,105L210,205L252,205Q260,205,260,197L260,155L260,113Q260,105,268,105L310,105"
+    expect(getPathByNodes(data2).paths).toHaveLength(data2.length - 1);
+    expect(getPathByNodes(data2).d).toEqual(
+      "M110,105L210,105M210,105L210,205M210,205L252,205Q260,205,260,197L260,155L260,113Q260,105,268,105L310,105"
     );
+  });
+
+  it("getPointByProportion should work", () => {
+    const pathElement = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "path"
+    );
+    pathElement.setAttribute("d", "M0,0 L100,100");
+    pathElement.getTotalLength = jest.fn();
+    pathElement.getPointAtLength = jest.fn();
+    getPointByProportion(pathElement, 0.5);
   });
 });
