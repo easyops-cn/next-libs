@@ -345,5 +345,8 @@ describe("AdvancedSearch", () => {
     expect(convertValue(ModelAttributeValueType.INTEGER, "1")).toEqual(1);
     expect(convertValue(ModelAttributeValueType.FLOAT, "1.1")).toEqual(1.1);
     expect(convertValue(ModelAttributeValueType.BOOLEAN, "true")).toEqual(true);
+    expect(convertValue(ModelAttributeValueType.STRING, "test")).toEqual(
+      "test"
+    );
   });
 });

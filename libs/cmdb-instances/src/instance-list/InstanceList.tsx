@@ -63,13 +63,7 @@ import {
   ComparisonOperators,
 } from "../instance-list-table";
 import styles from "./InstanceList.module.css";
-import {
-  extraFieldAttrs,
-  CMDB_MODAL_FIELDS_SETTINGS,
-  CMDB_RESOURCE_FIELDS_SETTINGS,
-  MAX_DEFAULT_FIELDS_COUNT,
-  MAX_DEFAULT_MODAL_FIELDS_COUNT,
-} from "./constants";
+import { extraFieldAttrs } from "./constants";
 import { JsonStorage } from "@next-libs/storage";
 import { ModelAttributeValueType } from "../model-attribute-form-control/ModelAttributeFormControl";
 import { IconButton } from "./IconButton";
@@ -326,7 +320,7 @@ export const initAqToShow = (
                   return {
                     [fieldId]: {
                       [Object.keys(targetValue)[0]]:
-                        Object.values(targetValue)[0] === "true" ? true : false,
+                        Object.values(targetValue)[0] === "true",
                     },
                   };
                 } else {

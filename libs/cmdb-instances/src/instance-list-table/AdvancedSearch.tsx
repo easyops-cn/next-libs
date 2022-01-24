@@ -588,8 +588,11 @@ export class AdvancedSearchForm extends React.Component<
               );
             }
             if (!isNil(targetField)) {
+              // 二维数组会有问题，
               subQueryValue = isArray(targetField[fieldId])
-                ? targetField[fieldId].join("")
+                ? targetField[fieldId]
+                    .map((item) => (isArray(item) ? item.join(" ") : item))
+                    .join("")
                 : (targetField[fieldId] as any);
             } else {
               subQueryValue = (expressions as Query[])
