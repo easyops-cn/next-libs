@@ -5,7 +5,9 @@ import { AddStepButton, ButtonProps } from "./AddStepButton";
 import { OperateButton, StepItem } from "./StepItem";
 import { MenuIcon } from "@next-core/brick-types";
 import ResizeObserver from "resize-observer-polyfill";
-import { getPathByNodes } from "./util";
+import { getPathByNodes, PathData } from "./util";
+import { Graphics } from "./Graphics";
+import { sortBy } from "lodash";
 
 export interface GeneralPipelineProps {
   stageConfig: {
@@ -50,22 +52,32 @@ export function GeneralPipeline(
     onAddStepClick,
   } = props;
 
-  const [linePath, setLinePath] = useState("");
+  const [pathData, setPathData] = useState<PathData>({} as PathData);
 
   const stageWrapperRef = useRef();
 
   const _refRepository = useRef<Map<string, HTMLElement>>(new Map());
 
-  const getLinePath = (): string =>
-    getPathByNodes([..._refRepository.current.entries()]);
+  const getPathData = (): PathData => {
+    const data = sortBy(
+      [..._refRepository.current.entries()],
+      (item) => item[0]
+    ).map(([key, ele]) => {
+      const x = ele.offsetLeft + ele.offsetWidth / 2;
+      const y = ele.offsetTop + ele.offsetHeight / 2;
+      const [stageIndex, stepIndex] = key.split(",");
+      return { stageIndex, stepIndex, x, y, ele, key };
+    });
+    return getPathByNodes(data);
+  };
 
   useEffect(() => {
-    setLinePath(showSerialLine ? getLinePath() : "");
+    setPathData(showSerialLine ? getPathData() : ({} as PathData));
   }, [_refRepository.current.size, showSerialLine]);
 
   useEffect(() => {
     const resizeObserver = new ResizeObserver(() => {
-      setLinePath(showSerialLine ? getLinePath() : "");
+      setPathData(showSerialLine ? getPathData() : ({} as PathData));
     });
     resizeObserver.observe(stageWrapperRef.current);
 
@@ -123,39 +135,10 @@ export function GeneralPipeline(
       {stageHeader}
       <div className={style.stageWrapper} ref={stageWrapperRef}>
         {showSerialLine && _refRepository.current.size !== 0 && (
-          <svg style={{ position: "absolute", width: "100%", height: "100%" }}>
-            <path d={linePath} stroke="#D9D9D9" fill="none" strokeWidth="1" />
-            {Array(5)
-              .fill(undefined)
-              .map((v, i, arr) => {
-                const arrowLength = arr.length;
-                const nodeLength = _refRepository.current.size;
-                const minDur = 5;
-                let dur = nodeLength * 1;
-                dur = dur > minDur ? dur : minDur;
-                const interval = dur / arrowLength;
-                const opacity = 1 - 0.15 * i;
-                return (
-                  <path
-                    d="M0 0 L6.75 5 L0 10 L0 0 M6.75 0 L13.5 5 L6.75 10 L6.75 0"
-                    fill="#0b5ad9"
-                    fillRule="evenodd"
-                    transform="translate(-10, -5) "
-                    key={i}
-                    opacity={opacity}
-                  >
-                    <animateMotion
-                      begin={interval * i}
-                      dur={dur}
-                      repeatCount="indefinite"
-                      path={linePath}
-                      rotate="auto"
-                    />
-                  </path>
-                );
-              })}
-            <rect x="0" y="0" width="27" height="10" fill="#f0f9ff" />
-          </svg>
+          <Graphics
+            pathData={pathData}
+            nodeLength={_refRepository.current.size}
+          />
         )}
         {stageConfig.map((stage, stageIndex) => (
           <div key={stage.key} className={style.stageItemWrapper}>

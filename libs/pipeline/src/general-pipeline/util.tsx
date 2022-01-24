@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { sortBy, reduce } from "lodash";
+import { reduce } from "lodash";
 import { path, Path } from "d3-path";
 import { Position, Direction, RADIUS, NodeType } from "./constants";
 
@@ -46,7 +46,6 @@ export const drawPolylineWithRoundedCorners = ({
   context: Path;
   direction?: Direction;
 }): void => {
-  // context.moveTo(source.x, source.y);
   let controlPoint, controlPointS, controlPointT;
   switch (direction) {
     case Direction.HORIZONTAL: {
@@ -164,21 +163,20 @@ export const drawStepWithRoundedCorners = ({
   }
 };
 
-export const getPathByNodes = (data: [string, HTMLElement][]): string => {
-  const _data = sortBy(data, (item) => item[0]).map(([key, ele]) => {
-    const x = ele.offsetLeft + ele.offsetWidth / 2;
-    const y = ele.offsetTop + ele.offsetHeight / 2;
-    const [stageIndex, stepIndex] = key.split(",");
-    return { stageIndex, stepIndex, x, y, ele, key };
-  });
-  const context = path();
+export type PathData = {
+  paths: any[];
+  d: string;
+};
 
+export const getPathByNodes = (data: NodeType[]): PathData => {
+  let d = "";
+  const paths: any[] = [];
   reduce(
-    _data,
+    data,
     (source, target) => {
-      if (!source) {
-        context.moveTo(target.x, target.y);
-      } else {
+      if (source) {
+        const context = path();
+        context.moveTo(source.x, source.y);
         const position = getPosition({ source, target });
         switch (position) {
           case Position.L:
@@ -210,9 +208,22 @@ export const getPathByNodes = (data: [string, HTMLElement][]): string => {
               target
             );
             context.moveTo(target.x, target.y);
-            return;
           }
         }
+        const dPath = context.toString();
+        const pathElement = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        );
+        pathElement.setAttribute("d", dPath);
+
+        paths.push({
+          path: context,
+          pathElement,
+          source,
+          target,
+        });
+        d = d.concat(dPath);
       }
 
       return target;
@@ -220,5 +231,12 @@ export const getPathByNodes = (data: [string, HTMLElement][]): string => {
     null
   );
 
-  return context.toString();
+  return { paths, d };
+};
+
+export const getPointByProportion = (
+  element: SVGPathElement,
+  proportion: number
+): DOMPoint => {
+  return element.getPointAtLength(element.getTotalLength() * proportion);
 };
