@@ -55,7 +55,7 @@ export function ZoomPanel(props: ZoomPanelProps): React.ReactElement {
       </Button>
       <div className={style.zoomPanel}>
         <Icon
-          style={{ color: "#6C9CF9" }}
+          style={{ color: "var(--palette-blue-7)" }}
           component={zoomIn as any}
           onClick={zoomInClick}
         />
@@ -70,7 +70,7 @@ export function ZoomPanel(props: ZoomPanelProps): React.ReactElement {
           onChange={onChange}
         ></Slider>
         <Icon
-          style={{ color: "#6C9CF9" }}
+          style={{ color: "var(--palette-blue-7)" }}
           component={zoomOut as any}
           onClick={zoomOutClick}
         />
