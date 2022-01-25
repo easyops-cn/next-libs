@@ -1,13 +1,15 @@
 .centerIcon {
-  color: #6c9cf9;
   width: 40px;
   height: 38px;
   font-size: 24px;
   padding: 0 0 2px;
   margin-bottom: 7px;
-  border: 1px solid #f5f5f5;
-  border-radius: 8px;
-  box-shadow: 0px 2px 6px 0px rgba(220, 220, 220, 1);
+}
+
+.centerIcon,
+.centerIcon:hover,
+.centerIcon:focus {
+  color: var(--palette-blue-7);
 }
 
 .zoomPanel {
@@ -17,11 +19,15 @@
   width: 40px;
   font-size: 16px;
   align-items: center;
-  border: 1px solid #f5f5f5;
-  border-radius: 8px;
-  box-shadow: 0px 2px 6px 0px rgba(220, 220, 220, 1);
   padding: 8px 0;
-  background-color: white;
+}
+
+.centerIcon,
+.zoomPanel {
+  border: 1px solid #f5f5f5;
+  border-radius: var(--larger-border-radius);
+  box-shadow: var(--connected-overlay-shadow);
+  background-color: var(--color-fill-bg-container-4);
 }
 
 .zoomPanel :global(.ant-slider-vertical) {
@@ -52,18 +58,26 @@
 
 .zoomPanel :global(.ant-slider-rail) {
   width: 2px;
-  background-color: #f5f5f5;
+  background-color: var(--color-fill-bg-base-1);
 }
 
 .zoomPanel :global(.ant-slider-track) {
   width: 2px;
-  background-color: #f5f5f5;
+  background-color: var(--color-fill-bg-base-1);
 }
 
 .zoomPanel :global(.ant-slider:hover) :global(.ant-slider-rail) {
-  background-color: #f5f5f5;
+  background-color: var(--color-fill-bg-base-1);
 }
 
 .zoomPanel :global(.ant-slider:hover) :global(.ant-slider-track) {
-  background-color: #f5f5f5;
+  background-color: var(--color-fill-bg-base-1);
+}
+
+html[data-theme="dark-v2"],
+[data-override-theme="dark-v2"] {
+  .centerIcon:not(:hover):not(:focus),
+  .zoomPanel {
+    border-color: var(--color-fill-bg-container-4);
+  }
 }
