@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@3.2.6...@next-libs/basic-components@3.2.7) (2022-01-25)
+
+
+### Bug Fixes
+
+* support dark theme for ZoomPanel ([7367878](https://github.com/easyops-cn/next-libs/commit/73678781067eedf617292fb6b302bd7517b7b07d))
+
+
+
+
+
 ## [3.2.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@3.2.5...@next-libs/basic-components@3.2.6) (2022-01-21)
 
 
