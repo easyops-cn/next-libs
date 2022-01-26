@@ -10,8 +10,8 @@ const featureFlags =
   process.env.NODE_ENV === "test"
     ? { "cmdb-advance-search-with-quote": true }
     : getRuntime().getFeatureFlags();
-export const ENABLED_CMDB_ADVANCE_SEARCH_WITH_QUOTE =
-  featureFlags["cmdb-advance-search-with-quote"];
+export const ENABLED_CMDB_ADVANCE_SEARCH_WITH_QUOTE = true;
+// featureFlags["cmdb-advance-search-with-quote"];
 
 export const processAttrValueWithQuote = (
   attrValue: string,
