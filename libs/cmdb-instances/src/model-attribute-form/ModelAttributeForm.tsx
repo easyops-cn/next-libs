@@ -345,6 +345,30 @@ export class ModelAttributeForm extends Component<
     };
   }
 
+  // 关联模型form的rules
+  relationRules(
+    attribute: Partial<ModifiedModelObjectRelation>
+  ): ValidationRule[] {
+    const { left_required: leftRequired } = attribute;
+    // 获取validationRule规则
+    const getRules = (required: boolean, name: string): ValidationRule[] => {
+      const requireRule = {
+        required,
+        message: i18n.t(
+          `${NS_LIBS_CMDB_INSTANCES}:${K.ATTRIBUTE_NAME_REQUIRED}`,
+          { attribute_name: name }
+        ),
+      };
+      return [requireRule];
+    };
+
+    if (leftRequired) {
+      return getRules(leftRequired, attribute.right_description);
+    }
+
+    return [];
+  }
+
   rules(attribute: Partial<CmdbModels.ModelObjectAttr>): ValidationRule[] {
     // historical issues：  如果是INTEGER和URL类型暂时不用正则表达式验证
     const required = attribute.required !== "false";
@@ -426,7 +450,10 @@ export class ModelAttributeForm extends Component<
         key={relation.left_id}
         {...this.formItemProps}
       >
-        {this.props.form.getFieldDecorator(relation.left_id, { initialValue })(
+        {this.props.form.getFieldDecorator(relation.left_id, {
+          rules: this.relationRules(relation),
+          initialValue,
+        })(
           <CmdbInstancesSelectPanel
             isFilterView={this.props.isFilterView}
             objectId={relation.right_object_id}

@@ -225,6 +225,7 @@ export function modifyModelData(
         "max",
         "groups",
         "tags",
+        "required",
       ];
       invertedFields.forEach((invertedField) => {
         const tempFieldValue = clonedRelation[`left_${invertedField}`];
