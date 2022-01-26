@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.19.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.18.9...@next-libs/cmdb-instances@6.19.0) (2022-01-26)
+
+
+### Features
+
+* add relation required ([1272476](https://github.com/easyops-cn/next-libs/commit/1272476536139c8515c8eaaa11f6ea6a2b6f5b1a))
+* add required field ([ee00061](https://github.com/easyops-cn/next-libs/commit/ee00061955f86fa1f8cb7e4110d63c4361b1af87))
+
+
+
+
+
 ## [6.18.9](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.18.8...@next-libs/cmdb-instances@6.18.9) (2022-01-25)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances

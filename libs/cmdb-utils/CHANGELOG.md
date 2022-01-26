@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@3.0.3...@next-libs/cmdb-utils@3.1.0) (2022-01-26)
+
+
+### Features
+
+* add required field ([ee00061](https://github.com/easyops-cn/next-libs/commit/ee00061955f86fa1f8cb7e4110d63c4361b1af87))
+
+
+
+
+
 ## [3.0.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@3.0.2...@next-libs/cmdb-utils@3.0.3) (2021-11-04)
 
 
