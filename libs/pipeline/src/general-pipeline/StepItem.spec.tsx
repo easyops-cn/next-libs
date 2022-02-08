@@ -16,19 +16,22 @@ describe("StepItem", () => {
           theme: "outlined",
         }}
         color="cyan"
-        nodeKey="0,0"
+        keys={{
+          indexKey: "0,0",
+          nodeKey: "abc",
+        }}
         onStepItemClick={onStepItemClick}
         refRepository={refRepository}
       />
     );
-    expect(refRepository.has("0,0")).toBe(true);
+    expect(refRepository.has("abc")).toBe(true);
     wrapper.find(".stepItem").simulate("click");
     expect(onStepItemClick).toHaveBeenLastCalledWith({
       hasOperateButtons: false,
       disabled: false,
     });
     wrapper.unmount();
-    expect(refRepository.has("0,0")).toBe(false);
+    expect(refRepository.has("abc")).toBe(false);
   });
 
   it("should work with operateButtons", () => {
@@ -44,6 +47,10 @@ describe("StepItem", () => {
         }}
         color="cyan"
         disabled={true}
+        keys={{
+          indexKey: "0,0",
+          nodeKey: "abc",
+        }}
         operateButtons={[
           {
             icon: {
