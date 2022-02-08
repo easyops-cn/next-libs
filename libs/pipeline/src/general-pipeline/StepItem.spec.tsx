@@ -17,7 +17,7 @@ describe("StepItem", () => {
         }}
         color="cyan"
         keys={{
-          indexKey: "0,0",
+          indexKey: [0, 0],
           nodeKey: "abc",
         }}
         onStepItemClick={onStepItemClick}
@@ -48,7 +48,7 @@ describe("StepItem", () => {
         color="cyan"
         disabled={true}
         keys={{
-          indexKey: "0,0",
+          indexKey: [0, 0],
           nodeKey: "abc",
         }}
         operateButtons={[

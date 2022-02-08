@@ -57,20 +57,20 @@ export function GeneralPipeline(
   const stageWrapperRef = useRef();
 
   const _refRepository = useRef<
-    Map<string, { element: HTMLElement; index: string }>
+    Map<string, { element: HTMLElement; index: [number, number] }>
   >(new Map());
 
   const getPathData = (): PathData => {
-    const data = sortBy(
-      [..._refRepository.current.entries()],
-      (item) => item[1].index
-    ).map(([key, { element, index }]) => {
-      const x = element.offsetLeft + element.offsetWidth / 2;
-      const y = element.offsetTop + element.offsetHeight / 2;
-      const [stageIndex, stepIndex] = key.split(",");
-      return { stageIndex, stepIndex, x, y, element, key };
-    });
-    return getPathByNodes(data);
+    const formatData = [..._refRepository.current.entries()].map(
+      ([key, { element, index }]) => {
+        const x = element.offsetLeft + element.offsetWidth / 2;
+        const y = element.offsetTop + element.offsetHeight / 2;
+        const [stageIndex, stepIndex] = index;
+        return { stageIndex, stepIndex, x, y, element, key };
+      }
+    );
+    const sortedData = sortBy(formatData, ["stageIndex", "stepIndex"]);
+    return getPathByNodes(sortedData);
   };
 
   useEffect(() => {
@@ -147,7 +147,7 @@ export function GeneralPipeline(
                   key={item.key}
                   keys={{
                     nodeKey: item.key,
-                    indexKey: `${stageIndex},${itemIndex}`,
+                    indexKey: [stageIndex, itemIndex],
                   }}
                   refRepository={_refRepository.current}
                   title={item.title}
