@@ -12,6 +12,9 @@ import {
 const consoleError = jest.fn();
 window.console.error = consoleError;
 
+(SVGElement as any).prototype.getTotalLength = jest.fn();
+(SVGElement as any).prototype.getPointAtLength = jest.fn();
+
 const data1 = [
   {
     source: { x: 50, y: 50 },
@@ -197,8 +200,6 @@ describe("util", () => {
       "path"
     );
     pathElement.setAttribute("d", "M0,0 L100,100");
-    pathElement.getTotalLength = jest.fn();
-    pathElement.getPointAtLength = jest.fn();
     getPointByProportion(pathElement, 0.5);
   });
 });

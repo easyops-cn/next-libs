@@ -25,9 +25,12 @@ interface StepItemProps {
   }) => void;
   keys: {
     nodeKey: string;
-    indexKey: string;
+    indexKey: [number, number];
   };
-  refRepository?: Map<string, { element: HTMLElement; index: string }>;
+  refRepository?: Map<
+    string,
+    { element: HTMLElement; index: [number, number] }
+  >;
 }
 
 export function StepItem(props: StepItemProps): React.ReactElement {
