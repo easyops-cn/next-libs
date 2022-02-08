@@ -23,8 +23,11 @@ interface StepItemProps {
     hasOperateButtons: boolean;
     disabled: boolean;
   }) => void;
-  nodeKey?: string;
-  refRepository?: Map<string, HTMLElement>;
+  keys: {
+    nodeKey: string;
+    indexKey: string;
+  };
+  refRepository?: Map<string, { element: HTMLElement; index: string }>;
 }
 
 export function StepItem(props: StepItemProps): React.ReactElement {
@@ -36,18 +39,21 @@ export function StepItem(props: StepItemProps): React.ReactElement {
     operateButtons,
     onOperateButtonClick,
     onStepItemClick,
-    nodeKey,
+    keys,
     refRepository,
   } = props;
 
   const ref = useRef<HTMLDivElement>();
 
   useEffect(() => {
-    refRepository?.set(nodeKey, ref.current);
+    refRepository?.set(keys.nodeKey, {
+      element: ref.current,
+      index: keys.indexKey,
+    });
     return () => {
-      refRepository?.delete(nodeKey);
+      refRepository?.delete(keys.nodeKey);
     };
-  }, []);
+  }, [keys]);
 
   const [operateVisible, setOperateVisible] = useState(false);
 
