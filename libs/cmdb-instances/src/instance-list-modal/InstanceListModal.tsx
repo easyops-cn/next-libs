@@ -129,7 +129,8 @@ export function InstanceListModal(
               type="primary"
               onClick={handleOk}
               disabled={
-                props.singleSelect && selectedInstanceListTemp.length > 1
+                !selectedInstanceListTemp.length ||
+                (props.singleSelect && selectedInstanceListTemp.length > 1)
               }
             >
               {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CONFIRM}`)}
