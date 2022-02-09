@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.19.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.19.3...@next-libs/cmdb-instances@6.19.4) (2022-02-09)
+
+
+### Bug Fixes
+
+* **cmdb:** 实例弹窗没有选中实例时禁用确定按钮 ([98c89be](https://github.com/easyops-cn/next-libs/commit/98c89beba921f7bc4e1a6a25a3d2a87d3726370f))
+
+
+
+
+
 ## [6.19.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.19.2...@next-libs/cmdb-instances@6.19.3) (2022-01-27)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
