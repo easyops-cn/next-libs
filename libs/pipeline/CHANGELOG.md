@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/pipeline@0.4.6...@next-libs/pipeline@0.4.7) (2022-02-09)
+
+
+### Bug Fixes
+
+* **general-pipeline:** 修复节点index异常顺序的问题 ([6f534d5](https://github.com/easyops-cn/next-libs/commit/6f534d571d9a437613c7f0f90f2caf3a8d7f4174))
+* **general-pipeline:** 节点排序使用自然排序 ([9b01d5d](https://github.com/easyops-cn/next-libs/commit/9b01d5d257fce544ced39f721f0181c9e46f3e32))
+
+
+
+
+
 ## [0.4.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/pipeline@0.4.5...@next-libs/pipeline@0.4.6) (2022-01-27)
 
 **Note:** Version bump only for package @next-libs/pipeline
