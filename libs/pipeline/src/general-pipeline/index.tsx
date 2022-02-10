@@ -5,9 +5,10 @@ import { AddStepButton, ButtonProps } from "./AddStepButton";
 import { OperateButton, StepItem } from "./StepItem";
 import { MenuIcon } from "@next-core/brick-types";
 import ResizeObserver from "resize-observer-polyfill";
-import { getPathByNodes, PathData } from "./util";
+import { getPathByNodes } from "./util";
 import { Graphics } from "./Graphics";
 import { sortBy } from "lodash";
+import { PathData, pathType, RefRepositoryType } from "./constants";
 
 export interface GeneralPipelineProps {
   stageConfig: {
@@ -36,8 +37,8 @@ export interface GeneralPipelineProps {
    */
   showSerialLine?: boolean;
   renderOperates?(data: any): OperateButton[];
-  onOperateClick?(operate: any, data: any): void;
-  onAddStepClick?(data: any): void;
+  onOperateClick?(operate: { key: string }, data: any): void;
+  onAddStepClick?(data: { key: string | [string, string] }): void;
 }
 
 export function GeneralPipeline(
@@ -56,17 +57,15 @@ export function GeneralPipeline(
 
   const stageWrapperRef = useRef();
 
-  const _refRepository = useRef<
-    Map<string, { element: HTMLElement; index: [number, number] }>
-  >(new Map());
+  const _refRepository = useRef<RefRepositoryType>(new Map());
 
   const getPathData = (): PathData => {
     const formatData = [..._refRepository.current.entries()].map(
-      ([key, { element, index }]) => {
+      ([key, { element, index, nodeData }]) => {
         const x = element.offsetLeft + element.offsetWidth / 2;
         const y = element.offsetTop + element.offsetHeight / 2;
         const [stageIndex, stepIndex] = index;
-        return { stageIndex, stepIndex, x, y, element, key };
+        return { stageIndex, stepIndex, x, y, element, key, nodeData };
       }
     );
     const sortedData = sortBy(formatData, ["stageIndex", "stepIndex"]);
@@ -78,6 +77,7 @@ export function GeneralPipeline(
   }, [_refRepository.current.size, showSerialLine]);
 
   useEffect(() => {
+    // istanbul ignore next
     const resizeObserver = new ResizeObserver(() => {
       setPathData(showSerialLine ? getPathData() : ({} as PathData));
     });
@@ -88,22 +88,34 @@ export function GeneralPipeline(
     };
   }, []);
 
-  const handleStepItemClick = (e: any, data: any) => {
-    if (!e.hasOperateButtons) {
+  const handleStepItemClick = (
+    detail: {
+      hasOperateButtons: boolean;
+      disabled: boolean;
+    },
+    data: any
+  ): void => {
+    if (!detail.hasOperateButtons) {
       onOperateClick?.(null, data);
     }
   };
-  const handleOperateButtonClick = (e: any, data: any) => {
-    onOperateClick?.(e, data);
+  const handleOperateButtonClick = (
+    detail: { key: string },
+    data: any
+  ): void => {
+    onOperateClick?.(detail, data);
   };
 
-  const handleAddStepButtonClick = (e: any) => {
-    if (!e.hasSubButtons) {
-      onAddStepClick?.({ key: e.key });
+  const handleAddStepButtonClick = (data: {
+    key: string;
+    hasSubButtons: boolean;
+  }): void => {
+    if (!data.hasSubButtons) {
+      onAddStepClick?.({ key: data.key });
     }
   };
-  const handleSubButtonClick = (e: any) => {
-    onAddStepClick?.({ key: e.key });
+  const handleSubButtonClick = (data: { key: [string, string] }): void => {
+    onAddStepClick?.({ key: data.key });
   };
 
   const stageHeader = useMemo(
@@ -154,19 +166,18 @@ export function GeneralPipeline(
                   icon={item.icon}
                   color={item.color}
                   disabled={item.disabled}
+                  data={item.data}
                   operateButtons={renderOperates(item.data)}
-                  onOperateButtonClick={(e) =>
-                    handleOperateButtonClick(e, item.data)
-                  }
-                  onStepItemClick={(e) => handleStepItemClick(e, item.data)}
+                  onOperateButtonClick={handleOperateButtonClick}
+                  onStepItemClick={handleStepItemClick}
                 />
               );
             })}
             <AddStepButton
               addButtonProps={stage.addStepButton}
               subButtons={stage.addStepButton?.subButtons}
-              onAddStepButtonClick={(e) => handleAddStepButtonClick(e)}
-              onSubButtonClick={(e) => handleSubButtonClick(e)}
+              onAddStepButtonClick={handleAddStepButtonClick}
+              onSubButtonClick={handleSubButtonClick}
             />
           </div>
         ))}

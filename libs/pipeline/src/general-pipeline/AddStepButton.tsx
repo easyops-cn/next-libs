@@ -27,12 +27,12 @@ export function AddStepButton(props: AddStepButtonProps): React.ReactElement {
 
   if (isEmpty(addButtonProps)) return null;
 
-  const handleAddStepButtonClick = () => {
+  const handleAddStepButtonClick = (): void => {
     if (addButtonProps.disabled) return;
     onAddStepButtonClick?.({ key: addButtonProps.key, hasSubButtons });
   };
 
-  const handleSubButtonClick = (data: any) => {
+  const handleSubButtonClick = (data: ButtonProps): void => {
     onSubButtonClick?.({ key: [addButtonProps.key, data.key] });
     setVisible(false);
   };
