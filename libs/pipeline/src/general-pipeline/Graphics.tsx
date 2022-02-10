@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { PathData } from "./util";
+import { PathData, pathType } from "./constants";
 
 interface GraphicsProps {
   pathData: PathData;

@@ -1,7 +1,14 @@
 /* eslint-disable no-console */
 import { reduce } from "lodash";
 import { path, Path } from "d3-path";
-import { Position, Direction, RADIUS, NodeType } from "./constants";
+import {
+  Position,
+  Direction,
+  RADIUS,
+  NodeType,
+  PathData,
+  pathType,
+} from "./constants";
 
 export const getPosition = ({
   source,
@@ -163,14 +170,9 @@ export const drawStepWithRoundedCorners = ({
   }
 };
 
-export type PathData = {
-  paths: any[];
-  d: string;
-};
-
 export const getPathByNodes = (data: NodeType[]): PathData => {
   let d = "";
-  const paths: any[] = [];
+  const paths: pathType[] = [];
   reduce(
     data,
     (source, target) => {
@@ -228,7 +230,7 @@ export const getPathByNodes = (data: NodeType[]): PathData => {
 
       return target;
     },
-    null
+    null as NodeType
   );
 
   return { paths, d };

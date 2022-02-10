@@ -4,6 +4,7 @@ import style from "./StepItem.module.css";
 import classnames from "classnames";
 import { Button, Tooltip } from "antd";
 import { MenuIcon } from "@next-core/brick-types";
+import { RefRepositoryType } from "./constants";
 
 export type OperateButton = {
   icon: MenuIcon;
@@ -18,19 +19,20 @@ interface StepItemProps {
   color?: string;
   disabled?: boolean;
   operateButtons?: OperateButton[];
-  onOperateButtonClick?: (data: { key: string }) => void;
-  onStepItemClick?: (data: {
-    hasOperateButtons: boolean;
-    disabled: boolean;
-  }) => void;
+  data?: any;
+  onOperateButtonClick?: (detail: { key: string }, data: any) => void;
+  onStepItemClick?: (
+    detail: {
+      hasOperateButtons: boolean;
+      disabled: boolean;
+    },
+    data: any
+  ) => void;
   keys: {
     nodeKey: string;
     indexKey: [number, number];
   };
-  refRepository?: Map<
-    string,
-    { element: HTMLElement; index: [number, number] }
-  >;
+  refRepository?: RefRepositoryType;
 }
 
 export function StepItem(props: StepItemProps): React.ReactElement {
@@ -40,6 +42,7 @@ export function StepItem(props: StepItemProps): React.ReactElement {
     icon,
     title,
     operateButtons,
+    data,
     onOperateButtonClick,
     onStepItemClick,
     keys,
@@ -52,6 +55,7 @@ export function StepItem(props: StepItemProps): React.ReactElement {
     refRepository?.set(keys.nodeKey, {
       element: ref.current,
       index: keys.indexKey,
+      nodeData: data,
     });
     return () => {
       refRepository?.delete(keys.nodeKey);
@@ -60,18 +64,21 @@ export function StepItem(props: StepItemProps): React.ReactElement {
 
   const [operateVisible, setOperateVisible] = useState(false);
 
-  const handleStepItemClick = (e: any): void => {
-    onStepItemClick?.({
-      hasOperateButtons: !!operateButtons,
-      disabled: !!disabled,
-    });
+  const handleStepItemClick = (): void => {
+    onStepItemClick?.(
+      {
+        hasOperateButtons: !!operateButtons,
+        disabled: !!disabled,
+      },
+      data
+    );
     if (!operateButtons) {
       return;
     }
     setOperateVisible(true);
   };
 
-  const handleHideOperate = () => {
+  const handleHideOperate = (): void => {
     setOperateVisible(false);
   };
 
@@ -113,7 +120,7 @@ export function StepItem(props: StepItemProps): React.ReactElement {
                   type="link"
                   disabled={v.disabled}
                   onClick={(e) => {
-                    onOperateButtonClick?.({ key: v.key });
+                    onOperateButtonClick?.({ key: v.key }, data);
                     handleHideOperate();
                   }}
                 >

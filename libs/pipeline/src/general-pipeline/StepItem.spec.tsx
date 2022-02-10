@@ -22,14 +22,18 @@ describe("StepItem", () => {
         }}
         onStepItemClick={onStepItemClick}
         refRepository={refRepository}
+        data={"data"}
       />
     );
     expect(refRepository.has("abc")).toBe(true);
     wrapper.find(".stepItem").simulate("click");
-    expect(onStepItemClick).toHaveBeenLastCalledWith({
-      hasOperateButtons: false,
-      disabled: false,
-    });
+    expect(onStepItemClick).toHaveBeenLastCalledWith(
+      {
+        hasOperateButtons: false,
+        disabled: false,
+      },
+      "data"
+    );
     wrapper.unmount();
     expect(refRepository.has("abc")).toBe(false);
   });
@@ -74,20 +78,27 @@ describe("StepItem", () => {
         ]}
         onOperateButtonClick={onOperateButtonClick}
         onStepItemClick={onStepItemClick}
+        data={"data"}
       />
     );
     wrapper.find(".stepItem").simulate("click", { clientX: 1, clientY: 1 });
-    expect(onStepItemClick).toHaveBeenLastCalledWith({
-      hasOperateButtons: true,
-      disabled: true,
-    });
+    expect(onStepItemClick).toHaveBeenLastCalledWith(
+      {
+        hasOperateButtons: true,
+        disabled: true,
+      },
+      "data"
+    );
     expect(wrapper.find(".operateList").prop("children")).toHaveLength(2);
     wrapper
       .find(".operateList")
       .at(0)
       .simulate("click", { stopPropagation: () => jest.fn() });
     wrapper.find(Button).at(0).simulate("click");
-    expect(onOperateButtonClick).toHaveBeenLastCalledWith({ key: "aa" });
+    expect(onOperateButtonClick).toHaveBeenLastCalledWith(
+      { key: "aa" },
+      "data"
+    );
     wrapper.find(".operateWrapper").simulate("click");
     expect(wrapper.find(".operateList")).toHaveLength(0);
   });

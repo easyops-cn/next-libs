@@ -12,9 +12,6 @@ import {
 const consoleError = jest.fn();
 window.console.error = consoleError;
 
-(SVGElement as any).prototype.getTotalLength = jest.fn();
-(SVGElement as any).prototype.getPointAtLength = jest.fn();
-
 const data1 = [
   {
     source: { x: 50, y: 50 },

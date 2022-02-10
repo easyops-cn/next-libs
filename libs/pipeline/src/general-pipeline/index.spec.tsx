@@ -5,9 +5,6 @@ import { AddStepButton } from "./AddStepButton";
 import { StepItem } from "./StepItem";
 import { Graphics } from "./Graphics";
 
-(SVGElement as any).prototype.getTotalLength = jest.fn();
-(SVGElement as any).prototype.getPointAtLength = jest.fn();
-
 const stageConfig = [
   {
     color: "#B4A9F4",
@@ -149,18 +146,27 @@ describe("GeneralPipeline", () => {
     expect(wrapper.find(".stageHeaderItem")).toHaveLength(2);
     expect(wrapper.find(".stageItemWrapper")).toHaveLength(2);
 
-    wrapper.find(StepItem).at(0).invoke("onStepItemClick")({
-      hasOperateButtons: true,
-      disabled: false,
-    });
+    wrapper.find(StepItem).at(0).invoke("onStepItemClick")(
+      {
+        hasOperateButtons: true,
+        disabled: false,
+      },
+      { first: "a" }
+    );
     expect(onOperateClick).not.toBeCalled();
-    wrapper.find(StepItem).at(0).invoke("onStepItemClick")({
-      hasOperateButtons: false,
-      disabled: false,
-    });
+    wrapper.find(StepItem).at(0).invoke("onStepItemClick")(
+      {
+        hasOperateButtons: false,
+        disabled: false,
+      },
+      { first: "a" }
+    );
     expect(onOperateClick).lastCalledWith(null, { first: "a" });
 
-    wrapper.find(StepItem).at(0).invoke("onOperateButtonClick")({ key: "a" });
+    wrapper.find(StepItem).at(0).invoke("onOperateButtonClick")(
+      { key: "a" },
+      { first: "a" }
+    );
     expect(onOperateClick).lastCalledWith({ key: "a" }, { first: "a" });
 
     wrapper.find(AddStepButton).at(0).invoke("onAddStepButtonClick")({

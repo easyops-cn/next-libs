@@ -9,6 +9,8 @@ configure({ adapter: new Adapter() });
   new Promise((resolve) => flushMicroTasks(resolve));
 
 Element.prototype.scrollIntoView = jest.fn();
+(SVGElement as any).prototype.getTotalLength = jest.fn();
+(SVGElement as any).prototype.getPointAtLength = jest.fn();
 
 if (!window.matchMedia) {
   Object.defineProperty(window, "matchMedia", {
