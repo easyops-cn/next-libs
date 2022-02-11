@@ -8,7 +8,7 @@ import ResizeObserver from "resize-observer-polyfill";
 import { getPathByNodes } from "./util";
 import { Graphics } from "./Graphics";
 import { sortBy } from "lodash";
-import { PathData, pathType, RefRepositoryType } from "./constants";
+import { PathData, PathType, RefRepositoryType } from "./constants";
 
 export interface GeneralPipelineProps {
   stageConfig: {

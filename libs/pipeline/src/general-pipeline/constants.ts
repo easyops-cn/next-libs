@@ -12,7 +12,7 @@ export type NodeType = {
   nodeData?: any;
 };
 
-export type pathType = {
+export type PathType = {
   path: Path;
   pathElement: SVGPathElement;
   source: NodeType;
@@ -20,7 +20,7 @@ export type pathType = {
 };
 
 export type PathData = {
-  paths: pathType[];
+  paths: PathType[];
   d: string;
 };
 
