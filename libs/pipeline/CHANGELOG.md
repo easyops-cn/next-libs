@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/pipeline@0.4.7...@next-libs/pipeline@0.4.8) (2022-02-11)
+
+
+### Bug Fixes
+
+* **general-pipeline:** pathlength 为空时不显示箭头 ([ae8bcee](https://github.com/easyops-cn/next-libs/commit/ae8bcee7d50fda06b529f0358c8b231135800221))
+
+
+
+
+
 ## [0.4.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/pipeline@0.4.6...@next-libs/pipeline@0.4.7) (2022-02-09)
 
 
