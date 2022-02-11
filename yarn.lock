@@ -5557,10 +5557,10 @@ create-react-class@^15.5.3:
     loose-envify "^1.3.1"
     object-assign "^4.1.1"
 
-cronstrue@^1.88.0:
-  version "1.88.0"
-  resolved "https://registry.npmjs.org/cronstrue/-/cronstrue-1.88.0.tgz#3f5fa733905683421b0acc45523b21e4a7742d8c"
-  integrity sha1-P1+nM5BWg0IbCsxFUjsh5Kd0LYw=
+cronstrue@^1.125.0:
+  version "1.125.0"
+  resolved "https://registry.npmjs.org/cronstrue/-/cronstrue-1.125.0.tgz#8030816d033d00caade9b2a9f9b71e69175bcf42"
+  integrity sha512-qkC5mVbVGuuyBVXmam5anaRtbLcgfBUKajoyZqCdf/XBdgF43PsLSEm8eEi2dsI3YbqDPbLSH2mWNzM1dVqHgQ==
 
 cross-env@^7.0.3:
   version "7.0.3"
