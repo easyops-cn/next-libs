@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.19.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.19.4...@next-libs/cmdb-instances@6.19.5) (2022-02-11)
+
+
+### Bug Fixes
+
+* **cmdb:** 请求实例时fields过滤掉已删除的属性 ([91e2bd4](https://github.com/easyops-cn/next-libs/commit/91e2bd4365d3a4342607137daa292fcc3578b2f6))
+
+
+
+
+
 ## [6.19.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.19.3...@next-libs/cmdb-instances@6.19.4) (2022-02-09)
 
 
