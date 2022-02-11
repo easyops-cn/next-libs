@@ -7,7 +7,7 @@ import {
   RADIUS,
   NodeType,
   PathData,
-  pathType,
+  PathType,
 } from "./constants";
 
 export const getPosition = ({
@@ -172,7 +172,7 @@ export const drawStepWithRoundedCorners = ({
 
 export const getPathByNodes = (data: NodeType[]): PathData => {
   let d = "";
-  const paths: pathType[] = [];
+  const paths: PathType[] = [];
   reduce(
     data,
     (source, target) => {
