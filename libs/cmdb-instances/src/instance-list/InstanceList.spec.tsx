@@ -439,7 +439,7 @@ describe("InstanceList", () => {
     const idObjectMap = { [objectId]: modelData };
     const presetConfigs: InstanceListPresetConfigs = {
       query: { status: "运营中" },
-      fieldIds: ["hostname", "ip", "_deviceList_CLUSTER"],
+      fieldIds: ["hostname", "ip"],
     };
     const page = 1;
     const pageSize = 20;
@@ -481,7 +481,7 @@ describe("InstanceList", () => {
     findByText(mockInstanceListTableContent);
 
     const fields: Record<string, boolean> = {};
-    const newFieldIds = ["hostname", "ip", "_deviceList_CLUSTER"];
+    const newFieldIds = ["hostname", "ip"];
     newFieldIds.forEach((id) => (fields[id] = true));
 
     expect(mockInstanceListTable).toBeCalled();
@@ -502,7 +502,7 @@ describe("InstanceList", () => {
     expect(instanceListTableProps.onClickItem).toBe(onClickItem);
 
     expect(InstanceApi_postSearchV3).toBeCalledWith(objectId, {
-      fields: ["hostname", "ip", "_deviceList_CLUSTER", "instanceId"],
+      fields: ["hostname", "ip", "instanceId"],
       ignore_missing_field_error: true,
       page: page,
       page_size: pageSize,
@@ -545,13 +545,7 @@ describe("InstanceList", () => {
     expect(mockCmdbObjectApi_getIdMapName).toBeCalled();
 
     const fields: Record<string, boolean> = {};
-    const newFieldIds = [
-      "hostname",
-      "ip",
-      "_deviceList_CLUSTER",
-      "_object_id",
-      "instanceId",
-    ];
+    const newFieldIds = ["hostname", "ip", "_object_id", "instanceId"];
     newFieldIds.forEach((id) => (fields[id] = true));
 
     expect(InstanceApi_postSearchV3).lastCalledWith(
