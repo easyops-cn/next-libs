@@ -553,19 +553,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
       : fieldIds;
     fieldIds = _sortFieldIds(fieldIds);
     const hideModelData: string[] = modelData.view.hide_columns || [];
-    fieldIds = fieldIds.filter(
-      (field) =>
-        !hideModelData.includes(field) &&
-        (modelData.attrList?.find((attr) => attr.id === field) ||
-          modelData.relation_list?.find((relation) =>
-            relation.left_object_id === relation.right_object_id
-              ? [relation.left_id, relation.right_id].includes(field)
-              : field ===
-                (relation.left_object_id === modelData.objectId
-                  ? relation.left_id
-                  : relation.right_id)
-          ))
-    );
+    fieldIds = fieldIds.filter((field) => !hideModelData.includes(field));
     modelData.isAbstract && fieldIds.push("_object_id");
     return fieldIds;
   };
