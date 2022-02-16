@@ -12,6 +12,7 @@ import {
   InstanceTreeApi_instanceTreeAnchor,
   InstanceTreeApi_instanceTreeSearch,
   CmdbModels,
+  InstanceTreeApi_instanceTree,
 } from "@next-sdk/cmdb-sdk";
 
 import {
@@ -93,6 +94,9 @@ interface CMDBTreeProps {
   selectedInstanceId?: string;
   style?: React.CSSProperties;
   hideObjectNameTooltip?: boolean;
+  expand?: boolean;
+  enabledShowAll?: boolean;
+  notSort?: boolean;
 }
 
 interface CMDBTreeState {
@@ -103,6 +107,8 @@ interface CMDBTreeState {
   autoExpandParent: boolean;
   loading: boolean;
   prevQ: string;
+  prevExpand: boolean;
+  isSearched: boolean; //判断是否发生搜索，展开收起的动作。
 }
 
 export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
@@ -117,7 +123,6 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
   objectMap: Record<string, CmdbModels.ModelCmdbObject> = null;
   relations: string[] = [];
   cacheOnLoad: Map<string, CustomTreeNode[]> = new Map();
-
   constructor(props: CMDBTreeProps) {
     super(props);
     this.state = {
@@ -128,6 +133,8 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
       autoExpandParent: true,
       loading: isEmpty(this.props.treeData),
       prevQ: "",
+      prevExpand: false,
+      isSearched: false,
     };
 
     this.backendSearch = isEmpty(this.props.treeData);
@@ -148,7 +155,7 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
   }
 
   static getDerivedStateFromProps(props: CMDBTreeProps, state: CMDBTreeState) {
-    if (props.q !== state.prevQ) {
+    if (props.q !== state.prevQ && !props.enabledShowAll) {
       return {
         treeData: [] as any[],
         loading: true,
@@ -156,17 +163,78 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
       };
     }
 
+    if (
+      props.enabledShowAll &&
+      (props.expand !== state.prevExpand || props.q !== state.prevQ)
+    ) {
+      let treeData = state.treeData;
+      let loading = state.loading;
+      if (props.expand) {
+        treeData = [];
+        loading = true;
+      } else {
+        if (state.prevQ && !props.q) {
+          treeData = [];
+          loading = true;
+        }
+      }
+      return {
+        treeData,
+        loading,
+        prevExpand: props.expand,
+        prevQ: props.q,
+        isSearched: true,
+      };
+    }
     return null;
   }
-
-  componentDidUpdate() {
-    if (isEmpty(this.state.treeData) && this.state.loading) {
+  async showAll(q: string) {
+    if (this.props.q) {
+      if (this.props.expand) {
+        this.setState({ isSearched: false });
+        this.searchTree(this.props.q);
+      } else {
+        this.setState({ expandKeys: [], isSearched: false });
+      }
+    } else {
+      if (this.props.expand) {
+        let resp = {};
+        try {
+          const data = {
+            ...this.props.treeRequestBody,
+          };
+          resp = await InstanceTreeApi_instanceTree(data);
+        } catch (err) {
+          handleHttpError(err);
+        }
+        this.setState({ isSearched: false });
+        this.updateTreeNodes(resp);
+      } else {
+        const expandKeys: string[] = [];
+        this.setState({ expandKeys, isSearched: false });
+        if (q) {
+          this.initTree();
+        }
+      }
+    }
+  }
+  componentDidUpdate(prevProps: CMDBTreeProps, prevState: CMDBTreeState) {
+    if (
+      !this.props.enabledShowAll &&
+      isEmpty(this.state.treeData) &&
+      this.state.loading
+    ) {
       if (this.props.q) {
         this.searchTree(this.props.q);
       } else {
         if (!this.initializing) {
           this.initTree();
         }
+      }
+    }
+    if (this.props.enabledShowAll) {
+      if (this.state.isSearched) {
+        this.showAll(prevProps.q);
       }
     }
   }
@@ -292,9 +360,11 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
       if (isEmpty(data[id])) {
         data[id] = [];
       }
-      data[id] = sortBy(data[id], this.fields);
+      if (!this.props.notSort) {
+        data[id] = sortBy(data[id], this.fields);
+      }
     }
-
+    //这里改变了顺序
     const totalKeys = [];
     for (const [relation, objectId] of this.relation2ObjectId) {
       totalKeys.push(`___total_for_${objectId}$${relation}`);
@@ -427,7 +497,9 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
           if (instance.children === undefined) {
             instance.children = [];
           }
-          instance[key] = sortBy(instance[key], this.fields);
+          if (!this.props.notSort) {
+            instance[key] = sortBy(instance[key], this.fields);
+          }
           instance.children = [...instance.children, ...instance[key]];
           this.convertTrees(instance[key], keys);
         }
