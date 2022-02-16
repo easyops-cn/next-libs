@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.19.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.19.6...@next-libs/cmdb-instances@6.19.7) (2022-02-16)
+
+
+### Bug Fixes
+
+* **cmdb:** 不过滤模型中不存在的字段 ([46054df](https://github.com/easyops-cn/next-libs/commit/46054df182eaac97ad44a1c27f99fe36f6ac3193))
+
+
+
+
+
 ## [6.19.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.19.5...@next-libs/cmdb-instances@6.19.6) (2022-02-15)
 
 
