@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.1.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-tree@4.0.4...@next-libs/cmdb-tree@4.1.0) (2022-02-16)
+
+
+### Features
+
+* cmdb-instances.relation-path-tree构件支持“展开全部”和“收起全部功”功能 refs DEVOPS_MANAGEMENT-347 ([157014b](https://github.com/easyops-cn/next-libs/commit/157014bc212cea6a61c06b12c27624ce64e25d59))
+
+
+
+
+
 ## [4.0.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-tree@4.0.3...@next-libs/cmdb-tree@4.0.4) (2022-01-14)
 
 
