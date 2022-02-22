@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.20](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.0.19...@next-libs/code-editor-components@4.0.20) (2022-02-22)
+
+
+### Bug Fixes
+
+* add new builtin globals such as `STATE` ([e9c1ba5](https://github.com/easyops-cn/next-libs/commit/e9c1ba55505b1807931ef9fbdf721e76d034a4bd))
+
+
+
+
+
 ## [4.0.19](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.0.18...@next-libs/code-editor-components@4.0.19) (2022-01-27)
 
 **Note:** Version bump only for package @next-libs/code-editor-components
