@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.21.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.20.0...@next-libs/cmdb-instances@6.21.0) (2022-02-22)
+
+
+### Features
+
+* make cmdb-instances-filter-form support disabling search and advancedSearch ([b2fc28a](https://github.com/easyops-cn/next-libs/commit/b2fc28a008fa60e3913a900d6f729b4945cb25dd))
+
+
+
+
+
 # [6.20.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.19.8...@next-libs/cmdb-instances@6.20.0) (2022-02-22)
 
 
