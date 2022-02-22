@@ -14,6 +14,7 @@ export interface DisplaySettingsProps {
   modelData: Partial<CmdbModels.ModelCmdbObject>;
   objectId?: string;
   extraDisabledField?: string;
+  extraDisabledFields?: string[];
   onChange?(fields: string[]): void;
 }
 
@@ -21,6 +22,7 @@ interface DisplaySettingsState {
   nextFields: string[];
   q: string;
   filteredList: any;
+  extraDisabledFieldSet: Set<string>;
 }
 
 export class DisplaySettings extends React.Component<
@@ -59,16 +61,27 @@ export class DisplaySettings extends React.Component<
     }));
 
     this.state = {
-      nextFields: props.currentFields.slice(),
+      nextFields: props.currentFields ? props.currentFields.slice() : [],
       q: "",
       filteredList: this.attrAndRelationList,
+      extraDisabledFieldSet: new Set(props.extraDisabledFields),
     };
     this.debounceHandleSearch = debounce(this.filterColTag, 300);
   }
 
   componentDidUpdate(prevProps: DisplaySettingsProps) {
     if (this.props.currentFields !== prevProps.currentFields) {
-      this.setState({ nextFields: this.props.currentFields.slice() });
+      this.setState({
+        nextFields: this.props.currentFields
+          ? this.props.currentFields.slice()
+          : [],
+      });
+    }
+
+    if (this.props.extraDisabledFields !== prevProps.extraDisabledFields) {
+      this.setState({
+        extraDisabledFieldSet: new Set(this.props.extraDisabledFields),
+      });
     }
   }
 
@@ -85,7 +98,9 @@ export class DisplaySettings extends React.Component<
   renderCheckbox(attr: any, field: "nextFields" | "otherFields") {
     const fieldsKey = "nextFields";
     const checked = this.state[fieldsKey].includes(attr.id);
-    const disabled = attr.id === this.props.extraDisabledField;
+    const disabled =
+      attr.id === this.props.extraDisabledField ||
+      this.state.extraDisabledFieldSet.has(attr.id);
     return (
       <Col
         key={attr.id}
