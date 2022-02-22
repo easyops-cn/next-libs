@@ -31,6 +31,8 @@ export interface CmdbInstancesSelectPanelProps {
   isFilterView?: boolean; //是否过滤视图属性
   onFetchedInstances?: (instanceList: any[]) => void; // objectId改变后触发
   relation?: Partial<ModifiedModelObjectRelation>;
+  searchDisabled?: boolean;
+  advancedSearchDisabled?: boolean;
 }
 
 export function CmdbInstancesSelectPanel(
@@ -175,6 +177,8 @@ export function CmdbInstancesSelectPanel(
         pageSize={props.addInstancesModalPageSize}
         showSizeChanger={props.showSizeChanger}
         pageSizeOptions={props.pageSizeOptions}
+        searchDisabled={props.searchDisabled}
+        advancedSearchDisabled={props.advancedSearchDisabled}
       />
       <InstanceListModal
         objectMap={props.objectMap}
