@@ -25,6 +25,7 @@ export function DisplaySettingsModal(
     modelData,
     currentFields,
     defaultFields,
+    extraDisabledFields,
     onOk,
     onCancel,
   } = props;
@@ -36,7 +37,7 @@ export function DisplaySettingsModal(
   );
 
   const handleReset = (): void => {
-    const fields = defaultFields.slice();
+    const fields = defaultFields ? defaultFields.slice() : [];
 
     setNextFields(fields);
     onOk?.({ fields, isReset: true });
@@ -85,7 +86,8 @@ export function DisplaySettingsModal(
       <DisplaySettings
         objectId={objectId}
         modelData={modelData}
-        currentFields={currentFields}
+        currentFields={nextFields}
+        extraDisabledFields={extraDisabledFields}
         onChange={(fields) => setNextFields(fields)}
       />
     </Modal>
