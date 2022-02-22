@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.20.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.19.8...@next-libs/cmdb-instances@6.20.0) (2022-02-22)
+
+
+### Features
+
+* **DisplaySettings:** add extraDisabledFields property ([05a06f6](https://github.com/easyops-cn/next-libs/commit/05a06f61cc971eb0e2e3d793ff22521ca7917de0))
+
+
+
+
+
 ## [6.19.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.19.7...@next-libs/cmdb-instances@6.19.8) (2022-02-22)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
