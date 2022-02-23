@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/pipeline@0.4.8...@next-libs/pipeline@0.5.0) (2022-02-23)
+
+
+### Features
+
+* **general-pipeline:** add operateButtonsTrigger property ([2dda058](https://github.com/easyops-cn/next-libs/commit/2dda058ac162fe3b99078f1c33ddfff535c7acad))
+
+
+
+
+
 ## [0.4.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/pipeline@0.4.7...@next-libs/pipeline@0.4.8) (2022-02-11)
 
 
