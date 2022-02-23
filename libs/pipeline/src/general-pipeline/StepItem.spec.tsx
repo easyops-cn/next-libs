@@ -81,7 +81,7 @@ describe("StepItem", () => {
         data={"data"}
       />
     );
-    wrapper.find(".stepItem").simulate("click", { clientX: 1, clientY: 1 });
+    wrapper.find(".stepItem").simulate("click", {} as any);
     expect(onStepItemClick).toHaveBeenLastCalledWith(
       {
         hasOperateButtons: true,
@@ -100,6 +100,54 @@ describe("StepItem", () => {
       "data"
     );
     wrapper.find(".operateWrapper").simulate("click");
+    expect(wrapper.find(".operateList")).toHaveLength(0);
+  });
+
+  it("should work when operateButtonsTrigger is hover", () => {
+    const wrapper = shallow(
+      <StepItem
+        title="title"
+        icon={{
+          lib: "antd",
+          icon: "minus-circle",
+          theme: "outlined",
+        }}
+        color="cyan"
+        disabled={true}
+        keys={{
+          indexKey: [0, 0],
+          nodeKey: "abc",
+        }}
+        operateButtons={[
+          {
+            icon: {
+              lib: "antd",
+              icon: "minus-circle",
+              theme: "outlined",
+            },
+            key: "aa",
+            disabled: false,
+          },
+          {
+            icon: {
+              lib: "antd",
+              icon: "minus-circle",
+              theme: "outlined",
+            },
+            key: "bb",
+            tooltip: "tooltip",
+            disabled: true,
+          },
+        ]}
+        data={"data"}
+        operateButtonsTrigger={"hover"}
+      />
+    );
+    wrapper.find(".stepItem").simulate("click", {} as any);
+    expect(wrapper.find(".operateList")).toHaveLength(0);
+    wrapper.find(".stepItem").prop("onMouseEnter")({} as any);
+    expect(wrapper.find(".operateList").prop("children")).toHaveLength(2);
+    wrapper.find(".stepItem").prop("onMouseLeave")({} as any);
     expect(wrapper.find(".operateList")).toHaveLength(0);
   });
 });
