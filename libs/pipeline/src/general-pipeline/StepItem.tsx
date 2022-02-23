@@ -19,6 +19,7 @@ interface StepItemProps {
   color?: string;
   disabled?: boolean;
   operateButtons?: OperateButton[];
+  operateButtonsTrigger?: "click" | "hover";
   data?: any;
   onOperateButtonClick?: (detail: { key: string }, data: any) => void;
   onStepItemClick?: (
@@ -43,11 +44,14 @@ export function StepItem(props: StepItemProps): React.ReactElement {
     title,
     operateButtons,
     data,
+    operateButtonsTrigger = "click",
     onOperateButtonClick,
     onStepItemClick,
     keys,
     refRepository,
   } = props;
+
+  const [operateVisible, setOperateVisible] = useState(false);
 
   const ref = useRef<HTMLDivElement>();
 
@@ -62,7 +66,12 @@ export function StepItem(props: StepItemProps): React.ReactElement {
     };
   }, [keys]);
 
-  const [operateVisible, setOperateVisible] = useState(false);
+  const handleMouseEnter = (): void => {
+    operateButtonsTrigger === "hover" && setOperateVisible(true);
+  };
+  const handleMouseLeave = (): void => {
+    operateButtonsTrigger === "hover" && setOperateVisible(false);
+  };
 
   const handleStepItemClick = (): void => {
     onStepItemClick?.(
@@ -72,10 +81,9 @@ export function StepItem(props: StepItemProps): React.ReactElement {
       },
       data
     );
-    if (!operateButtons) {
-      return;
+    if (operateButtons && operateButtonsTrigger === "click") {
+      setOperateVisible(true);
     }
-    setOperateVisible(true);
   };
 
   const handleHideOperate = (): void => {
@@ -90,6 +98,8 @@ export function StepItem(props: StepItemProps): React.ReactElement {
           [style.stepItemDisabled]: disabled,
         })}
         ref={ref}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
         onClick={handleStepItemClick}
       >
         <div
@@ -131,13 +141,15 @@ export function StepItem(props: StepItemProps): React.ReactElement {
           </div>
         )}
       </div>
-      <div
-        className={style.operateWrapper}
-        style={{
-          display: operateVisible ? "block" : "none",
-        }}
-        onClick={handleHideOperate}
-      />
+      {operateButtonsTrigger === "click" && (
+        <div
+          className={style.operateWrapper}
+          style={{
+            display: operateVisible ? "block" : "none",
+          }}
+          onClick={handleHideOperate}
+        />
+      )}
     </>
   );
 }

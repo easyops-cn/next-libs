@@ -32,6 +32,7 @@ export interface GeneralPipelineProps {
       data?: any;
     }[];
   };
+  operateButtonsTrigger?: "click" | "hover";
   /**
    * notice⚠️: 供告警规则构件使用，后续可能会被废弃
    */
@@ -48,6 +49,7 @@ export function GeneralPipeline(
     stageConfig,
     dataSource,
     showSerialLine,
+    operateButtonsTrigger,
     renderOperates,
     onOperateClick,
     onAddStepClick,
@@ -170,6 +172,7 @@ export function GeneralPipeline(
                   operateButtons={renderOperates(item.data)}
                   onOperateButtonClick={handleOperateButtonClick}
                   onStepItemClick={handleStepItemClick}
+                  operateButtonsTrigger={operateButtonsTrigger}
                 />
               );
             })}

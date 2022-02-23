@@ -10,6 +10,8 @@ import {
   PathType,
 } from "./constants";
 
+const { min, abs } = Math;
+
 export const getPosition = ({
   source,
   target,
@@ -57,36 +59,46 @@ export const drawPolylineWithRoundedCorners = ({
   switch (direction) {
     case Direction.HORIZONTAL: {
       controlPoint = { x: target.x, y: source.y };
+      const _radius = min(
+        RADIUS,
+        abs(controlPoint.x - source.x),
+        abs(controlPoint.y - target.y)
+      );
       controlPointS = {
         x:
           controlPoint.x > source.x
-            ? controlPoint.x - RADIUS
-            : controlPoint.x + RADIUS,
+            ? controlPoint.x - _radius
+            : controlPoint.x + _radius,
         y: controlPoint.y,
       };
       controlPointT = {
         x: controlPoint.x,
         y:
           controlPoint.y > target.y
-            ? controlPoint.y - RADIUS
-            : controlPoint.y + RADIUS,
+            ? controlPoint.y - _radius
+            : controlPoint.y + _radius,
       };
       break;
     }
     case Direction.VERTICAL: {
       controlPoint = { x: source.x, y: target.y };
+      const _radius = min(
+        RADIUS,
+        abs(controlPoint.x - target.x),
+        abs(controlPoint.y - source.y)
+      );
       controlPointS = {
         x: controlPoint.x,
         y:
           controlPoint.y > source.y
-            ? controlPoint.y - RADIUS
-            : controlPoint.y + RADIUS,
+            ? controlPoint.y - _radius
+            : controlPoint.y + _radius,
       };
       controlPointT = {
         x:
           controlPoint.x > target.x
-            ? controlPoint.x - RADIUS
-            : controlPoint.x + RADIUS,
+            ? controlPoint.x - _radius
+            : controlPoint.x + _radius,
         y: controlPoint.y,
       };
       break;
