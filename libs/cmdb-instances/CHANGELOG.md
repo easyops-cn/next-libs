@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.21.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.1...@next-libs/cmdb-instances@6.21.2) (2022-02-25)
+
+
+### Bug Fixes
+
+* 使InstanceListModal可以隐藏实例列表的搜索条件 ([06a1b5b](https://github.com/easyops-cn/next-libs/commit/06a1b5b05a94b83c7783e9dd2c17017e9a1dda85)), closes [Refs#MONITOR-2935](https://github.com/Refs/issues/MONITOR-2935)
+
+
+
+
+
 ## [6.21.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.0...@next-libs/cmdb-instances@6.21.1) (2022-02-25)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
