@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.21.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.2...@next-libs/cmdb-instances@6.21.3) (2022-02-28)
+
+
+### Bug Fixes
+
+* **DisplaySettingsModal:** reset fields when modal close ([8b1e37a](https://github.com/easyops-cn/next-libs/commit/8b1e37a668a37e1170d3add07f159db40a842efd))
+
+
+
+
+
 ## [6.21.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.1...@next-libs/cmdb-instances@6.21.2) (2022-02-25)
 
 
