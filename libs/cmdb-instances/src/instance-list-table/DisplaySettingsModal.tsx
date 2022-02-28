@@ -43,6 +43,11 @@ export function DisplaySettingsModal(
     onOk?.({ fields, isReset: true });
   };
 
+  const handleCancel = (): void => {
+    setNextFields(currentFields ? [...currentFields] : []);
+    onCancel?.();
+  };
+
   return (
     <Modal
       title={t(K.DISPLAY_SETTINGS)}
@@ -61,7 +66,7 @@ export function DisplaySettingsModal(
           <div style={{ marginLeft: "auto" }}>
             <Button
               type="default"
-              onClick={onCancel}
+              onClick={handleCancel}
               style={{ marginRight: 10 }}
               data-testid="cancel-button"
             >
@@ -78,7 +83,7 @@ export function DisplaySettingsModal(
           </div>
         </div>
       }
-      onCancel={onCancel}
+      onCancel={handleCancel}
       destroyOnClose={true}
       width={780}
       centered={true}
