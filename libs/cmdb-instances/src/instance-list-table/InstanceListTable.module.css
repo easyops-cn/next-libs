@@ -15,7 +15,7 @@
 }
 
 .totalText {
-  color: var(--antd-paination-total-text, #bfbfbf);
+  color: var(--antd-pagination-total-text, #bfbfbf);
 }
 
 .totalText .total {
