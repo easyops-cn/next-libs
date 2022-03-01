@@ -64,6 +64,7 @@ interface ModelAttributeFormProps extends FormComponentProps {
     | InstanceApi_GetDefaultValueTemplateResponseBody
     | Partial<InstanceApi_GetDetailResponseBody>;
   showCancelButton?: boolean;
+  confirmText?: string;
   cancelText?: string;
   cancelType?: ButtonType;
   onCancel?(): void;
@@ -482,6 +483,7 @@ export class ModelAttributeForm extends Component<
       allowContinueCreate,
       showCancelButton,
       cancelText,
+      confirmText,
       cancelType,
     } = this.props;
     const { getFieldDecorator } = form;
@@ -629,7 +631,7 @@ export class ModelAttributeForm extends Component<
               }
               data-testid="submit-btn"
             >
-              {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.SAVE}`)}
+              {confirmText ?? i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.SAVE}`)}
             </Button>
 
             {showCancelButton && (
