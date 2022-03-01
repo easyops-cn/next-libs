@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.21.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.4...@next-libs/cmdb-instances@6.21.5) (2022-03-01)
+
+
+### Bug Fixes
+
+* **cmdb:** 新建实例可配置确定按钮的文案 ([d857a93](https://github.com/easyops-cn/next-libs/commit/d857a9376051a4e72cd9d51e96ad438fd1d49bde))
+
+
+
+
+
 ## [6.21.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.3...@next-libs/cmdb-instances@6.21.4) (2022-02-28)
 
 
