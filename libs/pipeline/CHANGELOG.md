@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/pipeline@0.5.0...@next-libs/pipeline@0.6.0) (2022-03-07)
+
+
+### Features
+
+* adapt to the dark theme ([a1e8f06](https://github.com/easyops-cn/next-libs/commit/a1e8f06bf097a0e94cbd2f35c648a52f73ecd32f)), closes [Refs#BRICK_STORE-2591](https://github.com/Refs/issues/BRICK_STORE-2591)
+
+
+
+
+
 # [0.5.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/pipeline@0.4.8...@next-libs/pipeline@0.5.0) (2022-02-23)
 
 
