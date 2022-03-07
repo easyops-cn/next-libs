@@ -30,6 +30,7 @@ export interface CmdbInstancesInputFormItemProps {
   onChange?: (value: string[]) => void;
   onChangeV2?: (value: any[]) => void;
   defaultQuery?: { [fieldId: string]: any }[];
+  addButtonDisabled?: boolean;
 }
 
 export const LegacyCmdbInstancesInputFormItem = (
@@ -343,6 +344,7 @@ export const LegacyCmdbInstancesInputFormItem = (
         <Button
           className={style.modalButton}
           onClick={openSelectInstancesModal}
+          disabled={props.addButtonDisabled}
         >
           {text}
         </Button>
