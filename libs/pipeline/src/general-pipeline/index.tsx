@@ -9,6 +9,7 @@ import { getPathByNodes } from "./util";
 import { Graphics } from "./Graphics";
 import { sortBy } from "lodash";
 import { PathData, PathType, RefRepositoryType } from "./constants";
+import { useCurrentTheme } from "@next-core/brick-kit";
 
 export interface GeneralPipelineProps {
   stageConfig: {
@@ -120,9 +121,15 @@ export function GeneralPipeline(
     onAddStepClick?.({ key: data.key });
   };
 
+  const theme = useCurrentTheme();
+
+  const pipelineTheme = useMemo(() => {
+    return theme === "dark-v2" ? "dark" : "light";
+  }, [theme]);
+
   const stageHeader = useMemo(
     () => (
-      <div className={style.stageHeader}>
+      <div className={style.stageHeader} data-pipeline-theme={pipelineTheme}>
         {stageConfig.map((v) => (
           <div
             key={v.key}
@@ -149,7 +156,11 @@ export function GeneralPipeline(
   return (
     <>
       {stageHeader}
-      <div className={style.stageWrapper} ref={stageWrapperRef}>
+      <div
+        className={style.stageWrapper}
+        data-pipeline-theme={pipelineTheme}
+        ref={stageWrapperRef}
+      >
         {showSerialLine && _refRepository.current.size !== 0 && (
           <Graphics pathData={pathData} />
         )}

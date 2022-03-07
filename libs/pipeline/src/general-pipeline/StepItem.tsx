@@ -1,10 +1,11 @@
 import { GeneralIcon } from "@next-libs/basic-components";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useMemo } from "react";
 import style from "./StepItem.module.css";
 import classnames from "classnames";
 import { Button, Tooltip } from "antd";
 import { MenuIcon } from "@next-core/brick-types";
 import { RefRepositoryType } from "./constants";
+import { useCurrentTheme } from "@next-core/brick-kit";
 
 export type OperateButton = {
   icon: MenuIcon;
@@ -90,12 +91,18 @@ export function StepItem(props: StepItemProps): React.ReactElement {
     setOperateVisible(false);
   };
 
+  const theme = useCurrentTheme();
+  const isDark = useMemo(() => {
+    return theme === "dark-v2";
+  }, [theme]);
+
   return (
     <>
       <div
         className={classnames(style.stepItem, {
           [style.stepItemActive]: operateVisible,
           [style.stepItemDisabled]: disabled,
+          [style.stepItemDark]: isDark,
         })}
         ref={ref}
         onMouseEnter={handleMouseEnter}
@@ -104,13 +111,17 @@ export function StepItem(props: StepItemProps): React.ReactElement {
       >
         <div
           className={style.colorTip}
-          style={{ backgroundColor: disabled ? "#D9D9D9" : color }}
+          style={{
+            backgroundColor: disabled
+              ? "var(--color-text-divider-line)"
+              : color,
+          }}
         />
         <div />
         <GeneralIcon
           icon={{
             ...icon,
-            color: disabled ? "#D9D9D9" : color,
+            color: disabled ? "var(--color-text-divider-line)" : color,
           }}
           style={{ fontSize: 16 }}
         />
