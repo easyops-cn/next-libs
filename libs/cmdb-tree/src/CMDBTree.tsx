@@ -3,7 +3,7 @@
 import React from "react";
 import { Tree, Spin, Empty, Tooltip } from "antd";
 import { EventDataNode, DataNode } from "antd/lib/tree";
-import { sortBy, isEmpty, keyBy, get } from "lodash";
+import { sortBy, isEmpty, keyBy, get, cloneDeep } from "lodash";
 
 import { handleHttpError } from "@next-core/brick-kit";
 import {
@@ -97,6 +97,7 @@ interface CMDBTreeProps {
   expand?: boolean;
   enabledShowAll?: boolean;
   notSort?: boolean;
+  useInitialRequest?: boolean;
 }
 
 interface CMDBTreeState {
@@ -123,6 +124,7 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
   objectMap: Record<string, CmdbModels.ModelCmdbObject> = null;
   relations: string[] = [];
   cacheOnLoad: Map<string, CustomTreeNode[]> = new Map();
+  initialRequest: { tree: CmdbModels.ModelInstanceTreeRootNode };
   constructor(props: CMDBTreeProps) {
     super(props);
     this.state = {
@@ -138,6 +140,7 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
     };
 
     this.backendSearch = isEmpty(this.props.treeData);
+    this.initialRequest = cloneDeep(this.props.treeRequestBody);
     this.onExpand = this.onExpand.bind(this);
     this.onLoadData = this.onLoadData.bind(this);
     this.renderTitle = this.renderTitle.bind(this);
@@ -200,9 +203,11 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
       if (this.props.expand) {
         let resp = {};
         try {
-          const data = {
-            ...this.props.treeRequestBody,
-          };
+          const data = this.props.useInitialRequest
+            ? { ...this.initialRequest }
+            : {
+                ...this.props.treeRequestBody,
+              };
           resp = await InstanceTreeApi_instanceTree(data);
         } catch (err) {
           handleHttpError(err);
@@ -272,6 +277,7 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
     this.objectId2ShowKeys = getObjectId2ShowKeys(objectList);
     this.objectIds = getObjectIds(objectList, treeRequest);
     // inside `fixRequestFields`, treeRequestBody will be updated
+    //fixRequestFields改变了props.treeRequest
     this.fields = fixRequestFields(objectList, treeRequest);
 
     const promises: any[] = [];
@@ -398,11 +404,17 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
     objectId: string = undefined,
     instanceId: string = undefined
   ) {
-    const data = {
-      instanceId,
-      objectId,
-      ...this.props.treeRequestBody,
-    };
+    const data = this.props.useInitialRequest
+      ? {
+          instanceId,
+          objectId,
+          ...this.initialRequest,
+        }
+      : {
+          instanceId,
+          objectId,
+          ...this.props.treeRequestBody,
+        };
     try {
       const resp = await InstanceTreeApi_instanceTreeExpand(data);
       return resp;
@@ -412,12 +424,19 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
   }
 
   async anchorTree(objectId: string, instanceId: string) {
-    const data = {
-      object_id: objectId,
-      instanceId,
-      ignore_single: false,
-      ...this.props.treeRequestBody,
-    };
+    const data = this.props.useInitialRequest
+      ? {
+          object_id: objectId,
+          instanceId,
+          ignore_single: false,
+          ...this.initialRequest,
+        }
+      : {
+          object_id: objectId,
+          instanceId,
+          ignore_single: false,
+          ...this.props.treeRequestBody,
+        };
 
     try {
       const resp = await InstanceTreeApi_instanceTreeAnchor(data);
@@ -443,14 +462,23 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
     }
 
     try {
-      const data = {
-        query: {
-          $or: or,
-        },
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        ignore_single: false,
-        ...this.props.treeRequestBody,
-      };
+      const data = this.props.useInitialRequest
+        ? {
+            query: {
+              $or: or,
+            },
+            // eslint-disable-next-line @typescript-eslint/naming-convention
+            ignore_single: false,
+            ...this.initialRequest,
+          }
+        : {
+            query: {
+              $or: or,
+            },
+            // eslint-disable-next-line @typescript-eslint/naming-convention
+            ignore_single: false,
+            ...this.props.treeRequestBody,
+          };
       const resp = await InstanceTreeApi_instanceTreeSearch(data);
       this.updateTreeNodes(resp);
     } catch (err) {
