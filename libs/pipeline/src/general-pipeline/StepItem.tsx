@@ -113,7 +113,7 @@ export function StepItem(props: StepItemProps): React.ReactElement {
           className={style.colorTip}
           style={{
             backgroundColor: disabled
-              ? "var(--color-text-divider-line)"
+              ? "var(--pipeline-stage-item-disabled-color)"
               : color,
           }}
         />
@@ -121,7 +121,9 @@ export function StepItem(props: StepItemProps): React.ReactElement {
         <GeneralIcon
           icon={{
             ...icon,
-            color: disabled ? "var(--color-text-divider-line)" : color,
+            color: disabled
+              ? "var(--pipeline-stage-item-disabled-color)"
+              : color,
           }}
           style={{ fontSize: 16 }}
         />

@@ -26,7 +26,7 @@
   }
 
   &.stepItemDisabled {
-    background: var(--color-fill-bg-base-1);
+    background: var(--pipeline-stage-item-disabled-bg);
 
     .stepName {
       color: var(--color-disabled-text);

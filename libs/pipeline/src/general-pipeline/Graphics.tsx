@@ -21,7 +21,12 @@ export function Graphics(props: GraphicsProps): React.ReactElement {
 
   return (
     <svg style={{ position: "absolute", width: "100%", height: "100%" }}>
-      <path d={d} stroke="var(--color-text-divider-line)" fill="none" strokeWidth="1" />
+      <path
+        d={d}
+        stroke="var(--pipeline-stage-item-disabled-color)"
+        fill="none"
+        strokeWidth="1"
+      />
       {pathLength > 0 &&
         Array(5)
           .fill(undefined)
@@ -49,7 +54,13 @@ export function Graphics(props: GraphicsProps): React.ReactElement {
               </path>
             );
           })}
-      <rect x="0" y="0" width="27" height="10" fill="var(--pipeline-stage-item-bg)" />
+      <rect
+        x="0"
+        y="0"
+        width="27"
+        height="10"
+        fill="var(--pipeline-stage-item-bg)"
+      />
     </svg>
   );
 }
