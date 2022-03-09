@@ -14,6 +14,7 @@ export interface LinkProps {
   to?: LocationDescriptor<PluginHistoryState>;
   href?: string;
   innerRef?: string;
+  noEmptyHref?: boolean;
   replace?: boolean;
   target?: string;
   onClick?: LinkClickFn;
@@ -28,9 +29,9 @@ type LinkClickFn = (
  * The public API for rendering a history-aware <a>.
  */
 export function Link(props: LinkProps): React.ReactElement {
-  const { innerRef, replace, to, ...rest } = props; // eslint-disable-line no-unused-vars
+  const { innerRef, replace, to, href, noEmptyHref, ...rest } = props; // eslint-disable-line no-unused-vars
   const history = getHistory();
-  const href = useMemo(() => {
+  const computedHref = useMemo(() => {
     if (props.href) {
       return props.href;
     } else {
@@ -65,11 +66,14 @@ export function Link(props: LinkProps): React.ReactElement {
     }
   };
 
+  if (computedHref || !noEmptyHref) {
+    rest.href = computedHref;
+  }
+
   return (
     <a
       {...rest}
       onClick={(event) => handleClick(event, history)}
-      href={href}
       ref={innerRef}
     />
   );
