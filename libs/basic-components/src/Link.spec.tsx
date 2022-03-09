@@ -42,4 +42,23 @@ describe("Link", () => {
     />
     `);
   });
+
+  it("should render with no empty href", () => {
+    const wrapper = shallow(<Link noEmptyHref />);
+    expect(wrapper).toMatchInlineSnapshot(`
+    <a
+      onClick={[Function]}
+    />
+    `);
+
+    wrapper.setProps({
+      href: "http://192.168.100.163",
+    });
+    expect(wrapper).toMatchInlineSnapshot(`
+    <a
+      href="http://192.168.100.163"
+      onClick={[Function]}
+    />
+    `);
+  });
 });
