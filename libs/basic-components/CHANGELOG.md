@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.4.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@3.3.1...@next-libs/basic-components@3.4.0) (2022-03-09)
+
+
+### Features
+
+* **link:** support setting noEmptyHref ([fe6ba6f](https://github.com/easyops-cn/next-libs/commit/fe6ba6f3828242abb5fd50d274cc90f18280ec4d))
+
+
+
+
+
 ## [3.3.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@3.3.0...@next-libs/basic-components@3.3.1) (2022-01-27)
 
 **Note:** Version bump only for package @next-libs/basic-components
