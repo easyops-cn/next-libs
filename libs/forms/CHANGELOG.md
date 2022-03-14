@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.17](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@3.2.16...@next-libs/forms@3.2.17) (2022-03-14)
+
+
+### Bug Fixes
+
+* typo ([bd1a8f7](https://github.com/easyops-cn/next-libs/commit/bd1a8f7e864179641970eb94b5d4473936de3f1a))
+
+
+
+
+
 ## [3.2.16](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@3.2.15...@next-libs/forms@3.2.16) (2022-03-11)
 
 
