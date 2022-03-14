@@ -44,6 +44,6 @@ forms\.general-form .formItem {
   color: var(--color-secondary-text, #8c8c8c);
 
   &:hover {
-    color: var(--color-normal-text, #595959;);
+    color: var(--color-normal-text, #595959);
   }
 }
