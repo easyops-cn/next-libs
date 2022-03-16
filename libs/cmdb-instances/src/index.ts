@@ -10,3 +10,4 @@ export * from "./instance-list/InstanceList";
 export * from "./cmdb-instances-input-form/CmdbInstancesInputFormItem";
 export * from "./cmdb-instances-select-panel/CmdbInstancesSelectPanel";
 export * from "./instance-detail/InstanceDetail";
+export * from "./float-display-brick/FloatDisplayBrick";
