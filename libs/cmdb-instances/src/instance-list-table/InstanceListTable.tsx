@@ -11,7 +11,7 @@ import {
   message,
   Typography,
 } from "antd";
-import { isNil, isBoolean, compact, map, uniq } from "lodash";
+import { isNil, isBoolean, compact, map } from "lodash";
 import { CopyOutlined, DeleteOutlined } from "@ant-design/icons";
 import { ColumnType, TablePaginationConfig, TableProps } from "antd/lib/table";
 import {
@@ -53,7 +53,8 @@ import { BrickAsComponent } from "@next-core/brick-kit";
 import { NS_LIBS_CMDB_INSTANCES, K } from "../i18n/constants";
 import i18n from "i18next";
 import { CmdbUrlLink } from "../cmdb-url-link/CmdbUrlLink";
-const { Paragraph } = Typography;
+import { FloatDisplayBrick } from "../float-display-brick/FloatDisplayBrick";
+// const { Paragraph } = Typography;
 export interface CustomColumn extends ColumnType<Record<string, unknown>> {
   useBrick: UseBrickConf;
 }
@@ -613,6 +614,11 @@ export class LegacyInstanceListTable extends React.Component<
         case ModelAttributeValueType.STRING:
           tempColumns = (v: string) => v;
           break;
+        case ModelAttributeValueType.FLOAT:
+          tempColumns = (value: number) => {
+            return <FloatDisplayBrick floatValue={value} />;
+          };
+          break;
         default:
           if (object.objectId === "HOST" && attribute.id in customRules) {
             tempColumns = (
@@ -998,8 +1004,10 @@ export class LegacyInstanceListTable extends React.Component<
     this.state.columns.map((column) => {
       const dataIndex = column.dataIndex as string;
       // istanbul ignore next
-      if (this.props.modelData.attrList.find((attr) => attr.id === dataIndex)
-      ?.value?.mode === "url") {
+      if (
+        this.props.modelData.attrList.find((attr) => attr.id === dataIndex)
+          ?.value?.mode === "url"
+      ) {
         column.render = (text, row, index) => CmdbUrlLink({ linkStr: text });
       }
       if (

@@ -54,6 +54,7 @@ import {
 import { isArray } from "util";
 import { UseBrickConf } from "@next-core/brick-types";
 import { CmdbUrlLink } from "../cmdb-url-link/CmdbUrlLink";
+import { FloatDisplayBrick } from "../float-display-brick/FloatDisplayBrick";
 
 export interface AttrCustomConfigs {
   [attrId: string]: LegacyCustomComponent;
@@ -373,7 +374,8 @@ export class LegacyInstanceDetail extends React.Component<
 
   // istanbul ignore next
   getAttrListNode(attr: any, linkFlag?: boolean): React.ReactNode {
-    const { isStruct, isStructs, isRelation, isMarkdownField, isUrl } = this;
+    const { isStruct, isStructs, isRelation, isMarkdownField, isUrl, isFloat } =
+      this;
     const { modelDataMap, modelData, instanceData } = this.state;
     let config;
     let isComponentMode = false;
@@ -442,12 +444,15 @@ export class LegacyInstanceDetail extends React.Component<
         >
           {/* istanbul ignore next */}
           {isUrl(attr) && <CmdbUrlLink linkStr={instanceData[attr.id]} />}
+          {isFloat(attr) && (
+            <FloatDisplayBrick floatValue={instanceData[attr.id]} />
+          )}
           {isMarkdownField(attr) && !isUrl(attr) && (
             <div
               dangerouslySetInnerHTML={{
                 __html: DOMPurify.sanitize(marked(instanceData[attr.id] || "")),
               }}
-            ></div>
+            />
           )}
           {attr.__isRelation && !isUrl(attr) && (
             <InstanceRelationTableShow
@@ -455,13 +460,14 @@ export class LegacyInstanceDetail extends React.Component<
               relationData={attr}
               value={instanceData[attr.__id]}
               relationFieldUrlTemplate={this.props.relationFieldUrlTemplate}
-            ></InstanceRelationTableShow>
+            />
           )}
           {!isStructs(attr) &&
             !isStruct(attr) &&
             !isRelation(attr) &&
             isComponentMode &&
             !isUrl(attr) &&
+            !isFloat(attr) &&
             (attrCustomConfig.useBrick ? (
               <BrickAsComponent
                 useBrick={attrCustomConfig.useBrick}
@@ -486,6 +492,7 @@ export class LegacyInstanceDetail extends React.Component<
             !isMarkdownField(attr) &&
             !isComponentMode &&
             !isUrl(attr) &&
+            !isFloat(attr) &&
             (linkFlag ? (
               <Link
                 to={`/next-cmdb-instance-management/next/${instanceData._object_id}/instance/${instanceData.instanceId}`}
@@ -748,6 +755,9 @@ export class LegacyInstanceDetail extends React.Component<
 
   isRelation(attr: any) {
     return attr.value?.type === "FK" || attr.value?.type === "FKs";
+  }
+  isFloat(attr: any) {
+    return attr.value?.type === "float";
   }
 
   isSpecialDisplayField(attr: any) {

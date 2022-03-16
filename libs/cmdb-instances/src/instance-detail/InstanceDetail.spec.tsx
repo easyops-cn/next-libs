@@ -107,13 +107,21 @@ describe("InstanceDetail", () => {
   it("tests isUrl", () => {
     expect(
       instance.isUrl({
-        value: {mode:'url',type:'str'},
+        value: { mode: "url", type: "str" },
       })
     ).toBeTruthy();
 
     expect(instance.isUrl({})).toBeFalsy();
   });
+  it("tests isFloat", () => {
+    expect(
+      instance.isFloat({
+        value: { type: "float" },
+      })
+    ).toBeTruthy();
 
+    expect(instance.isUrl({})).toBeFalsy();
+  });
   it("tests isSpecialDisplayField", () => {
     let data = {
       id: "id",
