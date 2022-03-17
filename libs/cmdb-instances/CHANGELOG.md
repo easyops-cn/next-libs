@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.21.10](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.9...@next-libs/cmdb-instances@6.21.10) (2022-03-17)
+
+
+### Bug Fixes
+
+* **cmdb-instances:** float展示效果优化，前端只展示4位数 ([493651e](https://github.com/easyops-cn/next-libs/commit/493651eb662f988f902250c123a453410866df52))
+
+
+
+
+
 ## [6.21.9](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.8...@next-libs/cmdb-instances@6.21.9) (2022-03-14)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
