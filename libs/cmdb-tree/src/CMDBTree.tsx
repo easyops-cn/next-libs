@@ -97,6 +97,7 @@ interface CMDBTreeProps {
   expand?: boolean;
   enabledShowAll?: boolean;
   notSort?: boolean;
+  notFixed?: boolean;
 }
 
 interface CMDBTreeState {
@@ -272,7 +273,11 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
     this.objectId2ShowKeys = getObjectId2ShowKeys(objectList);
     this.objectIds = getObjectIds(objectList, treeRequest);
     // inside `fixRequestFields`, treeRequestBody will be updated
-    this.fields = fixRequestFields(objectList, treeRequest);
+    this.fields = fixRequestFields(
+      objectList,
+      treeRequest,
+      this.props.notFixed
+    );
 
     const promises: any[] = [];
     promises.push(this.expandTree());

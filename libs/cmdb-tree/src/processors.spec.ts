@@ -302,7 +302,7 @@ describe("transformToTreeData", () => {
       ],
     };
     const spy = jest.spyOn(console, "warn").mockImplementation(() => true);
-    const fields = fixRequestFields(objectList, request);
+    const fields = fixRequestFields(objectList, request, false);
     expect(fields).toEqual(["name"]);
     expect(request.fields).toEqual({ name: true });
     expect(request.child[0].fields).toEqual({ name: true });
@@ -310,10 +310,41 @@ describe("transformToTreeData", () => {
     expect(spy).toBeCalled();
 
     spy.mockClear();
-    const fs = fixRequestFields(objectList, {
-      object_id: "X",
-      child: [{ relation_field_id: "x" }],
-    } as any);
+    const fs = fixRequestFields(
+      objectList,
+      {
+        object_id: "X",
+        child: [{ relation_field_id: "x" }],
+      } as any,
+      false
+    );
     expect(spy).toBeCalled();
+    spy.mockClear();
+    const fsNotFix = fixRequestFields(
+      objectList,
+      {
+        object_id: "BUSINESS",
+        child: [
+          {
+            relation_field_id: "_sub_system",
+            fields: { l: true },
+            child: [
+              {
+                fields: { y: true, f: false },
+                relation_field_id: "_businesses_APP",
+                child: [
+                  {
+                    fields: { z: true, k: false },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+        fields: { x: true },
+      } as any,
+      true
+    );
+    expect(fsNotFix).toEqual(["x", "l", "y"]);
   });
 });

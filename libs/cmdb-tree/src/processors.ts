@@ -138,23 +138,35 @@ export function getObjectId2ShowKeys(
 
 export function fixRequestFields(
   objectList: CmdbModels.ModelCmdbObject[],
-  request: CmdbModels.ModelInstanceTreeRootNode
+  request: CmdbModels.ModelInstanceTreeRootNode,
+  notFixed: boolean
 ): string[] {
   const fields = new Set<string>();
+
   const objectId = request.object_id;
   const objectId2ShowKeys = getObjectId2ShowKeys(objectList);
-  const showKeys = objectId2ShowKeys.get(objectId);
-  if (showKeys) {
-    request.fields = {};
-    for (const showKey of showKeys) {
-      request.fields[showKey] = true;
-      fields.add(showKey);
+  if (notFixed) {
+    const reqFields = request.fields;
+    if (reqFields) {
+      for (const [key, value] of Object.entries(reqFields)) {
+        if (value) {
+          fields.add(key);
+        }
+      }
     }
   } else {
-    // eslint-disable-next-line no-console
-    console.warn(`objectId '${objectId}' does NOT exist`);
+    const showKeys = objectId2ShowKeys.get(objectId);
+    if (showKeys) {
+      request.fields = {};
+      for (const showKey of showKeys) {
+        request.fields[showKey] = true;
+        fields.add(showKey);
+      }
+    } else {
+      // eslint-disable-next-line no-console
+      console.warn(`objectId '${objectId}' does NOT exist`);
+    }
   }
-
   let map = new Map<string, CmdbModels.ModelInstanceTreeRootNode["child"]>();
   map.set(objectId, request.child);
   while (map.size > 0) {
@@ -175,11 +187,22 @@ export function fixRequestFields(
           );
           if (id) {
             childMap.set(id, c.child);
-            const showKeys = objectId2ShowKeys.get(id);
-            c.fields = {};
-            for (const showKey of showKeys) {
-              c.fields[showKey] = true;
-              fields.add(showKey);
+            if (notFixed) {
+              const childFields = c.fields;
+              if (childFields) {
+                for (const [key, value] of Object.entries(childFields)) {
+                  if (value) {
+                    fields.add(key);
+                  }
+                }
+              }
+            } else {
+              const showKeys = objectId2ShowKeys.get(id);
+              c.fields = {};
+              for (const showKey of showKeys) {
+                c.fields[showKey] = true;
+                fields.add(showKey);
+              }
             }
           } else {
             // eslint-disable-next-line no-console
