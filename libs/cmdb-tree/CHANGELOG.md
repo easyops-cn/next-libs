@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.2.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-tree@4.1.0...@next-libs/cmdb-tree@4.2.0) (2022-03-24)
+
+
+### Features
+
+* cmdb-instances.relation-path-tree构件中的instanceinstanceTree接口可以使用编排中传入的原始请求参数 refs DEVOPS_MANAGEMENT-347 ([beec3c8](https://github.com/easyops-cn/next-libs/commit/beec3c873e81688588f5874e1018a52f544bcb6c))
+
+
+
+
+
 # [4.1.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-tree@4.0.4...@next-libs/cmdb-tree@4.1.0) (2022-02-16)
 
 
