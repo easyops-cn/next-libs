@@ -7,6 +7,7 @@ import {
   CmdbModels,
   InstanceApi_GetDefaultValueTemplateResponseBody,
   InstanceApi_GetDetailResponseBody,
+  CmdbObjectApi_getObjectRef,
 } from "@next-sdk/cmdb-sdk";
 import {
   FormComponentProps,
@@ -444,7 +445,6 @@ export class ModelAttributeForm extends Component<
     const initialValue = InitialRelationValue
       ? InitialRelationValue.map((instanceData: any) => instanceData.instanceId)
       : [];
-
     return (
       <Form.Item
         label={relation.left_name}
@@ -457,8 +457,8 @@ export class ModelAttributeForm extends Component<
         })(
           <CmdbInstancesSelectPanel
             isFilterView={this.props.isFilterView}
+            modelData={this.modelMap[relation.right_object_id]}
             objectId={relation.right_object_id}
-            objectMap={this.modelMap}
             addTitle={i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.ADD}`)}
             singleSelect={relation.left_max === 1}
             isOperate={true}
