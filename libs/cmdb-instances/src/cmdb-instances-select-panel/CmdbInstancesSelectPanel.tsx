@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import classnames from "classnames";
 
-import { CmdbModels, InstanceApi_postSearch } from "@next-sdk/cmdb-sdk";
+import {
+  CmdbModels,
+  InstanceApi_postSearch,
+  CmdbObjectApi_getObjectRef,
+} from "@next-sdk/cmdb-sdk";
 import { InstanceListTable } from "../instance-list-table";
 import { InstanceListModal } from "../instance-list-modal/InstanceListModal";
 import {
@@ -11,9 +15,10 @@ import {
 import style from "./style.module.css";
 import i18n from "i18next";
 import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
+import { keyBy } from "lodash";
 
 export interface CmdbInstancesSelectPanelProps {
-  objectMap: { [key: string]: Partial<CmdbModels.ModelCmdbObject> };
+  modelData: Partial<CmdbModels.ModelCmdbObject>;
   objectId: string;
   value?: string[];
   onChange?: (instanceList: any[]) => void;
@@ -39,7 +44,7 @@ export function CmdbInstancesSelectPanel(
   props: CmdbInstancesSelectPanelProps,
   ref: any
 ): React.ReactElement {
-  let modelData = props.objectMap[props.objectId];
+  let { modelData } = props;
   if (props.isFilterView) {
     //过滤掉视图不可见字段
     const hideModelData = modelData?.view?.hide_columns || [];
@@ -70,7 +75,7 @@ export function CmdbInstancesSelectPanel(
   const [allSelectedInstancesModal, setAllSelectedInstancesModal] = useState({
     visible: false,
   });
-
+  const [modelMap, setModelMap] = useState({});
   const fetchInstances = async (instanceIdList: string[]): Promise<any[]> => {
     let instances: any[] = [];
     if (instanceIdList?.length) {
@@ -105,6 +110,13 @@ export function CmdbInstancesSelectPanel(
     };
 
     initInstances();
+    const getModelMap = async (): Promise<void> => {
+      const { data } = await CmdbObjectApi_getObjectRef({
+        ref_object: props.objectId,
+      });
+      setModelMap(keyBy(data, "objectId"));
+    };
+    getModelMap();
   }, [props.objectId]);
 
   const openAddInstancesModal = () => {
@@ -155,7 +167,7 @@ export function CmdbInstancesSelectPanel(
   return (
     <div className={style.wrapper} ref={ref}>
       <InstanceListModal
-        objectMap={props.objectMap}
+        objectMap={modelMap}
         objectId={props.objectId}
         visible={addInstancesModal.visible}
         title={
@@ -181,7 +193,7 @@ export function CmdbInstancesSelectPanel(
         advancedSearchDisabled={props.advancedSearchDisabled}
       />
       <InstanceListModal
-        objectMap={props.objectMap}
+        objectMap={modelMap}
         objectId={props.objectId}
         visible={allSelectedInstancesModal.visible}
         title={i18n.t(
@@ -215,7 +227,7 @@ export function CmdbInstancesSelectPanel(
                 },
               }
             : {})}
-          idObjectMap={props.objectMap}
+          idObjectMap={modelMap}
           modelData={modelData}
           instanceListData={{
             list: partialSelectedInstances,

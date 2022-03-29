@@ -2,7 +2,11 @@ import React from "react";
 import { mount } from "enzyme";
 import { act } from "react-dom/test-utils";
 
-import { CmdbModels, InstanceApi_postSearch } from "@next-sdk/cmdb-sdk";
+import {
+  CmdbModels,
+  InstanceApi_postSearch,
+  CmdbObjectApi_getObjectRef,
+} from "@next-sdk/cmdb-sdk";
 import { CmdbInstancesSelectPanel } from "./CmdbInstancesSelectPanel";
 import { InstanceListTable } from "../instance-list-table";
 import { InstanceList } from "../instance-list/InstanceList";
@@ -51,7 +55,18 @@ const objectMap: any = {
     { instanceId: "5c6d122b3c85f" },
   ],
 });
-
+(CmdbObjectApi_getObjectRef as jest.Mock).mockResolvedValue({
+  data: [
+    {
+      objectId: "APP",
+      name: "子系统",
+    },
+    {
+      objectId: "CLUSTER",
+      name: "集群",
+    },
+  ],
+});
 const RefCmdbInstancesSelectPanel = React.forwardRef(CmdbInstancesSelectPanel);
 
 describe("CmdbInstancesSelectPanel", () => {
@@ -61,7 +76,7 @@ describe("CmdbInstancesSelectPanel", () => {
     const wrapper = mount(
       <RefCmdbInstancesSelectPanel
         objectId="APP"
-        objectMap={objectMap}
+        modelData={objectMap["APP"]}
         value={[]}
         onChange={onChange}
         isFilterView={true}
@@ -81,7 +96,7 @@ describe("CmdbInstancesSelectPanel", () => {
     const wrapper = mount(
       <RefCmdbInstancesSelectPanel
         objectId="APP"
-        objectMap={objectMap}
+        modelData={objectMap["APP"]}
         value={["5c6d122b3c85f"]}
         onChange={onChange}
       />
@@ -128,7 +143,7 @@ describe("CmdbInstancesSelectPanel", () => {
     const wrapper = mount(
       <RefCmdbInstancesSelectPanel
         objectId="APP"
-        objectMap={objectMap}
+        modelData={objectMap["APP"]}
         value={["5c6d122b3c85f"]}
         onChange={onChange}
       />
