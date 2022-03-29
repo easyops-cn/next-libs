@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.21.11](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.10...@next-libs/cmdb-instances@6.21.11) (2022-03-29)
+
+
+### Bug Fixes
+
+* **cmdb:** 添加关系实例时要拉对端模型关联的所有模型 ([3d3137a](https://github.com/easyops-cn/next-libs/commit/3d3137ad6060becf6963258b19a1c181345d2187))
+
+
+
+
+
 ## [6.21.10](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.9...@next-libs/cmdb-instances@6.21.10) (2022-03-17)
 
 
