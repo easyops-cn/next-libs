@@ -12,6 +12,7 @@ import {
 
 export abstract class FormItemElement extends UpdatingElement {
   readonly isFormItemElement = true;
+  private _notRender = false;
 
   /**
    * @property
@@ -176,7 +177,13 @@ export abstract class FormItemElement extends UpdatingElement {
   @property({
     __unstable_doNotDecorate: true,
   })
-  notRender = false;
+  set notRender(value: boolean) {
+    this._notRender = value;
+    this._render();
+  }
+  get notRender(): boolean {
+    return this._notRender;
+  }
 
   getFormElement(): AbstractGeneralFormElement {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
@@ -197,7 +204,6 @@ export abstract class FormItemElement extends UpdatingElement {
   setNotRender(value: boolean): void {
     this.hidden = value;
     this.notRender = value;
-    this._render();
   }
 
   connectedCallback(): void {
