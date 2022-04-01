@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.25](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.0.24...@next-libs/code-editor-components@4.0.25) (2022-04-01)
+
+
+### Bug Fixes
+
+* 修复validateJsonSchemaMode为error时不生效 ([19b0fd4](https://github.com/easyops-cn/next-libs/commit/19b0fd4fc4c82b6274f02a9e6565385db0361aee))
+
+
+
+
+
 ## [4.0.24](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.0.23...@next-libs/code-editor-components@4.0.24) (2022-03-31)
 
 **Note:** Version bump only for package @next-libs/code-editor-components
