@@ -15,7 +15,8 @@ import {
 import style from "./style.module.css";
 import i18n from "i18next";
 import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
-import { keyBy } from "lodash";
+import { keyBy, isEqual } from "lodash";
+import { Spin } from "antd";
 
 export interface CmdbInstancesSelectPanelProps {
   modelData: Partial<CmdbModels.ModelCmdbObject>;
@@ -209,14 +210,21 @@ export function CmdbInstancesSelectPanel(
         selectDisabled={true}
         onCancel={closeAllSelectedInstancesModal}
       />
-      <a
-        className={style.addButton}
-        onClick={openAddInstancesModal}
-        style={{ marginBottom: "12px" }}
-      >
-        {props.addTitle ??
-          i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CHOOSE_INSTANCE}`)}
-      </a>
+      {isEqual(modelMap, {}) && (
+        <Spin style={{ textAlign: "left", marginBottom: "12px" }}></Spin>
+      )}
+      {!isEqual(modelMap, {}) && (
+        <a
+          className={style.addButton}
+          style={{
+            marginBottom: "12px",
+          }}
+          onClick={openAddInstancesModal}
+        >
+          {props.addTitle ??
+            i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CHOOSE_INSTANCE}`)}
+        </a>
+      )}
       <div className={cs}>
         <InstanceListTable
           {...(props.showDetailUrl
