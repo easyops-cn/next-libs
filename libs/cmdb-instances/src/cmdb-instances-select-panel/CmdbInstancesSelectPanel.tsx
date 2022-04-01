@@ -210,10 +210,10 @@ export function CmdbInstancesSelectPanel(
         selectDisabled={true}
         onCancel={closeAllSelectedInstancesModal}
       />
-      {isEqual(modelMap, {}) && (
-        <Spin style={{ textAlign: "left", marginBottom: "12px" }}></Spin>
-      )}
-      {!isEqual(modelMap, {}) && (
+      <Spin
+        style={{ textAlign: "left", marginBottom: "12px" }}
+        spinning={isEqual(modelMap, {})}
+      >
         <a
           className={style.addButton}
           style={{
@@ -224,7 +224,7 @@ export function CmdbInstancesSelectPanel(
           {props.addTitle ??
             i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CHOOSE_INSTANCE}`)}
         </a>
-      )}
+      </Spin>
       <div className={cs}>
         <InstanceListTable
           {...(props.showDetailUrl
