@@ -87,7 +87,7 @@ export function CodeEditorItem(
             {
               row: position.row,
               column: position.column,
-              type: "warning",
+              type: props.validateJsonSchemaMode,
               text: errorMessage,
               raw: ajv.errors,
             } as Annotation,
@@ -476,7 +476,7 @@ export function CodeEditor(props: CodeEditorProps): React.ReactElement {
       // only used for trigger children component re-render to update validate states
       setForceUpdate({} as any);
     }
-  }, [hasError]);
+  }, [hasError, hasJsonSchemaError]);
 
   const onValidate = (err: Annotation[]): void => {
     const error = some(err, ["type", "error"]);
