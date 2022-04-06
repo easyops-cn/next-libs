@@ -1001,17 +1001,19 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
 
   const onAdvancedSearchCloseGen = (attrId: string, valuesStr: string) => {
     return () => {
-      const queries: Query[] = [];
-      const queriesToShow: Query[] = [];
+      let queries: Query[] = [];
+      let queriesToShow: Query[] = [];
+      const isValueEqual = (query: any) =>
+        Object.values(query[attrId]).join(" ") !== valuesStr;
+      const filterAq = (queries: any[]) =>
+        queries.filter((v: any) => isValueEqual(v));
       state.aq.forEach((query) => {
         const key = Object.keys(query)[0];
         if (
           (key === "$or" || key === "$and") &&
           Object.keys((query[key] as Query[])[0])[0] === attrId
         ) {
-          const filteredSubQueries = (query[key] as Query[]).filter((query) => {
-            return Object.values(query[attrId]).join(" ") !== valuesStr;
-          });
+          const filteredSubQueries = filterAq(query[key] as Query[]);
           if (filteredSubQueries.length > 0) {
             queries.push({
               [key]: filteredSubQueries,
@@ -1019,6 +1021,8 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
           }
         } else if (key !== attrId && !startsWith(attrId, `${key}.`)) {
           queries.push(query);
+        } else if (key === attrId && isValueEqual(query)) {
+          queries = filterAq(state.aq);
         }
       });
       state.aqToShow.forEach((query) => {
@@ -1027,9 +1031,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
           (key === "$or" || key === "$and") &&
           Object.keys((query[key] as Query[])[0])[0] === attrId
         ) {
-          const filteredSubQueries = (query[key] as Query[]).filter((query) => {
-            return Object.values(query[attrId]).join(" ") !== valuesStr;
-          });
+          const filteredSubQueries = filterAq(query[key] as Query[]);
           if (filteredSubQueries.length > 0) {
             queriesToShow.push({
               [key]: filteredSubQueries,
@@ -1037,6 +1039,8 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
           }
         } else if (key !== attrId) {
           queriesToShow.push(query);
+        } else if (key === attrId && isValueEqual(query)) {
+          queriesToShow = filterAq(state.aqToShow);
         }
       });
       setState({
