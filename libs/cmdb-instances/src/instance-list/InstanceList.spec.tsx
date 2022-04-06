@@ -978,6 +978,16 @@ describe("InstanceList", () => {
     testdata2.forEach((t) => {
       expect(initAqToShow(t.aq, HOST, false)).toEqual(t.expected);
     });
+
+    const testData: Record<string, any>[] = [
+      {
+        aq: [{ ip: { $eq: "121" } }, { ip: { $eq: "50" } }],
+        expected: [{ ip: { $eq: "121" } }, { ip: { $eq: "50" } }],
+      },
+    ];
+    testData.forEach((t) => {
+      expect(initAqToShow(t.aq, HOST, false)).toEqual(t.expected);
+    });
   });
   it("show work and dataSource", async () => {
     const { findByText } = render(

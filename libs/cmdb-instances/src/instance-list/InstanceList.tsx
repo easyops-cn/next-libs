@@ -1019,6 +1019,11 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
           }
         } else if (key !== attrId && !startsWith(attrId, `${key}.`)) {
           queries.push(query);
+        } else if (
+          key === attrId &&
+          Object.values(query[attrId]).join(" ") !== valuesStr
+        ) {
+          queries.push(query);
         }
       });
       state.aqToShow.forEach((query) => {
@@ -1036,6 +1041,11 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
             });
           }
         } else if (key !== attrId) {
+          queriesToShow.push(query);
+        } else if (
+          key === attrId &&
+          Object.values(query[attrId]).join(" ") !== valuesStr
+        ) {
           queriesToShow.push(query);
         }
       });
