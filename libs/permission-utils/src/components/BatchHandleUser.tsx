@@ -3,13 +3,14 @@ import { Checkbox } from "antd";
 import { User, Permission } from "../interfaces";
 import { initPermissionOptions } from "../processors";
 import { SelectUserOrGroup } from "./SelectUserOrGroup";
+import { LabeledValue } from "antd/lib/select";
 
 export interface BatchHandleUserProps {
   batchType: string;
   permissionList: Permission[];
   currentUsers: string[];
-  batchHandleUserChange: Function;
-  batchHandlePermChange: Function;
+  batchHandleUserChange(value: LabeledValue[]): void;
+  batchHandlePermChange(e: any): void;
 }
 export interface BatchHandleUserState {
   users: User[];
@@ -23,7 +24,7 @@ export class BatchHandleUser extends React.Component<
     super(props);
     this.state = {
       users: [],
-      userGroups: []
+      userGroups: [],
     };
   }
   render() {
@@ -49,7 +50,7 @@ export class BatchHandleUser extends React.Component<
   handleCheckPerm = (e: any) => {
     this.props.batchHandlePermChange(e);
   };
-  handleUsersChange = (e: string[]) => {
+  handleUsersChange = (e: LabeledValue[]) => {
     this.props.batchHandleUserChange(e);
   };
 }

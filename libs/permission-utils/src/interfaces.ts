@@ -1,8 +1,10 @@
+import { LabeledValue } from "antd/lib/select";
+
 export interface Permission {
   action: string;
   id: string;
   remark: string;
-  resource: {};
+  resource: Record<string, unknown>;
   roles: string[];
   system: string;
   user: string[];
@@ -13,11 +15,12 @@ export interface User {
   instanceId: string;
 }
 export interface SelectUserOrGroupProps {
-  handleUsersChange: Function;
-  filterFunction?: Function;
+  handleUsersChange(value: LabeledValue[]): void;
+  filterFunction?(): void;
   currentUsers?: string[];
 }
 export interface SelectUserOrGroupState {
   users: User[];
   userGroups: User[];
+  loading: boolean;
 }
