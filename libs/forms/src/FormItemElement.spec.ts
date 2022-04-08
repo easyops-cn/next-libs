@@ -40,5 +40,10 @@ describe("form-item", () => {
     expect(element.hidden).toBe(true);
     expect(element.notRender).toBe(true);
     expect(element.renderedTimes).toBe(3);
+
+    element.notRender = false;
+    expect(element.hidden).toBe(false);
+    expect(element.notRender).toBe(false);
+    expect(element.renderedTimes).toBe(4);
   });
 });
