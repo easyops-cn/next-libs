@@ -8,6 +8,11 @@ import { BatchHandleUser } from "./BatchHandleUser";
 import { PermissionCollection } from "../processors";
 import { SelectUserOrGroup } from "./SelectUserOrGroup";
 import styles from "./index.module.css";
+import { handleHttpError } from "@next-core/brick-kit";
+import {
+  UserAdminApi_listGroupsIdName,
+  UserAdminApi_ListGroupsIdNameResponseBody,
+} from "@next-sdk/user-service-sdk";
 export interface CommonSettingPropsDefine {
   instanceData: any;
   permissionList: Permission[];
@@ -30,6 +35,7 @@ interface CommonSettingStateDefine {
   currentUsers: string[];
   temporaryUsers?: string[];
   temporaryPerms?: string[];
+  idMapName?: UserAdminApi_ListGroupsIdNameResponseBody;
 }
 
 export class CommonSetting extends React.Component<
@@ -49,13 +55,21 @@ export class CommonSetting extends React.Component<
       currentUsers: [],
       temporaryUsers: [],
       temporaryPerms: [],
+      idMapName: {},
     };
   }
-  componentDidMount() {
+  async componentDidMount() {
+    let idMapName = {};
+    try {
+      idMapName = await UserAdminApi_listGroupsIdName({});
+    } catch (e) {
+      handleHttpError(e);
+    }
     const { instanceData, permissionList } = this.props;
     const collections = new PermissionCollection(instanceData, permissionList);
     this.setState({ collections });
     this.setState({ currentUsers: collections.getCurrentUsers() });
+    this.setState({ idMapName });
   }
   componentDidUpdate(prevProps: CommonSettingPropsDefine) {
     const { instanceData, permissionList, selectedInstances } = this.props;
@@ -158,7 +172,7 @@ export class CommonSetting extends React.Component<
                   closable={this.state.enableEdit}
                   onClose={(e: any) => this.removeUser(e, item, record)}
                 >
-                  {item}
+                  {(item.startsWith(":") && this.state.idMapName[item]) || item}
                 </Tag>
               ))
             : null;
@@ -240,10 +254,12 @@ export class CommonSetting extends React.Component<
     this.setState({ temporaryPerms: e });
   };
   batchHandleUserChange = (e: { key: string; label: string }[]) => {
+    const idKeysSet = new Set(Object.keys(this.state.idMapName));
     this.setState({
-      temporaryUsers: e.map(
-        (user: { key: string; label: string }) => user.label
-      ),
+      temporaryUsers: e.map((user: { key: string; label: string }) => {
+        const key = `:${user.key}`;
+        return idKeysSet.has(key) ? key : user.label;
+      }),
     });
   };
   // 打开为单个权限添加用户弹窗

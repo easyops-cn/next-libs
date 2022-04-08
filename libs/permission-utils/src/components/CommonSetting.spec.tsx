@@ -6,6 +6,14 @@ import {
   PERM_SET_OF_PACKAGE_INSTANCE,
   PERM_PACKAGE_UPDATE,
 } from "../constants";
+import {
+  UserAdminApi_listGroupsIdName,
+  UserAdminApi_ListGroupsIdNameResponseBody,
+} from "@next-sdk/user-service-sdk";
+import * as kit from "@next-core/brick-kit";
+const spyOnHandleHttpError = jest.spyOn(kit, "handleHttpError");
+jest.mock("@next-sdk/user-service-sdk");
+
 describe("CommonSetting", () => {
   const instanceData = {
     authUsers: "",
@@ -255,7 +263,10 @@ describe("CommonSetting", () => {
   it("should work", () => {
     expect(wrapper).toBeTruthy();
   });
-  it("componentDidUpdate", () => {
+  it("componentDidUpdate", async () => {
+    const spy = UserAdminApi_listGroupsIdName as jest.Mock;
+    spy.mockResolvedValue({} as UserAdminApi_ListGroupsIdNameResponseBody);
+    spy.mockRejectedValue("error");
     wrapper.setProps({
       selectedInstances: [{ instanceId: "fake_id", name: "fake_name" }],
     });
@@ -292,6 +303,10 @@ describe("CommonSetting", () => {
       "系统管理员、测试角色"
     );
   });
+  it("should work roles when renderOption", () => {
+    const record = instance.state.collections.permissionList[0];
+    expect(instance.renderOperation(true, record)).toBeTruthy();
+  });
   it("should work when enable a whiteList", () => {
     const record = instance.state.collections.permissionList[0];
     instance.handleToggleWhiteListEnabled(true, record);
@@ -302,8 +317,14 @@ describe("CommonSetting", () => {
     expect(instance.state.temporaryPerms).toEqual(["deploy:package_read"]);
   });
   it("should work when batchHandleUserChange is called", () => {
-    instance.batchHandleUserChange([{ label: "easyops_111", key: "12345" }]);
-    expect(instance.state.temporaryUsers).toEqual(["easyops_111"]);
+    instance.setState({
+      idMapName: { ":789": "ai" },
+    });
+    instance.batchHandleUserChange([
+      { label: "easyops_111", key: "12345" },
+      { label: "ai", key: "789" },
+    ]);
+    expect(instance.state.temporaryUsers).toEqual(["easyops_111", ":789"]);
   });
   it("should work when batch add users", () => {
     instance.setState({
@@ -338,5 +359,12 @@ describe("CommonSetting", () => {
       (item: any) => item.keyAuthorizers === "deleteAuthorizers"
     );
     expect(deleteItem.authorizers).toEqual(["easyops", "anntest"]);
+  });
+  it("should work when close a whiteList", () => {
+    const record = instance.state.collections.permissionList[0];
+    instance.handleToggleWhiteListEnabled(false, record);
+    expect(instance.state.collections.permissionList[0].authorizers).toEqual(
+      []
+    );
   });
 });
