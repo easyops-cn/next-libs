@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.21.16](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.15...@next-libs/cmdb-instances@6.21.16) (2022-04-08)
+
+
+### Bug Fixes
+
+* 添加实例范围，条件过滤删除其中一个条件过滤，另外一个条件过滤也会被删除 ([f597b2f](https://github.com/easyops-cn/next-libs/commit/f597b2f47125030b6963eda242cb9bb123e61112)), closes [Refs#INSTANCE-2253](https://github.com/Refs/issues/INSTANCE-2253)
+
+
+
+
+
 ## [6.21.15](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.14...@next-libs/cmdb-instances@6.21.15) (2022-04-08)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
