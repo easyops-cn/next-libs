@@ -57,7 +57,13 @@ export class SelectUserOrGroup extends React.Component<
     this.props.handleUsersChange(value);
   };
   filterOpts = (currentUsers: string[], allUsers: User[]) => {
-    return filter(allUsers, (item) => currentUsers.includes(item.name));
+    const currentUsersSet = new Set(currentUsers);
+    return filter(
+      allUsers,
+      (item) =>
+        currentUsersSet.has(item.name) ||
+        currentUsersSet.has(`:${item.instanceId}`)
+    );
   };
   render(): React.ReactNode {
     const { currentUsers } = this.props;
