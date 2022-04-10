@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/permission-utils@4.0.6...@next-libs/permission-utils@4.0.7) (2022-04-10)
+
+
+### Bug Fixes
+
+* **SelectUserOrGroup:** support backend search ([77a9510](https://github.com/easyops-cn/next-libs/commit/77a9510c2d88d0bd4d764b1c65093512c0133742))
+
+
+
+
+
 ## [4.0.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/permission-utils@4.0.5...@next-libs/permission-utils@4.0.6) (2022-04-08)
 
 
