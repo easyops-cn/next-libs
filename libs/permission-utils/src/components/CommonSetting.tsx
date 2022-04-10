@@ -13,6 +13,7 @@ import {
   UserAdminApi_listGroupsIdName,
   UserAdminApi_ListGroupsIdNameResponseBody,
 } from "@next-sdk/user-service-sdk";
+import { LabeledValue } from "antd/lib/select";
 export interface CommonSettingPropsDefine {
   instanceData: any;
   permissionList: Permission[];
@@ -253,13 +254,13 @@ export class CommonSetting extends React.Component<
   batchHandlePermChange = (e: string[]) => {
     this.setState({ temporaryPerms: e });
   };
-  batchHandleUserChange = (e: { key: string; label: string }[]) => {
+  batchHandleUserChange = (e: LabeledValue[]) => {
     const idKeysSet = new Set(Object.keys(this.state.idMapName));
     this.setState({
-      temporaryUsers: e.map((user: { key: string; label: string }) => {
+      temporaryUsers: e.map((user) => {
         const key = `:${user.key}`;
         return idKeysSet.has(key) ? key : user.label;
-      }),
+      }) as string[],
     });
   };
   // 打开为单个权限添加用户弹窗

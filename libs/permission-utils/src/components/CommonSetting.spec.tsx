@@ -321,8 +321,8 @@ describe("CommonSetting", () => {
       idMapName: { ":789": "ai" },
     });
     instance.batchHandleUserChange([
-      { label: "easyops_111", key: "12345" },
-      { label: "ai", key: "789" },
+      { label: "easyops_111", key: "12345", value: "12345" },
+      { label: "ai", key: "789", value: "789" },
     ]);
     expect(instance.state.temporaryUsers).toEqual(["easyops_111", ":789"]);
   });

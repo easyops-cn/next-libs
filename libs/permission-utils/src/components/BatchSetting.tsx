@@ -15,6 +15,7 @@ import { SelectUserOrGroup } from "./SelectUserOrGroup";
 import { initPermissionOptions } from "../processors";
 import { KEY_AUTHORIZERS_OF_PERM } from "../constants";
 import styles from "./index.module.css";
+import { LabeledValue } from "antd/lib/select";
 export interface BatchSettingProps {
   modelData?: any;
   instanceIds: string[];
@@ -78,10 +79,8 @@ export class BatchSetting extends React.Component<
       },
     }));
   };
-  handleUsersChange = (value: { key: string; label: string }[]) => {
-    const authorizers = value.map(
-      (item: { key: string; label: string }) => item.label
-    );
+  handleUsersChange = (value: LabeledValue[]) => {
+    const authorizers = value.map((item) => item.label) as string[];
     this.setState((prevState: BatchSettingState) => ({
       formData: { ...prevState.formData, authorizers },
     }));

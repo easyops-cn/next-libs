@@ -141,7 +141,9 @@ describe("BatchSetting", () => {
     expect(instance.state.formData.enableWhiteList).toEqual(false);
   });
   it("should set authorizers", () => {
-    instance.handleUsersChange([{ label: "abc", key: "12345" }]);
+    instance.handleUsersChange([
+      { label: "abc", key: "12345", value: "12345" },
+    ]);
     expect(instance.state.formData.authorizers).toEqual(["abc"]);
   });
   it("should set action", () => {
