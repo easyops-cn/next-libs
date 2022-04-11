@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.20](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@3.2.19...@next-libs/forms@3.2.20) (2022-04-11)
+
+
+### Bug Fixes
+
+* **general-forms:** 适配通用表单说明文字的暗色 ([f9926ef](https://github.com/easyops-cn/next-libs/commit/f9926efffcba5d34ecd8348f2312af04fa6f6d90))
+
+
+
+
+
 ## [3.2.19](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@3.2.18...@next-libs/forms@3.2.19) (2022-04-08)
 
 **Note:** Version bump only for package @next-libs/forms
