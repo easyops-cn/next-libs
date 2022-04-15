@@ -15,11 +15,10 @@ import {
 import style from "./style.module.css";
 import i18n from "i18next";
 import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
-import { keyBy, isEqual } from "lodash";
+import { keyBy, isEqual, isNil } from "lodash";
 import { Spin } from "antd";
 
-export interface CmdbInstancesSelectPanelProps {
-  modelData: Partial<CmdbModels.ModelCmdbObject>;
+export interface BaseCmdbInstancesSelectPanelProps {
   objectId: string;
   value?: string[];
   onChange?: (instanceList: any[]) => void;
@@ -41,11 +40,40 @@ export interface CmdbInstancesSelectPanelProps {
   advancedSearchDisabled?: boolean;
 }
 
+export interface CmdbInstancesSelectPanelPropsWithObjectMap
+  extends BaseCmdbInstancesSelectPanelProps {
+  objectMap: Record<string, Partial<CmdbModels.ModelCmdbObject>>;
+}
+
+export interface CmdbInstancesSelectPanelPropsWithModelData
+  extends BaseCmdbInstancesSelectPanelProps {
+  modelData: Partial<CmdbModels.ModelCmdbObject>;
+}
+
+export type CmdbInstancesSelectPanelProps =
+  | CmdbInstancesSelectPanelPropsWithObjectMap
+  | CmdbInstancesSelectPanelPropsWithModelData;
+
+export function isCmdbInstancesSelectPanelPropsWithObjectMap(
+  props: CmdbInstancesSelectPanelProps
+): props is CmdbInstancesSelectPanelPropsWithObjectMap {
+  return !isNil(
+    (props as CmdbInstancesSelectPanelPropsWithObjectMap).objectMap
+  );
+}
+
 export function CmdbInstancesSelectPanel(
   props: CmdbInstancesSelectPanelProps,
   ref: any
 ): React.ReactElement {
-  let { modelData } = props;
+  let modelData: Partial<CmdbModels.ModelCmdbObject>;
+
+  if (isCmdbInstancesSelectPanelPropsWithObjectMap(props)) {
+    modelData = props.objectMap[props.objectId];
+  } else {
+    modelData = props.modelData;
+  }
+
   if (props.isFilterView) {
     //过滤掉视图不可见字段
     const hideModelData = modelData?.view?.hide_columns || [];
@@ -112,10 +140,17 @@ export function CmdbInstancesSelectPanel(
 
     initInstances();
     const getModelMap = async (): Promise<void> => {
-      const { data } = await CmdbObjectApi_getObjectRef({
-        ref_object: props.objectId,
-      });
-      setModelMap(keyBy(data, "objectId"));
+      let modelMap: Record<string, Partial<CmdbModels.ModelCmdbObject>>;
+
+      if (isCmdbInstancesSelectPanelPropsWithObjectMap(props)) {
+        modelMap = props.objectMap;
+      } else {
+        const { data } = await CmdbObjectApi_getObjectRef({
+          ref_object: props.objectId,
+        });
+        modelMap = keyBy(data, "objectId");
+      }
+      setModelMap(modelMap);
     };
     getModelMap();
   }, [props.objectId]);
