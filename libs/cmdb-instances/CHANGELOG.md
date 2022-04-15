@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.21.18](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.17...@next-libs/cmdb-instances@6.21.18) (2022-04-15)
+
+
+### Bug Fixes
+
+* **CmdbInstancesSelectPanel:** fix breaking change of remove objectMap property ([a034070](https://github.com/easyops-cn/next-libs/commit/a034070859630696b6b2696356c2455384f7d312))
+
+
+
+
+
 ## [6.21.17](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.16...@next-libs/cmdb-instances@6.21.17) (2022-04-11)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
