@@ -19,6 +19,7 @@ export interface InstanceListModalProps {
   permission?: string[];
   aq?: Query[];
   instanceSourceQuery?: string;
+  isInstanceFilterForm?: boolean;
   searchDisabled?: boolean;
   advancedSearchDisabled?: boolean;
   aliveHostsDisabled?: boolean;
@@ -179,6 +180,7 @@ export function InstanceListModal(
           defaultQuery={props.defaultQuery}
           enableSearchByApp={props.enableSearchByApp}
           hideSearchConditions={props.hideSearchConditions}
+          isInstanceFilterForm={props.isInstanceFilterForm}
         />
       </div>
     </Modal>
