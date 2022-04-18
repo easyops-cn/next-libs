@@ -374,6 +374,7 @@ interface InstanceListProps {
   showSizeChanger?: boolean;
   filterInstanceSourceDisabled?: boolean;
   instanceSourceQuery?: string;
+  isInstanceFilterForm?: boolean;
   onSearchExecute?(
     data: InstanceApi_PostSearchRequestBody,
     v3Data: InstanceApi_PostSearchV3RequestBody
@@ -1001,12 +1002,24 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
 
   const onAdvancedSearchCloseGen = (attrId: string, valuesStr: string) => {
     return () => {
-      let queries: Query[] = [];
-      let queriesToShow: Query[] = [];
+      const queries: Query[] = [];
+      const queriesToShow: Query[] = [];
       const isValueEqual = (query: any) =>
-        Object.values(query[attrId]).join(" ") !== valuesStr;
+        query[attrId]
+          ? Object.values(query[attrId]).join(" ") !== valuesStr
+          : false;
       const filterAq = (queries: any[]) =>
         queries.filter((v: any) => isValueEqual(v));
+      const specialQueryHandler = (query: any, key: any, queries: Query[]) => {
+        // $exists $gte $lte 针对为空，不为空，时间范围特殊处理
+        const isSpecial = Object.keys(query[key] as Query[]).some(
+          (v) => v === "$exists" || v === "$gte" || v === "$lte"
+        );
+        if (isSpecial) {
+          return;
+        }
+        queries.push(query);
+      };
       state.aq.forEach((query) => {
         const key = Object.keys(query)[0];
         if (
@@ -1021,8 +1034,12 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
           }
         } else if (key !== attrId && !startsWith(attrId, `${key}.`)) {
           queries.push(query);
-        } else if (key === attrId && isValueEqual(query)) {
-          queries = filterAq(state.aq);
+        } else if (
+          props.isInstanceFilterForm &&
+          key === attrId &&
+          isValueEqual(query)
+        ) {
+          specialQueryHandler(query, key, queries);
         }
       });
       state.aqToShow.forEach((query) => {
@@ -1039,8 +1056,12 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
           }
         } else if (key !== attrId) {
           queriesToShow.push(query);
-        } else if (key === attrId && isValueEqual(query)) {
-          queriesToShow = filterAq(state.aqToShow);
+        } else if (
+          props.isInstanceFilterForm &&
+          key === attrId &&
+          isValueEqual(query)
+        ) {
+          specialQueryHandler(query, key, queriesToShow);
         }
       });
       setState({
