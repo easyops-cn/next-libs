@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.21.21](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.20...@next-libs/cmdb-instances@6.21.21) (2022-04-20)
+
+
+### Reverts
+
+* Revert "fix(CmdbInstancesSelectPanel): fix value改变后，panel表格数据不更新" ([b4ec2f0](https://github.com/easyops-cn/next-libs/commit/b4ec2f0887eabde59ab3f9536536ff215fc482a4))
+
+
+
+
+
 ## [6.21.20](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.19...@next-libs/cmdb-instances@6.21.20) (2022-04-20)
 
 
