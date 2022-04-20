@@ -153,7 +153,7 @@ export function CmdbInstancesSelectPanel(
       setModelMap(modelMap);
     };
     getModelMap();
-  }, [props.objectId, props.value]);
+  }, [props.objectId]);
 
   const openAddInstancesModal = () => {
     setAddInstancesModal({ visible: true });
