@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.21](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@3.2.20...@next-libs/forms@3.2.21) (2022-04-25)
+
+
+### Bug Fixes
+
+* fix icon backfill value ([0ac27e6](https://github.com/easyops-cn/next-libs/commit/0ac27e66856138def2f1bcc0bd163bf01db01fbc))
+
+
+
+
+
 ## [3.2.20](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@3.2.19...@next-libs/forms@3.2.20) (2022-04-11)
 
 
