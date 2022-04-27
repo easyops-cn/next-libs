@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.22](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@3.2.21...@next-libs/forms@3.2.22) (2022-04-27)
+
+
+### Bug Fixes
+
+* fix render icon error ([9d0eda3](https://github.com/easyops-cn/next-libs/commit/9d0eda3e8f239af408a887968490a85d3ce0e9b0))
+
+
+
+
+
 ## [3.2.21](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@3.2.20...@next-libs/forms@3.2.21) (2022-04-25)
 
 
