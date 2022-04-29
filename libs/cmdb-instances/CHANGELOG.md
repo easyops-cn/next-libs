@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.21.25](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.24...@next-libs/cmdb-instances@6.21.25) (2022-04-29)
+
+
+### Bug Fixes
+
+* **CmdbInstancesSelectPanel:** props.value bug fix ([a7f4010](https://github.com/easyops-cn/next-libs/commit/a7f4010a2a24ef22610c60cc36bec48425bf2927))
+
+
+
+
+
 ## [6.21.24](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.23...@next-libs/cmdb-instances@6.21.24) (2022-04-27)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
