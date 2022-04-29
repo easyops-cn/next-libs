@@ -156,4 +156,23 @@ describe("CmdbInstancesSelectPanel", () => {
     const addModal = wrapper.find(InstanceListModal).first();
     addModal.invoke("onSelected")([]);
   });
+  it("props.value should work", async () => {
+    const onChange = jest.fn();
+    const onFetchedInstances = jest.fn();
+
+    const wrapper = mount(
+      <RefCmdbInstancesSelectPanel
+        objectId="APP"
+        modelData={objectMap["APP"]}
+        value={[{ instanceId: "5c6d122b3c85f" }]}
+        onChange={onChange}
+        onFetchedInstances={onFetchedInstances}
+      />
+    );
+    await act(async () => {
+      await (global as any).flushPromises();
+    });
+    wrapper.update();
+    expect(onFetchedInstances).toHaveBeenCalledTimes(1);
+  });
 });

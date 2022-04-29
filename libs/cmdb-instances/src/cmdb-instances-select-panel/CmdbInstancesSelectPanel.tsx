@@ -15,12 +15,12 @@ import {
 import style from "./style.module.css";
 import i18n from "i18next";
 import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
-import { keyBy, isEqual, isNil } from "lodash";
+import { keyBy, isEqual, isNil, isObject } from "lodash";
 import { Spin } from "antd";
 
 export interface BaseCmdbInstancesSelectPanelProps {
   objectId: string;
-  value?: string[];
+  value?: any[];
   onChange?: (instanceList: any[]) => void;
   instanceQuery?: any;
   fields?: string[];
@@ -127,8 +127,10 @@ export function CmdbInstancesSelectPanel(
   };
 
   useEffect(() => {
+    const instanceIds =
+      props.value?.map((i) => (isObject(i) ? (i as any).instanceId : i)) || [];
     const initInstances = async (): Promise<void> => {
-      const instances = await fetchInstances(props.value);
+      const instances = await fetchInstances(instanceIds);
       setSelectedInstanceList(instances);
       setPartialSelectedInstances(
         props?.isOperate
