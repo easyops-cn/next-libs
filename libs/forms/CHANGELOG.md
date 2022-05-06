@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.23](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@3.2.22...@next-libs/forms@3.2.23) (2022-05-06)
+
+**Note:** Version bump only for package @next-libs/forms
+
+
+
+
+
 ## [3.2.22](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@3.2.21...@next-libs/forms@3.2.22) (2022-04-27)
 
 
