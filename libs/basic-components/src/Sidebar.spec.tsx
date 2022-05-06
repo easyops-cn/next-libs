@@ -181,4 +181,21 @@ describe("Sidebar", () => {
     const wrapper = shallow(<Sidebar menuItems={menuItems} collapsed={true} />);
     expect(wrapper.props().defaultOpenKeys).toMatchObject([]);
   });
+
+  it("matchMenuItem when activeIncludes has ?", () => {
+    const item = {
+      text: "mysql资源管理",
+      to: "/mysql-resource/detail",
+      exact: false,
+      activeIncludes: ["/mysql-resource/monitor/xxx?search=true"],
+    };
+    const pathname = "/mysql-resource/monitor/xxx";
+    const pathname2 = "/mysql-resource/detail";
+    const pathname3 = "/mysql-resource/other";
+
+    expect(matchMenuItem(item, pathname, "?search=true")).toBe(true);
+    expect(matchMenuItem(item, pathname, "?search=false")).toBe(false);
+    expect(matchMenuItem(item, pathname2, "?search=false")).toBe(true);
+    expect(matchMenuItem(item, pathname3, "?search=true")).toBe(false);
+  });
 });

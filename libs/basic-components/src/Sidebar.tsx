@@ -77,6 +77,20 @@ export function initMenuItemAndMatchCurrentPathKeys(
   };
 }
 
+export function getMatchOfSearch(
+  currentSearch: string,
+  toSearch: string
+): boolean {
+  const current = new URLSearchParams(currentSearch);
+  const to = new URLSearchParams(toSearch);
+  for (const [key, value] of to.entries()) {
+    if (current.get(key) !== value) {
+      return false;
+    }
+  }
+  return true;
+}
+
 export function matchMenuItem(
   item: SidebarMenuSimpleItem,
   pathname: string,
@@ -95,10 +109,21 @@ export function matchMenuItem(
 
   if (!match && Array.isArray(item.activeIncludes)) {
     for (const include of item.activeIncludes) {
+      let parseInclude;
+      const hasSearch = include.includes("?");
+
+      if (hasSearch) {
+        parseInclude = parsePath(include);
+      }
       match = !!matchPath(pathname, {
-        path: include,
+        path: hasSearch ? parseInclude.pathname : include,
         exact: true,
       });
+
+      if (match && parseInclude?.search) {
+        match = getMatchOfSearch(search, parseInclude.search);
+      }
+
       if (match) {
         break;
       }
@@ -118,14 +143,7 @@ export function matchMenuItem(
   }
 
   if (match && (item as any).activeMatchSearch) {
-    const toSearch = new URLSearchParams(to.search);
-    const currentSearch = new URLSearchParams(search);
-    for (const [key, value] of toSearch.entries()) {
-      if (currentSearch.get(key) !== value) {
-        match = false;
-        break;
-      }
-    }
+    match = getMatchOfSearch(search, to.search);
   }
 
   return match;
