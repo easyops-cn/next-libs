@@ -9,13 +9,13 @@ createHistory();
 
 describe("Link", () => {
   it("render simple link", () => {
-    const wrapper = shallow(<Link to="/for-simple" />);
-    expect(wrapper).toMatchInlineSnapshot(`
-      <a
-        href="/for-simple"
-        onClick={[Function]}
-      />
-    `);
+    const onClick = jest.fn();
+    const wrapper = shallow(<Link to="/for-simple" onClick={onClick} />);
+    expect(wrapper.find("a").prop("href")).toBe("/for-simple");
+    expect(wrapper.find("a").prop("style")).toEqual({});
+
+    wrapper.find("a").simulate("click", {});
+    expect(onClick).toBeCalledTimes(1);
   });
 
   it("render complex link", () => {
@@ -25,40 +25,41 @@ describe("Link", () => {
       hash: "#and-more",
     };
     const wrapper = shallow(<Link to={to} />);
-    expect(wrapper).toMatchInlineSnapshot(`
-      <a
-        href="for-complex?even-more#and-more"
-        onClick={[Function]}
-      />
-    `);
+    expect(wrapper.find("a").prop("href")).toBe(
+      "for-complex?even-more#and-more"
+    );
   });
 
   it("should render with new href property", () => {
     const wrapper = shallow(<Link href="http://192.168.100.163" />);
-    expect(wrapper).toMatchInlineSnapshot(`
-    <a
-      href="http://192.168.100.163"
-      onClick={[Function]}
-    />
-    `);
+    expect(wrapper.find("a").prop("href")).toBe("http://192.168.100.163");
   });
 
   it("should render with no empty href", () => {
     const wrapper = shallow(<Link noEmptyHref />);
-    expect(wrapper).toMatchInlineSnapshot(`
-    <a
-      onClick={[Function]}
-    />
-    `);
+    expect(wrapper.find("a").prop("href")).toBe(undefined);
+  });
 
-    wrapper.setProps({
-      href: "http://192.168.100.163",
+  it("should render with disabled link", () => {
+    const onClick = jest.fn();
+    const wrapper = shallow(
+      <Link
+        to="/for-disabled"
+        disabled
+        onClick={onClick}
+        style={{ color: "red" }}
+      />
+    );
+    expect(wrapper.find("a").prop("style")).toEqual({
+      cursor: "not-allowed",
+      color: "red",
     });
-    expect(wrapper).toMatchInlineSnapshot(`
-    <a
-      href="http://192.168.100.163"
-      onClick={[Function]}
-    />
-    `);
+
+    const preventDefault = jest.fn();
+    wrapper.find("a").simulate("click", {
+      preventDefault,
+    });
+    expect(onClick).not.toBeCalled();
+    expect(preventDefault).toBeCalled();
   });
 });
