@@ -17,6 +17,7 @@ export interface LinkProps {
   noEmptyHref?: boolean;
   replace?: boolean;
   target?: string;
+  disabled?: boolean;
   onClick?: LinkClickFn;
   [other: string]: any;
 }
@@ -29,7 +30,8 @@ type LinkClickFn = (
  * The public API for rendering a history-aware <a>.
  */
 export function Link(props: LinkProps): React.ReactElement {
-  const { innerRef, replace, to, href, noEmptyHref, ...rest } = props; // eslint-disable-line no-unused-vars
+  const { innerRef, replace, to, href, noEmptyHref, disabled, style, ...rest } =
+    props; // eslint-disable-line no-unused-vars
   const history = getHistory();
   const computedHref = useMemo(() => {
     if (props.href) {
@@ -47,6 +49,10 @@ export function Link(props: LinkProps): React.ReactElement {
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
     history: PluginHistory
   ): void => {
+    if (disabled) {
+      event.preventDefault();
+      return;
+    }
     if (props.onClick) props.onClick(event);
     if (props.href) return;
 
@@ -73,6 +79,10 @@ export function Link(props: LinkProps): React.ReactElement {
   return (
     <a
       {...rest}
+      style={{
+        ...(disabled ? { cursor: "not-allowed" } : null),
+        ...style,
+      }}
       onClick={(event) => handleClick(event, history)}
       ref={innerRef}
     />
