@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.22.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.27...@next-libs/cmdb-instances@6.22.0) (2022-05-11)
+
+
+### Features
+
+* 避免实例详情接口拉全部数据,用fields来控制返回的数据 ([58c3742](https://github.com/easyops-cn/next-libs/commit/58c3742ab3247a38ccc8a90a0cfdcb2eb2a757b1)), closes [refs#INSTANCE-2367](https://github.com/refs/issues/INSTANCE-2367)
+
+
+
+
+
 ## [6.21.27](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.26...@next-libs/cmdb-instances@6.21.27) (2022-05-07)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
