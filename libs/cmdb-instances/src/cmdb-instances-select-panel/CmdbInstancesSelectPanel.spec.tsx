@@ -88,6 +88,27 @@ describe("CmdbInstancesSelectPanel", () => {
     });
     wrapper.update();
     expect(wrapper.find(".wrapper").length).toBe(1);
+    expect(onFetchedInstances).toHaveBeenCalledTimes(0);
+  });
+
+  it("onFetchedInstances work", async () => {
+    const onChange = jest.fn();
+    const onFetchedInstances = jest.fn();
+    const wrapper = mount(
+      <RefCmdbInstancesSelectPanel
+        objectId="APP"
+        modelData={objectMap["APP"]}
+        value={["testId"]}
+        onChange={onChange}
+        isFilterView={true}
+        onFetchedInstances={onFetchedInstances}
+      />
+    );
+    await act(async () => {
+      await (global as any).flushPromises();
+    });
+    wrapper.update();
+    expect(wrapper.find(".wrapper").length).toBe(1);
     expect(onFetchedInstances).toHaveBeenCalledTimes(1);
   });
 

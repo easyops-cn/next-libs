@@ -15,7 +15,7 @@ import {
 import style from "./style.module.css";
 import i18n from "i18next";
 import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
-import { keyBy, isEqual, isNil, isObject } from "lodash";
+import { keyBy, isEqual, isNil, isObject, isEmpty } from "lodash";
 import { Spin } from "antd";
 
 export interface BaseCmdbInstancesSelectPanelProps {
@@ -105,6 +105,7 @@ export function CmdbInstancesSelectPanel(
     visible: false,
   });
   const [modelMap, setModelMap] = useState({});
+
   const fetchInstances = async (instanceIdList: string[]): Promise<any[]> => {
     let instances: any[] = [];
     if (instanceIdList?.length) {
@@ -125,22 +126,10 @@ export function CmdbInstancesSelectPanel(
 
     return instances;
   };
+  const loadedInstanceIds =
+    props.value?.map((i) => (isObject(i) ? (i as any).instanceId : i)) || [];
 
   useEffect(() => {
-    const instanceIds =
-      props.value?.map((i) => (isObject(i) ? (i as any).instanceId : i)) || [];
-    const initInstances = async (): Promise<void> => {
-      const instances = await fetchInstances(instanceIds);
-      setSelectedInstanceList(instances);
-      setPartialSelectedInstances(
-        props?.isOperate
-          ? instances
-          : instances.slice(0, displayedSelectedInstancesMaxNumber)
-      );
-      props.onFetchedInstances?.(instances);
-    };
-
-    initInstances();
     const getModelMap = async (): Promise<void> => {
       let modelMap: Record<string, Partial<CmdbModels.ModelCmdbObject>>;
 
@@ -155,7 +144,28 @@ export function CmdbInstancesSelectPanel(
       setModelMap(modelMap);
     };
     getModelMap();
-  }, [props.objectId, props.value]);
+  }, [props.objectId]);
+
+  useEffect(() => {
+    let instances = [];
+
+    const initInstances = async (): Promise<void> => {
+      instances = await fetchInstances(loadedInstanceIds);
+      setSelectedInstanceList(instances);
+      setPartialSelectedInstances(
+        props?.isOperate
+          ? instances
+          : instances.slice(0, displayedSelectedInstancesMaxNumber)
+      );
+      props.onFetchedInstances?.(instances);
+    };
+    if (!isEmpty(loadedInstanceIds)) {
+      initInstances();
+    } else {
+      setSelectedInstanceList([]);
+      setPartialSelectedInstances([]);
+    }
+  }, [loadedInstanceIds.join()]);
 
   const openAddInstancesModal = () => {
     setAddInstancesModal({ visible: true });
