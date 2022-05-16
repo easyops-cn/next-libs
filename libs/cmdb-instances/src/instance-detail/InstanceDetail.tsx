@@ -634,7 +634,22 @@ export class LegacyInstanceDetail extends React.Component<
         }
       });
     }
-    return basicInfoGroupList;
+    // 用于处理分类排序失效问题
+    const basicInfoGroups: any[] = [];
+    const basicInfoGroupNameList = basicInfoGroupList.map(
+      (basicInfo) => basicInfo.name
+    );
+    const attrCategoryOrder = modelData.view.attr_category_order.filter(
+      (category) => basicInfoGroupNameList.includes(category)
+    );
+    basicInfoGroupList.forEach((v) => {
+      const index = attrCategoryOrder.findIndex(
+        (category) => category === v.name
+      );
+      basicInfoGroups[index] = v;
+    });
+
+    return basicInfoGroups;
   }
 
   // istanbul ignore next
