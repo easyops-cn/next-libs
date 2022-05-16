@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.22.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.22.2...@next-libs/cmdb-instances@6.22.3) (2022-05-16)
+
+
+### Bug Fixes
+
+* 修复分类排序失效 ([1f9f9ef](https://github.com/easyops-cn/next-libs/commit/1f9f9ef152a1ef15f6b1a39a012fc6b102931fb7)), closes [Refs#DATA_QUALITY-212](https://github.com/Refs/issues/DATA_QUALITY-212)
+
+
+
+
+
 ## [6.22.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.22.1...@next-libs/cmdb-instances@6.22.2) (2022-05-16)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
