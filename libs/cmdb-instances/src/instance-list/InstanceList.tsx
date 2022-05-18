@@ -17,6 +17,7 @@ import {
   compact,
   omit,
   keyBy,
+  rest,
 } from "lodash";
 import { BrickAsComponent, handleHttpError } from "@next-core/brick-kit";
 import i18n from "i18next";
@@ -63,7 +64,11 @@ import {
   ComparisonOperators,
 } from "../instance-list-table";
 import styles from "./InstanceList.module.css";
-import { extraFieldAttrs } from "./constants";
+import {
+  extraFieldAttrs,
+  CMDB_MODAL_FIELDS_SETTINGS,
+  CMDB_RESOURCE_FIELDS_SETTINGS,
+} from "./constants";
 import { JsonStorage } from "@next-libs/storage";
 import { ModelAttributeValueType } from "../model-attribute-form-control/ModelAttributeFormControl";
 import { IconButton } from "./IconButton";
@@ -504,8 +509,14 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     { inModal } = { inModal: false }
   ): { fieldIds: string[] } => {
     // 原来有隐藏逻辑，针对 APP、HOST、USER、USER_GROUP模型，默认字段特殊处理了，现产品要求干掉，统一取8个默认字段，也不区分是否是内置模型
+    const settings: any = inModal
+      ? CMDB_MODAL_FIELDS_SETTINGS
+      : CMDB_RESOURCE_FIELDS_SETTINGS;
+    const ignoredFields: string[] =
+      settings.ignoredFields[modelData.objectId] || [];
     let fieldIds: string[] = difference(
-      uniq(map(modelData.attrList, "id"))
+      uniq(map(modelData.attrList, "id")),
+      ignoredFields
     ).slice(0, 8);
     const hideModelData: string[] = modelData.view.hide_columns || [];
     fieldIds = fieldIds.filter((field) => !hideModelData.includes(field));
