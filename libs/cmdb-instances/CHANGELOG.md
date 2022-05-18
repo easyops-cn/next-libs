@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.22.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.22.3...@next-libs/cmdb-instances@6.22.4) (2022-05-18)
+
+
+### Bug Fixes
+
+* **cmdb:** 显示字段取默认前8个时忽略禁止显示的字段 ([f6ef5bf](https://github.com/easyops-cn/next-libs/commit/f6ef5bf1d23e10c62f5ec4d4cf0909ba7151b406))
+
+
+
+
+
 ## [6.22.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.22.2...@next-libs/cmdb-instances@6.22.3) (2022-05-16)
 
 
