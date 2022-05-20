@@ -89,6 +89,7 @@ export interface ModelAttributeFormControlProps {
   style?: React.CSSProperties;
   objectId?: string;
   jsonValidateCollection?: (err: boolean) => void;
+  isSupportMultiStringValue?: boolean;
 }
 
 export interface ModelAttributeFormControlState {
@@ -203,7 +204,8 @@ export class ModelAttributeFormControl extends Component<
 
   static computeFormControlType(
     attribute: Partial<CmdbModels.ModelObjectAttr>,
-    type?: string
+    type?: string,
+    isSupportMultiStringValue?: boolean
   ): FormControlTypeEnum {
     switch (attribute.value.type) {
       case ModelAttributeValueType.STRING: {
@@ -217,6 +219,9 @@ export class ModelAttributeFormControl extends Component<
         }
         if (attribute.value.mode === ModelAttributeValueModeType.URL) {
           return FormControlTypeEnum.URL;
+        }
+        if (isSupportMultiStringValue) {
+          return FormControlTypeEnum.TAGS;
         }
       }
       /* falls through */
@@ -295,7 +300,8 @@ export class ModelAttributeFormControl extends Component<
   ): FormControl => {
     const formControlType = ModelAttributeFormControl.computeFormControlType(
       attribute,
-      type
+      type,
+      this.props.isSupportMultiStringValue
     );
     let items = this.computeFormControlItems(attribute, isClusterType);
 
@@ -572,14 +578,7 @@ export class ModelAttributeFormControl extends Component<
             value={value || []}
             onChange={(e: any) => this.onChange(e)}
             className={this.props.className}
-          >
-            {value &&
-              (value as string[]).map((tag) => (
-                <Select.Option value={tag} key={tag}>
-                  {tag}
-                </Select.Option>
-              ))}
-          </Select>
+          />
         );
       }
 
