@@ -28,6 +28,7 @@ export interface InstanceListModalProps {
   filterInstanceSourceDisabled?: boolean;
   sortDisabled?: boolean;
   selectDisabled?: boolean;
+  ipCopy?: boolean;
   singleSelect?: boolean;
   selectedRowKeys?: string[];
   onCancel: () => void;
@@ -142,7 +143,6 @@ export function InstanceListModal(
       </>
     );
   };
-
   return (
     <Modal
       title={props.title}
@@ -181,6 +181,7 @@ export function InstanceListModal(
           enableSearchByApp={props.enableSearchByApp}
           hideSearchConditions={props.hideSearchConditions}
           isInstanceFilterForm={props.isInstanceFilterForm}
+          ipCopy={props.ipCopy}
         />
       </div>
     </Modal>

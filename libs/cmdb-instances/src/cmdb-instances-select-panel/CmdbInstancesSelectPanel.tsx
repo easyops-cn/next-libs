@@ -43,11 +43,13 @@ export interface BaseCmdbInstancesSelectPanelProps {
 export interface CmdbInstancesSelectPanelPropsWithObjectMap
   extends BaseCmdbInstancesSelectPanelProps {
   objectMap: Record<string, Partial<CmdbModels.ModelCmdbObject>>;
+  ipCopy?: boolean;
 }
 
 export interface CmdbInstancesSelectPanelPropsWithModelData
   extends BaseCmdbInstancesSelectPanelProps {
   modelData: Partial<CmdbModels.ModelCmdbObject>;
+  ipCopy?: boolean;
 }
 
 export type CmdbInstancesSelectPanelProps =
@@ -67,7 +69,6 @@ export function CmdbInstancesSelectPanel(
   ref: any
 ): React.ReactElement {
   let modelData: Partial<CmdbModels.ModelCmdbObject>;
-
   if (isCmdbInstancesSelectPanelPropsWithObjectMap(props)) {
     modelData = props.objectMap[props.objectId];
   } else {
@@ -239,6 +240,7 @@ export function CmdbInstancesSelectPanel(
         pageSizeOptions={props.pageSizeOptions}
         searchDisabled={props.searchDisabled}
         advancedSearchDisabled={props.advancedSearchDisabled}
+        ipCopy={props.ipCopy}
       />
       <InstanceListModal
         objectMap={modelMap}
@@ -254,7 +256,8 @@ export function CmdbInstancesSelectPanel(
             },
           },
         }}
-        selectDisabled={true}
+        selectDisabled={!props.ipCopy}
+        ipCopy={props.ipCopy}
         onCancel={closeAllSelectedInstancesModal}
       />
       <Spin
