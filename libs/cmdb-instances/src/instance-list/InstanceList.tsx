@@ -17,7 +17,6 @@ import {
   compact,
   omit,
   keyBy,
-  rest,
 } from "lodash";
 import { BrickAsComponent, handleHttpError } from "@next-core/brick-kit";
 import i18n from "i18next";
