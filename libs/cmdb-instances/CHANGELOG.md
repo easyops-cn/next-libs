@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.23.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.22.4...@next-libs/cmdb-instances@6.23.0) (2022-05-20)
+
+
+### Features
+
+* **ModelAttributeFormControl:** add isSupportMultiStringValue ([c982b0b](https://github.com/easyops-cn/next-libs/commit/c982b0b224a469e12520c522d875f99d2c65eba5))
+
+
+
+
+
 ## [6.22.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.22.3...@next-libs/cmdb-instances@6.22.4) (2022-05-18)
 
 
