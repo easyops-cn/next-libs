@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.24.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.23.0...@next-libs/cmdb-instances@6.24.0) (2022-05-20)
+
+
+### Features
+
+* instance-list-modal支持IP类型的字段可以copy功能 Refs MONITOR-3543 ([c5df905](https://github.com/easyops-cn/next-libs/commit/c5df905f544dfc0fc334346ffd11bbcf5f84344f))
+
+
+
+
+
 # [6.23.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.22.4...@next-libs/cmdb-instances@6.23.0) (2022-05-20)
 
 
