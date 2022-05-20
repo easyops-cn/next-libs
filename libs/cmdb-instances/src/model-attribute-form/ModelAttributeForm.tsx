@@ -505,11 +505,11 @@ export class ModelAttributeForm extends Component<
       >
         {this.state.attrListGroupByTag.map(([tag, list]) => (
           <Panel header={tag} key={tag} forceRender={true}>
-            {list.map(
-              (attribute: Partial<ModifiedModelObjectAttr>, index: number) =>
-                attribute.__isRelation ? (
-                  this.renderRelationFormControl(attribute)
-                ) : (
+            {list.map((attribute, index) => {
+              if (attribute.__isRelation) {
+                return this.renderRelationFormControl(attribute);
+              } else if (attribute.__isRelation === false) {
+                return (
                   <Form.Item
                     label={
                       <span>
@@ -560,8 +560,9 @@ export class ModelAttributeForm extends Component<
                       />
                     )}
                   </Form.Item>
-                )
-            )}
+                );
+              }
+            })}
           </Panel>
         ))}
 

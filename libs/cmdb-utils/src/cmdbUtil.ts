@@ -153,13 +153,13 @@ export const IGNORED_FIELDS: Record<string, string[]> = {
 };
 
 export interface ModifiedModelObjectAttr extends CmdbModels.ModelObjectAttr {
-  __isRelation: boolean;
+  __isRelation: false;
   __id: string;
 }
 
 export interface ModifiedModelObjectRelation
   extends CmdbModels.ModelObjectRelation {
-  __isRelation: boolean;
+  __isRelation: true;
   __id: string;
   __inverted: boolean;
 }
@@ -261,19 +261,21 @@ export function modifyModelData(
   const attrList: Partial<ModifiedModelObjectAttr>[] = [];
   const relationList: Partial<ModifiedModelObjectRelation>[] = [];
   orderedFieldIds.forEach((orderedFieldId) => {
-    fieldList.push(fieldMap[orderedFieldId]);
-    if (fieldMap[orderedFieldId].__isRelation) {
-      relationList.push(fieldMap[orderedFieldId]);
-    } else {
-      attrList.push(fieldMap[orderedFieldId]);
+    const field = fieldMap[orderedFieldId];
+    fieldList.push(field);
+    if (field.__isRelation) {
+      relationList.push(field);
+    } else if (field.__isRelation === false) {
+      attrList.push(field);
     }
   });
   notOrderedFieldIds.forEach((notOrderedFieldId) => {
-    fieldList.push(fieldMap[notOrderedFieldId]);
-    if (fieldMap[notOrderedFieldId].__isRelation) {
-      relationList.push(fieldMap[notOrderedFieldId]);
-    } else {
-      attrList.push(fieldMap[notOrderedFieldId]);
+    const field = fieldMap[notOrderedFieldId];
+    fieldList.push(field);
+    if (field.__isRelation) {
+      relationList.push(field);
+    } else if (field.__isRelation === false) {
+      attrList.push(field);
     }
   });
 
