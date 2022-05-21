@@ -1,0 +1,46 @@
+.queryCondition {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.queryConditionInput {
+  margin-right: 10px !important;
+  width: 100%;
+}
+
+.queryConditionIcon {
+  position: relative;
+  top: 5px;
+  font-size: 20px;
+  color: var(--color-secondary-text);
+  &:hover {
+    color: var(--color-auxiliary-text);
+  }
+}
+
+.fieldIdSelect {
+  width: 100%;
+}
+
+.operatorSelect {
+  width: 100%;
+}
+
+.valueInput {
+  width: 100%;
+}
+
+.addButton {
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.disabledShowInstancesModalButton {
+  color: var(--color-disabled-text);
+  cursor: not-allowed;
+}
+
+.separatorInput {
+  width: 30px;
+  pointer-events: none;
+}

@@ -1,0 +1,10 @@
+.itemWrapper {
+  background: var(--custom-form-item-wrapper-bg, var(--color-fill-bg-base-1));
+  border-radius: 6px;
+  padding: 16px;
+  line-height: 20px;
+}
+
+.typeRadioGroup {
+  margin-bottom: 16px;
+}

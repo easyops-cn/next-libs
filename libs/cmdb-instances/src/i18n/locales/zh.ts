@@ -102,6 +102,19 @@ const locale: Locale = {
   [K.COPY_SELECTED_IP]: "复制选中IP",
   [K.SELECT_COPY_DATA]: "请选择需要复制的数据",
   [K.ADVANCE_SEARCH_SINGLE_INPUT_PLACEHOLDER]: "输入关键词，多值用空格隔开",
+  [K.VIEW_SPECIFIC_EXAMPLE]: "查看具体实例",
+  [K.TITLE_VIEW_SPECIFIC_EXAMPLE]: "查看具体{{instance_title}}",
+  [K.ALL_INSTANCES]: "全部实例",
+  [K.SPECIFIC_INSTANCES]: "指定实例",
+  [K.REQUIRED]: "为必填项",
+  [K.THIS_ITEM_IS_REQUIRED]: "该项为必填项",
+  [K.CONTAIN]: "包含",
+  [K.NOT_CONTAIN]: "不包含",
+  [K.EMPTY]: "为空",
+  [K.NOT_EMPTY]: "不为空",
+  [K.EQUAL]: "等于",
+  [K.NOT_EQUAL]: "不等于",
+  [K.RANGE]: "范围",
 };
 
 export default locale;

@@ -113,6 +113,19 @@ const locale: Locale = {
   [K.SELECT_COPY_DATA]: "Select the data to be copied",
   [K.ADVANCE_SEARCH_SINGLE_INPUT_PLACEHOLDER]:
     "Please enter keywords, multiple values ​​separated by spaces",
+  [K.VIEW_SPECIFIC_EXAMPLE]: "View specific instances",
+  [K.TITLE_VIEW_SPECIFIC_EXAMPLE]: "View Specific {{instance_title}}",
+  [K.ALL_INSTANCES]: "All Instances",
+  [K.SPECIFIC_INSTANCES]: "Specific Instances",
+  [K.REQUIRED]: " is required",
+  [K.THIS_ITEM_IS_REQUIRED]: "This item is required",
+  [K.NOT_EQUAL]: "Not equal",
+  [K.EQUAL]: "Equal",
+  [K.EMPTY]: "Empty",
+  [K.NOT_EMPTY]: "Not empty",
+  [K.CONTAIN]: "Contain",
+  [K.NOT_CONTAIN]: "Not contain",
+  [K.RANGE]: "Range",
 };
 
 export default locale;
