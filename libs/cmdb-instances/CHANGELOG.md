@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.26.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.25.1...@next-libs/cmdb-instances@6.26.0) (2022-05-23)
+
+
+### Features
+
+* instance modal 支持自定义分页以及显示关闭按钮 Refs MONITOR-3543 ([b36bd81](https://github.com/easyops-cn/next-libs/commit/b36bd8117f0baabfe0dde852586fb8b389f84437))
+
+
+
+
+
 ## [6.25.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.25.0...@next-libs/cmdb-instances@6.25.1) (2022-05-23)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
