@@ -28,6 +28,7 @@ export interface InstanceListModalProps {
   filterInstanceSourceDisabled?: boolean;
   sortDisabled?: boolean;
   selectDisabled?: boolean;
+  showCloseBtn?: boolean;
   ipCopy?: boolean;
   singleSelect?: boolean;
   selectedRowKeys?: string[];
@@ -117,12 +118,12 @@ export function InstanceListModal(
             )}
           </span>
         )}
-        {props.selectDisabled && (
+        {(props.selectDisabled || props.showCloseBtn) && (
           <Button key="back" onClick={props.onCancel}>
             {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CLOSE}`)}
           </Button>
         )}
-        {!props.selectDisabled && (
+        {!props.selectDisabled && !props.showCloseBtn && (
           <>
             <Button key="back" onClick={handleCancel} type="text">
               {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CANCEL}`)}
