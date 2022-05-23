@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.26.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.26.0...@next-libs/cmdb-instances@6.26.1) (2022-05-23)
+
+
+### Bug Fixes
+
+* ipCopy功能过滤 Refs MONITOR-3544 ([2fffe3c](https://github.com/easyops-cn/next-libs/commit/2fffe3c0738f0a9e01785814b11b5905de591816))
+
+
+
+
+
 # [6.26.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.25.1...@next-libs/cmdb-instances@6.26.0) (2022-05-23)
 
 
