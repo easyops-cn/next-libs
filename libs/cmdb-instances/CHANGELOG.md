@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.25.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.24.0...@next-libs/cmdb-instances@6.25.0) (2022-05-23)
+
+
+### Features
+
+* move transformConditionsToAq here ([3b91884](https://github.com/easyops-cn/next-libs/commit/3b91884d43966967eb110f8c16830fbffaa9bfad))
+
+
+
+
+
 # [6.24.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.23.0...@next-libs/cmdb-instances@6.24.0) (2022-05-20)
 
 
