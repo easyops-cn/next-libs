@@ -44,12 +44,18 @@ export interface CmdbInstancesSelectPanelPropsWithObjectMap
   extends BaseCmdbInstancesSelectPanelProps {
   objectMap: Record<string, Partial<CmdbModels.ModelCmdbObject>>;
   ipCopy?: boolean;
+  showSizeChanger?: boolean;
+  showCloseBtn?: boolean;
+  pageSizeOptions?: string[];
 }
 
 export interface CmdbInstancesSelectPanelPropsWithModelData
   extends BaseCmdbInstancesSelectPanelProps {
   modelData: Partial<CmdbModels.ModelCmdbObject>;
   ipCopy?: boolean;
+  showSizeChanger?: boolean;
+  showCloseBtn?: boolean;
+  pageSizeOptions?: string[];
 }
 
 export type CmdbInstancesSelectPanelProps =
@@ -236,11 +242,12 @@ export function CmdbInstancesSelectPanel(
           fieldIds: props.fields,
         }}
         pageSize={props.addInstancesModalPageSize}
-        showSizeChanger={props.showSizeChanger}
-        pageSizeOptions={props.pageSizeOptions}
         searchDisabled={props.searchDisabled}
         advancedSearchDisabled={props.advancedSearchDisabled}
         ipCopy={props.ipCopy}
+        showCloseBtn={props.showCloseBtn}
+        showSizeChanger={props.showSizeChanger}
+        pageSizeOptions={props.pageSizeOptions}
       />
       <InstanceListModal
         objectMap={modelMap}
@@ -258,6 +265,9 @@ export function CmdbInstancesSelectPanel(
         }}
         selectDisabled={!props.ipCopy}
         ipCopy={props.ipCopy}
+        showCloseBtn={props.showCloseBtn}
+        showSizeChanger={props.showSizeChanger}
+        pageSizeOptions={props.pageSizeOptions}
         onCancel={closeAllSelectedInstancesModal}
       />
       <Spin
