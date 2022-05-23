@@ -947,10 +947,14 @@ export class LegacyInstanceListTable extends React.Component<
       return false;
     }
     const inputDom = document.createElement("textarea");
-    inputDom.value = map(
-      this.selectedRows.filter((v) => v[dataIndex]),
-      dataIndex
-    ).join("\n");
+    inputDom.value = [
+      ...new Set(
+        map(
+          this.selectedRows.filter((v) => v[dataIndex]),
+          dataIndex
+        )
+      ),
+    ].join("\n");
     document.body.appendChild(inputDom);
     inputDom.select(); //选择对象
     document.execCommand("copy");
