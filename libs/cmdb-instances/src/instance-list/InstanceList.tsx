@@ -47,20 +47,22 @@ import {
   RelationObjectIdKeys,
   RelationObjectSides,
   isSelfRelation,
+  Query,
+  ElementOperators,
+  LogicalOperators,
+  ComparisonOperators,
 } from "@next-libs/cmdb-utils";
+import { JsonStorage } from "@next-libs/storage";
+import { ModelObjectAttr } from "@next-sdk/cmdb-sdk/dist/types/model/cmdb";
 
 import {
   ConditionType,
-  LogicalOperators,
-  Query,
   AdvancedSearch,
   getFieldConditionsAndValues,
   MoreButtonsContainer,
   InstanceListTable,
   CustomColumn,
-  ElementOperators,
   Field,
-  ComparisonOperators,
 } from "../instance-list-table";
 import styles from "./InstanceList.module.css";
 import {
@@ -68,11 +70,9 @@ import {
   CMDB_MODAL_FIELDS_SETTINGS,
   CMDB_RESOURCE_FIELDS_SETTINGS,
 } from "./constants";
-import { JsonStorage } from "@next-libs/storage";
 import { ModelAttributeValueType } from "../model-attribute-form-control/ModelAttributeFormControl";
 import { IconButton } from "./IconButton";
 import { changeQueryWithCustomRules } from "../processors";
-import { ModelObjectAttr } from "@next-sdk/cmdb-sdk/dist/types/model/cmdb";
 import { DisplaySettingsModalData } from "../instance-list-table/DisplaySettingsModal";
 export interface InstanceListPresetConfigs {
   query?: Record<string, any>;

@@ -8,8 +8,12 @@ import {
   CmdbObjectApi_getIdMapName,
 } from "@next-sdk/cmdb-sdk";
 import * as storage from "@next-libs/storage";
-import { IconButton } from "./IconButton";
 import { Button, Select } from "antd";
+import { mount } from "enzyme";
+import { BrickAsComponent } from "@next-core/brick-kit";
+import i18n from "i18next";
+import { Query } from "@next-libs/cmdb-utils";
+import { IconButton } from "./IconButton";
 import { InstanceList, getQuery, initAqToShow } from "./InstanceList";
 import {
   getInstanceListData,
@@ -20,12 +24,8 @@ import {
   InstanceListTable,
   MoreButtonsContainer,
   InstanceListTableProps,
-  Query,
 } from "../instance-list-table";
 import { InstanceListPresetConfigs } from "../instance-list/InstanceList";
-import { mount } from "enzyme";
-import { BrickAsComponent } from "@next-core/brick-kit";
-import i18n from "i18next";
 
 jest.mock("../i18n");
 jest.spyOn(i18n, "t").mockReturnValue("");
