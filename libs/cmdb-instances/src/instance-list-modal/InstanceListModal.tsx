@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { WarningOutlined } from "@ant-design/icons";
 import { Modal, Button } from "antd";
 import i18n from "i18next";
-import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
 import { CmdbModels, InstanceApi_postSearch } from "@next-sdk/cmdb-sdk";
+import { Query } from "@next-libs/cmdb-utils";
+import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
 import { InstanceList } from "../instance-list/InstanceList";
 import { InstanceListPresetConfigs } from "../instance-list-table/interfaces";
-import { Query } from "../instance-list-table";
 import { addResourceBundle } from "../i18n";
 addResourceBundle();
 export interface InstanceListModalProps {

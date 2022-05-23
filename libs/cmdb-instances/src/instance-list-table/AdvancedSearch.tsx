@@ -15,8 +15,13 @@ import { Button, Col, Input, Row, Select } from "antd";
 import { FormComponentProps } from "@ant-design/compatible/lib/form";
 import { CmdbModels } from "@next-sdk/cmdb-sdk";
 import {
+  ComparisonOperators,
+  ElementOperators,
   forEachAvailableFields,
   getInstanceNameKeys,
+  LogicalOperators,
+  Query,
+  QueryOperatorExpressions,
   RelationIdKeys,
   RelationNameKeys,
   RelationObjectIdKeys,
@@ -34,36 +39,6 @@ import {
   processAttrValueWithQuote,
   ENABLED_CMDB_ADVANCE_SEARCH_WITH_QUOTE,
 } from "../processors";
-
-export enum ComparisonOperators {
-  Equal = "$eq",
-  NotEqual = "$ne",
-  Like = "$like",
-  NotLike = "$nlike",
-  GreaterThan = "$gt",
-  GreaterThanOrEqual = "$gte",
-  LessThan = "$lt",
-  LessThanOrEqual = "$lte",
-  In = "$in",
-  NotIn = "$nin",
-}
-
-export enum ElementOperators {
-  Exists = "$exists",
-}
-
-export enum LogicalOperators {
-  And = "$and",
-  Or = "$or",
-}
-
-export type QueryOperatorExpressions = Partial<
-  Record<ComparisonOperators | ElementOperators, any>
->;
-
-export interface Query {
-  [fieldOrLogical: string]: QueryOperatorExpressions | Query[];
-}
 
 export enum ConditionType {
   Equal = "equal",
