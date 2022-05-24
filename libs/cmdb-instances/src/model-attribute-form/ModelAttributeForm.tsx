@@ -445,6 +445,9 @@ export class ModelAttributeForm extends Component<
     const initialValue = InitialRelationValue
       ? InitialRelationValue.map((instanceData: any) => instanceData.instanceId)
       : [];
+    const RefCmdbInstancesSelectPanel = React.forwardRef(
+      CmdbInstancesSelectPanel
+    );
     return (
       <Form.Item
         label={relation.left_name}
@@ -455,7 +458,7 @@ export class ModelAttributeForm extends Component<
           rules: this.relationRules(relation),
           initialValue,
         })(
-          <CmdbInstancesSelectPanel
+          <RefCmdbInstancesSelectPanel
             isFilterView={this.props.isFilterView}
             modelData={this.modelMap[relation.right_object_id]}
             objectId={relation.right_object_id}
