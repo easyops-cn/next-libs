@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.26.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.26.1...@next-libs/cmdb-instances@6.26.2) (2022-05-24)
+
+
+### Bug Fixes
+
+* 修改cmdb实例创建保存不会回滚到第一个校验报错点 ([e2108e6](https://github.com/easyops-cn/next-libs/commit/e2108e6817b81e9e1cbc44d41e1b93baca44b7d4)), closes [Refs#INSTANCE-2395](https://github.com/Refs/issues/INSTANCE-2395)
+
+
+
+
+
 ## [6.26.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.26.0...@next-libs/cmdb-instances@6.26.1) (2022-05-23)
 
 
