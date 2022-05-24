@@ -940,7 +940,10 @@ export class LegacyInstanceListTable extends React.Component<
     dataIndex: string
   ) => {
     ev.stopPropagation();
-    if (this.selectedRows.length < 1) {
+    if (
+      this.props.selectedRowKeys?.length < 1 ||
+      this.selectedRows.length < 1
+    ) {
       message.warning(
         i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.SELECT_COPY_DATA}`)
       );
