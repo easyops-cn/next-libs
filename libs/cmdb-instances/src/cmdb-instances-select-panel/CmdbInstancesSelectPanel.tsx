@@ -133,7 +133,7 @@ export function CmdbInstancesSelectPanel(
 
     return instances;
   };
-  const loadedInstanceIds =
+  const toLoadInstanceIds =
     props.value?.map((i) => (isObject(i) ? (i as any).instanceId : i)) || [];
 
   useEffect(() => {
@@ -157,7 +157,7 @@ export function CmdbInstancesSelectPanel(
     let instances = [];
 
     const initInstances = async (): Promise<void> => {
-      instances = await fetchInstances(loadedInstanceIds);
+      instances = await fetchInstances(toLoadInstanceIds);
       setSelectedInstanceList(instances);
       setPartialSelectedInstances(
         props?.isOperate
@@ -166,13 +166,13 @@ export function CmdbInstancesSelectPanel(
       );
       props.onFetchedInstances?.(instances);
     };
-    if (!isEmpty(loadedInstanceIds)) {
+    if (!isEmpty(toLoadInstanceIds)) {
       initInstances();
     } else {
       setSelectedInstanceList([]);
       setPartialSelectedInstances([]);
     }
-  }, [loadedInstanceIds.join()]);
+  }, [toLoadInstanceIds.sort().join()]);
 
   const openAddInstancesModal = () => {
     setAddInstancesModal({ visible: true });
