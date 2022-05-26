@@ -735,7 +735,7 @@ describe("ModelAttributeFormControl", () => {
     const selectNode = wrapper.find(Select);
 
     expect(selectNode.exists()).toBeTruthy();
-    expect(selectNode.props().defaultValue).toEqual(value || []);
+    expect(selectNode.props().value).toEqual(value || []);
 
     selectNode.props().onChange("fake_value", expect.anything());
 
