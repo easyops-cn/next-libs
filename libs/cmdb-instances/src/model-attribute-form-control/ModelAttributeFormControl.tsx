@@ -220,12 +220,12 @@ export class ModelAttributeFormControl extends Component<
         if (attribute.value.mode === ModelAttributeValueModeType.URL) {
           return FormControlTypeEnum.URL;
         }
-        if (isSupportMultiStringValue) {
-          return FormControlTypeEnum.TAGS;
-        }
       }
       /* falls through */
       case ModelAttributeValueType.IP:
+        if (isSupportMultiStringValue) {
+          return FormControlTypeEnum.TAGS;
+        }
         return FormControlTypeEnum.TEXT;
       case ModelAttributeValueType.JSON:
         // return FormControlTypeEnum.TEXTAREA;
@@ -616,7 +616,7 @@ export class ModelAttributeFormControl extends Component<
           <Select
             placeholder={placeholder}
             mode={this.props.multiSelect ? "multiple" : undefined}
-            defaultValue={newValue}
+            value={newValue}
             onChange={(e: any) => this.onChange(e)}
             disabled={readOnly}
             className={this.props.className}
