@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.26.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.26.4...@next-libs/cmdb-instances@6.26.5) (2022-05-26)
+
+
+### Bug Fixes
+
+* **ModelAttributeFormControl:** change defaultValue property ([c62d082](https://github.com/easyops-cn/next-libs/commit/c62d0829804427ccea6ddcdc2351cdac84b7ec5a))
+
+
+
+
+
 ## [6.26.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.26.3...@next-libs/cmdb-instances@6.26.4) (2022-05-25)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
