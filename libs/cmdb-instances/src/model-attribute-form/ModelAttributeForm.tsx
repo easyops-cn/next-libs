@@ -80,6 +80,8 @@ interface ModelAttributeFormProps extends FormComponentProps {
 
 export type attributesFieldsByTag = [string, ModifiedModelObjectField[]];
 
+const RefCmdbInstancesSelectPanel = React.forwardRef(CmdbInstancesSelectPanel);
+
 interface ModelAttributeFormState {
   sending: boolean;
   attrListGroupByTag: attributesFieldsByTag[];
@@ -445,9 +447,7 @@ export class ModelAttributeForm extends Component<
     const initialValue = InitialRelationValue
       ? InitialRelationValue.map((instanceData: any) => instanceData.instanceId)
       : [];
-    const RefCmdbInstancesSelectPanel = React.forwardRef(
-      CmdbInstancesSelectPanel
-    );
+
     return (
       <Form.Item
         label={relation.left_name}
