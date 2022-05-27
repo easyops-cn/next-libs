@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.26.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.26.6...@next-libs/cmdb-instances@6.26.7) (2022-05-27)
+
+
+### Bug Fixes
+
+* **ModelAttributeFormControl:** add number input placeholder ([dfd5c96](https://github.com/easyops-cn/next-libs/commit/dfd5c96839f30b654e6f10745f1a3198784c15c5))
+
+
+
+
+
 ## [6.26.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.26.5...@next-libs/cmdb-instances@6.26.6) (2022-05-27)
 
 
