@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.26.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.26.5...@next-libs/cmdb-instances@6.26.6) (2022-05-27)
+
+
+### Bug Fixes
+
+* **InstanceModelAttributeForm:** 修改任意字符会重新拉所有的请求 Closes INSTANCE-2410 ([4ea682e](https://github.com/easyops-cn/next-libs/commit/4ea682eae7e13fbc15e60f82d98203dcd43bb081))
+
+
+
+
+
 ## [6.26.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.26.4...@next-libs/cmdb-instances@6.26.5) (2022-05-26)
 
 
