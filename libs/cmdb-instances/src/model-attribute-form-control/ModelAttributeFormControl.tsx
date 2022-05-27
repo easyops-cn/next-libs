@@ -354,6 +354,11 @@ export class ModelAttributeFormControl extends Component<
           )
         );
         break;
+      case FormControlTypeEnum.NUMBER:
+        placeholders.push(
+          i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.NUMBER_INPUT_PLACEHOLDER}`)
+        );
+        break;
       default:
         placeholders.push(
           i18n.t(
