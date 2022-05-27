@@ -113,6 +113,7 @@ const locale: Locale = {
   [K.SELECT_COPY_DATA]: "Select the data to be copied",
   [K.ADVANCE_SEARCH_SINGLE_INPUT_PLACEHOLDER]:
     "Please enter keywords, multiple values ​​separated by spaces",
+  [K.NUMBER_INPUT_PLACEHOLDER]: "Please enter number",
 };
 
 export default locale;
