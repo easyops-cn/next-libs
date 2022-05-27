@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.26.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.26.7...@next-libs/cmdb-instances@6.26.8) (2022-05-27)
+
+
+### Bug Fixes
+
+* 修复回显时候ipCopy功能获取不到数据的问题  Refs BRICK_STORE-276 ([2a17d17](https://github.com/easyops-cn/next-libs/commit/2a17d17b2ec61a8b6a230a232e3bfa2f5bb6f4e0))
+
+
+
+
+
 ## [6.26.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.26.6...@next-libs/cmdb-instances@6.26.7) (2022-05-27)
 
 
