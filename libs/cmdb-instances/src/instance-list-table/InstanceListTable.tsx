@@ -32,6 +32,7 @@ import {
   CmdbModels,
   InstanceApi_PostSearchV3ResponseBody,
   CmdbObjectApi_getIdMapName,
+  InstanceApi_postSearch,
 } from "@next-sdk/cmdb-sdk";
 import { Link, GeneralIcon } from "@next-libs/basic-components";
 import {
@@ -144,6 +145,8 @@ export class LegacyInstanceListTable extends React.Component<
   recordUseBrickDataMap: Map<unknown, InstanceListUseBrickData>;
   inheritanceModelIdNameMap: Record<string, string>;
   selectedRows: Record<string, any>[] = [];
+  ROM_KEY = "instanceId";
+
   instanceSourceTitle: React.ReactElement = (
     <>
       <span>{i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.INSTANCE_SOURCE}`)}</span>
@@ -386,7 +389,6 @@ export class LegacyInstanceListTable extends React.Component<
       columns: this.getMergedColumns(columns, nextProps.extraColumns),
     });
   }
-
   handleClickItem(
     e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
     id: string
@@ -790,7 +792,6 @@ export class LegacyInstanceListTable extends React.Component<
 
           const instanceNodes = instances.map((instance, index) => {
             let subName: string;
-
             if (nameKeys.length > 1) {
               subName = instance[nameKeys[1]];
             }
@@ -935,25 +936,39 @@ export class LegacyInstanceListTable extends React.Component<
       selectedItems: selectedRows,
     });
   };
-  handelIpCopyText = (
+  handelIpCopyText = async (
     ev: React.MouseEvent<HTMLElement, MouseEvent>,
     dataIndex: string
   ) => {
     ev.stopPropagation();
-    if (
-      this.props.selectedRowKeys?.length < 1 ||
-      this.selectedRows.length < 1
-    ) {
+    let selectedRowKeys = this.props.selectedRowKeys;
+    let selectedRows = this.selectedRows.filter((v) => v);
+    const objectId = this.props.modelData.objectId;
+    if (selectedRowKeys?.length < 1) {
       message.warning(
         i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.SELECT_COPY_DATA}`)
       );
       return false;
     }
+    selectedRowKeys = selectedRowKeys.filter((k) =>
+      selectedRows.every((row) => row[this.ROM_KEY] !== k)
+    );
+    if (selectedRowKeys.length > 0) {
+      const resp = await InstanceApi_postSearch(objectId, {
+        query: {
+          instanceId: {
+            $in: selectedRowKeys,
+          },
+        },
+        page_size: selectedRowKeys.length,
+      });
+      selectedRows = [...selectedRows, ...(resp?.list || [])];
+    }
     const inputDom = document.createElement("textarea");
     inputDom.value = [
       ...new Set(
         map(
-          this.selectedRows.filter((v) => v[dataIndex]),
+          selectedRows.filter((v) => v[dataIndex]),
           dataIndex
         )
       ),
@@ -1044,7 +1059,7 @@ export class LegacyInstanceListTable extends React.Component<
         <Table
           columns={this.state.columns}
           dataSource={this.props.instanceListData.list}
-          rowKey="instanceId"
+          rowKey={this.ROM_KEY}
           scroll={{ x: "max-content" }}
           pagination={this.state.pagination}
           rowSelection={rowSelection}
