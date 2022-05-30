@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.27.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.26.8...@next-libs/cmdb-instances@6.27.0) (2022-05-30)
+
+
+### Features
+
+* finish AdvancedSearchCondition component ([9f11d8a](https://github.com/easyops-cn/next-libs/commit/9f11d8acc5142f149952dc3662dbc8f615140faf)), closes [Refs#MONITOR-3554](https://github.com/Refs/issues/MONITOR-3554)
+
+
+
+
+
 ## [6.26.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.26.7...@next-libs/cmdb-instances@6.26.8) (2022-05-27)
 
 
