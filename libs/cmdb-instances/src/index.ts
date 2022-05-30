@@ -5,6 +5,7 @@ export * from "./attribute-form-control-url/AttributeFormControlUrl";
 export * from "./model-attribute-form-control/ModelAttributeFormControl";
 export * from "./struct-components";
 export * from "./instance-list-table";
+export * from "./instance-list-table/AdvancedSearchCondition";
 export * from "./instance-list-modal/InstanceListModal";
 export * from "./instance-list/InstanceList";
 export * from "./cmdb-instances-input-form/CmdbInstancesInputFormItem";
