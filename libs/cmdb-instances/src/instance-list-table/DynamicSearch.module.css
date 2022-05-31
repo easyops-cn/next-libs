@@ -1,0 +1,40 @@
+.dynamicSearch {
+  padding: 20px 25px;
+  background-color: var(--custom-form-item-wrapper-bg, #f5f5f5);
+  border-radius: 6px;
+}
+
+.dynamicSearchForm
+  :global(.ant-legacy-form-item-children)
+  > .conditionInputGroup {
+  display: inline-flex;
+}
+
+.dynamicSearchForm :global(.ant-legacy-form-item) {
+  margin-bottom: 14px;
+}
+
+.dynamicSearchForm :global(.ant-legacy-form-item-label) {
+  line-height: unset;
+}
+
+.dynamicSearchForm :global(.ant-legacy-form-item) label {
+  display: inline-block;
+  margin-bottom: 4px;
+}
+
+.conditionInput {
+  flex-grow: 1;
+}
+
+.conditionInputGroup .separatorInput {
+  width: 30px;
+  pointer-events: none;
+  border-left: 0;
+  border-right: 0;
+  background: var(--input-fill-bg, var(--antd-input-disabled-bg));
+}
+
+.conditionInputGroup :global(.ant-select-selection-selected-value) {
+  margin-right: 4px;
+}
