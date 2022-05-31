@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.27.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.27.0...@next-libs/cmdb-instances@6.27.1) (2022-05-31)
+
+
+### Bug Fixes
+
+* 新增动态筛选的构件 ([19e81d9](https://github.com/easyops-cn/next-libs/commit/19e81d90823904ef2d1189c6c230d588363f17b3))
+
+
+
+
+
 # [6.27.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.26.8...@next-libs/cmdb-instances@6.27.0) (2022-05-30)
 
 
