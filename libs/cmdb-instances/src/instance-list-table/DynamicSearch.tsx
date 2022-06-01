@@ -162,25 +162,20 @@ export class DynamicSearchForm extends React.Component<
       return (
         <Col span={12} key={field.id}>
           <Form.Item label={field.name}>
-            <Input.Group className={styles.conditionInputGroup} compact>
-              <Select dropdownMatchSelectWidth={false} defaultValue={"contain"}>
-                <Select.Option value={"contain"} key={"contain"}>
-                  {i18n.t(
-                    `${NS_LIBS_CMDB_INSTANCES}:${K.OPERATOR_CONTAIN_DEFINE}`
-                  )}
-                </Select.Option>
-              </Select>
-              {getFieldDecorator(`${field.id}`, {
-                initialValue: field.values || "",
-              })(
-                <Input
-                  placeholder={i18n.t(
-                    `${NS_LIBS_CMDB_INSTANCES}:${K.ADVANCE_SEARCH_SINGLE_INPUT_PLACEHOLDER}`
-                  )}
-                  onChange={(e) => this.handleValueChange(e, fieldIndex)}
-                />
-              )}
-            </Input.Group>
+            {getFieldDecorator(`${field.id}`, {
+              initialValue: field.values || "",
+            })(
+              <Input
+                className={styles.conditionInput}
+                addonBefore={i18n.t(
+                  `${NS_LIBS_CMDB_INSTANCES}:${K.OPERATOR_CONTAIN_DEFINE}`
+                )}
+                placeholder={i18n.t(
+                  `${NS_LIBS_CMDB_INSTANCES}:${K.ADVANCE_SEARCH_SINGLE_INPUT_PLACEHOLDER}`
+                )}
+                onChange={(e) => this.handleValueChange(e, fieldIndex)}
+              />
+            )}
           </Form.Item>
         </Col>
       );
