@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.27.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.27.1...@next-libs/cmdb-instances@6.27.2) (2022-06-01)
+
+
+### Bug Fixes
+
+* change show components ([7f008dd](https://github.com/easyops-cn/next-libs/commit/7f008ddbcbc04d09de4b220a785818e96d1b1794)), closes [refs#MONITOR-3561](https://github.com/refs/issues/MONITOR-3561)
+
+
+
+
+
 ## [6.27.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.27.0...@next-libs/cmdb-instances@6.27.1) (2022-05-31)
 
 
