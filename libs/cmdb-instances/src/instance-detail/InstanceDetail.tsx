@@ -784,13 +784,26 @@ export class LegacyInstanceDetail extends React.Component<
           );
         }
       } else {
-        [modelListData, instanceData] = await Promise.all([
-          fetchCmdbObjectRef(props.objectId),
-          fetchCmdbInstanceDetail(props.objectId, props.instanceId),
-        ]);
-        modelDataMap = keyBy(modelListData.data, "objectId") as {
-          [objectId: string]: CmdbModels.ModelCmdbObject;
-        };
+        if (props.showFields) {
+          modelListData = await fetchCmdbObjectRef(props.objectId);
+          modelDataMap = keyBy(modelListData.data, "objectId") as {
+            [objectId: string]: CmdbModels.ModelCmdbObject;
+          };
+          const { fields } = this.getInstanceDetailData(props, modelDataMap);
+          instanceData = fetchCmdbInstanceDetailByFields(
+            props.objectId,
+            props.instanceId,
+            fields
+          );
+        } else {
+          [modelListData, instanceData] = await Promise.all([
+            fetchCmdbObjectRef(props.objectId),
+            fetchCmdbInstanceDetail(props.objectId, props.instanceId),
+          ]);
+          modelDataMap = keyBy(modelListData.data, "objectId") as {
+            [objectId: string]: CmdbModels.ModelCmdbObject;
+          };
+        }
       }
       const { filterModelData } = this.getInstanceDetailData(
         props,
