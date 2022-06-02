@@ -3,6 +3,76 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.33](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.0.32...@next-libs/code-editor-components@4.0.33) (2022-05-23)
+
+
+### Bug Fixes
+
+* **codeEditor:** fix re-render complete  error ([984e5b6](https://github.com/easyops-cn/next-libs/commit/984e5b64faf9ed4996de8800b0a72ea7f5b30d5d))
+
+
+
+
+
+## [4.0.32](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.0.31...@next-libs/code-editor-components@4.0.32) (2022-05-13)
+
+
+### Bug Fixes
+
+* refine keywords for code editor ([e0e66b3](https://github.com/easyops-cn/next-libs/commit/e0e66b37d89df061df8569883e7bd27583278478))
+
+
+
+
+
+## [4.0.31](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.0.30...@next-libs/code-editor-components@4.0.31) (2022-05-07)
+
+**Note:** Version bump only for package @next-libs/code-editor-components
+
+
+
+
+
+## [4.0.30](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.0.29...@next-libs/code-editor-components@4.0.30) (2022-05-06)
+
+**Note:** Version bump only for package @next-libs/code-editor-components
+
+
+
+
+
+## [4.0.29](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.0.28...@next-libs/code-editor-components@4.0.29) (2022-04-27)
+
+**Note:** Version bump only for package @next-libs/code-editor-components
+
+
+
+
+
+## [4.0.28](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.0.27...@next-libs/code-editor-components@4.0.28) (2022-04-25)
+
+**Note:** Version bump only for package @next-libs/code-editor-components
+
+
+
+
+
+## [4.0.27](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.0.26...@next-libs/code-editor-components@4.0.27) (2022-04-11)
+
+**Note:** Version bump only for package @next-libs/code-editor-components
+
+
+
+
+
+## [4.0.26](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.0.25...@next-libs/code-editor-components@4.0.26) (2022-04-08)
+
+**Note:** Version bump only for package @next-libs/code-editor-components
+
+
+
+
+
 ## [4.0.25](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.0.24...@next-libs/code-editor-components@4.0.25) (2022-04-01)
 
 

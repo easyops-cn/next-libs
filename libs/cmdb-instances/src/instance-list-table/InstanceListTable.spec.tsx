@@ -20,7 +20,7 @@ import { CmdbObjectApi_getIdMapName } from "@next-sdk/cmdb-sdk";
 import { InstanceListTable } from "./InstanceListTable";
 import { getInstanceListData, HOST } from "./data-providers/__mocks__";
 import { mount } from "enzyme";
-import { Table } from "antd";
+import { message, Table } from "antd";
 
 kit.createHistory();
 
@@ -308,10 +308,14 @@ describe("InstanceListTable", () => {
         modelData={HOST}
         instanceListData={instanceListData}
         onSelectionChange={mockOnSelectionChange}
+        selectedRowKeys={[]}
         ipCopy={true}
       />
     );
+    const spyOnMessageWarning = jest.spyOn(message, "warning");
     fireEvent.click(container.querySelector(".copyWrap svg"));
+    expect(spyOnMessageWarning).toHaveBeenCalled();
+
     fireEvent.click(
       container
         .querySelector(`[data-row-key="${instance.instanceId}"]`)
@@ -326,6 +330,28 @@ describe("InstanceListTable", () => {
     fireEvent.click(container.querySelector(".copyWrap svg"));
   });
 
+  it(`should ipCopy `, () => {
+    const instanceListData = getInstanceListData();
+    const instance = instanceListData.list[0];
+    const spyOnMessage = jest.spyOn(message, "success");
+
+    const { container } = render(
+      <InstanceListTable
+        detailUrlTemplates={detailUrlTemplates}
+        idObjectMap={idObjectMap}
+        modelData={HOST}
+        instanceListData={instanceListData}
+        onSelectionChange={mockOnSelectionChange}
+        selectedRowKeys={[instance.instanceId]}
+        ipCopy={true}
+      />
+    );
+    fireEvent.click(container.querySelector(".copyWrap svg"));
+    act(async () => {
+      await (global as any).flushPromises();
+      expect(spyOnMessage).toHaveBeenCalled();
+    });
+  });
   it(`should not throw error after table head "${ipAttr.name}" clicked, when there is not function passed to the onSelectionChange property`, () => {
     const instanceListData = getInstanceListData();
     const instance = instanceListData.list[0];

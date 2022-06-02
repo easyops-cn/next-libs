@@ -128,7 +128,9 @@ describe("AddUserModal", () => {
   });
   it("should handleUsersChange when change the Select", () => {
     const batchHandleUserChangeSpy = jest.spyOn(props, "batchHandleUserChange");
-    instance.handleUsersChange(["easyops"]);
+    instance.handleUsersChange([
+      { label: "easyops", key: "easyops", value: "easyops" },
+    ]);
     expect(batchHandleUserChangeSpy).toHaveBeenCalled();
   });
 });

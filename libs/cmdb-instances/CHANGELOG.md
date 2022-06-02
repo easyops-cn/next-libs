@@ -3,6 +3,358 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.27.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.27.1...@next-libs/cmdb-instances@6.27.2) (2022-06-01)
+
+
+### Bug Fixes
+
+* change show components ([7f008dd](https://github.com/easyops-cn/next-libs/commit/7f008ddbcbc04d09de4b220a785818e96d1b1794)), closes [refs#MONITOR-3561](https://github.com/refs/issues/MONITOR-3561)
+
+
+
+
+
+## [6.27.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.27.0...@next-libs/cmdb-instances@6.27.1) (2022-05-31)
+
+
+### Bug Fixes
+
+* 新增动态筛选的构件 ([19e81d9](https://github.com/easyops-cn/next-libs/commit/19e81d90823904ef2d1189c6c230d588363f17b3))
+
+
+
+
+
+# [6.27.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.26.8...@next-libs/cmdb-instances@6.27.0) (2022-05-30)
+
+
+### Features
+
+* finish AdvancedSearchCondition component ([9f11d8a](https://github.com/easyops-cn/next-libs/commit/9f11d8acc5142f149952dc3662dbc8f615140faf)), closes [Refs#MONITOR-3554](https://github.com/Refs/issues/MONITOR-3554)
+
+
+
+
+
+## [6.26.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.26.7...@next-libs/cmdb-instances@6.26.8) (2022-05-27)
+
+
+### Bug Fixes
+
+* 修复回显时候ipCopy功能获取不到数据的问题  Refs BRICK_STORE-276 ([2a17d17](https://github.com/easyops-cn/next-libs/commit/2a17d17b2ec61a8b6a230a232e3bfa2f5bb6f4e0))
+
+
+
+
+
+## [6.26.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.26.6...@next-libs/cmdb-instances@6.26.7) (2022-05-27)
+
+
+### Bug Fixes
+
+* **ModelAttributeFormControl:** add number input placeholder ([dfd5c96](https://github.com/easyops-cn/next-libs/commit/dfd5c96839f30b654e6f10745f1a3198784c15c5))
+
+
+
+
+
+## [6.26.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.26.5...@next-libs/cmdb-instances@6.26.6) (2022-05-27)
+
+
+### Bug Fixes
+
+* **InstanceModelAttributeForm:** 修改任意字符会重新拉所有的请求 Closes INSTANCE-2410 ([4ea682e](https://github.com/easyops-cn/next-libs/commit/4ea682eae7e13fbc15e60f82d98203dcd43bb081))
+
+
+
+
+
+## [6.26.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.26.4...@next-libs/cmdb-instances@6.26.5) (2022-05-26)
+
+
+### Bug Fixes
+
+* **ModelAttributeFormControl:** change defaultValue property ([c62d082](https://github.com/easyops-cn/next-libs/commit/c62d0829804427ccea6ddcdc2351cdac84b7ec5a))
+
+
+
+
+
+## [6.26.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.26.3...@next-libs/cmdb-instances@6.26.4) (2022-05-25)
+
+**Note:** Version bump only for package @next-libs/cmdb-instances
+
+
+
+
+
+## [6.26.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.26.2...@next-libs/cmdb-instances@6.26.3) (2022-05-24)
+
+**Note:** Version bump only for package @next-libs/cmdb-instances
+
+
+
+
+
+## [6.26.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.26.1...@next-libs/cmdb-instances@6.26.2) (2022-05-24)
+
+
+### Bug Fixes
+
+* 修改cmdb实例创建保存不会回滚到第一个校验报错点 ([e2108e6](https://github.com/easyops-cn/next-libs/commit/e2108e6817b81e9e1cbc44d41e1b93baca44b7d4)), closes [Refs#INSTANCE-2395](https://github.com/Refs/issues/INSTANCE-2395)
+
+
+
+
+
+## [6.26.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.26.0...@next-libs/cmdb-instances@6.26.1) (2022-05-23)
+
+
+### Bug Fixes
+
+* ipCopy功能过滤 Refs MONITOR-3544 ([2fffe3c](https://github.com/easyops-cn/next-libs/commit/2fffe3c0738f0a9e01785814b11b5905de591816))
+
+
+
+
+
+# [6.26.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.25.1...@next-libs/cmdb-instances@6.26.0) (2022-05-23)
+
+
+### Features
+
+* instance modal 支持自定义分页以及显示关闭按钮 Refs MONITOR-3543 ([b36bd81](https://github.com/easyops-cn/next-libs/commit/b36bd8117f0baabfe0dde852586fb8b389f84437))
+
+
+
+
+
+## [6.25.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.25.0...@next-libs/cmdb-instances@6.25.1) (2022-05-23)
+
+**Note:** Version bump only for package @next-libs/cmdb-instances
+
+
+
+
+
+# [6.25.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.24.0...@next-libs/cmdb-instances@6.25.0) (2022-05-23)
+
+
+### Features
+
+* move transformConditionsToAq here ([3b91884](https://github.com/easyops-cn/next-libs/commit/3b91884d43966967eb110f8c16830fbffaa9bfad))
+
+
+
+
+
+# [6.24.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.23.0...@next-libs/cmdb-instances@6.24.0) (2022-05-20)
+
+
+### Features
+
+* instance-list-modal支持IP类型的字段可以copy功能 Refs MONITOR-3543 ([c5df905](https://github.com/easyops-cn/next-libs/commit/c5df905f544dfc0fc334346ffd11bbcf5f84344f))
+
+
+
+
+
+# [6.23.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.22.4...@next-libs/cmdb-instances@6.23.0) (2022-05-20)
+
+
+### Features
+
+* **ModelAttributeFormControl:** add isSupportMultiStringValue ([c982b0b](https://github.com/easyops-cn/next-libs/commit/c982b0b224a469e12520c522d875f99d2c65eba5))
+
+
+
+
+
+## [6.22.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.22.3...@next-libs/cmdb-instances@6.22.4) (2022-05-18)
+
+
+### Bug Fixes
+
+* **cmdb:** 显示字段取默认前8个时忽略禁止显示的字段 ([f6ef5bf](https://github.com/easyops-cn/next-libs/commit/f6ef5bf1d23e10c62f5ec4d4cf0909ba7151b406))
+
+
+
+
+
+## [6.22.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.22.2...@next-libs/cmdb-instances@6.22.3) (2022-05-16)
+
+
+### Bug Fixes
+
+* 修复分类排序失效 ([1f9f9ef](https://github.com/easyops-cn/next-libs/commit/1f9f9ef152a1ef15f6b1a39a012fc6b102931fb7)), closes [Refs#DATA_QUALITY-212](https://github.com/Refs/issues/DATA_QUALITY-212)
+
+
+
+
+
+## [6.22.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.22.1...@next-libs/cmdb-instances@6.22.2) (2022-05-16)
+
+**Note:** Version bump only for package @next-libs/cmdb-instances
+
+
+
+
+
+## [6.22.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.22.0...@next-libs/cmdb-instances@6.22.1) (2022-05-13)
+
+**Note:** Version bump only for package @next-libs/cmdb-instances
+
+
+
+
+
+# [6.22.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.27...@next-libs/cmdb-instances@6.22.0) (2022-05-11)
+
+
+### Features
+
+* 避免实例详情接口拉全部数据,用fields来控制返回的数据 ([58c3742](https://github.com/easyops-cn/next-libs/commit/58c3742ab3247a38ccc8a90a0cfdcb2eb2a757b1)), closes [refs#INSTANCE-2367](https://github.com/refs/issues/INSTANCE-2367)
+
+
+
+
+
+## [6.21.27](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.26...@next-libs/cmdb-instances@6.21.27) (2022-05-07)
+
+**Note:** Version bump only for package @next-libs/cmdb-instances
+
+
+
+
+
+## [6.21.26](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.25...@next-libs/cmdb-instances@6.21.26) (2022-05-06)
+
+**Note:** Version bump only for package @next-libs/cmdb-instances
+
+
+
+
+
+## [6.21.25](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.24...@next-libs/cmdb-instances@6.21.25) (2022-04-29)
+
+
+### Bug Fixes
+
+* **CmdbInstancesSelectPanel:** props.value bug fix ([a7f4010](https://github.com/easyops-cn/next-libs/commit/a7f4010a2a24ef22610c60cc36bec48425bf2927))
+
+
+
+
+
+## [6.21.24](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.23...@next-libs/cmdb-instances@6.21.24) (2022-04-27)
+
+**Note:** Version bump only for package @next-libs/cmdb-instances
+
+
+
+
+
+## [6.21.23](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.22...@next-libs/cmdb-instances@6.21.23) (2022-04-25)
+
+**Note:** Version bump only for package @next-libs/cmdb-instances
+
+
+
+
+
+## [6.21.22](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.21...@next-libs/cmdb-instances@6.21.22) (2022-04-24)
+
+
+### Bug Fixes
+
+* **CmdbInstancesSelectPanel:** fix value改变后，panel表格数据不更新 ([d14dc65](https://github.com/easyops-cn/next-libs/commit/d14dc65c851667480b65444541f266b545bfbfde))
+
+
+
+
+
+## [6.21.21](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.20...@next-libs/cmdb-instances@6.21.21) (2022-04-20)
+
+
+### Reverts
+
+* Revert "fix(CmdbInstancesSelectPanel): fix value改变后，panel表格数据不更新" ([b4ec2f0](https://github.com/easyops-cn/next-libs/commit/b4ec2f0887eabde59ab3f9536536ff215fc482a4))
+
+
+
+
+
+## [6.21.20](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.19...@next-libs/cmdb-instances@6.21.20) (2022-04-20)
+
+
+### Bug Fixes
+
+* **CmdbInstancesSelectPanel:** fix value改变后，panel表格数据不更新 ([79dbd3f](https://github.com/easyops-cn/next-libs/commit/79dbd3f41ae2ace79c5114d7a3bdd860187fa67e))
+
+
+
+
+
+## [6.21.19](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.18...@next-libs/cmdb-instances@6.21.19) (2022-04-18)
+
+
+### Bug Fixes
+
+* 修复高级搜索筛选条件不能清除 ([3fdff7d](https://github.com/easyops-cn/next-libs/commit/3fdff7d6198176e54a11ee8637e6e62706066ae5)), closes [Refs#INSTANCE-2331](https://github.com/Refs/issues/INSTANCE-2331)
+
+
+
+
+
+## [6.21.18](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.17...@next-libs/cmdb-instances@6.21.18) (2022-04-15)
+
+
+### Bug Fixes
+
+* **CmdbInstancesSelectPanel:** fix breaking change of remove objectMap property ([a034070](https://github.com/easyops-cn/next-libs/commit/a034070859630696b6b2696356c2455384f7d312))
+
+
+
+
+
+## [6.21.17](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.16...@next-libs/cmdb-instances@6.21.17) (2022-04-11)
+
+**Note:** Version bump only for package @next-libs/cmdb-instances
+
+
+
+
+
+## [6.21.16](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.15...@next-libs/cmdb-instances@6.21.16) (2022-04-08)
+
+
+### Bug Fixes
+
+* 添加实例范围，条件过滤删除其中一个条件过滤，另外一个条件过滤也会被删除 ([f597b2f](https://github.com/easyops-cn/next-libs/commit/f597b2f47125030b6963eda242cb9bb123e61112)), closes [Refs#INSTANCE-2253](https://github.com/Refs/issues/INSTANCE-2253)
+
+
+
+
+
+## [6.21.15](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.14...@next-libs/cmdb-instances@6.21.15) (2022-04-08)
+
+**Note:** Version bump only for package @next-libs/cmdb-instances
+
+
+
+
+
+## [6.21.14](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.13...@next-libs/cmdb-instances@6.21.14) (2022-04-01)
+
+
+### Bug Fixes
+
+* **cmdb:** span style ([fa37d19](https://github.com/easyops-cn/next-libs/commit/fa37d1965f5ecf7ad0f2dec7ee8748eeaa2b68e7))
+
+
+
+
+
 ## [6.21.13](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.12...@next-libs/cmdb-instances@6.21.13) (2022-04-01)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances

@@ -15,12 +15,12 @@ import {
 import style from "./style.module.css";
 import i18n from "i18next";
 import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
-import { keyBy } from "lodash";
+import { keyBy, isEqual, isNil, isObject, isEmpty } from "lodash";
+import { Spin } from "antd";
 
-export interface CmdbInstancesSelectPanelProps {
-  modelData: Partial<CmdbModels.ModelCmdbObject>;
+export interface BaseCmdbInstancesSelectPanelProps {
   objectId: string;
-  value?: string[];
+  value?: any[];
   onChange?: (instanceList: any[]) => void;
   instanceQuery?: any;
   fields?: string[];
@@ -40,11 +40,47 @@ export interface CmdbInstancesSelectPanelProps {
   advancedSearchDisabled?: boolean;
 }
 
+export interface CmdbInstancesSelectPanelPropsWithObjectMap
+  extends BaseCmdbInstancesSelectPanelProps {
+  objectMap: Record<string, Partial<CmdbModels.ModelCmdbObject>>;
+  ipCopy?: boolean;
+  showSizeChanger?: boolean;
+  showCloseBtn?: boolean;
+  pageSizeOptions?: string[];
+}
+
+export interface CmdbInstancesSelectPanelPropsWithModelData
+  extends BaseCmdbInstancesSelectPanelProps {
+  modelData: Partial<CmdbModels.ModelCmdbObject>;
+  ipCopy?: boolean;
+  showSizeChanger?: boolean;
+  showCloseBtn?: boolean;
+  pageSizeOptions?: string[];
+}
+
+export type CmdbInstancesSelectPanelProps =
+  | CmdbInstancesSelectPanelPropsWithObjectMap
+  | CmdbInstancesSelectPanelPropsWithModelData;
+
+export function isCmdbInstancesSelectPanelPropsWithObjectMap(
+  props: CmdbInstancesSelectPanelProps
+): props is CmdbInstancesSelectPanelPropsWithObjectMap {
+  return !isNil(
+    (props as CmdbInstancesSelectPanelPropsWithObjectMap).objectMap
+  );
+}
+
 export function CmdbInstancesSelectPanel(
   props: CmdbInstancesSelectPanelProps,
   ref: any
 ): React.ReactElement {
-  let { modelData } = props;
+  let modelData: Partial<CmdbModels.ModelCmdbObject>;
+  if (isCmdbInstancesSelectPanelPropsWithObjectMap(props)) {
+    modelData = props.objectMap[props.objectId];
+  } else {
+    modelData = props.modelData;
+  }
+
   if (props.isFilterView) {
     //过滤掉视图不可见字段
     const hideModelData = modelData?.view?.hide_columns || [];
@@ -76,6 +112,7 @@ export function CmdbInstancesSelectPanel(
     visible: false,
   });
   const [modelMap, setModelMap] = useState({});
+
   const fetchInstances = async (instanceIdList: string[]): Promise<any[]> => {
     let instances: any[] = [];
     if (instanceIdList?.length) {
@@ -96,10 +133,31 @@ export function CmdbInstancesSelectPanel(
 
     return instances;
   };
+  const toLoadInstanceIds =
+    props.value?.map((i) => (isObject(i) ? (i as any).instanceId : i)) || [];
 
   useEffect(() => {
+    const getModelMap = async (): Promise<void> => {
+      let modelMap: Record<string, Partial<CmdbModels.ModelCmdbObject>>;
+
+      if (isCmdbInstancesSelectPanelPropsWithObjectMap(props)) {
+        modelMap = props.objectMap;
+      } else {
+        const { data } = await CmdbObjectApi_getObjectRef({
+          ref_object: props.objectId,
+        });
+        modelMap = keyBy(data, "objectId");
+      }
+      setModelMap(modelMap);
+    };
+    getModelMap();
+  }, [props.objectId]);
+
+  useEffect(() => {
+    let instances = [];
+
     const initInstances = async (): Promise<void> => {
-      const instances = await fetchInstances(props.value);
+      instances = await fetchInstances(toLoadInstanceIds);
       setSelectedInstanceList(instances);
       setPartialSelectedInstances(
         props?.isOperate
@@ -108,16 +166,13 @@ export function CmdbInstancesSelectPanel(
       );
       props.onFetchedInstances?.(instances);
     };
-
-    initInstances();
-    const getModelMap = async (): Promise<void> => {
-      const { data } = await CmdbObjectApi_getObjectRef({
-        ref_object: props.objectId,
-      });
-      setModelMap(keyBy(data, "objectId"));
-    };
-    getModelMap();
-  }, [props.objectId]);
+    if (!isEmpty(toLoadInstanceIds)) {
+      initInstances();
+    } else {
+      setSelectedInstanceList([]);
+      setPartialSelectedInstances([]);
+    }
+  }, [toLoadInstanceIds.sort().join()]);
 
   const openAddInstancesModal = () => {
     setAddInstancesModal({ visible: true });
@@ -187,10 +242,12 @@ export function CmdbInstancesSelectPanel(
           fieldIds: props.fields,
         }}
         pageSize={props.addInstancesModalPageSize}
-        showSizeChanger={props.showSizeChanger}
-        pageSizeOptions={props.pageSizeOptions}
         searchDisabled={props.searchDisabled}
         advancedSearchDisabled={props.advancedSearchDisabled}
+        ipCopy={props.ipCopy}
+        showCloseBtn={props.showCloseBtn}
+        showSizeChanger={props.showSizeChanger}
+        pageSizeOptions={props.pageSizeOptions}
       />
       <InstanceListModal
         objectMap={modelMap}
@@ -206,17 +263,28 @@ export function CmdbInstancesSelectPanel(
             },
           },
         }}
-        selectDisabled={true}
+        selectDisabled={!props.ipCopy}
+        ipCopy={props.ipCopy}
+        showCloseBtn={props.showCloseBtn}
+        showSizeChanger={props.showSizeChanger}
+        pageSizeOptions={props.pageSizeOptions}
         onCancel={closeAllSelectedInstancesModal}
       />
-      <a
-        className={style.addButton}
-        onClick={openAddInstancesModal}
-        style={{ marginBottom: "12px" }}
+      <Spin
+        style={{ textAlign: "left", marginBottom: "12px" }}
+        spinning={isEqual(modelMap, {})}
       >
-        {props.addTitle ??
-          i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CHOOSE_INSTANCE}`)}
-      </a>
+        <a
+          className={style.addButton}
+          style={{
+            marginBottom: "12px",
+          }}
+          onClick={openAddInstancesModal}
+        >
+          {props.addTitle ??
+            i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CHOOSE_INSTANCE}`)}
+        </a>
+      </Spin>
       <div className={cs}>
         <InstanceListTable
           {...(props.showDetailUrl

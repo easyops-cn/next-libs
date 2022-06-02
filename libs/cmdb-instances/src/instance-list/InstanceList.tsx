@@ -47,28 +47,32 @@ import {
   RelationObjectIdKeys,
   RelationObjectSides,
   isSelfRelation,
+  Query,
+  ElementOperators,
+  LogicalOperators,
+  ComparisonOperators,
 } from "@next-libs/cmdb-utils";
+import { JsonStorage } from "@next-libs/storage";
+import { ModelObjectAttr } from "@next-sdk/cmdb-sdk/dist/types/model/cmdb";
 
 import {
   ConditionType,
-  LogicalOperators,
-  Query,
   AdvancedSearch,
   getFieldConditionsAndValues,
   MoreButtonsContainer,
   InstanceListTable,
   CustomColumn,
-  ElementOperators,
   Field,
-  ComparisonOperators,
 } from "../instance-list-table";
 import styles from "./InstanceList.module.css";
-import { extraFieldAttrs } from "./constants";
-import { JsonStorage } from "@next-libs/storage";
+import {
+  extraFieldAttrs,
+  CMDB_MODAL_FIELDS_SETTINGS,
+  CMDB_RESOURCE_FIELDS_SETTINGS,
+} from "./constants";
 import { ModelAttributeValueType } from "../model-attribute-form-control/ModelAttributeFormControl";
 import { IconButton } from "./IconButton";
 import { changeQueryWithCustomRules } from "../processors";
-import { ModelObjectAttr } from "@next-sdk/cmdb-sdk/dist/types/model/cmdb";
 import { DisplaySettingsModalData } from "../instance-list-table/DisplaySettingsModal";
 export interface InstanceListPresetConfigs {
   query?: Record<string, any>;
@@ -374,6 +378,7 @@ interface InstanceListProps {
   showSizeChanger?: boolean;
   filterInstanceSourceDisabled?: boolean;
   instanceSourceQuery?: string;
+  isInstanceFilterForm?: boolean;
   onSearchExecute?(
     data: InstanceApi_PostSearchRequestBody,
     v3Data: InstanceApi_PostSearchV3RequestBody
@@ -503,8 +508,14 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     { inModal } = { inModal: false }
   ): { fieldIds: string[] } => {
     // 原来有隐藏逻辑，针对 APP、HOST、USER、USER_GROUP模型，默认字段特殊处理了，现产品要求干掉，统一取8个默认字段，也不区分是否是内置模型
+    const settings: any = inModal
+      ? CMDB_MODAL_FIELDS_SETTINGS
+      : CMDB_RESOURCE_FIELDS_SETTINGS;
+    const ignoredFields: string[] =
+      settings.ignoredFields[modelData.objectId] || [];
     let fieldIds: string[] = difference(
-      uniq(map(modelData.attrList, "id"))
+      uniq(map(modelData.attrList, "id")),
+      ignoredFields
     ).slice(0, 8);
     const hideModelData: string[] = modelData.view.hide_columns || [];
     fieldIds = fieldIds.filter((field) => !hideModelData.includes(field));
@@ -1003,15 +1014,29 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     return () => {
       const queries: Query[] = [];
       const queriesToShow: Query[] = [];
+      const isValueEqual = (query: any) =>
+        query[attrId]
+          ? Object.values(query[attrId]).join(" ") !== valuesStr
+          : false;
+      const filterAq = (queries: any[]) =>
+        queries.filter((v: any) => isValueEqual(v));
+      const specialQueryHandler = (query: any, key: any, queries: Query[]) => {
+        // $exists $gte $lte 针对为空，不为空，时间范围特殊处理
+        const isSpecial = Object.keys(query[key] as Query[]).some(
+          (v) => v === "$exists" || v === "$gte" || v === "$lte"
+        );
+        if (isSpecial) {
+          return;
+        }
+        queries.push(query);
+      };
       state.aq.forEach((query) => {
         const key = Object.keys(query)[0];
         if (
           (key === "$or" || key === "$and") &&
           Object.keys((query[key] as Query[])[0])[0] === attrId
         ) {
-          const filteredSubQueries = (query[key] as Query[]).filter((query) => {
-            return Object.values(query[attrId]).join(" ") !== valuesStr;
-          });
+          const filteredSubQueries = filterAq(query[key] as Query[]);
           if (filteredSubQueries.length > 0) {
             queries.push({
               [key]: filteredSubQueries,
@@ -1019,6 +1044,12 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
           }
         } else if (key !== attrId && !startsWith(attrId, `${key}.`)) {
           queries.push(query);
+        } else if (
+          props.isInstanceFilterForm &&
+          key === attrId &&
+          isValueEqual(query)
+        ) {
+          specialQueryHandler(query, key, queries);
         }
       });
       state.aqToShow.forEach((query) => {
@@ -1027,9 +1058,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
           (key === "$or" || key === "$and") &&
           Object.keys((query[key] as Query[])[0])[0] === attrId
         ) {
-          const filteredSubQueries = (query[key] as Query[]).filter((query) => {
-            return Object.values(query[attrId]).join(" ") !== valuesStr;
-          });
+          const filteredSubQueries = filterAq(query[key] as Query[]);
           if (filteredSubQueries.length > 0) {
             queriesToShow.push({
               [key]: filteredSubQueries,
@@ -1037,6 +1066,12 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
           }
         } else if (key !== attrId) {
           queriesToShow.push(query);
+        } else if (
+          props.isInstanceFilterForm &&
+          key === attrId &&
+          isValueEqual(query)
+        ) {
+          specialQueryHandler(query, key, queriesToShow);
         }
       });
       setState({

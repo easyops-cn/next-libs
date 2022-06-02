@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/permission-utils@4.0.6...@next-libs/permission-utils@4.0.7) (2022-04-10)
+
+
+### Bug Fixes
+
+* **SelectUserOrGroup:** support backend search ([77a9510](https://github.com/easyops-cn/next-libs/commit/77a9510c2d88d0bd4d764b1c65093512c0133742))
+
+
+
+
+
+## [4.0.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/permission-utils@4.0.5...@next-libs/permission-utils@4.0.6) (2022-04-08)
+
+
+### Bug Fixes
+
+* CommonSetting构件选择用户组时传递的应该是实例id refs APP_PERMIT-163 ([d8be4e4](https://github.com/easyops-cn/next-libs/commit/d8be4e4a60d18d4156ba07a79fef7595dbd61c97))
+
+
+
+
+
 ## [4.0.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/permission-utils@4.0.4...@next-libs/permission-utils@4.0.5) (2021-08-25)
 
 

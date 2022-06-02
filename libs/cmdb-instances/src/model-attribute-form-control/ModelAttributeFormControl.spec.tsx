@@ -573,6 +573,21 @@ describe("ModelAttributeFormControl", () => {
     expect(spyOnTextChange).toHaveBeenCalledWith(event);
   });
 
+  it("should show tags mode 'Select' when formControl.type equal 'string' and isSupportMultiStringValue is true", async () => {
+    const onChange = jest.fn();
+    const attribute: Partial<CmdbModels.ModelObjectAttr> =
+      mockFetchCmdbObjectDetailReturnValue.attrList[2];
+    const props = { attribute, isSupportMultiStringValue: true, onChange };
+    const wrapper = shallow(<ModelAttributeFormControl {...props} />);
+
+    const inputEl = wrapper.find(Select);
+    expect(inputEl.prop("mode")).toBe("tags");
+    const newValue = ["a"];
+    inputEl.invoke("onChange")(newValue, { label: "a", value: "a" });
+
+    expect(onChange).toHaveBeenCalledWith(newValue);
+  });
+
   it("should show '<InputNumber>' when formControl.type equal 'number'", () => {
     const value = 2;
     const onChange = jest.fn();
@@ -720,7 +735,7 @@ describe("ModelAttributeFormControl", () => {
     const selectNode = wrapper.find(Select);
 
     expect(selectNode.exists()).toBeTruthy();
-    expect(selectNode.props().defaultValue).toEqual(value || []);
+    expect(selectNode.props().value).toEqual(value || []);
 
     selectNode.props().onChange("fake_value", expect.anything());
 

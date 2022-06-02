@@ -89,6 +89,7 @@ export interface ModelAttributeFormControlProps {
   style?: React.CSSProperties;
   objectId?: string;
   jsonValidateCollection?: (err: boolean) => void;
+  isSupportMultiStringValue?: boolean;
 }
 
 export interface ModelAttributeFormControlState {
@@ -203,7 +204,8 @@ export class ModelAttributeFormControl extends Component<
 
   static computeFormControlType(
     attribute: Partial<CmdbModels.ModelObjectAttr>,
-    type?: string
+    type?: string,
+    isSupportMultiStringValue?: boolean
   ): FormControlTypeEnum {
     switch (attribute.value.type) {
       case ModelAttributeValueType.STRING: {
@@ -221,6 +223,9 @@ export class ModelAttributeFormControl extends Component<
       }
       /* falls through */
       case ModelAttributeValueType.IP:
+        if (isSupportMultiStringValue) {
+          return FormControlTypeEnum.TAGS;
+        }
         return FormControlTypeEnum.TEXT;
       case ModelAttributeValueType.JSON:
         // return FormControlTypeEnum.TEXTAREA;
@@ -295,7 +300,8 @@ export class ModelAttributeFormControl extends Component<
   ): FormControl => {
     const formControlType = ModelAttributeFormControl.computeFormControlType(
       attribute,
-      type
+      type,
+      this.props.isSupportMultiStringValue
     );
     let items = this.computeFormControlItems(attribute, isClusterType);
 
@@ -346,6 +352,11 @@ export class ModelAttributeFormControl extends Component<
           i18n.t(
             `${NS_LIBS_CMDB_INSTANCES}:${K.ENTER_MULTIPLE_STRING_WITH_ENTER_KEY_AS_THE_SEPARATOR}`
           )
+        );
+        break;
+      case FormControlTypeEnum.NUMBER:
+        placeholders.push(
+          i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.NUMBER_INPUT_PLACEHOLDER}`)
         );
         break;
       default:
@@ -572,14 +583,7 @@ export class ModelAttributeFormControl extends Component<
             value={value || []}
             onChange={(e: any) => this.onChange(e)}
             className={this.props.className}
-          >
-            {value &&
-              (value as string[]).map((tag) => (
-                <Select.Option value={tag} key={tag}>
-                  {tag}
-                </Select.Option>
-              ))}
-          </Select>
+          />
         );
       }
 
@@ -617,7 +621,7 @@ export class ModelAttributeFormControl extends Component<
           <Select
             placeholder={placeholder}
             mode={this.props.multiSelect ? "multiple" : undefined}
-            defaultValue={newValue}
+            value={newValue}
             onChange={(e: any) => this.onChange(e)}
             disabled={readOnly}
             className={this.props.className}

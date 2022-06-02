@@ -26,7 +26,7 @@ forms\.general-form .formItem {
 .helpInformation {
   display: block;
   position: relative;
-  color: #949494;
+  color: var(--color-secondary-text, #8c8c8c);
   font-size: 14px;
   line-height: 20px;
   margin-top: 4px;

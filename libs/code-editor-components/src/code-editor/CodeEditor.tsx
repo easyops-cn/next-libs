@@ -45,6 +45,7 @@ export function CodeEditorItem(
   loadPluginsForCodeEditor();
 
   const [editor, setEditor] = useState<IEditorProps>();
+  const [baseCompletes, setBaseCompletes] = useState<any[]>([]);
   const [ajv, setAjv] = useState<any>();
   const [jsonSchema, setJsonSchema] = useState(props.jsonSchema);
   const brickNextError = useRef(null);
@@ -163,18 +164,9 @@ export function CodeEditorItem(
 
   useEffect(() => {
     if (editor && editor.completers) {
-      const completersShallowClone = [...editor.completers];
-      const index = completersShallowClone.indexOf(localCompleter);
-      if (props.customCompleters?.length) {
-        if (index === -1) {
-          completersShallowClone.push(localCompleter);
-        }
-      } else if (index > -1) {
-        completersShallowClone.splice(index, 1);
-      }
-      editor.completers = completersShallowClone;
+      editor.completers = baseCompletes.concat([localCompleter]);
     }
-  }, [editor, localCompleter, props.customCompleters]);
+  }, [editor, baseCompletes, localCompleter]);
 
   useEffect(() => {
     if (
@@ -257,6 +249,7 @@ export function CodeEditorItem(
           editor.completers?.push(CommonExpressionLanguageCompleter);
         }
       }
+      setBaseCompletes(editor.completers);
     }
   }, [editor, props.mode]);
 

@@ -3,6 +3,63 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.24](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@3.2.23...@next-libs/forms@3.2.24) (2022-05-07)
+
+**Note:** Version bump only for package @next-libs/forms
+
+
+
+
+
+## [3.2.23](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@3.2.22...@next-libs/forms@3.2.23) (2022-05-06)
+
+**Note:** Version bump only for package @next-libs/forms
+
+
+
+
+
+## [3.2.22](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@3.2.21...@next-libs/forms@3.2.22) (2022-04-27)
+
+
+### Bug Fixes
+
+* fix render icon error ([9d0eda3](https://github.com/easyops-cn/next-libs/commit/9d0eda3e8f239af408a887968490a85d3ce0e9b0))
+
+
+
+
+
+## [3.2.21](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@3.2.20...@next-libs/forms@3.2.21) (2022-04-25)
+
+
+### Bug Fixes
+
+* fix icon backfill value ([0ac27e6](https://github.com/easyops-cn/next-libs/commit/0ac27e66856138def2f1bcc0bd163bf01db01fbc))
+
+
+
+
+
+## [3.2.20](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@3.2.19...@next-libs/forms@3.2.20) (2022-04-11)
+
+
+### Bug Fixes
+
+* **general-forms:** 适配通用表单说明文字的暗色 ([f9926ef](https://github.com/easyops-cn/next-libs/commit/f9926efffcba5d34ecd8348f2312af04fa6f6d90))
+
+
+
+
+
+## [3.2.19](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@3.2.18...@next-libs/forms@3.2.19) (2022-04-08)
+
+**Note:** Version bump only for package @next-libs/forms
+
+
+
+
+
 ## [3.2.18](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@3.2.17...@next-libs/forms@3.2.18) (2022-03-31)
 
 **Note:** Version bump only for package @next-libs/forms

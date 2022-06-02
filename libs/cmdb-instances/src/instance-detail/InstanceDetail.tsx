@@ -17,6 +17,8 @@ import {
   cloneDeep,
   map,
   compact,
+  flatten,
+  uniq,
 } from "lodash";
 import { handleHttpError, BrickAsComponent } from "@next-core/brick-kit";
 import {
@@ -44,7 +46,11 @@ import { NS_LIBS_CMDB_INSTANCES, K } from "../i18n/constants";
 import style from "./index.module.css";
 import shared from "./shared.module.css";
 
-import { fetchCmdbObjectRef, fetchCmdbInstanceDetail } from "../data-providers";
+import {
+  fetchCmdbObjectRef,
+  fetchCmdbInstanceDetail,
+  fetchCmdbInstanceDetailByFields,
+} from "../data-providers";
 import {
   DEFAULT_ATTRIBUTE_TAG_STR,
   BASIC_INFORMATION_RELATION_GROUP_ID,
@@ -83,6 +89,7 @@ interface LegacyInstanceDetailProps extends WithTranslation {
   showCard?: boolean;
   relationFieldUrlTemplate?: string;
   isRelationInstanceDetail?: boolean;
+  showFields?: boolean;
 }
 
 interface LegacyInstanceDetailState {
@@ -532,8 +539,11 @@ export class LegacyInstanceDetail extends React.Component<
   }
 
   // istanbul ignore next
-  setBasicInfoGroupList(state: LegacyInstanceDetailState) {
-    let { modelData, basicInfoGroupList } = state;
+  formatBasicInfoGroupList(
+    modelData: Partial<ModifiedModelCmdbObject>,
+    basicInfoGroupList: any[]
+  ) {
+    // let { modelData, basicInfoGroupList } = state;
     const { attributeKeys, fieldsByTag } = this.props;
     let basicInfoAttrList: any[];
     function attrFilter(field: ModifiedModelObjectField): boolean {
@@ -624,10 +634,34 @@ export class LegacyInstanceDetail extends React.Component<
         }
       });
     }
+    // 用于处理分类排序失效问题
+    const basicInfoGroups: any[] = [];
+    const basicInfoGroupNameList = basicInfoGroupList.map(
+      (basicInfo) => basicInfo.name
+    );
+    const attrCategoryOrder = modelData.view.attr_category_order.filter(
+      (category) => basicInfoGroupNameList.includes(category)
+    );
+    basicInfoGroupList.forEach((v) => {
+      const index = attrCategoryOrder.findIndex(
+        (category) => category === v.name
+      );
+      basicInfoGroups[index] = v;
+    });
 
+    return basicInfoGroups;
+  }
+
+  // istanbul ignore next
+  setBasicInfoGroupList(state: LegacyInstanceDetailState) {
+    const { modelData, basicInfoGroupList } = state;
+    const basicInfoList = this.formatBasicInfoGroupList(
+      modelData,
+      basicInfoGroupList
+    );
     this.setState({
-      basicInfoGroupList,
-      basicInfoGroupListShow: basicInfoGroupList,
+      basicInfoGroupList: basicInfoList,
+      basicInfoGroupListShow: basicInfoList,
     });
   }
   componentDidUpdate(prevProps: LegacyInstanceDetailProps): void {
@@ -684,20 +718,71 @@ export class LegacyInstanceDetail extends React.Component<
   }
 
   // istanbul ignore next
-  async fetchData(props: LegacyInstanceDetailProps): Promise<void> {
-    let modelListData,
-      modelDataMap,
-      modelData: Partial<CmdbModels.ModelCmdbObject>,
-      instanceData,
+  getInstanceDetailData(
+    props: LegacyInstanceDetailProps,
+    modelDataMap: { [objectId: string]: CmdbModels.ModelCmdbObject }
+  ) {
+    const modelData = modelDataMap[props.objectId];
+    const hideModelData = modelData.view.hide_columns || [];
+    const filterModelData = {
+      ...modelData,
+      attrList: modelData.attrList.filter(
+        (item) => !hideModelData.includes(item.id)
+      ),
+      relation_list: modelData.relation_list.filter(
+        (item) =>
+          !(
+            (hideModelData.includes(item.left_id) &&
+              item.left_object_id === props.objectId) ||
+            (hideModelData.includes(item.right_id) &&
+              item.right_object_id === props.objectId)
+          )
+      ),
+    };
+    const basicInfoGroupList = this.formatBasicInfoGroupList(
+      modifyModelData(filterModelData),
+      []
+    );
+    const attrIdList = flatten(
+      basicInfoGroupList.map((v) => {
+        return v.attrList.map((attr: any) => attr.id || attr.__id);
+      })
+    );
+    const fields = uniq([
+      "_object_id",
+      "instanceId",
+      "creator",
+      "ctime",
+      "modifier",
+      "mtime",
+      ...attrIdList,
+    ]).join(",");
+    return {
+      modelData,
       filterModelData,
-      hideModelData: string[];
+      fields,
+    };
+  }
+
+  // istanbul ignore next
+  async fetchData(props: LegacyInstanceDetailProps): Promise<void> {
+    let modelListData, modelDataMap, instanceData;
     try {
       if (props.modelDataList) {
         modelDataMap = keyBy(props.modelDataList, "objectId");
-        instanceData = await fetchCmdbInstanceDetail(
-          props.objectId,
-          props.instanceId
-        );
+        if (props.showFields) {
+          const { fields } = this.getInstanceDetailData(props, modelDataMap);
+          instanceData = await fetchCmdbInstanceDetailByFields(
+            props.objectId,
+            props.instanceId,
+            fields
+          );
+        } else {
+          instanceData = await fetchCmdbInstanceDetail(
+            props.objectId,
+            props.instanceId
+          );
+        }
       } else {
         [modelListData, instanceData] = await Promise.all([
           fetchCmdbObjectRef(props.objectId),
@@ -707,23 +792,10 @@ export class LegacyInstanceDetail extends React.Component<
           [objectId: string]: CmdbModels.ModelCmdbObject;
         };
       }
-      modelData = modelDataMap[props.objectId];
-      hideModelData = modelData.view.hide_columns || [];
-      filterModelData = {
-        ...modelData,
-        attrList: modelData.attrList.filter(
-          (item) => !hideModelData.includes(item.id)
-        ),
-        relation_list: modelData.relation_list.filter(
-          (item) =>
-            !(
-              (hideModelData.includes(item.left_id) &&
-                item.left_object_id === props.objectId) ||
-              (hideModelData.includes(item.right_id) &&
-                item.right_object_id === props.objectId)
-            )
-        ),
-      };
+      const { filterModelData } = this.getInstanceDetailData(
+        props,
+        modelDataMap
+      );
       this.setState({
         modelDataMap,
         modelData: modifyModelData(filterModelData),

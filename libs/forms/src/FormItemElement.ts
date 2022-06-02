@@ -178,6 +178,7 @@ export abstract class FormItemElement extends UpdatingElement {
     __unstable_doNotDecorate: true,
   })
   set notRender(value: boolean) {
+    this.hidden = value;
     this._notRender = value;
     this._render();
   }
@@ -202,7 +203,6 @@ export abstract class FormItemElement extends UpdatingElement {
   }
 
   setNotRender(value: boolean): void {
-    this.hidden = value;
     this.notRender = value;
   }
 

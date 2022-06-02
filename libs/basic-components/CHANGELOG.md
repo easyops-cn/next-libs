@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.5.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@3.4.1...@next-libs/basic-components@3.5.0) (2022-05-07)
+
+
+### Features
+
+* support disabled link ([22cdf87](https://github.com/easyops-cn/next-libs/commit/22cdf871f8afad37e172c583204fcd5f7e33590f))
+
+
+
+
+
+## [3.4.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@3.4.0...@next-libs/basic-components@3.4.1) (2022-05-06)
+
+
+### Bug Fixes
+
+* **Sidebar:** 菜单项设置--高亮包含支持带query查询参数 ([a441d60](https://github.com/easyops-cn/next-libs/commit/a441d605477887fbfb262ea092ac10a16658e27f))
+
+
+
+
+
 # [3.4.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@3.3.1...@next-libs/basic-components@3.4.0) (2022-03-09)
 
 

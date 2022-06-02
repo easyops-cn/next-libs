@@ -80,6 +80,8 @@ interface ModelAttributeFormProps extends FormComponentProps {
 
 export type attributesFieldsByTag = [string, ModifiedModelObjectField[]];
 
+const RefCmdbInstancesSelectPanel = React.forwardRef(CmdbInstancesSelectPanel);
+
 interface ModelAttributeFormState {
   sending: boolean;
   attrListGroupByTag: attributesFieldsByTag[];
@@ -445,6 +447,7 @@ export class ModelAttributeForm extends Component<
     const initialValue = InitialRelationValue
       ? InitialRelationValue.map((instanceData: any) => instanceData.instanceId)
       : [];
+
     return (
       <Form.Item
         label={relation.left_name}
@@ -455,7 +458,7 @@ export class ModelAttributeForm extends Component<
           rules: this.relationRules(relation),
           initialValue,
         })(
-          <CmdbInstancesSelectPanel
+          <RefCmdbInstancesSelectPanel
             isFilterView={this.props.isFilterView}
             modelData={this.modelMap[relation.right_object_id]}
             objectId={relation.right_object_id}
@@ -505,11 +508,11 @@ export class ModelAttributeForm extends Component<
       >
         {this.state.attrListGroupByTag.map(([tag, list]) => (
           <Panel header={tag} key={tag} forceRender={true}>
-            {list.map(
-              (attribute: Partial<ModifiedModelObjectAttr>, index: number) =>
-                attribute.__isRelation ? (
-                  this.renderRelationFormControl(attribute)
-                ) : (
+            {list.map((attribute, index) => {
+              if (attribute.__isRelation) {
+                return this.renderRelationFormControl(attribute);
+              } else if (attribute.__isRelation === false) {
+                return (
                   <Form.Item
                     label={
                       <span>
@@ -560,8 +563,9 @@ export class ModelAttributeForm extends Component<
                       />
                     )}
                   </Form.Item>
-                )
-            )}
+                );
+              }
+            })}
           </Panel>
         ))}
 

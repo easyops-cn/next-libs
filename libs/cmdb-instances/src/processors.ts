@@ -1,9 +1,9 @@
-import { Query } from "./instance-list-table/AdvancedSearch";
 import { getRuntime } from "@next-core/brick-kit";
 import { uniq, compact } from "lodash";
 import moment, { Moment } from "moment";
+import { Query } from "@next-libs/cmdb-utils";
+
 import { FormControlTypeEnum } from "./model-attribute-form-control/ModelAttributeFormControl";
-import { CmdbModels } from "@next-sdk/cmdb-sdk";
 import { clusterMap } from "./instance-list-table/constants";
 
 const featureFlags =

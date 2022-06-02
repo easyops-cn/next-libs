@@ -102,6 +102,7 @@ const locale: Locale = {
   [K.COPY_SELECTED_IP]: "复制选中IP",
   [K.SELECT_COPY_DATA]: "请选择需要复制的数据",
   [K.ADVANCE_SEARCH_SINGLE_INPUT_PLACEHOLDER]: "输入关键词，多值用空格隔开",
+  [K.NUMBER_INPUT_PLACEHOLDER]: "输入数字",
 };
 
 export default locale;

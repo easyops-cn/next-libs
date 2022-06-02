@@ -1,6 +1,6 @@
 import React from "react";
 import { Select } from "antd";
-import { filter, isEmpty } from "lodash";
+import { debounce, filter, isEmpty } from "lodash";
 import {
   SelectUserOrGroupProps,
   SelectUserOrGroupState,
@@ -19,31 +19,33 @@ export class SelectUserOrGroup extends React.Component<
     this.state = {
       users: [],
       userGroups: [],
+      loading: false,
     };
   }
-  fetchUser() {
+  fetchUser(q?: string) {
     return InstanceApi_postSearch("USER", {
-      query: {},
+      query: q ? { name: { $like: `%${q}%` } } : undefined,
       fields: {
         instanceId: true,
         name: true,
       },
     });
   }
-  fetchUserGroup() {
+  fetchUserGroup(q?: string) {
     return InstanceApi_postSearch("USER_GROUP", {
-      query: {},
+      query: q ? { name: { $like: `%${q}%` } } : undefined,
       fields: {
         instanceId: true,
         name: true,
       },
     });
   }
-  async componentDidMount() {
+  async updateUserAndUserGroup(q?: string) {
+    this.setState({ loading: true });
     try {
       const [users, groups] = await Promise.all([
-        this.fetchUser(),
-        this.fetchUserGroup(),
+        this.fetchUser(q),
+        this.fetchUserGroup(q),
       ]);
       this.setState({
         users: users.list as User[],
@@ -51,17 +53,29 @@ export class SelectUserOrGroup extends React.Component<
       });
     } catch (e) {
       handleHttpError(e);
+    } finally {
+      this.setState({ loading: false });
     }
+  }
+  debounceUpdateUserAndUserGroup = debounce(this.updateUserAndUserGroup, 500);
+  componentDidMount() {
+    this.updateUserAndUserGroup();
   }
   handleUsersChange = (value: LabeledValue[]) => {
     this.props.handleUsersChange(value);
   };
   filterOpts = (currentUsers: string[], allUsers: User[]) => {
-    return filter(allUsers, (item) => currentUsers.includes(item.name));
+    const currentUsersSet = new Set(currentUsers);
+    return filter(
+      allUsers,
+      (item) =>
+        currentUsersSet.has(item.name) ||
+        currentUsersSet.has(`:${item.instanceId}`)
+    );
   };
   render(): React.ReactNode {
     const { currentUsers } = this.props;
-    const { users: allUsers, userGroups: allUserGroups } = this.state;
+    const { users: allUsers, userGroups: allUserGroups, loading } = this.state;
     const users = isEmpty(currentUsers)
       ? allUsers
       : this.filterOpts(currentUsers, allUsers);
@@ -75,7 +89,10 @@ export class SelectUserOrGroup extends React.Component<
         mode="multiple"
         placeholder="选择用户（组）"
         onChange={this.handleUsersChange}
-        optionFilterProp="label"
+        filterOption={false}
+        showSearch
+        onSearch={(value) => this.debounceUpdateUserAndUserGroup(value)}
+        loading={loading}
       >
         <Select.OptGroup label="用户">
           {users.map((item: any) => (
