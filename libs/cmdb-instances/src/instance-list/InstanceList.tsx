@@ -382,7 +382,7 @@ interface InstanceListProps {
   onAdvancedSearch?(queries: Query[]): void;
   onClickItem?(
     evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
-    id: string
+    record: Record<string, any>
   ): void;
   onPaginationChange?(pagination: ReadPaginationChangeDetail): void;
   onSortingChange?(sorting: ReadSortingChangeDetail): void;

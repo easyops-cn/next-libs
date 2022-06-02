@@ -105,7 +105,10 @@ describe("InstanceListTable", () => {
   it("should call function that is passed to the onClickItem property when click link", () => {
     const instanceListData = getInstanceListData();
     const mockOnClickItem = jest.fn(
-      (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, id: string) => null
+      (
+        e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+        record: Record<string, any>
+      ) => null
     );
     const { getAllByTestId } = render(
       <InstanceListTable
