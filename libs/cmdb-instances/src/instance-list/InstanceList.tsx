@@ -389,6 +389,10 @@ interface InstanceListProps {
     evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
     id: string
   ): void;
+  onClickItemV2?(
+    evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+    record: Record<string, any>
+  ): void;
   onPaginationChange?(pagination: ReadPaginationChangeDetail): void;
   onSortingChange?(sorting: ReadSortingChangeDetail): void;
   onSelectionChange?(selection: ReadSelectionChangeDetail): void;
@@ -1336,6 +1340,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
               sortDisabled={props.sortDisabled}
               propertyDisplayConfigs={props.propertyDisplayConfigs}
               onClickItem={props.onClickItem}
+              onClickItemV2={props.onClickItemV2}
               onPaginationChange={onPaginationChange}
               onSortingChange={onSortingChange}
               onSelectionChange={onSelectionChange}
