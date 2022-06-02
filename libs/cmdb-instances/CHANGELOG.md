@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.27.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.27.2...@next-libs/cmdb-instances@6.27.3) (2022-06-02)
+
+
+### Bug Fixes
+
+* 暴露点击事件的行数据 refs PERMISSION-217 ([ca43616](https://github.com/easyops-cn/next-libs/commit/ca436166690ba3e62defd4bb632398ff6c51ceed))
+
+
+
+
+
 ## [6.27.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.27.1...@next-libs/cmdb-instances@6.27.2) (2022-06-01)
 
 
