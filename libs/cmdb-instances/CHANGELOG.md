@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.27.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.27.3...@next-libs/cmdb-instances@6.27.4) (2022-06-02)
+
+
+### Bug Fixes
+
+* 通过获取指定字段优化实例详情接口 ([a7c773b](https://github.com/easyops-cn/next-libs/commit/a7c773b52936f38f0b6324a64d3994084473cbea)), closes [Refs#CMDB-SERVICE-562](https://github.com/Refs/issues/CMDB-SERVICE-562)
+
+
+
+
+
 ## [6.27.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.27.2...@next-libs/cmdb-instances@6.27.3) (2022-06-02)
 
 
