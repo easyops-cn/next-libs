@@ -114,6 +114,8 @@ const locale: Locale = {
   [K.ADVANCE_SEARCH_SINGLE_INPUT_PLACEHOLDER]:
     "Please enter keywords, multiple values ​​separated by spaces",
   [K.NUMBER_INPUT_PLACEHOLDER]: "Please enter number",
+  [K.FIX_HEADER]: "Fix the header",
+  [K.CANCEL_FIX_HEADER]: "Cancel fix the header",
 };
 
 export default locale;

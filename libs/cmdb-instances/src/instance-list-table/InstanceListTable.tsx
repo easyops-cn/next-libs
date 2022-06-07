@@ -131,6 +131,7 @@ export interface InstanceListTableProps extends WithTranslation {
   target?: string;
   ipCopy?: boolean;
   separatorUsedInRelationData?: string;
+  fixedHeader?: boolean;
 }
 
 interface InstanceListTableState {
@@ -1063,7 +1064,7 @@ export class LegacyInstanceListTable extends React.Component<
           columns={this.state.columns}
           dataSource={this.props.instanceListData.list}
           rowKey={this.ROM_KEY}
-          scroll={{ x: "max-content" }}
+          scroll={{ x: "max-content", y: this.props.fixedHeader ? 560 : null }}
           pagination={this.state.pagination}
           rowSelection={rowSelection}
           onChange={this.onChange}
