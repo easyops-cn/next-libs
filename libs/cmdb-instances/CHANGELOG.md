@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.28.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.27.4...@next-libs/cmdb-instances@6.28.0) (2022-06-07)
+
+
+### Features
+
+* **cmdb:** 实例列表添加固定表头设置 ([cea9113](https://github.com/easyops-cn/next-libs/commit/cea911307d910dfe71b32e92d262c6f2253a4ce3))
+
+
+
+
+
 ## [6.27.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.27.3...@next-libs/cmdb-instances@6.27.4) (2022-06-02)
 
 
