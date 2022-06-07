@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.29.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.28.0...@next-libs/cmdb-instances@6.29.0) (2022-06-07)
+
+
+### Features
+
+* **CmdbInstancesInputFormItem:** support preview ([335ae71](https://github.com/easyops-cn/next-libs/commit/335ae716a6a9efa6d042869e50929821284519cb))
+
+
+
+
+
 # [6.28.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.27.4...@next-libs/cmdb-instances@6.28.0) (2022-06-07)
 
 
