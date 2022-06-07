@@ -1,5 +1,9 @@
 import React from "react";
-import { EllipsisOutlined, SettingOutlined } from "@ant-design/icons";
+import {
+  EllipsisOutlined,
+  SettingOutlined,
+  PushpinOutlined,
+} from "@ant-design/icons";
 import { Dropdown, Menu, Button } from "antd";
 import { CmdbModels } from "@next-sdk/cmdb-sdk";
 import i18n from "i18next";
@@ -17,6 +21,9 @@ interface MoreButtonsContainerProps {
   onHideSettings?: () => void;
   fieldIds?: string[];
   extraDisabledField?: string;
+  handleToggleFixHeader?: () => void;
+  fixedHeader?: boolean;
+  showFixedHeader?: boolean;
 }
 
 interface MoreButtonsContainerState {
@@ -55,7 +62,6 @@ export class MoreButtonsContainer extends React.Component<
       visible: false,
     });
   };
-
   render(): React.ReactNode {
     const menu = (
       <Menu>
@@ -63,6 +69,14 @@ export class MoreButtonsContainer extends React.Component<
           <SettingOutlined />
           {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.DISPLAY_SETTINGS}`)}
         </Menu.Item>
+        {this.props.showFixedHeader && (
+          <Menu.Item onClick={this.props.handleToggleFixHeader}>
+            <PushpinOutlined />
+            {this.props.fixedHeader
+              ? i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CANCEL_FIX_HEADER}`)
+              : i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.FIX_HEADER}`)}
+          </Menu.Item>
+        )}
       </Menu>
     );
 
