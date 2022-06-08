@@ -459,6 +459,7 @@ interface InstanceListState {
 }
 
 export function InstanceList(props: InstanceListProps): React.ReactElement {
+  const { isShowTooltip = true } = props;
   const baseList = [
     {
       instanceId: "all",
@@ -1367,7 +1368,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
               ipCopy={props.ipCopy}
               fixedHeader={fixedHeader}
               separatorUsedInRelationData={props.separatorUsedInRelationData}
-              isShowTooltip={props.isShowTooltip}
+              isShowTooltip={isShowTooltip}
             />
           )}
         </React.Fragment>
