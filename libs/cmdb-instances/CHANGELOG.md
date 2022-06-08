@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.29.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.29.0...@next-libs/cmdb-instances@6.29.1) (2022-06-08)
+
+
+### Bug Fixes
+
+* **cmdb:** fix固定表头后列错位问题 ([ecad733](https://github.com/easyops-cn/next-libs/commit/ecad733d93cea6adbee6149a0f69142936c92b5b))
+
+
+
+
+
 # [6.29.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.28.0...@next-libs/cmdb-instances@6.29.0) (2022-06-07)
 
 
