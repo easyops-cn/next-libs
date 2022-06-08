@@ -132,6 +132,7 @@ export interface InstanceListTableProps extends WithTranslation {
   ipCopy?: boolean;
   separatorUsedInRelationData?: string;
   isShowTooltip?: boolean;
+  fixedHeader?: boolean;
 }
 
 interface InstanceListTableState {
@@ -470,9 +471,7 @@ export class LegacyInstanceListTable extends React.Component<
               placement="top"
               title={`${i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.JUMP_TO}`)}${
                 object.name
-              }${i18n.t(
-                `${NS_LIBS_CMDB_INSTANCES}:${K.INSTANCE_DETAIL}`
-              )}你好帅`}
+              }${i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.INSTANCE_DETAIL}`)}`}
             >
               {this.getLinkContent(node)}
             </Tooltip>
@@ -1075,7 +1074,12 @@ export class LegacyInstanceListTable extends React.Component<
           columns={this.state.columns}
           dataSource={this.props.instanceListData.list}
           rowKey={this.ROM_KEY}
-          scroll={{ x: "max-content" }}
+          scroll={{
+            x: this.props.fixedHeader
+              ? (this.state.columns?.length ?? 0) * 150
+              : "max-content",
+            y: this.props.fixedHeader ? 560 : null,
+          }}
           pagination={this.state.pagination}
           rowSelection={rowSelection}
           onChange={this.onChange}

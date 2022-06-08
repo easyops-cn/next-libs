@@ -500,7 +500,6 @@ describe("InstanceList", () => {
     );
     expect(instanceListTableProps.fieldIds).toEqual(newFieldIds);
     expect(instanceListTableProps.onClickItem).toBe(onClickItem);
-
     expect(InstanceApi_postSearchV3).toBeCalledWith(objectId, {
       fields: ["hostname", "ip", "_deviceList_CLUSTER", "instanceId"],
       ignore_missing_field_error: true,

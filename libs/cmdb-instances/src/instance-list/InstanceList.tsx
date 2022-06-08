@@ -28,6 +28,7 @@ import {
   ReadSortingChangeDetail,
   UseBrickConf,
 } from "@next-core/brick-types";
+import { TableProps } from "antd/lib/table";
 import {
   CmdbModels,
   InstanceApi_PostSearchRequestBody,
@@ -423,6 +424,7 @@ interface InstanceListProps {
   autoSearch?: (fields: Field[]) => void;
   disabledDefaultFields?: boolean;
   isShowTooltip?: boolean;
+  showFixedHeader?: boolean;
 }
 
 interface InstanceListState {
@@ -493,6 +495,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
   const [inheritanceModelIdNameMap, setInheritanceModelIdNameMap] = useState<
     Record<string, string>
   >({});
+  const [fixedHeader, setFixHeader] = useState(false);
 
   const fetchInheritanceModelIdNameMap = async (
     modelData: Partial<CmdbModels.ModelCmdbObject>
@@ -1015,7 +1018,9 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
         resp.list.forEach((i) => cache.current.set(i.instanceId, i));
       })();
   }, [props.selectedRowKeys]);
-
+  const handleToggleFixHeader = () => {
+    setFixHeader(!fixedHeader);
+  };
   const onAdvancedSearchCloseGen = (attrId: string, valuesStr: string) => {
     return () => {
       const queries: Query[] = [];
@@ -1243,6 +1248,9 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
                     fieldIds={state.fieldIds}
                     defaultFields={defaultFields}
                     extraDisabledField={props.extraDisabledField}
+                    handleToggleFixHeader={handleToggleFixHeader}
+                    fixedHeader={fixedHeader}
+                    showFixedHeader={props.showFixedHeader}
                   />
                 )}
               </div>
@@ -1357,6 +1365,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
               extraColumns={props.extraColumns}
               target={props.target}
               ipCopy={props.ipCopy}
+              fixedHeader={fixedHeader}
               separatorUsedInRelationData={props.separatorUsedInRelationData}
               isShowTooltip={props.isShowTooltip}
             />

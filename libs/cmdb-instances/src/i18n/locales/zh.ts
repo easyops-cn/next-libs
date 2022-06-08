@@ -103,6 +103,9 @@ const locale: Locale = {
   [K.SELECT_COPY_DATA]: "请选择需要复制的数据",
   [K.ADVANCE_SEARCH_SINGLE_INPUT_PLACEHOLDER]: "输入关键词，多值用空格隔开",
   [K.NUMBER_INPUT_PLACEHOLDER]: "输入数字",
+  [K.FIX_HEADER]: "固定表头",
+  [K.CANCEL_FIX_HEADER]: "取消固定表头",
+  [K.VIEW_SPECIFIC_INSTANCES]: "查看具体实例",
 };
 
 export default locale;

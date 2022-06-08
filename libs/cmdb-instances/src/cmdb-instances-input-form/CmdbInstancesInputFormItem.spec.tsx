@@ -1,14 +1,13 @@
-/* eslint-disable react/display-name */
+import "@testing-library/jest-dom/extend-expect";
 import React from "react";
-import { render, fireEvent } from "@testing-library/react";
+import { render, fireEvent, act } from "@testing-library/react";
 
 import { CmdbModels, InstanceApi_postSearch } from "@next-sdk/cmdb-sdk";
 
 import { CmdbInstancesInputFormItem } from "./CmdbInstancesInputFormItem";
+import { InstanceListModalProps } from "../instance-list-modal/InstanceListModal";
 
-interface InstanceListModalProps {
-  onSelected: (instanceList: any[]) => void;
-}
+type MockedComponentElement<P> = HTMLElement & { _props: P };
 
 const instance = {
   instanceId: "123",
@@ -17,6 +16,7 @@ const instance = {
 
 jest.mock("../instance-list-modal/InstanceListModal", () => ({
   InstanceListModal: (props: InstanceListModalProps): React.ReactElement => {
+    const { title, ...restProps } = props;
     const handleOk = (): void => {
       if (props.onSelected) {
         props.onSelected([
@@ -28,11 +28,26 @@ jest.mock("../instance-list-modal/InstanceListModal", () => ({
       }
     };
 
-    return <button onClick={handleOk}>确认</button>;
+    return (
+      <div
+        {...restProps}
+        ref={(el: HTMLElement) => {
+          el &&
+            ((el as MockedComponentElement<InstanceListModalProps>)._props =
+              props);
+        }}
+      >
+        <button onClick={handleOk}>确认</button>
+      </div>
+    );
   },
 }));
 
 jest.mock("@next-sdk/cmdb-sdk");
+
+(InstanceApi_postSearch as jest.Mock).mockResolvedValue({
+  list: [instance],
+});
 
 describe("HostInstanceSelect", () => {
   const objectMap: { [key: string]: Partial<CmdbModels.ModelCmdbObject> } = {
@@ -56,10 +71,6 @@ describe("HostInstanceSelect", () => {
   };
 
   it("should work when select instances by InstanceListModal", async () => {
-    (InstanceApi_postSearch as jest.Mock).mockResolvedValue({
-      list: [instance],
-    });
-
     const { getByText } = render(
       <CmdbInstancesInputFormItem
         {...{
@@ -80,10 +91,6 @@ describe("HostInstanceSelect", () => {
   });
 
   it("should work when input field value", async () => {
-    (InstanceApi_postSearch as jest.Mock).mockResolvedValue({
-      list: [instance],
-    });
-
     const { getByTestId } = render(
       <CmdbInstancesInputFormItem
         {...{
@@ -96,12 +103,78 @@ describe("HostInstanceSelect", () => {
     );
 
     const fieldValueInput = getByTestId("field-value-input");
-    const fieldValueInputElement = fieldValueInput.parentElement.querySelector(
-      "input"
-    );
+    const fieldValueInputElement =
+      fieldValueInput.parentElement.querySelector("input");
     fireEvent.change(fieldValueInputElement, {
       target: { value: "192.168.100.162" },
     });
     fireEvent.blur(fieldValueInputElement);
+  });
+
+  it("should work with previewEnabled property", async () => {
+    const props = {
+      objectMap,
+      objectId: "HOST",
+      fieldId: "ip",
+    };
+    const { queryByTestId, rerender } = render(
+      <CmdbInstancesInputFormItem {...props} />
+    );
+
+    expect(queryByTestId("preview-button")).not.toBeInTheDocument();
+    expect(queryByTestId("preview-modal")).not.toBeInTheDocument();
+
+    rerender(<CmdbInstancesInputFormItem {...props} previewEnabled />);
+
+    let previewButton = queryByTestId("preview-button");
+    let previewModal = queryByTestId(
+      "preview-modal"
+    ) as MockedComponentElement<InstanceListModalProps>;
+
+    expect(previewButton).toBeInTheDocument();
+    expect(previewButton).toBeDisabled();
+    expect(previewModal).toBeInTheDocument();
+    expect(previewModal._props).toEqual(
+      expect.objectContaining({ visible: false })
+    );
+
+    const instanceIds = ["123"];
+    act(() => {
+      (
+        queryByTestId(
+          "select-modal"
+        ) as MockedComponentElement<InstanceListModalProps>
+      )._props.onSelected(instanceIds);
+    });
+
+    await (global as any).flushPromises();
+
+    previewButton = queryByTestId("preview-button");
+    previewModal = queryByTestId(
+      "preview-modal"
+    ) as MockedComponentElement<InstanceListModalProps>;
+
+    expect(previewButton).not.toBeDisabled();
+    expect(previewModal._props).toEqual(
+      expect.objectContaining({
+        aq: [
+          {
+            instanceId: {
+              $in: instanceIds,
+            },
+          },
+        ],
+      })
+    );
+
+    fireEvent.click(previewButton);
+
+    expect(
+      (
+        queryByTestId(
+          "preview-modal"
+        ) as MockedComponentElement<InstanceListModalProps>
+      )._props
+    ).toEqual(expect.objectContaining({ visible: true }));
   });
 });
