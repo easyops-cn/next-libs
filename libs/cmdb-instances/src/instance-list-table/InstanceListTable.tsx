@@ -1064,7 +1064,10 @@ export class LegacyInstanceListTable extends React.Component<
           columns={this.state.columns}
           dataSource={this.props.instanceListData.list}
           rowKey={this.ROM_KEY}
-          scroll={{ x: "max-content", y: this.props.fixedHeader ? 560 : null }}
+          scroll={{
+            x: this.props.fixedHeader ? 1600 : "max-content",
+            y: this.props.fixedHeader ? 560 : null,
+          }}
           pagination={this.state.pagination}
           rowSelection={rowSelection}
           onChange={this.onChange}
