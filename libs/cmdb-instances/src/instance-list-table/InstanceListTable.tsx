@@ -131,8 +131,8 @@ export interface InstanceListTableProps extends WithTranslation {
   target?: string;
   ipCopy?: boolean;
   separatorUsedInRelationData?: string;
+  showTooltip?: boolean;
   fixedHeader?: boolean;
-  isShowTooltip?: boolean;
 }
 
 interface InstanceListTableState {
@@ -466,7 +466,7 @@ export class LegacyInstanceListTable extends React.Component<
           onClick={(e) => this.handleClickItem(e, record)}
           data-testid="instance-detail-link"
         >
-          {this.props.isShowTooltip ? (
+          {this.props.showTooltip ? (
             <Tooltip
               placement="top"
               title={`${i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.JUMP_TO}`)}${
