@@ -423,6 +423,7 @@ interface InstanceListProps {
   hideInstanceList?: boolean;
   autoSearch?: (fields: Field[]) => void;
   disabledDefaultFields?: boolean;
+  showTooltip?: boolean;
   showFixedHeader?: boolean;
 }
 
@@ -454,9 +455,11 @@ interface InstanceListState {
   appList?: Record<string, any>[];
   clusterList?: Record<string, any>[];
   searchByApp?: boolean;
+  showTooltip?: boolean;
 }
 
 export function InstanceList(props: InstanceListProps): React.ReactElement {
+  const { showTooltip = true } = props;
   const baseList = [
     {
       instanceId: "all",
@@ -1365,6 +1368,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
               ipCopy={props.ipCopy}
               fixedHeader={fixedHeader}
               separatorUsedInRelationData={props.separatorUsedInRelationData}
+              showTooltip={showTooltip}
             />
           )}
         </React.Fragment>
