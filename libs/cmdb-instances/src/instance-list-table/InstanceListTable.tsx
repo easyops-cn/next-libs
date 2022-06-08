@@ -132,6 +132,7 @@ export interface InstanceListTableProps extends WithTranslation {
   ipCopy?: boolean;
   separatorUsedInRelationData?: string;
   fixedHeader?: boolean;
+  isShowTooltip?: boolean;
 }
 
 interface InstanceListTableState {
@@ -433,6 +434,23 @@ export class LegacyInstanceListTable extends React.Component<
       );
     };
   }
+  getLinkContent(node: any) {
+    return (
+      <span style={{ display: "flex" }}>
+        <span className={styles.iconWrap}>
+          <GeneralIcon
+            icon={{
+              lib: "easyops",
+              icon: "search",
+              category: "app",
+              color: "#167be0",
+            }}
+          />
+        </span>
+        <span className={styles.linkKey}>{node}</span>
+      </span>
+    );
+  }
   // istanbul ignore next
   getSpecialUrlTemplates(
     object: Partial<CmdbModels.ModelCmdbObject>,
@@ -448,26 +466,20 @@ export class LegacyInstanceListTable extends React.Component<
           onClick={(e) => this.handleClickItem(e, record)}
           data-testid="instance-detail-link"
         >
-          <Tooltip
-            placement="top"
-            title={`${i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.JUMP_TO}`)}${
-              object.name
-            }${i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.INSTANCE_DETAIL}`)}`}
-          >
-            <span style={{ display: "flex" }}>
-              <span className={styles.iconWrap}>
-                <GeneralIcon
-                  icon={{
-                    lib: "easyops",
-                    icon: "search",
-                    category: "app",
-                    color: "#167be0",
-                  }}
-                />
-              </span>
-              <span className={styles.linkKey}>{node}</span>
-            </span>
-          </Tooltip>
+          {this.props.isShowTooltip ? (
+            <Tooltip
+              placement="top"
+              title={`${i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.JUMP_TO}`)}${
+                object.name
+              }${i18n.t(
+                `${NS_LIBS_CMDB_INSTANCES}:${K.INSTANCE_DETAIL}`
+              )}你好帅`}
+            >
+              {this.getLinkContent(node)}
+            </Tooltip>
+          ) : (
+            this.getLinkContent(node)
+          )}
         </a>
       );
     }
