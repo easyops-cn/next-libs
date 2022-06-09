@@ -11,22 +11,12 @@ type MockedComponentElement<P> = HTMLElement & { _props: P };
 
 const instance = {
   instanceId: "123",
-  ip: "192.168.100.100",
+  ip: "192.168.100.162",
 };
 
 jest.mock("../instance-list-modal/InstanceListModal", () => ({
   InstanceListModal: (props: InstanceListModalProps): React.ReactElement => {
     const { title, ...restProps } = props;
-    const handleOk = (): void => {
-      if (props.onSelected) {
-        props.onSelected([
-          {
-            instanceId: "123",
-            ip: "192.168.100.100",
-          },
-        ]);
-      }
-    };
 
     return (
       <div
@@ -36,9 +26,7 @@ jest.mock("../instance-list-modal/InstanceListModal", () => ({
             ((el as MockedComponentElement<InstanceListModalProps>)._props =
               props);
         }}
-      >
-        <button onClick={handleOk}>确认</button>
-      </div>
+      />
     );
   },
 }));
@@ -71,33 +59,53 @@ describe("HostInstanceSelect", () => {
   };
 
   it("should work when select instances by InstanceListModal", async () => {
-    const { getByText } = render(
-      <CmdbInstancesInputFormItem
-        {...{
-          objectMap,
-          objectId: "HOST",
-          fieldId: "ip",
-          value: ["123"],
-          ref: React.createRef<HTMLDivElement>(),
-        }}
-      />
-    );
-
-    const button = getByText("SELECT_FROM_CMDB");
-    fireEvent.click(button);
-
-    const enterButton = getByText("确认");
-    fireEvent.click(enterButton);
-  });
-
-  it("should work when input field value", async () => {
+    const handleChange = jest.fn();
+    const handleChangeV2 = jest.fn();
+    let ref;
     const { getByTestId } = render(
       <CmdbInstancesInputFormItem
         {...{
           objectMap,
           objectId: "HOST",
           fieldId: "ip",
-          ref: React.createRef<HTMLDivElement>(),
+          value: ["123"],
+          onChange: handleChange,
+          onChangeV2: handleChangeV2,
+          ref: (el: HTMLDivElement) => (ref = el),
+        }}
+      />
+    );
+
+    expect(ref).not.toBeUndefined();
+
+    const instanceIds = ["123"];
+    act(() => {
+      (
+        getByTestId(
+          "select-modal"
+        ) as MockedComponentElement<InstanceListModalProps>
+      )._props.onSelected(instanceIds);
+    });
+
+    await (global as any).flushPromises();
+
+    expect(handleChange).toBeCalledWith(instanceIds);
+    expect(handleChangeV2).toBeCalledWith(
+      instanceIds.map((instanceId) => expect.objectContaining({ instanceId }))
+    );
+  });
+
+  it("should work when input field value", async () => {
+    const handleChange = jest.fn();
+    const handleChangeV2 = jest.fn();
+    const { getByTestId } = render(
+      <CmdbInstancesInputFormItem
+        {...{
+          objectMap,
+          objectId: "HOST",
+          fieldId: "ip",
+          onChange: handleChange,
+          onChangeV2: handleChangeV2,
         }}
       />
     );
@@ -106,9 +114,14 @@ describe("HostInstanceSelect", () => {
     const fieldValueInputElement =
       fieldValueInput.parentElement.querySelector("input");
     fireEvent.change(fieldValueInputElement, {
-      target: { value: "192.168.100.162" },
+      target: { value: instance.ip },
     });
     fireEvent.blur(fieldValueInputElement);
+
+    await (global as any).flushPromises();
+
+    expect(handleChange).toBeCalledWith([instance.instanceId]);
+    expect(handleChangeV2).toBeCalledWith([instance]);
   });
 
   it("should work with previewEnabled property", async () => {
