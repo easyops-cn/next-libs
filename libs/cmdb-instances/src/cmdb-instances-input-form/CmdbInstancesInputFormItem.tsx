@@ -34,6 +34,7 @@ export interface CmdbInstancesInputFormItemProps {
   defaultQuery?: { [fieldId: string]: any }[];
   addButtonDisabled?: boolean;
   previewEnabled?: boolean;
+  pageSizeOptions?: string[];
 }
 
 export const LegacyCmdbInstancesInputFormItem = (
@@ -355,6 +356,7 @@ export const LegacyCmdbInstancesInputFormItem = (
         singleSelect={props.singleSelect}
         onCancel={closeSelectInstancesModal}
         defaultQuery={props.defaultQuery}
+        pageSizeOptions={props.pageSizeOptions}
         data-testid="select-modal"
       />
       <div className={style.cmdbInstancesInputFormWrapper}>
@@ -393,6 +395,7 @@ export const LegacyCmdbInstancesInputFormItem = (
             relatedToMeDisabled
             moreButtonsDisabled
             selectDisabled
+            pageSizeOptions={props.pageSizeOptions}
             data-testid="preview-modal"
           />
           <Button
