@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.31.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.30.0...@next-libs/cmdb-instances@6.31.0) (2022-06-10)
+
+
+### Features
+
+* **CmdbInstancesInputFormItem:** add fields, pageSize and showSizeChanger properties ([66fc4d5](https://github.com/easyops-cn/next-libs/commit/66fc4d5a8bab10bb75b970bdd167d44fd455d05a))
+
+
+
+
+
 # [6.30.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.29.4...@next-libs/cmdb-instances@6.30.0) (2022-06-10)
 
 
