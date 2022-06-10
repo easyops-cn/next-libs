@@ -20,6 +20,7 @@ export interface CmdbInstancesInputFormItemProps {
   objectMap?: { [objectId: string]: Partial<CmdbModels.ModelCmdbObject> };
   objectId?: string;
   fieldId?: string;
+  fields?: string[];
   singleSelect?: boolean;
   inputDisabled?: boolean;
   checkDisabled?: boolean;
@@ -34,7 +35,9 @@ export interface CmdbInstancesInputFormItemProps {
   defaultQuery?: { [fieldId: string]: any }[];
   addButtonDisabled?: boolean;
   previewEnabled?: boolean;
+  pageSize?: number;
   pageSizeOptions?: string[];
+  showSizeChanger?: boolean;
 }
 
 export const LegacyCmdbInstancesInputFormItem = (
@@ -58,6 +61,15 @@ export const LegacyCmdbInstancesInputFormItem = (
 
     return { presetQuery, permission };
   }, [props.objectId, props.checkAgentStatus, props.checkPermission]);
+  const fields = useMemo(() => {
+    const fields: Record<string, boolean> = {};
+
+    props.fields?.forEach((field) => {
+      fields[field] = true;
+    });
+
+    return fields;
+  }, [props.fields]);
 
   const objectData = modifyModelData(props.objectMap[props.objectId]);
   const fieldData = objectData.__fieldList.find(
@@ -103,7 +115,7 @@ export const LegacyCmdbInstancesInputFormItem = (
             ...presetQuery,
           },
           permission,
-          fields: {
+          fields: fields || {
             instanceId: true,
             [props.fieldId]: true,
           },
@@ -141,7 +153,7 @@ export const LegacyCmdbInstancesInputFormItem = (
               $in: instanceIds,
             },
           },
-          fields: {
+          fields: fields || {
             instanceId: true,
             [props.fieldId]: true,
           },
@@ -201,7 +213,7 @@ export const LegacyCmdbInstancesInputFormItem = (
             ],
           },
           permission,
-          fields: {
+          fields: fields || {
             instanceId: true,
             [props.fieldId]: true,
           },
@@ -277,7 +289,7 @@ export const LegacyCmdbInstancesInputFormItem = (
                 ...(props.query ? props.query : []),
               ],
             },
-            fields: {
+            fields: fields || {
               instanceId: true,
               [props.fieldId]: true,
             },
@@ -347,7 +359,7 @@ export const LegacyCmdbInstancesInputFormItem = (
         visible={visible}
         title={text}
         aq={props.query}
-        presetConfigs={{ query: presetQuery }}
+        presetConfigs={{ query: presetQuery, fieldIds: props.fields }}
         permission={permission}
         selectedRowKeys={selectedInstances.valid.map(
           (instance) => instance.instanceId
@@ -356,7 +368,9 @@ export const LegacyCmdbInstancesInputFormItem = (
         singleSelect={props.singleSelect}
         onCancel={closeSelectInstancesModal}
         defaultQuery={props.defaultQuery}
+        pageSize={props.pageSize}
         pageSizeOptions={props.pageSizeOptions}
+        showSizeChanger={props.showSizeChanger}
         data-testid="select-modal"
       />
       <div className={style.cmdbInstancesInputFormWrapper}>
@@ -385,7 +399,7 @@ export const LegacyCmdbInstancesInputFormItem = (
             visible={previewVisible}
             title={t(K.VIEW_SPECIFIC_INSTANCES)}
             aq={selectedInstancesQuery}
-            presetConfigs={{ query: presetQuery }}
+            presetConfigs={{ query: presetQuery, fieldIds: props.fields }}
             permission={permission}
             onCancel={() => setPreviewVisible(false)}
             defaultQuery={props.defaultQuery}
@@ -395,7 +409,9 @@ export const LegacyCmdbInstancesInputFormItem = (
             relatedToMeDisabled
             moreButtonsDisabled
             selectDisabled
+            pageSize={props.pageSize}
             pageSizeOptions={props.pageSizeOptions}
+            showSizeChanger={props.showSizeChanger}
             data-testid="preview-modal"
           />
           <Button
