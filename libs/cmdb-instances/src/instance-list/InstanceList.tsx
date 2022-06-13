@@ -425,6 +425,7 @@ interface InstanceListProps {
   disabledDefaultFields?: boolean;
   showTooltip?: boolean;
   showFixedHeader?: boolean;
+  searchBrick?: UseBrickConf;
 }
 
 interface InstanceListState {
@@ -1144,6 +1145,9 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
                           type={state.isAdvancedSearchVisible ? "up" : "down"}
                         />
                       </Button>
+                    )}
+                    {props.searchBrick && (
+                      <BrickAsComponent useBrick={props.searchBrick} />
                     )}
                   </>
                 ) : (
