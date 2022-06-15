@@ -806,6 +806,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     props.objectId,
     props.permission,
     props.defaultQuery,
+    props.presetConfigs,
   ]);
 
   // on other condition change
