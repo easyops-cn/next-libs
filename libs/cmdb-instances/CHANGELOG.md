@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.32.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.31.0...@next-libs/cmdb-instances@6.32.0) (2022-06-15)
+
+
+### Features
+
+* **StructTable:** 固定表格操作栏 Closes INSTANCE-2431 ([0c83776](https://github.com/easyops-cn/next-libs/commit/0c837764642b3a20be87fe57987f923c67f48e0c))
+
+
+
+
+
 # [6.31.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.30.0...@next-libs/cmdb-instances@6.31.0) (2022-06-10)
 
 
