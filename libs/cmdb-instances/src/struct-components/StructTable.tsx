@@ -36,7 +36,7 @@ export class StructTable extends React.Component<
     };
   }
   getColumns(defines: Structkey[]) {
-    const columns = defines.map((item: Structkey) => ({
+    const columns: any = defines.map((item: Structkey) => ({
       title: item.name,
       className: styles.structTableTd,
       dataIndex: item.id,
@@ -78,6 +78,7 @@ export class StructTable extends React.Component<
         title: i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.OPERATION}`),
         className: styles.structTableTd,
         dataIndex: "operation",
+        fixed: "right",
         render: (_text: string, record: any, index: number): any => {
           return this.renderOperation(record, index);
         },
