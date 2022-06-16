@@ -29,6 +29,7 @@ import {
   ModifiedModelObjectField,
   ModifiedModelObjectRelation,
   modifyModelData,
+  getFixedStyle,
 } from "@next-libs/cmdb-utils";
 import styles from "./ModelAttributeForm.module.css";
 import { UserOrUserGroupSelect } from "../components";
@@ -76,6 +77,7 @@ interface ModelAttributeFormProps extends FormComponentProps {
   enabledWhiteList?: boolean;
   scrollToFirstError?: boolean;
   offsetTop?: number;
+  cardRect?: any;
 }
 
 export type attributesFieldsByTag = [string, ModifiedModelObjectField[]];
@@ -87,6 +89,7 @@ interface ModelAttributeFormState {
   attrListGroupByTag: attributesFieldsByTag[];
   continueCreating: boolean;
   showError?: Record<string, any>;
+  fixedStyle?: Record<string, any>;
 }
 
 export class ModelAttributeForm extends Component<
@@ -170,7 +173,29 @@ export class ModelAttributeForm extends Component<
       attrListGroupByTag: AttrListGroupByTag,
       continueCreating: false,
       showError: {},
+      fixedStyle: {},
     };
+  }
+
+  resizeUpdate = () =>
+    this.setState({
+      fixedStyle: getFixedStyle(this.props.cardRect?.getBoundingClientRect()),
+    });
+
+  componentDidMount(): void {
+    const top =
+      this.props.cardRect?.getBoundingClientRect()?.bottom - window.innerHeight;
+    if (top > 0) {
+      this.setState({
+        fixedStyle: getFixedStyle(this.props.cardRect?.getBoundingClientRect()),
+      });
+      window.addEventListener("resize", this.resizeUpdate);
+    }
+  }
+
+  componentWillUnmount() {
+    // 离开页面时移除监听事件
+    window.removeEventListener("resize", this.resizeUpdate);
   }
 
   static getFieldsByTag(
@@ -616,8 +641,13 @@ export class ModelAttributeForm extends Component<
     );
     const submitContainer = (
       <div
-        className="ant-collapse-content"
-        style={{ borderTop: "none", paddingTop: "16px", paddingLeft: "20px" }}
+        className={styles.generalFormFooter}
+        style={{
+          ...this.state.fixedStyle,
+          borderTop: "none",
+          paddingTop: "16px",
+          paddingLeft: "20px",
+        }}
       >
         <div className="ant-collapse-content-box">
           <Form.Item {...this.formItemProps} label=" " colon={false}>

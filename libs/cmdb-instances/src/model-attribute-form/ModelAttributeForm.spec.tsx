@@ -13,7 +13,7 @@ import {
 import { Button, Checkbox } from "antd";
 import i18n from "i18next";
 import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
-import { modifyModelData } from "@next-libs/cmdb-utils";
+import { modifyModelData, getFixedStyle } from "@next-libs/cmdb-utils";
 /* eslint-disable  */
 jest.mock("../i18n");
 
@@ -602,11 +602,31 @@ describe("ModelAttributeForm", () => {
           默认属性: ["deviceId", "_agentStatus", "_agentHeartBeat"],
         },
       });
-      const wrapper = mount(<InstanceModelAttributeForm {...newProps} />);
+      const spyOnComponentDidMount = jest.spyOn(
+        InstanceModelAttributeForm.prototype,
+        "componentDidMount"
+      );
+      const wrapper = mount(
+        <InstanceModelAttributeForm
+          {...newProps}
+          cardRect={{
+            getBoundingClientRect: () => {
+              return { left: 304, width: 1098, bottom: 12408 };
+            },
+          }}
+        />
+      );
+      expect(spyOnComponentDidMount).toHaveBeenCalled();
       const instance = wrapper
         .find(ModelAttributeForm)
         .instance() as ModelAttributeForm;
 
+      expect(instance.state.fixedStyle).toStrictEqual({
+        position: "fixed",
+        left: 304,
+        bottom: 0,
+        width: 1098,
+      });
       const checkBox = wrapper
         .find(ModelAttributeForm)
         .find(Checkbox)
@@ -652,6 +672,10 @@ describe("ModelAttributeForm", () => {
   });
 
   it("should work", () => {
+    const spyOnComponentDidMount = jest.spyOn(
+      InstanceModelAttributeForm.prototype,
+      "componentDidMount"
+    );
     const wrapper = mount(
       <InstanceModelAttributeForm
         {...Object.assign({}, props, {
@@ -666,6 +690,7 @@ describe("ModelAttributeForm", () => {
         })}
       />
     );
+    expect(spyOnComponentDidMount).toHaveBeenCalled();
     const instance = wrapper
       .find(ModelAttributeForm)
       .instance() as ModelAttributeForm;
@@ -674,7 +699,6 @@ describe("ModelAttributeForm", () => {
       i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.SAVE}`)
     );
     expect(instance.state.sending).toBeFalsy();
-
     wrapper.find("Button").at(1).simulate("click");
     expect(props.onCancel).toHaveBeenCalled();
   });
