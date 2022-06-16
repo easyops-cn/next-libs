@@ -400,6 +400,7 @@ interface InstanceListProps {
   onRelatedToMeChange?(value: boolean): void;
   onAliveHostsChange?(value: boolean): void;
   onInstanceSourceChange?(instanceResource: string): void;
+  onFieldsModalConfirm?(fields: Record<string, any>): void;
   relationLinkDisabled?: boolean;
   notifyCurrentFields?: (fiels: string[]) => void;
   defaultQuery?: { [fieldId: string]: any }[];
@@ -974,11 +975,13 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
       modelData.isAbstract && fieldIds.push("_object_id");
       setState({ fieldIds });
       jsonLocalStorage.removeItem(`${modelData.objectId}-selectAttrIds`);
+      props.onFieldsModalConfirm(fieldIds);
     } else {
       setState({
         fieldIds: _sortFieldIds(fields),
       });
       jsonLocalStorage.setItem(`${modelData.objectId}-selectAttrIds`, fields);
+      props.onFieldsModalConfirm(fields);
     }
   };
 
