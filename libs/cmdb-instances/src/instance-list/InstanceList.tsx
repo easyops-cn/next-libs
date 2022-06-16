@@ -425,6 +425,7 @@ interface InstanceListProps {
   disabledDefaultFields?: boolean;
   showTooltip?: boolean;
   showFixedHeader?: boolean;
+  rowSelectionType?: "checkbox" | "radio";
 }
 
 interface InstanceListState {
@@ -1370,6 +1371,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
               fixedHeader={fixedHeader}
               separatorUsedInRelationData={props.separatorUsedInRelationData}
               showTooltip={showTooltip}
+              rowSelectionType={props.rowSelectionType}
             />
           )}
         </React.Fragment>

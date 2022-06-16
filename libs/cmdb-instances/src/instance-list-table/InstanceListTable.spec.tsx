@@ -504,4 +504,27 @@ describe("InstanceListTable", () => {
     (wrapper.instance() as any).onChange({}, { _object_id: ["APP"] }, {}, {});
     expect(onInstanceSourceChange).lastCalledWith("APP");
   });
+  it("should work rowSelection's rowSelectionType is radio", () => {
+    const instanceListData = getInstanceListData();
+    const instance = instanceListData.list[0];
+    const { container } = render(
+      <InstanceListTable
+        detailUrlTemplates={detailUrlTemplates}
+        idObjectMap={idObjectMap}
+        modelData={HOST}
+        instanceListData={instanceListData}
+        rowSelectionType="radio"
+      />
+    );
+    fireEvent.click(
+      container
+        .querySelector(`[data-row-key="${instance.instanceId}"]`)
+        .getElementsByClassName("ant-table-selection-column")[0]
+        .querySelector("label.ant-radio-wrapper")
+    );
+    expect(mockOnSelectionChange).toBeCalledWith({
+      selectedKeys: [instance.instanceId],
+      selectedItems: [instance],
+    });
+  });
 });
