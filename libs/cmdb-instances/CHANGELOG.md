@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.33.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.33.0...@next-libs/cmdb-instances@6.33.1) (2022-06-16)
+
+
+### Bug Fixes
+
+* 提供勾选字段弹窗确定事件 refs PERMISSION-239 ([7946a1d](https://github.com/easyops-cn/next-libs/commit/7946a1d92203ef7456bac52d21a7f5c978aac349))
+
+
+
+
+
 # [6.33.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.32.3...@next-libs/cmdb-instances@6.33.0) (2022-06-16)
 
 
