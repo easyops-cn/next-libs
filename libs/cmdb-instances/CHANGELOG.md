@@ -3,6 +3,47 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.33.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.32.3...@next-libs/cmdb-instances@6.33.0) (2022-06-16)
+
+
+### Features
+
+* InstanceListModal添加rowSelectTye属性 refs TOOL-1121 ([5ce66b8](https://github.com/easyops-cn/next-libs/commit/5ce66b86249be8f31d09eb8bdc6edc2831dcacf3))
+
+
+
+
+
+## [6.32.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.32.2...@next-libs/cmdb-instances@6.32.3) (2022-06-16)
+
+**Note:** Version bump only for package @next-libs/cmdb-instances
+
+
+
+
+
+## [6.32.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.32.1...@next-libs/cmdb-instances@6.32.2) (2022-06-16)
+
+
+### Bug Fixes
+
+* **cmdb:** 拉取实例详情时忘了await ([93f9e46](https://github.com/easyops-cn/next-libs/commit/93f9e4613774ae5f902fc093f078cd86a778064d))
+
+
+
+
+
+## [6.32.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.32.0...@next-libs/cmdb-instances@6.32.1) (2022-06-15)
+
+
+### Bug Fixes
+
+* 增加当presetConfigs属性变动的时候, 重新刷新列表 refs PERMISSION-239 ([48caa52](https://github.com/easyops-cn/next-libs/commit/48caa52c4653e5d8752c6d9a30cadc1be0a24ca8))
+
+
+
+
+
 # [6.32.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.31.0...@next-libs/cmdb-instances@6.32.0) (2022-06-15)
 
 

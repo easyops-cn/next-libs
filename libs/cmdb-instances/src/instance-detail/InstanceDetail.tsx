@@ -790,7 +790,7 @@ export class LegacyInstanceDetail extends React.Component<
             [objectId: string]: CmdbModels.ModelCmdbObject;
           };
           const { fields } = this.getInstanceDetailData(props, modelDataMap);
-          instanceData = fetchCmdbInstanceDetailByFields(
+          instanceData = await fetchCmdbInstanceDetailByFields(
             props.objectId,
             props.instanceId,
             fields

@@ -133,6 +133,7 @@ export interface InstanceListTableProps extends WithTranslation {
   separatorUsedInRelationData?: string;
   showTooltip?: boolean;
   fixedHeader?: boolean;
+  rowSelectionType?: "checkbox" | "radio";
 }
 
 interface InstanceListTableState {
@@ -1025,11 +1026,12 @@ export class LegacyInstanceListTable extends React.Component<
   }
 
   render(): React.ReactNode {
-    const { selectedRowKeys } = this.props;
+    const { selectedRowKeys, rowSelectionType } = this.props;
     const rowSelection: TableRowSelection<Record<string, any>> = this.props
       .selectDisabled
       ? null
       : {
+          type: rowSelectionType,
           preserveSelectedRowKeys: true,
           selectedRowKeys,
           onChange: this.onSelectChange,

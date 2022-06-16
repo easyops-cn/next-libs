@@ -8,6 +8,7 @@ import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
 import { InstanceList } from "../instance-list/InstanceList";
 import { InstanceListPresetConfigs } from "../instance-list-table/interfaces";
 import { addResourceBundle } from "../i18n";
+import { ReadPaginationChangeDetail } from "@next-core/brick-types";
 addResourceBundle();
 export interface InstanceListModalProps {
   objectMap: { [key: string]: Partial<CmdbModels.ModelCmdbObject> };
@@ -37,11 +38,14 @@ export interface InstanceListModalProps {
   onSelectedV2?: (instanceDataList: any[]) => void;
   modalZIndex?: number;
   pageSize?: number;
+  page?: number;
   showSizeChanger?: boolean;
   pageSizeOptions?: string[];
   defaultQuery?: { [fieldId: string]: any }[];
   enableSearchByApp?: boolean;
   hideSearchConditions?: boolean;
+  rowSelectionType?: "checkbox" | "radio";
+  getPaginationData?(pagination: ReadPaginationChangeDetail): void;
 }
 
 export function InstanceListModal(
@@ -92,7 +96,13 @@ export function InstanceListModal(
       setSelectedInstanceListTemp(event.selectedItems);
     }
   };
-
+  //istanbul ignore next
+  const handlePaginationChange = (event: {
+    page: number;
+    pageSize: number;
+  }) => {
+    props.getPaginationData?.(event);
+  };
   const presetConfigs = props.presetConfigs ?? {
     query: props.query,
   };
@@ -178,11 +188,14 @@ export function InstanceListModal(
           showSizeChanger={props.showSizeChanger}
           pageSizeOptions={props.pageSizeOptions}
           pageSize={props.pageSize || 10}
+          page={props.page}
           defaultQuery={props.defaultQuery}
           enableSearchByApp={props.enableSearchByApp}
           hideSearchConditions={props.hideSearchConditions}
           isInstanceFilterForm={props.isInstanceFilterForm}
           ipCopy={props.ipCopy}
+          rowSelectionType={props.rowSelectionType}
+          onPaginationChange={handlePaginationChange}
         />
       </div>
     </Modal>

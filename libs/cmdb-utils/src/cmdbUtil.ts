@@ -285,3 +285,18 @@ export function modifyModelData(
 
   return clonedModelData;
 }
+
+export function getFixedStyle(
+  rootNodeRect: Record<string, any>
+): Record<string, any> {
+  if (rootNodeRect) {
+    const fixedStyle = {
+      position: "fixed",
+      left: rootNodeRect.left,
+      bottom: 0,
+      width: rootNodeRect?.width,
+    };
+    return fixedStyle;
+  }
+  return {};
+}
