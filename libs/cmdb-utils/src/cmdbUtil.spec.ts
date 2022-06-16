@@ -9,6 +9,7 @@ import {
   composeErrorMessage,
   getRelationQuery,
   modifyModelData,
+  getFixedStyle,
 } from "./cmdbUtil";
 
 describe("util", () => {
@@ -407,5 +408,15 @@ describe("util", () => {
         __inverted: true,
       },
     ]);
+  });
+
+  it("should getFixedStyle", () => {
+    expect(getFixedStyle({ left: 304, width: 1098 })).toStrictEqual({
+      position: "fixed",
+      left: 304,
+      bottom: 0,
+      width: 1098,
+    });
+    expect(getFixedStyle(undefined)).toStrictEqual({});
   });
 });
