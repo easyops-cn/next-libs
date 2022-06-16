@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.33.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.32.3...@next-libs/cmdb-instances@6.33.0) (2022-06-16)
+
+
+### Features
+
+* InstanceListModal添加rowSelectTye属性 refs TOOL-1121 ([5ce66b8](https://github.com/easyops-cn/next-libs/commit/5ce66b86249be8f31d09eb8bdc6edc2831dcacf3))
+
+
+
+
+
 ## [6.32.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.32.2...@next-libs/cmdb-instances@6.32.3) (2022-06-16)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
