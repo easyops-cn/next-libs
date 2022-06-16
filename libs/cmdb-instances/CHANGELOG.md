@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.32.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.32.1...@next-libs/cmdb-instances@6.32.2) (2022-06-16)
+
+
+### Bug Fixes
+
+* **cmdb:** 拉取实例详情时忘了await ([93f9e46](https://github.com/easyops-cn/next-libs/commit/93f9e4613774ae5f902fc093f078cd86a778064d))
+
+
+
+
+
 ## [6.32.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.32.0...@next-libs/cmdb-instances@6.32.1) (2022-06-15)
 
 
