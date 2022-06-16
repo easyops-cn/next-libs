@@ -3,1476 +3,796 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [6.28.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.27.4...@next-libs/cmdb-instances@6.28.0) (2022-06-07)
+## [6.28.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.28.0...@next-libs/cmdb-instances@6.28.1) (2022-06-16)
 
+### Bug Fixes
+
+- **cmdb:** 拉取实例详情时忘了 await ([6d1d695](https://github.com/easyops-cn/next-libs/commit/6d1d695feb8297884dfd2a3a0c11e08692ed08d9))
+
+# [6.28.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.27.4...@next-libs/cmdb-instances@6.28.0) (2022-06-07)
 
 ### Features
 
-* **cmdb:** 实例列表添加固定表头设置 ([cea9113](https://github.com/easyops-cn/next-libs/commit/cea911307d910dfe71b32e92d262c6f2253a4ce3))
-
-
-
-
+- **cmdb:** 实例列表添加固定表头设置 ([cea9113](https://github.com/easyops-cn/next-libs/commit/cea911307d910dfe71b32e92d262c6f2253a4ce3))
 
 ## [6.27.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.27.3...@next-libs/cmdb-instances@6.27.4) (2022-06-02)
 
-
 ### Bug Fixes
 
-* 通过获取指定字段优化实例详情接口 ([a7c773b](https://github.com/easyops-cn/next-libs/commit/a7c773b52936f38f0b6324a64d3994084473cbea)), closes [Refs#CMDB-SERVICE-562](https://github.com/Refs/issues/CMDB-SERVICE-562)
-
-
-
-
+- 通过获取指定字段优化实例详情接口 ([a7c773b](https://github.com/easyops-cn/next-libs/commit/a7c773b52936f38f0b6324a64d3994084473cbea)), closes [Refs#CMDB-SERVICE-562](https://github.com/Refs/issues/CMDB-SERVICE-562)
 
 ## [6.27.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.27.2...@next-libs/cmdb-instances@6.27.3) (2022-06-02)
 
-
 ### Bug Fixes
 
-* 暴露点击事件的行数据 refs PERMISSION-217 ([ca43616](https://github.com/easyops-cn/next-libs/commit/ca436166690ba3e62defd4bb632398ff6c51ceed))
-
-
-
-
+- 暴露点击事件的行数据 refs PERMISSION-217 ([ca43616](https://github.com/easyops-cn/next-libs/commit/ca436166690ba3e62defd4bb632398ff6c51ceed))
 
 ## [6.27.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.27.1...@next-libs/cmdb-instances@6.27.2) (2022-06-01)
 
-
 ### Bug Fixes
 
-* change show components ([7f008dd](https://github.com/easyops-cn/next-libs/commit/7f008ddbcbc04d09de4b220a785818e96d1b1794)), closes [refs#MONITOR-3561](https://github.com/refs/issues/MONITOR-3561)
-
-
-
-
+- change show components ([7f008dd](https://github.com/easyops-cn/next-libs/commit/7f008ddbcbc04d09de4b220a785818e96d1b1794)), closes [refs#MONITOR-3561](https://github.com/refs/issues/MONITOR-3561)
 
 ## [6.27.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.27.0...@next-libs/cmdb-instances@6.27.1) (2022-05-31)
 
-
 ### Bug Fixes
 
-* 新增动态筛选的构件 ([19e81d9](https://github.com/easyops-cn/next-libs/commit/19e81d90823904ef2d1189c6c230d588363f17b3))
-
-
-
-
+- 新增动态筛选的构件 ([19e81d9](https://github.com/easyops-cn/next-libs/commit/19e81d90823904ef2d1189c6c230d588363f17b3))
 
 # [6.27.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.26.8...@next-libs/cmdb-instances@6.27.0) (2022-05-30)
 
-
 ### Features
 
-* finish AdvancedSearchCondition component ([9f11d8a](https://github.com/easyops-cn/next-libs/commit/9f11d8acc5142f149952dc3662dbc8f615140faf)), closes [Refs#MONITOR-3554](https://github.com/Refs/issues/MONITOR-3554)
-
-
-
-
+- finish AdvancedSearchCondition component ([9f11d8a](https://github.com/easyops-cn/next-libs/commit/9f11d8acc5142f149952dc3662dbc8f615140faf)), closes [Refs#MONITOR-3554](https://github.com/Refs/issues/MONITOR-3554)
 
 ## [6.26.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.26.7...@next-libs/cmdb-instances@6.26.8) (2022-05-27)
 
-
 ### Bug Fixes
 
-* 修复回显时候ipCopy功能获取不到数据的问题  Refs BRICK_STORE-276 ([2a17d17](https://github.com/easyops-cn/next-libs/commit/2a17d17b2ec61a8b6a230a232e3bfa2f5bb6f4e0))
-
-
-
-
+- 修复回显时候 ipCopy 功能获取不到数据的问题 Refs BRICK_STORE-276 ([2a17d17](https://github.com/easyops-cn/next-libs/commit/2a17d17b2ec61a8b6a230a232e3bfa2f5bb6f4e0))
 
 ## [6.26.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.26.6...@next-libs/cmdb-instances@6.26.7) (2022-05-27)
 
-
 ### Bug Fixes
 
-* **ModelAttributeFormControl:** add number input placeholder ([dfd5c96](https://github.com/easyops-cn/next-libs/commit/dfd5c96839f30b654e6f10745f1a3198784c15c5))
-
-
-
-
+- **ModelAttributeFormControl:** add number input placeholder ([dfd5c96](https://github.com/easyops-cn/next-libs/commit/dfd5c96839f30b654e6f10745f1a3198784c15c5))
 
 ## [6.26.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.26.5...@next-libs/cmdb-instances@6.26.6) (2022-05-27)
 
-
 ### Bug Fixes
 
-* **InstanceModelAttributeForm:** 修改任意字符会重新拉所有的请求 Closes INSTANCE-2410 ([4ea682e](https://github.com/easyops-cn/next-libs/commit/4ea682eae7e13fbc15e60f82d98203dcd43bb081))
-
-
-
-
+- **InstanceModelAttributeForm:** 修改任意字符会重新拉所有的请求 Closes INSTANCE-2410 ([4ea682e](https://github.com/easyops-cn/next-libs/commit/4ea682eae7e13fbc15e60f82d98203dcd43bb081))
 
 ## [6.26.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.26.4...@next-libs/cmdb-instances@6.26.5) (2022-05-26)
 
-
 ### Bug Fixes
 
-* **ModelAttributeFormControl:** change defaultValue property ([c62d082](https://github.com/easyops-cn/next-libs/commit/c62d0829804427ccea6ddcdc2351cdac84b7ec5a))
-
-
-
-
+- **ModelAttributeFormControl:** change defaultValue property ([c62d082](https://github.com/easyops-cn/next-libs/commit/c62d0829804427ccea6ddcdc2351cdac84b7ec5a))
 
 ## [6.26.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.26.3...@next-libs/cmdb-instances@6.26.4) (2022-05-25)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 ## [6.26.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.26.2...@next-libs/cmdb-instances@6.26.3) (2022-05-24)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 ## [6.26.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.26.1...@next-libs/cmdb-instances@6.26.2) (2022-05-24)
-
 
 ### Bug Fixes
 
-* 修改cmdb实例创建保存不会回滚到第一个校验报错点 ([e2108e6](https://github.com/easyops-cn/next-libs/commit/e2108e6817b81e9e1cbc44d41e1b93baca44b7d4)), closes [Refs#INSTANCE-2395](https://github.com/Refs/issues/INSTANCE-2395)
-
-
-
-
+- 修改 cmdb 实例创建保存不会回滚到第一个校验报错点 ([e2108e6](https://github.com/easyops-cn/next-libs/commit/e2108e6817b81e9e1cbc44d41e1b93baca44b7d4)), closes [Refs#INSTANCE-2395](https://github.com/Refs/issues/INSTANCE-2395)
 
 ## [6.26.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.26.0...@next-libs/cmdb-instances@6.26.1) (2022-05-23)
 
-
 ### Bug Fixes
 
-* ipCopy功能过滤 Refs MONITOR-3544 ([2fffe3c](https://github.com/easyops-cn/next-libs/commit/2fffe3c0738f0a9e01785814b11b5905de591816))
-
-
-
-
+- ipCopy 功能过滤 Refs MONITOR-3544 ([2fffe3c](https://github.com/easyops-cn/next-libs/commit/2fffe3c0738f0a9e01785814b11b5905de591816))
 
 # [6.26.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.25.1...@next-libs/cmdb-instances@6.26.0) (2022-05-23)
 
-
 ### Features
 
-* instance modal 支持自定义分页以及显示关闭按钮 Refs MONITOR-3543 ([b36bd81](https://github.com/easyops-cn/next-libs/commit/b36bd8117f0baabfe0dde852586fb8b389f84437))
-
-
-
-
+- instance modal 支持自定义分页以及显示关闭按钮 Refs MONITOR-3543 ([b36bd81](https://github.com/easyops-cn/next-libs/commit/b36bd8117f0baabfe0dde852586fb8b389f84437))
 
 ## [6.25.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.25.0...@next-libs/cmdb-instances@6.25.1) (2022-05-23)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 # [6.25.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.24.0...@next-libs/cmdb-instances@6.25.0) (2022-05-23)
-
 
 ### Features
 
-* move transformConditionsToAq here ([3b91884](https://github.com/easyops-cn/next-libs/commit/3b91884d43966967eb110f8c16830fbffaa9bfad))
-
-
-
-
+- move transformConditionsToAq here ([3b91884](https://github.com/easyops-cn/next-libs/commit/3b91884d43966967eb110f8c16830fbffaa9bfad))
 
 # [6.24.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.23.0...@next-libs/cmdb-instances@6.24.0) (2022-05-20)
 
-
 ### Features
 
-* instance-list-modal支持IP类型的字段可以copy功能 Refs MONITOR-3543 ([c5df905](https://github.com/easyops-cn/next-libs/commit/c5df905f544dfc0fc334346ffd11bbcf5f84344f))
-
-
-
-
+- instance-list-modal 支持 IP 类型的字段可以 copy 功能 Refs MONITOR-3543 ([c5df905](https://github.com/easyops-cn/next-libs/commit/c5df905f544dfc0fc334346ffd11bbcf5f84344f))
 
 # [6.23.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.22.4...@next-libs/cmdb-instances@6.23.0) (2022-05-20)
 
-
 ### Features
 
-* **ModelAttributeFormControl:** add isSupportMultiStringValue ([c982b0b](https://github.com/easyops-cn/next-libs/commit/c982b0b224a469e12520c522d875f99d2c65eba5))
-
-
-
-
+- **ModelAttributeFormControl:** add isSupportMultiStringValue ([c982b0b](https://github.com/easyops-cn/next-libs/commit/c982b0b224a469e12520c522d875f99d2c65eba5))
 
 ## [6.22.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.22.3...@next-libs/cmdb-instances@6.22.4) (2022-05-18)
 
-
 ### Bug Fixes
 
-* **cmdb:** 显示字段取默认前8个时忽略禁止显示的字段 ([f6ef5bf](https://github.com/easyops-cn/next-libs/commit/f6ef5bf1d23e10c62f5ec4d4cf0909ba7151b406))
-
-
-
-
+- **cmdb:** 显示字段取默认前 8 个时忽略禁止显示的字段 ([f6ef5bf](https://github.com/easyops-cn/next-libs/commit/f6ef5bf1d23e10c62f5ec4d4cf0909ba7151b406))
 
 ## [6.22.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.22.2...@next-libs/cmdb-instances@6.22.3) (2022-05-16)
 
-
 ### Bug Fixes
 
-* 修复分类排序失效 ([1f9f9ef](https://github.com/easyops-cn/next-libs/commit/1f9f9ef152a1ef15f6b1a39a012fc6b102931fb7)), closes [Refs#DATA_QUALITY-212](https://github.com/Refs/issues/DATA_QUALITY-212)
-
-
-
-
+- 修复分类排序失效 ([1f9f9ef](https://github.com/easyops-cn/next-libs/commit/1f9f9ef152a1ef15f6b1a39a012fc6b102931fb7)), closes [Refs#DATA_QUALITY-212](https://github.com/Refs/issues/DATA_QUALITY-212)
 
 ## [6.22.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.22.1...@next-libs/cmdb-instances@6.22.2) (2022-05-16)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 ## [6.22.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.22.0...@next-libs/cmdb-instances@6.22.1) (2022-05-13)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 # [6.22.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.27...@next-libs/cmdb-instances@6.22.0) (2022-05-11)
-
 
 ### Features
 
-* 避免实例详情接口拉全部数据,用fields来控制返回的数据 ([58c3742](https://github.com/easyops-cn/next-libs/commit/58c3742ab3247a38ccc8a90a0cfdcb2eb2a757b1)), closes [refs#INSTANCE-2367](https://github.com/refs/issues/INSTANCE-2367)
-
-
-
-
+- 避免实例详情接口拉全部数据,用 fields 来控制返回的数据 ([58c3742](https://github.com/easyops-cn/next-libs/commit/58c3742ab3247a38ccc8a90a0cfdcb2eb2a757b1)), closes [refs#INSTANCE-2367](https://github.com/refs/issues/INSTANCE-2367)
 
 ## [6.21.27](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.26...@next-libs/cmdb-instances@6.21.27) (2022-05-07)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 ## [6.21.26](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.25...@next-libs/cmdb-instances@6.21.26) (2022-05-06)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 ## [6.21.25](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.24...@next-libs/cmdb-instances@6.21.25) (2022-04-29)
-
 
 ### Bug Fixes
 
-* **CmdbInstancesSelectPanel:** props.value bug fix ([a7f4010](https://github.com/easyops-cn/next-libs/commit/a7f4010a2a24ef22610c60cc36bec48425bf2927))
-
-
-
-
+- **CmdbInstancesSelectPanel:** props.value bug fix ([a7f4010](https://github.com/easyops-cn/next-libs/commit/a7f4010a2a24ef22610c60cc36bec48425bf2927))
 
 ## [6.21.24](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.23...@next-libs/cmdb-instances@6.21.24) (2022-04-27)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 ## [6.21.23](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.22...@next-libs/cmdb-instances@6.21.23) (2022-04-25)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 ## [6.21.22](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.21...@next-libs/cmdb-instances@6.21.22) (2022-04-24)
-
 
 ### Bug Fixes
 
-* **CmdbInstancesSelectPanel:** fix value改变后，panel表格数据不更新 ([d14dc65](https://github.com/easyops-cn/next-libs/commit/d14dc65c851667480b65444541f266b545bfbfde))
-
-
-
-
+- **CmdbInstancesSelectPanel:** fix value 改变后，panel 表格数据不更新 ([d14dc65](https://github.com/easyops-cn/next-libs/commit/d14dc65c851667480b65444541f266b545bfbfde))
 
 ## [6.21.21](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.20...@next-libs/cmdb-instances@6.21.21) (2022-04-20)
 
-
 ### Reverts
 
-* Revert "fix(CmdbInstancesSelectPanel): fix value改变后，panel表格数据不更新" ([b4ec2f0](https://github.com/easyops-cn/next-libs/commit/b4ec2f0887eabde59ab3f9536536ff215fc482a4))
-
-
-
-
+- Revert "fix(CmdbInstancesSelectPanel): fix value 改变后，panel 表格数据不更新" ([b4ec2f0](https://github.com/easyops-cn/next-libs/commit/b4ec2f0887eabde59ab3f9536536ff215fc482a4))
 
 ## [6.21.20](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.19...@next-libs/cmdb-instances@6.21.20) (2022-04-20)
 
-
 ### Bug Fixes
 
-* **CmdbInstancesSelectPanel:** fix value改变后，panel表格数据不更新 ([79dbd3f](https://github.com/easyops-cn/next-libs/commit/79dbd3f41ae2ace79c5114d7a3bdd860187fa67e))
-
-
-
-
+- **CmdbInstancesSelectPanel:** fix value 改变后，panel 表格数据不更新 ([79dbd3f](https://github.com/easyops-cn/next-libs/commit/79dbd3f41ae2ace79c5114d7a3bdd860187fa67e))
 
 ## [6.21.19](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.18...@next-libs/cmdb-instances@6.21.19) (2022-04-18)
 
-
 ### Bug Fixes
 
-* 修复高级搜索筛选条件不能清除 ([3fdff7d](https://github.com/easyops-cn/next-libs/commit/3fdff7d6198176e54a11ee8637e6e62706066ae5)), closes [Refs#INSTANCE-2331](https://github.com/Refs/issues/INSTANCE-2331)
-
-
-
-
+- 修复高级搜索筛选条件不能清除 ([3fdff7d](https://github.com/easyops-cn/next-libs/commit/3fdff7d6198176e54a11ee8637e6e62706066ae5)), closes [Refs#INSTANCE-2331](https://github.com/Refs/issues/INSTANCE-2331)
 
 ## [6.21.18](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.17...@next-libs/cmdb-instances@6.21.18) (2022-04-15)
 
-
 ### Bug Fixes
 
-* **CmdbInstancesSelectPanel:** fix breaking change of remove objectMap property ([a034070](https://github.com/easyops-cn/next-libs/commit/a034070859630696b6b2696356c2455384f7d312))
-
-
-
-
+- **CmdbInstancesSelectPanel:** fix breaking change of remove objectMap property ([a034070](https://github.com/easyops-cn/next-libs/commit/a034070859630696b6b2696356c2455384f7d312))
 
 ## [6.21.17](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.16...@next-libs/cmdb-instances@6.21.17) (2022-04-11)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 ## [6.21.16](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.15...@next-libs/cmdb-instances@6.21.16) (2022-04-08)
-
 
 ### Bug Fixes
 
-* 添加实例范围，条件过滤删除其中一个条件过滤，另外一个条件过滤也会被删除 ([f597b2f](https://github.com/easyops-cn/next-libs/commit/f597b2f47125030b6963eda242cb9bb123e61112)), closes [Refs#INSTANCE-2253](https://github.com/Refs/issues/INSTANCE-2253)
-
-
-
-
+- 添加实例范围，条件过滤删除其中一个条件过滤，另外一个条件过滤也会被删除 ([f597b2f](https://github.com/easyops-cn/next-libs/commit/f597b2f47125030b6963eda242cb9bb123e61112)), closes [Refs#INSTANCE-2253](https://github.com/Refs/issues/INSTANCE-2253)
 
 ## [6.21.15](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.14...@next-libs/cmdb-instances@6.21.15) (2022-04-08)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 ## [6.21.14](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.13...@next-libs/cmdb-instances@6.21.14) (2022-04-01)
-
 
 ### Bug Fixes
 
-* **cmdb:** span style ([fa37d19](https://github.com/easyops-cn/next-libs/commit/fa37d1965f5ecf7ad0f2dec7ee8748eeaa2b68e7))
-
-
-
-
+- **cmdb:** span style ([fa37d19](https://github.com/easyops-cn/next-libs/commit/fa37d1965f5ecf7ad0f2dec7ee8748eeaa2b68e7))
 
 ## [6.21.13](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.12...@next-libs/cmdb-instances@6.21.13) (2022-04-01)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 ## [6.21.12](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.11...@next-libs/cmdb-instances@6.21.12) (2022-03-31)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 ## [6.21.11](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.10...@next-libs/cmdb-instances@6.21.11) (2022-03-29)
-
 
 ### Bug Fixes
 
-* **cmdb:** 添加关系实例时要拉对端模型关联的所有模型 ([3d3137a](https://github.com/easyops-cn/next-libs/commit/3d3137ad6060becf6963258b19a1c181345d2187))
-
-
-
-
+- **cmdb:** 添加关系实例时要拉对端模型关联的所有模型 ([3d3137a](https://github.com/easyops-cn/next-libs/commit/3d3137ad6060becf6963258b19a1c181345d2187))
 
 ## [6.21.10](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.9...@next-libs/cmdb-instances@6.21.10) (2022-03-17)
 
-
 ### Bug Fixes
 
-* **cmdb-instances:** float展示效果优化，前端只展示4位数 ([493651e](https://github.com/easyops-cn/next-libs/commit/493651eb662f988f902250c123a453410866df52))
-
-
-
-
+- **cmdb-instances:** float 展示效果优化，前端只展示 4 位数 ([493651e](https://github.com/easyops-cn/next-libs/commit/493651eb662f988f902250c123a453410866df52))
 
 ## [6.21.9](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.8...@next-libs/cmdb-instances@6.21.9) (2022-03-14)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 ## [6.21.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.7...@next-libs/cmdb-instances@6.21.8) (2022-03-11)
-
 
 ### Bug Fixes
 
-* style refine ([84b9b96](https://github.com/easyops-cn/next-libs/commit/84b9b96001baa1f0ec76e9d0adaffb1f5516c287))
-
-
-
-
+- style refine ([84b9b96](https://github.com/easyops-cn/next-libs/commit/84b9b96001baa1f0ec76e9d0adaffb1f5516c287))
 
 ## [6.21.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.6...@next-libs/cmdb-instances@6.21.7) (2022-03-09)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 ## [6.21.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.5...@next-libs/cmdb-instances@6.21.6) (2022-03-07)
-
 
 ### Bug Fixes
 
-* **cmdb:** cmdb-instances.cmdb-instances-input-form添加按钮可禁用 ([3b95731](https://github.com/easyops-cn/next-libs/commit/3b95731d895f8d34437b3aafa481bdfae6fcb40a))
-
-
-
-
+- **cmdb:** cmdb-instances.cmdb-instances-input-form 添加按钮可禁用 ([3b95731](https://github.com/easyops-cn/next-libs/commit/3b95731d895f8d34437b3aafa481bdfae6fcb40a))
 
 ## [6.21.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.4...@next-libs/cmdb-instances@6.21.5) (2022-03-01)
 
-
 ### Bug Fixes
 
-* **cmdb:** 新建实例可配置确定按钮的文案 ([d857a93](https://github.com/easyops-cn/next-libs/commit/d857a9376051a4e72cd9d51e96ad438fd1d49bde))
-
-
-
-
+- **cmdb:** 新建实例可配置确定按钮的文案 ([d857a93](https://github.com/easyops-cn/next-libs/commit/d857a9376051a4e72cd9d51e96ad438fd1d49bde))
 
 ## [6.21.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.3...@next-libs/cmdb-instances@6.21.4) (2022-02-28)
 
-
 ### Bug Fixes
 
-* style refine ([6f5fda2](https://github.com/easyops-cn/next-libs/commit/6f5fda20143e9be942303c836f40d73a388f1916))
-
-
-
-
+- style refine ([6f5fda2](https://github.com/easyops-cn/next-libs/commit/6f5fda20143e9be942303c836f40d73a388f1916))
 
 ## [6.21.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.2...@next-libs/cmdb-instances@6.21.3) (2022-02-28)
 
-
 ### Bug Fixes
 
-* **DisplaySettingsModal:** reset fields when modal close ([8b1e37a](https://github.com/easyops-cn/next-libs/commit/8b1e37a668a37e1170d3add07f159db40a842efd))
-
-
-
-
+- **DisplaySettingsModal:** reset fields when modal close ([8b1e37a](https://github.com/easyops-cn/next-libs/commit/8b1e37a668a37e1170d3add07f159db40a842efd))
 
 ## [6.21.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.1...@next-libs/cmdb-instances@6.21.2) (2022-02-25)
 
-
 ### Bug Fixes
 
-* 使InstanceListModal可以隐藏实例列表的搜索条件 ([06a1b5b](https://github.com/easyops-cn/next-libs/commit/06a1b5b05a94b83c7783e9dd2c17017e9a1dda85)), closes [Refs#MONITOR-2935](https://github.com/Refs/issues/MONITOR-2935)
-
-
-
-
+- 使 InstanceListModal 可以隐藏实例列表的搜索条件 ([06a1b5b](https://github.com/easyops-cn/next-libs/commit/06a1b5b05a94b83c7783e9dd2c17017e9a1dda85)), closes [Refs#MONITOR-2935](https://github.com/Refs/issues/MONITOR-2935)
 
 ## [6.21.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.21.0...@next-libs/cmdb-instances@6.21.1) (2022-02-25)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 # [6.21.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.20.0...@next-libs/cmdb-instances@6.21.0) (2022-02-22)
-
 
 ### Features
 
-* make cmdb-instances-filter-form support disabling search and advancedSearch ([b2fc28a](https://github.com/easyops-cn/next-libs/commit/b2fc28a008fa60e3913a900d6f729b4945cb25dd))
-
-
-
-
+- make cmdb-instances-filter-form support disabling search and advancedSearch ([b2fc28a](https://github.com/easyops-cn/next-libs/commit/b2fc28a008fa60e3913a900d6f729b4945cb25dd))
 
 # [6.20.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.19.8...@next-libs/cmdb-instances@6.20.0) (2022-02-22)
 
-
 ### Features
 
-* **DisplaySettings:** add extraDisabledFields property ([05a06f6](https://github.com/easyops-cn/next-libs/commit/05a06f61cc971eb0e2e3d793ff22521ca7917de0))
-
-
-
-
+- **DisplaySettings:** add extraDisabledFields property ([05a06f6](https://github.com/easyops-cn/next-libs/commit/05a06f61cc971eb0e2e3d793ff22521ca7917de0))
 
 ## [6.19.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.19.7...@next-libs/cmdb-instances@6.19.8) (2022-02-22)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 ## [6.19.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.19.6...@next-libs/cmdb-instances@6.19.7) (2022-02-16)
-
 
 ### Bug Fixes
 
-* **cmdb:** 不过滤模型中不存在的字段 ([46054df](https://github.com/easyops-cn/next-libs/commit/46054df182eaac97ad44a1c27f99fe36f6ac3193))
-
-
-
-
+- **cmdb:** 不过滤模型中不存在的字段 ([46054df](https://github.com/easyops-cn/next-libs/commit/46054df182eaac97ad44a1c27f99fe36f6ac3193))
 
 ## [6.19.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.19.5...@next-libs/cmdb-instances@6.19.6) (2022-02-15)
 
-
 ### Bug Fixes
 
-* style refine ([460e0a4](https://github.com/easyops-cn/next-libs/commit/460e0a46f406eb6247e550778bc4e1d89d57b244))
-
-
-
-
+- style refine ([460e0a4](https://github.com/easyops-cn/next-libs/commit/460e0a46f406eb6247e550778bc4e1d89d57b244))
 
 ## [6.19.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.19.4...@next-libs/cmdb-instances@6.19.5) (2022-02-11)
 
-
 ### Bug Fixes
 
-* **cmdb:** 请求实例时fields过滤掉已删除的属性 ([91e2bd4](https://github.com/easyops-cn/next-libs/commit/91e2bd4365d3a4342607137daa292fcc3578b2f6))
-
-
-
-
+- **cmdb:** 请求实例时 fields 过滤掉已删除的属性 ([91e2bd4](https://github.com/easyops-cn/next-libs/commit/91e2bd4365d3a4342607137daa292fcc3578b2f6))
 
 ## [6.19.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.19.3...@next-libs/cmdb-instances@6.19.4) (2022-02-09)
 
-
 ### Bug Fixes
 
-* **cmdb:** 实例弹窗没有选中实例时禁用确定按钮 ([98c89be](https://github.com/easyops-cn/next-libs/commit/98c89beba921f7bc4e1a6a25a3d2a87d3726370f))
-
-
-
-
+- **cmdb:** 实例弹窗没有选中实例时禁用确定按钮 ([98c89be](https://github.com/easyops-cn/next-libs/commit/98c89beba921f7bc4e1a6a25a3d2a87d3726370f))
 
 ## [6.19.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.19.2...@next-libs/cmdb-instances@6.19.3) (2022-01-27)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 ## [6.19.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.19.1...@next-libs/cmdb-instances@6.19.2) (2022-01-27)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
-
-
-
-
 
 ## [6.19.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.19.0...@next-libs/cmdb-instances@6.19.1) (2022-01-26)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 # [6.19.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.18.9...@next-libs/cmdb-instances@6.19.0) (2022-01-26)
-
 
 ### Features
 
-* add relation required ([1272476](https://github.com/easyops-cn/next-libs/commit/1272476536139c8515c8eaaa11f6ea6a2b6f5b1a))
-* add required field ([ee00061](https://github.com/easyops-cn/next-libs/commit/ee00061955f86fa1f8cb7e4110d63c4361b1af87))
-
-
-
-
+- add relation required ([1272476](https://github.com/easyops-cn/next-libs/commit/1272476536139c8515c8eaaa11f6ea6a2b6f5b1a))
+- add required field ([ee00061](https://github.com/easyops-cn/next-libs/commit/ee00061955f86fa1f8cb7e4110d63c4361b1af87))
 
 ## [6.18.9](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.18.8...@next-libs/cmdb-instances@6.18.9) (2022-01-25)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 ## [6.18.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.18.7...@next-libs/cmdb-instances@6.18.8) (2022-01-24)
-
 
 ### Bug Fixes
 
-* style refine ([ba11dd9](https://github.com/easyops-cn/next-libs/commit/ba11dd98c794dace64884b71a8a682d32b9752a5))
-
-
-
-
+- style refine ([ba11dd9](https://github.com/easyops-cn/next-libs/commit/ba11dd98c794dace64884b71a8a682d32b9752a5))
 
 ## [6.18.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.18.6...@next-libs/cmdb-instances@6.18.7) (2022-01-24)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 ## [6.18.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.18.5...@next-libs/cmdb-instances@6.18.6) (2022-01-24)
-
 
 ### Bug Fixes
 
-* **cmdb-instances:** cmdb开启开关"cmdb-advance-search-with-quote", 多次搜索enum类型有问题 ([b24ebd7](https://github.com/easyops-cn/next-libs/commit/b24ebd7429b725714b94edf4149521eca9e9c23c))
-
-
-
-
+- **cmdb-instances:** cmdb 开启开关"cmdb-advance-search-with-quote", 多次搜索 enum 类型有问题 ([b24ebd7](https://github.com/easyops-cn/next-libs/commit/b24ebd7429b725714b94edf4149521eca9e9c23c))
 
 ## [6.18.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.18.4...@next-libs/cmdb-instances@6.18.5) (2022-01-21)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 ## [6.18.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.18.3...@next-libs/cmdb-instances@6.18.4) (2022-01-21)
-
 
 ### Bug Fixes
 
-* style refine ([cc007af](https://github.com/easyops-cn/next-libs/commit/cc007afdb72d29a3d6ae2da9a46a48e3ba65dfc6))
-
-
-
-
+- style refine ([cc007af](https://github.com/easyops-cn/next-libs/commit/cc007afdb72d29a3d6ae2da9a46a48e3ba65dfc6))
 
 ## [6.18.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.18.2...@next-libs/cmdb-instances@6.18.3) (2022-01-20)
 
-
 ### Bug Fixes
 
-* use css variables ([ac6fc28](https://github.com/easyops-cn/next-libs/commit/ac6fc28e06f43de2d3464c5b3411c3f0a4643f61))
-
-
-
-
+- use css variables ([ac6fc28](https://github.com/easyops-cn/next-libs/commit/ac6fc28e06f43de2d3464c5b3411c3f0a4643f61))
 
 ## [6.18.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.18.1...@next-libs/cmdb-instances@6.18.2) (2022-01-19)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 ## [6.18.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.18.0...@next-libs/cmdb-instances@6.18.1) (2022-01-17)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 # [6.18.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.17.2...@next-libs/cmdb-instances@6.18.0) (2022-01-17)
-
 
 ### Bug Fixes
 
-* **cmdb-instances:** cmdb第二次查询, 布尔值转化为字符串导致查询错误 ([b44295c](https://github.com/easyops-cn/next-libs/commit/b44295c3cc8ea25345a7c90f8e24715d2f56aae5))
-
+- **cmdb-instances:** cmdb 第二次查询, 布尔值转化为字符串导致查询错误 ([b44295c](https://github.com/easyops-cn/next-libs/commit/b44295c3cc8ea25345a7c90f8e24715d2f56aae5))
 
 ### Features
 
-* **pipeline:** AddStepButton支持tooltip ([6b69b3d](https://github.com/easyops-cn/next-libs/commit/6b69b3d54f3957f7ee6228b2e11d727a9aeea13a))
-
-
-
-
+- **pipeline:** AddStepButton 支持 tooltip ([6b69b3d](https://github.com/easyops-cn/next-libs/commit/6b69b3d54f3957f7ee6228b2e11d727a9aeea13a))
 
 ## [6.17.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.17.1...@next-libs/cmdb-instances@6.17.2) (2022-01-14)
 
-
 ### Bug Fixes
 
-* modal list refine ([589c677](https://github.com/easyops-cn/next-libs/commit/589c677b60da25a7f48f870e900293337856cadf))
-
-
-
-
+- modal list refine ([589c677](https://github.com/easyops-cn/next-libs/commit/589c677b60da25a7f48f870e900293337856cadf))
 
 ## [6.17.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.17.0...@next-libs/cmdb-instances@6.17.1) (2022-01-11)
 
-
 ### Bug Fixes
 
-* add placeholder for the advanced search ([f6473a9](https://github.com/easyops-cn/next-libs/commit/f6473a934e88a241e661d85adee1c0b7ffb422f5)), closes [Refs#INSTANCE-2048](https://github.com/Refs/issues/INSTANCE-2048)
-
-
-
-
+- add placeholder for the advanced search ([f6473a9](https://github.com/easyops-cn/next-libs/commit/f6473a934e88a241e661d85adee1c0b7ffb422f5)), closes [Refs#INSTANCE-2048](https://github.com/Refs/issues/INSTANCE-2048)
 
 # [6.17.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.16.1...@next-libs/cmdb-instances@6.17.0) (2021-12-30)
 
-
 ### Features
 
-* **cmdb:** 数组支持等于/不等于 ([7f33a05](https://github.com/easyops-cn/next-libs/commit/7f33a056114300d395ba8a5e419287d222f54fd9))
-
-
-
-
+- **cmdb:** 数组支持等于/不等于 ([7f33a05](https://github.com/easyops-cn/next-libs/commit/7f33a056114300d395ba8a5e419287d222f54fd9))
 
 ## [6.16.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.16.0...@next-libs/cmdb-instances@6.16.1) (2021-12-28)
 
-
 ### Bug Fixes
 
-* **cmdb:** fix新建实例结构体不能编辑bug ([3af8506](https://github.com/easyops-cn/next-libs/commit/3af8506bd1114c72fb0a1292a06b3c34c4d619ac))
-
-
-
-
+- **cmdb:** fix 新建实例结构体不能编辑 bug ([3af8506](https://github.com/easyops-cn/next-libs/commit/3af8506bd1114c72fb0a1292a06b3c34c4d619ac))
 
 # [6.16.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.15.0...@next-libs/cmdb-instances@6.16.0) (2021-12-23)
 
-
 ### Features
 
-* **cmdb-instances:** add scrollToFirstError、 offsetTop properties ([74c833c](https://github.com/easyops-cn/next-libs/commit/74c833cf30e2618939fc42e46e016e17d8ae5cd5))
-
-
-
-
+- **cmdb-instances:** add scrollToFirstError、 offsetTop properties ([74c833c](https://github.com/easyops-cn/next-libs/commit/74c833cf30e2618939fc42e46e016e17d8ae5cd5))
 
 # [6.15.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.14.2...@next-libs/cmdb-instances@6.15.0) (2021-12-21)
 
-
 ### Features
 
-* **cmdb:** 增加属性说明tooltip ([fac504f](https://github.com/easyops-cn/next-libs/commit/fac504f91e3ddf21f6ac4ba863d25ea4b5599b20))
-
-
-
-
+- **cmdb:** 增加属性说明 tooltip ([fac504f](https://github.com/easyops-cn/next-libs/commit/fac504f91e3ddf21f6ac4ba863d25ea4b5599b20))
 
 ## [6.14.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.14.1...@next-libs/cmdb-instances@6.14.2) (2021-12-21)
 
-
 ### Bug Fixes
 
-* **cmdb:** 结构体支持readonly设置 ([d4cb1f5](https://github.com/easyops-cn/next-libs/commit/d4cb1f5a80aaf77a2af16e381f92af40942088c2))
-
-
-
-
+- **cmdb:** 结构体支持 readonly 设置 ([d4cb1f5](https://github.com/easyops-cn/next-libs/commit/d4cb1f5a80aaf77a2af16e381f92af40942088c2))
 
 ## [6.14.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.14.0...@next-libs/cmdb-instances@6.14.1) (2021-12-17)
 
-
 ### Bug Fixes
 
-* **cmdb-instance:** fix handleSearch when autoSearch was undefined ([c545e22](https://github.com/easyops-cn/next-libs/commit/c545e2282f0d1104466c7e78f2f4750b7b1ae849))
-
-
-
-
+- **cmdb-instance:** fix handleSearch when autoSearch was undefined ([c545e22](https://github.com/easyops-cn/next-libs/commit/c545e2282f0d1104466c7e78f2f4750b7b1ae849))
 
 # [6.14.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.13.0...@next-libs/cmdb-instances@6.14.0) (2021-12-16)
 
-
 ### Features
 
-* **cmdb-instances:** add property onFetchedInstances ([e89a2fd](https://github.com/easyops-cn/next-libs/commit/e89a2fd0e5cf9799d70ee15e357e1d80609b6cf0))
-
-
-
-
+- **cmdb-instances:** add property onFetchedInstances ([e89a2fd](https://github.com/easyops-cn/next-libs/commit/e89a2fd0e5cf9799d70ee15e357e1d80609b6cf0))
 
 # [6.13.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.12.4...@next-libs/cmdb-instances@6.13.0) (2021-12-15)
 
-
 ### Features
 
-* delete unuse code ([3a3259b](https://github.com/easyops-cn/next-libs/commit/3a3259b63ab1dbaf8bd0ee2af4781e99b6487051))
-* support senior search ([1d2f267](https://github.com/easyops-cn/next-libs/commit/1d2f267bdd3d03d52f7ad2a4086743da78f47ad1))
-
-
-
-
+- delete unuse code ([3a3259b](https://github.com/easyops-cn/next-libs/commit/3a3259b63ab1dbaf8bd0ee2af4781e99b6487051))
+- support senior search ([1d2f267](https://github.com/easyops-cn/next-libs/commit/1d2f267bdd3d03d52f7ad2a4086743da78f47ad1))
 
 ## [6.12.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.12.3...@next-libs/cmdb-instances@6.12.4) (2021-12-02)
 
-
 ### Bug Fixes
 
-* **cmdb-instances:** 针对默认显示字段的隐藏逻辑去除 ([d803542](https://github.com/easyops-cn/next-libs/commit/d803542552e3dedc8d090943e21a45dd6f9bf6ab))
-
-
-
-
+- **cmdb-instances:** 针对默认显示字段的隐藏逻辑去除 ([d803542](https://github.com/easyops-cn/next-libs/commit/d803542552e3dedc8d090943e21a45dd6f9bf6ab))
 
 ## [6.12.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.12.2...@next-libs/cmdb-instances@6.12.3) (2021-11-25)
 
-
 ### Bug Fixes
 
-* **cmdb:** enum readonly disabled ([3653a8c](https://github.com/easyops-cn/next-libs/commit/3653a8c8ac004277e3b9adf725edc826c4df6537))
-
-
-
-
+- **cmdb:** enum readonly disabled ([3653a8c](https://github.com/easyops-cn/next-libs/commit/3653a8c8ac004277e3b9adf725edc826c4df6537))
 
 ## [6.12.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.12.1...@next-libs/cmdb-instances@6.12.2) (2021-11-23)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 ## [6.12.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.12.0...@next-libs/cmdb-instances@6.12.1) (2021-11-23)
-
 
 ### Bug Fixes
 
-* **cmdb-url-link:** 兼容其他数据格式 ([ab5cd84](https://github.com/easyops-cn/next-libs/commit/ab5cd84a2bdd2748ac761497ec53b888c1d4a3b7))
-
-
-
-
+- **cmdb-url-link:** 兼容其他数据格式 ([ab5cd84](https://github.com/easyops-cn/next-libs/commit/ab5cd84a2bdd2748ac761497ec53b888c1d4a3b7))
 
 # [6.12.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.11.2...@next-libs/cmdb-instances@6.12.0) (2021-11-22)
 
-
 ### Features
 
-* add DisplaySettingsModal ([a54c507](https://github.com/easyops-cn/next-libs/commit/a54c507d54c702c23dde8097dcd6d8f4bed4a183))
-
-
-
-
+- add DisplaySettingsModal ([a54c507](https://github.com/easyops-cn/next-libs/commit/a54c507d54c702c23dde8097dcd6d8f4bed4a183))
 
 ## [6.11.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.11.1...@next-libs/cmdb-instances@6.11.2) (2021-11-18)
 
-
 ### Bug Fixes
 
-* **instance-list-table:** 修复cmdb table url类型跳转老数据不生效的问题 ([a803b79](https://github.com/easyops-cn/next-libs/commit/a803b7948dc8784b25ced9035a82fdc234b5d909))
-
-
-
-
+- **instance-list-table:** 修复 cmdb table url 类型跳转老数据不生效的问题 ([a803b79](https://github.com/easyops-cn/next-libs/commit/a803b7948dc8784b25ced9035a82fdc234b5d909))
 
 ## [6.11.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.11.0...@next-libs/cmdb-instances@6.11.1) (2021-11-18)
 
-
 ### Bug Fixes
 
-* **instance-detail:** 修复cmdb url类型跳转老数据不生效的问题 ([be1982c](https://github.com/easyops-cn/next-libs/commit/be1982cc59308ac81e2c7c601fa1141abec6a1c7))
-
-
-
-
+- **instance-detail:** 修复 cmdb url 类型跳转老数据不生效的问题 ([be1982c](https://github.com/easyops-cn/next-libs/commit/be1982cc59308ac81e2c7c601fa1141abec6a1c7))
 
 # [6.11.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.10.0...@next-libs/cmdb-instances@6.11.0) (2021-11-18)
 
-
 ### Features
 
-* add a property to instance-list-table that can change the seperator ([7711c69](https://github.com/easyops-cn/next-libs/commit/7711c693a52e1048395080124b298931e98dfee0)), closes [Refs#INSTANCE-2033](https://github.com/Refs/issues/INSTANCE-2033)
-
-
-
-
+- add a property to instance-list-table that can change the seperator ([7711c69](https://github.com/easyops-cn/next-libs/commit/7711c693a52e1048395080124b298931e98dfee0)), closes [Refs#INSTANCE-2033](https://github.com/Refs/issues/INSTANCE-2033)
 
 # [6.10.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.9.11...@next-libs/cmdb-instances@6.10.0) (2021-11-17)
 
-
 ### Features
 
-* change the seperator of the content in instance-list-table ([c01297c](https://github.com/easyops-cn/next-libs/commit/c01297cc040de1f7891f04aeea1dd7761696a2a5)), closes [Refs#INSTANCE-2033](https://github.com/Refs/issues/INSTANCE-2033)
-
-
-
-
+- change the seperator of the content in instance-list-table ([c01297c](https://github.com/easyops-cn/next-libs/commit/c01297cc040de1f7891f04aeea1dd7761696a2a5)), closes [Refs#INSTANCE-2033](https://github.com/Refs/issues/INSTANCE-2033)
 
 ## [6.9.11](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.9.10...@next-libs/cmdb-instances@6.9.11) (2021-11-16)
 
-
 ### Bug Fixes
 
-* 实例详情页关系详情跳转入口由基本信息的第一个调整为第一个分类的第一个 closed INSTANCE-2030 ([d97ad0c](https://github.com/easyops-cn/next-libs/commit/d97ad0c9236c9ab049a2602e42fa37d0fb717050))
-* 编辑结构体/结构体数组，不填布尔类型时，应回填空字符串 ([87db0f4](https://github.com/easyops-cn/next-libs/commit/87db0f49f662803d1b319afe156f227e3f1dcdb8)), closes [Refs#INSTANCE-2024](https://github.com/Refs/issues/INSTANCE-2024)
-
-
-
-
+- 实例详情页关系详情跳转入口由基本信息的第一个调整为第一个分类的第一个 closed INSTANCE-2030 ([d97ad0c](https://github.com/easyops-cn/next-libs/commit/d97ad0c9236c9ab049a2602e42fa37d0fb717050))
+- 编辑结构体/结构体数组，不填布尔类型时，应回填空字符串 ([87db0f4](https://github.com/easyops-cn/next-libs/commit/87db0f49f662803d1b319afe156f227e3f1dcdb8)), closes [Refs#INSTANCE-2024](https://github.com/Refs/issues/INSTANCE-2024)
 
 ## [6.9.10](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.9.9...@next-libs/cmdb-instances@6.9.10) (2021-11-11)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 ## [6.9.9](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.9.8...@next-libs/cmdb-instances@6.9.9) (2021-11-10)
-
 
 ### Bug Fixes
 
-* **AttributeFormControlUrl:**  修复编辑自动为null的问题 ([ed90b92](https://github.com/easyops-cn/next-libs/commit/ed90b92ccde78693706b0fa331a45e873a43d309))
-
-
-
-
+- **AttributeFormControlUrl:** 修复编辑自动为 null 的问题 ([ed90b92](https://github.com/easyops-cn/next-libs/commit/ed90b92ccde78693706b0fa331a45e873a43d309))
 
 ## [6.9.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.9.7...@next-libs/cmdb-instances@6.9.8) (2021-11-10)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 ## [6.9.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.9.6...@next-libs/cmdb-instances@6.9.7) (2021-11-09)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
-
-
-
-
 
 ## [6.9.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.9.5...@next-libs/cmdb-instances@6.9.6) (2021-11-09)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 ## [6.9.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.9.4...@next-libs/cmdb-instances@6.9.5) (2021-11-04)
-
 
 ### Bug Fixes
 
-* **cmdb-instance:** 修复自关联模型只有一个字段 ([5d39854](https://github.com/easyops-cn/next-libs/commit/5d39854b36fdcbe8545347561b106af82e56e16a))
-
-
-
-
+- **cmdb-instance:** 修复自关联模型只有一个字段 ([5d39854](https://github.com/easyops-cn/next-libs/commit/5d39854b36fdcbe8545347561b106af82e56e16a))
 
 ## [6.9.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.9.3...@next-libs/cmdb-instances@6.9.4) (2021-11-04)
 
-
 ### Bug Fixes
 
-* 告警事件中心CMDB通用实例列表模态框v2弹窗的取消按钮应使用文字按钮样式 EVENT-275 ([394f9ab](https://github.com/easyops-cn/next-libs/commit/394f9abfe4a7bde4ef843c5a0052aca82fb009e6))
-
-
-
-
+- 告警事件中心 CMDB 通用实例列表模态框 v2 弹窗的取消按钮应使用文字按钮样式 EVENT-275 ([394f9ab](https://github.com/easyops-cn/next-libs/commit/394f9abfe4a7bde4ef843c5a0052aca82fb009e6))
 
 ## [6.9.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.9.2...@next-libs/cmdb-instances@6.9.3) (2021-11-04)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 ## [6.9.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.9.1...@next-libs/cmdb-instances@6.9.2) (2021-11-03)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 ## [6.9.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.9.0...@next-libs/cmdb-instances@6.9.1) (2021-11-02)
-
 
 ### Bug Fixes
 
-* **cmdb-instances:** 当数组不必填有正则的时候，不填的时候不触发校验正则 ([2fe6888](https://github.com/easyops-cn/next-libs/commit/2fe68888cc1ba4cd88f10abfc43cb4b6288482bc))
-
-
-
-
+- **cmdb-instances:** 当数组不必填有正则的时候，不填的时候不触发校验正则 ([2fe6888](https://github.com/easyops-cn/next-libs/commit/2fe68888cc1ba4cd88f10abfc43cb4b6288482bc))
 
 # [6.9.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.8.1...@next-libs/cmdb-instances@6.9.0) (2021-11-02)
 
-
 ### Features
 
-* **cmdb-instances:**  IP类型字段支持批量选择后复制所选IP ([3d1896c](https://github.com/easyops-cn/next-libs/commit/3d1896c271f41516e64490f7070ca9221c1f845a))
-
-
-
-
+- **cmdb-instances:** IP 类型字段支持批量选择后复制所选 IP ([3d1896c](https://github.com/easyops-cn/next-libs/commit/3d1896c271f41516e64490f7070ca9221c1f845a))
 
 ## [6.8.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.8.0...@next-libs/cmdb-instances@6.8.1) (2021-11-02)
 
-
 ### Bug Fixes
 
-* **cmdb-instances:**  删除结构体，提示不对 ([8065b4f](https://github.com/easyops-cn/next-libs/commit/8065b4f58e37904d239a8a364eb4152a8aa2315b))
-
-
-
-
+- **cmdb-instances:** 删除结构体，提示不对 ([8065b4f](https://github.com/easyops-cn/next-libs/commit/8065b4f58e37904d239a8a364eb4152a8aa2315b))
 
 # [6.8.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.7.5...@next-libs/cmdb-instances@6.8.0) (2021-11-02)
 
-
 ### Features
 
-* **cmdb-instances:**  实例列表，url 类型支持跳转功能 ([f38a735](https://github.com/easyops-cn/next-libs/commit/f38a7358707cde22018923937fbacf69b9ba9f5f))
-
-
-
-
+- **cmdb-instances:** 实例列表，url 类型支持跳转功能 ([f38a735](https://github.com/easyops-cn/next-libs/commit/f38a7358707cde22018923937fbacf69b9ba9f5f))
 
 ## [6.7.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.7.4...@next-libs/cmdb-instances@6.7.5) (2021-10-22)
 
-
 ### Bug Fixes
 
-* **cmdb-instances:** instance-list icon tooltip translation issue ([10e6c0f](https://github.com/easyops-cn/next-libs/commit/10e6c0f07e8cce58414049716e8eb96ebded7ba0))
-
-
-
-
+- **cmdb-instances:** instance-list icon tooltip translation issue ([10e6c0f](https://github.com/easyops-cn/next-libs/commit/10e6c0f07e8cce58414049716e8eb96ebded7ba0))
 
 ## [6.7.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.7.3...@next-libs/cmdb-instances@6.7.4) (2021-10-22)
 
-
 ### Bug Fixes
 
-* **cmdb-instance:** 修复显示设置_object_id字段 ([da3c688](https://github.com/easyops-cn/next-libs/commit/da3c688bf2eba62ed96c386a4901649ecbca8eb3))
-
-
-
-
+- **cmdb-instance:** 修复显示设置\_object_id 字段 ([da3c688](https://github.com/easyops-cn/next-libs/commit/da3c688bf2eba62ed96c386a4901649ecbca8eb3))
 
 ## [6.7.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.7.2...@next-libs/cmdb-instances@6.7.3) (2021-10-22)
 
-
 ### Bug Fixes
 
-* **cmdb-instance:** 修复实例来源筛选后删除筛选条件未清空控件选择的值 ([8e34847](https://github.com/easyops-cn/next-libs/commit/8e34847489b181ad8499cdc3ecbaae9340dc51ff))
-
-
-
-
+- **cmdb-instance:** 修复实例来源筛选后删除筛选条件未清空控件选择的值 ([8e34847](https://github.com/easyops-cn/next-libs/commit/8e34847489b181ad8499cdc3ecbaae9340dc51ff))
 
 ## [6.7.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.7.1...@next-libs/cmdb-instances@6.7.2) (2021-10-20)
 
-
 ### Bug Fixes
 
-* **cmdb-instance:** 父模型实例列表显示实例来源字段修改 ([3db0d91](https://github.com/easyops-cn/next-libs/commit/3db0d91b1541e368912caf48f7fa5b74e07c29f5))
-
-
-
-
+- **cmdb-instance:** 父模型实例列表显示实例来源字段修改 ([3db0d91](https://github.com/easyops-cn/next-libs/commit/3db0d91b1541e368912caf48f7fa5b74e07c29f5))
 
 ## [6.7.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.7.0...@next-libs/cmdb-instances@6.7.1) (2021-10-20)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 # [6.7.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.6.6...@next-libs/cmdb-instances@6.7.0) (2021-10-20)
-
 
 ### Features
 
-* **cmdb-instance:** 父模型实例列表显示实例来源 ([873dcf1](https://github.com/easyops-cn/next-libs/commit/873dcf11f45e2a112bcc3810aa97102a70edc742))
-
-
-
-
+- **cmdb-instance:** 父模型实例列表显示实例来源 ([873dcf1](https://github.com/easyops-cn/next-libs/commit/873dcf11f45e2a112bcc3810aa97102a70edc742))
 
 ## [6.6.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.6.5...@next-libs/cmdb-instances@6.6.6) (2021-10-20)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 ## [6.6.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.6.4...@next-libs/cmdb-instances@6.6.5) (2021-10-13)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
-
-
-
-
 
 ## [6.6.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.6.3...@next-libs/cmdb-instances@6.6.4) (2021-10-11)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 ## [6.6.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.6.2...@next-libs/cmdb-instances@6.6.3) (2021-09-29)
-
 
 ### Bug Fixes
 
-* **cmdb-instances:** 实例列表自增id流水号属性排序使用自然排序 ([1eeada1](https://github.com/easyops-cn/next-libs/commit/1eeada18741c0564fb03d84b5622f8b77576ed46))
-
-
-
-
+- **cmdb-instances:** 实例列表自增 id 流水号属性排序使用自然排序 ([1eeada1](https://github.com/easyops-cn/next-libs/commit/1eeada18741c0564fb03d84b5622f8b77576ed46))
 
 ## [6.6.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.6.1...@next-libs/cmdb-instances@6.6.2) (2021-09-27)
 
-
 ### Bug Fixes
 
-* **cmdb-instances:** 修复实例列表高级搜索-关系字段查询回填不正确 ([1fed048](https://github.com/easyops-cn/next-libs/commit/1fed0482fb166e345b6ff5230d3b933dd7cff187))
-
-
-
-
+- **cmdb-instances:** 修复实例列表高级搜索-关系字段查询回填不正确 ([1fed048](https://github.com/easyops-cn/next-libs/commit/1fed0482fb166e345b6ff5230d3b933dd7cff187))
 
 ## [6.6.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.6.0...@next-libs/cmdb-instances@6.6.1) (2021-09-26)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 # [6.6.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.5.3...@next-libs/cmdb-instances@6.6.0) (2021-09-26)
-
 
 ### Features
 
-* **cmdb-instances:** 创建结构体弹窗使用form ([c5cb42a](https://github.com/easyops-cn/next-libs/commit/c5cb42ad77367c0a76ef1471ac05c417d61ed8fb))
-
-
-
-
+- **cmdb-instances:** 创建结构体弹窗使用 form ([c5cb42a](https://github.com/easyops-cn/next-libs/commit/c5cb42ad77367c0a76ef1471ac05c417d61ed8fb))
 
 ## [6.5.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.5.2...@next-libs/cmdb-instances@6.5.3) (2021-09-23)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 ## [6.5.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.5.1...@next-libs/cmdb-instances@6.5.2) (2021-09-23)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
-
-
-
-
 
 ## [6.5.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.5.0...@next-libs/cmdb-instances@6.5.1) (2021-09-23)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 # [6.5.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.4.5...@next-libs/cmdb-instances@6.5.0) (2021-09-22)
-
 
 ### Features
 
-* **cmdb-instances:** 创建实例时校验结构体正则 ([9f243e4](https://github.com/easyops-cn/next-libs/commit/9f243e4a8f6ab13f8fe2284abd9662ed96e11184))
-
-
-
-
+- **cmdb-instances:** 创建实例时校验结构体正则 ([9f243e4](https://github.com/easyops-cn/next-libs/commit/9f243e4a8f6ab13f8fe2284abd9662ed96e11184))
 
 ## [6.4.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.4.4...@next-libs/cmdb-instances@6.4.5) (2021-09-18)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 ## [6.4.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.4.3...@next-libs/cmdb-instances@6.4.4) (2021-09-18)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
-
-
-
-
 
 ## [6.4.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.4.2...@next-libs/cmdb-instances@6.4.3) (2021-09-16)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 ## [6.4.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.4.1...@next-libs/cmdb-instances@6.4.2) (2021-09-16)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 ## [6.4.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.4.0...@next-libs/cmdb-instances@6.4.1) (2021-09-04)
-
 
 ### Bug Fixes
 
-* **cmdb-instances:** instance-list 右上角显示问题 ([79f738f](https://github.com/easyops-cn/next-libs/commit/79f738fb6471fc81a086e540083498d16953db67))
-
-
-
-
+- **cmdb-instances:** instance-list 右上角显示问题 ([79f738f](https://github.com/easyops-cn/next-libs/commit/79f738fb6471fc81a086e540083498d16953db67))
 
 # [6.4.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.3.5...@next-libs/cmdb-instances@6.4.0) (2021-09-04)
 
-
 ### Features
 
-* **cmdb-instances:** add dataSource property, apply to specific scenarios without requiring a request ([e7f2c3c](https://github.com/easyops-cn/next-libs/commit/e7f2c3cd898e48a607cfaf3371e8979aaa160a97))
-
-
-
-
+- **cmdb-instances:** add dataSource property, apply to specific scenarios without requiring a request ([e7f2c3c](https://github.com/easyops-cn/next-libs/commit/e7f2c3cd898e48a607cfaf3371e8979aaa160a97))
 
 ## [6.3.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.3.4...@next-libs/cmdb-instances@6.3.5) (2021-09-01)
 
-
 ### Bug Fixes
 
-* i18n Closed PERMISSION-178 ([1ce0e0a](https://github.com/easyops-cn/next-libs/commit/1ce0e0abbab348545fe38fb7d1c91e31a360ffcd))
-
-
-
-
+- i18n Closed PERMISSION-178 ([1ce0e0a](https://github.com/easyops-cn/next-libs/commit/1ce0e0abbab348545fe38fb7d1c91e31a360ffcd))
 
 ## [6.3.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.3.3...@next-libs/cmdb-instances@6.3.4) (2021-08-31)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 ## [6.3.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.3.2...@next-libs/cmdb-instances@6.3.3) (2021-08-26)
-
 
 ### Bug Fixes
 
-* 详情页json校验 Closed INSTANCE-1859 ([f549d93](https://github.com/easyops-cn/next-libs/commit/f549d9315abc81d47231874bdd96ad1d94e9c3bd))
-
-
-
-
+- 详情页 json 校验 Closed INSTANCE-1859 ([f549d93](https://github.com/easyops-cn/next-libs/commit/f549d9315abc81d47231874bdd96ad1d94e9c3bd))
 
 ## [6.3.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.3.1...@next-libs/cmdb-instances@6.3.2) (2021-08-25)
 
-
 ### Bug Fixes
 
-* json输入框主题色 Closed INSTANCE-1859 ([1ebf340](https://github.com/easyops-cn/next-libs/commit/1ebf340e3555acb98767f995701c685a926baa8d))
-
-
-
-
+- json 输入框主题色 Closed INSTANCE-1859 ([1ebf340](https://github.com/easyops-cn/next-libs/commit/1ebf340e3555acb98767f995701c685a926baa8d))
 
 ## [6.3.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.3.0...@next-libs/cmdb-instances@6.3.1) (2021-08-25)
 
-
 ### Bug Fixes
 
-* 结构体数组校验问题,结构体添加数据时json无法输入问题 Closed INSTANCE-1859 ([27abe72](https://github.com/easyops-cn/next-libs/commit/27abe72c7f09ab384fa1b2de8388ed7e66626e71))
-
-
-
-
+- 结构体数组校验问题,结构体添加数据时 json 无法输入问题 Closed INSTANCE-1859 ([27abe72](https://github.com/easyops-cn/next-libs/commit/27abe72c7f09ab384fa1b2de8388ed7e66626e71))
 
 # [6.3.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.2.2...@next-libs/cmdb-instances@6.3.0) (2021-08-24)
 
-
 ### Features
 
-* add i18n refs INSTANCE-1883 ([ef3b91c](https://github.com/easyops-cn/next-libs/commit/ef3b91cb604384d0c8539c5aaff73e5dd891a3f0))
-
-
-
-
+- add i18n refs INSTANCE-1883 ([ef3b91c](https://github.com/easyops-cn/next-libs/commit/ef3b91cb604384d0c8539c5aaff73e5dd891a3f0))
 
 ## [6.2.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.2.1...@next-libs/cmdb-instances@6.2.2) (2021-08-23)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 ## [6.2.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.2.0...@next-libs/cmdb-instances@6.2.1) (2021-08-23)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 # [6.2.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.1.0...@next-libs/cmdb-instances@6.2.0) (2021-08-22)
-
 
 ### Features
 
-* add i18n refs INSTANCE-1883 ([a241641](https://github.com/easyops-cn/next-libs/commit/a24164174926d5f7afe6346b8d467884ca468362))
-
-
-
-
+- add i18n refs INSTANCE-1883 ([a241641](https://github.com/easyops-cn/next-libs/commit/a24164174926d5f7afe6346b8d467884ca468362))
 
 # [6.1.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.0.11...@next-libs/cmdb-instances@6.1.0) (2021-08-21)
 
-
 ### Features
 
-* add i18n refs INSTANCE-1903 ([150c5e9](https://github.com/easyops-cn/next-libs/commit/150c5e9bd3997cf82eda7b0c0026d25c555fcacb))
-
-
-
-
+- add i18n refs INSTANCE-1903 ([150c5e9](https://github.com/easyops-cn/next-libs/commit/150c5e9bd3997cf82eda7b0c0026d25c555fcacb))
 
 ## [6.0.11](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.0.10...@next-libs/cmdb-instances@6.0.11) (2021-08-20)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 ## [6.0.10](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.0.9...@next-libs/cmdb-instances@6.0.10) (2021-08-20)
-
 
 ### Bug Fixes
 
-* **model-attribute-form:** 修复CANCEL的i18n问题 ([0620b8b](https://github.com/easyops-cn/next-libs/commit/0620b8bdd7c9f8bfb65582bb7c1c247fe3c9a53c))
-
-
-
-
+- **model-attribute-form:** 修复 CANCEL 的 i18n 问题 ([0620b8b](https://github.com/easyops-cn/next-libs/commit/0620b8bdd7c9f8bfb65582bb7c1c247fe3c9a53c))
 
 ## [6.0.9](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.0.8...@next-libs/cmdb-instances@6.0.9) (2021-08-20)
 
-
 ### Bug Fixes
 
-* **model-attribute-form:** 修复结构体无属性字段,无枚举值时不应该整体报错的问题 ([0c035c1](https://github.com/easyops-cn/next-libs/commit/0c035c113b70ec4de1a9cb7f3bb09265ec3bc5d1))
-
-
-
-
+- **model-attribute-form:** 修复结构体无属性字段,无枚举值时不应该整体报错的问题 ([0c035c1](https://github.com/easyops-cn/next-libs/commit/0c035c113b70ec4de1a9cb7f3bb09265ec3bc5d1))
 
 ## [6.0.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.0.7...@next-libs/cmdb-instances@6.0.8) (2021-08-19)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 ## [6.0.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.0.6...@next-libs/cmdb-instances@6.0.7) (2021-08-19)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
-
-
-
-
 
 ## [6.0.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.0.5...@next-libs/cmdb-instances@6.0.6) (2021-08-19)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 ## [6.0.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.0.4...@next-libs/cmdb-instances@6.0.5) (2021-08-18)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
-
-
-
-
 
 ## [6.0.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.0.3...@next-libs/cmdb-instances@6.0.4) (2021-08-18)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 ## [6.0.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.0.2...@next-libs/cmdb-instances@6.0.3) (2021-08-12)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
 
-
-
-
-
 ## [6.0.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.0.1...@next-libs/cmdb-instances@6.0.2) (2021-08-12)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
-
-
-
-
 
 ## [6.0.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.0.0...@next-libs/cmdb-instances@6.0.1) (2021-08-09)
 
