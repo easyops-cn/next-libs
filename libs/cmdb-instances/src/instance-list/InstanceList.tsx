@@ -18,7 +18,11 @@ import {
   omit,
   keyBy,
 } from "lodash";
-import { BrickAsComponent, handleHttpError } from "@next-core/brick-kit";
+import {
+  BrickAsComponent,
+  handleHttpError,
+  getHistory,
+} from "@next-core/brick-kit";
 import i18n from "i18next";
 import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
 import {
@@ -754,6 +758,15 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
       setState({ inited: true, loading: false });
     }
   };
+
+  useEffect(() => {
+    if (props.dataSource) {
+      const history = getHistory();
+      const urlSearchParams = new URLSearchParams(history?.location.search);
+      urlSearchParams.set("page", `${props?.dataSource?.page}`);
+      history.push(`?${urlSearchParams}`, { notify: false });
+    }
+  }, [props.dataSource]);
 
   useEffect(() => {
     const fieldIds = getFields();
