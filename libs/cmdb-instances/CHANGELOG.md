@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.33.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.33.1...@next-libs/cmdb-instances@6.33.2) (2022-06-20)
+
+
+### Bug Fixes
+
+* 去掉props.presetConfigs变更刷新页面 refs PERMISSION-239 ([a68e11f](https://github.com/easyops-cn/next-libs/commit/a68e11f3faebbee377b08ab2a03911806dd82ca7))
+
+
+
+
+
 ## [6.33.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.33.0...@next-libs/cmdb-instances@6.33.1) (2022-06-16)
 
 
