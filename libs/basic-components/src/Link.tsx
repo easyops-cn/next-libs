@@ -10,31 +10,26 @@ function isModifiedEvent(
   return !!(event.metaKey || event.altKey || event.ctrlKey || event.shiftKey);
 }
 
-export interface LinkProps {
+export interface LinkProps
+  extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   to?: LocationDescriptor<PluginHistoryState>;
-  href?: string;
   innerRef?: string;
   noEmptyHref?: boolean;
   replace?: boolean;
-  target?: string;
   disabled?: boolean;
-  onClick?: LinkClickFn;
-  [other: string]: any;
 }
-
-type LinkClickFn = (
-  event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
-) => void;
 
 /**
  * The public API for rendering a history-aware <a>.
  */
 export function Link(props: LinkProps): React.ReactElement {
-  const { innerRef, replace, to, href, noEmptyHref, disabled, style, ...rest } =
-    props; // eslint-disable-line no-unused-vars
+  const { innerRef, replace, to, noEmptyHref, disabled, style, ...rest } =
+    props;
   const history = getHistory();
   const computedHref = useMemo(() => {
-    if (props.href) {
+    if (disabled) {
+      return;
+    } else if (props.href) {
       return props.href;
     } else {
       const location =
@@ -43,7 +38,7 @@ export function Link(props: LinkProps): React.ReactElement {
           : to;
       return location ? history.createHref(location) : "";
     }
-  }, [props.href, to, history]);
+  }, [disabled, props.href, to, history]);
 
   const handleClick = (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
@@ -53,7 +48,7 @@ export function Link(props: LinkProps): React.ReactElement {
       event.preventDefault();
       return;
     }
-    if (props.onClick) props.onClick(event);
+    props.onClick?.(event);
     if (props.href) return;
 
     if (
@@ -72,15 +67,15 @@ export function Link(props: LinkProps): React.ReactElement {
     }
   };
 
-  if (computedHref || !noEmptyHref) {
-    rest.href = computedHref;
-  }
+  rest.href = computedHref || !noEmptyHref ? computedHref : undefined;
 
   return (
     <a
       {...rest}
       style={{
-        ...(disabled ? { cursor: "not-allowed" } : null),
+        ...(disabled
+          ? { cursor: "not-allowed", color: "var(--text-color-disabled)" }
+          : null),
         ...style,
       }}
       onClick={(event) => handleClick(event, history)}
