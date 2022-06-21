@@ -20,7 +20,7 @@ import {
   ModelAttributeValueType,
 } from "../model-attribute-form-control/ModelAttributeFormControl";
 import { AttributeFormControlUrl } from "../attribute-form-control-url/AttributeFormControlUrl";
-import _, { get, isNil, keyBy } from "lodash";
+import _, { get, isNil, keyBy, pickBy } from "lodash";
 
 import { CmdbInstancesSelectPanel } from "../cmdb-instances-select-panel/CmdbInstancesSelectPanel";
 import {
@@ -78,6 +78,8 @@ interface ModelAttributeFormProps extends FormComponentProps {
   scrollToFirstError?: boolean;
   offsetTop?: number;
   cardRect?: any;
+  isApprove?: boolean;
+  hasRelateId?: boolean;
 }
 
 export type attributesFieldsByTag = [string, ModifiedModelObjectField[]];
@@ -90,6 +92,7 @@ interface ModelAttributeFormState {
   continueCreating: boolean;
   showError?: Record<string, any>;
   fixedStyle?: Record<string, any>;
+  defaultValueTemplateIndex?: number;
 }
 
 export class ModelAttributeForm extends Component<
@@ -174,6 +177,7 @@ export class ModelAttributeForm extends Component<
       continueCreating: false,
       showError: {},
       fixedStyle: {},
+      defaultValueTemplateIndex: 1,
     };
   }
 
@@ -189,13 +193,26 @@ export class ModelAttributeForm extends Component<
       this.setState({
         fixedStyle: getFixedStyle(this.props.cardRect?.getBoundingClientRect()),
       });
-      window.addEventListener("resize", this.resizeUpdate);
     }
+    this.props.cardRect && window.addEventListener("resize", this.resizeUpdate);
   }
 
   componentWillUnmount() {
     // 离开页面时移除监听事件
     window.removeEventListener("resize", this.resizeUpdate);
+  }
+
+  static getDerivedStateFromProps(props: any, state: any): any {
+    if (props.defaultValueTemplateIndex !== state.defaultValueTemplateIndex) {
+      props.form.setFieldsValue({
+        ...props.form.getFieldsValue(),
+        ...pickBy(props.attributeFormControlInitialValueMap),
+      });
+      return {
+        defaultValueTemplateIndex: props.defaultValueTemplateIndex,
+      };
+    }
+    return null;
   }
 
   static getFieldsByTag(
@@ -292,7 +309,7 @@ export class ModelAttributeForm extends Component<
     };
   };
   /* istanbul ignore next */
-  validateFieldsCallback = async (err: any, values: any) => {
+  validateFieldsCallback = async (err: any, values: any, type?: string) => {
     if (!err) {
       const { continueCreating } = this.state;
       this.setState({ sending: true });
@@ -302,6 +319,7 @@ export class ModelAttributeForm extends Component<
           this.props.enabledWhiteList && this.props.permissionList
             ? this.valuesProcess(values)
             : values,
+        type,
       });
       if (result !== "error" && continueCreating) {
         this.props.form.resetFields();
@@ -310,7 +328,7 @@ export class ModelAttributeForm extends Component<
     }
   };
   /* istanbul ignore next */
-  handleSubmit = (e: FormEvent) => {
+  handleSubmit = (e: FormEvent, type?: string) => {
     e.preventDefault();
     this.props.scrollToFirstError
       ? this.props.form.validateFieldsAndScroll(
@@ -320,11 +338,11 @@ export class ModelAttributeForm extends Component<
             },
           },
           async (err, values) => {
-            await this.validateFieldsCallback(err, values);
+            await this.validateFieldsCallback(err, values, type);
           }
         )
       : this.props.form.validateFields(async (err, values) => {
-          await this.validateFieldsCallback(err, values);
+          await this.validateFieldsCallback(err, values, type);
         });
   };
 
@@ -656,6 +674,23 @@ export class ModelAttributeForm extends Component<
                 {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CREATE_ANOTHER}`)}
               </Checkbox>
             )}
+
+            {this.props.isCreate &&
+              !this.props.hasRelateId &&
+              !this.props.isApprove && (
+                <Button
+                  onClick={(e) => this.handleSubmit(e, "continue")}
+                  className={styles.submitAndContinueBtn}
+                  disabled={
+                    this.disabled ||
+                    Object.values(this.state.showError).includes(true)
+                  }
+                  data-testid="submit-and-continue-btn"
+                >
+                  {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.SAVE_AND_CONTINUE}`)}
+                </Button>
+              )}
+
             <Button
               type="primary"
               onClick={(e) => this.handleSubmit(e)}
