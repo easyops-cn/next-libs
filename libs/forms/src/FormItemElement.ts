@@ -202,6 +202,11 @@ export abstract class FormItemElement extends UpdatingElement {
     return element as AbstractGeneralFormElement;
   }
 
+  /**
+   * @method
+   * @params notRender:boolean
+   * @description 参数为 true 时，不渲染该表单子项；反之，为 false 时，则渲染该表单子项。不渲染时，validate.success事件详情将不输出该表单子项的值。
+   */
   setNotRender(value: boolean): void {
     this.notRender = value;
   }
