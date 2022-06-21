@@ -13,7 +13,6 @@ import {
 import { Button, Checkbox } from "antd";
 import i18n from "i18next";
 import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
-import { modifyModelData, getFixedStyle } from "@next-libs/cmdb-utils";
 /* eslint-disable  */
 jest.mock("../i18n");
 
@@ -669,6 +668,140 @@ describe("ModelAttributeForm", () => {
       });
       expect(instance.state.sending).toBeFalsy();
     });
+    it("should submit and continue", async () => {
+      const values: any = {
+        CHECK_IP2: "sdfsdfs",
+        check_array: ["24324"],
+        check_enum: null,
+        check_ip4: "192.168.100.15",
+        check_num_readonly: 4,
+        name: "sdfsdf",
+        check_url2: "[百度哦](http://wwww.baidu.comcc)",
+        check_num: 2,
+        check_read_only: "0.0.0.0",
+        check_string: "sdfdsfsdf",
+        check_url: "[null](http://sdfsfdsdfdsf)",
+      };
+
+      const newValues: any = {
+        CHECK_IP2: "sdfsdfs",
+        check_array: ["24324"],
+        check_enum: null,
+        check_ip4: "192.168.100.15",
+        check_num_readonly: 4,
+        name: "sdfsdf",
+        check_url2: "[百度哦](http://wwww.baidu.comcc)",
+        check_num: 2,
+        check_read_only: "0.0.0.0",
+        check_string: "sdfdsfsdf",
+        check_url: "[null](http://sdfsfdsdfdsf)",
+      };
+      const newProps = Object.assign({}, props, {
+        isCreate: true,
+        allowContinueCreate: true,
+        tagsList: {
+          基本信息: ["timeline"],
+          默认属性: ["deviceId", "_agentStatus", "_agentHeartBeat"],
+        },
+      });
+      const spyOnComponentDidMount = jest.spyOn(
+        InstanceModelAttributeForm.prototype,
+        "componentDidMount"
+      );
+      const wrapper = mount(
+        <InstanceModelAttributeForm
+          {...newProps}
+          cardRect={{
+            getBoundingClientRect: () => {
+              return { left: 304, width: 1098, bottom: 12408 };
+            },
+          }}
+        />
+      );
+      expect(spyOnComponentDidMount).toHaveBeenCalled();
+      const instance = wrapper
+        .find(ModelAttributeForm)
+        .instance() as ModelAttributeForm;
+
+      expect(instance.state.fixedStyle).toStrictEqual({
+        position: "fixed",
+        left: 304,
+        bottom: 0,
+        width: 1098,
+      });
+      const checkBox = wrapper
+        .find(ModelAttributeForm)
+        .find(Checkbox)
+        .find('input[type="checkbox"]');
+
+      checkBox.simulate("change", {
+        target: {
+          checked: true,
+        },
+      });
+      wrapper.update();
+
+      await (global as any).flushPromises();
+
+      wrapper.update();
+      instance.props.form.validateFields = jest
+        .fn()
+        .mockImplementation(
+          (callback: (err: boolean, value: Record<string, any>) => void) => {
+            callback(false, values);
+          }
+        );
+
+      const submitAndContinueBtn = wrapper
+        .find(Button)
+        .filter("[data-testid='submit-and-continue-btn']");
+
+      submitAndContinueBtn.simulate("click", {
+        preventDefault: jest.fn(),
+      });
+      expect(submitAndContinueBtn.text()).toBe(
+        i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.SAVE_AND_CONTINUE}`)
+      );
+      expect(instance.state.sending).toBeTruthy();
+
+      await (global as any).flushPromises();
+      expect(props.onSubmit).toBeCalledWith({
+        continueCreating: true,
+        values: newValues,
+        type: "continue",
+      });
+      expect(instance.state.sending).toBeFalsy();
+      expect(wrapper.find("Button").length).toBe(3);
+    });
+    it("should has hidden submit and continue btn", async () => {
+      const newProps = Object.assign({}, props, {
+        isCreate: false,
+        allowContinueCreate: true,
+        tagsList: {
+          基本信息: ["timeline"],
+          默认属性: ["deviceId", "_agentStatus", "_agentHeartBeat"],
+        },
+      });
+      const wrapper = mount(
+        <InstanceModelAttributeForm
+          {...newProps}
+          cardRect={{
+            getBoundingClientRect: () => {
+              return { left: 304, width: 1098, bottom: 12408 };
+            },
+          }}
+        />
+      );
+      await (global as any).flushPromises();
+
+      wrapper.update();
+
+      const submitAndContinueBtn = wrapper
+        .find(Button)
+        .filter("[data-testid='submit-and-continue-btn']");
+      expect(submitAndContinueBtn).toBeVisible;
+      expect(wrapper.find("Button").length).toBe(2);
+    });
   });
 
   it("should work", () => {
@@ -710,6 +843,7 @@ describe("ModelAttributeForm", () => {
       validateFields: jest.fn(),
       resetFields: jest.fn(),
       getFieldsError: jest.fn(() => []),
+      setFieldsValue: () => {},
     };
     const wrapper = shallow(
       <ModelAttributeForm

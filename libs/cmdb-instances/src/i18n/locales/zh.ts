@@ -66,6 +66,7 @@ const locale: Locale = {
   [K.VIEW]: "查看",
   [K.ITEM_ADD_IN_BATCHES]: "批量添加{{name}}",
   [K.SAVE]: "保存",
+  [K.SAVE_AND_CONTINUE]: "保存并继续添加",
   [K.MODIFICATION]: "修改",
   [K.NOT_MEET_REGEX]: "不满足预设的正则表达式，请修改",
   [K.NOT_MEET_REGEX_DETAIL]: "不满足预设的正则表达式 {{regex}} ，请修改",

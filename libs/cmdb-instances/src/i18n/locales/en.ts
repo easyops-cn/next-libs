@@ -69,6 +69,7 @@ const locale: Locale = {
   [K.VIEW]: "View",
   [K.ITEM_ADD_IN_BATCHES]: "Add {{name}} in batches",
   [K.SAVE]: "Save",
+  [K.SAVE_AND_CONTINUE]: "Save and continue adding",
   [K.MODIFICATION]: "Modification",
   [K.NOT_MEET_REGEX]:
     "Does not match the preset regular expression, please modify",

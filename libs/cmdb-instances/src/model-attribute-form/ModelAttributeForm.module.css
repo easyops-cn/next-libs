@@ -49,3 +49,6 @@
   background: var(--antd-card-footer-bg);
   z-index: 999;
 }
+.submitAndContinueBtn {
+  margin-right: 26px;
+}
