@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.34.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.33.4...@next-libs/cmdb-instances@6.34.0) (2022-06-21)
+
+
+### Features
+
+* **InstanceModelAttributeForm:** 创建实例时增加保存并继续添加功能 Closes INSTANCE-2443 ([358dcef](https://github.com/easyops-cn/next-libs/commit/358dcefd7b49d71f51c071a9982130bd2196ef4e))
+
+
+
+
+
 ## [6.33.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.33.3...@next-libs/cmdb-instances@6.33.4) (2022-06-21)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
