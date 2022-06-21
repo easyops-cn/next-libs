@@ -50,10 +50,15 @@ describe("Link", () => {
         style={{ color: "red" }}
       />
     );
-    expect(wrapper.find("a").prop("style")).toEqual({
-      cursor: "not-allowed",
-      color: "red",
-    });
+    expect(wrapper.find("a").props()).toEqual(
+      expect.objectContaining({
+        href: undefined,
+        style: {
+          cursor: "not-allowed",
+          color: "red",
+        },
+      })
+    );
 
     const preventDefault = jest.fn();
     wrapper.find("a").simulate("click", {
