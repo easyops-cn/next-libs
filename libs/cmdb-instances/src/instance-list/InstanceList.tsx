@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer, useState, useRef, useMemo } from "react";
-import {
+import _, {
   difference,
   isEmpty,
   isEqual,
@@ -36,6 +36,7 @@ import {
   InstanceApi_PostSearchV3ResponseBody,
   InstanceApi_postSearchV3,
   CmdbObjectApi_getIdMapName,
+  CmdbObjectApi_getObjectRef,
 } from "@next-sdk/cmdb-sdk";
 import { Icon as LegacyIcon } from "@ant-design/compatible";
 import { Button, Spin, Input, Tag, Select } from "antd";
@@ -70,6 +71,7 @@ import {
   extraFieldAttrs,
   CMDB_MODAL_FIELDS_SETTINGS,
   CMDB_RESOURCE_FIELDS_SETTINGS,
+  objectListCache,
 } from "./constants";
 import { ModelAttributeValueType } from "../model-attribute-form-control/ModelAttributeFormControl";
 import { IconButton } from "./IconButton";
@@ -460,7 +462,9 @@ interface InstanceListState {
   showTooltip?: boolean;
 }
 
-export function InstanceList(props: InstanceListProps): React.ReactElement {
+export function LegacyInstanceList(
+  props: InstanceListProps
+): React.ReactElement {
   const { showTooltip = true } = props;
   const baseList = [
     {
@@ -1380,4 +1384,35 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
       ) : null}
     </Spin>
   );
+}
+
+export function InstanceList(props: InstanceListProps): React.ReactElement {
+  const [objectList, setObjectList] = useState<
+    Partial<CmdbModels.ModelCmdbObject>[]
+  >(props.objectList);
+
+  useEffect(() => {
+    (async () => {
+      const cacheData = objectListCache.get(props.objectId);
+      if (isEmpty(objectList)) {
+        if (cacheData) {
+          setObjectList(cacheData);
+        } else {
+          try {
+            const list = (
+              await CmdbObjectApi_getObjectRef({ ref_object: props.objectId })
+            ).data;
+            setObjectList(list);
+            objectListCache.set(props.objectId, list);
+          } catch (e) {
+            handleHttpError(e);
+          }
+        }
+      }
+    })();
+  }, [props.objectId, objectList]);
+
+  if (isEmpty(objectList)) return null;
+
+  return <LegacyInstanceList {...props} objectList={objectList} />;
 }

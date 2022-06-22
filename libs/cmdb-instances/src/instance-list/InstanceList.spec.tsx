@@ -14,7 +14,12 @@ import { BrickAsComponent } from "@next-core/brick-kit";
 import i18n from "i18next";
 import { Query } from "@next-libs/cmdb-utils";
 import { IconButton } from "./IconButton";
-import { InstanceList, getQuery, initAqToShow } from "./InstanceList";
+import {
+  LegacyInstanceList,
+  InstanceList,
+  getQuery,
+  initAqToShow,
+} from "./InstanceList";
 import {
   getInstanceListData,
   mockFetchCmdbObjectDetailReturnValueCLuster,
@@ -1046,7 +1051,11 @@ describe("InstanceList", () => {
   it("instanceListTable should be hidden", async () => {
     expect(InstanceApi_postSearchV3).toBeCalledTimes(13);
     const wrapper = mount(
-      <InstanceList objectId="HOST" objectList={[HOST]} hideInstanceList />
+      <LegacyInstanceList
+        objectId="HOST"
+        objectList={[HOST]}
+        hideInstanceList
+      />
     );
     await (global as any).flushPromises();
     await jest.runAllTimers();

@@ -103,3 +103,5 @@ export const extraFieldAttrs: extraFieldAttrType[] = [
     },
   },
 ];
+
+export const objectListCache = new Map<string, any>();
