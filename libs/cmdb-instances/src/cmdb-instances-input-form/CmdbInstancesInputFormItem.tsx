@@ -32,6 +32,7 @@ export interface CmdbInstancesInputFormItemProps {
   query?: { [fieldId: string]: any }[];
   onChange?: (value: string[]) => void;
   onChangeV2?: (value: any[]) => void;
+  allowClear?: boolean;
   defaultQuery?: { [fieldId: string]: any }[];
   addButtonDisabled?: boolean;
   previewEnabled?: boolean;
@@ -303,6 +304,13 @@ export const LegacyCmdbInstancesInputFormItem = (
 
         handleChange(instances);
       }
+    } else {
+      setSelectedInstances({
+        valid: [],
+        invalid: [],
+      });
+
+      handleChange([]);
     }
 
     setInputFocused(false);
@@ -381,6 +389,7 @@ export const LegacyCmdbInstancesInputFormItem = (
           value={inputValue}
           onFocus={() => setInputFocused(true)}
           onBlur={handleInputBlur}
+          allowClear={props.allowClear}
           disabled={props.inputDisabled}
         />
         <Button
