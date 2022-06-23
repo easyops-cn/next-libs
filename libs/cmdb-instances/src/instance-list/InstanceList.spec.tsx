@@ -9,7 +9,7 @@ import {
   CmdbObjectApi_getObjectRef,
 } from "@next-sdk/cmdb-sdk";
 import * as storage from "@next-libs/storage";
-import { Button, Select } from "antd";
+import { Button, Select, Tag } from "antd";
 import { mount } from "enzyme";
 import { BrickAsComponent } from "@next-core/brick-kit";
 import i18n from "i18next";
@@ -20,6 +20,8 @@ import {
   InstanceList,
   getQuery,
   initAqToShow,
+  isValueEqualFn,
+  isSpecialFn,
 } from "./InstanceList";
 import {
   getInstanceListData,
@@ -639,7 +641,7 @@ describe("InstanceList", () => {
     await (global as any).flushPromises();
     await jest.runAllTimers();
     wrapper.update();
-    expect(wrapper.find("Tag").length).toBe(0);
+    expect(wrapper.find(Tag).length).toBe(0);
   });
 
   it("should work with hideSearchConditions", async () => {
@@ -695,7 +697,10 @@ describe("InstanceList", () => {
     await (global as any).flushPromises();
     await jest.runAllTimers();
     wrapper.update();
-    expect(wrapper.find("Tag").length).toBe(4);
+    const preventDefault = jest.fn();
+    expect(wrapper.find(Tag).length).toBe(4);
+    wrapper.find(Tag).at(2).invoke("onClose");
+    expect(preventDefault).toBeCalledTimes(0);
   });
 
   it("should call onAliveHostsChange when change aliveHosts", async () => {
@@ -1108,4 +1113,14 @@ describe("InstanceList", () => {
 
     expect(CmdbObjectApi_getObjectRef).not.toHaveBeenCalled();
   });
+});
+
+it("isSpecialFn as pass", () => {
+  expect(isSpecialFn({ ip: { $like: "%aaa%" } }, "ip")).toBeFalsy();
+  expect(isSpecialFn({ ip: { $exists: "%aaa%" } }, "ip")).toBeTruthy();
+});
+
+it("isValueEqualFn as pass", () => {
+  expect(isValueEqualFn({ ip: { $like: "%aaa%" } }, "ip")).toBeFalsy();
+  expect(isValueEqualFn({ ip: { $like: "%aaa%" } }, "ip", "%aa%")).toBeTruthy();
 });

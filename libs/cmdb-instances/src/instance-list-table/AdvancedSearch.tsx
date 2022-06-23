@@ -397,7 +397,10 @@ export function getFieldConditionsAndValues(
           operatorsStr += operation.operator;
 
           if (operation.fixedValue !== undefined) {
-            return operation.fixedValue === expressions[operation.operator];
+            return (
+              operation.fixedValue?.toString() ===
+              expressions[operation?.operator]?.toString()
+            );
           } else {
             return true;
           }
@@ -414,10 +417,13 @@ export function getFieldConditionsAndValues(
     currentCondition = availableConditions[0];
   }
   let queryValuesStr = "";
-  const values = currentCondition.operations.map((operation) => {
+  let values = currentCondition.operations.map((operation) => {
     let value: any;
-    // istanbul ignore else
-    if (expressions?.[operation.operator] !== undefined) {
+    // istanbul ignore else ElementOperators.Exists时直接返回fixedValue
+    if (
+      expressions?.[operation.operator] !== undefined &&
+      operation.operator !== ElementOperators.Exists
+    ) {
       value = expressions[operation.operator];
       let values = [expressions[operation.operator]];
       const i = multiValueSearchOperators.find(
@@ -441,8 +447,7 @@ export function getFieldConditionsAndValues(
       if (
         typeof values[0] === "string" ||
         typeof values[0] === "number" ||
-        (operation.operator !== ElementOperators.Exists &&
-          typeof values[0] === "boolean")
+        typeof values[0] === "boolean"
       ) {
         queryValuesStr = values.join(" ");
         values = values.map((value: string) => {
@@ -467,6 +472,17 @@ export function getFieldConditionsAndValues(
 
     return value;
   });
+
+  if (
+    !isRelation &&
+    !objectId &&
+    expressions &&
+    Object.keys(expressions) &&
+    Object.keys(expressions)[0] === "$gte$lte"
+  ) {
+    // 针对区间的初始化回显
+    values = Object.values(expressions)[0]?.split(",");
+  }
 
   const disabled = false;
 
@@ -554,7 +570,9 @@ export class AdvancedSearchForm extends React.Component<
           if (key === LogicalOperators.Or || key === LogicalOperators.And) {
             const firstSubQuery = (expressions as Query[])[0];
             const fieldId = Object.keys(firstSubQuery)[0];
-            const compareOperator = Object.keys(firstSubQuery[fieldId])[0];
+            const compareOperator = Object.keys(firstSubQuery[fieldId]).join(
+              ""
+            );
             let subQueryValue = "";
             let targetField;
             if (ENABLED_CMDB_ADVANCE_SEARCH_WITH_QUOTE) {
@@ -585,6 +603,12 @@ export class AdvancedSearchForm extends React.Component<
                           targetValue.length - 1
                         )}"${targetValue[targetValue.length - 1]}`
                       : targetValue;
+                  } else if (compareOperator === "$gte$lte") {
+                    return (
+                      (query[fieldId] &&
+                        Object.values(query[fieldId]).join(",")) ||
+                      ""
+                    );
                   } else {
                     return isString(targetValue) && targetValue.includes(" ")
                       ? `"${targetValue}"`
