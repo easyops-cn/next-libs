@@ -36,6 +36,7 @@ import {
   InstanceApi_PostSearchV3ResponseBody,
   InstanceApi_postSearchV3,
   CmdbObjectApi_getIdMapName,
+  CmdbObjectApi_getObjectRef,
 } from "@next-sdk/cmdb-sdk";
 import { Icon as LegacyIcon } from "@ant-design/compatible";
 import { Button, Spin, Input, Tag, Select } from "antd";
@@ -70,6 +71,7 @@ import {
   extraFieldAttrs,
   CMDB_MODAL_FIELDS_SETTINGS,
   CMDB_RESOURCE_FIELDS_SETTINGS,
+  objectListCache,
 } from "./constants";
 import { ModelAttributeValueType } from "../model-attribute-form-control/ModelAttributeFormControl";
 import { IconButton } from "./IconButton";
@@ -351,7 +353,7 @@ export const initAqToShow = (
 
 interface InstanceListProps {
   objectId: string;
-  objectList: Partial<CmdbModels.ModelCmdbObject>[];
+  objectList?: Partial<CmdbModels.ModelCmdbObject>[];
   detailUrlTemplates?: Record<string, string>;
   presetConfigs?: InstanceListPresetConfigs;
   permission?: string[];
@@ -460,7 +462,9 @@ interface InstanceListState {
   showTooltip?: boolean;
 }
 
-export function InstanceList(props: InstanceListProps): React.ReactElement {
+export function LegacyInstanceList(
+  props: InstanceListProps
+): React.ReactElement {
   const { showTooltip = true } = props;
   const baseList = [
     {
@@ -1159,7 +1163,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
                       showSearch={true}
                       optionFilterProp="children"
                     >
-                      {state.appList.map((r) => (
+                      {state.appList?.map((r) => (
                         <Select.Option key={r.instanceId} value={r.instanceId}>
                           {r.name}
                         </Select.Option>
@@ -1380,4 +1384,41 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
       ) : null}
     </Spin>
   );
+}
+
+/**
+ *  把 objectList 封装到构件中请求，废弃掉通过老模板使用的方式，可直接使用构件。
+ *  同时也兼容之前的使用方式，对于外部传进来的会优先使用外部的数据，构件内部不会额外请求，
+ *  不传的话构件内部做请求，并作缓存
+ */
+export function InstanceList(props: InstanceListProps): React.ReactElement {
+  const [objectList, setObjectList] = useState<
+    Partial<CmdbModels.ModelCmdbObject>[]
+  >(props.objectList);
+
+  useEffect(() => {
+    (async () => {
+      if (!objectList) {
+        const cacheData = objectListCache.get(props.objectId);
+        if (cacheData) {
+          setObjectList(cacheData);
+        } else {
+          try {
+            const list = (
+              await CmdbObjectApi_getObjectRef({ ref_object: props.objectId })
+            ).data;
+            setObjectList(list);
+            objectListCache.set(props.objectId, list);
+          } catch (e) {
+            // istanbul ignore next
+            handleHttpError(e);
+          }
+        }
+      }
+    })();
+  }, [props.objectId, objectList]);
+
+  if (!objectList) return null;
+
+  return <LegacyInstanceList {...props} objectList={objectList} />;
 }

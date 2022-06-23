@@ -6,6 +6,7 @@ import { PropertyDisplayConfig } from "@next-core/brick-types";
 import {
   InstanceApi_postSearchV3,
   CmdbObjectApi_getIdMapName,
+  CmdbObjectApi_getObjectRef,
 } from "@next-sdk/cmdb-sdk";
 import * as storage from "@next-libs/storage";
 import { Button, Select } from "antd";
@@ -14,7 +15,12 @@ import { BrickAsComponent } from "@next-core/brick-kit";
 import i18n from "i18next";
 import { Query } from "@next-libs/cmdb-utils";
 import { IconButton } from "./IconButton";
-import { InstanceList, getQuery, initAqToShow } from "./InstanceList";
+import {
+  LegacyInstanceList,
+  InstanceList,
+  getQuery,
+  initAqToShow,
+} from "./InstanceList";
 import {
   getInstanceListData,
   mockFetchCmdbObjectDetailReturnValueCLuster,
@@ -26,6 +32,7 @@ import {
   InstanceListTableProps,
 } from "../instance-list-table";
 import { InstanceListPresetConfigs } from "../instance-list/InstanceList";
+import * as constants from "./constants";
 
 jest.mock("../i18n");
 jest.spyOn(i18n, "t").mockReturnValue("");
@@ -1046,7 +1053,11 @@ describe("InstanceList", () => {
   it("instanceListTable should be hidden", async () => {
     expect(InstanceApi_postSearchV3).toBeCalledTimes(13);
     const wrapper = mount(
-      <InstanceList objectId="HOST" objectList={[HOST]} hideInstanceList />
+      <LegacyInstanceList
+        objectId="HOST"
+        objectList={[HOST]}
+        hideInstanceList
+      />
     );
     await (global as any).flushPromises();
     await jest.runAllTimers();
@@ -1075,5 +1086,26 @@ describe("InstanceList", () => {
     wrapper.find(Button).at(2).simulate("click");
     // state not update when testing
     expect(wrapper.find(Select).length).toBe(0);
+  });
+
+  it("should work without objectList property", async () => {
+    (CmdbObjectApi_getObjectRef as jest.Mock).mockResolvedValue({
+      data: [HOST],
+    });
+    const wrapper = mount(<InstanceList objectId="HOST" />);
+    await (global as any).flushPromises();
+    wrapper.update();
+
+    expect(wrapper.find(LegacyInstanceList).prop("objectList")).toEqual([HOST]);
+    (CmdbObjectApi_getObjectRef as jest.Mock).mockClear();
+  });
+
+  it("should use objectList cache data", async () => {
+    constants.objectListCache.set("HOST", [HOST]);
+    const wrapper = mount(<InstanceList objectId="HOST" />);
+    await (global as any).flushPromises();
+    wrapper.update();
+
+    expect(CmdbObjectApi_getObjectRef).not.toHaveBeenCalled();
   });
 });
