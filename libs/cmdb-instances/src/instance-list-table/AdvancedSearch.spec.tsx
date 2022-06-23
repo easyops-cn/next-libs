@@ -280,6 +280,100 @@ describe("AdvancedSearch", () => {
       queryValuesStr: "2021-04-27",
       values: ["2021-04-06", "2021-04-27"],
     });
+    expect(
+      getFieldConditionsAndValues(
+        { ip: { $exists: false } },
+        "ip",
+        "str" as ModelAttributeValueType,
+        false
+      )
+    ).toEqual({
+      availableConditions: [
+        {
+          label: i18n.t(
+            `${NS_LIBS_CMDB_INSTANCES}:${K.OPERATOR_CONTAIN_DEFINE}`
+          ),
+          operations: [
+            {
+              operator: "$like",
+              prefix: "%",
+              suffix: "%",
+            },
+          ],
+          type: "contain",
+        },
+        {
+          label: `${NS_LIBS_CMDB_INSTANCES}:${K.OPERATOR_NOT_CONTAIN_DEFINE}`,
+          operations: [
+            {
+              operator: "$nlike",
+              prefix: "%",
+              suffix: "%",
+            },
+          ],
+          type: "notContain",
+        },
+        {
+          label: i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.OPERATOR_EQUAL_DEFINE}`),
+          operations: [
+            {
+              operator: "$eq",
+            },
+          ],
+          type: "equal",
+        },
+        {
+          label: i18n.t(
+            `${NS_LIBS_CMDB_INSTANCES}:${K.OPERATOR_NOT_EQUAL_DEFINE}`
+          ),
+          operations: [
+            {
+              operator: "$ne",
+            },
+          ],
+          type: "notEqual",
+        },
+        {
+          label: i18n.t(
+            `${NS_LIBS_CMDB_INSTANCES}:${K.OPERATOR_IS_EMPTY_DEFINE}`
+          ),
+          operations: [
+            {
+              fixedValue: false,
+              operator: "$exists",
+            },
+          ],
+          type: "empty",
+        },
+        {
+          label: i18n.t(
+            `${NS_LIBS_CMDB_INSTANCES}:${K.OPERATOR_IS_NOT_EMPTY_DEFINE}`
+          ),
+          operations: [
+            {
+              fixedValue: true,
+              operator: "$exists",
+            },
+          ],
+          type: "notEmpty",
+        },
+      ],
+      currentCondition: {
+        label: i18n.t(
+          `${NS_LIBS_CMDB_INSTANCES}:${K.OPERATOR_IS_EMPTY_DEFINE}`
+        ),
+        operations: [
+          {
+            fixedValue: false,
+            operator: "$exists",
+          },
+        ],
+        type: "empty",
+      },
+      disabled: false,
+      queryValuesStr: "",
+      values: [false],
+    });
   });
   it("getCondition should work", () => {
     expect(

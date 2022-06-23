@@ -123,6 +123,24 @@ export function getQuery(
   return query;
 }
 
+export const isSpecialFn = (query: any, attrId: string) => {
+  return Object.keys(query[attrId] as Query[]).some(
+    (v) => v === "$exists" || v === "$gte" || v === "$lte"
+  );
+};
+
+export const isValueEqualFn = (
+  query: any,
+  attrId: string,
+  valuesStr?: string
+) => {
+  const isSpecial = isSpecialFn(query, attrId);
+  if (isSpecial) return false;
+  return query[attrId]
+    ? valuesStr && Object.values(query[attrId]).join(" ") !== valuesStr // 当条件是为空和不为空时，需要判断valuesStr是否存在
+    : false;
+};
+
 function translateConditions(
   aq: Query[],
   idObjectMap: Record<string, Partial<CmdbModels.ModelCmdbObject>>,
@@ -1034,17 +1052,11 @@ export function LegacyInstanceList(
     return () => {
       const queries: Query[] = [];
       const queriesToShow: Query[] = [];
-      const isValueEqual = (query: any) =>
-        query[attrId]
-          ? Object.values(query[attrId]).join(" ") !== valuesStr
-          : false;
       const filterAq = (queries: any[]) =>
-        queries.filter((v: any) => isValueEqual(v));
+        queries.filter((v: any) => isValueEqualFn(v, attrId, valuesStr));
       const specialQueryHandler = (query: any, key: any, queries: Query[]) => {
         // $exists $gte $lte 针对为空，不为空，时间范围特殊处理
-        const isSpecial = Object.keys(query[key] as Query[]).some(
-          (v) => v === "$exists" || v === "$gte" || v === "$lte"
-        );
+        const isSpecial = isSpecialFn(query, key);
         if (isSpecial) {
           return;
         }
@@ -1067,7 +1079,7 @@ export function LegacyInstanceList(
         } else if (
           props.isInstanceFilterForm &&
           key === attrId &&
-          isValueEqual(query)
+          isValueEqualFn(query, attrId, valuesStr)
         ) {
           specialQueryHandler(query, key, queries);
         }
@@ -1089,7 +1101,7 @@ export function LegacyInstanceList(
         } else if (
           props.isInstanceFilterForm &&
           key === attrId &&
-          isValueEqual(query)
+          isValueEqualFn(query, attrId, valuesStr)
         ) {
           specialQueryHandler(query, key, queriesToShow);
         }
