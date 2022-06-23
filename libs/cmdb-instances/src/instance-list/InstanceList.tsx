@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer, useState, useRef, useMemo } from "react";
-import _, {
+import {
   difference,
   isEmpty,
   isEqual,
@@ -353,7 +353,7 @@ export const initAqToShow = (
 
 interface InstanceListProps {
   objectId: string;
-  objectList: Partial<CmdbModels.ModelCmdbObject>[];
+  objectList?: Partial<CmdbModels.ModelCmdbObject>[];
   detailUrlTemplates?: Record<string, string>;
   presetConfigs?: InstanceListPresetConfigs;
   permission?: string[];
@@ -1163,7 +1163,7 @@ export function LegacyInstanceList(
                       showSearch={true}
                       optionFilterProp="children"
                     >
-                      {state.appList.map((r) => (
+                      {state.appList?.map((r) => (
                         <Select.Option key={r.instanceId} value={r.instanceId}>
                           {r.name}
                         </Select.Option>
@@ -1386,6 +1386,11 @@ export function LegacyInstanceList(
   );
 }
 
+/**
+ *  把 objectList 封装到构件中请求，废弃掉通过老模板使用的方式，可直接使用构件。
+ *  同时也兼容之前的使用方式，对于外部传进来的会优先使用外部的数据，构件内部不会额外请求，
+ *  不传的话构件内部做请求，并作缓存
+ */
 export function InstanceList(props: InstanceListProps): React.ReactElement {
   const [objectList, setObjectList] = useState<
     Partial<CmdbModels.ModelCmdbObject>[]
@@ -1393,8 +1398,8 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
 
   useEffect(() => {
     (async () => {
-      const cacheData = objectListCache.get(props.objectId);
-      if (isEmpty(objectList)) {
+      if (!objectList) {
+        const cacheData = objectListCache.get(props.objectId);
         if (cacheData) {
           setObjectList(cacheData);
         } else {
@@ -1405,6 +1410,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
             setObjectList(list);
             objectListCache.set(props.objectId, list);
           } catch (e) {
+            // istanbul ignore next
             handleHttpError(e);
           }
         }
@@ -1412,7 +1418,7 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     })();
   }, [props.objectId, objectList]);
 
-  if (isEmpty(objectList)) return null;
+  if (!objectList) return null;
 
   return <LegacyInstanceList {...props} objectList={objectList} />;
 }
