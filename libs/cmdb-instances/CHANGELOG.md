@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.35.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.34.1...@next-libs/cmdb-instances@6.35.0) (2022-06-23)
+
+
+### Bug Fixes
+
+* 修复具体实例中为空不为空和区间的删除及回显问题 Closes INSTANCE-2422 ([c6725df](https://github.com/easyops-cn/next-libs/commit/c6725dff26947086f41ea438fd72df99262fa432))
+
+
+### Features
+
+* 实例列表构件支持内部请求 obejctList 数据 ([bf9460f](https://github.com/easyops-cn/next-libs/commit/bf9460f1e1c99bee3c5602bfc24f7da2c73b6413))
+* 构件支持内部拉取 objectList ([9189af3](https://github.com/easyops-cn/next-libs/commit/9189af3a11a15ef8c02d36158d3caf537afbae6d))
+
+
+
+
+
 ## [6.34.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.34.0...@next-libs/cmdb-instances@6.34.1) (2022-06-22)
 
 
