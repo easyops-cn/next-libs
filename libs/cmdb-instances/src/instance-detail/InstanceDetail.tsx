@@ -194,7 +194,7 @@ export class LegacyInstanceDetail extends React.Component<
               this.getCardContent()
             )}
             <Modal
-              width={650}
+              width={850}
               title={
                 this.state.currentAttr?.right_description ||
                 i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.VIEW_MORE}`)
