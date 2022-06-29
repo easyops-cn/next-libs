@@ -118,6 +118,7 @@ const locale: Locale = {
   [K.FIX_HEADER]: "Fix the header",
   [K.CANCEL_FIX_HEADER]: "Cancel fix the header",
   [K.VIEW_SPECIFIC_INSTANCES]: "View specific instances",
+  [K.VIEW_MORE]: "View more",
 };
 
 export default locale;

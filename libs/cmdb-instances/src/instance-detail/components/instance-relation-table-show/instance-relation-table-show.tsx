@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Table } from "antd";
 import {
   ModifiedModelObjectRelation,
@@ -6,13 +6,16 @@ import {
 } from "@next-libs/cmdb-utils";
 import { CmdbModels } from "@next-sdk/cmdb-sdk";
 import { InstanceListTable } from "../../../instance-list-table";
-
+import { NS_LIBS_CMDB_INSTANCES, K } from "../../../i18n/constants";
+import i18n from "i18next";
+import styles from "../../../instance-list-table/InstanceListTable.module.css";
 export interface InstanceRelationTableShowProps {
   modelDataMap: { [objectId: string]: CmdbModels.ModelCmdbObject };
   relationData: ModifiedModelObjectRelation;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   value: any[];
   relationFieldUrlTemplate?: string;
+  isPagination?: boolean;
 }
 
 //istanbul ignore next
@@ -20,6 +23,9 @@ export function InstanceRelationTableShow(
   props: InstanceRelationTableShowProps
 ): React.ReactElement {
   const { modelDataMap, relationData, value, relationFieldUrlTemplate } = props;
+  const [instanceListData, setInstanceListData] = useState({
+    list: props.value.slice(0, 10),
+  });
   let oppositeModelData = modifyModelData(
     modelDataMap[relationData.right_object_id]
   );
@@ -50,14 +56,37 @@ export function InstanceRelationTableShow(
         }}
         idObjectMap={props.modelDataMap}
         modelData={oppositeModelData}
-        instanceListData={{
-          list: value,
-        }}
+        instanceListData={instanceListData}
         fieldIds={oppositeModelData.attrList.map((attr) => attr.id)}
         selectDisabled={true}
         sortDisabled={true}
         configProps={{
-          pagination: false,
+          pagination: props.isPagination
+            ? {
+                showSizeChanger: true,
+                total: value?.length,
+                pageSizeOptions: ["10", "20", "50"],
+                onChange: (page, pageSize) => {
+                  setInstanceListData({
+                    list: value.slice(
+                      (page - 1) * pageSize,
+                      (page - 1) * pageSize + pageSize
+                    ),
+                  });
+                },
+                showTotal: (totals: number) => (
+                  <span className={styles.totalText}>
+                    {i18n.t(
+                      `${NS_LIBS_CMDB_INSTANCES}:${K.PAGINATION_TOTAL_TEXT}`
+                    )}{" "}
+                    <strong className={styles.total}>{totals}</strong>{" "}
+                    {i18n.t(
+                      `${NS_LIBS_CMDB_INSTANCES}:${K.PAGINATION_TOTAL_UNIT}`
+                    )}
+                  </span>
+                ),
+              }
+            : false,
         }}
         target={"_blank"}
       ></InstanceListTable>
