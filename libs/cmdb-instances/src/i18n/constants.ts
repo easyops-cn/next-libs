@@ -107,6 +107,7 @@ export enum K {
   FIX_HEADER = "FIX_HEADER",
   CANCEL_FIX_HEADER = "CANCEL_FIX_HEADER",
   VIEW_SPECIFIC_INSTANCES = "VIEW_SPECIFIC_INSTANCES",
+  VIEW_MORE = "VIEW_MORE",
 }
 
 export type Locale = { [key in K]: string };

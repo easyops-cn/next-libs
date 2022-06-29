@@ -1,9 +1,25 @@
 import React from "react";
 import { shallow } from "enzyme";
-import { InstanceDetail, LegacyInstanceDetail } from "./InstanceDetail";
+import {
+  InstanceDetail,
+  LegacyInstanceDetail,
+  attrFilter,
+} from "./InstanceDetail";
 import * as fetchCmdbObjectRef from "../data-providers/fetchCmdbObjectRef";
+import {
+  fetchCmdbInstanceDetail,
+  fetchCmdbInstanceDetailByFields,
+} from "../data-providers/fetchCmdbInstanceDetail";
+
 jest.mock("../data-providers/fetchCmdbObjectRef");
-jest.mock("../data-providers/fetchCmdbInstanceDetail");
+jest.mock("../data-providers/fetchCmdbInstanceDetail", () => ({
+  fetchCmdbInstanceDetail: jest.fn(() => {
+    return null;
+  }),
+  fetchCmdbInstanceDetailByFields: jest.fn(() => {
+    return null;
+  }),
+}));
 
 const spyFetchCmdbObjectList = jest.spyOn(
   fetchCmdbObjectRef,
@@ -45,15 +61,48 @@ describe("InstanceDetail", () => {
         isRelationInstanceDetail={true}
       />
     );
+    const instance2 = wrapper2.instance();
     await (global as any).flushPromises();
     wrapper2.update();
 
+    expect(wrapper.state("currentAttr")).toBe(null);
     expect(wrapper2.find("Card")).toHaveLength(1);
+    expect(wrapper2.find("Modal")).toHaveLength(1);
+    expect(wrapper2.find("Modal").prop("visible")).toBeFalsy();
+    expect(wrapper2.find("Modal").prop("title")).toBe(
+      "libs-cmdb-instances:VIEW_MORE"
+    );
+    expect(wrapper2.find("InstanceRelationTableShow")).toHaveLength(1);
+    expect(
+      wrapper2.find("InstanceRelationTableShow").prop("isPagination")
+    ).toBeTruthy();
+    expect(wrapper2.find("InstanceRelationTableShow").prop("value")).toEqual(
+      expect.arrayContaining([])
+    );
+
+    instance2.setState({
+      currentAttr: {
+        id: "name",
+        name: "名称",
+        right_description: "名称",
+        __id: "name",
+      },
+    });
+    expect(wrapper2.find("Modal").prop("visible")).toBeTruthy();
+    expect(wrapper2.find("Modal").prop("title")).toBe("名称");
+    wrapper2.find("Modal").first().simulate("cancel");
+    expect(wrapper2.find("Modal").prop("visible")).toBeFalsy();
+    expect(instance2.state.currentAttr).toBe(null);
+
+    expect(fetchCmdbInstanceDetail).toBeCalled();
     wrapper2.setProps({
       showCard: false,
+      showFields: true,
     });
     expect(wrapper2.find("Card")).toHaveLength(0);
     expect(wrapper2.find(".detailCard")).toHaveLength(1);
+    expect(spyFetchCmdbObjectList).toBeCalled();
+    expect(fetchCmdbInstanceDetailByFields).not.toBeCalled();
   });
 
   it("tests isMarkdownField", () => {
@@ -237,4 +286,103 @@ describe("InstanceDetail", () => {
     wrapper.setProps({ objectId: "HOST", instanceId: "bbb" });
     expect(spyFetchCmdbObjectList).toBeCalled();
   });
+});
+
+it("tests attrFilter", () => {
+  expect(
+    attrFilter(
+      {
+        id: "name",
+        name: "名称",
+        protected: true,
+        tag: ["555"],
+        description: "",
+        tips: "",
+        value: {
+          type: "str",
+          regex: null,
+          default_type: "value",
+          default: null,
+          struct_define: [],
+          mode: "default",
+          prefix: "",
+          start_value: 0,
+          series_number_length: 0,
+        },
+        __isRelation: false,
+        __id: "name",
+      },
+      {
+        attrList: [{ id: "name", name: "名称", tag: ["555"] }],
+        objectId: "HOST",
+        relation_list: [],
+        __fieldList: [
+          {
+            id: "name",
+            name: "名称",
+            protected: true,
+            tag: ["555"],
+            description: "",
+            tips: "",
+            value: {
+              type: "str",
+              regex: null,
+              default_type: "value",
+              default: null,
+              struct_define: [],
+              mode: "default",
+              prefix: "",
+              start_value: 0,
+              series_number_length: 0,
+            },
+            __isRelation: false,
+            __id: "name",
+          },
+        ],
+        view: {
+          attr_category_order: ["名称"],
+          hide_columns: [],
+        },
+      }
+    )
+  ).toBeTruthy();
+  expect(
+    attrFilter(
+      {
+        id: "name",
+        name: "名称",
+        protected: true,
+        tag: ["555"],
+        __isRelation: true,
+        __id: "name",
+        left_tags: [],
+      } as any,
+      {
+        attrList: [],
+        objectId: "HOST",
+        relation_list: [],
+        __fieldList: [],
+        view: {
+          attr_category_order: ["名称"],
+          hide_columns: [],
+        },
+      }
+    )
+  ).toBeFalsy();
+  expect(
+    attrFilter(
+      {
+        id: "deviceId",
+        name: "deviceId",
+        __isRelation: false,
+        __id: "deviceId",
+      } as any,
+      {
+        objectId: "HOST",
+        view: {
+          attr_category_order: ["deviceId"],
+        },
+      }
+    )
+  ).toBeFalsy();
 });

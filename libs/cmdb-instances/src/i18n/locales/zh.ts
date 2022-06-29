@@ -107,6 +107,7 @@ const locale: Locale = {
   [K.FIX_HEADER]: "固定表头",
   [K.CANCEL_FIX_HEADER]: "取消固定表头",
   [K.VIEW_SPECIFIC_INSTANCES]: "查看具体实例",
+  [K.VIEW_MORE]: "查看更多",
 };
 
 export default locale;

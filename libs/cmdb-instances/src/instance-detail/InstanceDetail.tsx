@@ -4,7 +4,16 @@ import {
   InfoCircleFilled,
   InfoCircleOutlined,
 } from "@ant-design/icons";
-import { Card, Popover, Spin, Button, Menu, Dropdown, Tooltip } from "antd";
+import {
+  Card,
+  Popover,
+  Spin,
+  Button,
+  Menu,
+  Dropdown,
+  Tooltip,
+  Modal,
+} from "antd";
 import { withTranslation, WithTranslation } from "react-i18next";
 import marked from "marked";
 import DOMPurify from "dompurify";
@@ -75,6 +84,26 @@ export interface LegacyCustomComponent {
   useBrick?: UseBrickConf;
 }
 
+export function attrFilter(
+  field: ModifiedModelObjectField,
+  modelData: Partial<ModifiedModelCmdbObject>
+): boolean {
+  if (IGNORED_FIELDS[modelData.objectId]?.includes(field.__id)) {
+    return false;
+  }
+  return (
+    //非关系、left_groups包含basic_info、有left_tags且在分类中
+    !field.__isRelation ||
+    (field.__isRelation &&
+      (field as CmdbModels.ModelObjectRelation).left_groups?.includes(
+        BASIC_INFORMATION_RELATION_GROUP_ID
+      )) ||
+    modelData.view.attr_category_order.includes(
+      (field as CmdbModels.ModelObjectRelation).left_tags[0]
+    )
+  );
+}
+
 interface LegacyInstanceDetailProps extends WithTranslation {
   modelDataList?: CmdbModels.ModelCmdbObject[];
   objectId: string;
@@ -103,6 +132,7 @@ interface LegacyInstanceDetailState {
   loaded: boolean;
   buttonActions?: BrickAction[];
   dropdownActions?: BrickAction[];
+  currentAttr?: any;
 }
 
 export class LegacyInstanceDetail extends React.Component<
@@ -139,6 +169,7 @@ export class LegacyInstanceDetail extends React.Component<
       basicInfoGroupListShow: [],
       formattedInstanceData: null,
       loaded: false,
+      currentAttr: null,
     };
   }
 
@@ -162,6 +193,31 @@ export class LegacyInstanceDetail extends React.Component<
             ) : (
               this.getCardContent()
             )}
+            <Modal
+              width={650}
+              title={
+                this.state.currentAttr?.right_description ||
+                i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.VIEW_MORE}`)
+              }
+              visible={!!this.state.currentAttr}
+              onCancel={() => this.setState({ currentAttr: null })}
+              onOk={() => this.setState({ currentAttr: null })}
+              destroyOnClose={true}
+            >
+              <div style={{ overflowX: "hidden" }}>
+                <InstanceRelationTableShow
+                  modelDataMap={this.state.modelDataMap}
+                  relationData={this.state.currentAttr}
+                  value={
+                    this.state.instanceData
+                      ? this.state.instanceData[this.state.currentAttr?.__id]
+                      : []
+                  }
+                  relationFieldUrlTemplate={this.props.relationFieldUrlTemplate}
+                  isPagination={true}
+                />
+              </div>
+            </Modal>
             {this.props.brickConfigList?.map((config) => (
               <Card
                 bordered={false}
@@ -462,12 +518,25 @@ export class LegacyInstanceDetail extends React.Component<
             />
           )}
           {attr.__isRelation && !isUrl(attr) && (
-            <InstanceRelationTableShow
-              modelDataMap={modelDataMap}
-              relationData={attr}
-              value={instanceData[attr.__id]}
-              relationFieldUrlTemplate={this.props.relationFieldUrlTemplate}
-            />
+            <div>
+              <InstanceRelationTableShow
+                modelDataMap={modelDataMap}
+                relationData={attr}
+                value={instanceData[attr.__id]?.slice(0, 10)}
+                relationFieldUrlTemplate={this.props.relationFieldUrlTemplate}
+              />
+              {instanceData[attr.__id]?.length > 10 && (
+                <Button
+                  data-testid={"view-more-" + attr.__id}
+                  type="link"
+                  onClick={() => {
+                    this.setState({ currentAttr: attr });
+                  }}
+                >
+                  {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.VIEW_MORE}`)}
+                </Button>
+              )}
+            </div>
           )}
           {!isStructs(attr) &&
             !isStruct(attr) &&
@@ -546,22 +615,6 @@ export class LegacyInstanceDetail extends React.Component<
     // let { modelData, basicInfoGroupList } = state;
     const { attributeKeys, fieldsByTag } = this.props;
     let basicInfoAttrList: any[];
-    function attrFilter(field: ModifiedModelObjectField): boolean {
-      if (IGNORED_FIELDS[modelData.objectId]?.includes(field.__id)) {
-        return false;
-      }
-      return (
-        //非关系、left_groups包含basic_info、有left_tags且在分类中
-        !field.__isRelation ||
-        (field.__isRelation &&
-          (field as CmdbModels.ModelObjectRelation).left_groups?.includes(
-            BASIC_INFORMATION_RELATION_GROUP_ID
-          )) ||
-        modelData.view.attr_category_order.includes(
-          (field as CmdbModels.ModelObjectRelation).left_tags[0]
-        )
-      );
-    }
 
     basicInfoGroupList = [];
 
@@ -588,14 +641,14 @@ export class LegacyInstanceDetail extends React.Component<
             const matched = modelData.__fieldList.find(
               (field) => field.__id === attr
             );
-            if (matched && attrFilter(matched)) {
+            if (matched && attrFilter(matched, modelData)) {
               return matched;
             }
           })
           .filter((attr) => attr);
       } else {
         basicInfoAttrList = modelData.__fieldList.filter((field) =>
-          attrFilter(field)
+          attrFilter(field, modelData)
         );
       }
 
