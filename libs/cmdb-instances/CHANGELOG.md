@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.35.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.35.2...@next-libs/cmdb-instances@6.35.3) (2022-07-01)
+
+
+### Bug Fixes
+
+* **cmdb-instances:** objectList 再次赋值不生效 ([108fea5](https://github.com/easyops-cn/next-libs/commit/108fea58fe339a69983cc6191e89146d9a9f0c3b))
+
+
+
+
+
 ## [6.35.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.35.1...@next-libs/cmdb-instances@6.35.2) (2022-06-29)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
