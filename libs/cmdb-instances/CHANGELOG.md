@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.35.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.35.4...@next-libs/cmdb-instances@6.35.5) (2022-07-06)
+
+
+### Bug Fixes
+
+* **cmdb-instances:** 高级搜索选择在此区间时，只填入一半条件搜索时没正常显示筛选条件 ([#388](https://github.com/easyops-cn/next-libs/issues/388)) ([fe5020d](https://github.com/easyops-cn/next-libs/commit/fe5020d23b5dea6f4aba1c992f4a7366784ab709))
+
+
+
+
+
 ## [6.35.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.35.3...@next-libs/cmdb-instances@6.35.4) (2022-07-04)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
