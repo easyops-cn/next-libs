@@ -282,6 +282,76 @@ describe("AdvancedSearch", () => {
     });
     expect(
       getFieldConditionsAndValues(
+        {
+          datetime: {
+            $gte: "2022-07-06",
+          },
+        },
+        "datetime",
+        "datetime" as ModelAttributeValueType,
+        false
+      )
+    ).toEqual({
+      availableConditions: [
+        {
+          label: i18n.t(
+            `${NS_LIBS_CMDB_INSTANCES}:${K.OPERATOR_BETWEEN_DEFINE_TEXT_TIME}`
+          ),
+          operations: [
+            {
+              operator: "$gte",
+            },
+            {
+              operator: "$lte",
+            },
+          ],
+          type: "between",
+        },
+        {
+          label: i18n.t(
+            `${NS_LIBS_CMDB_INSTANCES}:${K.OPERATOR_IS_EMPTY_DEFINE}`
+          ),
+          operations: [
+            {
+              fixedValue: false,
+              operator: "$exists",
+            },
+          ],
+          type: "empty",
+        },
+        {
+          label: i18n.t(
+            `${NS_LIBS_CMDB_INSTANCES}:${K.OPERATOR_IS_NOT_EMPTY_DEFINE}`
+          ),
+          operations: [
+            {
+              fixedValue: true,
+              operator: "$exists",
+            },
+          ],
+          type: "notEmpty",
+        },
+      ],
+      currentCondition: {
+        label: i18n.t(
+          `${NS_LIBS_CMDB_INSTANCES}:${K.OPERATOR_BETWEEN_DEFINE_TEXT_TIME}`
+        ),
+        operations: [
+          {
+            operator: "$gte",
+          },
+          {
+            operator: "$lte",
+          },
+        ],
+        type: "between",
+      },
+      disabled: false,
+      queryValuesStr: "2022-07-06",
+      values: ["2022-07-06", null],
+    });
+    expect(
+      getFieldConditionsAndValues(
         { ip: { $exists: false } },
         "ip",
         "str" as ModelAttributeValueType,

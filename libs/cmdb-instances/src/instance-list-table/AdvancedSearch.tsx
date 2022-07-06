@@ -367,7 +367,7 @@ export function getFieldConditionsAndValues(
 ) {
   let isRelationWithNoExpression = false;
   let expressions = fieldQueryOperatorExpressionsMap[id];
-  let expressionsKeysStr: string;
+  let expressionsKeys: string[];
   if (!expressions && isRelation) {
     isRelationWithNoExpression = true;
     const relatedKey = findKey(
@@ -384,17 +384,18 @@ export function getFieldConditionsAndValues(
   }
 
   if (expressions) {
-    expressionsKeysStr = Object.keys(expressions).join("");
+    expressionsKeys = Object.keys(expressions);
   }
   let currentCondition: Condition;
   const availableConditions = FieldTypeConditionTypesMap[valueType].map(
     (conditionType) => {
       const condition = getCondition(conditionType, valueType);
 
-      if (expressionsKeysStr) {
-        let operatorsStr = "";
+      if (expressionsKeys?.length) {
+        const operatorsStr: string[] = [];
+        // 由于当 ConditionType.Between ，operations 有两个，当用户只填选一个时，currentCondition会默认第一个选择器。与实际不符
         const isFixedValueEqual = condition.operations.every((operation) => {
-          operatorsStr += operation.operator;
+          operatorsStr.push(operation.operator);
 
           if (operation.fixedValue !== undefined) {
             return (
@@ -405,7 +406,10 @@ export function getFieldConditionsAndValues(
             return true;
           }
         });
-        if (isFixedValueEqual && operatorsStr === expressionsKeysStr) {
+        if (
+          isFixedValueEqual &&
+          expressionsKeys.every((operator) => operatorsStr.includes(operator))
+        ) {
           currentCondition = condition;
         }
       }
