@@ -8,6 +8,7 @@ import { NS_LIBS_DATETIME_COMPONENTS, K } from "../i18n/constants";
 describe("DatetimeRange", () => {
   const wrapper = shallow(<DatetimeRange />);
   const component = wrapper.instance() as DatetimeRange;
+
   it("should work", () => {
     expect(wrapper).toBeTruthy();
   });
@@ -48,11 +49,28 @@ describe("DatetimeRange", () => {
       moment(1556789915644),
     ]);
   });
+
+  it("test disabledDate", () => {
+    expect(component.disabledDate(moment(1556703515645))).toBe(false);
+  });
+
   it("test handleVisibleChange", () => {
     component.handleVisibleChange(true);
     expect(wrapper.state("visible")).toBe(true);
   });
 });
+
+describe("DatetimeRange selectNearDays", () => {
+  const wrapper = shallow(<DatetimeRange selectNearDays={90} />);
+  const component = wrapper.instance() as DatetimeRange;
+
+  it("test disabledDate", () => {
+    expect(component.disabledDate(moment().subtract(100, "days"))).toBe(true);
+    expect(component.disabledDate(moment().subtract(10, "days"))).toBe(false);
+    expect(component.disabledDate(moment().add(10, "days"))).toBe(true);
+  });
+});
+
 describe("DatetimeRange onConfirm", () => {
   const onConfirm = jest.fn();
   const wrapper = shallow(<DatetimeRange onConfirm={onConfirm} />);
