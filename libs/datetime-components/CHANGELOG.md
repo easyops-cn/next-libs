@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/datetime-components@3.0.3...@next-libs/datetime-components@3.1.0) (2022-07-08)
+
+
+### Features
+
+* **datetime-range:** 指定范围时间选择器增加限制选择近n天属性 ([b99683e](https://github.com/easyops-cn/next-libs/commit/b99683e37ab695fb50c784a1431712ed6a6b0943))
+
+
+
+
+
 ## [3.0.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/datetime-components@3.0.2...@next-libs/datetime-components@3.0.3) (2022-01-21)
 
 
