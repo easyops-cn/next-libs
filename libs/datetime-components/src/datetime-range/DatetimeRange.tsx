@@ -41,6 +41,7 @@ export interface DatatimeRangeProps {
   customTimeRange?: RangeText[];
   placement?: TooltipPlacement;
   size?: ButtonSize;
+  selectNearDays?: number;
 }
 
 export interface DatatimeRangeState {
@@ -193,6 +194,15 @@ export class DatetimeRange extends React.Component<
       specifiedDate: v,
     });
   };
+  disabledDate = (current: moment.Moment) => {
+    if (!this.props.selectNearDays) {
+      return false;
+    }
+    const tooSelectNearDays =
+      current <= moment().subtract(this.props.selectNearDays, "days") ||
+      current > moment().endOf("day");
+    return !!tooSelectNearDays;
+  };
 
   render(): React.ReactNode {
     const labelStyle = {
@@ -251,6 +261,7 @@ export class DatetimeRange extends React.Component<
             value={this.state.specifiedDate}
             onChange={this.onDateChange}
             allowClear={false}
+            disabledDate={this.disabledDate}
           />
         </div>
         <Button type="primary" onClick={this.save}>
