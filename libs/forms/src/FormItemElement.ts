@@ -20,6 +20,7 @@ export abstract class FormItemElement extends UpdatingElement {
    * @required true
    * @default -
    * @description 表单 name
+   * @group basicFormItem
    */
   @property()
   name: string;
@@ -30,6 +31,7 @@ export abstract class FormItemElement extends UpdatingElement {
    * @required false
    * @default -
    * @description 表单 label
+   * @group basicFormItem
    */
   @property()
   label: string;
@@ -40,6 +42,7 @@ export abstract class FormItemElement extends UpdatingElement {
    * @required false
    * @default -
    * @description 表单项是否必填
+   * @group basicFormItem
    */
   @property({
     type: Boolean,
@@ -52,6 +55,7 @@ export abstract class FormItemElement extends UpdatingElement {
    * @required false
    * @default -
    * @description 表单项占位符
+   * @group basicFormItem
    */
   @property()
   placeholder: string;
@@ -62,6 +66,7 @@ export abstract class FormItemElement extends UpdatingElement {
    * @required false
    * @default -
    * @description 表单项正则
+   * @group basicFormItem
    */
   @property()
   pattern: string;
@@ -72,6 +77,7 @@ export abstract class FormItemElement extends UpdatingElement {
    * @required false
    * @default -
    * @description 表单项校验信息文本
+   * @group basicFormItem
    */
   @property({
     attribute: false,
@@ -84,7 +90,7 @@ export abstract class FormItemElement extends UpdatingElement {
    * @required false
    * @default -
    * @description 表单项自定义校验
-   * @group advanced
+   * @group advancedFormItem
    */
   @property({
     attribute: false,
@@ -99,6 +105,7 @@ export abstract class FormItemElement extends UpdatingElement {
    * @required false
    * @default -
    * @description 表单项标签 tooltip 配置
+   * @group basicFormItem
    */
   @property({
     attribute: false,
@@ -111,7 +118,7 @@ export abstract class FormItemElement extends UpdatingElement {
    * @required false
    * @default -
    * @description 表单项的 helpBrick，通常用于在表单末尾和下面额外展示相关信息
-   * @group advanced
+   * @group advancedFormItem
    */
   @property({
     attribute: false,
@@ -124,7 +131,7 @@ export abstract class FormItemElement extends UpdatingElement {
    * @required false
    * @default -
    * @description 表单项的 labelBrick, 可以指定额外构件作为 label 的展示
-   * @group advanced
+   * @group advancedFormItem
    */
   @property({
     attribute: false,
@@ -137,7 +144,7 @@ export abstract class FormItemElement extends UpdatingElement {
    * @required false
    * @default -
    * @description 表单项 label 标签布局
-   * @group advanced
+   * @group ui
    */
   @property({
     attribute: false,
@@ -150,7 +157,7 @@ export abstract class FormItemElement extends UpdatingElement {
    * @required false
    * @default -
    * @description 表单项控件布局
-   * @group advanced
+   * @group ui
    */
   @property({
     attribute: false,
@@ -159,8 +166,9 @@ export abstract class FormItemElement extends UpdatingElement {
 
   /**
    * @property
+   * @required false
    * @description 是否自动去除前后的空白字符
-   * @group advanced
+   * @group advancedFormItem
    */
   @property({
     type: Boolean,
@@ -173,6 +181,7 @@ export abstract class FormItemElement extends UpdatingElement {
    * @required false
    * @default -
    * @description 控制该表单项是否隐藏
+   * @group ui
    */
   @property({
     __unstable_doNotDecorate: true,
