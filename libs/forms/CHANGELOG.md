@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.27](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@3.2.26...@next-libs/forms@3.2.27) (2022-07-14)
+
+
+### Bug Fixes
+
+* tirm property default value set true ([e1e3f46](https://github.com/easyops-cn/next-libs/commit/e1e3f4653e0235b87821b080203ca659462766f2))
+
+
+
+
+
 ## [3.2.26](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@3.2.25...@next-libs/forms@3.2.26) (2022-06-21)
 
 **Note:** Version bump only for package @next-libs/forms
