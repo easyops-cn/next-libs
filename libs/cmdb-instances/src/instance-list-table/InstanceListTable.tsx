@@ -1098,6 +1098,6 @@ export class LegacyInstanceListTable extends React.Component<
   }
 }
 
-export const InstanceListTable = withTranslation(NS_LIBS_CMDB_INSTANCES)(
-  LegacyInstanceListTable
+export const InstanceListTable = React.memo(
+  withTranslation(NS_LIBS_CMDB_INSTANCES)(LegacyInstanceListTable)
 );
