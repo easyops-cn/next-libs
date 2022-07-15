@@ -500,8 +500,12 @@ describe("InstanceListTable", () => {
     expect(wrapper.find(Table).prop("columns")[0].filteredValue).toEqual([
       "HOST",
     ]);
-
-    (wrapper.instance() as any).onChange({}, { _object_id: ["APP"] }, {}, {});
+    wrapper.find(Table).invoke("onChange")(
+      {},
+      { _object_id: ["APP"] },
+      {},
+      {} as any
+    );
     expect(onInstanceSourceChange).lastCalledWith("APP");
   });
   it("should work rowSelection's rowSelectionType is radio", () => {

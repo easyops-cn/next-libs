@@ -1,4 +1,11 @@
-import React, { useEffect, useReducer, useState, useRef, useMemo } from "react";
+import React, {
+  useEffect,
+  useReducer,
+  useState,
+  useRef,
+  useMemo,
+  useCallback,
+} from "react";
 import {
   difference,
   isEmpty,
@@ -853,30 +860,30 @@ export function LegacyInstanceList(
   };
 
   // istanbul ignore next
-  const onSelectionChange = async (selected: {
-    selectedKeys: string[];
-    selectedItems: any[];
-  }) => {
-    let { selectedItems, selectedKeys } = selected;
-    setSelectedRowKeys(selectedKeys);
-    if (selectedKeys.length > compact(selectedItems).length) {
-      const ids = selectedKeys.filter((id) => !cache.current.has(id));
-      if (ids.length) {
-        const resp = await InstanceApi_postSearchV3(props.objectId, {
-          fields: ["instanceId"],
-          query: {
-            instanceId: {
-              $in: ids,
+  const onSelectionChange = useCallback(
+    async (selected: { selectedKeys: string[]; selectedItems: any[] }) => {
+      let { selectedItems, selectedKeys } = selected;
+      setSelectedRowKeys(selectedKeys);
+      if (selectedKeys.length > compact(selectedItems).length) {
+        const ids = selectedKeys.filter((id) => !cache.current.has(id));
+        if (ids.length) {
+          const resp = await InstanceApi_postSearchV3(props.objectId, {
+            fields: ["instanceId"],
+            query: {
+              instanceId: {
+                $in: ids,
+              },
             },
-          },
-          page_size: ids.length,
-        });
-        resp.list.forEach((i) => cache.current.set(i.instanceId, i));
+            page_size: ids.length,
+          });
+          resp.list.forEach((i) => cache.current.set(i.instanceId, i));
+        }
+        selectedItems = selectedKeys.map((id) => cache.current.get(id));
       }
-      selectedItems = selectedKeys.map((id) => cache.current.get(id));
-    }
-    props.onSelectionChange?.({ selectedItems, selectedKeys });
-  };
+      props.onSelectionChange?.({ selectedItems, selectedKeys });
+    },
+    []
+  );
 
   const onSearch = (value: string) => {
     const q = value.trim();
@@ -897,32 +904,38 @@ export function LegacyInstanceList(
     props.onAdvancedSearch?.(queries);
   };
 
-  const onSortingChange = (info: ReadSortingChangeDetail) => {
-    let asc: boolean;
-    let sort: string;
-    if (info.asc === undefined) {
-      if (!state.sort) {
-        return;
+  const onSortingChange = useCallback(
+    (info: ReadSortingChangeDetail) => {
+      let asc: boolean;
+      let sort: string;
+      if (info.asc === undefined) {
+        if (!state.sort) {
+          return;
+        }
+
+        setState({ asc: undefined, sort: undefined });
+      } else {
+        setState({ asc: info.asc, sort: info.sort });
+        asc = info.asc;
+        sort = info.sort;
       }
+      props.onSortingChange?.(info);
+    },
+    [state.sort]
+  );
 
-      setState({ asc: undefined, sort: undefined });
-    } else {
-      setState({ asc: info.asc, sort: info.sort });
-      asc = info.asc;
-      sort = info.sort;
-    }
-    props.onSortingChange?.(info);
-  };
+  const onPaginationChange = useCallback(
+    (pagination: ReadPaginationChangeDetail) => {
+      setState({ page: pagination.page, pageSize: pagination.pageSize });
+      props.onPaginationChange?.(pagination);
+    },
+    []
+  );
 
-  const onPaginationChange = (pagination: ReadPaginationChangeDetail) => {
-    setState({ page: pagination.page, pageSize: pagination.pageSize });
-    props.onPaginationChange?.(pagination);
-  };
-
-  const onInstanceSourceChange = (instanceSourceQuery: string) => {
+  const onInstanceSourceChange = useCallback((instanceSourceQuery: string) => {
     setState({ instanceSourceQuery });
     props.onInstanceSourceChange?.(instanceSourceQuery);
-  };
+  }, []);
 
   const onRelatedToMeChange = (checked: boolean) => {
     setState({ relatedToMe: checked });
