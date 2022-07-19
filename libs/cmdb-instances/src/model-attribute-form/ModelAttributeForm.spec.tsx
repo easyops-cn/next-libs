@@ -1060,6 +1060,10 @@ describe("ModelAttributeForm", () => {
         },
         permissionList,
         enabledWhiteList: true,
+        defaultUserOrUserGroup: {
+          selectedUser: [],
+          selectedUserGroup: [],
+        },
       });
       const wrapper = mount(<InstanceModelAttributeForm {...newProps} />);
       const instance = wrapper
