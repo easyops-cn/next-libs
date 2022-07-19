@@ -80,6 +80,10 @@ interface ModelAttributeFormProps extends FormComponentProps {
   cardRect?: any;
   isApprove?: boolean;
   hasRelateId?: boolean;
+  defaultUserOrUserGroup?: {
+    selectedUser?: string[];
+    selectedUserGroup?: string[];
+  };
 }
 
 export type attributesFieldsByTag = [string, ModifiedModelObjectField[]];
@@ -531,6 +535,7 @@ export class ModelAttributeForm extends Component<
       cancelText,
       confirmText,
       cancelType,
+      defaultUserOrUserGroup,
     } = this.props;
     const { getFieldDecorator } = form;
 
@@ -542,7 +547,9 @@ export class ModelAttributeForm extends Component<
         ...brickList.map((brick) => brick.name),
       ];
     }
-
+    if (defaultUserOrUserGroup) {
+      defaultActiveKey = [...defaultActiveKey, "permission"];
+    }
     const collapse = this.state.attrListGroupByTag && (
       <Collapse
         bordered={false}
@@ -643,7 +650,9 @@ export class ModelAttributeForm extends Component<
                 <Form.Item label={r.remark} key={r.id} {...this.formItemProps}>
                   {getFieldDecorator(
                     this.permissionAttrProcess(r.action) as string,
-                    {}
+                    {
+                      initialValue: defaultUserOrUserGroup,
+                    }
                   )(
                     <UserOrUserGroupSelect
                       objectMap={keyBy(this.props.objectListOfUser, "objectId")}

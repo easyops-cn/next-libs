@@ -10,7 +10,7 @@ import {
   mockFetchCmdbObjectDetailReturnValue,
   mockFetchCmdbObjectListReturnValue,
 } from "../__mocks__";
-import { Button, Checkbox } from "antd";
+import { Button, Checkbox, Collapse } from "antd";
 import i18n from "i18next";
 import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
 /* eslint-disable  */
@@ -1060,6 +1060,10 @@ describe("ModelAttributeForm", () => {
         },
         permissionList,
         enabledWhiteList: true,
+        defaultUserOrUserGroup: {
+          selectedUser: [],
+          selectedUserGroup: [],
+        },
       });
       const wrapper = mount(<InstanceModelAttributeForm {...newProps} />);
       const instance = wrapper
