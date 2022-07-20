@@ -40,7 +40,10 @@ jest.mock("../i18n");
 jest.spyOn(i18n, "t").mockReturnValue("");
 jest.mock("@next-libs/storage");
 jest.mock("@next-sdk/cmdb-sdk");
-jest.mock(brickKit.useProvider);
+const providerQuery = jest.fn();
+(jest.spyOn(brickKit, "useProvider") as any).mockReturnValue({
+  query: providerQuery,
+});
 jest.mock("../instance-list-table", () => ({
   AdvancedSearch: jest.fn(() => {
     return "<div>Fake advanced search loaded!</div>";
@@ -171,6 +174,7 @@ const mockInstanceListTableContent = mockInstanceListTable();
 const mockMoreButtonsContainer = MoreButtonsContainer as jest.Mock;
 const mockCmdbObjectApi_getIdMapName = CmdbObjectApi_getIdMapName as jest.Mock;
 // (InstanceApi_postSearchV3 as jest.Mock).mockResolvedValue(instanceListData);
+// const mockUseProvider = jest.mock(brickKit.useProvider);
 (InstanceApi_postSearchV3 as jest.Mock).mockImplementation((r, v) => {
   if (r !== "APP") {
     return instanceListData;
@@ -796,7 +800,9 @@ describe("InstanceList", () => {
     await (global as any).flushPromises();
     wrapper.update();
 
-    const brickAsComponentProps = wrapper.find(BrickAsComponent).props();
+    const brickAsComponentProps = wrapper
+      .find(brickKit.BrickAsComponent)
+      .props();
     expect(brickAsComponentProps.useBrick).toBe(extraFilterBricks.useBrick);
   });
   it("check initAq should pass", async () => {
@@ -1108,8 +1114,9 @@ describe("InstanceList", () => {
     const wrapper = mount(<InstanceList objectId="HOST" />);
     await (global as any).flushPromises();
     wrapper.update();
-
     expect(CmdbObjectApi_getObjectRef).not.toHaveBeenCalled();
+    expect(InstanceApi_postSearchV3).toBeCalledTimes(19);
+    expect(providerQuery).toBeCalledTimes(0);
   });
 });
 it("should work with useAutoDiscoveryProvider", async () => {
@@ -1117,14 +1124,24 @@ it("should work with useAutoDiscoveryProvider", async () => {
   const wrapper = mount(
     <InstanceList
       objectId="HOST"
-      onSelectionChange={mockSelectionChange}
       useAutoDiscoveryProvider={true}
+      extraParams={{ jobId: "abc" }}
+      onSelectionChange={mockSelectionChange}
     />
   );
   await (global as any).flushPromises();
   wrapper.update();
-  expect(brickKit.useProvider).toHaveBeenCalled();
-  // wrapper.invoke("onSelectionChange");
+  expect(InstanceApi_postSearchV3).toBeCalledTimes(19);
+  expect(providerQuery).toBeCalledWith([
+    "HOST",
+    {
+      fields: ["creator", "ctime", "modifier", "mtime", "instanceId"],
+      ignore_missing_field_error: true,
+      page: 1,
+      page_size: 10,
+      jobId: "abc",
+    },
+  ]);
 });
 it("isSpecialFn as pass", () => {
   expect(isSpecialFn({ ip: { $like: "%aaa%" } }, "ip")).toBeFalsy();

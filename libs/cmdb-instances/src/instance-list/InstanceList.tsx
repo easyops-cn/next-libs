@@ -512,6 +512,9 @@ export function LegacyInstanceList(
       ...updatedProperty,
     };
   };
+  // 资源自动发现页面24小时发现主机抽屉的实例列表处，通用的postSearchV3接口无法查到正确结果，需要用下面的接口替换，参数里也要加上jobId:***
+  // 为了不影响其他地方的实例列表，在该处加一个useAutoDiscoveryProvider参数，该参数为undefined或false的，仍调用原接口
+
   const listProvider = useProvider("easyops.api.cmdb.job@SearchResource:1.0.1");
   const { modelData, idObjectMap } = useMemo(() => {
     let modelData: Partial<CmdbModels.ModelCmdbObject>;
@@ -732,6 +735,8 @@ export function LegacyInstanceList(
     if (!isEmpty(query)) {
       v3Data.query = data.query = query;
     }
+    // useAutoDiscoveryProvider=true, 使用useProvider的接口，请求参数里加上extraParams
+
     if (props.useAutoDiscoveryProvider && !isEmpty(props.extraParams)) {
       Object.assign(v3Data, props.extraParams);
     }
@@ -753,6 +758,7 @@ export function LegacyInstanceList(
       };
     }
     const promise = props.onSearchExecute?.(data, v3Data);
+    // useAutoDiscoveryProvider=true, 使用useProvider的接口
     return promise
       ? promise
       : props.useAutoDiscoveryProvider
@@ -887,8 +893,9 @@ export function LegacyInstanceList(
             },
             page_size: ids.length,
           };
+          // useAutoDiscoveryProvider=true, 使用useProvider的接口，虽然这里列表用不到选择功能，但还是加上保持统一
           if (props.useAutoDiscoveryProvider) {
-            resp = listProvider.query([
+            resp = await listProvider.query([
               props.objectId,
               Object.assign(params, props.extraParams),
             ]);
