@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.36.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.35.7...@next-libs/cmdb-instances@6.36.0) (2022-07-20)
+
+
+### Features
+
+* cmdb实例新建构件可以设置白名单默认值 refs CD-2777 ([24c2a3d](https://github.com/easyops-cn/next-libs/commit/24c2a3df0bb427f67f49de46bb19bdacebc02d72))
+* cmdb实例新建构件可以设置白名单默认值 refs CD-2777 ([590523a](https://github.com/easyops-cn/next-libs/commit/590523ab4b58ff7458fb2dd49039ddf3be8a9555))
+
+
+
+
+
 ## [6.35.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.35.6...@next-libs/cmdb-instances@6.35.7) (2022-07-15)
 
 
