@@ -169,7 +169,6 @@ const mockInstanceListTable = InstanceListTable as any as jest.Mock;
 const mockInstanceListTableContent = mockInstanceListTable();
 const mockMoreButtonsContainer = MoreButtonsContainer as jest.Mock;
 const mockCmdbObjectApi_getIdMapName = CmdbObjectApi_getIdMapName as jest.Mock;
-
 // (InstanceApi_postSearchV3 as jest.Mock).mockResolvedValue(instanceListData);
 (InstanceApi_postSearchV3 as jest.Mock).mockImplementation((r, v) => {
   if (r !== "APP") {
@@ -200,7 +199,6 @@ const mockCmdbObjectApi_getIdMapName = CmdbObjectApi_getIdMapName as jest.Mock;
     ];
   }
 });
-
 const HOST: any = {
   objectId: "HOST",
   view: {
@@ -1092,7 +1090,6 @@ describe("InstanceList", () => {
     // state not update when testing
     expect(wrapper.find(Select).length).toBe(0);
   });
-
   it("should work without objectList property", async () => {
     (CmdbObjectApi_getObjectRef as jest.Mock).mockResolvedValue({
       data: [HOST],
