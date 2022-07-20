@@ -25,7 +25,11 @@ import {
   omit,
   keyBy,
 } from "lodash";
-import { BrickAsComponent, handleHttpError } from "@next-core/brick-kit";
+import {
+  BrickAsComponent,
+  handleHttpError,
+  useProvider,
+} from "@next-core/brick-kit";
 import i18n from "i18next";
 import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
 import {
@@ -35,7 +39,6 @@ import {
   ReadSortingChangeDetail,
   UseBrickConf,
 } from "@next-core/brick-types";
-import { TableProps } from "antd/lib/table";
 import {
   CmdbModels,
   InstanceApi_PostSearchRequestBody,
@@ -454,6 +457,8 @@ interface InstanceListProps {
   showTooltip?: boolean;
   showFixedHeader?: boolean;
   rowSelectionType?: "checkbox" | "radio";
+  useAutoDiscoveryProvider?: boolean;
+  extraParams?: Record<string, any>;
 }
 
 interface InstanceListState {
@@ -507,7 +512,7 @@ export function LegacyInstanceList(
       ...updatedProperty,
     };
   };
-
+  const listProvider = useProvider("easyops.api.cmdb.job@SearchResource:1.0.1");
   const { modelData, idObjectMap } = useMemo(() => {
     let modelData: Partial<CmdbModels.ModelCmdbObject>;
     const idObjectMap: Record<string, Partial<CmdbModels.ModelCmdbObject>> = {};
@@ -727,7 +732,9 @@ export function LegacyInstanceList(
     if (!isEmpty(query)) {
       v3Data.query = data.query = query;
     }
-
+    if (props.useAutoDiscoveryProvider && !isEmpty(props.extraParams)) {
+      Object.assign(v3Data, props.extraParams);
+    }
     if (state.relatedToMe) {
       v3Data.only_my_instance = data.only_my_instance = state.relatedToMe;
     }
@@ -746,8 +753,11 @@ export function LegacyInstanceList(
       };
     }
     const promise = props.onSearchExecute?.(data, v3Data);
-
-    return promise ? promise : InstanceApi_postSearchV3(props.objectId, v3Data);
+    return promise
+      ? promise
+      : props.useAutoDiscoveryProvider
+      ? listProvider.query([props.objectId, v3Data])
+      : InstanceApi_postSearchV3(props.objectId, v3Data);
   };
 
   const refreshInstanceList = async (
@@ -867,7 +877,8 @@ export function LegacyInstanceList(
       if (selectedKeys.length > compact(selectedItems).length) {
         const ids = selectedKeys.filter((id) => !cache.current.has(id));
         if (ids.length) {
-          const resp = await InstanceApi_postSearchV3(props.objectId, {
+          let resp;
+          const params = {
             fields: ["instanceId"],
             query: {
               instanceId: {
@@ -875,8 +886,18 @@ export function LegacyInstanceList(
               },
             },
             page_size: ids.length,
-          });
-          resp.list.forEach((i) => cache.current.set(i.instanceId, i));
+          };
+          if (props.useAutoDiscoveryProvider) {
+            resp = listProvider.query([
+              props.objectId,
+              Object.assign(params, props.extraParams),
+            ]);
+          } else {
+            resp = await InstanceApi_postSearchV3(props.objectId, params);
+          }
+          resp.list.forEach((i: Record<string, any>) =>
+            cache.current.set(i.instanceId, i)
+          );
         }
         selectedItems = selectedKeys.map((id) => cache.current.get(id));
       }
@@ -1053,9 +1074,18 @@ export function LegacyInstanceList(
         if (state.relatedToMe) {
           v3Data.only_my_instance = data.only_my_instance = state.relatedToMe;
         }
-
-        const resp = await InstanceApi_postSearchV3(props.objectId, v3Data);
-        resp.list.forEach((i) => cache.current.set(i.instanceId, i));
+        if (props.extraParams) {
+          Object.assign(v3Data, props.extraParams);
+        }
+        let resp;
+        if (props.useAutoDiscoveryProvider) {
+          resp = await listProvider.query([props.objectId, v3Data]);
+        } else {
+          resp = await InstanceApi_postSearchV3(props.objectId, v3Data);
+        }
+        resp.list.forEach((i: Record<string, any>) =>
+          cache.current.set(i.instanceId, i)
+        );
       })();
   }, [props.selectedRowKeys]);
   const handleToggleFixHeader = () => {
