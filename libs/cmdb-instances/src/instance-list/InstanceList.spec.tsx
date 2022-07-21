@@ -11,7 +11,7 @@ import {
 import * as storage from "@next-libs/storage";
 import { Button, Select, Tag } from "antd";
 import { mount } from "enzyme";
-import { BrickAsComponent } from "@next-core/brick-kit";
+import * as brickKit from "@next-core/brick-kit";
 import i18n from "i18next";
 import { Query } from "@next-libs/cmdb-utils";
 import { IconButton } from "./IconButton";
@@ -40,6 +40,10 @@ jest.mock("../i18n");
 jest.spyOn(i18n, "t").mockReturnValue("");
 jest.mock("@next-libs/storage");
 jest.mock("@next-sdk/cmdb-sdk");
+const providerQuery = jest.fn();
+(jest.spyOn(brickKit, "useProvider") as any).mockReturnValue({
+  query: providerQuery,
+});
 jest.mock("../instance-list-table", () => ({
   AdvancedSearch: jest.fn(() => {
     return "<div>Fake advanced search loaded!</div>";
@@ -169,8 +173,8 @@ const mockInstanceListTable = InstanceListTable as any as jest.Mock;
 const mockInstanceListTableContent = mockInstanceListTable();
 const mockMoreButtonsContainer = MoreButtonsContainer as jest.Mock;
 const mockCmdbObjectApi_getIdMapName = CmdbObjectApi_getIdMapName as jest.Mock;
-
 // (InstanceApi_postSearchV3 as jest.Mock).mockResolvedValue(instanceListData);
+// const mockUseProvider = jest.mock(brickKit.useProvider);
 (InstanceApi_postSearchV3 as jest.Mock).mockImplementation((r, v) => {
   if (r !== "APP") {
     return instanceListData;
@@ -200,7 +204,6 @@ const mockCmdbObjectApi_getIdMapName = CmdbObjectApi_getIdMapName as jest.Mock;
     ];
   }
 });
-
 const HOST: any = {
   objectId: "HOST",
   view: {
@@ -797,7 +800,9 @@ describe("InstanceList", () => {
     await (global as any).flushPromises();
     wrapper.update();
 
-    const brickAsComponentProps = wrapper.find(BrickAsComponent).props();
+    const brickAsComponentProps = wrapper
+      .find(brickKit.BrickAsComponent)
+      .props();
     expect(brickAsComponentProps.useBrick).toBe(extraFilterBricks.useBrick);
   });
   it("check initAq should pass", async () => {
@@ -1092,7 +1097,6 @@ describe("InstanceList", () => {
     // state not update when testing
     expect(wrapper.find(Select).length).toBe(0);
   });
-
   it("should work without objectList property", async () => {
     (CmdbObjectApi_getObjectRef as jest.Mock).mockResolvedValue({
       data: [HOST],
@@ -1110,11 +1114,35 @@ describe("InstanceList", () => {
     const wrapper = mount(<InstanceList objectId="HOST" />);
     await (global as any).flushPromises();
     wrapper.update();
-
     expect(CmdbObjectApi_getObjectRef).not.toHaveBeenCalled();
+    expect(InstanceApi_postSearchV3).toBeCalledTimes(19);
+    expect(providerQuery).toBeCalledTimes(0);
   });
 });
-
+it("should work with useAutoDiscoveryProvider", async () => {
+  const mockSelectionChange = jest.fn();
+  const wrapper = mount(
+    <InstanceList
+      objectId="HOST"
+      useAutoDiscoveryProvider={true}
+      extraParams={{ jobId: "abc" }}
+      onSelectionChange={mockSelectionChange}
+    />
+  );
+  await (global as any).flushPromises();
+  wrapper.update();
+  expect(InstanceApi_postSearchV3).toBeCalledTimes(19);
+  expect(providerQuery).toBeCalledWith([
+    "HOST",
+    {
+      fields: ["creator", "ctime", "modifier", "mtime", "instanceId"],
+      ignore_missing_field_error: true,
+      page: 1,
+      page_size: 10,
+      jobId: "abc",
+    },
+  ]);
+});
 it("isSpecialFn as pass", () => {
   expect(isSpecialFn({ ip: { $like: "%aaa%" } }, "ip")).toBeFalsy();
   expect(isSpecialFn({ ip: { $exists: "%aaa%" } }, "ip")).toBeTruthy();
