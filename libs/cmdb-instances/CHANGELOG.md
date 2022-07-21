@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.37.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.36.0...@next-libs/cmdb-instances@6.37.0) (2022-07-21)
+
+
+### Features
+
+* **cmdb-instance:** 实例列表支持调用search-resource接口 ([#394](https://github.com/easyops-cn/next-libs/issues/394)) ([b99758a](https://github.com/easyops-cn/next-libs/commit/b99758a3a5898ff4fc57c966f392c66eb9993028))
+
+
+
+
+
 # [6.36.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.35.7...@next-libs/cmdb-instances@6.36.0) (2022-07-20)
 
 
