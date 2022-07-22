@@ -5,7 +5,7 @@ import { Tree, Spin, Empty, Tooltip } from "antd";
 import { EventDataNode, DataNode } from "antd/lib/tree";
 import { sortBy, isEmpty, keyBy, get } from "lodash";
 
-import { handleHttpError } from "@next-core/brick-kit";
+import { handleHttpError, getAuth } from "@next-core/brick-kit";
 import {
   CmdbObjectApi_getObjectAll,
   InstanceTreeApi_instanceTreeExpand,
@@ -13,6 +13,7 @@ import {
   InstanceTreeApi_instanceTreeSearch,
   CmdbModels,
   InstanceTreeApi_instanceTree,
+  InstanceApi_postSearch,
 } from "@next-sdk/cmdb-sdk";
 
 import {
@@ -23,6 +24,8 @@ import {
   fixRequestFields,
   getRelation2ObjectId,
   updateChildren,
+  checkPermission,
+  removeNoPermissionNode,
 } from "./processors";
 import style from "./style.module.css";
 
@@ -59,6 +62,7 @@ export interface TreeNode {
   type?: string;
   isLeaf?: boolean;
   children?: TreeNode[];
+  authorized?: boolean;
 }
 
 interface CustomTreeNode extends TreeNode {
@@ -98,6 +102,8 @@ interface CMDBTreeProps {
   enabledShowAll?: boolean;
   notSort?: boolean;
   notFixed?: boolean;
+  checkWhiteList?: boolean;
+  userGroupIds?: string[];
 }
 
 interface CMDBTreeState {
@@ -111,7 +117,7 @@ interface CMDBTreeState {
   prevExpand: boolean;
   isSearched: boolean; //判断是否发生搜索，展开收起的动作。
 }
-
+let userGroupIdsCache: string[];
 export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
   treeData: any[];
   initializing = false;
@@ -124,6 +130,8 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
   objectMap: Record<string, CmdbModels.ModelCmdbObject> = null;
   relations: string[] = [];
   cacheOnLoad: Map<string, CustomTreeNode[]> = new Map();
+  username: string;
+  userGroupIds: string[] = [];
   constructor(props: CMDBTreeProps) {
     super(props);
     this.state = {
@@ -137,7 +145,7 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
       prevExpand: false,
       isSearched: false,
     };
-
+    this.userGroupIds = this.props.userGroupIds || [];
     this.backendSearch = isEmpty(this.props.treeData);
     this.onExpand = this.onExpand.bind(this);
     this.onLoadData = this.onLoadData.bind(this);
@@ -145,6 +153,28 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
   }
 
   async componentDidMount() {
+    const { username, userInstanceId } = getAuth();
+    this.username = username;
+    if (!this.props.userGroupIds && this.props.checkWhiteList) {
+      if (!userGroupIdsCache) {
+        try {
+          const userGroupData = await InstanceApi_postSearch("USER", {
+            fields: { name: true, "__members_USER_GROUP.name": true },
+            query: { instanceId: userInstanceId },
+          });
+          const currentUserGroup =
+            userGroupData.list[0]?.["__members_USER_GROUP"];
+          this.userGroupIds = (currentUserGroup || []).map(
+            (i: any) => ":" + i.instanceId
+          );
+          userGroupIdsCache = this.userGroupIds;
+        } catch (e) {
+          handleHttpError(e);
+        }
+      } else {
+        this.userGroupIds = userGroupIdsCache;
+      }
+    }
     this.initializing = true;
     await this.initTree();
     this.initializing = false;
@@ -276,9 +306,9 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
     this.fields = fixRequestFields(
       objectList,
       treeRequest,
-      this.props.notFixed
+      this.props.notFixed,
+      this.props.checkWhiteList
     );
-
     const promises: any[] = [];
     promises.push(this.expandTree());
     if (this.props.selectedObjectId && this.props.selectedInstanceId) {
@@ -307,6 +337,7 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
 
     this.treeData = nodes;
     const treeData = this.withHead(nodes);
+    this.props.checkWhiteList && removeNoPermissionNode(treeData);
     this.setState({
       treeData,
       loading: false,
@@ -383,11 +414,19 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
         const key = instance.instanceId;
         const showKeys = this.objectId2ShowKeys.get(objectId);
         const title = getTitle(instance, showKeys);
+        const authorized = this.props.checkWhiteList
+          ? checkPermission(
+              instance.readAuthorizers,
+              this.username,
+              this.userGroupIds
+            )
+          : true;
         const node: CustomTreeNode = {
           key,
           title,
           objectId,
           isLeaf,
+          authorized,
         };
         if (this.cacheOnLoad.has(key)) {
           node.children = this.cacheOnLoad.get(key);
@@ -467,6 +506,7 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
     const expandKeys: string[] = [];
     // `defaultExpandAll` may not work well, instead, find all keys to expand it
     this.findAllKeys(treeData, expandKeys);
+    this.props.checkWhiteList && removeNoPermissionNode(treeData);
     this.setState({
       // use different key to force re-render Tree, to make `expandAll` work
       key: "search" + this.props.q,
@@ -496,6 +536,13 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
       instance.objectId = instance._object_id;
       const showKeys = this.objectId2ShowKeys.get(instance.objectId);
       instance.title = getTitle(instance, showKeys);
+      instance.authorized = this.props.checkWhiteList
+        ? checkPermission(
+            instance.readAuthorizers,
+            this.username,
+            this.userGroupIds
+          )
+        : true;
       for (const key of keys) {
         if (!isEmpty(instance[key])) {
           isLeaf = false;

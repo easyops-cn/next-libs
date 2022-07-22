@@ -139,7 +139,8 @@ export function getObjectId2ShowKeys(
 export function fixRequestFields(
   objectList: CmdbModels.ModelCmdbObject[],
   request: CmdbModels.ModelInstanceTreeRootNode,
-  notFixed: boolean
+  notFixed: boolean,
+  checkWhiteList: boolean
 ): string[] {
   const fields = new Set<string>();
 
@@ -158,6 +159,9 @@ export function fixRequestFields(
     const showKeys = objectId2ShowKeys.get(objectId);
     if (showKeys) {
       request.fields = {};
+      if (checkWhiteList) {
+        request.fields.readAuthorizers = true;
+      }
       for (const showKey of showKeys) {
         request.fields[showKey] = true;
         fields.add(showKey);
@@ -199,6 +203,9 @@ export function fixRequestFields(
             } else {
               const showKeys = objectId2ShowKeys.get(id);
               c.fields = {};
+              if (checkWhiteList) {
+                c.fields.readAuthorizers = true;
+              }
               for (const showKey of showKeys) {
                 c.fields[showKey] = true;
                 fields.add(showKey);
@@ -318,5 +325,28 @@ export function updateChildren(
       }
     }
     data = children;
+  }
+}
+export function checkPermission(
+  whiteList: string[],
+  currentUser: string,
+  userGroupIds: string[]
+) {
+  if (!isEmpty(whiteList)) {
+    const userGroupIdSet = new Set(userGroupIds);
+    return whiteList.some((i) => i === currentUser || userGroupIdSet.has(i));
+  } else {
+    return true;
+  }
+}
+export function removeNoPermissionNode(tree: TreeNode[]): void {
+  for (let i = tree.length - 1; i >= 0; i--) {
+    const { authorized, children } = tree[i];
+    if (children) {
+      removeNoPermissionNode(children);
+    }
+    if (!authorized && !children?.length) {
+      tree.splice(i, 1);
+    }
   }
 }

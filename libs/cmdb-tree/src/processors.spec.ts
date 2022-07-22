@@ -8,6 +8,8 @@ import {
   getTitle,
   getObjectIds,
   fixRequestFields,
+  removeNoPermissionNode,
+  checkPermission,
 } from "./processors";
 
 const objectList = [
@@ -302,11 +304,17 @@ describe("transformToTreeData", () => {
       ],
     };
     const spy = jest.spyOn(console, "warn").mockImplementation(() => true);
-    const fields = fixRequestFields(objectList, request, false);
+    const fields = fixRequestFields(objectList, request, false, true);
     expect(fields).toEqual(["name"]);
-    expect(request.fields).toEqual({ name: true });
-    expect(request.child[0].fields).toEqual({ name: true });
-    expect(request.child[2].fields).toEqual({ name: true });
+    expect(request.fields).toEqual({ name: true, readAuthorizers: true });
+    expect(request.child[0].fields).toEqual({
+      name: true,
+      readAuthorizers: true,
+    });
+    expect(request.child[2].fields).toEqual({
+      name: true,
+      readAuthorizers: true,
+    });
     expect(spy).toBeCalled();
 
     spy.mockClear();
@@ -316,6 +324,7 @@ describe("transformToTreeData", () => {
         object_id: "X",
         child: [{ relation_field_id: "x" }],
       } as any,
+      false,
       false
     );
     expect(spy).toBeCalled();
@@ -343,8 +352,83 @@ describe("transformToTreeData", () => {
         ],
         fields: { x: true },
       } as any,
+      true,
       true
     );
     expect(fsNotFix).toEqual(["x", "l", "y"]);
+  });
+  it("checkPermission should work", () => {
+    const userGroupIds = [":456", ":9090"];
+    const whiteList = ["test1", ":456"];
+    const currentUser = "test";
+    expect(checkPermission(whiteList, currentUser, userGroupIds)).toBeTruthy();
+    expect(checkPermission([], currentUser, userGroupIds)).toBeTruthy();
+  });
+  it("removeNoPermissionNode should work", () => {
+    const treeList = [
+      {
+        key: "a",
+        title: "a",
+        children: [
+          {
+            key: "c",
+            title: "c",
+          },
+          {
+            key: "b",
+            title: "b",
+            authorized: false,
+            children: [
+              {
+                key: "c",
+                title: "c",
+                authorized: true,
+              },
+            ],
+          },
+        ],
+        authorized: false,
+      },
+      {
+        key: "f",
+        title: "f",
+        authorized: false,
+        children: [
+          {
+            key: "g",
+            title: "g",
+            authorized: false,
+          },
+          {
+            key: "h",
+            title: "h",
+            authorized: false,
+          },
+        ],
+      },
+    ];
+    const result = [
+      {
+        key: "a",
+        title: "a",
+        children: [
+          {
+            key: "b",
+            title: "b",
+            authorized: false,
+            children: [
+              {
+                key: "c",
+                title: "c",
+                authorized: true,
+              },
+            ],
+          },
+        ],
+        authorized: false,
+      },
+    ];
+    removeNoPermissionNode(treeList);
+    expect(treeList).toEqual(result);
   });
 });
