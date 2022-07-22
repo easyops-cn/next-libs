@@ -421,7 +421,7 @@ export function getFieldConditionsAndValues(
     currentCondition = availableConditions[0];
   }
   let queryValuesStr = "";
-  let values = currentCondition.operations.map((operation) => {
+  const values = currentCondition.operations.map((operation) => {
     let value: any;
     // istanbul ignore else ElementOperators.Exists时直接返回fixedValue
     if (
@@ -476,32 +476,7 @@ export function getFieldConditionsAndValues(
 
     return value;
   });
-
-  if (
-    !isRelation &&
-    !objectId &&
-    expressions &&
-    Object.keys(expressions) &&
-    Object.keys(expressions)[0] === "$gte$lte"
-  ) {
-    // 针对区间的初始化回显
-    values = Object.values(expressions)[0]?.split(",");
-  }
-
   const disabled = false;
-
-  // if (
-  //   isRelation &&
-  //   expressions &&
-  //   currentCondition.operations[0].operator === ElementOperators.Exists &&
-  //   isRelationWithNoExpression
-  // ) {
-  //   disabled = true;
-  //   currentCondition = availableConditions[0];
-  //   values = [null];
-  //   queryValuesStr = "";
-  // }
-
   return {
     availableConditions,
     currentCondition,
@@ -574,9 +549,12 @@ export class AdvancedSearchForm extends React.Component<
           if (key === LogicalOperators.Or || key === LogicalOperators.And) {
             const firstSubQuery = (expressions as Query[])[0];
             const fieldId = Object.keys(firstSubQuery)[0];
-            const compareOperator = Object.keys(firstSubQuery[fieldId]).join(
-              ""
-            );
+            // 由于  ConditionType.Between 这边的 operator 是两个，由于需要支持选择一个的时候也要显示出来，这边不能将选择器合并成str吐出去
+            const compareOperators = Object.keys(firstSubQuery[fieldId]);
+            const compareOperator =
+              compareOperators.length > 1
+                ? compareOperators
+                : compareOperators.join("");
             let subQueryValue = "";
             let targetField;
             if (ENABLED_CMDB_ADVANCE_SEARCH_WITH_QUOTE) {
@@ -607,13 +585,9 @@ export class AdvancedSearchForm extends React.Component<
                           targetValue.length - 1
                         )}"${targetValue[targetValue.length - 1]}`
                       : targetValue;
-                  } else if (compareOperator === "$gte$lte") {
-                    return (
-                      (query[fieldId] &&
-                        Object.values(query[fieldId]).join(",")) ||
-                      ""
-                    );
-                  } else {
+                  }
+                  // 对于时间选择器有两个的，不用特意将值转换成str，因为不需要这里的值
+                  else {
                     return isString(targetValue) && targetValue.includes(" ")
                       ? `"${targetValue}"`
                       : targetValue;
@@ -622,9 +596,11 @@ export class AdvancedSearchForm extends React.Component<
                 .join(" ");
             }
             key = fieldId;
-            expressions = {
-              [compareOperator]: subQueryValue,
-            };
+            expressions = Array.isArray(compareOperator)
+              ? firstSubQuery[fieldId]
+              : {
+                  [compareOperator]: subQueryValue,
+                };
           }
 
           fieldQueryOperatorExpressionsMap[key] =
@@ -701,7 +677,6 @@ export class AdvancedSearchForm extends React.Component<
       },
       this.props.fieldIds
     );
-
     return { fields };
   }
 
