@@ -459,6 +459,8 @@ interface InstanceListProps {
   rowSelectionType?: "checkbox" | "radio";
   useAutoDiscoveryProvider?: boolean;
   extraParams?: Record<string, any>;
+  // 指定固定显示的field,与presetConfigs的fieldIds同时生效
+  extraFixedFields?: string[];
 }
 
 interface InstanceListState {
@@ -599,14 +601,17 @@ export function LegacyInstanceList(
 
   const getFields = () => {
     let fieldIds = props.presetConfigs?.fieldIds;
+    const extraFixedFieldIds = props.extraFixedFields ?? [];
     if (isEmpty(fieldIds)) {
       fieldIds = jsonLocalStorage.getItem(
         `${modelData.objectId}-selectAttrIds`
       );
     }
-
     if (isEmpty(fieldIds)) {
       fieldIds = computeDefaultFields().fieldIds;
+    }
+    if (!isEmpty(extraFixedFieldIds)) {
+      fieldIds = uniq([...fieldIds, ...extraFixedFieldIds]);
     }
     fieldIds = props.extraDisabledField
       ? uniq([...fieldIds, props.extraDisabledField])
@@ -1022,10 +1027,15 @@ export function LegacyInstanceList(
   };
   const defaultFields = useMemo(() => {
     let defaultFields: string[];
-    if (!isEmpty(props.presetConfigs?.fieldIds)) {
+    const fieldIds = props.presetConfigs?.fieldIds,
+      extraFixedFieldIds = props.extraFixedFields ?? [];
+    if (!isEmpty(fieldIds)) {
       defaultFields = props.presetConfigs.fieldIds;
     } else {
       defaultFields = computeDefaultFields().fieldIds;
+    }
+    if (!isEmpty(extraFixedFieldIds)) {
+      defaultFields = uniq([...defaultFields, ...extraFixedFieldIds]);
     }
     return defaultFields;
   }, [props.presetConfigs, modelData]);

@@ -580,7 +580,6 @@ describe("InstanceList", () => {
     instanceListTableProps.onInstanceSourceChange("APP");
     expect(onInstanceSourceChange).lastCalledWith("APP");
   });
-
   it("should toggle advanced search when click advanced-search-toggle-btn", async () => {
     const aq = [
       {
@@ -1118,31 +1117,60 @@ describe("InstanceList", () => {
     expect(InstanceApi_postSearchV3).toBeCalledTimes(19);
     expect(providerQuery).toBeCalledTimes(0);
   });
-});
-it("should work with useAutoDiscoveryProvider", async () => {
-  const mockSelectionChange = jest.fn();
-  const wrapper = mount(
-    <InstanceList
-      objectId="HOST"
-      useAutoDiscoveryProvider={true}
-      extraParams={{ jobId: "abc" }}
-      onSelectionChange={mockSelectionChange}
-    />
-  );
-  await (global as any).flushPromises();
-  wrapper.update();
-  expect(InstanceApi_postSearchV3).toBeCalledTimes(19);
-  expect(providerQuery).toBeCalledWith([
-    "HOST",
-    {
-      fields: ["creator", "ctime", "modifier", "mtime", "instanceId"],
+  it("should work with extraFixedFieldIds", async () => {
+    const wrapper = mount(
+      <InstanceList
+        objectId="HOST"
+        presetConfigs={{ fieldIds: ["mmmm"] }}
+        extraFixedFields={["_ts"]}
+      />
+    );
+    await (global as any).flushPromises();
+    wrapper.update();
+    expect(InstanceApi_postSearchV3).toBeCalledTimes(20);
+    expect(InstanceApi_postSearchV3).lastCalledWith("HOST", {
+      fields: ["mmmm", "_ts", "instanceId"],
       ignore_missing_field_error: true,
       page: 1,
       page_size: 10,
-      jobId: "abc",
-    },
-  ]);
+    });
+    wrapper.setProps({ presetConfigs: undefined });
+    await (global as any).flushPromises();
+    wrapper.update();
+    expect(InstanceApi_postSearchV3).toBeCalledTimes(21);
+    expect(InstanceApi_postSearchV3).lastCalledWith("HOST", {
+      fields: ["creator", "ctime", "modifier", "mtime", "_ts", "instanceId"],
+      ignore_missing_field_error: true,
+      page: 1,
+      page_size: 10,
+    });
+  });
+  it("should work with useAutoDiscoveryProvider", async () => {
+    const mockSelectionChange = jest.fn();
+    const wrapper = mount(
+      <InstanceList
+        objectId="HOST"
+        useAutoDiscoveryProvider={true}
+        extraParams={{ jobId: "abc" }}
+        onSelectionChange={mockSelectionChange}
+      />
+    );
+    await (global as any).flushPromises();
+    wrapper.update();
+    expect(InstanceApi_postSearchV3).toBeCalledTimes(21);
+    expect(providerQuery).toBeCalledWith([
+      "HOST",
+      {
+        fields: ["creator", "ctime", "modifier", "mtime", "instanceId"],
+        ignore_missing_field_error: true,
+        page: 1,
+        page_size: 10,
+        jobId: "abc",
+      },
+    ]);
+  });
 });
+
 it("isSpecialFn as pass", () => {
   expect(isSpecialFn({ ip: { $like: "%aaa%" } }, "ip")).toBeFalsy();
   expect(isSpecialFn({ ip: { $exists: "%aaa%" } }, "ip")).toBeTruthy();
