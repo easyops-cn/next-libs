@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.38.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.37.1...@next-libs/cmdb-instances@6.38.0) (2022-07-22)
+
+
+### Features
+
+* **cmdb-instances:** 实例列表的presetConfigs添加一个额外固定列的选项 ([b55e667](https://github.com/easyops-cn/next-libs/commit/b55e667a87fac79b0495d391b3a77967c67db7ca))
+
+
+
+
+
 ## [6.37.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.37.0...@next-libs/cmdb-instances@6.37.1) (2022-07-22)
 
 
