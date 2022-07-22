@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.3.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-tree@4.2.0...@next-libs/cmdb-tree@4.3.0) (2022-07-22)
+
+
+### Features
+
+* cmdb实例关系树构件支持按白名单过滤节点 refs ORCHESTRATION-168 ([24c0671](https://github.com/easyops-cn/next-libs/commit/24c06715af38891213e37c2a5913109fc46d3b1b))
+
+
+
+
+
 # [4.2.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-tree@4.1.0...@next-libs/cmdb-tree@4.2.0) (2022-03-24)
 
 
