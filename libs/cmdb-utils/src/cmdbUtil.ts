@@ -97,6 +97,35 @@ export const getBatchEditableRelations = (
   });
   return cloneModelData.relation_list;
 };
+
+export interface BatchEditableFields extends CmdbModels.ModelCmdbObject {
+  id: string;
+  name: string;
+  isRelation: boolean;
+  objectId: string;
+  __id?: string;
+  __inverted?: boolean;
+  __isRelation?: boolean;
+}
+
+export const getBatchEditableFields = (
+  modelData: Partial<CmdbModels.ModelCmdbObject>
+): Partial<BatchEditableFields>[] => {
+  const cloneModelData = modifyModelData(modelData);
+  cloneModelData.__fieldList.forEach((item: any) => {
+    if (item.__isRelation) {
+      const side = getRelationObjectSides(item, modelData);
+      Object.assign(item, {
+        id: item[`${side.this}_id`],
+        name: item[`${side.that}_description`],
+        isRelation: true,
+        objectId: item[`${side.that}_object_id`],
+      });
+    }
+  });
+  return cloneModelData.__fieldList;
+};
+
 export function getRelationQuery(
   instanceId: any,
   relation: any,
