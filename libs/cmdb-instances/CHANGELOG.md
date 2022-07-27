@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.39.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.38.0...@next-libs/cmdb-instances@6.39.0) (2022-07-27)
+
+
+### Features
+
+* **cmdb-instances:** 将显示设置的字段排序保持与模型视图设置字段排序一致 ([6210efa](https://github.com/easyops-cn/next-libs/commit/6210efad9190ed2c007b05d02eb4a36ceeb68f2d))
+
+
+
+
+
 # [6.38.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.37.1...@next-libs/cmdb-instances@6.38.0) (2022-07-22)
 
 
