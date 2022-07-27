@@ -3,7 +3,7 @@ import { debounce, remove, without, get, isEmpty } from "lodash";
 import { extraFieldAttrs } from "./constants";
 import { Checkbox, Col, Divider, Input, Row } from "antd";
 import {
-  getBatchEditableRelations,
+  getBatchEditableFields,
   CMDB_RESOURCE_FIELDS_SETTINGS,
 } from "@next-libs/cmdb-utils";
 import { CmdbModels } from "@next-sdk/cmdb-sdk";
@@ -34,13 +34,7 @@ export class DisplaySettings extends React.Component<
 
   constructor(props: DisplaySettingsProps) {
     super(props);
-
-    const relationList = getBatchEditableRelations(this.props.modelData);
-    const attrAndRelationList = [
-      ...this.props.modelData.attrList,
-      ...relationList,
-    ];
-
+    const attrAndRelationList = getBatchEditableFields(this.props.modelData);
     let hideColumns = this.props.modelData.view.hide_columns || [];
     const ignoredFields = get(
       CMDB_RESOURCE_FIELDS_SETTINGS,
