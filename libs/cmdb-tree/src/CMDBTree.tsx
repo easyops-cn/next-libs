@@ -580,6 +580,7 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
     this.cacheOnLoad.set(instanceId, nodes);
     // eslint-disable-next-line require-atomic-updates
     updateChildren(instanceId, this.state.treeData, nodes);
+    this.props.checkWhiteList && removeNoPermissionNode(this.state.treeData);
     this.setState({
       treeData: [...this.state.treeData],
       expandKeys: [instanceId, ...this.state.expandKeys],
