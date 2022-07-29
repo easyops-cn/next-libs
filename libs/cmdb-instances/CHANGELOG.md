@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.40.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.39.0...@next-libs/cmdb-instances@6.40.0) (2022-07-29)
+
+
+### Features
+
+* **cmdb-instances:** 实例详情多行字符串支持换行显示 ([f3c8b3f](https://github.com/easyops-cn/next-libs/commit/f3c8b3f4d44c263b39ee1f7f9d2d0a9cb0c1987a))
+
+
+
+
+
 # [6.39.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.38.0...@next-libs/cmdb-instances@6.39.0) (2022-07-27)
 
 
