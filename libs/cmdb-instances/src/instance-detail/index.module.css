@@ -62,6 +62,7 @@
 .detailCard dd {
   margin-bottom: 0;
   word-break: break-all;
+  white-space: pre-wrap;
   color: var(
     --cmdb-instance-detail-detail-description-item-content,
     rgba(0, 0, 0, 0.85)
