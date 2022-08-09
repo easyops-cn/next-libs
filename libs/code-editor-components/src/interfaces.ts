@@ -31,6 +31,7 @@ export interface CodeEditorProps extends FormItemWrapperProps {
   onValidate?: (error: Annotation[]) => void;
   showExportButton?: boolean;
   showCopyButton?: boolean;
+  showExpandButton?: boolean;
   exportFileName?: string;
   jsonSchema?: Record<string, any>;
   validateJsonSchemaMode?: "warning" | "error";
