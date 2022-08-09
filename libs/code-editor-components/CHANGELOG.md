@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.1.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.0.36...@next-libs/code-editor-components@4.1.0) (2022-08-09)
+
+
+### Features
+
+* support expand editor ([12799f8](https://github.com/easyops-cn/next-libs/commit/12799f89f1c0a024bcdbf6719feb82d6f3b3d08c))
+
+
+
+
+
 ## [4.0.36](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.0.35...@next-libs/code-editor-components@4.0.36) (2022-07-14)
 
 **Note:** Version bump only for package @next-libs/code-editor-components
