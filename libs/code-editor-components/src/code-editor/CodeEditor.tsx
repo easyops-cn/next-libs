@@ -369,6 +369,21 @@ export function CodeEditorItem(
     setExpanded(false);
   }, []);
 
+  useEffect(() => {
+    if (expanded) {
+      const fn = (e: KeyboardEvent): void => {
+        if (e.key === "Escape" || e.key === "Esc") {
+          window.removeEventListener("keydown", fn);
+          setExpanded(false);
+        }
+      };
+      window.addEventListener("keydown", fn);
+      return () => {
+        window.removeEventListener("keydown", fn);
+      };
+    }
+  }, [expanded]);
+
   const tooltipPlacement = expanded ? "bottom" : "top";
 
   return (

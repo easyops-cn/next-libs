@@ -1,4 +1,5 @@
 import React from "react";
+import { act } from "react-dom/test-utils";
 import { mount } from "enzyme";
 import AceEditor, { IAceOptions } from "react-ace";
 import { message } from "antd";
@@ -76,6 +77,8 @@ describe("CodeEditorItem", () => {
       wrapper.find(AceEditor).prop("setOptions");
     const getExpandIconName = (): string =>
       (wrapper.find(".expandIcon").find("AntdIcon").prop("icon") as any).name;
+    const toggleExpand = (): unknown =>
+      wrapper.find(".expandIcon").childAt(0).simulate("click");
 
     expect(getExpandIconName()).toBe("expand-alt");
     expect(getEditorOptions()).toMatchObject({
@@ -83,19 +86,35 @@ describe("CodeEditorItem", () => {
       maxLines: 10,
     });
 
-    wrapper.find(".expandIcon").childAt(0).simulate("click");
+    toggleExpand();
     expect(getExpandIconName()).toBe("shrink");
     expect(wrapper.find(AceEditor).prop("setOptions")).toMatchObject({
       minLines: 45,
       maxLines: 45,
     });
 
-    wrapper.find(".expandIcon").childAt(0).simulate("click");
+    toggleExpand();
     expect(getExpandIconName()).toBe("expand-alt");
     expect(getEditorOptions()).toMatchObject({
       minLines: 5,
       maxLines: 10,
     });
+
+    toggleExpand();
+    expect(getExpandIconName()).toBe("shrink");
+
+    // Ignore keydown events other than escape.
+    act(() => {
+      window.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowDown" }));
+    });
+    wrapper.update();
+    expect(getExpandIconName()).toBe("shrink");
+
+    act(() => {
+      window.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
+    });
+    wrapper.update();
+    expect(getExpandIconName()).toBe("expand-alt");
   });
 
   it("should work with yaml", async () => {
