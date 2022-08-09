@@ -31,3 +31,19 @@
 :global(.ace-monokai) .aceMarkerOfHighlight {
   border-bottom-color: cyan;
 }
+
+.expanded {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 20px;
+  backdrop-filter: blur(5px);
+}
+
+.expanded .aceToolbar {
+  top: 28px;
+  right: 30px;
+}

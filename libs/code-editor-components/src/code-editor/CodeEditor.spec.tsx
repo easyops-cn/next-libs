@@ -1,6 +1,6 @@
 import React from "react";
 import { mount } from "enzyme";
-import AceEditor from "react-ace";
+import AceEditor, { IAceOptions } from "react-ace";
 import { message } from "antd";
 import { ExportOutlined } from "@ant-design/icons";
 import { Annotation } from "brace";
@@ -59,6 +59,43 @@ describe("CodeEditorItem", () => {
     expect(spyOnMessage).toHaveBeenCalled();
     (wrapper.find("Clipboard").invoke("onCopy") as any)("123", false);
     expect(spyOnMessageError).toHaveBeenCalled();
+  });
+
+  it("should expand", async () => {
+    const wrapper = mount(
+      <CodeEditorItem
+        theme="tomorrow"
+        mode="json"
+        value="123"
+        minLines={5}
+        maxLines={10}
+        showExpandButton
+      />
+    );
+    const getEditorOptions = (): IAceOptions =>
+      wrapper.find(AceEditor).prop("setOptions");
+    const getExpandIconName = (): string =>
+      (wrapper.find(".expandIcon").find("AntdIcon").prop("icon") as any).name;
+
+    expect(getExpandIconName()).toBe("expand-alt");
+    expect(getEditorOptions()).toMatchObject({
+      minLines: 5,
+      maxLines: 10,
+    });
+
+    wrapper.find(".expandIcon").childAt(0).simulate("click");
+    expect(getExpandIconName()).toBe("shrink");
+    expect(wrapper.find(AceEditor).prop("setOptions")).toMatchObject({
+      minLines: 45,
+      maxLines: 45,
+    });
+
+    wrapper.find(".expandIcon").childAt(0).simulate("click");
+    expect(getExpandIconName()).toBe("expand-alt");
+    expect(getEditorOptions()).toMatchObject({
+      minLines: 5,
+      maxLines: 10,
+    });
   });
 
   it("should work with yaml", async () => {

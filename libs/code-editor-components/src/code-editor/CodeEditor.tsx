@@ -10,7 +10,11 @@ import AceEditor, { IEditorProps } from "react-ace";
 import { isEqual, isEmpty, uniqWith, isString, map, some } from "lodash";
 import Ajv from "ajv";
 import { Annotation } from "brace";
-import { ExportOutlined } from "@ant-design/icons";
+import {
+  ExpandAltOutlined,
+  ExportOutlined,
+  ShrinkOutlined,
+} from "@ant-design/icons";
 import { ValidationRule } from "@ant-design/compatible/lib/form";
 import { message, Tooltip } from "antd";
 import classNames from "classnames";
@@ -353,8 +357,27 @@ export function CodeEditorItem(
     };
   }, [editor]);
 
+  const [expanded, setExpanded] = useState(false);
+  const [expandedLines, setExpandedLines] = useState(0);
+
+  const handleExpand = useCallback(() => {
+    setExpanded(true);
+    setExpandedLines(Math.floor((window.innerHeight - 40) / 16));
+  }, []);
+
+  const handleCollapse = useCallback(() => {
+    setExpanded(false);
+  }, []);
+
+  const tooltipPlacement = expanded ? "bottom" : "top";
+
   return (
-    <div className={style.wrapper} ref={containerRef}>
+    <div
+      className={classNames(style.wrapper, {
+        [style.expanded]: expanded,
+      })}
+      ref={containerRef}
+    >
       <AceEditor
         ref={ref}
         onLoad={onLoad}
@@ -377,12 +400,19 @@ export function CodeEditorItem(
         setOptions={{
           readOnly: props.readOnly,
           showLineNumbers: props.showLineNumbers,
-          maxLines: Number(props.maxLines),
-          minLines: props.minLines,
           tabSize: props.tabSize,
           printMargin: props.printMargin,
           highlightActiveLine: props.highlightActiveLine,
           enableLiveAutocompletion: props.enableLiveAutocompletion,
+          ...(expanded
+            ? {
+                maxLines: expandedLines,
+                minLines: expandedLines,
+              }
+            : {
+                maxLines: Number(props.maxLines),
+                minLines: props.minLines,
+              }),
         }}
         onChange={handleChange}
         onValidate={onValidate}
@@ -404,6 +434,7 @@ export function CodeEditorItem(
         {props.showCopyButton && (
           <Tooltip
             title={i18n.t(`${NS_CODE_EDITOR_COMPONENTS}:${K.COPY_TOOLTIP}`)}
+            placement={tooltipPlacement}
           >
             <span className={shareStyle.copyIcon}>
               <Clipboard
@@ -417,9 +448,26 @@ export function CodeEditorItem(
         {props.showExportButton && (
           <Tooltip
             title={i18n.t(`${NS_CODE_EDITOR_COMPONENTS}:${K.EXPORT_TOOLTIP}`)}
+            placement={tooltipPlacement}
           >
             <span className={shareStyle.exportIcon}>
               <ExportOutlined onClick={handleExport} />
+            </span>
+          </Tooltip>
+        )}
+        {props.showExpandButton && (
+          <Tooltip
+            title={i18n.t(
+              `${NS_CODE_EDITOR_COMPONENTS}:${expanded ? K.COLLAPSE : K.EXPAND}`
+            )}
+            placement={tooltipPlacement}
+          >
+            <span className={shareStyle.expandIcon}>
+              {expanded ? (
+                <ShrinkOutlined onClick={handleCollapse} />
+              ) : (
+                <ExpandAltOutlined onClick={handleExpand} />
+              )}
             </span>
           </Tooltip>
         )}

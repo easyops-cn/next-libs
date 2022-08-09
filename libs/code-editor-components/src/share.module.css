@@ -7,12 +7,13 @@
   text-align: center;
   color: white;
   box-shadow: none;
-  transition: all 0.8s;
+  transition: none;
   border-radius: 50%;
   border: none;
   z-index: 1;
 
   .copyIcon,
+  .expandIcon,
   .exportIcon {
     opacity: 0.5;
     cursor: pointer;
@@ -22,6 +23,7 @@
     }
   }
 
+  .expandIcon,
   .exportIcon {
     margin-left: 5px;
   }
