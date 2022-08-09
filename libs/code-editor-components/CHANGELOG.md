@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.1.0...@next-libs/code-editor-components@4.1.1) (2022-08-09)
+
+
+### Bug Fixes
+
+* allow users to press esc and exit expanded mode ([95151a8](https://github.com/easyops-cn/next-libs/commit/95151a8f263c8a3a24eafecc78de4905a6393851))
+
+
+
+
+
 # [4.1.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.0.36...@next-libs/code-editor-components@4.1.0) (2022-08-09)
 
 
