@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.1.1...@next-libs/code-editor-components@4.1.2) (2022-08-11)
+
+
+### Bug Fixes
+
+* fix scrollbar overlaid on toolbar ([d5df296](https://github.com/easyops-cn/next-libs/commit/d5df29669d4c9d30e2f189283f274ec68aecdd4b))
+
+
+
+
+
 ## [4.1.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.1.0...@next-libs/code-editor-components@4.1.1) (2022-08-09)
 
 
