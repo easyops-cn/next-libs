@@ -10,7 +10,7 @@
   transition: none;
   border-radius: 50%;
   border: none;
-  z-index: 1;
+  z-index: 7;
 
   .copyIcon,
   .expandIcon,
