@@ -77,6 +77,7 @@ interface ModelAttributeFormProps extends FormComponentProps {
   enabledWhiteList?: boolean;
   scrollToFirstError?: boolean;
   offsetTop?: number;
+  offsetBottom?: number;
   cardRect?: any;
   isApprove?: boolean;
   hasRelateId?: boolean;
@@ -339,6 +340,7 @@ export class ModelAttributeForm extends Component<
           {
             scroll: {
               offsetTop: this.props.offsetTop || 60,
+              offsetBottom: this.props.offsetBottom || 100,
             },
           },
           async (err, values) => {
