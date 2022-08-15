@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.41.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.40.3...@next-libs/cmdb-instances@6.41.0) (2022-08-15)
+
+
+### Features
+
+* **cmdb-instances:** 编辑与创建模型对象实例时，点击保存准确定位到底部校验错误字段位置 ([800e571](https://github.com/easyops-cn/next-libs/commit/800e571c6d24b016f4f5d34e2a4cb59a556fb568))
+
+
+
+
+
 ## [6.40.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.40.2...@next-libs/cmdb-instances@6.40.3) (2022-08-11)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
