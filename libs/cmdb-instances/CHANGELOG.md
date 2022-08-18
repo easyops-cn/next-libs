@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.41.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.41.0...@next-libs/cmdb-instances@6.41.1) (2022-08-18)
+
+
+### Bug Fixes
+
+* **cmdb-instances:** 实例编辑时,关系数据添加面板中的列表需要支持showSizeChanger实现页面条数选择 ([1ece632](https://github.com/easyops-cn/next-libs/commit/1ece6321c19035c52192318fb640a1607fa05dbc))
+
+
+
+
+
 # [6.41.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.40.3...@next-libs/cmdb-instances@6.41.0) (2022-08-15)
 
 
