@@ -516,6 +516,7 @@ export class ModelAttributeForm extends Component<
             isOperate={true}
             showDetailUrl={this.props.showDetailUrl}
             relation={relation}
+            showSizeChanger={true}
           />
         )}
       </Form.Item>
