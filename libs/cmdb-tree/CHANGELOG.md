@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.4.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-tree@4.3.1...@next-libs/cmdb-tree@4.4.0) (2022-08-19)
+
+
+### Features
+
+* **cmdb-tree:** 增加无从属系统的应用节点并且展开获取数据以及展开所有时增加该节点 ([040f313](https://github.com/easyops-cn/next-libs/commit/040f3136a7ad77b8e9a8d0cd872a8820f2aa0b46))
+
+
+
+
+
 ## [4.3.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-tree@4.3.0...@next-libs/cmdb-tree@4.3.1) (2022-07-28)
 
 
