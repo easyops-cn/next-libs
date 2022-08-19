@@ -14,6 +14,8 @@ import {
   CmdbModels,
   InstanceTreeApi_instanceTree,
   InstanceApi_postSearch,
+  InstanceApi_postSearchV3,
+  InstanceApi_PostSearchV3ResponseBody,
 } from "@next-sdk/cmdb-sdk";
 
 import {
@@ -104,6 +106,7 @@ interface CMDBTreeProps {
   notFixed?: boolean;
   checkWhiteList?: boolean;
   userGroupIds?: string[];
+  showNoSystemAppsNode?: boolean;
 }
 
 interface CMDBTreeState {
@@ -230,16 +233,26 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
     } else {
       if (this.props.expand) {
         let resp = {};
+        let notSlaveSystemApplicationData = {};
         try {
           const data = {
             ...this.props.treeRequestBody,
+            ignore_app: this.props.showNoSystemAppsNode ? true : false,
           };
-          resp = await InstanceTreeApi_instanceTree(data);
+
+          if (this.props.showNoSystemAppsNode) {
+            [resp, notSlaveSystemApplicationData] = await Promise.all([
+              InstanceTreeApi_instanceTree(data),
+              this.expandTreeeWithNotSlaveSystemApplication(),
+            ]);
+          } else {
+            resp = await InstanceTreeApi_instanceTree(data);
+          }
         } catch (err) {
           handleHttpError(err);
         }
         this.setState({ isSearched: false });
-        this.updateTreeNodes(resp);
+        this.updateTreeNodes(resp, notSlaveSystemApplicationData);
       } else {
         const expandKeys: string[] = [];
         this.setState({ expandKeys, isSearched: false });
@@ -322,8 +335,16 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
     const [data, anchorTree] = await Promise.all(promises);
     this.relation2ObjectId = getRelation2ObjectId(objectList, treeRequest);
     this.relations = Array.from(this.relation2ObjectId.keys());
-
     const nodes = this.formatTreeNodes(data, this.objectIds);
+    if (this.props.showNoSystemAppsNode) {
+      nodes.push({
+        key: "not_slave_system_application",
+        title: "无所属系统的应用",
+        objectId: "BUSINESS",
+        isLeaf: false,
+        authorized: true,
+      });
+    }
     const expandKeys: string[] = [];
 
     if (anchorTree && anchorTree[objectId]) {
@@ -438,6 +459,29 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
     return nodes;
   }
 
+  formatNotSlaveSystemApplicationTreeNodes(
+    data: InstanceApi_PostSearchV3ResponseBody
+  ): CustomTreeNode[] {
+    const nodes: CustomTreeNode[] = [];
+    data.list.forEach((item) => {
+      nodes.push({
+        key: item.instanceId,
+        title: item.name,
+        objectId: item._object_id,
+        isLeaf:
+          this.props.checkWhiteList && item.readAuthorizers
+            ? checkPermission(
+                item.readAuthorizers,
+                this.username,
+                this.userGroupIds
+              )
+            : true,
+        authorized: true,
+      });
+    });
+    return nodes;
+  }
+
   async expandTree(
     objectId: string = undefined,
     instanceId: string = undefined
@@ -446,9 +490,30 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
       instanceId,
       objectId,
       ...this.props.treeRequestBody,
+      ignore_app: this.props.showNoSystemAppsNode ? true : false,
     };
     try {
       const resp = await InstanceTreeApi_instanceTreeExpand(data);
+      return resp;
+    } catch (err) {
+      handleHttpError(err);
+    }
+  }
+
+  async expandTreeeWithNotSlaveSystemApplication() {
+    try {
+      const resp = await InstanceApi_postSearchV3("APP", {
+        query: {
+          businesses: {
+            $size: {
+              $eq: 0,
+            },
+          },
+        },
+        fields: ["name", "_object_id", "instanceId"],
+        page: 1,
+        page_size: 3000,
+      });
       return resp;
     } catch (err) {
       handleHttpError(err);
@@ -516,12 +581,28 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
     });
   }
 
-  updateTreeNodes(resp: Record<string, any>) {
+  updateTreeNodes(
+    resp: Record<string, any>,
+    notSlaveSystemApplicationData: Record<string, any> = {}
+  ) {
     this.treeData = [];
     for (const objectId of this.objectIds) {
       if (isEmpty(resp[objectId])) resp[objectId] = [];
       this.convertTrees(resp[objectId], this.relations);
       this.treeData.push(...resp[objectId]);
+    }
+
+    if (notSlaveSystemApplicationData?.list?.length) {
+      this.treeData.push({
+        key: "not_slave_system_application",
+        title: "无所属系统的应用",
+        objectId: "BUSINESS",
+        isLeaf: false,
+        authorized: true,
+        children: this.formatNotSlaveSystemApplicationTreeNodes(
+          notSlaveSystemApplicationData
+        ),
+      });
     }
     const treeData = this.withHead(this.treeData, true);
     this.setExpandAll(treeData);
@@ -575,8 +656,15 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
 
     const objectId = (treeNode as any).props["data-ref"].objectId;
     const instanceId = (treeNode as any).props["data-ref"].key;
-    const data = await this.expandTree(objectId, instanceId);
-    const nodes = this.formatTreeNodes(data[objectId][0], this.relations);
+    let nodes: CustomTreeNode[] = [];
+    if (instanceId !== "not_slave_system_application") {
+      const data = await this.expandTree(objectId, instanceId);
+      nodes = this.formatTreeNodes(data[objectId][0], this.relations);
+    } else {
+      const data = await this.expandTreeeWithNotSlaveSystemApplication();
+      nodes = this.formatNotSlaveSystemApplicationTreeNodes(data);
+    }
+
     this.cacheOnLoad.set(instanceId, nodes);
     // eslint-disable-next-line require-atomic-updates
     updateChildren(instanceId, this.state.treeData, nodes);
