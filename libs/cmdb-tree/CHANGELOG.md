@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.5.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-tree@4.4.0...@next-libs/cmdb-tree@4.5.0) (2022-08-22)
+
+
+### Features
+
+* **cmdb-tree:** 通过指定模型优化object_all接口请求速度 ([5f4276b](https://github.com/easyops-cn/next-libs/commit/5f4276bb5b631c644ceea572d4ff8fbf203920e6))
+
+
+
+
+
 # [4.4.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-tree@4.3.1...@next-libs/cmdb-tree@4.4.0) (2022-08-19)
 
 
