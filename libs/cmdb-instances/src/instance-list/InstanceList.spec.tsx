@@ -1129,7 +1129,7 @@ describe("InstanceList", () => {
     wrapper.update();
     expect(InstanceApi_postSearchV3).toBeCalledTimes(20);
     expect(InstanceApi_postSearchV3).lastCalledWith("HOST", {
-      fields: ["mmmm", "_ts", "instanceId"],
+      fields: ["mmmm", "_ts", "instanceId", "_ts"],
       ignore_missing_field_error: true,
       page: 1,
       page_size: 10,
