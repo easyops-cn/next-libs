@@ -1139,7 +1139,15 @@ describe("InstanceList", () => {
     wrapper.update();
     expect(InstanceApi_postSearchV3).toBeCalledTimes(21);
     expect(InstanceApi_postSearchV3).lastCalledWith("HOST", {
-      fields: ["creator", "ctime", "modifier", "mtime", "_ts", "instanceId"],
+      fields: [
+        "creator",
+        "ctime",
+        "modifier",
+        "mtime",
+        "_ts",
+        "instanceId",
+        "_ts",
+      ],
       ignore_missing_field_error: true,
       page: 1,
       page_size: 10,
