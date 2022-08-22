@@ -669,7 +669,7 @@ export function LegacyInstanceList(
     const data: InstanceApi_PostSearchRequestBody = {};
     const v3Data: InstanceApi_PostSearchV3RequestBody = {
       fields: props?.extraFixedFields
-        ? ["instanceId"].concat(props?.extraFixedFields)
+        ? uniq(["instanceId"].concat(props?.extraFixedFields))
         : ["instanceId"],
     };
     if (!isEmpty(props.permission)) {
