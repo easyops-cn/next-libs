@@ -16,6 +16,7 @@ import {
   InstanceApi_postSearch,
   InstanceApi_postSearchV3,
   InstanceApi_PostSearchV3ResponseBody,
+  CmdbObjectApi_GetObjectAllResponseBody,
 } from "@next-sdk/cmdb-sdk";
 
 import {
@@ -107,6 +108,7 @@ interface CMDBTreeProps {
   checkWhiteList?: boolean;
   userGroupIds?: string[];
   showNoSystemAppsNode?: boolean;
+  useDefaultObjectIds?: boolean;
 }
 
 interface CMDBTreeState {
@@ -310,7 +312,15 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
 
     const treeRequest = this.props.treeRequestBody.tree;
     const objectId = treeRequest.object_id;
-    const resp = await CmdbObjectApi_getObjectAll({});
+    let resp: CmdbObjectApi_GetObjectAllResponseBody;
+    if (this.props.useDefaultObjectIds) {
+      resp = await CmdbObjectApi_getObjectAll({
+        objectIds: this.objectIds.join(","),
+      });
+    } else {
+      resp = await CmdbObjectApi_getObjectAll({});
+    }
+
     const objectList = resp.data as CmdbModels.ModelCmdbObject[];
     this.objectMap = keyBy(objectList, "objectId");
     this.objectId2ShowKeys = getObjectId2ShowKeys(objectList);
