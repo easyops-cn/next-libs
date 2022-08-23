@@ -27,6 +27,7 @@ import {
 } from "lodash";
 import {
   BrickAsComponent,
+  getRuntime,
   handleHttpError,
   useProvider,
 } from "@next-core/brick-kit";
@@ -100,10 +101,15 @@ export function getQuery(
   onlySearchByIp?: boolean
 ) {
   const query: Record<string, any> = { $or: [] };
-
   const queryValues = q.trim().split(/\s+/);
   if (onlySearchByIp) {
-    query.$or.push({ ip: { $like: `%${q.trim()}%` } });
+    const searchIpFields =
+      (getRuntime().getCurrentApp().config?.searchIpFields as string[]) || [];
+    const queryOrs = [...new Set(["ip", ...searchIpFields])];
+    const searchValue = { $like: `%${q.trim()}%` };
+    queryOrs.forEach((key) => {
+      query.$or.push({ [key]: searchValue });
+    });
     return query;
   }
   forEachAvailableFields(
