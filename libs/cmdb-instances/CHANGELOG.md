@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.41.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.41.1...@next-libs/cmdb-instances@6.41.2) (2022-08-23)
+
+
+### Bug Fixes
+
+* 修复extraFixedFields在显示设置后不生效问题 refs PERMISSION-291 ([860a0d9](https://github.com/easyops-cn/next-libs/commit/860a0d999e39fb9a32f9114b1aaa99559a32857a))
+* 修复fields获取extraFixedFields的数组保持字段唯一 refs PERMISSION-291 ([8beee83](https://github.com/easyops-cn/next-libs/commit/8beee83933136fbd4f887155f3300fce36f543a6))
+* 兼容fields获取extraFixedFields边界值情况 refs PERMISSION-291 ([3e39af5](https://github.com/easyops-cn/next-libs/commit/3e39af5c3ebd16b45ebddbdd35bf062a83f6a250))
+
+
+
+
+
 ## [6.41.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.41.0...@next-libs/cmdb-instances@6.41.1) (2022-08-18)
 
 
