@@ -668,7 +668,9 @@ export function LegacyInstanceList(
   ): Promise<InstanceApi_PostSearchV3ResponseBody> => {
     const data: InstanceApi_PostSearchRequestBody = {};
     const v3Data: InstanceApi_PostSearchV3RequestBody = {
-      fields: ["instanceId"],
+      fields: props?.extraFixedFields
+        ? uniq(["instanceId"].concat(props?.extraFixedFields))
+        : ["instanceId"],
     };
     if (!isEmpty(props.permission)) {
       v3Data.permission = data.permission = props.permission;
