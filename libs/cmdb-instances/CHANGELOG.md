@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.42.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.41.2...@next-libs/cmdb-instances@6.42.0) (2022-08-24)
+
+
+### Features
+
+* 支持小产品定制Ip搜索or字段条件  refs INSTANCE-2703 ([#409](https://github.com/easyops-cn/next-libs/issues/409)) ([d06cee6](https://github.com/easyops-cn/next-libs/commit/d06cee656491e698a5f539f9cbe4ecd67669c914))
+
+
+
+
+
 ## [6.41.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.41.1...@next-libs/cmdb-instances@6.41.2) (2022-08-23)
 
 
