@@ -44,6 +44,15 @@ const providerQuery = jest.fn();
 (jest.spyOn(brickKit, "useProvider") as any).mockReturnValue({
   query: providerQuery,
 });
+(jest.spyOn(brickKit, "getRuntime") as any).mockReturnValue({
+  getCurrentApp: () => {
+    return {
+      config: {
+        searchIpFields: ["eth.ip"],
+      },
+    };
+  },
+});
 jest.mock("../instance-list-table", () => ({
   AdvancedSearch: jest.fn(() => {
     return "<div>Fake advanced search loaded!</div>";
@@ -759,7 +768,9 @@ describe("InstanceList", () => {
       expect(getQuery(HOST, { HOST: HOST }, t.q, t.fields)).toEqual(t.expected);
       expect(
         getQuery(HOST, { HOST: HOST }, t.q, t.fields, onlySearchByIp)
-      ).toEqual({ $or: [{ ip: { $like: "%aaa%" } }] });
+      ).toEqual({
+        $or: [{ ip: { $like: "%aaa%" } }, { "eth.ip": { $like: "%aaa%" } }],
+      });
     });
   });
 
