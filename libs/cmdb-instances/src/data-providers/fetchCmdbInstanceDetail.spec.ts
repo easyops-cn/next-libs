@@ -27,7 +27,8 @@ describe("fetchCmdbInstanceDetailByFields", () => {
     const result = await fetchCmdbInstanceDetailByFields(
       "HOST",
       "58312af20a20d",
-      "hostname,deviceId,ctime,creator,instanceId"
+      "hostname,deviceId,ctime,creator,instanceId",
+      10
     );
     expect(result).toEqual(mockFetchCmdbInstanceDetailFieldsReturnValue);
   });
