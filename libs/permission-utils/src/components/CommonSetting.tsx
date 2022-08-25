@@ -8,12 +8,13 @@ import { BatchHandleUser } from "./BatchHandleUser";
 import { PermissionCollection } from "../processors";
 import { SelectUserOrGroup } from "./SelectUserOrGroup";
 import styles from "./index.module.css";
-import { handleHttpError } from "@next-core/brick-kit";
+import { handleHttpError, getAuth } from "@next-core/brick-kit";
 import {
   UserAdminApi_listGroupsIdName,
   UserAdminApi_ListGroupsIdNameResponseBody,
 } from "@next-sdk/user-service-sdk";
 import { LabeledValue } from "antd/lib/select";
+
 export interface CommonSettingPropsDefine {
   instanceData: any;
   permissionList: Permission[];
@@ -24,6 +25,7 @@ export interface CommonSettingPropsDefine {
   selectedInstances?: Record<string, any>[];
   onSingleAddUserModelOpen?(props: Record<string, any>): void;
   onSingleAddUserModelClose?(): void;
+  fillCurrentLoginUser?: boolean;
 }
 interface CommonSettingStateDefine {
   permissionList: Permission[];
@@ -341,7 +343,12 @@ export class CommonSetting extends React.Component<
     );
     permissionList[modifiedIndex]._whiteListEnabled = checked;
     if (checked && _.isEmpty(permissionList[modifiedIndex].authorizers)) {
-      permissionList[modifiedIndex].authorizers.push("easyops");
+      let user = "easyops";
+      if (this.props.fillCurrentLoginUser) {
+        const { username } = getAuth();
+        user = username;
+      }
+      permissionList[modifiedIndex].authorizers.push(user);
     } else if (!checked) {
       permissionList[modifiedIndex].authorizers = [];
     }

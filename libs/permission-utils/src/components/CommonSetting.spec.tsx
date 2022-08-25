@@ -11,9 +11,11 @@ import {
   UserAdminApi_ListGroupsIdNameResponseBody,
 } from "@next-sdk/user-service-sdk";
 import * as kit from "@next-core/brick-kit";
-const spyOnHandleHttpError = jest.spyOn(kit, "handleHttpError");
+// const spyOnHandleHttpError = jest.spyOn(kit, "handleHttpError");
 jest.mock("@next-sdk/user-service-sdk");
-
+jest.mock("@next-core/brick-kit", () => ({
+  getAuth: () => ({ username: "test" }),
+}));
 describe("CommonSetting", () => {
   const instanceData = {
     authUsers: "",
@@ -38,6 +40,7 @@ describe("CommonSetting", () => {
     deleteAuthorizers: ["easyops", "06031"],
     readAuthorizers: ["easyops", "06032"],
     updateAuthorizers: ["easyops", "06034", "group1"],
+    testAuthorizers: ["000"],
   };
   const permissionList = [
     {
@@ -139,6 +142,31 @@ describe("CommonSetting", () => {
         "lightjiao",
         "user3",
       ],
+      _actionWeight: 100,
+      _category: "a-0",
+    },
+    {
+      action: "deploy:package_test",
+      id: "5b7b87a27e5a2e22ba29bcc9",
+      remark: "包测试",
+      resource: {
+        system: "deploy",
+        condition: {
+          testAuthorizers: "%user",
+          name: "package",
+          system: "deploy",
+        },
+      },
+      roles: [
+        "系统管理员",
+        "应用运维",
+        "应用测试",
+        "应用开发",
+        "test",
+        "测试角色-没有easyops+系统管理菜单",
+      ],
+      system: "持续部署",
+      user: ["data"],
       _actionWeight: 100,
       _category: "a-0",
     },
@@ -311,6 +339,12 @@ describe("CommonSetting", () => {
     const record = instance.state.collections.permissionList[0];
     instance.handleToggleWhiteListEnabled(true, record);
     expect(instance.state.collections.permissionList[0]).toEqual(record);
+    wrapper.setProps({
+      fillCurrentLoginUser: true,
+    });
+    const record1 = instance.state.collections.permissionList[3];
+    instance.handleToggleWhiteListEnabled(true, record1);
+    expect(instance.state.collections.permissionList[3]).toEqual(record1);
   });
   it("should work when batchHandlePermChange is called", () => {
     instance.batchHandlePermChange(["deploy:package_read"]);
