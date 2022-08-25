@@ -14,9 +14,11 @@ export function fetchCmdbInstanceDetail(
 export function fetchCmdbInstanceDetailByFields(
   objectId: string,
   instanceId: string,
-  fields: string
+  fields: string,
+  relation_limit?: number
 ): Promise<Partial<InstanceApi_GetDetailResponseBody>> {
   return InstanceApi_getDetail(objectId, instanceId, {
     fields,
+    relation_limit,
   } as InstanceApi_GetDetailRequestParams);
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Table } from "antd";
 import {
   ModifiedModelObjectRelation,
@@ -16,16 +16,26 @@ export interface InstanceRelationTableShowProps {
   value: any[];
   relationFieldUrlTemplate?: string;
   isPagination?: boolean;
+  total?: number;
+  paginationChange?: (
+    page: number,
+    pageSize: number,
+    relationData: ModifiedModelObjectRelation
+  ) => Promise<void>;
 }
 
 //istanbul ignore next
 export function InstanceRelationTableShow(
   props: InstanceRelationTableShowProps
 ): React.ReactElement {
-  const { modelDataMap, relationData, value, relationFieldUrlTemplate } = props;
-  const [instanceListData, setInstanceListData] = useState({
-    list: props.value.slice(0, 10),
-  });
+  const {
+    modelDataMap,
+    relationData,
+    value,
+    relationFieldUrlTemplate,
+    paginationChange,
+    total,
+  } = props;
   let oppositeModelData = modifyModelData(
     modelDataMap[relationData.right_object_id]
   );
@@ -56,7 +66,9 @@ export function InstanceRelationTableShow(
         }}
         idObjectMap={props.modelDataMap}
         modelData={oppositeModelData}
-        instanceListData={instanceListData}
+        instanceListData={{
+          list: value,
+        }}
         fieldIds={oppositeModelData.attrList.map((attr) => attr.id)}
         selectDisabled={true}
         sortDisabled={true}
@@ -64,15 +76,10 @@ export function InstanceRelationTableShow(
           pagination: props.isPagination
             ? {
                 showSizeChanger: true,
-                total: value?.length,
+                total: total,
                 pageSizeOptions: ["10", "20", "50"],
                 onChange: (page, pageSize) => {
-                  setInstanceListData({
-                    list: value.slice(
-                      (page - 1) * pageSize,
-                      (page - 1) * pageSize + pageSize
-                    ),
-                  });
+                  paginationChange(page, pageSize, relationData);
                 },
                 showTotal: (totals: number) => (
                   <span className={styles.totalText}>

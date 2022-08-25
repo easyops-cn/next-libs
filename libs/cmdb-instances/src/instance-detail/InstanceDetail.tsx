@@ -45,7 +45,10 @@ import {
   ModifiedModelCmdbObject,
   ModifiedModelObjectField,
 } from "@next-libs/cmdb-utils";
-import { CmdbModels } from "@next-sdk/cmdb-sdk";
+import {
+  CmdbModels,
+  InstanceApi_PostSearchV3RequestBody,
+} from "@next-sdk/cmdb-sdk";
 import { Link } from "@next-libs/basic-components";
 import { StructTable } from "../struct-components/StructTable";
 import { FieldsByTag } from "../model-attribute-form/ModelAttributeForm";
@@ -59,6 +62,7 @@ import {
   fetchCmdbObjectRef,
   fetchCmdbInstanceDetail,
   fetchCmdbInstanceDetailByFields,
+  fetchCmdbInstanceSearch,
 } from "../data-providers";
 import {
   DEFAULT_ATTRIBUTE_TAG_STR,
@@ -133,6 +137,7 @@ interface LegacyInstanceDetailState {
   buttonActions?: BrickAction[];
   dropdownActions?: BrickAction[];
   currentAttr?: any;
+  instanceRelationModalData?: any;
 }
 
 export class LegacyInstanceDetail extends React.Component<
@@ -170,11 +175,12 @@ export class LegacyInstanceDetail extends React.Component<
       formattedInstanceData: null,
       loaded: false,
       currentAttr: null,
+      instanceRelationModalData: null,
     };
   }
 
   render(): React.ReactNode {
-    const { loaded } = this.state;
+    const { loaded, currentAttr, instanceRelationModalData } = this.state;
     const { showCard = true } = this.props;
 
     return (
@@ -196,10 +202,10 @@ export class LegacyInstanceDetail extends React.Component<
             <Modal
               width={850}
               title={
-                this.state.currentAttr?.right_description ||
+                currentAttr?.right_description ||
                 i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.VIEW_MORE}`)
               }
-              visible={!!this.state.currentAttr}
+              visible={!!currentAttr}
               onCancel={() => this.setState({ currentAttr: null })}
               onOk={() => this.setState({ currentAttr: null })}
               destroyOnClose={true}
@@ -207,14 +213,22 @@ export class LegacyInstanceDetail extends React.Component<
               <div style={{ overflowX: "hidden" }}>
                 <InstanceRelationTableShow
                   modelDataMap={this.state.modelDataMap}
-                  relationData={this.state.currentAttr}
+                  relationData={currentAttr}
                   value={
-                    this.state.instanceData
-                      ? this.state.instanceData[this.state.currentAttr?.__id]
+                    instanceRelationModalData
+                      ? instanceRelationModalData?.list || []
                       : []
                   }
                   relationFieldUrlTemplate={this.props.relationFieldUrlTemplate}
                   isPagination={true}
+                  total={instanceRelationModalData?.total || 0}
+                  paginationChange={(page, pageSize, relationData) =>
+                    this.searchInstanceRelationData(
+                      page,
+                      pageSize,
+                      relationData
+                    )
+                  }
                 />
               </div>
             </Modal>
@@ -525,13 +539,11 @@ export class LegacyInstanceDetail extends React.Component<
                 value={instanceData[attr.__id]?.slice(0, 10)}
                 relationFieldUrlTemplate={this.props.relationFieldUrlTemplate}
               />
-              {instanceData[attr.__id]?.length > 10 && (
+              {instanceData[attr.__id]?.length >= 10 && (
                 <Button
                   data-testid={"view-more-" + attr.__id}
                   type="link"
-                  onClick={() => {
-                    this.setState({ currentAttr: attr });
-                  }}
+                  onClick={() => this.handleRelationModal(attr)}
                 >
                   {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.VIEW_MORE}`)}
                 </Button>
@@ -605,6 +617,58 @@ export class LegacyInstanceDetail extends React.Component<
         </dd>
       </>
     );
+  }
+  // istanbul ignore next
+  async handleRelationModal(attr: any): Promise<void> {
+    await this.searchInstanceRelationData(1, 10, attr);
+  }
+
+  // istanbul ignore next
+  async searchInstanceRelationData(
+    page: number,
+    pageSize: number,
+    attr: any
+  ): Promise<void> {
+    const { right_id, left_object_id, right_object_id, left_id } = attr;
+    let objectId, queryId;
+    const { modelData, modelDataMap } = this.state;
+    const hideColumns = modelData?.view?.hide_columns || [];
+    if (
+      left_object_id === modelData.objectId &&
+      !hideColumns.includes(left_id)
+    ) {
+      objectId = right_object_id;
+      queryId = right_id;
+    }
+    if (
+      right_object_id === modelData.objectId &&
+      !hideColumns.includes(right_id)
+    ) {
+      objectId = left_object_id;
+      queryId = left_id;
+    }
+    const fields = uniq(map(modelDataMap[objectId].attrList, "id"));
+
+    const params: InstanceApi_PostSearchV3RequestBody = {
+      fields,
+      page,
+      page_size: pageSize,
+      ignore_missing_field_error: true,
+      query: {
+        [`${queryId}.instanceId`]: {
+          $eq: this.props.instanceId,
+        },
+      },
+    };
+    const instanceRelationModalData = await fetchCmdbInstanceSearch(
+      objectId,
+      params
+    );
+
+    this.setState({
+      instanceRelationModalData,
+      currentAttr: attr,
+    });
   }
 
   // istanbul ignore next
@@ -820,6 +884,7 @@ export class LegacyInstanceDetail extends React.Component<
   // istanbul ignore next
   async fetchData(props: LegacyInstanceDetailProps): Promise<void> {
     let modelListData, modelDataMap, instanceData;
+    const relationLimit = 10;
     try {
       if (props.modelDataList) {
         modelDataMap = keyBy(props.modelDataList, "objectId");
@@ -828,7 +893,8 @@ export class LegacyInstanceDetail extends React.Component<
           instanceData = await fetchCmdbInstanceDetailByFields(
             props.objectId,
             props.instanceId,
-            fields
+            fields,
+            relationLimit
           );
         } else {
           instanceData = await fetchCmdbInstanceDetail(
@@ -846,7 +912,8 @@ export class LegacyInstanceDetail extends React.Component<
           instanceData = await fetchCmdbInstanceDetailByFields(
             props.objectId,
             props.instanceId,
-            fields
+            fields,
+            relationLimit
           );
         } else {
           [modelListData, instanceData] = await Promise.all([
