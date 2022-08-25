@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/permission-utils@4.0.7...@next-libs/permission-utils@4.0.8) (2022-08-25)
+
+
+### Bug Fixes
+
+* CommonSetting构件当权限白名单为空时，点击表格的switch开启白名单时，默认填充当前登录用户  refs DEVOPS_MANAGEMENT-601 ([32a78e6](https://github.com/easyops-cn/next-libs/commit/32a78e660e5194d528f8acb8d011678f6e2280e5))
+
+
+
+
+
 ## [4.0.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/permission-utils@4.0.6...@next-libs/permission-utils@4.0.7) (2022-04-10)
 
 
