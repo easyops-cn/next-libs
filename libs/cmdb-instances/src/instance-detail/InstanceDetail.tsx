@@ -729,7 +729,7 @@ export class LegacyInstanceDetail extends React.Component<
             `${NS_LIBS_CMDB_INSTANCES}:${K.BASIC_INFORMATION}`
           );
           groupTag =
-            field.tag.length > 0
+            field.tag?.length > 0
               ? field.tag[0] || basicInfoText
               : basicInfoText;
         }
