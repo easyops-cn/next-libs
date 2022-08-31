@@ -17,6 +17,6 @@ export {
   ComparisonOperators,
   ElementOperators,
   LogicalOperators,
-  Query,
-  QueryOperatorExpressions,
+  type Query,
+  type QueryOperatorExpressions,
 } from "@next-libs/cmdb-utils";
