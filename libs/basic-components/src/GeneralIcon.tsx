@@ -131,7 +131,11 @@ export function GeneralIcon({
     if ("imgSrc" in icon) {
       iconNode = (
         <img
-          src={icon.imgSrc}
+          src={
+            /^(?:https?|data):|^\//.test(icon.imgSrc)
+              ? icon.imgSrc
+              : `${(window as any).PUBLIC_ROOT ?? ""}${icon.imgSrc}`
+          }
           width={size}
           height={size}
           style={icon.imgStyle}
