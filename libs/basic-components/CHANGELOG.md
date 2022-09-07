@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.5.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@3.5.1...@next-libs/basic-components@3.5.2) (2022-09-07)
+
+
+### Bug Fixes
+
+* prepend public root for img src if applicable ([9079f60](https://github.com/easyops-cn/next-libs/commit/9079f60758e522bd9cda6207609974555cbf9191))
+
+
+
+
+
 ## [3.5.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@3.5.0...@next-libs/basic-components@3.5.1) (2022-06-21)
 
 **Note:** Version bump only for package @next-libs/basic-components

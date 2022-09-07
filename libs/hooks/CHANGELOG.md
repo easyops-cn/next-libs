@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/hooks@2.0.2...@next-libs/hooks@2.1.0) (2022-09-07)
+
+
+### Features
+
+* support useUserInfoByNameOrInstanceId ([#416](https://github.com/easyops-cn/next-libs/issues/416)) ([b15ff78](https://github.com/easyops-cn/next-libs/commit/b15ff78174e587e2c381c3233866362ac20bd9ad))
+
+
+
+
+
 ## [2.0.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/hooks@2.0.1...@next-libs/hooks@2.0.2) (2021-08-12)
 
 **Note:** Version bump only for package @next-libs/hooks
