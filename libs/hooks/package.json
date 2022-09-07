@@ -31,5 +31,8 @@
   "peerDependencies": {
     "@next-core/brick-dll": "*"
   },
+  "dependencies": {
+    "@next-sdk/user-service-sdk": "^2.1.5"
+  },
   "sideEffects": false
 }
