@@ -47,7 +47,7 @@
     "@next-core/illustrations": "^0.9.15",
     "@next-core/pipes": "^1.0.6",
     "@size-limit/file": "^7.0.8",
-    "@svgr/rollup": "^5.5.0",
+    "@svgr/rollup": "^6.3.1",
     "@testing-library/react-hooks": "^5.0.3",
     "@types/d3": "^6.7.5",
     "@types/dompurify": "^2.3.3",
