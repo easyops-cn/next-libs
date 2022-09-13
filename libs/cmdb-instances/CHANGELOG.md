@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.42.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.42.4...@next-libs/cmdb-instances@6.42.5) (2022-09-13)
+
+
+### Bug Fixes
+
+* 修复结构体数据搜索,删除选项删除不掉的问题 ([e2c573a](https://github.com/easyops-cn/next-libs/commit/e2c573a34b3a3a83c28b581fe7919da18302c9bd))
+
+
+
+
+
 ## [6.42.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.42.3...@next-libs/cmdb-instances@6.42.4) (2022-09-07)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
