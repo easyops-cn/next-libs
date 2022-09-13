@@ -797,6 +797,37 @@ describe("InstanceList", () => {
     expect(mockOnRelatedToMeChange).toBeCalledWith(false);
   });
 
+  it("should work with onAdvancedSearchClose", async () => {
+    const mockAdvancedSearch = jest.fn();
+    const mockEvent: any = null;
+    const aq = [
+      {
+        $and: [
+          {
+            ip: {
+              $like: "%192.168.100.162%",
+            },
+          },
+        ],
+      },
+    ];
+    const wrapper = mount(
+      <InstanceList
+        objectId="HOST"
+        objectList={[HOST]}
+        aq={aq as Query[]}
+        onAdvancedSearch={mockAdvancedSearch}
+      />
+    );
+    await (global as any).flushPromises();
+    await jest.runAllTimers();
+
+    wrapper.update();
+    expect(wrapper.find(Tag).length).toBe(1);
+    wrapper.find(Tag).at(0).invoke("onClose")(mockEvent);
+    expect(mockAdvancedSearch).toBeCalled();
+  });
+
   it("should work with extraFilterBricks property", async () => {
     const extraFilterBricks = { useBrick: { brick: "span" } };
     const wrapper = mount(
@@ -1071,7 +1102,7 @@ describe("InstanceList", () => {
   });
 
   it("instanceListTable should be hidden", async () => {
-    expect(InstanceApi_postSearchV3).toBeCalledTimes(13);
+    expect(InstanceApi_postSearchV3).toBeCalledTimes(15);
     const wrapper = mount(
       <LegacyInstanceList
         objectId="HOST"
@@ -1083,7 +1114,7 @@ describe("InstanceList", () => {
     await jest.runAllTimers();
     wrapper.update();
     expect(wrapper.find(InstanceListTable)).toEqual({});
-    expect(InstanceApi_postSearchV3).toBeCalledTimes(13);
+    expect(InstanceApi_postSearchV3).toBeCalledTimes(15);
   });
 
   it("should work with enableSearchByApp", async () => {
@@ -1125,7 +1156,7 @@ describe("InstanceList", () => {
     await (global as any).flushPromises();
     wrapper.update();
     expect(CmdbObjectApi_getObjectRef).not.toHaveBeenCalled();
-    expect(InstanceApi_postSearchV3).toBeCalledTimes(19);
+    expect(InstanceApi_postSearchV3).toBeCalledTimes(21);
     expect(providerQuery).toBeCalledTimes(0);
   });
   it("should work with extraFixedFieldIds", async () => {
@@ -1138,7 +1169,7 @@ describe("InstanceList", () => {
     );
     await (global as any).flushPromises();
     wrapper.update();
-    expect(InstanceApi_postSearchV3).toBeCalledTimes(20);
+    expect(InstanceApi_postSearchV3).toBeCalledTimes(22);
     expect(InstanceApi_postSearchV3).lastCalledWith("HOST", {
       fields: ["mmmm", "_ts", "instanceId", "_ts"],
       ignore_missing_field_error: true,
@@ -1148,7 +1179,7 @@ describe("InstanceList", () => {
     wrapper.setProps({ presetConfigs: undefined });
     await (global as any).flushPromises();
     wrapper.update();
-    expect(InstanceApi_postSearchV3).toBeCalledTimes(21);
+    expect(InstanceApi_postSearchV3).toBeCalledTimes(23);
     expect(InstanceApi_postSearchV3).lastCalledWith("HOST", {
       fields: [
         "creator",
@@ -1176,7 +1207,7 @@ describe("InstanceList", () => {
     );
     await (global as any).flushPromises();
     wrapper.update();
-    expect(InstanceApi_postSearchV3).toBeCalledTimes(21);
+    expect(InstanceApi_postSearchV3).toBeCalledTimes(23);
     expect(providerQuery).toBeCalledWith([
       "HOST",
       {
