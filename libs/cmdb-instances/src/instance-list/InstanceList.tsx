@@ -1143,18 +1143,23 @@ export function LegacyInstanceList(
             });
           }
         } else if (key !== attrId && !startsWith(attrId, `${key}.`)) {
-          const fieldId = Object.keys((query[key] as Query[])[0])[0];
-          // 判断是否为结构体
-          const isStruct = isOfStruct(modelData, fieldId);
-          // 结构体情况处理
-          if (
-            !(
-              (key === "$or" || key === "$and") &&
-              startsWith(fieldId, `${attrId}.`) &&
-              isStruct
-            )
-          ) {
+          // $exists $gte $lte 针对为空，不为空，时间范围特殊处理
+          if (isSpecialFn(query, key)) {
             queries.push(query);
+          } else {
+            const fieldId = Object.keys((query[key] as Query[])[0])[0];
+            // 判断是否为结构体
+            const isStruct = isOfStruct(modelData, fieldId);
+            // 结构体情况处理
+            if (
+              !(
+                (key === "$or" || key === "$and") &&
+                startsWith(fieldId, `${attrId}.`) &&
+                isStruct
+              )
+            ) {
+              queries.push(query);
+            }
           }
         } else if (
           props.isInstanceFilterForm &&
