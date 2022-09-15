@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.2.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/hooks@2.1.0...@next-libs/hooks@2.2.0) (2022-09-15)
+
+
+### Features
+
+* add useAvatar、useMention hooks ([a53f9c9](https://github.com/easyops-cn/next-libs/commit/a53f9c9ca37c02dcfb4d93be5e1dbc8f99031a84))
+* refine useUserInfoByNameOrInstanceId ([1b8fe1f](https://github.com/easyops-cn/next-libs/commit/1b8fe1f6104f1c1538976fe246f93c7ccf1f48fd))
+
+
+
+
+
 # [2.1.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/hooks@2.0.2...@next-libs/hooks@2.1.0) (2022-09-07)
 
 
