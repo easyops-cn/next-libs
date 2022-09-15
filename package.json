@@ -40,7 +40,7 @@
     "@next-core/brick-kit": "^2.137.1",
     "@next-core/brick-types": "^2.74.0",
     "@next-core/brick-utils": "^2.41.0",
-    "@next-core/dev-dependencies": "^1.14.84",
+    "@next-core/dev-dependencies": "^1.14.91",
     "@next-core/easyops-analytics": "^0.8.3",
     "@next-core/editor-bricks-helper": "^0.47.3",
     "@next-core/fontawesome-library": "^1.1.30",
