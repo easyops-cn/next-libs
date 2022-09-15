@@ -22,6 +22,7 @@ import {
   initAqToShow,
   isValueEqualFn,
   isSpecialFn,
+  specialQueryHandler,
 } from "./InstanceList";
 import {
   getInstanceListData,
@@ -1229,4 +1230,13 @@ it("isSpecialFn as pass", () => {
 it("isValueEqualFn as pass", () => {
   expect(isValueEqualFn({ ip: { $like: "%aaa%" } }, "ip")).toBeFalsy();
   expect(isValueEqualFn({ ip: { $like: "%aaa%" } }, "ip", "%aa%")).toBeTruthy();
+});
+
+it("specialQueryHandler as pass", () => {
+  const queries: any[] = [];
+  specialQueryHandler({ ip: { $like: "%aaa%" } }, "ip", queries);
+  expect(queries).toEqual([{ ip: { $like: "%aaa%" } }]);
+  const queries2: any[] = [];
+  specialQueryHandler({ ip: { $exist: false } }, "ip", queries);
+  expect(queries2).toEqual([]);
 });

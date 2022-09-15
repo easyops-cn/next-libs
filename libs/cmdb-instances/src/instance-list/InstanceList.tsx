@@ -145,6 +145,15 @@ export const isSpecialFn = (query: any, attrId: string) => {
   );
 };
 
+export const specialQueryHandler = (query: any, key: any, queries: Query[]) => {
+  // $exists $gte $lte 针对为空，不为空，时间范围特殊处理
+  const isSpecial = isSpecialFn(query, key);
+  if (isSpecial) {
+    return;
+  }
+  queries.push(query);
+};
+
 export const isValueEqualFn = (
   query: any,
   attrId: string,
@@ -1122,14 +1131,6 @@ export function LegacyInstanceList(
       const queriesToShow: Query[] = [];
       const filterAq = (queries: any[]) =>
         queries.filter((v: any) => isValueEqualFn(v, attrId, valuesStr));
-      const specialQueryHandler = (query: any, key: any, queries: Query[]) => {
-        // $exists $gte $lte 针对为空，不为空，时间范围特殊处理
-        const isSpecial = isSpecialFn(query, key);
-        if (isSpecial) {
-          return;
-        }
-        queries.push(query);
-      };
       state.aq.forEach((query) => {
         const key = Object.keys(query)[0];
         if (
@@ -1144,7 +1145,7 @@ export function LegacyInstanceList(
           }
         } else if (key !== attrId && !startsWith(attrId, `${key}.`)) {
           // $exists $gte $lte 针对为空，不为空，时间范围特殊处理
-          if (isSpecialFn(query, key)) {
+          if (!Array.isArray(query[key]) && isSpecialFn(query, key)) {
             queries.push(query);
           } else {
             const fieldId = Object.keys((query[key] as Query[])[0])[0];
