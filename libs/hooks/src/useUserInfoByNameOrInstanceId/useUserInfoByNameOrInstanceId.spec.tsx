@@ -51,25 +51,31 @@ describe("useUserInfoByNameOrInstanceId", () => {
       }
     );
     await jest.advanceTimersByTime(100);
-    expect(result.current).toBe(null);
+    expect(result.current).toEqual({ loading: true, user: null });
     await act(async () => {
       await (global as any).flushPromises();
     });
     expect(result.current).toEqual({
-      name: "a",
-      instanceId: "1",
+      user: {
+        name: "a",
+        instanceId: "1",
+      },
+      loading: false,
     });
 
     rerender("b");
-    expect(result.current).toBe(null);
+    expect(result.current).toEqual({ loading: true, user: null });
     await jest.advanceTimersByTime(100);
-    expect(result.current).toBe(null);
+    expect(result.current).toEqual({ loading: true, user: null });
     await act(async () => {
       await (global as any).flushPromises();
     });
     expect(result.current).toEqual({
-      name: "b",
-      instanceId: "2",
+      user: {
+        name: "b",
+        instanceId: "2",
+      },
+      loading: false,
     });
     unmount();
     expect(consoleError).not.toBeCalled();
@@ -91,18 +97,25 @@ describe("useUserInfoByNameOrInstanceId", () => {
       }
     );
     await jest.advanceTimersByTime(100);
-    expect(result1.current).toBe(null);
-    expect(result2.current).toBe(null);
+    expect(result1.current).toEqual({ loading: true, user: null });
+    expect(result2.current).toEqual({ loading: true, user: null });
     await act(async () => {
       await (global as any).flushPromises();
     });
+
     expect(result1.current).toEqual({
-      name: "a",
-      instanceId: "1",
+      user: {
+        name: "a",
+        instanceId: "1",
+      },
+      loading: false,
     });
     expect(result2.current).toEqual({
-      name: "b",
-      instanceId: "2",
+      user: {
+        name: "b",
+        instanceId: "2",
+      },
+      loading: false,
     });
     unmount1();
     unmount2();
@@ -118,13 +131,13 @@ describe("useUserInfoByNameOrInstanceId", () => {
       }
     );
     await jest.advanceTimersByTime(50);
-    expect(result.current).toBe(null);
+    expect(result.current).toEqual({ loading: true, user: null });
     // Unmount early.
     unmount();
     await act(async () => {
       await (global as any).flushPromises();
     });
-    expect(result.current).toBe(null);
+    expect(result.current).toEqual({ loading: true, user: null });
   });
 
   it("should work when input is null", async () => {
@@ -136,11 +149,11 @@ describe("useUserInfoByNameOrInstanceId", () => {
       }
     );
     await jest.advanceTimersByTime(100);
-    expect(result.current).toBe(null);
+    expect(result.current).toEqual({ loading: false, user: null });
     await act(async () => {
       await (global as any).flushPromises();
     });
-    expect(result.current).toBe(null);
+    expect(result.current).toEqual({ loading: false, user: null });
     unmount();
     expect(consoleError).not.toBeCalled();
   });
@@ -154,7 +167,7 @@ describe("useUserInfoByNameOrInstanceId", () => {
       }
     );
     await jest.advanceTimersByTime(100);
-    expect(result.current).toBe(null);
+    expect(result.current).toEqual({ loading: true, user: null });
     await act(async () => {
       await (global as any).flushPromises();
     });
@@ -162,7 +175,7 @@ describe("useUserInfoByNameOrInstanceId", () => {
       "Load user info failed:",
       new Error("oops")
     );
-    expect(result.current).toBe(null);
+    expect(result.current).toEqual({ loading: false, user: null });
     unmount();
   });
 });

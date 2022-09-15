@@ -37,33 +37,44 @@ const getUserInfoByNameOrInstanceId = makeThrottledAggregation(
   ({ list }: UserAdminApi_SearchAllUsersInfoResponseBody, id: string) =>
     list.find((item) => item.instanceId === id || item.name === id) as UserInfo
 );
-
+type UseUserInfoByNameOrInstanceIdReturn = {
+  user: UserInfo;
+  loading: boolean;
+};
 export function useUserInfoByNameOrInstanceId(
   nameOrInstanceId: string
-): UserInfo {
-  const [userInfo, setUserInfo] = useState<UserInfo>(null);
-
+): UseUserInfoByNameOrInstanceIdReturn {
+  const [user, setUser] = useState<UserInfo>(null);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
-    setUserInfo(null);
+    setUser(null);
     if (!nameOrInstanceId) {
       return;
     }
     let isSubscribed = true;
-    getUserInfoByNameOrInstanceId(nameOrInstanceId).then(
-      (userInfo) => {
-        if (isSubscribed) {
-          setUserInfo(userInfo);
+    setLoading(true);
+    getUserInfoByNameOrInstanceId(nameOrInstanceId)
+      .then(
+        (userInfo) => {
+          if (isSubscribed) {
+            setUser(userInfo);
+          }
+        },
+        (err) => {
+          // eslint-disable-next-line no-console
+          console.error("Load user info failed:", err);
         }
-      },
-      (err) => {
-        // eslint-disable-next-line no-console
-        console.error("Load user info failed:", err);
-      }
-    );
+      )
+      .finally(() => {
+        setLoading(false);
+      });
     return () => {
       isSubscribed = false;
     };
   }, [nameOrInstanceId]);
 
-  return userInfo;
+  return {
+    user,
+    loading,
+  };
 }
