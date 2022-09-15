@@ -47,7 +47,8 @@
   bottom: 0;
   box-sizing: border-box;
   background: var(--antd-card-footer-bg);
-  z-index: 999;
+  z-index: 998;
+  /* z-index为999时，会和侧边栏的z-index冲突，侧边栏的z-index也是999 */
 }
 .submitAndContinueBtn {
   margin-right: 26px;

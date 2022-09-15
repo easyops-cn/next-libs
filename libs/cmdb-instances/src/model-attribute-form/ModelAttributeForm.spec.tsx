@@ -15,7 +15,11 @@ import i18n from "i18next";
 import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
 /* eslint-disable  */
 jest.mock("../i18n");
-
+window.ResizeObserver = jest.fn().mockImplementation(() => ({
+  disconnect: jest.fn(),
+  observe: jest.fn(),
+  unobserve: jest.fn(),
+}));
 describe("ModelAttributeForm", () => {
   const permissionList: any = [
     {
@@ -610,7 +614,7 @@ describe("ModelAttributeForm", () => {
           {...newProps}
           cardRect={{
             getBoundingClientRect: () => {
-              return { left: 304, width: 1098, bottom: 12408 };
+              return { left: 304, width: 1098, bottom: 12408, top: 20 };
             },
           }}
         />
@@ -793,9 +797,42 @@ describe("ModelAttributeForm", () => {
         />
       );
       await (global as any).flushPromises();
-
+      const instance = wrapper
+        .find(ModelAttributeForm)
+        .instance() as ModelAttributeForm;
       wrapper.update();
-
+      Object.assign(window, { innerHeight: 1000 });
+      wrapper.setProps({
+        cardRect: {
+          getBoundingClientRect: () => {
+            return { left: 304, width: 1098, bottom: 124, top: 20 };
+          },
+        },
+      });
+      wrapper.update();
+      instance.handleResize();
+      expect(instance.state.fixedStyle).toStrictEqual({});
+      wrapper.setProps({
+        cardRect: {
+          getBoundingClientRect: () => {
+            return {
+              left: 304,
+              width: 1098,
+              bottom: 124,
+              top: -20,
+              height: 2000,
+            };
+          },
+        },
+      });
+      wrapper.update();
+      instance.handleResize();
+      expect(instance.state.fixedStyle).toStrictEqual({
+        left: 304,
+        width: 1098,
+        bottom: 0,
+        position: "fixed",
+      });
       const submitAndContinueBtn = wrapper
         .find(Button)
         .filter("[data-testid='submit-and-continue-btn']");

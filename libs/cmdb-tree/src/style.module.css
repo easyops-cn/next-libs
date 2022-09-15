@@ -1,10 +1,10 @@
 .easyopsCustomizeAntTree {
   :global(.ant-tree) :global(.ant-tree-node-content-wrapper) {
     &:global(.ant-tree-node-selected) {
-      background-color: var(--theme-blue-color);
-      color: #fff;
+      background-color: var(--app-submenu-active-bg);
+      color: var(--color-normal-text);
       :global(.ant-tree-icon__customize) {
-        color: #fff;
+        color: var(--color-normal-text);
       }
     }
     padding-left: 0px;
