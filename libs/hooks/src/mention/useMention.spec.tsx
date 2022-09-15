@@ -1,8 +1,9 @@
 import { act, renderHook } from "@testing-library/react-hooks";
 import { UserAdminApi_searchAllUsersInfo } from "@next-sdk/user-service-sdk";
 import useMention from "./useMention";
+import { InstanceApi_postSearchV3 } from "@next-sdk/cmdb-sdk";
 
-jest.mock("@next-sdk/user-service-sdk");
+jest.mock("@next-sdk/cmdb-sdk");
 
 const consoleError = jest.spyOn(console, "error").mockImplementation();
 
@@ -19,15 +20,11 @@ const fakeUsers = [
   },
 ];
 
-(UserAdminApi_searchAllUsersInfo as jest.Mock).mockImplementation(
-  ({ query }: { query: any }) => {
+(InstanceApi_postSearchV3 as jest.Mock).mockImplementation(
+  (objectId, { query }: { query: any }) => {
     // Fake matching.
     const list = fakeUsers
-      .filter(
-        (user) =>
-          query.$or[0].name.$like === `%${user.name}%` ||
-          query.$or[1].instanceId.$like === `%${user.instanceId}%`
-      )
+      .filter((user) => query.$or[0].name.$like === `%${user.name}%`)
       .map((item) => ({ ...item }));
     return list.length > 0
       ? Promise.resolve({

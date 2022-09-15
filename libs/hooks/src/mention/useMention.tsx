@@ -5,9 +5,9 @@ import {
   type UserAdminApi_SearchAllUsersInfoResponseBody,
 } from "@next-sdk/user-service-sdk";
 import { debounce } from "lodash";
-
+import { InstanceApi_postSearchV3 } from "@next-sdk/cmdb-sdk";
 const getUserInfoByName = (name: string) =>
-  UserAdminApi_searchAllUsersInfo({
+  InstanceApi_postSearchV3("USER", {
     query: {
       state: "valid",
       $or: [
@@ -16,21 +16,18 @@ const getUserInfoByName = (name: string) =>
             $like: `%${name}%`,
           },
         },
-        {
-          instanceId: {
-            $like: `%${name}%`,
-          },
-        },
       ],
     },
-    fields: {
-      name: true,
-      nickname: true,
-      user_email: true,
-      user_tel: true,
-      user_icon: true,
-      user_memo: true,
-    },
+    fields: [
+      "name",
+      "nickname",
+      "user_email",
+      "user_tel",
+      "user_icon",
+      "user_memo",
+    ],
+    page: 1,
+    page_size: 5,
   }).then(
     ({ list }: UserAdminApi_SearchAllUsersInfoResponseBody) =>
       list as UserInfo[]
@@ -96,7 +93,7 @@ export default function useMention(
 
   const handleMentionSearch = useMemo(
     () =>
-      debounce(async (text: string) => {
+      debounce((text: string) => {
         setQ(text);
       }, debounceTime),
     [debounceTime]

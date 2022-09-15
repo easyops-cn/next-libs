@@ -2671,6 +2671,11 @@
   resolved "https://registry.npmjs.org/@next-sdk/cmdb-sdk/-/cmdb-sdk-3.1.0.tgz#7a80476bb63ccf404cfa6f7d9bd217027d24eeb8"
   integrity sha512-0G4+NnJjLCx0gY3Ui+ANJeguwZFHEIg55M2T/iPcE+mOQLRXrN9OzxAKxFfz4Kw6H6JrZOvDizGmoO3frFN+0Q==
 
+"@next-sdk/cmdb-sdk@^3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@next-sdk/cmdb-sdk/-/cmdb-sdk-3.2.0.tgz#5033d4eb909d8f514b4c2d5ff334c1b32e1374e5"
+  integrity sha512-17qvmUJCnUSlaVUjfT3PlozvQWqbJDA85gPPoFXNLbVP7ldOCDnA5HQJlhj5UbrfM11c+YoR81bnkwwDVFKq2A==
+
 "@next-sdk/micro-app-sdk@^2.5.0":
   version "2.5.0"
   resolved "https://registry.npmjs.org/@next-sdk/micro-app-sdk/-/micro-app-sdk-2.5.0.tgz#228712e392523163c65b6e2d6311f9155edb0b0e"
