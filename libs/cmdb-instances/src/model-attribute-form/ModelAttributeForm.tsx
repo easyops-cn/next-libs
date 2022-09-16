@@ -106,7 +106,7 @@ export class ModelAttributeForm extends Component<
 > {
   private modelMap: Record<string, Partial<CmdbModels.ModelCmdbObject>> = {};
   private modelData: Partial<CmdbModels.ModelCmdbObject> = null;
-
+  private cardRectResize: ResizeObserver;
   static defaultProps = {
     showCancelButton: true,
     cancelType: "default" as ButtonType,
@@ -190,8 +190,26 @@ export class ModelAttributeForm extends Component<
     this.setState({
       fixedStyle: getFixedStyle(this.props.cardRect?.getBoundingClientRect()),
     });
-
+  handleResize = (): void => {
+    const cardRectData = this.props.cardRect?.getBoundingClientRect();
+    const heightDifferenceBetweenCardRectAndViewPort =
+      cardRectData?.top > 0
+        ? cardRectData?.bottom - window.innerHeight
+        : cardRectData?.height - window.innerHeight;
+    if (
+      heightDifferenceBetweenCardRectAndViewPort < 0 &&
+      !!Object.keys(this.state.fixedStyle).length
+    ) {
+      this.setState({ fixedStyle: {} });
+    } else if (heightDifferenceBetweenCardRectAndViewPort > 0) {
+      this.resizeUpdate();
+    }
+  };
   componentDidMount(): void {
+    if (this.props.cardRect) {
+      this.cardRectResize = new ResizeObserver(this.handleResize);
+      this.cardRectResize.observe(this.props.cardRect);
+    }
     const top =
       this.props.cardRect?.getBoundingClientRect()?.bottom - window.innerHeight;
     if (top > 0) {
@@ -199,12 +217,13 @@ export class ModelAttributeForm extends Component<
         fixedStyle: getFixedStyle(this.props.cardRect?.getBoundingClientRect()),
       });
     }
-    this.props.cardRect && window.addEventListener("resize", this.resizeUpdate);
+    this.props.cardRect && window.addEventListener("resize", this.handleResize);
   }
 
   componentWillUnmount() {
     // 离开页面时移除监听事件
-    window.removeEventListener("resize", this.resizeUpdate);
+    window.removeEventListener("resize", this.handleResize);
+    this.cardRectResize?.disconnect();
   }
 
   static getDerivedStateFromProps(props: any, state: any): any {
