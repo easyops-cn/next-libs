@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.42.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.42.7...@next-libs/cmdb-instances@6.42.8) (2022-09-16)
+
+
+### Bug Fixes
+
+* cmdb-tree选中状态的子节点背景色调整,ModelAttributeForm动态监听外部卡片的宽高来调整样式  refs CD-3084 ([b690106](https://github.com/easyops-cn/next-libs/commit/b69010689f5074bf6cb8ce413b74d979f20a7ac5))
+
+
+
+
+
 ## [6.42.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.42.6...@next-libs/cmdb-instances@6.42.7) (2022-09-15)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances

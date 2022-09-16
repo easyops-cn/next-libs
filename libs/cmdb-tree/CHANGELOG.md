@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.5.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-tree@4.5.0...@next-libs/cmdb-tree@4.5.1) (2022-09-16)
+
+
+### Bug Fixes
+
+* cmdb-tree选中状态的子节点背景色调整,ModelAttributeForm动态监听外部卡片的宽高来调整样式  refs CD-3084 ([b690106](https://github.com/easyops-cn/next-libs/commit/b69010689f5074bf6cb8ce413b74d979f20a7ac5))
+
+
+
+
+
 # [4.5.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-tree@4.4.0...@next-libs/cmdb-tree@4.5.0) (2022-08-22)
 
 
