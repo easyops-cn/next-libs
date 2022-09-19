@@ -51,5 +51,6 @@
   /* z-index为999时，会和侧边栏的z-index冲突，侧边栏的z-index也是999 */
 }
 .submitAndContinueBtn {
-  margin-right: 26px;
+  /* margin-right: 26px; */
+  margin-left: 8px;
 }
