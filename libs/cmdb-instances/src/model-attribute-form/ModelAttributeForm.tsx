@@ -706,6 +706,17 @@ export class ModelAttributeForm extends Component<
               </Checkbox>
             )}
 
+            <Button
+              type="primary"
+              onClick={(e) => this.handleSubmit(e)}
+              disabled={
+                this.disabled ||
+                Object.values(this.state.showError).includes(true)
+              }
+              data-testid="submit-btn"
+            >
+              {confirmText ?? i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.SAVE}`)}
+            </Button>
             {this.props.isCreate &&
               !this.props.hasRelateId &&
               !this.props.isApprove && (
@@ -721,19 +732,6 @@ export class ModelAttributeForm extends Component<
                   {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.SAVE_AND_CONTINUE}`)}
                 </Button>
               )}
-
-            <Button
-              type="primary"
-              onClick={(e) => this.handleSubmit(e)}
-              disabled={
-                this.disabled ||
-                Object.values(this.state.showError).includes(true)
-              }
-              data-testid="submit-btn"
-            >
-              {confirmText ?? i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.SAVE}`)}
-            </Button>
-
             {showCancelButton && (
               <Button
                 type={cancelType}
