@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.42.9](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.42.8...@next-libs/cmdb-instances@6.42.9) (2022-09-19)
+
+
+### Bug Fixes
+
+* ModelAttributeForm调整按钮位置  refs CD-3084 ([65b09db](https://github.com/easyops-cn/next-libs/commit/65b09db77afae22adaaea04fa9098b1d4f3cc333))
+
+
+
+
+
 ## [6.42.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.42.7...@next-libs/cmdb-instances@6.42.8) (2022-09-16)
 
 
