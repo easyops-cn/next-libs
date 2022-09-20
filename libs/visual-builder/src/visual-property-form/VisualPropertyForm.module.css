@@ -1,0 +1,33 @@
+.iconContainer {
+  cursor: pointer;
+}
+
+.panelContainer {
+  > :global(.ant-collapse-item) {
+    > :global(.ant-collapse-header) {
+      font-size: 16px;
+      font-weight: 500;
+      > :global(.ant-collapse-arrow) {
+        top: 6px;
+        color: var(--antd-btn-default-color);
+      }
+    }
+
+    > :global(.ant-collapse-content) {
+      > :global(.ant-collapse-content-box) {
+        padding: 0 20px;
+      }
+    }
+  }
+}
+
+.otherPanel {
+  /* hiden temporary */
+  display: none;
+}
+
+.empty {
+  :global(.ant-empty-description) {
+    color: var(--color-disabled-text);
+  }
+}
