@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.43.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.42.9...@next-libs/cmdb-instances@6.43.0) (2022-09-20)
+
+
+### Features
+
+* **cmdb-instances:** 实例列表使用provider接口时，请求参数中的fields加关系对端模型的showkey ([511fd92](https://github.com/easyops-cn/next-libs/commit/511fd92d491f9eb14cf82dc18f1eee07c556143d))
+
+
+
+
+
 ## [6.42.9](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.42.8...@next-libs/cmdb-instances@6.42.9) (2022-09-19)
 
 
