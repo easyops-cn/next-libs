@@ -92,6 +92,36 @@ export interface InstanceListPresetConfigs {
   query?: Record<string, any>;
   fieldIds?: string[];
 }
+export function joinRelationFieldAndShowkey(
+  fields: string[],
+  modelData: Record<string, any>,
+  objectList: Record<string, any>[]
+) {
+  const attrIdMap = keyBy(modelData.attrList, "id");
+  return fields.map((field) => {
+    if (attrIdMap[field]) {
+      return field;
+    } else {
+      const relation = modelData.relation_list.find(
+        (relation: any) =>
+          relation.left_id === field || relation.right_id === field
+      );
+      if (relation) {
+        const isLeft = relation.left_object_id === modelData.objectId;
+        const otherSideObjectId = isLeft
+          ? relation.right_object_id
+          : relation.left_object_id;
+        const otherSideObject = objectList.find(
+          (object) => object.objectId === otherSideObjectId
+        );
+        const showKey = otherSideObject?.view?.show_key?.[0] ?? "";
+        return `${field}.${showKey}`;
+      } else {
+        return field;
+      }
+    }
+  });
+}
 
 export function getQuery(
   modelData: Partial<CmdbModels.ModelCmdbObject>,
@@ -746,6 +776,13 @@ export function LegacyInstanceList(
       );
       v3Data.fields = [...state.fieldIds, ...v3Data.fields];
       (v3Data as any).ignore_missing_field_error = true;
+    }
+    if (props.useAutoDiscoveryProvider) {
+      v3Data.fields = joinRelationFieldAndShowkey(
+        v3Data.fields,
+        modelData,
+        props.objectList
+      );
     }
     if (state.aliveHosts && props.objectId === "HOST") {
       query = { ...query, _agentStatus: "正常" };

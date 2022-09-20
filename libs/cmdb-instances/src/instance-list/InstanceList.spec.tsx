@@ -23,6 +23,7 @@ import {
   isValueEqualFn,
   isSpecialFn,
   specialQueryHandler,
+  joinRelationFieldAndShowkey,
 } from "./InstanceList";
 import {
   getInstanceListData,
@@ -1239,4 +1240,56 @@ it("specialQueryHandler as pass", () => {
   const queries2: any[] = [];
   specialQueryHandler({ ip: { $exist: false } }, "ip", queries);
   expect(queries2).toEqual([]);
+});
+it("should work with joinRelationFieldAndShowkey", () => {
+  const modelData = {
+    objectId: "HOST",
+    view: {
+      show_key: ["hostname"],
+    },
+    attrList: [
+      {
+        id: "hostname",
+      },
+      {
+        id: "IP",
+      },
+    ],
+    relation_list: [
+      {
+        left_object_id: "HOST",
+        left_id: "backup",
+        right_object_id: "USER",
+        right_id: "host",
+      },
+      {
+        left_object_id: "HOST",
+        left_id: "_SERVICENODE",
+        right_object_id: "_SERVICENODE",
+        right_id: "_host",
+      },
+    ],
+  };
+  const objectList = [
+    modelData,
+    {
+      objectId: "USER",
+      view: {
+        show_key: ["nickname", "name"],
+      },
+    },
+    {
+      objectId: "_SERVICENODE",
+      view: {
+        show_key: ["name"],
+      },
+    },
+  ];
+  expect(
+    joinRelationFieldAndShowkey(
+      ["name", "IP", "backup", "_SERVICENODE"],
+      modelData,
+      objectList
+    )
+  ).toEqual(["name", "IP", "backup.nickname", "_SERVICENODE.name"]);
 });
