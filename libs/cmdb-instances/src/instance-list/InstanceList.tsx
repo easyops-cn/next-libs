@@ -796,7 +796,7 @@ export function LegacyInstanceList(
     }
     // useAutoDiscoveryProvider=true, 使用useProvider的接口，请求参数里加上extraParams
 
-    if (props.useAutoDiscoveryProvider && !isEmpty(props.extraParams)) {
+    if (!isEmpty(props.extraParams)) {
       Object.assign(v3Data, props.extraParams);
     }
     if (state.relatedToMe) {
@@ -959,7 +959,12 @@ export function LegacyInstanceList(
               Object.assign(params, props.extraParams),
             ]);
           } else {
-            resp = await InstanceApi_postSearchV3(props.objectId, params);
+            resp = await InstanceApi_postSearchV3(
+              props.objectId,
+              !isEmpty(props.extraParams)
+                ? Object.assign(params, props.extraParams)
+                : params
+            );
           }
           resp.list.forEach((i: Record<string, any>) =>
             cache.current.set(i.instanceId, i)
@@ -1145,7 +1150,7 @@ export function LegacyInstanceList(
         if (state.relatedToMe) {
           v3Data.only_my_instance = data.only_my_instance = state.relatedToMe;
         }
-        if (props.extraParams) {
+        if (!isEmpty(props.extraParams)) {
           Object.assign(v3Data, props.extraParams);
         }
         let resp;
