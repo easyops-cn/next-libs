@@ -1,6 +1,6 @@
 {
   "name": "@next-libs/searchable-tree",
-  "version": "3.0.20",
+  "version": "3.0.21",
   "description": "> TODO: description",
   "homepage": "https://github.com/easyops-cn/next-libs/tree/master/libs/searchable-tree",
   "license": "GPL-3.0",
@@ -31,6 +31,6 @@
   },
   "devDependencies": {
     "@next-core/brick-types": "^2.16.0",
-    "@next-libs/basic-components": "^3.5.2"
+    "@next-libs/basic-components": "^3.6.0"
   }
 }

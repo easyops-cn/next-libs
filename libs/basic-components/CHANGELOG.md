@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.6.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@3.5.2...@next-libs/basic-components@3.6.0) (2022-09-23)
+
+
+### Features
+
+* **Link:** support keepCurrentSearch ([468914a](https://github.com/easyops-cn/next-libs/commit/468914a09756fa744a2185c48bf88ce0a4e6d7ff))
+
+
+
+
+
 ## [3.5.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@3.5.1...@next-libs/basic-components@3.5.2) (2022-09-07)
 
 
