@@ -1,8 +1,12 @@
 // Ref https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/modules/Link.js
-import React, { useMemo } from "react";
-import { createLocation, LocationDescriptor } from "history";
+import React, { useEffect, useMemo, useState } from "react";
+import { createLocation } from "history";
 import { getHistory } from "@next-core/brick-kit";
-import { PluginHistory, PluginHistoryState } from "@next-core/brick-types";
+import { PluginHistory } from "@next-core/brick-types";
+import {
+  ExtendedLocationDescriptorObject,
+  getExtendedLocationDescriptor,
+} from "./getExtendedLocationDescriptor";
 
 function isModifiedEvent(
   event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
@@ -10,9 +14,14 @@ function isModifiedEvent(
   return !!(event.metaKey || event.altKey || event.ctrlKey || event.shiftKey);
 }
 
+export type ExtendedLocationDescriptor =
+  | string
+  | ExtendedLocationDescriptorObject;
+export type { ExtendedLocationDescriptorObject };
+
 export interface LinkProps
   extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
-  to?: LocationDescriptor<PluginHistoryState>;
+  to?: ExtendedLocationDescriptor;
   innerRef?: string;
   noEmptyHref?: boolean;
   replace?: boolean;
@@ -26,23 +35,35 @@ export function Link(props: LinkProps): React.ReactElement {
   const { innerRef, replace, to, noEmptyHref, disabled, style, ...rest } =
     props;
   const history = getHistory();
-  const computedHref = useMemo(() => {
-    if (disabled) {
-      return;
-    } else if (props.href) {
-      return props.href;
-    } else {
-      const location =
-        typeof to === "string"
-          ? createLocation(to, null, null, history.location)
-          : to;
-      return location ? history.createHref(location) : "";
+
+  const [currentLocation, setCurrentLocation] = useState(history.location);
+  useEffect(() => {
+    // Listen history change only when necessary.
+    if (typeof to !== "string" && to?.keepCurrentSearch) {
+      return history.listen((loc) => {
+        setCurrentLocation(loc);
+      });
     }
-  }, [disabled, props.href, to, history]);
+  }, [history, to]);
+
+  const computedHref = useMemo(() => {
+    if (disabled) return;
+
+    if (props.href) {
+      return props.href;
+    }
+
+    if (!to) return;
+
+    const loc =
+      typeof to === "string"
+        ? createLocation(to, null, null, currentLocation)
+        : getExtendedLocationDescriptor(to, currentLocation);
+    return loc ? history.createHref(loc) : "";
+  }, [disabled, props.href, to, currentLocation, history]);
 
   const handleClick = (
-    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
-    history: PluginHistory
+    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
   ): void => {
     if (disabled) {
       event.preventDefault();
@@ -63,7 +84,11 @@ export function Link(props: LinkProps): React.ReactElement {
 
       const method = replace ? history.replace : history.push;
 
-      method(to);
+      method(
+        typeof to === "string"
+          ? to
+          : getExtendedLocationDescriptor(to, currentLocation)
+      );
     }
   };
 
@@ -78,7 +103,7 @@ export function Link(props: LinkProps): React.ReactElement {
           : null),
         ...style,
       }}
-      onClick={(event) => handleClick(event, history)}
+      onClick={(event) => handleClick(event)}
       ref={innerRef}
     />
   );

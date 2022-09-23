@@ -1,21 +1,35 @@
 import React from "react";
-import { shallow } from "enzyme";
+import { act } from "react-dom/test-utils";
+import { mount, shallow } from "enzyme";
 import { LocationDescriptorObject } from "history";
-import { createHistory } from "@next-core/brick-kit";
+import { createHistory, getHistory } from "@next-core/brick-kit";
 import { PluginHistoryState } from "@next-core/brick-types";
 import { Link } from "./Link";
 
 createHistory();
 
 describe("Link", () => {
+  beforeEach(() => {
+    getHistory().push("/home");
+  });
+
   it("render simple link", () => {
     const onClick = jest.fn();
     const wrapper = shallow(<Link to="/for-simple" onClick={onClick} />);
     expect(wrapper.find("a").prop("href")).toBe("/for-simple");
     expect(wrapper.find("a").prop("style")).toEqual({});
 
-    wrapper.find("a").simulate("click", {});
+    const preventDefault = jest.fn();
+    wrapper.find("a").simulate("click", {
+      preventDefault,
+      button: 0,
+    });
     expect(onClick).toBeCalledTimes(1);
+    expect(preventDefault).toBeCalled();
+    expect(getHistory().location).toMatchObject({
+      pathname: "/for-simple",
+      search: "",
+    });
   });
 
   it("render complex link", () => {
@@ -66,5 +80,35 @@ describe("Link", () => {
     });
     expect(onClick).not.toBeCalled();
     expect(preventDefault).toBeCalled();
+  });
+
+  it("should listen history change", () => {
+    const onClick = jest.fn();
+    const wrapper = mount(
+      <Link
+        to={{
+          pathname: "/abc",
+          keepCurrentSearch: true,
+        }}
+        onClick={onClick}
+      />
+    );
+    expect(wrapper.find("a").prop("href")).toBe("/abc");
+
+    act(() => {
+      getHistory().pushQuery({ q: "1" }, { notify: false });
+    });
+    wrapper.update();
+    expect(wrapper.find("a").prop("href")).toBe("/abc?q=1");
+
+    wrapper.find("a").simulate("click", {
+      preventDefault: jest.fn(),
+      button: 0,
+    });
+    expect(onClick).toBeCalled();
+    expect(getHistory().location).toMatchObject({
+      pathname: "/abc",
+      search: "?q=1",
+    });
   });
 });
