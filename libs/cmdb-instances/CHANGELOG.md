@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.43.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.43.1...@next-libs/cmdb-instances@6.43.2) (2022-09-24)
+
+
+### Bug Fixes
+
+* InstanceList补充extraFixedFields属性 refs TOOL-1197 ([39aa118](https://github.com/easyops-cn/next-libs/commit/39aa118f85e6649b4412c69455d0283fb2e940df))
+
+
+
+
+
 ## [6.43.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.43.0...@next-libs/cmdb-instances@6.43.1) (2022-09-23)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
