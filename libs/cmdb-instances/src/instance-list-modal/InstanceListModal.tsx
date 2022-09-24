@@ -46,6 +46,7 @@ export interface InstanceListModalProps {
   hideSearchConditions?: boolean;
   rowSelectionType?: "checkbox" | "radio";
   getPaginationData?(pagination: ReadPaginationChangeDetail): void;
+  extraFixedFields?: string[];
 }
 
 export function InstanceListModal(
@@ -196,6 +197,7 @@ export function InstanceListModal(
           ipCopy={props.ipCopy}
           rowSelectionType={props.rowSelectionType}
           onPaginationChange={handlePaginationChange}
+          extraFixedFields={props.extraFixedFields}
         />
       </div>
     </Modal>
