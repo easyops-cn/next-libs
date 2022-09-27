@@ -1053,9 +1053,10 @@ export function LegacyInstanceList(
         searchByApp: true,
         appSelectValue: appListResp.list?.[0].instanceId || "",
         clusterValue: "all",
+        page: 1
       });
     } else {
-      setState({ searchByApp: false });
+      setState({ searchByApp: false, page: 1 });
     }
   }, [state.searchByApp]);
   // istanbul ignore next (state is not updated)
