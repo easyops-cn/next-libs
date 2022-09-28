@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.43.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.43.2...@next-libs/cmdb-instances@6.43.3) (2022-09-28)
+
+
+### Bug Fixes
+
+* 修复cmdb实例窗口切换过滤方式没有重置页码的问题 ([c6276d3](https://github.com/easyops-cn/next-libs/commit/c6276d3115141709c411b526efa4f89abb7be71f))
+
+
+
+
+
 ## [6.43.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.43.1...@next-libs/cmdb-instances@6.43.2) (2022-09-24)
 
 
