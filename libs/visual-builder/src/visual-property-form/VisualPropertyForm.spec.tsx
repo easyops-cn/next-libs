@@ -97,7 +97,7 @@ describe("VisualPropertyForm", () => {
     expect(wrapper.find(Empty).render().text()).toEqual("no data");
   });
 
-  it("should work with differnt mode", () => {
+  it("should work with different mode", () => {
     const spyOnUseTheme = jest
       .spyOn(brickKit, "useCurrentTheme")
       .mockReturnValue("dark-v2");

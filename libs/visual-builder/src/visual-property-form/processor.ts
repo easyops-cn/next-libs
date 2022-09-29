@@ -11,7 +11,7 @@ import {
   supportBasicType,
   supportMenuType,
   OTHER_FORM_ITEM_FIELD,
-  commonProps,
+  defaultCommonProps,
   groupI18nMap,
 } from "./constant";
 
@@ -210,8 +210,15 @@ export function groupByType(
   );
 }
 
-export function extractCommonProps(typeList: PropertyType[]): PropertyType[] {
+export function extractCommonProps(
+  typeList: PropertyType[],
+  sharedPropertyList?: PropertyType[]
+): PropertyType[] {
   if (isEmpty(typeList)) return [];
 
-  return commonProps.concat(typeList);
+  if (sharedPropertyList) {
+    return sharedPropertyList.concat(typeList);
+  }
+
+  return defaultCommonProps.concat(typeList);
 }

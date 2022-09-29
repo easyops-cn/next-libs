@@ -558,6 +558,35 @@ describe("processor test", () => {
           description: "年龄",
         },
       ]);
+
+      expect(
+        extractCommonProps(typeList, [
+          {
+            name: "style",
+            type: "Record<string, any>",
+            description: "构件样式",
+            group: "ui",
+            groupI18N: groupI18nMap,
+          },
+        ])
+      ).toEqual([
+        {
+          description: "构件样式",
+          group: "ui",
+          groupI18N: {
+            advanced: { en: "Advanced", zh: "高级" },
+            advancedFormItem: { en: "Advanced Form Item", zh: "表单项高级" },
+            basic: { en: "Basic", zh: "常用" },
+            basicFormItem: { en: "Basic Form Item", zh: "表单项常用" },
+            other: { en: "Other", zh: "其他" },
+            ui: { en: "UI", zh: "外观" },
+          },
+          name: "style",
+          type: "Record<string, any>",
+        },
+        { description: "名称", name: "name", type: "string" },
+        { description: "年龄", name: "age", type: "number" },
+      ]);
     });
 
     it("should return empty array if typeList is empty", () => {

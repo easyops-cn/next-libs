@@ -53,6 +53,7 @@ export interface VisualPropertyFormProps {
   };
   emptyConfig?: EmptyProps;
   menuSettingClick?: () => void;
+  hiddenPropsCategory?: boolean;
 }
 
 export function LegacyVisualPropertyForm(
@@ -67,6 +68,7 @@ export function LegacyVisualPropertyForm(
     brickProperties,
     brickInfo,
     emptyConfig,
+    hiddenPropsCategory,
     menuSettingClick,
   } = props;
   const [form] = Form.useForm();
@@ -153,7 +155,10 @@ export function LegacyVisualPropertyForm(
     );
   };
 
-  const renderEditorItem = (item: UnionPropertyType, hideIcon?: boolean) => {
+  const renderEditorItem = (
+    item: UnionPropertyType,
+    hideIcon?: boolean
+  ): React.ReactElement => {
     return (
       <CodeEditorFormItem
         key={item.name}
@@ -163,7 +168,7 @@ export function LegacyVisualPropertyForm(
         theme={theme === "dark-v2" ? "monokai" : "tomorrow"}
         jsonSchema={item?.jsonSchema}
         schemaRef={item?.schemaRef}
-        mode="brick_next_yaml"
+        mode={item?.editor?.model || "brick_next_yaml"}
       />
     );
   };
@@ -318,6 +323,19 @@ export function LegacyVisualPropertyForm(
     }
   };
 
+  const renderOthersItem = (): React.ReactElement => {
+    return (
+      <CodeEditorFormItem
+        name={OTHER_FORM_ITEM_FIELD}
+        label={
+          brickInfo?.type === "template" ? "other params" : "other properties"
+        }
+        mode="brick_next_yaml"
+        maxLines={Infinity}
+      />
+    );
+  };
+
   return isEmpty(typeList) ? (
     <Empty
       className={styles.empty}
@@ -337,37 +355,37 @@ export function LegacyVisualPropertyForm(
         typeList
       )}
     >
-      <Collapse ghost defaultActiveKey="0" className={styles.panelContainer}>
-        {groupByType(typeList)?.map(([category, list], index) => {
-          return (
-            <Collapse.Panel
-              header={upperFirst(category)}
-              key={index}
-              forceRender={true}
-            >
-              {list.map((item) => getFormItem(item))}
-            </Collapse.Panel>
-          );
-        })}
+      {!hiddenPropsCategory ? (
+        <Collapse ghost defaultActiveKey="0" className={styles.panelContainer}>
+          {groupByType(typeList)?.map(([category, list], index) => {
+            return (
+              <Collapse.Panel
+                header={upperFirst(category)}
+                key={index}
+                forceRender={true}
+              >
+                {list.map((item) => getFormItem(item))}
+              </Collapse.Panel>
+            );
+          })}
 
-        <Collapse.Panel
-          className={styles.otherPanel}
-          forceRender={true}
-          header={upperFirst(OTHER_FORM_ITEM_FIELD)}
-          key={OTHER_FORM_ITEM_FIELD}
-        >
-          <CodeEditorFormItem
-            name={OTHER_FORM_ITEM_FIELD}
-            label={
-              brickInfo?.type === "template"
-                ? "other params"
-                : "other properties"
-            }
-            mode="brick_next_yaml"
-            maxLines={Infinity}
-          />
-        </Collapse.Panel>
-      </Collapse>
+          <Collapse.Panel
+            className={styles.otherPanel}
+            forceRender={true}
+            header={upperFirst(OTHER_FORM_ITEM_FIELD)}
+            key={OTHER_FORM_ITEM_FIELD}
+          >
+            {renderOthersItem()}
+          </Collapse.Panel>
+        </Collapse>
+      ) : (
+        <>
+          {typeList?.map((item) => {
+            return getFormItem(item);
+          })}
+          <div className={styles.otherPanel}>{renderOthersItem()}</div>
+        </>
+      )}
     </Form>
   );
 }

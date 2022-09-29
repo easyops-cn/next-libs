@@ -45,6 +45,8 @@ export function CodeEditorFormItem(
         maxLines={12}
         printMargin={false}
         showLineNumbers={false}
+        showCopyButton={true}
+        showExpandButton={true}
         theme="tomorrow"
         enableLiveAutocompletion={true}
         onValidate={handleValidate}

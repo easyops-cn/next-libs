@@ -20,6 +20,9 @@ export enum ItemModeType {
 export interface PropertyType {
   type: FormItemType;
   name: string;
+  editor?: {
+    model?: string;
+  };
   required?: Required;
   description?: string;
   default?: string;
