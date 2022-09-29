@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/visual-builder@1.2.1...@next-libs/visual-builder@1.2.2) (2022-09-29)
+
+
+### Bug Fixes
+
+* support hiddenPropsCategory ([#432](https://github.com/easyops-cn/next-libs/issues/432)) ([3d0778e](https://github.com/easyops-cn/next-libs/commit/3d0778eac32f532b031cb0ad67ba1daac441370c))
+
+
+
+
+
 ## [1.2.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/visual-builder@1.2.0...@next-libs/visual-builder@1.2.1) (2022-09-23)
 
 **Note:** Version bump only for package @next-libs/visual-builder
