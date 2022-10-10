@@ -76,6 +76,7 @@ import {
   InstanceListTable,
   CustomColumn,
   Field,
+  UseBrickAndPropertyDisplayConfig,
 } from "../instance-list-table";
 import styles from "./InstanceList.module.css";
 import {
@@ -447,7 +448,7 @@ interface InstanceListProps {
   aliveHosts?: boolean;
   fixAliveHosts?: boolean;
   aliveHostsDisabled?: boolean;
-  propertyDisplayConfigs?: PropertyDisplayConfig[];
+  propertyDisplayConfigs?: UseBrickAndPropertyDisplayConfig[];
   selectedRowKeys?: string[];
   selectDisabled?: boolean;
   pageSizeOptions?: string[];
@@ -1053,7 +1054,7 @@ export function LegacyInstanceList(
         searchByApp: true,
         appSelectValue: appListResp.list?.[0].instanceId || "",
         clusterValue: "all",
-        page: 1
+        page: 1,
       });
     } else {
       setState({ searchByApp: false, page: 1 });
