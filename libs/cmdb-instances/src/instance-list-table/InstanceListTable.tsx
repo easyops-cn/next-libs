@@ -60,6 +60,10 @@ export interface CustomColumn extends ColumnType<Record<string, unknown>> {
   useBrick: UseBrickConf;
 }
 
+export type UseBrickAndPropertyDisplayConfig = PropertyDisplayConfig & {
+  useBrick?: UseBrickConf;
+};
+
 export interface InstanceListUseBrickData {
   cellData: unknown;
   rowData: Record<string, unknown>;
@@ -71,7 +75,9 @@ enum SortOrder {
   Descend = "descend",
 }
 
-const SELF_RENDER_COLUMNS: { [objectId: string]: PropertyDisplayConfig[] } = {
+const SELF_RENDER_COLUMNS: {
+  [objectId: string]: UseBrickAndPropertyDisplayConfig[];
+} = {
   HOST: [
     {
       key: "_agentStatus",
@@ -100,7 +106,7 @@ export interface InstanceListTableProps extends WithTranslation {
   instanceListData: InstanceApi_PostSearchV3ResponseBody;
   sort?: string;
   asc?: boolean;
-  propertyDisplayConfigs?: PropertyDisplayConfig[];
+  propertyDisplayConfigs?: UseBrickAndPropertyDisplayConfig[];
   selectDisabled?: boolean;
   autoBreakLine?: boolean;
   sortDisabled?: boolean;
@@ -148,8 +154,9 @@ export class LegacyInstanceListTable extends React.Component<
   InstanceListTableProps,
   InstanceListTableState
 > {
-  keyDisplayConfigMap: Record<string, PropertyDisplayConfig> = {};
+  keyDisplayConfigMap: Record<string, UseBrickAndPropertyDisplayConfig> = {};
   recordUseBrickDataMap: Map<unknown, InstanceListUseBrickData>;
+  customColumnUseBrickDataMap: Map<unknown, InstanceListUseBrickData>;
   inheritanceModelIdNameMap: Record<string, string>;
   selectedRows: Record<string, any>[] = [];
   ROM_KEY = "instanceId";
@@ -235,6 +242,7 @@ export class LegacyInstanceListTable extends React.Component<
   }
   getChangeColumns(ids: string[]) {
     const columns: InstanceListTableState["columns"] = [];
+    this.customColumnUseBrickDataMap = new Map();
     forEachAvailableFields(
       modifyModelData(this.props.modelData),
       (attr, firstColumns?: boolean) =>
@@ -407,7 +415,10 @@ export class LegacyInstanceListTable extends React.Component<
       this.props.onClickItemV2(e, record);
     }
   }
-  getCustomPropertyRender(config: PropertyDisplayConfig, isPrimary?: boolean) {
+  getCustomPropertyRender(
+    config: UseBrickAndPropertyDisplayConfig,
+    isPrimary?: boolean
+  ) {
     return (value: any, record: Record<string, any>, index: number) => {
       return (
         <config.brick
@@ -435,6 +446,34 @@ export class LegacyInstanceListTable extends React.Component<
       );
     };
   }
+  getDisplayConfigColumn(
+    config: UseBrickAndPropertyDisplayConfig,
+    isPrimary?: boolean
+  ) {
+    return (value: string[], record: Record<string, any>, index: number) => {
+      if (config.brick) {
+        return this.getCustomPropertyRender(config, isPrimary)(
+          value,
+          record,
+          index
+        );
+      } else if (config.useBrick) {
+        return this.getUseBrickConfigRender(config)(value, record, index);
+      }
+    };
+  }
+  getUseBrickConfigRender(config: UseBrickAndPropertyDisplayConfig) {
+    return (value: any, record: Record<string, any>, index: number) => {
+      let data = this.customColumnUseBrickDataMap.get(record);
+
+      if (!data) {
+        data = { cellData: value, rowData: record, index };
+        this.customColumnUseBrickDataMap.set(record, data);
+      }
+      return <BrickAsComponent useBrick={config.useBrick} data={data} />;
+    };
+  }
+
   getLinkContent(node: any) {
     return (
       <span style={{ display: "flex" }}>
@@ -542,18 +581,8 @@ export class LegacyInstanceListTable extends React.Component<
         column.sorter = !this.props.sortDisabled;
     }
     if (displayConfig) {
-      if (displayConfig.brick) {
-        tempColumns = (
-          value: string[],
-          record: Record<string, any>,
-          index: number
-        ) => {
-          return this.getCustomPropertyRender(displayConfig, isPrimary)(
-            value,
-            record,
-            index
-          );
-        };
+      if (displayConfig.brick || displayConfig.useBrick) {
+        tempColumns = this.getDisplayConfigColumn(displayConfig, isPrimary);
       } else if (displayConfig.type) {
         switch (displayConfig.type) {
           case PropertyDisplayType.Tag:
@@ -775,17 +804,7 @@ export class LegacyInstanceListTable extends React.Component<
     let tempColumns: any;
 
     if (displayConfig) {
-      tempColumns = (
-        value: string[],
-        record: Record<string, any>,
-        index: number
-      ) => {
-        return this.getCustomPropertyRender(displayConfig)(
-          value,
-          record,
-          index
-        );
-      };
+      tempColumns = this.getDisplayConfigColumn(displayConfig);
     } else {
       tempColumns = (
         instances: Record<string, any>[],

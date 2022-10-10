@@ -426,6 +426,34 @@ describe("InstanceListTable", () => {
     );
   });
 
+  it("should work displayConfig with useBrick", () => {
+    const instanceListData = getInstanceListData(2, 1, 2);
+    const attributeKey = "status";
+    const brick = "span";
+    const { getByTestId } = render(
+      <InstanceListTable
+        detailUrlTemplates={detailUrlTemplates}
+        idObjectMap={idObjectMap}
+        modelData={HOST}
+        instanceListData={instanceListData}
+        propertyDisplayConfigs={[
+          {
+            key: attributeKey,
+            useBrick: { brick },
+          },
+        ]}
+      />
+    );
+    const index = 0;
+    const instance = instanceListData.list[index];
+    expect(getByTestId(`row-${index}-brick`)).toHaveTextContent(brick);
+    expect(JSON.parse(getByTestId(`row-${index}-data`).textContent)).toEqual({
+      cellData: instance[attributeKey],
+      rowData: instance,
+      index,
+    });
+  });
+
   it("should work with extraColumns property", () => {
     const instanceListData = getInstanceListData(2, 1, 2);
     const extraFieldKey = "extraField";
