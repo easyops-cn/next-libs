@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.44.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.43.3...@next-libs/cmdb-instances@6.44.0) (2022-10-10)
+
+
+### Features
+
+* intanceList propertyDisplayConfigs support useBrick ([#434](https://github.com/easyops-cn/next-libs/issues/434)) ([2abc8f0](https://github.com/easyops-cn/next-libs/commit/2abc8f0c4f31588ae077a9b9ed177cb19d905172))
+
+
+
+
+
 ## [6.43.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.43.2...@next-libs/cmdb-instances@6.43.3) (2022-09-28)
 
 
