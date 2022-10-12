@@ -507,6 +507,8 @@ interface InstanceListProps {
   extraParams?: Record<string, any>;
   // 指定固定显示的field,与presetConfigs的fieldIds同时生效
   extraFixedFields?: string[];
+  //  如果在presetConfigs的query参数中指定了资源的范围，“按应用筛选”的功能是否也要限定资源的范围
+  limitInstanceRange?: boolean;
 }
 
 interface InstanceListState {
@@ -806,12 +808,20 @@ export function LegacyInstanceList(
     //按应用筛选
     // istanbul ignore next (state is not updated)
     if (state.searchByApp) {
+      const hostRange = props.presetConfigs?.query?.["$and"]?.find(
+        (i: any) => i.instanceId
+      )?.instanceId?.["$in"];
       v3Data.query = {
         [state.currentChangeSelect === "App" ||
         (state.currentChangeSelect === "Cluster" &&
           state.clusterValue === "all")
           ? "_deviceList_CLUSTER.appId.instanceId"
           : "_deviceList_CLUSTER.instanceId"]: state.appSearchInstanceId,
+        ...(!isEmpty(hostRange) && props.limitInstanceRange
+          ? {
+              instanceId: { $in: hostRange },
+            }
+          : {}),
         ...(state.aliveHosts && props.objectId === "HOST"
           ? { _agentStatus: "正常" }
           : {}),

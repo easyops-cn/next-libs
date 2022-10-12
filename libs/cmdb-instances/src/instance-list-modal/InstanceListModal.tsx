@@ -47,6 +47,7 @@ export interface InstanceListModalProps {
   rowSelectionType?: "checkbox" | "radio";
   getPaginationData?(pagination: ReadPaginationChangeDetail): void;
   extraFixedFields?: string[];
+  limitInstanceRange?: boolean;
 }
 
 export function InstanceListModal(
@@ -198,6 +199,7 @@ export function InstanceListModal(
           rowSelectionType={props.rowSelectionType}
           onPaginationChange={handlePaginationChange}
           extraFixedFields={props.extraFixedFields}
+          limitInstanceRange={props.limitInstanceRange}
         />
       </div>
     </Modal>
