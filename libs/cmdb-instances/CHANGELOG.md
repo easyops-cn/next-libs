@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.44.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.44.0...@next-libs/cmdb-instances@6.44.1) (2022-10-12)
+
+
+### Bug Fixes
+
+*  instanceList构件在设置了presetConfigs属性来限定展示的资源范围时，按应用筛选的功能也支持限定资源范围 refs TOOL-1213 ([e9701f3](https://github.com/easyops-cn/next-libs/commit/e9701f33811af5a07f704128beae75884fe4e934))
+
+
+
+
+
 # [6.44.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.43.3...@next-libs/cmdb-instances@6.44.0) (2022-10-10)
 
 
