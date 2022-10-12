@@ -35,12 +35,19 @@
   color: var(--cmdb-instance-detail-description-group-color, #404143);
   grid-column: 1 / 5;
 }
+.detailCard.threeColumns .groupName {
+  grid-column: 1 / 7;
+}
 .detailCard dl {
   display: grid;
   grid-template-columns: auto 1fr auto 1fr;
+
   row-gap: 12px;
   column-gap: 16px;
   margin-bottom: 0;
+}
+.detailCard.threeColumns dl {
+  grid-template-columns: auto 1fr auto 1fr auto 1fr;
 }
 .detailCard dt {
   color: var(
@@ -77,6 +84,9 @@
 .detailCard dd.structAttr {
   grid-column: 2 / 5;
 }
+.detailCard.threeColumns dd.structAttr {
+  grid-column: 2 / 7;
+}
 .detailCard dd.structAttr + dt.basicAttr {
   grid-column: 1;
 }
@@ -89,6 +99,9 @@
   border-top: 1px solid #000000;
   opacity: 0.05;
   grid-column: 1 / 5;
+}
+.detailCard.threeColumns .groupSeparator {
+  grid-column: 1 / 7;
 }
 
 .tipInfoItem {

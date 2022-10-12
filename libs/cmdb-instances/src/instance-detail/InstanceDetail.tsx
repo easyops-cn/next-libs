@@ -123,6 +123,7 @@ interface LegacyInstanceDetailProps extends WithTranslation {
   relationFieldUrlTemplate?: string;
   isRelationInstanceDetail?: boolean;
   showFields?: boolean;
+  threeColumns?: boolean;
 }
 
 interface LegacyInstanceDetailState {
@@ -322,10 +323,10 @@ export class LegacyInstanceDetail extends React.Component<
     if (dropdownActions && dropdownActions.length > 0) {
       menu = (
         <Menu>
-          {dropdownActions.map((action) => {
+          {dropdownActions.map((action, index) => {
             if (action.url) {
               return (
-                <Menu.Item>
+                <Menu.Item key={`menu-action-${index}`}>
                   <Link to={action.url}>
                     <span className={action.isDanger ? style.danger : ""}>
                       {action.label}
@@ -335,7 +336,10 @@ export class LegacyInstanceDetail extends React.Component<
               );
             } else if (action.event) {
               return (
-                <Menu.Item onClick={(e) => this.onActionClick(action.event)}>
+                <Menu.Item
+                  key={`menu-action-${index}`}
+                  onClick={(e) => this.onActionClick(action.event)}
+                >
                   <span className={action.isDanger ? style.danger : ""}>
                     {action.label}
                   </span>
@@ -350,16 +354,19 @@ export class LegacyInstanceDetail extends React.Component<
     return (
       <div className={style.instanceDetailActions}>
         {buttonActions &&
-          buttonActions.map((action) => {
+          buttonActions.map((action, index) => {
             if (action.url) {
               return (
-                <Button>
+                <Button key={`button-action-${index}`}>
                   <Link to={action.url}>{action.label}</Link>
                 </Button>
               );
             } else if (action.event) {
               return (
-                <Button onClick={(e) => this.onActionClick(action.event)}>
+                <Button
+                  key={`button-action-${index}`}
+                  onClick={(e) => this.onActionClick(action.event)}
+                >
                   {action.label}
                 </Button>
               );
@@ -378,8 +385,13 @@ export class LegacyInstanceDetail extends React.Component<
   // istanbul ignore next (Temporarily ignored)
   getCardContent(): React.ReactNode {
     const { basicInfoGroupList, basicInfoGroupListShow } = this.state;
+    const { threeColumns } = this.props;
     return (
-      <div className={`${style.detailCard} ${shared.showMultipleLines}`}>
+      <div
+        className={`${style.detailCard} ${shared.showMultipleLines} ${
+          threeColumns ? style.threeColumns : ""
+        }`}
+      >
         {basicInfoGroupList.length > 1 && (
           <div>
             {basicInfoGroupList.map((basicInfoGroup) => (
