@@ -308,7 +308,13 @@ describe("CodeEditorItem", () => {
 
   it("should work with cel", async () => {
     const wrapper = mount(
-      <CodeEditorItem mode="cel" value="has(req.one)" minLines={5} />
+      <CodeEditorItem
+        mode="cel"
+        value="has(req.one)"
+        minLines={5}
+        customCompleters={["PATH"]}
+        enableLiveAutocompletion={true}
+      />
     );
     expect(wrapper.find(AceEditor).prop("mode")).toBe("text");
     const mockSetMode = jest.fn();
@@ -328,7 +334,7 @@ describe("CodeEditorItem", () => {
       completers,
     });
     expect(mockSetMode).toHaveBeenCalled();
-    expect(completers.length).toBe(1);
+    expect(completers.length).toBe(2);
   });
 });
 
