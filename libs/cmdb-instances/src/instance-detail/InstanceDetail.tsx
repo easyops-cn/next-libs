@@ -322,10 +322,10 @@ export class LegacyInstanceDetail extends React.Component<
     if (dropdownActions && dropdownActions.length > 0) {
       menu = (
         <Menu>
-          {dropdownActions.map((action) => {
+          {dropdownActions.map((action, index) => {
             if (action.url) {
               return (
-                <Menu.Item>
+                <Menu.Item key={`menu-action-${index}`}>
                   <Link to={action.url}>
                     <span className={action.isDanger ? style.danger : ""}>
                       {action.label}
@@ -335,7 +335,10 @@ export class LegacyInstanceDetail extends React.Component<
               );
             } else if (action.event) {
               return (
-                <Menu.Item onClick={(e) => this.onActionClick(action.event)}>
+                <Menu.Item
+                  key={`menu-action-${index}`}
+                  onClick={(e) => this.onActionClick(action.event)}
+                >
                   <span className={action.isDanger ? style.danger : ""}>
                     {action.label}
                   </span>
@@ -350,16 +353,19 @@ export class LegacyInstanceDetail extends React.Component<
     return (
       <div className={style.instanceDetailActions}>
         {buttonActions &&
-          buttonActions.map((action) => {
+          buttonActions.map((action, index) => {
             if (action.url) {
               return (
-                <Button>
+                <Button key={`button-action-${index}`}>
                   <Link to={action.url}>{action.label}</Link>
                 </Button>
               );
             } else if (action.event) {
               return (
-                <Button onClick={(e) => this.onActionClick(action.event)}>
+                <Button
+                  key={`button-action-${index}`}
+                  onClick={(e) => this.onActionClick(action.event)}
+                >
                   {action.label}
                 </Button>
               );
