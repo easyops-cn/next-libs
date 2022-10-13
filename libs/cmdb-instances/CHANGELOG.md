@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.44.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.44.1...@next-libs/cmdb-instances@6.44.2) (2022-10-13)
+
+
+### Bug Fixes
+
+* **cmdb:** 实例详情列数根据屏幕宽度自适应 ([42bdd43](https://github.com/easyops-cn/next-libs/commit/42bdd43b2c983b6b131920167bceea63a957611f))
+
+
+
+
+
 ## [6.44.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.44.0...@next-libs/cmdb-instances@6.44.1) (2022-10-12)
 
 

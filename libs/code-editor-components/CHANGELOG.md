@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.1.4...@next-libs/code-editor-components@4.1.5) (2022-10-13)
+
+
+### Bug Fixes
+
+* fix local variables suggestions not work ([dd9da3b](https://github.com/easyops-cn/next-libs/commit/dd9da3bff2d9afc752e21c35242cf46915dfd23c))
+
+
+
+
+
 ## [4.1.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.1.3...@next-libs/code-editor-components@4.1.4) (2022-09-23)
 
 **Note:** Version bump only for package @next-libs/code-editor-components
