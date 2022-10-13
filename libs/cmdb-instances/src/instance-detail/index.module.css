@@ -35,20 +35,14 @@
   color: var(--cmdb-instance-detail-description-group-color, #404143);
   grid-column: 1 / 5;
 }
-.detailCard.threeColumns .groupName {
-  grid-column: 1 / 7;
-}
 .detailCard dl {
   display: grid;
   grid-template-columns: auto 1fr auto 1fr;
-
   row-gap: 12px;
   column-gap: 16px;
   margin-bottom: 0;
 }
-.detailCard.threeColumns dl {
-  grid-template-columns: auto 1fr auto 1fr auto 1fr;
-}
+
 .detailCard dt {
   color: var(
     --cmdb-instance-detail-detail-description-item-label,
@@ -81,11 +75,9 @@
 .detailCard dd .structAttr:nth-of-type(2n) {
   grid-column: 4;
 }
+
 .detailCard dd.structAttr {
   grid-column: 2 / 5;
-}
-.detailCard.threeColumns dd.structAttr {
-  grid-column: 2 / 7;
 }
 .detailCard dd.structAttr + dt.basicAttr {
   grid-column: 1;
@@ -99,9 +91,6 @@
   border-top: 1px solid #000000;
   opacity: 0.05;
   grid-column: 1 / 5;
-}
-.detailCard.threeColumns .groupSeparator {
-  grid-column: 1 / 7;
 }
 
 .tipInfoItem {
@@ -131,4 +120,18 @@
 
 .danger {
   color: #fc5043;
+}
+@media screen and (min-width: 1281px) {
+  .detailCard .groupName {
+    grid-column: 1 / 7;
+  }
+  .detailCard dl {
+    grid-template-columns: auto 1fr auto 1fr auto 1fr;
+  }
+  .detailCard dd.structAttr {
+    grid-column: 2 / 7;
+  }
+  .detailCard .groupSeparator {
+    grid-column: 1 / 7;
+  }
 }

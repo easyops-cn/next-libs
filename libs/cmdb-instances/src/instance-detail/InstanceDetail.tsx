@@ -123,7 +123,6 @@ interface LegacyInstanceDetailProps extends WithTranslation {
   relationFieldUrlTemplate?: string;
   isRelationInstanceDetail?: boolean;
   showFields?: boolean;
-  threeColumns?: boolean;
 }
 
 interface LegacyInstanceDetailState {
@@ -385,13 +384,8 @@ export class LegacyInstanceDetail extends React.Component<
   // istanbul ignore next (Temporarily ignored)
   getCardContent(): React.ReactNode {
     const { basicInfoGroupList, basicInfoGroupListShow } = this.state;
-    const { threeColumns } = this.props;
     return (
-      <div
-        className={`${style.detailCard} ${shared.showMultipleLines} ${
-          threeColumns ? style.threeColumns : ""
-        }`}
-      >
+      <div className={`${style.detailCard} ${shared.showMultipleLines}`}>
         {basicInfoGroupList.length > 1 && (
           <div>
             {basicInfoGroupList.map((basicInfoGroup) => (
