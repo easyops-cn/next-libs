@@ -198,41 +198,41 @@ describe("InstanceDetail", () => {
     expect(instance.isSpecialDisplayField(data)).toBeTruthy();
   });
 
-  it("test toggleBasicInfoGroupFilter", () => {
-    const basicInfoGroupList = [
-      {
-        name: "name 1",
-        attrList: [] as any[],
-      },
-      {
-        name: "name 2",
-        attrList: [] as any[],
-        active: true,
-      },
-    ];
-    instance.setState({
-      basicInfoGroupList,
-    });
-    const basicInfoGroupLabel = wrapper.find(".basicInfoGroupLabel");
-    const toggleBasicInfoGroupFilter = jest.spyOn(
-      instance,
-      "toggleBasicInfoGroupFilter"
-    );
+  // it("test toggleBasicInfoGroupFilter", () => {
+  //   const basicInfoGroupList = [
+  //     {
+  //       name: "name 1",
+  //       attrList: [] as any[],
+  //     },
+  //     {
+  //       name: "name 2",
+  //       attrList: [] as any[],
+  //       active: true,
+  //     },
+  //   ];
+  //   instance.setState({
+  //     basicInfoGroupList,
+  //   });
+  //   const basicInfoGroupLabel = wrapper.find(".basicInfoGroupLabel");
+  //   const toggleBasicInfoGroupFilter = jest.spyOn(
+  //     instance,
+  //     "toggleBasicInfoGroupFilter"
+  //   );
 
-    expect(basicInfoGroupLabel.length).toBe(2);
-    basicInfoGroupLabel.at(0).simulate("click");
-    expect(toggleBasicInfoGroupFilter).toBeCalled();
-    expect(instance.state.basicInfoGroupListShow).toEqual([
-      {
-        name: "name 1",
-        attrList: [],
-        active: true,
-      },
-    ]);
-    basicInfoGroupLabel.at(0).simulate("click");
-    expect(toggleBasicInfoGroupFilter).toBeCalled();
-    expect(instance.state.basicInfoGroupListShow).toEqual(basicInfoGroupList);
-  });
+  //   expect(basicInfoGroupLabel.length).toBe(2);
+  //   basicInfoGroupLabel.at(0).simulate("click");
+  //   expect(toggleBasicInfoGroupFilter).toBeCalled();
+  //   expect(instance.state.basicInfoGroupListShow).toEqual([
+  //     {
+  //       name: "name 1",
+  //       attrList: [],
+  //       active: true,
+  //     },
+  //   ]);
+  //   basicInfoGroupLabel.at(0).simulate("click");
+  //   expect(toggleBasicInfoGroupFilter).toBeCalled();
+  //   expect(instance.state.basicInfoGroupListShow).toEqual(basicInfoGroupList);
+  // });
 
   it("test fieldsByTag", async () => {
     const wrapper2 = shallow<LegacyInstanceDetail>(

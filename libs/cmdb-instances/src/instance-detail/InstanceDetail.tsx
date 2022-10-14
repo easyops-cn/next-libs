@@ -13,6 +13,7 @@ import {
   Dropdown,
   Tooltip,
   Modal,
+  Anchor,
 } from "antd";
 import { withTranslation, WithTranslation } from "react-i18next";
 import marked from "marked";
@@ -29,7 +30,11 @@ import {
   flatten,
   uniq,
 } from "lodash";
-import { handleHttpError, BrickAsComponent } from "@next-core/brick-kit";
+import {
+  handleHttpError,
+  BrickAsComponent,
+  getHistory,
+} from "@next-core/brick-kit";
 import {
   AttributeConfig,
   CustomBrickConfig,
@@ -123,6 +128,7 @@ interface LegacyInstanceDetailProps extends WithTranslation {
   relationFieldUrlTemplate?: string;
   isRelationInstanceDetail?: boolean;
   showFields?: boolean;
+  anchorOffset?: number;
 }
 
 interface LegacyInstanceDetailState {
@@ -138,14 +144,26 @@ interface LegacyInstanceDetailState {
   dropdownActions?: BrickAction[];
   currentAttr?: any;
   instanceRelationModalData?: any;
+  initOffset?: number;
 }
-
+function getHref(hash: string) {
+  const isHash = (hash || "").startsWith("#");
+  if (!isHash) {
+    return hash;
+  }
+  const history = getHistory();
+  return history.createHref({
+    ...history.location,
+    hash,
+  });
+}
 export class LegacyInstanceDetail extends React.Component<
   LegacyInstanceDetailProps,
   LegacyInstanceDetailState
 > {
   constructor(props: LegacyInstanceDetailProps) {
     super(props);
+
     this.state = {
       modelDataMap: null,
       modelData: null,
@@ -176,6 +194,7 @@ export class LegacyInstanceDetail extends React.Component<
       loaded: false,
       currentAttr: null,
       instanceRelationModalData: null,
+      initOffset: 0,
     };
   }
 
@@ -382,32 +401,75 @@ export class LegacyInstanceDetail extends React.Component<
     );
   }
   // istanbul ignore next (Temporarily ignored)
+  scrollToTarget() {
+    const target = document.getElementById(location.hash.slice(1));
+    // istanbul ignore next (Temporarily ignored)
+    const initOffset =
+      (document.getElementById("basic-group-0")?.offsetTop ?? 0) +
+      this.props.anchorOffset +
+      10;
+    this.setState({ initOffset });
+    if (target) {
+      setTimeout(() => {
+        window.scrollTo({
+          top: target.offsetTop + initOffset,
+        });
+      });
+    }
+  }
+
   getCardContent(): React.ReactNode {
     const { basicInfoGroupList, basicInfoGroupListShow } = this.state;
+    const { Link } = Anchor;
     return (
       <div className={`${style.detailCard} ${shared.showMultipleLines}`}>
         {basicInfoGroupList.length > 1 && (
-          <div>
-            {basicInfoGroupList.map((basicInfoGroup) => (
-              <a
-                key={basicInfoGroup}
-                className={[
-                  style.basicInfoGroupLabel,
-                  basicInfoGroup.active ? style.active : "",
-                ].join(" ")}
-                onClick={() => this.toggleBasicInfoGroupFilter(basicInfoGroup)}
-              >
-                {basicInfoGroup.name}
-              </a>
-            ))}
-          </div>
+          // <div>
+          //   {basicInfoGroupList.map((basicInfoGroup) => (
+
+          //     <a
+          //       key={basicInfoGroup}
+          //       className={[
+          //         style.basicInfoGroupLabel,
+          //         basicInfoGroup.active ? style.active : "",
+          //       ].join(" ")}
+          //       onClick={() => this.toggleBasicInfoGroupFilter(basicInfoGroup)}
+          //     >
+          //       {basicInfoGroup.name}
+          //     </a>
+          //   ))}
+          // </div>
+          <Anchor
+            affix={true}
+            offsetTop={this.state.initOffset}
+            className={style.anchorWrapper}
+          >
+            <div className={style.anchorContainer}>
+              <div className={style.anchorLinkContainer}>
+                {basicInfoGroupList.map((basicInfoGroup, index) => (
+                  <Link
+                    key={`basic-group-${index}`}
+                    href={getHref(`#basic-group-${index}`)}
+                    title={basicInfoGroup.name}
+                  ></Link>
+                ))}
+              </div>
+            </div>
+          </Anchor>
         )}
         <dl>
           {basicInfoGroupListShow.map((basicInfoGroup, i) => (
             <>
               {i > 0 && <div className={style.groupSeparator} />}
               {basicInfoGroupList.length > 1 && (
-                <div className={style.groupName}>{basicInfoGroup.name}</div>
+                <div
+                  id={`basic-group-${i}`}
+                  className={`${i > 0 ? style.offsetMargin : ""} ${
+                    style.groupName
+                  }`}
+                >
+                  {basicInfoGroup.name}
+                </div>
               )}
               {basicInfoGroup.attrList.map((attr: any, index: number) => {
                 //当前模型的一对一关系模型的详情并且为基本信息的第一个属性时，跳转到该关系模型的详情页
@@ -819,26 +881,27 @@ export class LegacyInstanceDetail extends React.Component<
     if (this.props.instanceId && this.props.objectId) {
       await this.fetchData(this.props);
     }
+    this.scrollToTarget();
   }
 
-  toggleBasicInfoGroupFilter(basicInfoGroup: any): void {
-    const { basicInfoGroupList } = this.state;
-    if (!basicInfoGroup.active) {
-      basicInfoGroupList.forEach((item: any) => {
-        item.active = false;
-      });
-      this.setState({
-        basicInfoGroupListShow: basicInfoGroupList.filter(
-          (item: any) => item.name === basicInfoGroup.name
-        ),
-      });
-    } else {
-      this.setState({
-        basicInfoGroupListShow: basicInfoGroupList,
-      });
-    }
-    basicInfoGroup.active = !basicInfoGroup.active;
-  }
+  // toggleBasicInfoGroupFilter(basicInfoGroup: any): void {
+  //   const { basicInfoGroupList } = this.state;
+  //   if (!basicInfoGroup.active) {
+  //     basicInfoGroupList.forEach((item: any) => {
+  //       item.active = false;
+  //     });
+  //     this.setState({
+  //       basicInfoGroupListShow: basicInfoGroupList.filter(
+  //         (item: any) => item.name === basicInfoGroup.name
+  //       ),
+  //     });
+  //   } else {
+  //     this.setState({
+  //       basicInfoGroupListShow: basicInfoGroupList,
+  //     });
+  //   }
+  //   basicInfoGroup.active = !basicInfoGroup.active;
+  // }
 
   // istanbul ignore next
   getInstanceDetailData(

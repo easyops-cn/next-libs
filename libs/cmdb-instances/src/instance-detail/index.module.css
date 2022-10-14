@@ -6,8 +6,8 @@
   height: 26px;
   background: var(--cmdb-instance-detail-group-label-bg, #f5f5f5);
   color: var(--cmdb-instance-detail-group-label-color, #333);
-  margin: 8px 5px;
-  border-radius: 13px;
+  margin: 0;
+  border-radius: 4px;
   line-height: 26px;
   text-align: center;
   padding: 0 12px;
@@ -28,12 +28,16 @@
   font-weight: 500;
 }
 .detailCard .groupName {
-  margin: 12px 0 0 20px;
+  margin-top: 12px;
+  margin-left: 2px;
   padding: 0 0 12px 0;
   font-size: 14px;
   font-weight: bold;
   color: var(--cmdb-instance-detail-description-group-color, #404143);
   grid-column: 1 / 5;
+  &.offsetMargin {
+    /* margin-top: -28px; */
+  }
 }
 .detailCard dl {
   display: grid;
@@ -121,6 +125,43 @@
 .danger {
   color: #fc5043;
 }
+.anchorWrapper {
+  width: 100%;
+  /* background: var(--antd-component-background);
+   */
+  background: transparent;
+  backdrop-filter: blur(1px);
+  padding: 5px 0;
+  overflow: unset;
+  .anchorContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 45px;
+  }
+  :global(.ant-anchor-ink) {
+    display: none;
+  }
+  .anchorLinkContainer {
+    display: flex;
+    background: var(--antd-anchor-radio-type-bg);
+    border-radius: 6px;
+    padding: 2px;
+    :global(.ant-anchor-link) {
+      padding: 0;
+    }
+    :global(.ant-anchor-link-title) {
+      padding: 8px 16px;
+      border-radius: 4px;
+      color: var(--antd-anchor-radio-type-title-color);
+    }
+    :global(.ant-anchor-link-active > .ant-anchor-link-title) {
+      color: var(--color-brand);
+      background: var(--antd-anchor-radio-type-title-active-bg);
+    }
+  }
+}
 @media screen and (min-width: 1281px) {
   .detailCard .groupName {
     grid-column: 1 / 7;
@@ -134,4 +175,10 @@
   .detailCard .groupSeparator {
     grid-column: 1 / 7;
   }
+  .detailCard .groupBlock {
+    grid-column: 1 / 7;
+  }
+  /* .detailCard .anchorContainer {
+    grid-column: 1 / 7;
+  } */
 }
