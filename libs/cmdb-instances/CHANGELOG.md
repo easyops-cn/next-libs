@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.45.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.44.2...@next-libs/cmdb-instances@6.45.0) (2022-10-15)
+
+
+### Features
+
+* **cmdb:** 实例详情分组标签改为锚点 ([6d36c13](https://github.com/easyops-cn/next-libs/commit/6d36c139fde4e71b7854435be358d6ad6c1537c0))
+
+
+
+
+
 ## [6.44.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.44.1...@next-libs/cmdb-instances@6.44.2) (2022-10-13)
 
 
