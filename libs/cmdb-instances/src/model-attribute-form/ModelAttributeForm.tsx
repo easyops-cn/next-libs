@@ -536,6 +536,7 @@ export class ModelAttributeForm extends Component<
             showDetailUrl={this.props.showDetailUrl}
             relation={relation}
             showSizeChanger={true}
+            showPagination={true}
           />
         )}
       </Form.Item>

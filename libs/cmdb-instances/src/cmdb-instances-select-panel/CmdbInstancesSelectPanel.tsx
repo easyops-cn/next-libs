@@ -38,6 +38,7 @@ export interface BaseCmdbInstancesSelectPanelProps {
   relation?: Partial<ModifiedModelObjectRelation>;
   searchDisabled?: boolean;
   advancedSearchDisabled?: boolean;
+  showPagination?: boolean;
 }
 
 export interface CmdbInstancesSelectPanelPropsWithObjectMap
@@ -303,9 +304,12 @@ export function CmdbInstancesSelectPanel(
           fieldIds={props.fields || fieldIds}
           selectDisabled={true}
           sortDisabled={true}
-          configProps={{
-            pagination: false,
-          }}
+          configProps={
+            props.showPagination
+              ? { pagination: { pageSize: 10, showSizeChanger: true } }
+              : { pagination: false }
+          }
+          // onPaginationChange={(e)=>console.log(e)}
           isOperate={props.isOperate}
           handleDeleteFunction={(v) => {
             setSelectedInstanceList(v);
