@@ -1,6 +1,7 @@
 import React from "react";
 import { shallow } from "enzyme";
-import { EmptyResult, EmptyResultStatus } from "./EmptyResult";
+import { EmptyResult } from "./EmptyResult";
+import { EmptyResultStatus } from "./EmptyResultStatus";
 
 describe("EmptyResult", () => {
   it("should work", () => {
