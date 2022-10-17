@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.46.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.45.1...@next-libs/cmdb-instances@6.46.0) (2022-10-17)
+
+
+### Features
+
+* instanceList support presetConfigs.query refresh ([#441](https://github.com/easyops-cn/next-libs/issues/441)) ([cc94329](https://github.com/easyops-cn/next-libs/commit/cc9432976165d5a4069bed9c4d18923c1ebf8db7))
+
+
+
+
+
 ## [6.45.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.45.0...@next-libs/cmdb-instances@6.45.1) (2022-10-17)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
