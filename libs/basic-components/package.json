@@ -8,8 +8,28 @@
   "module": "dist/esm/index.js",
   "typings": "dist/types/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "EmptyResult.js",
+    "EmptyResultStatus.js"
   ],
+  "exports": {
+    ".": {
+      "default": "./dist/esm/index.js"
+    },
+    "./package.json": "./package.json",
+    "./EmptyResult": "./EmptyResult.js",
+    "./EmptyResultStatus": "./EmptyResultStatus.js"
+  },
+  "typesVersions": {
+    "*": {
+      "EmptyResult": [
+        "./dist/types/EmptyResult.d.ts"
+      ],
+      "EmptyResultStatus": [
+        "./dist/types/EmptyResultStatus.d.ts"
+      ]
+    }
+  },
   "repository": {
     "type": "git",
     "url": "git@github.com:easyops-cn/next-libs.git"

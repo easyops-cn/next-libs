@@ -1,5 +1,6 @@
 import React from "react";
 import { useCurrentTheme } from "@next-core/brick-kit";
+import { EmptyResultStatus } from "./EmptyResultStatus";
 
 import { ReactComponent as BrowserTooOldSvg } from "./empty-result/browser-too-old.svg";
 import { ReactComponent as NoDataSvg } from "./empty-result/no-data.svg";
@@ -14,16 +15,6 @@ import { ReactComponent as NoHistoryVersionDarkSvg } from "./empty-result/no-his
 import { ReactComponent as NoVisitRecordDarkSvg } from "./empty-result/no-visit-record-dark.svg";
 import { ReactComponent as SearchEmptyDarkSvg } from "./empty-result/search-empty-dark.svg";
 import { ReactComponent as WelcomeToCreateDarkSvg } from "./empty-result/welcome-to-create-dark.svg";
-
-export enum EmptyResultStatus {
-  BrowserTooOld = "browser-too-old",
-  Empty = "empty",
-  NoData = "no-data",
-  NoHistoryVersion = "no-history-version",
-  NoVisitRecord = "no-visit-record",
-  SearchEmpty = "search-empty",
-  WelcomeToCreate = "welcome-to-create",
-}
 
 interface EmptyResultProps {
   status: EmptyResultStatus;
