@@ -540,6 +540,7 @@ interface InstanceListState {
   clusterList?: Record<string, any>[];
   searchByApp?: boolean;
   showTooltip?: boolean;
+  presetConfigsQuery?: Record<string, any>;
 }
 
 export function LegacyInstanceList(
@@ -689,6 +690,7 @@ export function LegacyInstanceList(
     failed: false,
     isAdvancedSearchVisible: false,
     fieldIds: getFields(),
+    presetConfigsQuery: props.presetConfigs?.query,
     autoBreakLine: false,
     appSearchInstanceId: "",
     currentChangeSelect: "App",
@@ -875,10 +877,12 @@ export function LegacyInstanceList(
     if (
       // 当 props.objectId 改变时，总是更新 state.fieldIds
       props.objectId !== state.objectId ||
-      !isEqual(fieldIds, state.fieldIds)
+      !isEqual(fieldIds, state.fieldIds) ||
+      !isEqual(props.presetConfigs?.query, state.presetConfigsQuery)
     ) {
       setState({
         fieldIds,
+        presetConfigsQuery: props.presetConfigs?.query,
       });
     }
   }, [props.objectId, props.presetConfigs]);
@@ -939,6 +943,7 @@ export function LegacyInstanceList(
     state.currentChangeSelect,
     state.searchByApp,
     props.dataSource,
+    state.presetConfigsQuery,
   ]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
