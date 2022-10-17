@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@3.6.0...@next-libs/basic-components@4.0.0) (2022-10-17)
+
+
+### Features
+
+* export `EmptyResult` and `EmptyResultStatus` separately ([3eaead2](https://github.com/easyops-cn/next-libs/commit/3eaead291933b0aa2942ce9176aebe9974f5d64d))
+
+
+### BREAKING CHANGES
+
+* `EmptyResult` and `EmptyResultStatus` are exported separately now
+
+
+
+
+
 # [3.6.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@3.5.2...@next-libs/basic-components@3.6.0) (2022-09-23)
 
 
