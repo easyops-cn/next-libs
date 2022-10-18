@@ -129,6 +129,7 @@ interface LegacyInstanceDetailProps extends WithTranslation {
   isRelationInstanceDetail?: boolean;
   showFields?: boolean;
   anchorOffset?: number;
+  useAnchor?: boolean;
 }
 
 interface LegacyInstanceDetailState {
@@ -406,8 +407,7 @@ export class LegacyInstanceDetail extends React.Component<
     // istanbul ignore next (Temporarily ignored)
     const initOffset =
       (document.getElementById("basic-group-0")?.offsetTop ?? 0) +
-      this.props.anchorOffset +
-      10;
+        this.props.anchorOffset ?? 0 + 10;
     this.setState({ initOffset });
     if (target) {
       setTimeout(() => {
@@ -420,43 +420,48 @@ export class LegacyInstanceDetail extends React.Component<
 
   getCardContent(): React.ReactNode {
     const { basicInfoGroupList, basicInfoGroupListShow } = this.state;
+    const { useAnchor } = this.props;
     const { Link } = Anchor;
     return (
       <div className={`${style.detailCard} ${shared.showMultipleLines}`}>
-        {basicInfoGroupList.length > 1 && (
-          // <div>
-          //   {basicInfoGroupList.map((basicInfoGroup) => (
-
-          //     <a
-          //       key={basicInfoGroup}
-          //       className={[
-          //         style.basicInfoGroupLabel,
-          //         basicInfoGroup.active ? style.active : "",
-          //       ].join(" ")}
-          //       onClick={() => this.toggleBasicInfoGroupFilter(basicInfoGroup)}
-          //     >
-          //       {basicInfoGroup.name}
-          //     </a>
-          //   ))}
-          // </div>
-          <Anchor
-            affix={true}
-            offsetTop={this.state.initOffset}
-            className={style.anchorWrapper}
-          >
-            <div className={style.anchorContainer}>
-              <div className={style.anchorLinkContainer}>
-                {basicInfoGroupList.map((basicInfoGroup, index) => (
-                  <Link
-                    key={`basic-group-${index}`}
-                    href={getHref(`#basic-group-${index}`)}
-                    title={basicInfoGroup.name}
-                  ></Link>
-                ))}
+        {basicInfoGroupList.length > 1 &&
+          (useAnchor ? (
+            <Anchor
+              affix={true}
+              offsetTop={this.state.initOffset}
+              className={style.anchorWrapper}
+            >
+              <div className={style.anchorContainer}>
+                <div className={style.anchorLinkContainer}>
+                  {basicInfoGroupList.map((basicInfoGroup, index) => (
+                    <Link
+                      key={`basic-group-${index}`}
+                      href={getHref(`#basic-group-${index}`)}
+                      title={basicInfoGroup.name}
+                    ></Link>
+                  ))}
+                </div>
               </div>
+            </Anchor>
+          ) : (
+            <div>
+              {basicInfoGroupList.map((basicInfoGroup) => (
+                <a
+                  key={basicInfoGroup}
+                  className={[
+                    style.basicInfoGroupLabel,
+                    basicInfoGroup.active ? style.active : "",
+                  ].join(" ")}
+                  onClick={() =>
+                    this.toggleBasicInfoGroupFilter(basicInfoGroup)
+                  }
+                >
+                  {basicInfoGroup.name}
+                </a>
+              ))}
             </div>
-          </Anchor>
-        )}
+          ))}
+
         <dl>
           {basicInfoGroupListShow.map((basicInfoGroup, i) => (
             <>
@@ -884,24 +889,24 @@ export class LegacyInstanceDetail extends React.Component<
     this.scrollToTarget();
   }
 
-  // toggleBasicInfoGroupFilter(basicInfoGroup: any): void {
-  //   const { basicInfoGroupList } = this.state;
-  //   if (!basicInfoGroup.active) {
-  //     basicInfoGroupList.forEach((item: any) => {
-  //       item.active = false;
-  //     });
-  //     this.setState({
-  //       basicInfoGroupListShow: basicInfoGroupList.filter(
-  //         (item: any) => item.name === basicInfoGroup.name
-  //       ),
-  //     });
-  //   } else {
-  //     this.setState({
-  //       basicInfoGroupListShow: basicInfoGroupList,
-  //     });
-  //   }
-  //   basicInfoGroup.active = !basicInfoGroup.active;
-  // }
+  toggleBasicInfoGroupFilter(basicInfoGroup: any): void {
+    const { basicInfoGroupList } = this.state;
+    if (!basicInfoGroup.active) {
+      basicInfoGroupList.forEach((item: any) => {
+        item.active = false;
+      });
+      this.setState({
+        basicInfoGroupListShow: basicInfoGroupList.filter(
+          (item: any) => item.name === basicInfoGroup.name
+        ),
+      });
+    } else {
+      this.setState({
+        basicInfoGroupListShow: basicInfoGroupList,
+      });
+    }
+    basicInfoGroup.active = !basicInfoGroup.active;
+  }
 
   // istanbul ignore next
   getInstanceDetailData(

@@ -106,6 +106,7 @@ export function CmdbInstancesSelectPanel(
 
   const [selectedInstanceList, setSelectedInstanceList] = useState([]);
   const [partialSelectedInstances, setPartialSelectedInstances] = useState([]);
+  // const [instanceTableData, setInstanceTableData] = useState({list: []})
   const [addInstancesModal, setAddInstancesModal] = useState({
     visible: false,
   });
@@ -174,7 +175,6 @@ export function CmdbInstancesSelectPanel(
       setPartialSelectedInstances([]);
     }
   }, [toLoadInstanceIds.sort().join()]);
-
   const openAddInstancesModal = () => {
     setAddInstancesModal({ visible: true });
   };
@@ -201,7 +201,6 @@ export function CmdbInstancesSelectPanel(
         ? instances
         : instances.slice(0, displayedSelectedInstancesMaxNumber)
     );
-
     props.onChange?.(instances);
   };
 
@@ -298,18 +297,16 @@ export function CmdbInstancesSelectPanel(
             : {})}
           idObjectMap={modelMap}
           modelData={modelData}
-          instanceListData={{
-            list: partialSelectedInstances,
-          }}
+          instanceListData={{ list: partialSelectedInstances }}
           fieldIds={props.fields || fieldIds}
           selectDisabled={true}
           sortDisabled={true}
           configProps={
-            props.showPagination
-              ? { pagination: { pageSize: 10, showSizeChanger: true } }
+            props.showPagination && partialSelectedInstances.length > 10
+              ? { pagination: { showSizeChanger: true } }
               : { pagination: false }
           }
-          // onPaginationChange={(e)=>console.log(e)}
+          //
           isOperate={props.isOperate}
           handleDeleteFunction={(v) => {
             setSelectedInstanceList(v);

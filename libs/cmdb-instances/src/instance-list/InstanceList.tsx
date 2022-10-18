@@ -932,7 +932,6 @@ export function LegacyInstanceList(
   // on other condition change
   useEffect(() => {
     if (isEmpty(state.fieldIds)) return;
-
     refreshInstanceList(state.sort, state.asc, state.page);
   }, [
     state.page,

@@ -179,9 +179,9 @@ export class StructTable extends React.Component<
           columns={columns}
           dataSource={displayDataSource}
           pagination={
-            isEditable
+            isEditable && dataSource.length > 10
               ? {
-                  pageSize: 10,
+                  showSizeChanger: true,
                 }
               : false
           }
@@ -190,6 +190,7 @@ export class StructTable extends React.Component<
         {!isEditable && dataSource.length > 10 && (
           <Button
             type="link"
+            data-testid="view-more"
             onClick={() => {
               this.setState({ showAllStructData: true });
             }}
@@ -198,6 +199,7 @@ export class StructTable extends React.Component<
           </Button>
         )}
         <Modal
+          data-testid="show-all-modal"
           visible={showAllStructData}
           title={attribute.name}
           width={800}
@@ -212,7 +214,9 @@ export class StructTable extends React.Component<
             dataSource={dataSource}
             scroll={{ x: "max-content" }}
             columns={columns}
-            pagination={{ pageSize: 10 }}
+            pagination={{
+              showSizeChanger: true,
+            }}
           />
         </Modal>
       </div>
