@@ -251,14 +251,18 @@ export function CodeEditorItem(
       } else if (props.mode === "cel_yaml") {
         const customMode = new (getCommonExpressionLanguageYamlMode())();
         editor.getSession()?.setMode(customMode);
-        if (!editor.completers?.includes(CommonExpressionLanguageCompleter)) {
-          editor.completers?.push(CommonExpressionLanguageCompleter);
+        if (
+          !editor.completers?.includes(CommonExpressionLanguageCompleter[0])
+        ) {
+          editor.completers?.push(...CommonExpressionLanguageCompleter);
         }
       } else if (props.mode === "cel") {
         const customMode = new (getCommonExpressionLanguageMode())();
         editor.getSession()?.setMode(customMode);
-        if (!editor.completers?.includes(CommonExpressionLanguageCompleter)) {
-          editor.completers?.push(CommonExpressionLanguageCompleter);
+        if (
+          !editor.completers?.includes(CommonExpressionLanguageCompleter[0])
+        ) {
+          editor.completers?.push(...CommonExpressionLanguageCompleter);
         }
       }
     }

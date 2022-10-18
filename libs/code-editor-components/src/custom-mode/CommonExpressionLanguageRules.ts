@@ -35,6 +35,15 @@ const celInstanceMethodKeywords = {
     "marshalJSON|marshalYAML|merge|repeat",
 };
 
+export const snippets = [
+  {
+    label: "<% %>",
+    caption: "<% %>",
+    snippet: "<%${0}%>",
+    meta: "placeholder",
+  },
+];
+
 let memoizedCompleterWords: string[];
 
 export function getCommonExpressionLanguageCompleterWords(): string[] {
@@ -49,27 +58,41 @@ export function getCommonExpressionLanguageCompleterWords(): string[] {
   return memoizedCompleterWords;
 }
 
-export const CommonExpressionLanguageCompleter = {
-  getCompletions(
-    editor: IEditorProps,
-    session: any,
-    pos: any,
-    prefix: string,
-    callback: any
-  ): void {
-    callback(
-      null,
-      getCommonExpressionLanguageCompleterWords().map((v) =>
-        typeof v === "string"
-          ? {
-              caption: v,
-              value: v,
-            }
-          : v
-      )
-    );
+export const CommonExpressionLanguageCompleter = [
+  {
+    getCompletions(
+      editor: IEditorProps,
+      session: any,
+      pos: any,
+      prefix: string,
+      callback: any
+    ): void {
+      callback(
+        null,
+        getCommonExpressionLanguageCompleterWords().map((v) =>
+          typeof v === "string"
+            ? {
+                caption: v,
+                value: v,
+              }
+            : v
+        )
+      );
+    },
   },
-};
+  {
+    identifierRegexps: [/[a-zA-Z_0-9@<$\-\u00A2-\u2000\u2070-\uFFFF]/],
+    getCompletions(
+      editor: IEditorProps,
+      session: any,
+      pos: any,
+      prefix: string,
+      callback: any
+    ) {
+      callback(null, snippets);
+    },
+  },
+];
 
 export function getCommonExpressionLanguageRules({
   yamlContext,
