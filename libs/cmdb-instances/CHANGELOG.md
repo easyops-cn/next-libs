@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.47.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.46.1...@next-libs/cmdb-instances@6.47.0) (2022-10-19)
+
+
+### Features
+
+* **cmdb:** 结构体数组加查看更多和分页 ([faea979](https://github.com/easyops-cn/next-libs/commit/faea979cb78a4f5864c50396c658becf1fb4ec5f))
+* **cmdb:** 详情编辑/查看时给结构体/关系表格加分页和查看更多 ([8ee9cf5](https://github.com/easyops-cn/next-libs/commit/8ee9cf5fecae311e9c7f9bd29bbd291297029330))
+
+
+
+
+
 ## [6.46.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.46.0...@next-libs/cmdb-instances@6.46.1) (2022-10-18)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
