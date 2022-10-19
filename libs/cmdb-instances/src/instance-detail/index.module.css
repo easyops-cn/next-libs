@@ -6,7 +6,7 @@
   height: 26px;
   background: var(--cmdb-instance-detail-group-label-bg, #f5f5f5);
   color: var(--cmdb-instance-detail-group-label-color, #333);
-  margin: 0;
+  margin: 8px 5px;
   border-radius: 4px;
   line-height: 26px;
   text-align: center;

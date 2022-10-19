@@ -22,6 +22,7 @@ export interface StructTableState {
   structData: any;
   currentIndex: number;
   showEditModal: boolean;
+  showAllStructData: boolean;
 }
 export class StructTable extends React.Component<
   StructTableProps,
@@ -33,6 +34,7 @@ export class StructTable extends React.Component<
       structData: props.structData,
       currentIndex: 0,
       showEditModal: false,
+      showAllStructData: false,
     };
   }
   getColumns(defines: Structkey[]) {
@@ -155,8 +157,12 @@ export class StructTable extends React.Component<
       </div>
     );
   };
+  closeAllDataModal = () => {
+    this.setState({ showAllStructData: false });
+  };
   render() {
-    const { attribute, isLegacy, structData } = this.props;
+    const { attribute, isLegacy, structData, isEditable } = this.props;
+    const { showAllStructData } = this.state;
     const structDefine = attribute.value.struct_define;
     const columns = this.getColumns(structDefine);
     // 单结构体数据是对象，显示时要转换为数组
@@ -165,15 +171,54 @@ export class StructTable extends React.Component<
       : isLegacy
       ? [structData]
       : [...structData];
+    const displayDataSource = isEditable ? dataSource : dataSource.slice(0, 10);
     return (
       <div style={{ overflowX: "hidden" }}>
         <Table
           scroll={{ x: "max-content" }}
           columns={columns}
-          dataSource={dataSource}
-          pagination={false}
+          dataSource={displayDataSource}
+          pagination={
+            isEditable && dataSource.length > 10
+              ? {
+                  showSizeChanger: true,
+                }
+              : false
+          }
           size={this.props.size}
         />
+        {!isEditable && dataSource.length > 10 && (
+          <Button
+            type="link"
+            data-testid="view-more"
+            onClick={() => {
+              this.setState({ showAllStructData: true });
+            }}
+          >
+            {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.VIEW_MORE}`)}
+          </Button>
+        )}
+        <Modal
+          data-testid="show-all-modal"
+          visible={showAllStructData}
+          title={attribute.name}
+          width={800}
+          onCancel={this.closeAllDataModal}
+          footer={
+            <Button type="primary" onClick={this.closeAllDataModal}>
+              {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CONFIRM}`)}
+            </Button>
+          }
+        >
+          <Table
+            dataSource={dataSource}
+            scroll={{ x: "max-content" }}
+            columns={columns}
+            pagination={{
+              showSizeChanger: true,
+            }}
+          />
+        </Modal>
       </div>
     );
   }

@@ -35,14 +35,52 @@ describe("StructTable", () => {
   );
   const formData = { str: "newString" };
   it("should render", () => {
-    expect(structsWrapper.find("Table").length).toBe(1);
+    expect(structsWrapper.find("Table").length).toBe(2);
     expect(
-      (structsWrapper.find("Table") as any).props("colunms")["columns"]
+      (structsWrapper.find("Table").at(0) as any).props("colunms")["columns"]
     ).toHaveLength(14);
+    expect(
+      structWrapper
+        .find("Modal")
+        .filter("[data-testid='show-all-modal']")
+        .prop("visible")
+    ).toEqual(false);
+    expect(
+      structWrapper.find("Button").filter("[data-testid='view-more']")
+    ).toHaveLength(0);
     expect(structsWrapper).toBeTruthy();
     expect(structWrapper).toBeTruthy();
     expect(structsOperationWrapper).toBeTruthy();
     expect(structOperationWrapper).toBeTruthy();
+  });
+  it("should render when data is more than 10 and editable", () => {
+    const newProps = {
+      ...structProps,
+      isEditable: true,
+      isLegacy: false,
+      structData: Array(11).fill(structData),
+    };
+    const editableWrapper = shallow(<StructTable {...newProps} />);
+    expect(editableWrapper.find("Table").at(0).prop("pagination")).toEqual({
+      showSizeChanger: true,
+    });
+  });
+  it("should render when data is more than 10 and not editable ", () => {
+    const newProps = {
+      ...structProps,
+      isEditable: false,
+      isLegacy: false,
+      structData: Array(11).fill(structData),
+    };
+    const wrapper = shallow(<StructTable {...newProps} />);
+    const structsInstance = wrapper.instance() as StructTable;
+    const viewMoreButton = wrapper
+      .find("Button")
+      .filter("[data-testid='view-more']");
+    expect(structsInstance.state.showAllStructData).toBe(false);
+    expect(viewMoreButton).toHaveLength(1);
+    viewMoreButton.prop("onClick")(expect.anything());
+    expect(structsInstance.state.showAllStructData).toBe(true);
   });
   it("should render", () => {
     const newProps = {
@@ -51,7 +89,7 @@ describe("StructTable", () => {
     };
     const structsWrapper2 = shallow(<StructTable {...newProps} />);
     expect(
-      (structsWrapper2.find("Table") as any).props("colunms")["columns"]
+      (structsWrapper2.find("Table").at(0) as any).props("colunms")["columns"]
     ).toHaveLength(13);
   });
   // 打开结构体编辑弹窗
