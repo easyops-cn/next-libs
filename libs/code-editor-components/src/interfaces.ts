@@ -26,6 +26,7 @@ export interface CodeEditorProps extends FormItemWrapperProps {
   maxLines?: number | "Infinity";
   minLines?: number;
   tabSize?: number;
+  showGutter?: boolean;
   printMargin?: boolean;
   highlightActiveLine?: boolean;
   onValidate?: (error: Annotation[]) => void;

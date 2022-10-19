@@ -430,6 +430,7 @@ export function CodeEditorItem(
           printMargin: props.printMargin,
           highlightActiveLine: props.highlightActiveLine,
           enableLiveAutocompletion: props.enableLiveAutocompletion,
+          showGutter: props.showGutter,
           ...(expanded
             ? {
                 maxLines: expandedLines,
