@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.3.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.2.0...@next-libs/code-editor-components@4.3.0) (2022-10-19)
+
+
+### Features
+
+* support showGutter ([#444](https://github.com/easyops-cn/next-libs/issues/444)) ([aa12302](https://github.com/easyops-cn/next-libs/commit/aa12302a8676e7a3a4a48970501f27b8e87e6b3b))
+
+
+
+
+
 # [4.2.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.1.6...@next-libs/code-editor-components@4.2.0) (2022-10-18)
 
 
