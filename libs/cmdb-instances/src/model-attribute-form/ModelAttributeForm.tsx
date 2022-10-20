@@ -117,6 +117,14 @@ export class ModelAttributeForm extends Component<
     wrapperCol: { span: 18 },
   };
 
+  getFeildTag(field: any) {
+    return (
+      field?.tag?.[0] ||
+      (field as any)?.left_tags?.[0] ||
+      (field?.__isRelation ? "" : DEFAULT_ATTRIBUTE_TAG)
+    );
+  }
+
   constructor(props: ModelAttributeFormProps) {
     super(props);
     if (this.props.objectList) {
@@ -156,11 +164,9 @@ export class ModelAttributeForm extends Component<
         this.modelData
       );
     } else {
-      props.basicInfoAttrList.forEach((basicInfoAttr) => {
-        const groupTag =
-          basicInfoAttr?.tag?.[0] ||
-          (basicInfoAttr as any)?.left_tags?.[0] ||
-          DEFAULT_ATTRIBUTE_TAG;
+      props.basicInfoAttrList.forEach((basicInfoAttr: any) => {
+        const groupTag = this.getFeildTag(basicInfoAttr);
+        // 关系的情况下，为了避免在模型管理的视图里删除后还会在编辑里出现，去掉默认分组
 
         const attrs = AttrListGroupByTag.find(([key]) => key === groupTag);
         // 判断是否为黑名单内的属性
