@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.47.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.47.2...@next-libs/cmdb-instances@6.47.3) (2022-10-20)
+
+
+### Bug Fixes
+
+* 模型视图里关系删除后不在实例详情和编辑里出现 Closes INSTANCE-2991 ([bf6469d](https://github.com/easyops-cn/next-libs/commit/bf6469de4f3f54a21a11399c327e4581f171bd28))
+
+
+
+
+
 ## [6.47.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.47.1...@next-libs/cmdb-instances@6.47.2) (2022-10-20)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
