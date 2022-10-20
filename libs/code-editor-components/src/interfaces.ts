@@ -60,7 +60,10 @@ export interface HighlightTokenSettings {
   clickable?: boolean;
 }
 
-export type HighlightTokenType = "storyboard-function" | "storyboard-context";
+export type HighlightTokenType =
+  | "storyboard-function"
+  | "storyboard-context"
+  | "dashboard-DS";
 
 export interface AceLanguageRules {
   [className: string]: AceLanguageRule[];

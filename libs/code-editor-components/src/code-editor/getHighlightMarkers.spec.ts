@@ -68,6 +68,22 @@ describe("getHighlightMarkers", () => {
     },
     {
       type: "support.class.builtin.js",
+      value: "DS",
+    },
+    {
+      type: "punctuation.operator",
+      value: ".",
+    },
+    {
+      type: "identifier",
+      value: "qwe",
+    },
+    {
+      type: "punctuation.operator",
+      value: ",",
+    },
+    {
+      type: "support.class.builtin.js",
       value: "DATA",
     },
     {
@@ -190,7 +206,11 @@ describe("getHighlightMarkers", () => {
     },
     {
       doc: [nonRelevantLine, mixedCtxAndFnLine],
-      highlightTokenTypes: ["storyboard-function", "storyboard-context"],
+      highlightTokenTypes: [
+        "storyboard-function",
+        "storyboard-context",
+        "dashboard-DS",
+      ],
       markers: [
         {
           className: "highlight-marker",
@@ -211,6 +231,17 @@ describe("getHighlightMarkers", () => {
           identifier: "def",
           inFront: true,
           startCol: 13,
+          startRow: 1,
+          type: "text",
+        },
+        {
+          className: "highlight-marker",
+          endCol: 26,
+          endRow: 1,
+          highlightType: "dashboard-DS",
+          identifier: "qwe",
+          inFront: true,
+          startCol: 20,
           startRow: 1,
           type: "text",
         },
