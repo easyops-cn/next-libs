@@ -58,6 +58,8 @@ export function getHighlightMarkers({
                 ? "storyboard-function"
                 : token.value === "CTX"
                 ? "storyboard-context"
+                : token.value === "DS"
+                ? "dashboard-DS"
                 : null;
             if (highlightType && highlightTokenTypes.includes(highlightType)) {
               state = "namespace";
