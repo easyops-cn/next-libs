@@ -796,7 +796,13 @@ export class LegacyInstanceDetail extends React.Component<
           groupTag =
             field.left_tags?.length && field.left_tags[0].trim() !== ""
               ? field.left_tags[0]
+              : "";
+          /*
+              原有逻辑，没有tag会根据默认在基本信息中展示，导致删除了的关系在实例详情中还存在。
+              groupTag = field.left_tags?.length && field.left_tags[0].trim() !== ""
+              ? field.left_tags[0]
               : DEFAULT_ATTRIBUTE_TAG;
+            */
         } else {
           const basicInfoText = i18n.t(
             `${NS_LIBS_CMDB_INSTANCES}:${K.BASIC_INFORMATION}`
