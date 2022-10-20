@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.4.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.3.0...@next-libs/code-editor-components@4.4.0) (2022-10-20)
+
+
+### Features
+
+* **code-editor:** highlight tokens support dashboard-DS ([905115c](https://github.com/easyops-cn/next-libs/commit/905115c64d47cb9849d63a9b93107156b221a1fc))
+
+
+
+
+
 # [4.3.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.2.0...@next-libs/code-editor-components@4.3.0) (2022-10-19)
 
 
