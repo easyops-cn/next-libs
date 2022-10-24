@@ -211,18 +211,6 @@ export function CodeEditorItem(
     }
   }, [props.mode, jsonSchema]);
 
-  useEffect(() => {
-    // make some change to trigger onValidate when jsonSchema updated
-    if (editor) {
-      const session = editor.getSession();
-      session.insert({ row: 0, column: 0 }, " ");
-      session.remove({
-        start: { row: 0, column: 0 },
-        end: { row: 0, column: 1 },
-      });
-    }
-  }, [ajv]);
-
   const handleOnBlur = (): void => {
     props.onBlur && props.onBlur();
   };

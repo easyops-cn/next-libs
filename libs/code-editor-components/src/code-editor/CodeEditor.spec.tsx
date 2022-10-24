@@ -136,8 +136,6 @@ describe("CodeEditorItem", () => {
     wrapper.find(AceEditor).invoke("onChange")("a: v");
     wrapper.find(AceEditor).invoke("onLoad")({
       getSession: jest.fn().mockReturnValue({
-        insert: jest.fn(),
-        remove: jest.fn(),
         setAnnotations: jest.fn(),
         getAnnotations: jest.fn().mockReturnValueOnce([]),
       }),
@@ -189,8 +187,6 @@ describe("CodeEditorItem", () => {
     const mockSetMock = jest.fn();
     wrapper.find(AceEditor).invoke("onLoad")({
       getSession: jest.fn().mockReturnValue({
-        insert: jest.fn(),
-        remove: jest.fn(),
         setAnnotations: jest.fn(),
         getAnnotations: jest.fn().mockReturnValueOnce([]),
         setMode: mockSetMock,
@@ -232,8 +228,6 @@ describe("CodeEditorItem", () => {
         column: 1,
       }),
       getSession: jest.fn().mockReturnValue({
-        insert: jest.fn(),
-        remove: jest.fn(),
         setAnnotations: setAnnotationsMock,
         getAnnotations: jest.fn().mockReturnValueOnce([]),
         setMode: mockSetMock,
@@ -275,8 +269,6 @@ describe("CodeEditorItem", () => {
         column: 1,
       }),
       getSession: jest.fn().mockReturnValue({
-        insert: jest.fn(),
-        remove: jest.fn(),
         setAnnotations: setAnnotationsMock,
         getAnnotations: jest.fn().mockReturnValueOnce([]),
         setMode: mockSetMode,
@@ -304,8 +296,6 @@ describe("CodeEditorItem", () => {
         column: 1,
       }),
       getSession: jest.fn().mockReturnValue({
-        insert: jest.fn(),
-        remove: jest.fn(),
         setAnnotations: setAnnotationsMock,
         getAnnotations: jest.fn().mockReturnValueOnce([]),
         setMode: mockSetMode,
@@ -336,8 +326,6 @@ describe("CodeEditorItem", () => {
         column: 1,
       }),
       getSession: jest.fn().mockReturnValue({
-        insert: jest.fn(),
-        remove: jest.fn(),
         setAnnotations: setAnnotationsMock,
         getAnnotations: jest.fn().mockReturnValueOnce([]),
         setMode: mockSetMode,
@@ -448,8 +436,6 @@ describe("CodeEditor", () => {
     wrapper.find(AceEditor).invoke("onChange")("a: v");
     wrapper.find(AceEditor).invoke("onLoad")({
       getSession: jest.fn().mockReturnValue({
-        insert: jest.fn(),
-        remove: jest.fn(),
         setAnnotations: jest.fn(),
         getAnnotations: jest.fn().mockReturnValueOnce([]),
       }),
@@ -512,8 +498,6 @@ describe("CodeEditor", () => {
     const mockSetMock = jest.fn();
     wrapper.find(AceEditor).invoke("onLoad")({
       getSession: jest.fn().mockReturnValue({
-        insert: jest.fn(),
-        remove: jest.fn(),
         setAnnotations: jest.fn(),
         getAnnotations: jest.fn().mockReturnValueOnce([]),
         setMode: mockSetMock,
@@ -557,8 +541,6 @@ describe("CodeEditor", () => {
         column: 1,
       }),
       getSession: jest.fn().mockReturnValue({
-        insert: jest.fn(),
-        remove: jest.fn(),
         setAnnotations: setAnnotationsMock,
         getAnnotations: jest.fn().mockReturnValueOnce([]),
         setMode: mockSetMock,
