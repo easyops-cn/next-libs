@@ -6,6 +6,15 @@ import { GeneralIcon } from "./GeneralIcon";
 import { Icon as LegacyIcon } from "@ant-design/compatible";
 import Icon from "@ant-design/icons";
 import { MenuIcon } from "@next-core/brick-types";
+import * as kit from "@next-core/brick-kit";
+
+window.PUBLIC_ROOT = "/sa-static/-/";
+
+jest.spyOn(kit, "getRuntime").mockReturnValue({
+  getBasePath() {
+    return "/next/";
+  },
+} as any);
 
 describe("GeneralIcon", () => {
   it("should render null if icon is falsy", () => {
@@ -261,5 +270,21 @@ describe("GeneralIcon", () => {
       height: 12,
     });
     expect(imgElement.prop("src")).toBe("https://test.com/image.jpg");
+  });
+
+  it("use icon imgSrc with relative path", () => {
+    const wrapper = mount(
+      <GeneralIcon
+        icon={{
+          imgSrc: "dist/image.jpg",
+        }}
+      />
+    );
+    expect(wrapper.find("img").prop("src")).toBe("/sa-static/-/dist/image.jpg");
+
+    wrapper.setProps({
+      noPublicRoot: true,
+    });
+    expect(wrapper.find("img").prop("src")).toBe("/next/dist/image.jpg");
   });
 });

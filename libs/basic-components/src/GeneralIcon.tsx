@@ -16,6 +16,7 @@ import { Colors, COLORS_MAP, getColor } from "./utils/getColor";
 import classnames from "classnames";
 import cssStyle from "./GeneralIcon.module.css";
 import { isEqual, omit, uniqueId } from "lodash";
+import { getRuntime } from "@next-core/brick-kit";
 
 type SrcIcon = {
   imgSrc?: string;
@@ -31,6 +32,7 @@ interface MenuIconProps {
   style?: React.CSSProperties;
   onClick?(event: React.MouseEvent<HTMLElement, MouseEvent>): void;
   showEmptyIcon?: boolean;
+  noPublicRoot?: boolean;
 }
 
 function isGradientColor(
@@ -52,6 +54,7 @@ export function GeneralIcon({
   onClick,
   showEmptyIcon,
   style,
+  noPublicRoot,
 }: MenuIconProps): React.ReactElement {
   const memoizedIcon = useDeepEqualMemo(_icon);
   const getStyle = (icon: MenuIcon): React.CSSProperties => {
@@ -134,7 +137,11 @@ export function GeneralIcon({
           src={
             /^(?:https?|data):|^\//.test(icon.imgSrc)
               ? icon.imgSrc
-              : `${(window as any).PUBLIC_ROOT ?? ""}${icon.imgSrc}`
+              : `${
+                  noPublicRoot
+                    ? getRuntime().getBasePath()
+                    : (window as any).PUBLIC_ROOT ?? ""
+                }${icon.imgSrc}`
           }
           width={size}
           height={size}
@@ -290,6 +297,7 @@ export function GeneralIcon({
     showEmptyIcon,
     size,
     style,
+    noPublicRoot,
   ]);
 }
 
