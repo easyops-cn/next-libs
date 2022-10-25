@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@4.0.0...@next-libs/basic-components@4.0.1) (2022-10-25)
+
+
+### Bug Fixes
+
+* **general-icon:** support noPublicRoot ([1da9e59](https://github.com/easyops-cn/next-libs/commit/1da9e59897ade101ce2785d43af89f2115b06bb2))
+
+
+
+
+
 # [4.0.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@3.6.0...@next-libs/basic-components@4.0.0) (2022-10-17)
 
 
