@@ -23,3 +23,8 @@ declare module "*.svg" {
   export default url;
   export const ReactComponent: SvgrComponent;
 }
+
+interface Window {
+  /** The public root, E.g. "hello-world/-/" */
+  PUBLIC_ROOT?: string;
+}
