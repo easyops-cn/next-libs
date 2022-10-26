@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, useState, useRef } from "react";
 import { unstable_batchedUpdates } from "react-dom";
-import { get, isEmpty } from "lodash";
+import { get, isEmpty, isNil } from "lodash";
 import { Form } from "@ant-design/compatible";
 import { Tooltip } from "antd";
 import { GeneralIcon } from "@next-libs/basic-components";
@@ -27,6 +27,16 @@ export interface CommonEventProps {
   onBlur?: () => void;
   onMouseEnter?: (e: MouseEvent) => void;
   onMouseLeave?: (e: MouseEvent) => void;
+}
+
+function isReactElementWithProps(
+  node: React.ReactNode
+): node is React.ReactElement {
+  return (
+    typeof node === "object" &&
+    !isNil((node as React.ReactElement)?.type) &&
+    !isNil((node as React.ReactElement).props)
+  );
 }
 
 export interface FormItemWrapperProps extends CommonEventProps {
@@ -166,10 +176,12 @@ export function convertLabelSpanToWrapperOffset(
       };
     } else {
       const convertedWrapperCol: ColProps = {};
-      (Object.entries(wrapperCol) as [
-        "xs" | "sm" | "md" | "lg" | "xl" | "xxl",
-        ColSize
-      ][]).forEach(([key, value]) => {
+      (
+        Object.entries(wrapperCol) as [
+          "xs" | "sm" | "md" | "lg" | "xl" | "xxl",
+          ColSize
+        ][]
+      ).forEach(([key, value]) => {
         const labelColSpanOrSize = labelCol[key];
 
         convertedWrapperCol[key] = labelColSpanOrSize
@@ -218,6 +230,7 @@ export function FormItemWrapper(
     : (React.cloneElement(props.children as React.ReactElement, {
         ...eventMap,
       }) as React.ReactNode);
+  const inputType = (input as React.ReactElement)?.type;
 
   const getLabelTooltipNode = () => {
     if (typeof labelTooltip === "string" || typeof labelTooltip === "number") {
@@ -291,9 +304,18 @@ export function FormItemWrapper(
         valuePropName,
       })(input);
 
-      if ((input as React.ReactElement)?.props) {
-        const originalOnChange = (input as React.ReactElement).props[trigger];
-        input = React.cloneElement(input as React.ReactElement, {
+      if (isReactElementWithProps(input)) {
+        let isWrapped = false;
+
+        // ref: https://github.com/react-component/form/pull/468
+        if (input.type !== inputType) {
+          isWrapped = true;
+        }
+
+        let actualInput = isWrapped ? input.props.children : input;
+        const originalOnChange = actualInput.props[trigger];
+
+        actualInput = React.cloneElement(actualInput, {
           [trigger]: (...args: any[]) => {
             unstable_batchedUpdates(() => {
               originalOnChange?.(...args);
@@ -309,6 +331,10 @@ export function FormItemWrapper(
             });
           },
         });
+
+        input = isWrapped
+          ? React.cloneElement(input, { children: actualInput })
+          : actualInput;
       }
     }
 
@@ -332,19 +358,29 @@ export function FormItemWrapper(
     formItemProps.colon = !props.formElement.noColon;
   }
 
-  if (trim && (input as React.ReactElement)?.props) {
-    const value = (input as React.ReactElement).props[valuePropName];
+  if (trim && isReactElementWithProps(input)) {
+    let isWrapped = false;
+
+    if (input.type !== inputType) {
+      isWrapped = true;
+    }
+
+    let actualInput = isWrapped ? input.props.children : input;
+    const value = actualInput.props[valuePropName];
 
     if (typeof value === "string") {
-      const originalEventHandler = (input as React.ReactElement).props[
-        trimTrigger
-      ];
-      input = React.cloneElement(input as React.ReactElement, {
+      const originalEventHandler = actualInput.props[trimTrigger];
+
+      actualInput = React.cloneElement(actualInput, {
         [trimTrigger]: (...args: unknown[]) => {
           originalEventHandler?.(...args);
-          (input as React.ReactElement).props[trigger](value.trim());
+          (actualInput as React.ReactElement).props[trigger](value.trim());
         },
       });
+
+      input = isWrapped
+        ? React.cloneElement(input, { children: actualInput })
+        : actualInput;
     }
   }
 
