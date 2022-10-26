@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.32](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@3.2.31...@next-libs/forms@3.2.32) (2022-10-26)
+
+
+### Bug Fixes
+
+* **FormItemWrapper:** fix no ref input not force rerender correctly ([367bc70](https://github.com/easyops-cn/next-libs/commit/367bc70db197b69aa94ec9471d76c099665c06a6))
+
+
+
+
+
 ## [3.2.31](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@3.2.30...@next-libs/forms@3.2.31) (2022-10-25)
 
 **Note:** Version bump only for package @next-libs/forms
