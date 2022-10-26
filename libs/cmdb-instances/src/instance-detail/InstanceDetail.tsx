@@ -407,12 +407,12 @@ export class LegacyInstanceDetail extends React.Component<
     // istanbul ignore next (Temporarily ignored)
     const initOffset =
       (document.getElementById("basic-group-0")?.offsetTop ?? 0) +
-        this.props.anchorOffset ?? 0 + 10;
+        this.props.anchorOffset ?? 0 + 30;
     this.setState({ initOffset });
     if (target) {
       setTimeout(() => {
         window.scrollTo({
-          top: target.offsetTop + initOffset,
+          top: target.offsetTop + initOffset + 65,
         });
       });
     }
