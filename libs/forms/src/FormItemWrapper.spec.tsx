@@ -6,12 +6,14 @@ import {
   getRules,
   getCommonEventMap,
   FormItemWrapperProps,
+  withFormItemWrapper,
 } from "./FormItemWrapper";
 import { MenuIcon } from "@next-core/brick-types";
 import i18n from "i18next";
 import { AbstractGeneralFormElement } from "./interfaces";
 import { Input, Tooltip } from "antd";
 import { GeneralIcon } from "@next-libs/basic-components";
+import { InputProps } from "antd/lib/input/Input";
 
 jest.mock("./i18n");
 jest.spyOn(i18n, "t").mockReturnValue("default message");
@@ -426,5 +428,54 @@ describe("FormItemWrapper", () => {
       {} as React.FocusEvent<HTMLInputElement>
     );
     expect(value).toBe(originalValue.trim());
+  });
+});
+
+describe("withFormItemWrapper", () => {
+  it("should work", () => {
+    const originalValue = "   abc  ";
+    let value = originalValue;
+    const Wrapper = withFormItemWrapper<InputProps>(Input);
+    const wrapper = mount(
+      <Wrapper
+        trim
+        value={value}
+        onChange={(e) => {
+          value = typeof e === "string" ? e : e.target.value;
+        }}
+      />
+    );
+
+    wrapper.find(Input).invoke("onBlur")(
+      {} as React.FocusEvent<HTMLInputElement>
+    );
+    expect(value).toBe(originalValue.trim());
+  });
+
+  it("should work with proxy props", () => {
+    const mockConsoleWarn = jest.spyOn(console, "warn");
+    const originalValue = "   abc  ";
+    let value = originalValue;
+    const Wrapper = withFormItemWrapper<InputProps>(Input, {
+      onChange: (v) => {
+        // eslint-disable-next-line no-console
+        console.warn(v);
+      },
+    });
+    const wrapper = mount(
+      <Wrapper
+        value={value}
+        onChange={(e) => {
+          value = typeof e === "string" ? e : e.target.value;
+        }}
+      />
+    );
+
+    wrapper.find(Input).invoke<any>("onChange")({
+      target: {
+        value: "test",
+      },
+    });
+    expect(mockConsoleWarn).toHaveBeenCalledWith({ target: { value: "test" } });
   });
 });
