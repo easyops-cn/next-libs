@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.3.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@3.2.32...@next-libs/forms@3.3.0) (2022-10-28)
+
+
+### Features
+
+* support withFormItemWrapper HOC ([59f3362](https://github.com/easyops-cn/next-libs/commit/59f336238492541e5fc02efd435345dabf177e29))
+
+
+
+
+
 ## [3.2.32](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@3.2.31...@next-libs/forms@3.2.32) (2022-10-26)
 
 
