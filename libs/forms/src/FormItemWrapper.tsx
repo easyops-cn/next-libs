@@ -415,3 +415,16 @@ export function FormItemWrapper(
     </Form.Item>
   );
 }
+
+export function withFormItemWrapper<P>(
+  WrappedComponent: React.ComponentType<P>,
+  proxyProps?: P
+) {
+  return function Component(props: P & FormItemWrapperProps) {
+    return (
+      <FormItemWrapper {...props}>
+        <WrappedComponent {...props} {...proxyProps} />
+      </FormItemWrapper>
+    );
+  };
+}
