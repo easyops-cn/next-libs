@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.5.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.4.4...@next-libs/code-editor-components@4.5.0) (2022-10-31)
+
+
+### Features
+
+* **CodeEditor:** support update jsonSchema property ([a205a0a](https://github.com/easyops-cn/next-libs/commit/a205a0a1d673a4bc1eace96000d161b966dcd160))
+
+
+
+
+
 ## [4.4.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.4.3...@next-libs/code-editor-components@4.4.4) (2022-10-28)
 
 **Note:** Version bump only for package @next-libs/code-editor-components
