@@ -54,6 +54,7 @@ export function CodeEditorItem(
   const brickNextError = useRef(null);
   const compileSchema = useRef(false);
   const containerRef = useRef<HTMLDivElement>();
+  const [tempOverrideMode, setTempOverrideMode] = useState<string>();
 
   useEffect(() => {
     let schemaValue = props.jsonSchema;
@@ -211,6 +212,19 @@ export function CodeEditorItem(
     }
   }, [props.mode, jsonSchema]);
 
+  useEffect(() => {
+    // temporarily override mode to trigger onValidate, when jsonSchema updated
+    if (editor && props.mode === "json") {
+      setTempOverrideMode("text");
+    }
+  }, [jsonSchema]);
+
+  useEffect(() => {
+    if (tempOverrideMode) {
+      setTempOverrideMode(undefined);
+    }
+  }, [tempOverrideMode]);
+
   const handleOnBlur = (): void => {
     props.onBlur && props.onBlur();
   };
@@ -274,7 +288,11 @@ export function CodeEditorItem(
 
   const onValidate = (err: Annotation[]) => {
     let newAnnotations = err;
-    if (ajv && ["brick_next", "json"].includes(props.mode) && jsonSchema) {
+    if (
+      ajv &&
+      ["brick_next", "json"].includes(tempOverrideMode || props.mode) &&
+      jsonSchema
+    ) {
       let schemaAnnotations: Annotation[] = [];
       let data = props.value;
       try {
@@ -414,13 +432,15 @@ export function CodeEditorItem(
         }}
         theme={props.theme || "monokai"}
         mode={
-          (props.mode === "brick_next" ||
-          props.mode === "brick_next_yaml" ||
-          props.mode === "cel_yaml" ||
-          props.mode === "cel" ||
-          props.mode === "terraform"
-            ? "text"
-            : props.mode) ?? "text"
+          (tempOverrideMode ||
+            (props.mode === "brick_next" ||
+            props.mode === "brick_next_yaml" ||
+            props.mode === "cel_yaml" ||
+            props.mode === "cel" ||
+            props.mode === "terraform"
+              ? "text"
+              : props.mode)) ??
+          "text"
         }
         value={props.value}
         setOptions={{
