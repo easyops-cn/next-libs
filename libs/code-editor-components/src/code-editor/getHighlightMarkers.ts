@@ -1,5 +1,20 @@
 import { IEditorProps } from "react-ace";
-import { ExtendedMarker, HighlightTokenSettings } from "../interfaces";
+import {
+  ExtendedMarker,
+  HighlightTokenSettings,
+  HighlightTokenType,
+} from "../interfaces";
+
+type TokenPosition = [
+  HighlightTokenSettings,
+  string,
+  number,
+  number,
+  number,
+  number
+];
+
+const tagNameAsTargetRegExp = /^[-\w]+(\\\.[-\w]+)*$/;
 
 export function getHighlightMarkers({
   editor,
@@ -18,17 +33,18 @@ export function getHighlightMarkers({
     return [];
   }
   const length = editor.session.getLength();
-  let state: "initial" | "namespace" | "dot" = "initial";
-  const tokenPositions: [
-    HighlightTokenSettings,
-    string,
-    number,
-    number,
-    number,
-    number
-  ][] = [];
+  let state:
+    | "initial"
+    | "namespace"
+    | "dot"
+    | "meta-tag"
+    | "colon"
+    | "string-start" = "initial";
+  const tokenPositions: TokenPosition[] = [];
   let startRow: number;
   let highlightToken: HighlightTokenSettings;
+  let metaTag: string;
+  let quote: string;
   for (let i = 0; i < length; i++) {
     const tokens = editor.session.getTokens(i);
     let col = 0;
@@ -81,10 +97,68 @@ export function getHighlightMarkers({
             state = "initial";
           }
           break;
-        case "text":
-          if (!/^\s*$/.test(token.value)) {
+        case "meta.tag":
+          state = "meta-tag";
+          metaTag = token.value.replace(/^\s+/, "");
+          break;
+        case "keyword":
+          if (state === "meta-tag" && token.value === ":") {
+            state = "colon";
+          } else {
             state = "initial";
           }
+          break;
+        case "text":
+          if (!/^\s+$/.test(token.value)) {
+            if (state === "colon") {
+              if (metaTag === "action" || metaTag === "target") {
+                const [, leadingSpace, value, trailingSpace] = (
+                  token.value as string
+                ).match(/^(\s*)(.+?)(\s*)$/);
+                pushActionOrTarget(
+                  metaTag,
+                  i,
+                  col + leadingSpace.length,
+                  col + token.value.length - trailingSpace.length,
+                  value,
+                  highlightTokens,
+                  tokenPositions
+                );
+              }
+            }
+            state = "initial";
+          }
+          break;
+        case "string.start":
+          if (state === "colon") {
+            state = "string-start";
+            quote = token.value;
+          } else {
+            state = "initial";
+          }
+          break;
+        case "string":
+          if (state === "string-start") {
+            if (
+              (metaTag === "action" || metaTag === "target") &&
+              token.value.endsWith(quote)
+            ) {
+              const value = token.value.substring(
+                0,
+                token.value.length - quote.length
+              );
+              pushActionOrTarget(
+                metaTag,
+                i,
+                col,
+                col + value.length,
+                value,
+                highlightTokens,
+                tokenPositions
+              );
+            }
+          }
+          state = "initial";
           break;
         default:
           state = "initial";
@@ -105,4 +179,42 @@ export function getHighlightMarkers({
       inFront: true,
     })
   );
+}
+
+function pushActionOrTarget(
+  type: "action" | "target",
+  row: number,
+  startCol: number,
+  endCol: number,
+  value: string,
+  highlightTokens: HighlightTokenSettings[],
+  tokenPositions: TokenPosition[]
+): void {
+  let currentType: HighlightTokenType;
+
+  if (type === "action") {
+    switch (value) {
+      case "context.assign":
+      case "context.replace":
+      case "context.load":
+      case "context.refresh":
+        currentType = "storyboard-context-action";
+        break;
+      case "state.update":
+      case "state.load":
+      case "state.refresh":
+        currentType = "storyboard-state-action";
+        break;
+    }
+  } else {
+    if (tagNameAsTargetRegExp.test(value)) {
+      currentType = "storyboard-tag-name-as-target";
+    }
+  }
+  const highlightToken = currentType
+    ? highlightTokens.find((item) => item.type === currentType)
+    : null;
+  if (highlightToken) {
+    tokenPositions.push([highlightToken, value, row, startCol, row, endCol]);
+  }
 }
