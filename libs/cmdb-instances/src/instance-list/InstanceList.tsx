@@ -89,6 +89,17 @@ import { ModelAttributeValueType } from "../model-attribute-form-control/ModelAt
 import { IconButton } from "./IconButton";
 import { changeQueryWithCustomRules } from "../processors";
 import { DisplaySettingsModalData } from "../instance-list-table/DisplaySettingsModal";
+
+export interface instanceArchiveRequestBody {
+  // 搜索内容
+  key_word?: string;
+  /** 页码 */
+  page?: number;
+  /** 页大小 */
+  page_size?: number;
+  fields?: string;
+}
+
 export interface InstanceListPresetConfigs {
   query?: Record<string, any>;
   fieldIds?: string[];
@@ -509,6 +520,8 @@ interface InstanceListProps {
   extraFixedFields?: string[];
   //  如果在presetConfigs的query参数中指定了资源的范围，“按应用筛选”的功能是否也要限定资源的范围
   limitInstanceRange?: boolean;
+  useInstanceArchiveProvider?: boolean;
+  placeholder?: string;
 }
 
 interface InstanceListState {
@@ -567,6 +580,9 @@ export function LegacyInstanceList(
   // 为了不影响其他地方的实例列表，在该处加一个useAutoDiscoveryProvider参数，该参数为undefined或false的，仍调用原接口
 
   const listProvider = useProvider("easyops.api.cmdb.job@SearchResource:1.0.1");
+  const instanceArchiveListProvider = useProvider(
+    "providers-of-cmdb.instance-archive-api-list-archive-instance"
+  );
   const { modelData, idObjectMap } = useMemo(() => {
     let modelData: Partial<CmdbModels.ModelCmdbObject>;
     const idObjectMap: Record<string, Partial<CmdbModels.ModelCmdbObject>> = {};
@@ -726,10 +742,14 @@ export function LegacyInstanceList(
       v3Data.permission = data.permission = props.permission;
     }
 
+    const archiveData: instanceArchiveRequestBody = {};
     let query: Record<string, any> = {};
 
-    v3Data.page = data.page = page;
-    v3Data["page_size"] = data["page_size"] = state.pageSize;
+    v3Data.page = data.page = archiveData.page = page;
+    v3Data["page_size"] =
+      data["page_size"] =
+      archiveData["page_size"] =
+        state.pageSize;
     const sortType = modelData?.attrList?.find((attr) => attr.id === sort)
       ?.value?.default_type;
     const order = ["series-number", "auto-increment-id"].includes(sortType)
@@ -754,6 +774,9 @@ export function LegacyInstanceList(
       );
     }
 
+    if (state.q && props.useInstanceArchiveProvider) {
+      archiveData.key_word = state.q;
+    }
     if (!isEmpty(state.aq)) {
       query[LogicalOperators.And] = state.aq;
     }
@@ -788,6 +811,9 @@ export function LegacyInstanceList(
         modelData,
         props.objectList
       );
+    }
+    if (props.useInstanceArchiveProvider) {
+      archiveData.fields = v3Data.fields.join(",");
     }
     if (state.aliveHosts && props.objectId === "HOST") {
       query = { ...query, _agentStatus: "正常" };
@@ -828,6 +854,9 @@ export function LegacyInstanceList(
           ? { _agentStatus: "正常" }
           : {}),
       };
+    }
+    if (props.useInstanceArchiveProvider) {
+      return instanceArchiveListProvider.query([props.objectId, archiveData]);
     }
     const promise = props.onSearchExecute?.(data, v3Data);
     // useAutoDiscoveryProvider=true, 使用useProvider的接口
@@ -1274,6 +1303,7 @@ export function LegacyInstanceList(
                   <>
                     {!props.searchDisabled && (
                       <Input.Search
+                        placeholder={props.placeholder}
                         enterButton
                         value={q}
                         onChange={onChange}

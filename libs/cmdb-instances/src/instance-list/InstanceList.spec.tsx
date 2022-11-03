@@ -1140,6 +1140,7 @@ describe("InstanceList", () => {
     // state not update when testing
     expect(wrapper.find(Select).length).toBe(0);
   });
+
   it("should work without objectList property", async () => {
     (CmdbObjectApi_getObjectRef as jest.Mock).mockResolvedValue({
       data: [HOST],
@@ -1220,6 +1221,22 @@ describe("InstanceList", () => {
         jobId: "abc",
       },
     ]);
+  });
+  it("should work with useInstanceArchiveProvider", async () => {
+    const mockSelectionChange = jest.fn();
+    const wrapper = mount(
+      <InstanceList
+        objectId="HOST"
+        useInstanceArchiveProvider={true}
+        placeholder={"test"}
+        q={"test"}
+        onSelectionChange={mockSelectionChange}
+      />
+    );
+    await (global as any).flushPromises();
+    wrapper.update();
+    expect(InstanceApi_postSearchV3).toBeCalledTimes(23);
+    expect(providerQuery).toBeCalledTimes(2);
   });
 });
 
