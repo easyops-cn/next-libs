@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.48.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.47.12...@next-libs/cmdb-instances@6.48.0) (2022-11-03)
+
+
+### Features
+
+* **instance-list:** 通过useInstanceArchiveProvider参数使得构件列表数据支持使用归档接口 ([b5e841d](https://github.com/easyops-cn/next-libs/commit/b5e841d5efa7a8e65bfed59f1704a8c59c46edb9))
+
+
+
+
+
 ## [6.47.12](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.47.11...@next-libs/cmdb-instances@6.47.12) (2022-11-03)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
