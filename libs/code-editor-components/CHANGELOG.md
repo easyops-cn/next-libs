@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.7.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.7.0...@next-libs/code-editor-components@4.7.1) (2022-11-03)
+
+
+### Bug Fixes
+
+* allow target: _self ([f2fda43](https://github.com/easyops-cn/next-libs/commit/f2fda43ace71f641cac8bad5cd25775a27a8fde2))
+
+
+
+
+
 # [4.7.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.6.0...@next-libs/code-editor-components@4.7.0) (2022-11-03)
 
 
