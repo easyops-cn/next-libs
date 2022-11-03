@@ -58,11 +58,14 @@ export interface CodeEditorProps extends FormItemWrapperProps {
 export interface HighlightTokenSettings {
   type: HighlightTokenType;
   clickable?: boolean;
+  level?: "default" | "warn" | "error";
 }
 
 export type HighlightTokenType =
   | "storyboard-function"
   | "storyboard-context"
+  | "storyboard-state"
+  | "storyboard-tpl-var"
   | "dashboard-DS";
 
 export interface AceLanguageRules {

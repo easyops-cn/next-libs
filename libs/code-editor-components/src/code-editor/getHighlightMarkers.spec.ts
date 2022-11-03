@@ -1,4 +1,8 @@
-import { ExtendedMarker, HighlightTokenType } from "../interfaces";
+import {
+  ExtendedMarker,
+  HighlightTokenSettings,
+  HighlightTokenType,
+} from "../interfaces";
 import { getHighlightMarkers } from "./getHighlightMarkers";
 
 interface Token {
@@ -77,6 +81,38 @@ describe("getHighlightMarkers", () => {
     {
       type: "identifier",
       value: "qwe",
+    },
+    {
+      type: "punctuation.operator",
+      value: ",",
+    },
+    {
+      type: "support.class.builtin.js",
+      value: "STATE",
+    },
+    {
+      type: "punctuation.operator",
+      value: ".",
+    },
+    {
+      type: "identifier",
+      value: "ghi",
+    },
+    {
+      type: "punctuation.operator",
+      value: ",",
+    },
+    {
+      type: "support.class.builtin.js",
+      value: "TPL",
+    },
+    {
+      type: "punctuation.operator",
+      value: ".",
+    },
+    {
+      type: "identifier",
+      value: "jkl",
     },
     {
       type: "punctuation.operator",
@@ -166,13 +202,13 @@ describe("getHighlightMarkers", () => {
 
   it.each<{
     doc: Token[][];
-    highlightTokenTypes: HighlightTokenType[];
+    highlightTokens?: HighlightTokenSettings[];
     markers: ExtendedMarker[];
     nullEditor?: boolean;
   }>([
     {
       doc: [nonRelevantLine, mixedCtxAndFnLine],
-      highlightTokenTypes: ["storyboard-function"],
+      highlightTokens: [{ type: "storyboard-function" }],
       markers: [
         {
           className: "highlight-marker",
@@ -189,7 +225,7 @@ describe("getHighlightMarkers", () => {
     },
     {
       doc: [nonRelevantLine, mixedCtxAndFnLine],
-      highlightTokenTypes: ["storyboard-context"],
+      highlightTokens: [{ type: "storyboard-context" }],
       markers: [
         {
           className: "highlight-marker",
@@ -206,10 +242,12 @@ describe("getHighlightMarkers", () => {
     },
     {
       doc: [nonRelevantLine, mixedCtxAndFnLine],
-      highlightTokenTypes: [
-        "storyboard-function",
-        "storyboard-context",
-        "dashboard-DS",
+      highlightTokens: [
+        { type: "storyboard-function" },
+        { type: "storyboard-context" },
+        { type: "storyboard-state", level: "error" },
+        { type: "storyboard-tpl-var", level: "warn" },
+        { type: "dashboard-DS" },
       ],
       markers: [
         {
@@ -245,11 +283,33 @@ describe("getHighlightMarkers", () => {
           startRow: 1,
           type: "text",
         },
+        {
+          className: "error-marker",
+          endCol: 36,
+          endRow: 1,
+          highlightType: "storyboard-state",
+          identifier: "ghi",
+          inFront: true,
+          startCol: 27,
+          startRow: 1,
+          type: "text",
+        },
+        {
+          className: "warn-marker",
+          endCol: 44,
+          endRow: 1,
+          highlightType: "storyboard-tpl-var",
+          identifier: "jkl",
+          inFront: true,
+          startCol: 37,
+          startRow: 1,
+          type: "text",
+        },
       ],
     },
     {
       doc: [nonRelevantLine, ...fnCrossLine],
-      highlightTokenTypes: ["storyboard-function"],
+      highlightTokens: [{ type: "storyboard-function" }],
       markers: [
         {
           className: "highlight-marker",
@@ -266,31 +326,31 @@ describe("getHighlightMarkers", () => {
     },
     {
       doc: [nonRelevantLine, namespaceAfterNamespaceLine],
-      highlightTokenTypes: ["storyboard-function"],
+      highlightTokens: [{ type: "storyboard-context" }],
       markers: [],
     },
     {
       doc: [nonRelevantLine, nonEmptyTextLine],
-      highlightTokenTypes: ["storyboard-function"],
+      highlightTokens: [{ type: "storyboard-context" }],
       markers: [],
     },
     {
       doc: [nonRelevantLine, mixedCtxAndFnLine],
-      highlightTokenTypes: undefined,
+      // highlightTokens: undefined,
       markers: [],
     },
     {
       doc: [nonRelevantLine, mixedCtxAndFnLine],
-      highlightTokenTypes: [],
+      highlightTokens: [],
       markers: [],
     },
     {
       doc: [nonRelevantLine, mixedCtxAndFnLine],
-      highlightTokenTypes: ["storyboard-function"],
+      highlightTokens: [{ type: "storyboard-context" }],
       markers: [],
       nullEditor: true,
     },
-  ])("should work", ({ doc, highlightTokenTypes, markers, nullEditor }) => {
+  ])("should work", ({ doc, highlightTokens, markers, nullEditor }) => {
     const editor = nullEditor
       ? null
       : ({
@@ -305,8 +365,12 @@ describe("getHighlightMarkers", () => {
         } as any);
     const receivedMarkers = getHighlightMarkers({
       editor,
-      markerClassName: "highlight-marker",
-      highlightTokenTypes,
+      markerClassMap: {
+        default: "highlight-marker",
+        warn: "warn-marker",
+        error: "error-marker",
+      },
+      highlightTokens,
     });
     expect(receivedMarkers).toEqual(markers);
   });
