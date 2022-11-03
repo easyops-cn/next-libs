@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.6.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.5.0...@next-libs/code-editor-components@4.6.0) (2022-11-03)
+
+
+### Features
+
+* support error markers ([47bfe75](https://github.com/easyops-cn/next-libs/commit/47bfe752723e89404ec9a9407294840729e8fe4e))
+
+
+
+
+
 # [4.5.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.4.4...@next-libs/code-editor-components@4.5.0) (2022-10-31)
 
 
