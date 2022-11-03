@@ -1,8 +1,4 @@
-import {
-  ExtendedMarker,
-  HighlightTokenSettings,
-  HighlightTokenType,
-} from "../interfaces";
+import { ExtendedMarker, HighlightTokenSettings } from "../interfaces";
 import { getHighlightMarkers } from "./getHighlightMarkers";
 
 interface Token {
@@ -135,7 +131,7 @@ describe("getHighlightMarkers", () => {
       value: " %>",
     },
   ];
-  const fnCrossLine: Token[][] = [
+  const fnCrossLines: Token[][] = [
     [
       {
         type: "placeholder.start",
@@ -197,6 +193,84 @@ describe("getHighlightMarkers", () => {
     {
       type: "identifier",
       value: "ghi",
+    },
+  ];
+  const contextActionLine: Token[] = [
+    {
+      type: "meta.tag",
+      value: "action",
+    },
+    {
+      type: "keyword",
+      value: ":",
+    },
+    {
+      type: "text",
+      value: " context.refresh ",
+    },
+  ];
+  const stateActionLine: Token[] = [
+    {
+      type: "meta.tag",
+      value: "action",
+    },
+    {
+      type: "keyword",
+      value: ":",
+    },
+    {
+      type: "text",
+      value: "state.refresh",
+    },
+  ];
+  const otherActionLine: Token[] = [
+    {
+      type: "meta.tag",
+      value: "action",
+    },
+    {
+      type: "keyword",
+      value: ":",
+    },
+    {
+      type: "text",
+      value: "console.log",
+    },
+  ];
+  const tagNameAsTargetLine: Token[] = [
+    {
+      type: "meta.tag",
+      value: "target",
+    },
+    {
+      type: "keyword",
+      value: ":",
+    },
+    {
+      type: "string.start",
+      value: "'",
+    },
+    {
+      type: "string",
+      value: "my\\.bad-brick'",
+    },
+  ];
+  const otherTargetLine: Token[] = [
+    {
+      type: "meta.tag",
+      value: "target",
+    },
+    {
+      type: "keyword",
+      value: ":",
+    },
+    {
+      type: "string.start",
+      value: "'",
+    },
+    {
+      type: "string",
+      value: ".good-brick'",
     },
   ];
 
@@ -308,7 +382,7 @@ describe("getHighlightMarkers", () => {
       ],
     },
     {
-      doc: [nonRelevantLine, ...fnCrossLine],
+      doc: [nonRelevantLine, ...fnCrossLines],
       highlightTokens: [{ type: "storyboard-function" }],
       markers: [
         {
@@ -320,6 +394,59 @@ describe("getHighlightMarkers", () => {
           inFront: true,
           startCol: 3,
           startRow: 3,
+          type: "text",
+        },
+      ],
+    },
+    {
+      doc: [contextActionLine, stateActionLine, otherActionLine],
+      highlightTokens: [{ type: "storyboard-context-action", level: "warn" }],
+      markers: [
+        {
+          className: "warn-marker",
+          endCol: 23,
+          endRow: 0,
+          highlightType: "storyboard-context-action",
+          identifier: "context.refresh",
+          inFront: true,
+          startCol: 8,
+          startRow: 0,
+          type: "text",
+        },
+      ],
+    },
+    {
+      doc: [contextActionLine, stateActionLine, otherActionLine],
+      highlightTokens: [{ type: "storyboard-state-action", level: "error" }],
+      markers: [
+        {
+          className: "error-marker",
+          endCol: 20,
+          endRow: 1,
+          highlightType: "storyboard-state-action",
+          identifier: "state.refresh",
+          inFront: true,
+          startCol: 7,
+          startRow: 1,
+          type: "text",
+        },
+      ],
+    },
+    {
+      doc: [tagNameAsTargetLine, otherTargetLine],
+      highlightTokens: [
+        { type: "storyboard-tag-name-as-target", level: "warn" },
+      ],
+      markers: [
+        {
+          className: "warn-marker",
+          endCol: 21,
+          endRow: 0,
+          highlightType: "storyboard-tag-name-as-target",
+          identifier: "my\\.bad-brick",
+          inFront: true,
+          startCol: 8,
+          startRow: 0,
           type: "text",
         },
       ],

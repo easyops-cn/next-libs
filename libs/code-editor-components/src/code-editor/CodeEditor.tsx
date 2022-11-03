@@ -6,7 +6,7 @@ import React, {
   useMemo,
   useCallback,
 } from "react";
-import AceEditor, { IEditorProps, IMarker } from "react-ace";
+import AceEditor, { IEditorProps } from "react-ace";
 import { isEqual, isEmpty, uniqWith, isString, map, some } from "lodash";
 import Ajv from "ajv";
 import { Annotation } from "brace";
@@ -309,7 +309,7 @@ export function CodeEditorItem(
     props.onValidate?.(newAnnotations);
   };
 
-  const [markers, setMarkers] = useState<ExtendedMarker[]>([]);
+  const [markers, setMarkers] = useState<ExtendedMarker[]>();
 
   const findHighlightTokens = useCallback(() => {
     setMarkers(

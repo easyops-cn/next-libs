@@ -64,8 +64,11 @@ export interface HighlightTokenSettings {
 export type HighlightTokenType =
   | "storyboard-function"
   | "storyboard-context"
+  | "storyboard-context-action"
   | "storyboard-state"
+  | "storyboard-state-action"
   | "storyboard-tpl-var"
+  | "storyboard-tag-name-as-target"
   | "dashboard-DS";
 
 export interface AceLanguageRules {
