@@ -1,22 +1,26 @@
 import { IEditorProps } from "react-ace";
-import { ExtendedMarker, HighlightTokenType } from "../interfaces";
+import { ExtendedMarker, HighlightTokenSettings } from "../interfaces";
 
 export function getHighlightMarkers({
   editor,
-  markerClassName,
-  highlightTokenTypes,
+  markerClassMap,
+  highlightTokens,
 }: {
   editor: IEditorProps;
-  markerClassName: string;
-  highlightTokenTypes?: HighlightTokenType[];
+  markerClassMap: {
+    default: string;
+    warn: string;
+    error: string;
+  };
+  highlightTokens?: HighlightTokenSettings[];
 }): ExtendedMarker[] {
-  if (!editor || !highlightTokenTypes?.length) {
+  if (!editor || !highlightTokens?.length) {
     return [];
   }
   const length = editor.session.getLength();
   let state: "initial" | "namespace" | "dot" = "initial";
   const tokenPositions: [
-    HighlightTokenType,
+    HighlightTokenSettings,
     string,
     number,
     number,
@@ -24,7 +28,7 @@ export function getHighlightMarkers({
     number
   ][] = [];
   let startRow: number;
-  let highlightType: HighlightTokenType;
+  let highlightToken: HighlightTokenSettings;
   for (let i = 0; i < length; i++) {
     const tokens = editor.session.getTokens(i);
     let col = 0;
@@ -34,7 +38,7 @@ export function getHighlightMarkers({
         case "identifier":
           if (state === "dot") {
             tokenPositions.push([
-              highlightType,
+              highlightToken,
               token.value,
               i,
               startRow === i ? startCol : col,
@@ -53,15 +57,22 @@ export function getHighlightMarkers({
           break;
         case "support.class.builtin.js":
           if (state === "initial") {
-            highlightType =
+            const currentType =
               token.value === "FN"
                 ? "storyboard-function"
                 : token.value === "CTX"
                 ? "storyboard-context"
+                : token.value === "STATE"
+                ? "storyboard-state"
+                : token.value === "TPL"
+                ? "storyboard-tpl-var"
                 : token.value === "DS"
                 ? "dashboard-DS"
                 : null;
-            if (highlightType && highlightTokenTypes.includes(highlightType)) {
+            highlightToken = currentType
+              ? highlightTokens.find((item) => item.type === currentType)
+              : null;
+            if (highlightToken) {
               state = "namespace";
               startCol = col;
               startRow = i;
@@ -82,14 +93,14 @@ export function getHighlightMarkers({
     }
   }
   return tokenPositions.map<ExtendedMarker>(
-    ([highlightType, identifier, startRow, startCol, endRow, endCol]) => ({
+    ([highlight, identifier, startRow, startCol, endRow, endCol]) => ({
       startRow,
       startCol,
       endRow,
       endCol,
-      highlightType,
+      highlightType: highlight.type,
       identifier,
-      className: markerClassName,
+      className: markerClassMap[highlight.level ?? "default"],
       type: "text",
       inFront: true,
     })
