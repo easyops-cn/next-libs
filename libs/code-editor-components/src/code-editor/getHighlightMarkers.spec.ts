@@ -270,7 +270,7 @@ describe("getHighlightMarkers", () => {
     },
     {
       type: "string",
-      value: ".good-brick'",
+      value: "_self'",
     },
   ];
 

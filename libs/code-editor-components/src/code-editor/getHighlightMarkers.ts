@@ -207,7 +207,7 @@ function pushActionOrTarget(
         break;
     }
   } else {
-    if (tagNameAsTargetRegExp.test(value)) {
+    if (value !== "_self" && tagNameAsTargetRegExp.test(value)) {
       currentType = "storyboard-tag-name-as-target";
     }
   }
