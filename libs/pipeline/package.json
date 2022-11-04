@@ -30,10 +30,9 @@
   },
   "sideEffects": false,
   "peerDependencies": {
-    "@next-core/brick-dll": "*",
-    "@next-libs/basic-components": "*"
+    "@next-core/brick-dll": "*"
   },
-  "devDependencies": {
+  "dependencies": {
     "@next-libs/basic-components": "^4.0.1"
   }
 }

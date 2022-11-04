@@ -105,9 +105,9 @@ export class VisitHistory {
   /**
    * @memberof VisitHistory
    * @description 删除某条记录
-   * @param {string | number | string[] | number[]} 需要移除的key的值
+   * @param {string | number | (string | number)[]} 需要移除的key的值
    */
-  remove(values: string | number | string[] | number[]) {
+  remove(values: string | number | (string | number)[]) {
     _.remove(this.history, (v) => {
       if (_.isArray(values)) {
         return _.includes(values, _.get(v, this.props));
