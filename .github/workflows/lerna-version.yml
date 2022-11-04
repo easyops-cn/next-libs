@@ -26,12 +26,5 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - uses: actions/cache@v3
-      with:
-        path: ~/.npm
-        key: ${{ runner.os }}-lerna
-        restore-keys: |
-          ${{ runner.os }}-lerna
-
     - name: Lerna Version
       run: npx lerna version --yes
