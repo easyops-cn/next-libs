@@ -1,14 +1,8 @@
 import { transformConditionsToAq } from "./transformConditionsToAq";
-import { Query } from "@next-libs/cmdb-instances";
+import type { Query } from "@next-libs/cmdb-instances";
 import { Condition, ConditionOperators } from "./share";
 import { HOST } from "../fixtures";
-jest.mock("@next-libs/cmdb-instances", () => ({
-  LogicalOperators: {
-    And: "$and",
-    Or: "$or",
-  },
-  Query: {},
-}));
+
 describe("transformConditionsToAq", () => {
   it.each<[string, Condition[], Query[]]>([
     [

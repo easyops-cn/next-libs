@@ -1,4 +1,5 @@
-import { isObject, keys, some, every } from "lodash";
+import { keys, some, every } from "lodash";
+import { isObject } from "@next-core/brick-utils";
 
 import { ConditionOperator, LogicalOperator } from "./constants";
 
@@ -13,7 +14,7 @@ const compareFuncMap: {
   [ConditionOperator.lt]: (value1: any, value2: any) => value1 < value2,
   [ConditionOperator.lte]: (value1: any, value2: any) => value1 <= value2,
   [ConditionOperator.gt]: (value1: any, value2: any) => value1 > value2,
-  [ConditionOperator.gte]: (value1: any, value2: any) => value1 >= value2
+  [ConditionOperator.gte]: (value1: any, value2: any) => value1 >= value2,
 };
 
 export type DataType = boolean | number | string | Record<string, any>;
