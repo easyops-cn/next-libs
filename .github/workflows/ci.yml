@@ -59,6 +59,8 @@ jobs:
 
     - name: Codecov
       uses: codecov/codecov-action@v3
+      with:
+        directory: libs
 
     - id: next-publish-from-tags
       uses: easyops-cn/actions-next-publish-from-tags@master
