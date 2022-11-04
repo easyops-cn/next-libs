@@ -21,28 +21,22 @@ jobs:
       with:
         timezone: Asia/Shanghai
 
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
         registry-url: 'https://registry.npmjs.org'
+        cache: yarn
 
-    - name: Get yarn cache directory path
-      id: yarn-cache-dir-path
-      run: echo "::set-output name=dir::$(yarn cache dir)"
-
-    - uses: actions/cache@v2
-      id: yarn-cache
+    - name: Cache nx cache
+      uses: actions/cache@v3
       with:
-        path: |
-          ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          node_modules
-          */*/node_modules
-        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+        path: .cache
+        key: ${{ runner.os }}-nx
         restore-keys: |
-          ${{ runner.os }}-yarn-
+          ${{ runner.os }}-nx
 
     # Fix `yarn install --frozen-lockfile` not working in monorepo.
     # https://github.com/yarnpkg/yarn/issues/5840#issuecomment-468782288
@@ -51,7 +45,7 @@ jobs:
       run: echo "::set-output name=sum::$(cksum yarn.lock)"
 
     - run: yarn install --frozen-lockfile
-    
+
     - name: Get checksum after yarn install
       id: yarn-lock-check-after
       run: echo "::set-output name=sum::$(cksum yarn.lock)"
@@ -63,12 +57,8 @@ jobs:
     - run: yarn build
     - run: yarn test:ci
 
-    - name: Coveralls
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: ./.coverage/lcov.info
-      continue-on-error: true
+    - name: Codecov
+      uses: codecov/codecov-action@v3
 
     - id: next-publish-from-tags
       uses: easyops-cn/actions-next-publish-from-tags@master
