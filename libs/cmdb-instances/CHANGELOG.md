@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.49.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.49.0...@next-libs/cmdb-instances@6.49.1) (2022-11-07)
+
+
+### Bug Fixes
+
+* 实例预览popover内modal层级错误 ([a761e44](https://github.com/easyops-cn/next-libs/commit/a761e4472a028de91064684eb570d3074291c51f))
+
+
+
+
+
 # [6.49.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.48.0...@next-libs/cmdb-instances@6.49.0) (2022-11-07)
 
 
