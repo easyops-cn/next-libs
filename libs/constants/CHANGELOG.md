@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/constants@2.0.3...@next-libs/constants@2.0.4) (2022-11-07)
+
+**Note:** Version bump only for package @next-libs/constants
+
+
+
+
+
 ## [2.0.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/constants@2.0.2...@next-libs/constants@2.0.3) (2021-08-27)
 
 

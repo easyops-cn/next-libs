@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.49.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.48.0...@next-libs/cmdb-instances@6.49.0) (2022-11-07)
+
+
+### Features
+
+* **cmdb-instances:** 实例列表归档接口不缓存 ([4a07260](https://github.com/easyops-cn/next-libs/commit/4a07260f58d02d62e0de5c183b8e755ecf527be3))
+
+
+
+
+
 # [6.48.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.47.12...@next-libs/cmdb-instances@6.48.0) (2022-11-03)
 
 
