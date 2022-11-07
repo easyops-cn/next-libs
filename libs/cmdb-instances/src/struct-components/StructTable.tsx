@@ -203,6 +203,7 @@ export class StructTable extends React.Component<
           visible={showAllStructData}
           title={attribute.name}
           width={800}
+          zIndex={1035}
           onCancel={this.closeAllDataModal}
           footer={
             <Button type="primary" onClick={this.closeAllDataModal}>
