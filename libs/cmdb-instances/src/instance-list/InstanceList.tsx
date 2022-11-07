@@ -581,7 +581,10 @@ export function LegacyInstanceList(
 
   const listProvider = useProvider("easyops.api.cmdb.job@SearchResource:1.0.1");
   const instanceArchiveListProvider = useProvider(
-    "providers-of-cmdb.instance-archive-api-list-archive-instance"
+    "providers-of-cmdb.instance-archive-api-list-archive-instance",
+    {
+      cache: false,
+    }
   );
   const { modelData, idObjectMap } = useMemo(() => {
     let modelData: Partial<CmdbModels.ModelCmdbObject>;

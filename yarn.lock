@@ -2362,6 +2362,24 @@
     compare-versions "^5.0.1"
     minimatch "^3.1.2"
 
+"@next-core/brick-kit@^2.154.17":
+  version "2.154.17"
+  resolved "https://registry.npmjs.org/@next-core/brick-kit/-/brick-kit-2.154.17.tgz#53c0a44cc7022ae0354b0aef8b4247f804654c78"
+  integrity sha512-a+0Zjjqu4GxLtZ9P9Z4tIyf/5vbbS22oSsI0AQzM2haDpYzmXZwc6/Zu6JueLTCFPHdkIyRV3BKUcLsswwoKYQ==
+  dependencies:
+    "@next-core/brick-types" "^2.81.11"
+    "@next-core/color-theme" "^0.4.6"
+    "@next-core/supply" "^1.0.85"
+    "@next-sdk/api-gateway-sdk" "^2.3.0"
+    "@next-sdk/auth-sdk" "^1.0.0"
+    "@next-sdk/cmdb-sdk" "^2.1.1"
+    "@next-sdk/micro-app-sdk" "^2.5.0"
+    "@next-sdk/micro-app-standalone-sdk" "^1.0.1"
+    "@next-sdk/user-service-sdk" "^2.1.1"
+    "@ungap/event-target" "^0.2.3"
+    compare-versions "^5.0.1"
+    minimatch "^3.1.2"
+
 "@next-core/brick-scripts@^3.0.4":
   version "3.0.4"
   resolved "https://registry.npmjs.org/@next-core/brick-scripts/-/brick-scripts-3.0.4.tgz#8ba48d5315e0d907a385f6cd48b7b2313d0f90fc"

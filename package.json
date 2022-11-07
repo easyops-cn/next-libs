@@ -37,7 +37,7 @@
     "@next-core/babel-runtime-helpers": "^1.0.26",
     "@next-core/brick-http": "^2.7.5",
     "@next-core/brick-icons": "^2.30.16",
-    "@next-core/brick-kit": "^2.154.14",
+    "@next-core/brick-kit": "^2.154.17",
     "@next-core/brick-types": "^2.81.11",
     "@next-core/brick-utils": "^2.45.5",
     "@next-core/dev-dependencies": "^1.14.155",
