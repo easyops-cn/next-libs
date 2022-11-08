@@ -61,7 +61,6 @@ jobs:
       uses: codecov/codecov-action@v3
       with:
         directory: libs
-        token: ${{ secrets.CODECOV_TOKEN }}
 
     - id: next-publish-from-tags
       uses: easyops-cn/actions-next-publish-from-tags@master
