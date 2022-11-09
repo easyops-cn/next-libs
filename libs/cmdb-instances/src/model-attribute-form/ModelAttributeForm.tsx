@@ -354,7 +354,11 @@ export class ModelAttributeForm extends Component<
       if (result !== "error" && continueCreating) {
         this.props.form.resetFields();
       }
-      this.setState({ sending: false });
+      if (type === "continue") {
+        setTimeout(() => {
+          this.setState({ sending: false });
+        }, 2500);
+      }
     }
   };
   /* istanbul ignore next */
@@ -550,6 +554,7 @@ export class ModelAttributeForm extends Component<
   };
 
   handleCancel = () => {
+    this.setState({ sending: true });
     this.props.onCancel?.();
   };
 

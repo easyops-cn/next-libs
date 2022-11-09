@@ -15,6 +15,8 @@ import i18n from "i18next";
 import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
 /* eslint-disable  */
 jest.mock("../i18n");
+jest.useFakeTimers();
+jest.spyOn(global, "setTimeout");
 window.ResizeObserver = jest.fn().mockImplementation(() => ({
   disconnect: jest.fn(),
   observe: jest.fn(),
@@ -671,7 +673,7 @@ describe("ModelAttributeForm", () => {
         continueCreating: true,
         values: newValues,
       });
-      expect(instance.state.sending).toBeFalsy();
+      expect(instance.state.sending).toBeTruthy();
     });
     it("should submit and continue", async () => {
       const values: any = {
@@ -775,6 +777,8 @@ describe("ModelAttributeForm", () => {
         values: newValues,
         type: "continue",
       });
+      expect(setTimeout).toHaveBeenCalled();
+      jest.runAllTimers();
       expect(instance.state.sending).toBeFalsy();
       expect(wrapper.find("Button").length).toBe(3);
     });
@@ -1153,7 +1157,7 @@ describe("ModelAttributeForm", () => {
         continueCreating: true,
         values: newValues,
       });
-      expect(instance.state.sending).toBeFalsy();
+      expect(instance.state.sending).toBeTruthy();
     });
   });
   it("should work with json validate", () => {
