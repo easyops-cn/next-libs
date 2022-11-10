@@ -579,7 +579,10 @@ export function LegacyInstanceList(
   // 资源自动发现页面24小时发现主机抽屉的实例列表处，通用的postSearchV3接口无法查到正确结果，需要用下面的接口替换，参数里也要加上jobId:***
   // 为了不影响其他地方的实例列表，在该处加一个useAutoDiscoveryProvider参数，该参数为undefined或false的，仍调用原接口
 
-  const listProvider = useProvider("easyops.api.cmdb.job@SearchResource:1.0.1");
+  const listProvider = useProvider(
+    "easyops.api.cmdb.job@SearchResource:1.0.1",
+    { cache: false }
+  );
   const instanceArchiveListProvider = useProvider(
     "providers-of-cmdb.instance-archive-api-list-archive-instance",
     {
