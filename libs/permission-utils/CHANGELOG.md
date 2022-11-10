@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.10](https://github.com/easyops-cn/next-libs/compare/@next-libs/permission-utils@4.0.9...@next-libs/permission-utils@4.0.10) (2022-11-10)
+
+**Note:** Version bump only for package @next-libs/permission-utils
+
+
+
+
+
 ## [4.0.9](https://github.com/easyops-cn/next-libs/compare/@next-libs/permission-utils@4.0.8...@next-libs/permission-utils@4.0.9) (2022-11-07)
 
 **Note:** Version bump only for package @next-libs/permission-utils

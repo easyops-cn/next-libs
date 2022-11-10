@@ -1,6 +1,6 @@
 {
   "name": "@next-libs/visit-history",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "> TODO: description",
   "homepage": "https://github.com/easyops-cn/next-libs/tree/master/libs/visit-history",
   "license": "GPL-3.0",
@@ -33,6 +33,6 @@
     "@next-core/brick-dll": "*"
   },
   "dependencies": {
-    "@next-libs/storage": "^2.0.3"
+    "@next-libs/storage": "^2.0.4"
   }
 }

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.49.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.49.1...@next-libs/cmdb-instances@6.49.2) (2022-11-10)
+
+
+### Bug Fixes
+
+* **cmdb:** 新建编辑实例时，防止保存按钮可重复多次点击 ([be5b556](https://github.com/easyops-cn/next-libs/commit/be5b556569055cc6ecc58d3635967f72cf79f689))
+
+
+
+
+
 ## [6.49.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.49.0...@next-libs/cmdb-instances@6.49.1) (2022-11-07)
 
 
