@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.49.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.49.3...@next-libs/cmdb-instances@6.49.4) (2022-11-14)
+
+
+### Bug Fixes
+
+* optimize mult object_ref interfaces call ([#473](https://github.com/easyops-cn/next-libs/issues/473)) ([5fb2352](https://github.com/easyops-cn/next-libs/commit/5fb2352d313f3278983a44396e7cdb214ac59927))
+
+
+
+
+
 ## [6.49.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.49.2...@next-libs/cmdb-instances@6.49.3) (2022-11-10)
 
 
