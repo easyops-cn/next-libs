@@ -61,6 +61,7 @@ interface ModelAttributeFormProps extends FormComponentProps {
   onSubmit(data: any): Promise<any>;
   basicInfoAttrList?: Partial<CmdbModels.ModelObjectAttr>[];
   objectList?: Partial<CmdbModels.ModelCmdbObject>[];
+  modelRelations?: Partial<CmdbModels.ModelCmdbObject>[];
   modelData?: Partial<CmdbModels.ModelCmdbObject>;
   attributeFormControlInitialValueMap:
     | InstanceApi_GetDefaultValueTemplateResponseBody
@@ -526,6 +527,14 @@ export class ModelAttributeForm extends Component<
       ? InitialRelationValue.map((instanceData: any) => instanceData.instanceId)
       : [];
 
+    // 用于获取与当前模型相关联的模型
+    const objectRelations = (this.props.modelRelations || []).filter((v) => {
+      const index = v.relation_list.findIndex(
+        (_relation) => _relation.left_object_id === relation.right_object_id
+      );
+      return index > -1;
+    });
+
     return (
       <Form.Item
         label={relation.left_name}
@@ -537,6 +546,9 @@ export class ModelAttributeForm extends Component<
           initialValue,
         })(
           <RefCmdbInstancesSelectPanel
+            {...(this.props.modelRelations
+              ? { objectMap: keyBy(objectRelations, "objectId") }
+              : {})}
             isFilterView={this.props.isFilterView}
             modelData={this.modelMap[relation.right_object_id]}
             objectId={relation.right_object_id}
