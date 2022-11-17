@@ -1,114 +1,86 @@
 import React from "react";
-import { act } from "react-dom/test-utils";
-import { mount, shallow } from "enzyme";
-import { LocationDescriptorObject } from "history";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { createHistory, getHistory } from "@next-core/brick-kit";
-import { PluginHistoryState } from "@next-core/brick-types";
+import { LocationDescriptorObject } from "history";
 import { Link } from "./Link";
+import { PluginHistoryState } from "@next-core/brick-types";
+import { act } from "react-dom/test-utils";
 
 createHistory();
 
-describe("Link", () => {
-  beforeEach(() => {
-    getHistory().push("/home");
+beforeEach(() => {
+  getHistory().push("/home");
+});
+
+test("render simple link", () => {
+  const preventDefault = jest.fn();
+  render(<Link to="/for-simple">xxx</Link>);
+  expect(screen.getByText("xxx")).toBeTruthy();
+  fireEvent.click(screen.getByText("xxx"), {
+    preventDefault,
+    button: 0,
   });
-
-  it("render simple link", () => {
-    const onClick = jest.fn();
-    const wrapper = shallow(<Link to="/for-simple" onClick={onClick} />);
-    expect(wrapper.find("a").prop("href")).toBe("/for-simple");
-    expect(wrapper.find("a").prop("style")).toEqual({});
-
-    const preventDefault = jest.fn();
-    wrapper.find("a").simulate("click", {
-      preventDefault,
-      button: 0,
-    });
-    expect(onClick).toBeCalledTimes(1);
-    expect(preventDefault).toBeCalled();
-    expect(getHistory().location).toMatchObject({
-      pathname: "/for-simple",
-      search: "",
-    });
+  expect(getHistory().location).toMatchObject({
+    pathname: "/for-simple",
+    search: "",
   });
+});
 
-  it("render complex link", () => {
-    const to: LocationDescriptorObject<PluginHistoryState> = {
-      pathname: "for-complex",
-      search: "?even-more",
-      hash: "#and-more",
-    };
-    const wrapper = shallow(<Link to={to} />);
-    expect(wrapper.find("a").prop("href")).toBe(
-      "for-complex?even-more#and-more"
-    );
+test("render complex lin", () => {
+  const to: LocationDescriptorObject<PluginHistoryState> = {
+    pathname: "for-complex",
+    search: "?even-more",
+    hash: "#and-more",
+  };
+  render(<Link to={to}>xxx</Link>);
+  expect(screen.getByText("xxx").getAttribute("href")).toBe(
+    "for-complex?even-more#and-more"
+  );
+});
+
+test("should render with new href property", () => {
+  render(<Link href="http://192.168.100.163">xxx</Link>);
+  expect(screen.getByText("xxx").getAttribute("href")).toBe(
+    "http://192.168.100.163"
+  );
+});
+
+test("should render with no empty href", () => {
+  render(<Link noEmptyHref>xxx</Link>);
+  expect(screen.getByText("xxx").getAttribute("href")).toBe(null);
+});
+
+test("should render with disabled link", () => {
+  const onClick = jest.fn();
+  render(
+    <Link
+      to="/for-disabled"
+      disabled
+      onClick={onClick}
+      style={{ color: "red" }}
+    >
+      xxx
+    </Link>
+  );
+  fireEvent.click(screen.getByText("xxx"), {
+    button: 0,
   });
-
-  it("should render with new href property", () => {
-    const wrapper = shallow(<Link href="http://192.168.100.163" />);
-    expect(wrapper.find("a").prop("href")).toBe("http://192.168.100.163");
+  expect(getHistory().location).toMatchObject({
+    pathname: "/home",
+    search: "",
   });
+});
 
-  it("should render with no empty href", () => {
-    const wrapper = shallow(<Link noEmptyHref />);
-    expect(wrapper.find("a").prop("href")).toBe(undefined);
-  });
-
-  it("should render with disabled link", () => {
-    const onClick = jest.fn();
-    const wrapper = shallow(
-      <Link
-        to="/for-disabled"
-        disabled
-        onClick={onClick}
-        style={{ color: "red" }}
-      />
-    );
-    expect(wrapper.find("a").props()).toEqual(
-      expect.objectContaining({
-        href: undefined,
-        style: {
-          cursor: "not-allowed",
-          color: "red",
-        },
-      })
-    );
-
-    const preventDefault = jest.fn();
-    wrapper.find("a").simulate("click", {
-      preventDefault,
-    });
-    expect(onClick).not.toBeCalled();
-    expect(preventDefault).toBeCalled();
-  });
-
-  it("should listen history change", () => {
-    const onClick = jest.fn();
-    const wrapper = mount(
-      <Link
-        to={{
-          pathname: "/abc",
-          keepCurrentSearch: true,
-        }}
-        onClick={onClick}
-      />
-    );
-    expect(wrapper.find("a").prop("href")).toBe("/abc");
-
-    act(() => {
-      getHistory().pushQuery({ q: "1" }, { notify: false });
-    });
-    wrapper.update();
-    expect(wrapper.find("a").prop("href")).toBe("/abc?q=1");
-
-    wrapper.find("a").simulate("click", {
-      preventDefault: jest.fn(),
-      button: 0,
-    });
-    expect(onClick).toBeCalled();
-    expect(getHistory().location).toMatchObject({
-      pathname: "/abc",
-      search: "?q=1",
-    });
-  });
+test("should render with no empty href", () => {
+  render(
+    <Link
+      to={{
+        pathname: "/abc",
+        keepCurrentSearch: true,
+      }}
+    >
+      xxx
+    </Link>
+  );
+  expect(screen.getByText("xxx")).toBeTruthy();
 });
