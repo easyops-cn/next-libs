@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.0.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.49.4...@next-libs/cmdb-instances@7.0.0) (2022-11-17)
+
+
+### Features
+
+* 使用原生点击事件实现Link行为 Refs:EASY_AGILE-873 ([0f7e503](https://github.com/easyops-cn/next-libs/commit/0f7e503b3c2c074522592f56eeffc065d7aa6334))
+
+
+### BREAKING CHANGES
+
+* use native click event
+
+
+
+
+
 ## [6.49.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@6.49.3...@next-libs/cmdb-instances@6.49.4) (2022-11-14)
 
 
