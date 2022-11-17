@@ -1,5 +1,5 @@
 // Ref https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/modules/Link.js
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState, useRef } from "react";
 import { createLocation } from "history";
 import { getHistory } from "@next-core/brick-kit";
 import { PluginHistory } from "@next-core/brick-types";
@@ -8,9 +8,7 @@ import {
   getExtendedLocationDescriptor,
 } from "./getExtendedLocationDescriptor";
 
-function isModifiedEvent(
-  event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
-): boolean {
+function isModifiedEvent(event: MouseEvent): boolean {
   return !!(event.metaKey || event.altKey || event.ctrlKey || event.shiftKey);
 }
 
@@ -20,23 +18,33 @@ export type ExtendedLocationDescriptor =
 export type { ExtendedLocationDescriptorObject };
 
 export interface LinkProps
-  extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+  extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "onClick"> {
   to?: ExtendedLocationDescriptor;
   innerRef?: string;
   noEmptyHref?: boolean;
   replace?: boolean;
   disabled?: boolean;
+  onClick?: (e: MouseEvent) => void;
 }
 
 /**
  * The public API for rendering a history-aware <a>.
  */
 export function Link(props: LinkProps): React.ReactElement {
-  const { innerRef, replace, to, noEmptyHref, disabled, style, ...rest } =
-    props;
+  const {
+    innerRef,
+    replace,
+    to,
+    noEmptyHref,
+    disabled,
+    style,
+    onClick,
+    ...rest
+  } = props;
   const history = getHistory();
 
   const [currentLocation, setCurrentLocation] = useState(history.location);
+  const linkRef = useRef<HTMLAnchorElement>();
   useEffect(() => {
     // Listen history change only when necessary.
     if (typeof to !== "string" && to?.keepCurrentSearch) {
@@ -62,35 +70,39 @@ export function Link(props: LinkProps): React.ReactElement {
     return loc ? history.createHref(loc) : "";
   }, [disabled, props.href, to, currentLocation, history]);
 
-  const handleClick = (
-    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
-  ): void => {
-    if (disabled) {
-      event.preventDefault();
-      return;
-    }
-    props.onClick?.(event);
-    if (props.href) return;
+  useEffect(() => {
+    const handleClick = (event: MouseEvent): void => {
+      if (disabled) {
+        event.preventDefault();
+        return;
+      }
+      onClick?.(event);
+      if (props.href) return;
 
-    if (
-      !event.defaultPrevented && // onClick prevented default
-      event.button === 0 && // ignore everything but left clicks
-      (!props.target || props.target === "_self") && // let browser handle "target=_blank" etc.
-      !isModifiedEvent(event) // ignore clicks with modifier keys
-    ) {
-      event.preventDefault();
+      if (
+        !event.defaultPrevented && // onClick prevented default
+        event.button === 0 && // ignore everything but left clicks
+        (!props.target || props.target === "_self") && // let browser handle "target=_blank" etc.
+        !isModifiedEvent(event) // ignore clicks with modifier keys
+      ) {
+        event.preventDefault();
 
-      if (!to) return;
+        if (!to) return;
 
-      const method = replace ? history.replace : history.push;
+        const method = replace ? history.replace : history.push;
 
-      method(
-        typeof to === "string"
-          ? to
-          : getExtendedLocationDescriptor(to, currentLocation)
-      );
-    }
-  };
+        method(
+          typeof to === "string"
+            ? to
+            : getExtendedLocationDescriptor(to, currentLocation)
+        );
+      }
+    };
+    linkRef.current?.addEventListener("click", handleClick);
+    return () => {
+      linkRef.current?.removeEventListener("click", handleClick);
+    };
+  }, [props.href, onClick, disabled, to, replace, history, currentLocation]);
 
   rest.href = computedHref || !noEmptyHref ? computedHref : undefined;
 
@@ -103,8 +115,7 @@ export function Link(props: LinkProps): React.ReactElement {
           : null),
         ...style,
       }}
-      onClick={(event) => handleClick(event)}
-      ref={innerRef}
+      ref={linkRef}
     />
   );
 }
