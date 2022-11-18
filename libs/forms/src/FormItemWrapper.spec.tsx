@@ -139,6 +139,8 @@ describe("FormItemWrapper", () => {
         formElement={formElement as unknown as AbstractGeneralFormElement}
         name="username"
         label="hello"
+        labelColor="var(--theme-red-color)"
+        labelBold={true}
         required={true}
         trigger={trigger}
         validateTrigger={validateTrigger}
@@ -168,6 +170,9 @@ describe("FormItemWrapper", () => {
     await (global as any).flushPromises();
     wrapper.update();
     expect(wrapper.find(MockComponent).text()).toBe("4");
+    expect(wrapper.find("span").length).toBe(2);
+    wrapper.setProps({ labelColor: undefined, labelBold: undefined });
+    expect(wrapper.find("span").length).toBe(1);
   });
 
   it("should return null when notRender is true", () => {

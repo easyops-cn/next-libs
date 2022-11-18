@@ -15,7 +15,6 @@ export abstract class FormItemElement extends UpdatingElement {
   private _notRender = false;
 
   /**
-   * @property
    * @kind string
    * @required true
    * @default -
@@ -26,7 +25,6 @@ export abstract class FormItemElement extends UpdatingElement {
   name: string;
 
   /**
-   * @property
    * @kind string
    * @required false
    * @default -
@@ -37,7 +35,26 @@ export abstract class FormItemElement extends UpdatingElement {
   label: string;
 
   /**
-   * @property
+   * @kind string
+   * @required false
+   * @default -
+   * @description 表单 label颜色
+   * @group basicFormItem
+   */
+  @property()
+  labelColor: string;
+
+  /**
+   * @kind boolean
+   * @required false
+   * @default -
+   * @description 表单 label加粗
+   * @group basicFormItem
+   */
+  @property({ type: Boolean })
+  labelBold: boolean;
+
+  /**
    * @kind boolean
    * @required false
    * @default -
@@ -50,7 +67,6 @@ export abstract class FormItemElement extends UpdatingElement {
   required: boolean;
 
   /**
-   * @property
    * @kind string
    * @required false
    * @default -
@@ -61,7 +77,6 @@ export abstract class FormItemElement extends UpdatingElement {
   placeholder: string;
 
   /**
-   * @property
    * @kind string
    * @required false
    * @default -
@@ -72,7 +87,6 @@ export abstract class FormItemElement extends UpdatingElement {
   pattern: string;
 
   /**
-   * @property
    * @kind Record<string, string>
    * @required false
    * @default -
@@ -85,7 +99,6 @@ export abstract class FormItemElement extends UpdatingElement {
   message: Record<string, string>;
 
   /**
-   * @property
    * @kind ValidationRule
    * @required false
    * @default -
@@ -100,7 +113,6 @@ export abstract class FormItemElement extends UpdatingElement {
     | Pick<ValidationRule, "validator" | "message">[];
 
   /**
-   * @property
    * @required false
    * @description 表单项标签 tooltip 配置
    * @group basicFormItem
@@ -111,7 +123,6 @@ export abstract class FormItemElement extends UpdatingElement {
   labelTooltip: LabelTooltipProps | string | number;
 
   /**
-   * @property
    * @required false
    * @description 表单项的 helpBrick，通常用于在表单末尾和下面额外展示相关信息
    * @group advancedFormItem
@@ -122,7 +133,6 @@ export abstract class FormItemElement extends UpdatingElement {
   helpBrick: HelpBrickProps | string | number;
 
   /**
-   * @property
    * @required false
    * @description 表单项的 labelBrick, 可以指定额外构件作为 label 的展示
    * @group advancedFormItem
@@ -133,7 +143,6 @@ export abstract class FormItemElement extends UpdatingElement {
   labelBrick: LabelBrick;
 
   /**
-   * @property
    * @required false
    * @description 表单项 label 标签布局
    * @group ui
@@ -144,7 +153,6 @@ export abstract class FormItemElement extends UpdatingElement {
   labelCol: ColProps;
 
   /**
-   * @property
    * @required false
    * @description 表单项控件布局
    * @group ui
@@ -155,7 +163,6 @@ export abstract class FormItemElement extends UpdatingElement {
   wrapperCol: ColProps;
 
   /**
-   * @property
    * @default true
    * @description 是否自动去除前后的空白字符
    * @group advancedFormItem
@@ -166,7 +173,6 @@ export abstract class FormItemElement extends UpdatingElement {
   trim? = true;
 
   /**
-   * @property
    * @required false
    * @default false
    * @description 控制该表单项是否隐藏
