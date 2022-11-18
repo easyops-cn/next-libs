@@ -35,7 +35,7 @@ export abstract class FormItemElement extends UpdatingElement {
   label: string;
 
   /**
-   * @kind boolean
+   * @kind string
    * @required false
    * @default -
    * @description 表单 label颜色
