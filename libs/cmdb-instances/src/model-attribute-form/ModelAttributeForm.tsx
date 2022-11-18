@@ -530,7 +530,9 @@ export class ModelAttributeForm extends Component<
     // 用于获取与当前模型相关联的模型
     const objectRelations = (this.props.modelRelations || []).filter((v) => {
       const index = v.relation_list.findIndex(
-        (_relation) => _relation.left_object_id === relation.right_object_id
+        (_relation) =>
+          _relation.left_object_id === relation.right_object_id ||
+          _relation.right_object_id === relation.right_object_id
       );
       return index > -1;
     });
