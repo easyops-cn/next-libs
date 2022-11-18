@@ -41,6 +41,28 @@ export abstract class FormItemElement extends UpdatingElement {
    * @kind boolean
    * @required false
    * @default -
+   * @description 表单 label颜色
+   * @group basicFormItem
+   */
+  @property()
+  labelColor: string;
+
+  /**
+   * @property
+   * @kind boolean
+   * @required false
+   * @default -
+   * @description 表单 label加粗
+   * @group basicFormItem
+   */
+  @property({ type: Boolean })
+  labelBold: boolean;
+
+  /**
+   * @property
+   * @kind boolean
+   * @required false
+   * @default -
    * @description 表单项是否必填
    * @group basicFormItem
    */

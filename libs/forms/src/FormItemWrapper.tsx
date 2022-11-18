@@ -45,6 +45,8 @@ export interface FormItemWrapperProps extends CommonEventProps {
   label?: string;
   labelTooltip?: LabelTooltipProps | string | number;
   labelBrick?: LabelBrick;
+  labelColor?: string;
+  labelBold?: boolean;
   required?: boolean;
   min?: number;
   max?: number;
@@ -206,6 +208,8 @@ export function FormItemWrapper(
   const {
     labelTooltip,
     labelBrick,
+    labelBold,
+    labelColor,
     helpBrick,
     className,
     notRender,
@@ -282,6 +286,15 @@ export function FormItemWrapper(
             <BrickAsComponent useBrick={labelBrick.useBrick} />
           </span>
         )}
+      </span>
+    ) : labelColor || labelBold ? (
+      <span
+        style={{
+          color: labelColor ?? "var(--antd-label-color)",
+          fontWeight: labelBold ? "bold" : "normal",
+        }}
+      >
+        {props.label}
       </span>
     ) : (
       props.label
