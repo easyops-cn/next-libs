@@ -114,11 +114,11 @@ export interface InstanceListTableProps extends WithTranslation {
   inheritanceModelIdNameMap?: Record<string, string>;
   filterInstanceSourceDisabled?: boolean;
   onClickItem?(
-    evt: React.MouseEvent<HTMLAnchorElement, MouseEvent> | MouseEvent,
+    evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
     id: string
   ): void;
   onClickItemV2?(
-    evt: React.MouseEvent<HTMLAnchorElement, MouseEvent> | MouseEvent,
+    evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
     record: Record<string, any>
   ): void;
   onPaginationChange?(pagination: ReadPaginationChangeDetail): void;
@@ -403,7 +403,7 @@ export class LegacyInstanceListTable extends React.Component<
     });
   }
   handleClickItem(
-    e: React.MouseEvent<HTMLAnchorElement, MouseEvent> | MouseEvent,
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
     record: Record<string, any>
   ): void {
     if (this.props.onClickItem) {
@@ -524,7 +524,12 @@ export class LegacyInstanceListTable extends React.Component<
           >
             <Link
               to={url}
-              onClick={(e: MouseEvent) => this.handleClickItem(e, record)}
+              onClick={(e: MouseEvent | React.MouseEvent) =>
+                this.handleClickItem(
+                  e as React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+                  record
+                )
+              }
               data-testid="instance-detail-link"
             >
               <Tooltip
@@ -726,7 +731,12 @@ export class LegacyInstanceListTable extends React.Component<
                 return (
                   <Link
                     to={url}
-                    onClick={(e: MouseEvent) => this.handleClickItem(e, record)}
+                    onClick={(e: MouseEvent | React.MouseEvent) =>
+                      this.handleClickItem(
+                        e as React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+                        record
+                      )
+                    }
                     data-testid="instance-detail-link"
                     {...(!firstColumns || object.isAbstract
                       ? { target: "_blank" }
@@ -846,8 +856,11 @@ export class LegacyInstanceListTable extends React.Component<
                       // 使用 <Link> 以保持链接的原生能力
                       to={url}
                       // 自定义 onClick 以支持事件配置和拦截
-                      onClick={(e: MouseEvent) =>
-                        this.handleClickItem(e, record)
+                      onClick={(e: MouseEvent | React.MouseEvent) =>
+                        this.handleClickItem(
+                          e as React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+                          record
+                        )
                       }
                     >
                       {instanceName}

@@ -1,14 +1,19 @@
 // Ref https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/modules/Link.js
-import React, { useEffect, useMemo, useState, useRef } from "react";
+import React, {
+  useEffect,
+  useMemo,
+  useState,
+  useRef,
+  useCallback,
+} from "react";
 import { createLocation } from "history";
 import { getHistory } from "@next-core/brick-kit";
-import { PluginHistory } from "@next-core/brick-types";
 import {
   ExtendedLocationDescriptorObject,
   getExtendedLocationDescriptor,
 } from "./getExtendedLocationDescriptor";
 
-function isModifiedEvent(event: MouseEvent): boolean {
+function isModifiedEvent(event: MouseEvent | React.MouseEvent): boolean {
   return !!(event.metaKey || event.altKey || event.ctrlKey || event.shiftKey);
 }
 
@@ -24,7 +29,14 @@ export interface LinkProps
   noEmptyHref?: boolean;
   replace?: boolean;
   disabled?: boolean;
-  onClick?: (e: MouseEvent) => void;
+  /**
+   * Set `useNativeEvent` to true in shadow DOM.
+   *
+   * Notice: when set it to true, the inner elements inside Link should also use native events.
+   * Otherwise the event bubbling may not work as you expected.
+   */
+  useNativeEvent?: boolean;
+  onClick?: (e: MouseEvent | React.MouseEvent) => void;
 }
 
 /**
@@ -38,6 +50,7 @@ export function Link(props: LinkProps): React.ReactElement {
     noEmptyHref,
     disabled,
     style,
+    useNativeEvent,
     onClick,
     ...rest
   } = props;
@@ -70,8 +83,8 @@ export function Link(props: LinkProps): React.ReactElement {
     return loc ? history.createHref(loc) : "";
   }, [disabled, props.href, to, currentLocation, history]);
 
-  useEffect(() => {
-    const handleClick = (event: MouseEvent): void => {
+  const handleClick = useCallback(
+    (event: MouseEvent | React.MouseEvent): void => {
       if (disabled) {
         event.preventDefault();
         return;
@@ -97,12 +110,29 @@ export function Link(props: LinkProps): React.ReactElement {
             : getExtendedLocationDescriptor(to, currentLocation)
         );
       }
-    };
-    linkRef.current?.addEventListener("click", handleClick);
+    },
+    [
+      currentLocation,
+      disabled,
+      history,
+      onClick,
+      props.href,
+      props.target,
+      replace,
+      to,
+    ]
+  );
+
+  useEffect(() => {
+    const link = linkRef.current;
+    if (!link || !useNativeEvent) {
+      return;
+    }
+    link.addEventListener("click", handleClick);
     return () => {
-      linkRef.current?.removeEventListener("click", handleClick);
+      link.removeEventListener("click", handleClick);
     };
-  }, [props.href, onClick, disabled, to, replace, history, currentLocation]);
+  }, [handleClick, useNativeEvent]);
 
   rest.href = computedHref || !noEmptyHref ? computedHref : undefined;
 
@@ -115,6 +145,7 @@ export function Link(props: LinkProps): React.ReactElement {
           : null),
         ...style,
       }}
+      onClick={useNativeEvent ? null : handleClick}
       ref={linkRef}
     />
   );
