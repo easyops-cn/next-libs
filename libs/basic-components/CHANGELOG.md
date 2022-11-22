@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.1.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@5.0.0...@next-libs/basic-components@5.1.0) (2022-11-22)
+
+
+### Features
+
+* fix link: specify useNativeEvent explicitly ([49169af](https://github.com/easyops-cn/next-libs/commit/49169afc8745625dd4b8755f9c82af910b59322b))
+
+
+
+
+
 # [5.0.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@4.0.3...@next-libs/basic-components@5.0.0) (2022-11-17)
 
 

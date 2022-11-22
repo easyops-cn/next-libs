@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.0.2...@next-libs/cmdb-instances@7.0.3) (2022-11-22)
+
+
+### Bug Fixes
+
+* refine Link event types ([8aaf9c3](https://github.com/easyops-cn/next-libs/commit/8aaf9c359b8f39de187b651a83d9b3bbf7cde79c))
+
+
+
+
+
 ## [7.0.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.0.1...@next-libs/cmdb-instances@7.0.2) (2022-11-18)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
