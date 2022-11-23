@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/user-components@0.1.3...@next-libs/user-components@0.1.4) (2022-11-23)
+
+
+### Bug Fixes
+
+* **CommentBrick:** 查询结果默认显示showkey  Refs: ITSERVICE_NEXT-5114 ([f0c6fd7](https://github.com/easyops-cn/next-libs/commit/f0c6fd7747d8495d583fae46733bf90c232fe347))
+
+
+
+
+
 ## [0.1.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/user-components@0.1.2...@next-libs/user-components@0.1.3) (2022-11-10)
 
 **Note:** Version bump only for package @next-libs/user-components
