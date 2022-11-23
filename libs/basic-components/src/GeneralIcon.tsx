@@ -33,6 +33,7 @@ interface MenuIconProps {
   onClick?(event: React.MouseEvent<HTMLElement, MouseEvent>): void;
   showEmptyIcon?: boolean;
   noPublicRoot?: boolean;
+  imageLoading?: "lazy" | "eager";
 }
 
 function isGradientColor(
@@ -55,6 +56,7 @@ export function GeneralIcon({
   showEmptyIcon,
   style,
   noPublicRoot,
+  imageLoading,
 }: MenuIconProps): React.ReactElement {
   const memoizedIcon = useDeepEqualMemo(_icon);
   const getStyle = (icon: MenuIcon): React.CSSProperties => {
@@ -147,6 +149,7 @@ export function GeneralIcon({
           height={size}
           style={icon.imgStyle}
           onClick={onClick}
+          loading={imageLoading}
         />
       );
     } else if ("lib" in icon) {
