@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useMemo } from "react";
 import {
   Mentions as AMentions,
   MentionProps as AMentionProps,
   Avatar,
 } from "antd";
 import { useMention } from "@next-libs/hooks";
+import { UserInfo } from "@next-core/brick-types";
 
 export interface MentionsProps extends Partial<AMentionProps> {
   onSearch?: (text: string, prefix: string) => void;
   debounceTime?: number;
+  showkey?: Array<keyof UserInfo>;
 }
 
 export function Mentions({
@@ -16,6 +18,11 @@ export function Mentions({
   debounceTime = 300,
   ...restProps
 }: MentionsProps): React.ReactElement {
+  const showkey: Array<keyof UserInfo> = useMemo(
+    () => (restProps.showkey?.length ? restProps.showkey : ["name"]),
+    [restProps.showkey]
+  );
+
   const { users, loading, updateUserName } = useMention("", {
     debounceTime,
   });
@@ -35,7 +42,10 @@ export function Mentions({
       {Array.isArray(users) &&
         users.map((item) => (
           <AMentions.Option
-            value={item.name}
+            value={showkey
+              .map((k) => item[k])
+              .filter((v) => !!v)
+              .join("/")}
             key={item.name}
             data-testid="mentions-option"
           >
@@ -51,7 +61,10 @@ export function Mentions({
             >
               {!item.user_icon && item.name?.slice(0, 2)}
             </Avatar>
-            {item.name}
+            {showkey
+              .map((k) => item[k])
+              .filter((v) => !!v)
+              .join("/")}
           </AMentions.Option>
         ))}
     </AMentions>
