@@ -1,6 +1,6 @@
 {
   "name": "@next-libs/storyboard-visualization",
-  "version": "4.1.19",
+  "version": "4.1.20",
   "description": "> TODO: description",
   "homepage": "https://github.com/easyops-cn/next-libs/tree/master/libs/storyboard-visualization",
   "license": "GPL-3.0",
@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@next-core/brick-types": "^2.16.0",
-    "@next-libs/basic-components": "^5.1.0",
+    "@next-libs/basic-components": "^5.2.0",
     "classnames": "^2.3.2"
   }
 }

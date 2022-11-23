@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.2.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@5.1.0...@next-libs/basic-components@5.2.0) (2022-11-23)
+
+
+### Features
+
+* support lazy image loading ([cfc7b5c](https://github.com/easyops-cn/next-libs/commit/cfc7b5c54ff6269e30191b8ec61e31b1be1f21b2))
+
+
+
+
+
 # [5.1.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@5.0.0...@next-libs/basic-components@5.1.0) (2022-11-22)
 
 
