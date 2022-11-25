@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.0.4...@next-libs/cmdb-instances@7.0.5) (2022-11-25)
+
+
+### Bug Fixes
+
+* ModelAttributeForm接口报错后恢复按钮 Closes INSTANCE-3240 ([c24269d](https://github.com/easyops-cn/next-libs/commit/c24269d25df47c146fa022407cda59fd370d5790))
+
+
+
+
+
 ## [7.0.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.0.3...@next-libs/cmdb-instances@7.0.4) (2022-11-23)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
