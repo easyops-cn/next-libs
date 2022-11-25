@@ -355,7 +355,10 @@ export class ModelAttributeForm extends Component<
       if (result !== "error" && continueCreating) {
         this.props.form.resetFields();
       }
-      if (type === "continue") {
+      if (result === "error") {
+        this.setState({ sending: false });
+      }
+      if (result !== "error" && type === "continue") {
         setTimeout(() => {
           this.setState({ sending: false });
         }, 2500);
