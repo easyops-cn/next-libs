@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.7.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.7.7...@next-libs/code-editor-components@4.7.8) (2022-11-28)
+
+
+### Bug Fixes
+
+* warn route var such as PATH in tpl ([0bf518c](https://github.com/easyops-cn/next-libs/commit/0bf518cec2402ec00e8762bec6ab9f24bfc0aac1))
+
+
+
+
+
 ## [4.7.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.7.6...@next-libs/code-editor-components@4.7.7) (2022-11-23)
 
 **Note:** Version bump only for package @next-libs/code-editor-components
