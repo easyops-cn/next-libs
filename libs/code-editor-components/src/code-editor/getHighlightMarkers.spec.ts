@@ -273,6 +273,66 @@ describe("getHighlightMarkers", () => {
       value: "_self'",
     },
   ];
+  const pageVarLines: Token[][] = [
+    [
+      {
+        type: "text",
+        value: "  ",
+      },
+      {
+        type: "placeholder.start",
+        value: `<% `,
+      },
+      {
+        type: "support.class.builtin.js",
+        value: "QUERY",
+      },
+      {
+        type: "punctuation.operator",
+        value: ".",
+      },
+      {
+        type: "identifier",
+        value: "abc",
+      },
+      {
+        type: "punctuation.operator",
+        value: ",",
+      },
+      {
+        type: "support.class.builtin.js",
+        value: "PATH",
+      },
+      {
+        type: "punctuation.operator",
+        value: ".",
+      },
+      {
+        type: "identifier",
+        value: "def",
+      },
+      {
+        type: "punctuation.operator",
+        value: ",",
+      },
+      {
+        type: "support.class.builtin.js",
+        value: "DATA",
+      },
+      {
+        type: "punctuation.operator",
+        value: ".",
+      },
+      {
+        type: "identifier",
+        value: "xyz",
+      },
+      {
+        type: "placeholder.end",
+        value: " %>",
+      },
+    ],
+  ];
 
   it.each<{
     doc: Token[][];
@@ -446,6 +506,34 @@ describe("getHighlightMarkers", () => {
           identifier: "my\\.bad-brick",
           inFront: true,
           startCol: 8,
+          startRow: 0,
+          type: "text",
+        },
+      ],
+    },
+    {
+      doc: pageVarLines,
+      highlightTokens: [{ type: "storyboard-route-var", level: "warn" }],
+      markers: [
+        {
+          className: "warn-marker",
+          endCol: 14,
+          endRow: 0,
+          highlightType: "storyboard-route-var",
+          identifier: "abc",
+          inFront: true,
+          startCol: 5,
+          startRow: 0,
+          type: "text",
+        },
+        {
+          className: "warn-marker",
+          endCol: 23,
+          endRow: 0,
+          highlightType: "storyboard-route-var",
+          identifier: "def",
+          inFront: true,
+          startCol: 15,
           startRow: 0,
           type: "text",
         },
