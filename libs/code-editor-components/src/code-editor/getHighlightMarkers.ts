@@ -82,6 +82,14 @@ export function getHighlightMarkers({
                 ? "storyboard-state"
                 : token.value === "TPL"
                 ? "storyboard-tpl-var"
+                : token.value === "PATH" ||
+                  token.value === "PATH_NAME" ||
+                  token.value === "QUERY" ||
+                  token.value === "QUERY_ARRAY" ||
+                  token.value === "PARAMS" ||
+                  token.value === "HASH" ||
+                  token.value === "ANCHOR"
+                ? "storyboard-route-var"
                 : token.value === "DS"
                 ? "dashboard-DS"
                 : null;
@@ -207,7 +215,11 @@ function pushActionOrTarget(
         break;
     }
   } else {
-    if (value !== "_self" && tagNameAsTargetRegExp.test(value)) {
+    if (
+      value !== "_self" &&
+      value !== "null" &&
+      tagNameAsTargetRegExp.test(value)
+    ) {
       currentType = "storyboard-tag-name-as-target";
     }
   }

@@ -69,6 +69,7 @@ export type HighlightTokenType =
   | "storyboard-state-action"
   | "storyboard-tpl-var"
   | "storyboard-tag-name-as-target"
+  | "storyboard-route-var"
   | "dashboard-DS";
 
 export interface AceLanguageRules {
