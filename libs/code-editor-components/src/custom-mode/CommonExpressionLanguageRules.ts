@@ -8,7 +8,7 @@ const celKeywords = {
   "constant.language.boolean": "true|false",
   "support.function":
     // Built-in functions
-    "bytes|double|duration|dyn|int|matches|size|string|timestamp|type|uint|" +
+    "bytes|double|duration|dyn|int|bool|matches|size|string|timestamp|type|uint|round|" +
     // Built-in extensions
     "base64|" +
     // Built-in macros
@@ -16,30 +16,32 @@ const celKeywords = {
     // EasyOps primitive_type_ext
     "printf|isEmpty|repeatArray|" +
     // EasyOps dyn_type_ext
-    "mergeList",
+    "mergeList|fieldNotEmpty|hasOrDefault|trinocular|traceId|SHA1|random|random_string|now",
 };
 
 const celInstanceMethodKeywords = {
+  "support.variable":
+    "variable|variable_noload|request|body|query|uri|header|step|config|output|input",
   "support.function":
     // Built-in methods
     "contains|endsWith|matches|startsWith|" +
     // Built-in datetime methods
     "getDate|getDayOfMonth|getDayOfWeek|getDayOfYear|getFullYear|getHours|getMilliseconds|getMinutes|getMonth|getSeconds|" +
     // Built-in extensions
-    "charAt|indexOf|lastIndexOf|lowerAscii|replace|split|substring|trim|upperAscii|" +
+    "charAt|indexOf|lastIndexOf|lowerAscii|replace|split|join|substring|trim|upperAscii|" +
     // Built-in macros
     "all|exists|exists_one|map|filter|" +
     // EasyOps primitive_type_ext
     "decodeb64|truncate|parseJSON|parseYAML|parseURL|isBlank|" +
     // EasyOps dyn_type_ext
-    "marshalJSON|marshalYAML|merge|repeat",
+    "marshalJSON|marshalYAML|merge|repeat|match|canonical|convertMap|fuse|remove|setAttr|parseDate|format",
 };
 
 export const snippets = [
   {
     label: "<% %>",
     caption: "<% %>",
-    snippet: "<%${0}%>",
+    snippet: "<% ${0} %>",
     meta: "placeholder",
   },
 ];
