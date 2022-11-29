@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.8.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.7.8...@next-libs/code-editor-components@4.8.0) (2022-11-29)
+
+
+### Features
+
+* cel mode add completer ([c419b42](https://github.com/easyops-cn/next-libs/commit/c419b4272aa87564832c950a265bc6fd412990ef))
+
+
+
+
+
 ## [4.7.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.7.7...@next-libs/code-editor-components@4.7.8) (2022-11-28)
 
 
