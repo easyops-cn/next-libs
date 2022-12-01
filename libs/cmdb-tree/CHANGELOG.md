@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.5.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-tree@4.5.3...@next-libs/cmdb-tree@4.5.4) (2022-12-01)
+
+
+### Bug Fixes
+
+* ORCHESTRATION-222 部署编排首页业务树的权限控制对继承的白名单用户也要生效 refs ORCHESTRATION-222 ([50aa337](https://github.com/easyops-cn/next-libs/commit/50aa337ab29d7acfba3e5f464d22ddd829f0b90a))
+
+
+
+
+
 ## [4.5.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-tree@4.5.2...@next-libs/cmdb-tree@4.5.3) (2022-11-10)
 
 **Note:** Version bump only for package @next-libs/cmdb-tree
