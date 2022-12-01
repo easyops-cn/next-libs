@@ -447,7 +447,10 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
         const title = getTitle(instance, showKeys);
         const authorized = this.props.checkWhiteList
           ? checkPermission(
-              instance.readAuthorizers,
+              [
+                ...(instance.readAuthorizers || []),
+                ...(instance.inheritedReadAuthorizers || []),
+              ],
               this.username,
               this.userGroupIds
             )
@@ -481,7 +484,10 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
         isLeaf:
           this.props.checkWhiteList && item.readAuthorizers
             ? checkPermission(
-                item.readAuthorizers,
+                [
+                  ...item.readAuthorizers,
+                  ...(item.inheritedReadAuthorizers || []),
+                ],
                 this.username,
                 this.userGroupIds
               )
@@ -629,7 +635,10 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
       instance.title = getTitle(instance, showKeys);
       instance.authorized = this.props.checkWhiteList
         ? checkPermission(
-            instance.readAuthorizers,
+            [
+              ...(instance.readAuthorizers || []),
+              ...(instance.inheritedReadAuthorizers || []),
+            ],
             this.username,
             this.userGroupIds
           )

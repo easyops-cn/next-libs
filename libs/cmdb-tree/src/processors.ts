@@ -161,6 +161,7 @@ export function fixRequestFields(
       request.fields = {};
       if (checkWhiteList) {
         request.fields.readAuthorizers = true;
+        request.fields.inheritedReadAuthorizers = true;
       }
       for (const showKey of showKeys) {
         request.fields[showKey] = true;
@@ -205,6 +206,7 @@ export function fixRequestFields(
               c.fields = {};
               if (checkWhiteList) {
                 c.fields.readAuthorizers = true;
+                request.fields.inheritedReadAuthorizers = true;
               }
               for (const showKey of showKeys) {
                 c.fields[showKey] = true;
