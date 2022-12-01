@@ -306,7 +306,11 @@ describe("transformToTreeData", () => {
     const spy = jest.spyOn(console, "warn").mockImplementation(() => true);
     const fields = fixRequestFields(objectList, request, false, true);
     expect(fields).toEqual(["name"]);
-    expect(request.fields).toEqual({ name: true, readAuthorizers: true });
+    expect(request.fields).toEqual({
+      name: true,
+      readAuthorizers: true,
+      inheritedReadAuthorizers: true,
+    });
     expect(request.child[0].fields).toEqual({
       name: true,
       readAuthorizers: true,
