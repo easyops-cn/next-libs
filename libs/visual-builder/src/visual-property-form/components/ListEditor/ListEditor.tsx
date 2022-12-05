@@ -41,18 +41,19 @@ export function ListEditor({
       const key = item[COLUMN_KEY];
       const newList = list.filter((item) => item[COLUMN_KEY] !== key);
       setList(newList);
+      onChange(newList);
     },
-    [list]
+    [list, onChange]
   );
 
   const handleAddListItem = (): void => {
     key++;
     const defaultValue = `newItem(${list.length})`;
-    const newColumn = list.concat([
+    const newList = list.concat([
       { ...getDefaultItem(defaultValue), [COLUMN_KEY]: key },
     ]);
-    setList(newColumn);
-    onChange?.(newColumn);
+    setList(newList);
+    onChange?.(newList);
   };
 
   const renderListForm = useCallback(
