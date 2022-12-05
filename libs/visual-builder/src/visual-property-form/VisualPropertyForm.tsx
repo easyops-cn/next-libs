@@ -3,11 +3,12 @@ import {
   Form,
   Input,
   InputNumber,
-  Radio,
   Select,
   Tooltip,
   Collapse,
   Empty,
+  Switch,
+  AutoComplete,
 } from "antd";
 import { EmptyProps } from "antd/lib/empty";
 import { useCurrentTheme } from "@next-core/brick-kit";
@@ -21,6 +22,7 @@ import { CodeEditorFormItem } from "./components/CodeEditor/CodeEditorFormItem";
 import { IconSelectFormItem } from "./components/IconSelect/IconSelectFormItem";
 import { ColorEditorItem } from "./components/ColorEditor/ColorEditorItem";
 import { MenuEditorItem } from "./components/MenuEditor/MenuEditorItem";
+import { ListEditor } from "./components/ListEditor/ListEditor";
 import { ReactComponent as DarkEmpty } from "./images/empty-dark.svg";
 import {
   mergeProperties,
@@ -39,6 +41,41 @@ import {
   Required,
 } from "../interfaces";
 
+const ButtonTypeEmun = [
+  "link",
+  "default",
+  "primary",
+  "ghost",
+  "dashed",
+  "icon",
+  "text",
+];
+
+export type CustomColumn = {
+  dataIndex: string;
+  title: string;
+  useChildren?: string;
+  [k: string]: any;
+};
+
+export type GeneralOptionProps = {
+  label: string;
+  value: string;
+  disabled?: boolean;
+};
+
+export type CustomButtonProps = {
+  id: string;
+  buttonType: string;
+  eventName: string;
+  text: string;
+  tooltip: string;
+  icon: MenuIcon;
+  hide: boolean;
+  disabled: boolean;
+  isDivider: boolean;
+  isDropdown: boolean;
+};
 export interface VisualPropertyFormProps {
   projectId?: string;
   propertyTypeList: PropertyType[];
@@ -54,6 +91,7 @@ export interface VisualPropertyFormProps {
   emptyConfig?: EmptyProps;
   menuSettingClick?: () => void;
   hiddenPropsCategory?: boolean;
+  childMountPointList?: string[];
 }
 
 export function LegacyVisualPropertyForm(
@@ -70,6 +108,7 @@ export function LegacyVisualPropertyForm(
     emptyConfig,
     hiddenPropsCategory,
     menuSettingClick,
+    childMountPointList,
   } = props;
   const [form] = Form.useForm();
   const [typeList, setTypeList] = useState<UnionPropertyType[]>(
@@ -208,10 +247,7 @@ export function LegacyVisualPropertyForm(
           },
         ]}
       >
-        <Radio.Group>
-          <Radio value={true}>true</Radio>
-          <Radio value={false}>false</Radio>
-        </Radio.Group>
+        <Switch />
       </Form.Item>
     );
   };
@@ -301,7 +337,205 @@ export function LegacyVisualPropertyForm(
     );
   };
 
+  const renderGeneralOptipns = (
+    item: UnionPropertyType
+  ): React.ReactElement => {
+    const renderFormItem = (item: GeneralOptionProps): React.ReactElement => {
+      return (
+        <>
+          <Form.Item name="label" label="label">
+            <Input defaultValue={item.label} />
+          </Form.Item>
+          <Form.Item name="value" label="value">
+            <Input defaultValue={item.value} />
+          </Form.Item>
+          <Form.Item name="disabled" label="disabled">
+            <Switch checked={item.disabled} />
+          </Form.Item>
+        </>
+      );
+    };
+    return item.mode === ItemModeType.Advanced ? (
+      renderEditorItem(item)
+    ) : (
+      <ListEditor
+        name={item.name}
+        label={renderLabel(item)}
+        required={item.required === Required.True}
+        value={brickProperties[item.name]}
+        listItemKey="label"
+        renderFormItem={renderFormItem}
+        getDefaultItem={(value: any) => ({
+          label: value,
+          value: value,
+        })}
+        onChange={(value) => {
+          form.setFieldsValue({
+            [item.name]: value,
+          });
+          props.onValuesChange(value, value);
+        }}
+      />
+    );
+  };
+
+  const renderCustomColumn = (item: UnionPropertyType): React.ReactElement => {
+    const renderFormItem = (item: CustomColumn): React.ReactElement => {
+      return (
+        <>
+          <Form.Item name="dataIndex" label="dataIndex">
+            <Input defaultValue={item.dataIndex} />
+          </Form.Item>
+          <Form.Item name="key" label="key">
+            <Input defaultValue={item.key} />
+          </Form.Item>
+          <Form.Item name="title" label="title">
+            <Input defaultValue={item.title} />
+          </Form.Item>
+          <Form.Item
+            name="useChildren"
+            label="useChildren"
+            tooltip="useBrick代替用法,数据来源于子插槽名称,并且插槽名称必须使用'[]'包裹"
+          >
+            <AutoComplete
+              defaultValue={item.useChildren}
+              dataSource={(childMountPointList ?? []).filter(
+                (item) => item.startsWith("[") && item.endsWith("]")
+              )}
+              filterOption={(inputValue, option) =>
+                option.props.children
+                  .toUpperCase()
+                  .indexOf(inputValue.toUpperCase()) !== -1
+              }
+            />
+          </Form.Item>
+        </>
+      );
+    };
+    return item.mode === ItemModeType.Advanced ? (
+      renderEditorItem(item)
+    ) : (
+      <ListEditor
+        name={item.name}
+        label={renderLabel(item)}
+        required={item.required === Required.True}
+        value={brickProperties[item.name]}
+        listItemKey="title"
+        getDefaultItem={(value: any) => ({
+          dataIndex: value,
+          title: value,
+          key: value,
+        })}
+        renderFormItem={renderFormItem}
+        onChange={(value) => {
+          form.setFieldsValue({
+            [item.name]: value,
+          });
+          props.onValuesChange(value, value);
+        }}
+      />
+    );
+  };
+
+  const renderCustomButtons = (item: UnionPropertyType): React.ReactElement => {
+    const renderFormItem = (item: CustomButtonProps): React.ReactElement => {
+      return (
+        <>
+          <Form.Item name="id" label="id">
+            <Input defaultValue={item.id} />
+          </Form.Item>
+          <Form.Item name="text" label="text">
+            <Input defaultValue={item.text} />
+          </Form.Item>
+          <Form.Item name="tooltip" label="tooltip">
+            <Input defaultValue={item.tooltip} />
+          </Form.Item>
+          <Form.Item name="eventName" label="eventName">
+            <Input defaultValue={item.eventName} />
+          </Form.Item>
+          <IconSelectFormItem name="icon" label="icon" />
+          <Form.Item name="buttonType" label="buttonType">
+            <Select defaultValue={item.buttonType}>
+              {ButtonTypeEmun.map((item) => (
+                <Select.Option key={item} value={item}>
+                  {item}
+                </Select.Option>
+              ))}
+            </Select>
+          </Form.Item>
+          <Form.Item name="hide" label="hide">
+            <Switch checked={item.hide} />
+          </Form.Item>
+          <Form.Item name="disabled" label="disabled">
+            <Switch checked={item.disabled} />
+          </Form.Item>
+          <Form.Item name="isDivider" label="isDivider">
+            <Switch checked={item.isDivider} />
+          </Form.Item>
+          <Form.Item name="isDropdown" label="isDropdown">
+            <Switch checked={item.isDropdown} />
+          </Form.Item>
+        </>
+      );
+    };
+    return item.mode === ItemModeType.Advanced ? (
+      renderEditorItem(item)
+    ) : (
+      <ListEditor
+        name={item.name}
+        label={renderLabel(item)}
+        required={item.required === Required.True}
+        value={brickProperties[item.name]}
+        listItemKey="text"
+        renderFormItem={renderFormItem}
+        getDefaultItem={(value: any) => ({
+          text: value,
+        })}
+        onChange={(value) => {
+          form.setFieldsValue({
+            [item.name]: value,
+          });
+          props.onValuesChange(value, value);
+        }}
+      />
+    );
+  };
+
+  const renderEnumItem = (
+    item: UnionPropertyType,
+    enumList: string[]
+  ): React.ReactElement => {
+    return item.mode === ItemModeType.Advanced ? (
+      renderEditorItem(item)
+    ) : (
+      <Form.Item
+        key={item.name}
+        label={renderLabel(item)}
+        name={item.name}
+        rules={[
+          {
+            required: item.required === Required.True,
+            message: `请输入${item.name}`,
+          },
+        ]}
+      >
+        <Select
+          options={enumList.map((item) => ({ label: item, value: item }))}
+        />
+      </Form.Item>
+    );
+  };
+
   const getFormItem = (item: PropertyType): React.ReactElement => {
+    const type = item.type as string;
+    // todo(sailor): update unit text
+    if (/true|false/.test(type as string)) {
+      return renderBooleanItem(item);
+    }
+    if ((type as string).indexOf("|") > 0) {
+      const emunList = (type as string).replace(/"|'/g, "").split("|");
+      return renderEnumItem(item, emunList);
+    }
     switch (item.type) {
       case "string":
         return renderStringItem(item);
@@ -318,6 +552,13 @@ export function LegacyVisualPropertyForm(
       case "Menu":
       case "SidebarSubMenu":
         return renderMenuItem(item);
+      // todo(sailor): update unit text
+      case "GeneralOption[]":
+        return renderGeneralOptipns(item);
+      case "CustomColumn[]":
+        return renderCustomColumn(item);
+      case "CustomButton[]":
+        return renderCustomButtons(item);
       default:
         return renderCodeEditorItem(item);
     }
@@ -346,7 +587,13 @@ export function LegacyVisualPropertyForm(
   ) : (
     <Form
       name="propertyForm"
-      layout="vertical"
+      layout="horizontal"
+      labelAlign="left"
+      labelCol={{
+        style: {
+          minWidth: "120px",
+        },
+      }}
       form={form}
       onValuesChange={props.onValuesChange}
       initialValues={calculateValue(
