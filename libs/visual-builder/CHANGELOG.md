@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/visual-builder@1.2.23...@next-libs/visual-builder@1.3.0) (2022-12-05)
+
+
+### Features
+
+* update visual-property-form ([84b9ba1](https://github.com/easyops-cn/next-libs/commit/84b9ba187678163707dbb33095520438ae7d4e69))
+
+
+
+
+
 ## [1.2.23](https://github.com/easyops-cn/next-libs/compare/@next-libs/visual-builder@1.2.22...@next-libs/visual-builder@1.2.23) (2022-11-29)
 
 **Note:** Version bump only for package @next-libs/visual-builder
