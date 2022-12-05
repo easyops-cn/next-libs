@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/visual-builder@1.3.0...@next-libs/visual-builder@1.3.1) (2022-12-05)
+
+
+### Bug Fixes
+
+* **VisualPropertyForm:** fix remove item not emit change ([0ca21e0](https://github.com/easyops-cn/next-libs/commit/0ca21e0223bfc2366400a3bffbe8b6ddbc0874bf))
+
+
+
+
+
 # [1.3.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/visual-builder@1.2.23...@next-libs/visual-builder@1.3.0) (2022-12-05)
 
 
