@@ -1,0 +1,55 @@
+.listContainer {
+  display: "flex";
+  align-items: "center";
+}
+
+.listTitle {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 6px;
+  border-radius: 6px 6px 0 0;
+  outline-width: 1px;
+  outline-style: solid;
+  outline-offset: -1px;
+  outline-color: var(--antd-input-border-color);
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.listActionContainer {
+  display: flex;
+}
+
+.listActionContainer > span {
+  cursor: pointer;
+}
+
+.listAddItem {
+  text-align: center;
+  margin-left: 8px;
+  display: flex;
+  align-items: center;
+  color: var(--theme-blue-color);
+}
+
+.listEmptyItem {
+  text-align: center;
+  outline-width: 1px;
+  outline-style: solid;
+  outline-offset: -1px;
+  outline-color: var(--antd-input-border-color);
+}
+
+.listItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  outline-width: 1px;
+  outline-style: solid;
+  outline-offset: -1px;
+  outline-color: var(--antd-input-border-color);
+}
+
+.listItem:hover {
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.5);
+}
