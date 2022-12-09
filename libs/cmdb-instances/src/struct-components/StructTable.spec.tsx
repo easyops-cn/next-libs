@@ -61,9 +61,11 @@ describe("StructTable", () => {
       structData: Array(11).fill(structData),
     };
     const editableWrapper = shallow(<StructTable {...newProps} />);
-    expect(editableWrapper.find("Table").at(0).prop("pagination")).toEqual({
-      showSizeChanger: true,
-    });
+    expect(
+      (editableWrapper.find("Table").at(0).prop("pagination") as any)[
+        "showSizeChanger"
+      ]
+    ).toBeTruthy();
   });
   it("should render when data is more than 10 and not editable ", () => {
     const newProps = {

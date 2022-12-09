@@ -23,6 +23,8 @@ export interface StructTableState {
   currentIndex: number;
   showEditModal: boolean;
   showAllStructData: boolean;
+  page: number;
+  pageSize: number;
 }
 export class StructTable extends React.Component<
   StructTableProps,
@@ -35,6 +37,8 @@ export class StructTable extends React.Component<
       currentIndex: 0,
       showEditModal: false,
       showAllStructData: false,
+      page: 1,
+      pageSize: 10,
     };
   }
   getColumns(defines: Structkey[]) {
@@ -103,19 +107,23 @@ export class StructTable extends React.Component<
   }
   remove(index: number) {
     let { structData, isLegacy } = this.props;
+    const { pageSize, page } = this.state;
+    const structNumber = pageSize * (page - 1) + index;
     if (isLegacy) {
       structData = {};
     } else {
-      structData.splice(index, 1);
+      structData.splice(structNumber, 1);
     }
     this.props.handleStoreFunction(structData);
   }
   handleEditStruct = (formData: any, index: number) => {
     let { structData, isLegacy } = this.props;
+    const { pageSize, page } = this.state;
+    const structNumber = pageSize * (page - 1) + index;
     if (isLegacy) {
       structData = [structData];
     }
-    structData[index] = formData;
+    structData[structNumber] = formData;
     this.props.handleStoreFunction(structData);
     this.handleCloseModal();
   };
@@ -127,6 +135,13 @@ export class StructTable extends React.Component<
   };
   handleCloseModal = () => {
     this.setState({ showEditModal: false });
+  };
+
+  handlePaginationChange = (page: number, pageSize: number): void => {
+    this.setState({
+      page,
+      pageSize,
+    });
   };
   renderOperation = (record: any, index: number) => {
     const { attribute, structData } = this.props;
@@ -182,6 +197,7 @@ export class StructTable extends React.Component<
             isEditable && dataSource.length > 10
               ? {
                   showSizeChanger: true,
+                  onChange: this.handlePaginationChange,
                 }
               : false
           }
