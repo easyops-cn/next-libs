@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.10](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.0.9...@next-libs/cmdb-instances@7.0.10) (2022-12-13)
+
+
+### Bug Fixes
+
+* 预防和修复实例编辑构件分类排序的问题 ([c19f1ea](https://github.com/easyops-cn/next-libs/commit/c19f1eaeed6b7e8ee164f276e09cd163ebe7060d))
+
+
+
+
+
 ## [7.0.9](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.0.8...@next-libs/cmdb-instances@7.0.9) (2022-12-09)
 
 
