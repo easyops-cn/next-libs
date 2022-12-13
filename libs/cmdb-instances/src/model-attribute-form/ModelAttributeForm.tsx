@@ -182,7 +182,15 @@ export class ModelAttributeForm extends Component<
           }
         }
       });
+      // 用于处理分类排序失效的问题
+      const attrCategoryOrder = this.modelData?.view?.attr_category_order || [];
+      AttrListGroupByTag = attrCategoryOrder?.length
+        ? attrCategoryOrder.map((v) =>
+            AttrListGroupByTag.find(([key]) => key === v)
+          )
+        : AttrListGroupByTag;
     }
+
     this.state = {
       sending: false,
       attrListGroupByTag: AttrListGroupByTag,

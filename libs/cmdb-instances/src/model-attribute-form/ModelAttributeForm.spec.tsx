@@ -865,6 +865,39 @@ describe("ModelAttributeForm", () => {
         })}
       />
     );
+
+    expect(spyOnComponentDidMount).toHaveBeenCalled();
+    const instance = wrapper
+      .find(ModelAttributeForm)
+      .instance() as ModelAttributeForm;
+    const submitBtn = wrapper.find(Button).filter("[data-testid='submit-btn']");
+    expect(submitBtn.text()).toBe(
+      i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.SAVE}`)
+    );
+    expect(instance.state.sending).toBeFalsy();
+    wrapper.find("Button").at(1).simulate("click");
+    expect(props.onCancel).toHaveBeenCalled();
+  });
+
+  it("should work with categroy sort", () => {
+    const spyOnComponentDidMount = jest.spyOn(
+      InstanceModelAttributeForm.prototype,
+      "componentDidMount"
+    );
+    const wrapper = mount(
+      <InstanceModelAttributeForm
+        {...Object.assign({}, props, {
+          isCreate: false,
+          modelData: {
+            ...mockFetchCmdbObjectDetailReturnValue,
+            view: {
+              ...mockFetchCmdbObjectDetailReturnValue.view,
+              attr_category_order: ["基本信息", "默认属性"],
+            },
+          },
+        })}
+      />
+    );
     expect(spyOnComponentDidMount).toHaveBeenCalled();
     const instance = wrapper
       .find(ModelAttributeForm)
