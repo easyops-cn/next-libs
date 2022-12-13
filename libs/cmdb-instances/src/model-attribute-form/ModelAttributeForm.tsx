@@ -20,7 +20,7 @@ import {
   ModelAttributeValueType,
 } from "../model-attribute-form-control/ModelAttributeFormControl";
 import { AttributeFormControlUrl } from "../attribute-form-control-url/AttributeFormControlUrl";
-import _, { get, isNil, keyBy, pickBy } from "lodash";
+import _, { get, isNil, keyBy, pickBy, compact } from "lodash";
 
 import { CmdbInstancesSelectPanel } from "../cmdb-instances-select-panel/CmdbInstancesSelectPanel";
 import {
@@ -185,8 +185,10 @@ export class ModelAttributeForm extends Component<
       // 用于处理分类排序失效的问题
       const attrCategoryOrder = this.modelData?.view?.attr_category_order || [];
       AttrListGroupByTag = attrCategoryOrder?.length
-        ? attrCategoryOrder.map((v) =>
-            AttrListGroupByTag.find(([key]) => key === v)
+        ? compact(
+            attrCategoryOrder.map((v) =>
+              AttrListGroupByTag.find(([key]) => key === v)
+            )
           )
         : AttrListGroupByTag;
     }
