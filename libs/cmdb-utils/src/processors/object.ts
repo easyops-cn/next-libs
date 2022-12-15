@@ -41,7 +41,7 @@ export function forEachAvailableFields(
   if (fieldIds) {
     const fieldIdSet = new Set(fieldIds);
     if (attrCallback) {
-      object.attrList.forEach((attr) => {
+      object?.attrList.forEach((attr) => {
         if (fieldIdSet.has(attr.id)) {
           fieldIds.indexOf(attr.id) === 0
             ? attrCallback(attr, true)
@@ -51,7 +51,7 @@ export function forEachAvailableFields(
     }
 
     if (relationCallback) {
-      object.relation_list.forEach((relation) => {
+      object?.relation_list.forEach((relation) => {
         let sidesArr: RelationObjectSides[] = [];
         if (isSelfRelation(relation)) {
           sidesArr = [

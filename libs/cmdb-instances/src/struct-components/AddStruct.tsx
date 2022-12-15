@@ -21,6 +21,7 @@ export interface AddStructState {
   showModal: boolean;
   structData: any;
   isEdit?: boolean;
+  serachValue?: string;
 }
 export class AddStruct extends React.Component<AddStructProps, AddStructState> {
   constructor(props: AddStructProps) {
@@ -28,18 +29,37 @@ export class AddStruct extends React.Component<AddStructProps, AddStructState> {
     this.state = {
       structData: props.structData,
       showModal: false,
+      serachValue: "",
     };
   }
   // 编辑结构体
+  // istanbul ignore next
   handleEditStruct = (formData: any) => {
-    const { isLegacy } = this.props;
+    const { isLegacy, structData } = this.props;
     const output = isLegacy
       ? Array.isArray(formData)
         ? formData[0]
         : formData
       : formData;
     this.setState({ showModal: false });
-    this.props.handleStoreFunction(output);
+    let restStructData: any = [];
+    if (this.state.serachValue && Array.isArray(structData)) {
+      restStructData = compact(
+        structData?.map((r: any) => {
+          const values: string[] = Object.values(r);
+          if (
+            !values?.find((s: string) =>
+              s?.toString()?.match(this.state.serachValue)
+            )
+          ) {
+            return r;
+          }
+        })
+      );
+    }
+    this.props.handleStoreFunction(
+      Array.isArray(output) ? [...restStructData, ...output] : output
+    );
   };
   // 新建结构体
   handleAddStruct = (formData: any) => {
@@ -66,9 +86,9 @@ export class AddStruct extends React.Component<AddStructProps, AddStructState> {
     let structData = this.props.structData;
     if (value) {
       structData = compact(
-        structData.map((r: any) => {
+        structData?.map((r: any) => {
           const values: string[] = Object.values(r);
-          if (values?.find((s: string) => s.toString().match(value))) {
+          if (values?.find((s: string) => s?.toString()?.match(value))) {
             return r;
           }
         })
@@ -76,8 +96,34 @@ export class AddStruct extends React.Component<AddStructProps, AddStructState> {
     }
     this.setState({
       structData,
+      serachValue: value,
     });
   };
+  // istanbul ignore next
+  componentDidUpdate(
+    prevProps: Readonly<AddStructProps>,
+    prevState: Readonly<AddStructState>,
+    snapshot?: any
+  ): void {
+    if (prevProps.structData !== this.props.structData) {
+      this.setState({
+        structData: this.state.serachValue
+          ? compact(
+              this.props.structData.map((r: any) => {
+                const values: string[] = Object.values(r);
+                if (
+                  values?.find((s: string) =>
+                    s?.toString()?.match(this.state.serachValue)
+                  )
+                ) {
+                  return r;
+                }
+              })
+            )
+          : this.props.structData,
+      });
+    }
+  }
 
   render() {
     const { structData, attribute, isLegacy, className } = this.props;
@@ -95,13 +141,16 @@ export class AddStruct extends React.Component<AddStructProps, AddStructState> {
         >
           {
             // istanbul ignore next
-            <Input.Search
-              style={{ width: 300 }}
-              onSearch={(value) => {
-                this.onSearch(value);
-              }}
-              enterButton
-            />
+            // 单结构体不支持搜索
+            Array.isArray(this.props.structData) && (
+              <Input.Search
+                style={{ width: 300 }}
+                onSearch={(value) => {
+                  this.onSearch(value);
+                }}
+                enterButton
+              />
+            )
           }
           <Button
             type="link"
