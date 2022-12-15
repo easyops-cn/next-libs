@@ -17,6 +17,10 @@ export interface InstanceRelationTableShowProps {
   relationFieldUrlTemplate?: string;
   isPagination?: boolean;
   total?: number;
+  relationTablePagination?: {
+    current?: number;
+    pageSize?: number;
+  };
   paginationChange?: (
     page: number,
     pageSize: number,
@@ -35,6 +39,7 @@ export function InstanceRelationTableShow(
     relationFieldUrlTemplate,
     paginationChange,
     total,
+    relationTablePagination,
   } = props;
   let oppositeModelData = modifyModelData(
     modelDataMap[relationData.right_object_id]
@@ -78,6 +83,7 @@ export function InstanceRelationTableShow(
                 showSizeChanger: true,
                 total: total,
                 pageSizeOptions: ["10", "20", "50"],
+                ...relationTablePagination,
                 onChange: (page, pageSize) => {
                   paginationChange(page, pageSize, relationData);
                 },

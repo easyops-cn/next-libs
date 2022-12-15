@@ -3,7 +3,7 @@ import { shallow } from "enzyme";
 import { StructTable } from "./StructTable";
 import { AddStructModal } from "./AddStructModal";
 import { attribute, structData, structData2 } from "./mockData";
-import { Button, Modal } from "antd";
+import { Button, Modal, Input } from "antd";
 
 const spyOnModalConfirm = jest.spyOn(Modal, "confirm");
 
@@ -45,6 +45,7 @@ describe("StructTable", () => {
         .filter("[data-testid='show-all-modal']")
         .prop("visible")
     ).toEqual(false);
+    expect(structsWrapper.find(Input.Search).length).toBe(1);
     expect(
       structWrapper.find("Button").filter("[data-testid='view-more']")
     ).toHaveLength(0);
@@ -83,6 +84,14 @@ describe("StructTable", () => {
     expect(viewMoreButton).toHaveLength(1);
     viewMoreButton.prop("onClick")(expect.anything());
     expect(structsInstance.state.showAllStructData).toBe(true);
+  });
+  it("tests getDataSource", () => {
+    expect(structsInstance.getDataSource()).toEqual(
+      expect.arrayContaining([structInstance.props.structData])
+    );
+    expect(structInstance.getDataSource()).toEqual(
+      expect.arrayContaining([structInstance.props.structData])
+    );
   });
   it("should render", () => {
     const newProps = {

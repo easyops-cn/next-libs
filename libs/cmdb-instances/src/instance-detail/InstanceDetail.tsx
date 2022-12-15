@@ -14,6 +14,7 @@ import {
   Tooltip,
   Modal,
   Anchor,
+  Input,
 } from "antd";
 import { withTranslation, WithTranslation } from "react-i18next";
 import marked from "marked";
@@ -79,6 +80,7 @@ import { isArray } from "util";
 import { UseBrickConf } from "@next-core/brick-types";
 import { CmdbUrlLink } from "../cmdb-url-link/CmdbUrlLink";
 import { FloatDisplayBrick } from "../float-display-brick/FloatDisplayBrick";
+import { getQuery } from "../instance-list/InstanceList";
 
 export interface AttrCustomConfigs {
   [attrId: string]: LegacyCustomComponent;
@@ -146,6 +148,11 @@ interface LegacyInstanceDetailState {
   currentAttr?: any;
   instanceRelationModalData?: any;
   initOffset?: number;
+  relationTablePagination?: {
+    current?: number;
+    pageSize?: number;
+  };
+  searchValue?: string;
 }
 function getHref(hash: string) {
   const isHash = (hash || "").startsWith("#");
@@ -196,6 +203,11 @@ export class LegacyInstanceDetail extends React.Component<
       currentAttr: null,
       instanceRelationModalData: null,
       initOffset: 0,
+      relationTablePagination: {
+        current: 1,
+        pageSize: 10,
+      },
+      searchValue: "",
     };
   }
 
@@ -226,11 +238,44 @@ export class LegacyInstanceDetail extends React.Component<
                 i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.VIEW_MORE}`)
               }
               visible={!!currentAttr}
-              onCancel={() => this.setState({ currentAttr: null })}
-              onOk={() => this.setState({ currentAttr: null })}
+              onCancel={() => {
+                this.setState({
+                  currentAttr: null,
+                  relationTablePagination: {
+                    current: 1,
+                    pageSize: 10,
+                  },
+                  searchValue: "",
+                });
+              }}
+              onOk={() => {
+                this.setState({
+                  currentAttr: null,
+                  relationTablePagination: {
+                    current: 1,
+                    pageSize: 10,
+                  },
+                  searchValue: "",
+                });
+              }}
               destroyOnClose={true}
             >
               <div style={{ overflowX: "hidden" }}>
+                {
+                  // istanbul ignore next
+                  <Input.Search
+                    style={{ marginBottom: 30, width: 300 }}
+                    onSearch={(value) => {
+                      this.searchInstanceRelationData(
+                        1,
+                        this.state.relationTablePagination.pageSize,
+                        this.state.currentAttr,
+                        value
+                      );
+                    }}
+                    enterButton
+                  />
+                }
                 <InstanceRelationTableShow
                   modelDataMap={this.state.modelDataMap}
                   relationData={currentAttr}
@@ -239,6 +284,7 @@ export class LegacyInstanceDetail extends React.Component<
                       ? instanceRelationModalData?.list || []
                       : []
                   }
+                  relationTablePagination={this.state.relationTablePagination}
                   relationFieldUrlTemplate={this.props.relationFieldUrlTemplate}
                   isPagination={true}
                   total={instanceRelationModalData?.total || 0}
@@ -700,7 +746,8 @@ export class LegacyInstanceDetail extends React.Component<
   async searchInstanceRelationData(
     page: number,
     pageSize: number,
-    attr: any
+    attr: any,
+    value?: string
   ): Promise<void> {
     const { right_id, left_object_id, right_object_id, left_id } = attr;
     let objectId, queryId;
@@ -720,7 +767,19 @@ export class LegacyInstanceDetail extends React.Component<
       objectId = left_object_id;
       queryId = left_id;
     }
-    const fields = uniq(map(modelDataMap[objectId].attrList, "id"));
+    const fields = uniq(map(modelDataMap[objectId]?.attrList, "id"));
+
+    let query = {};
+
+    if (value || this.state.searchValue) {
+      query = getQuery(
+        modelDataMap[objectId],
+        modelDataMap,
+        value || this.state.searchValue,
+        fields,
+        false
+      );
+    }
 
     const params: InstanceApi_PostSearchV3RequestBody = {
       fields,
@@ -731,6 +790,7 @@ export class LegacyInstanceDetail extends React.Component<
         [`${queryId}.instanceId`]: {
           $eq: this.props.instanceId,
         },
+        ...query,
       },
     };
     const instanceRelationModalData = await fetchCmdbInstanceSearch(
@@ -741,6 +801,11 @@ export class LegacyInstanceDetail extends React.Component<
     this.setState({
       instanceRelationModalData,
       currentAttr: attr,
+      relationTablePagination: {
+        current: page,
+        pageSize: pageSize,
+      },
+      searchValue: value || this.state.searchValue,
     });
   }
 

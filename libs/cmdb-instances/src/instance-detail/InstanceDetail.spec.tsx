@@ -10,6 +10,7 @@ import {
   fetchCmdbInstanceDetail,
   fetchCmdbInstanceDetailByFields,
 } from "../data-providers/fetchCmdbInstanceDetail";
+import { Input } from "antd";
 
 jest.mock("../data-providers/fetchCmdbObjectRef");
 jest.mock("../data-providers/fetchCmdbInstanceDetail", () => ({
@@ -72,6 +73,7 @@ describe("InstanceDetail", () => {
     expect(wrapper2.find("Modal").prop("title")).toBe(
       "libs-cmdb-instances:VIEW_MORE"
     );
+    expect(wrapper2.find(Input.Search).length).toBe(1);
     expect(wrapper2.find("InstanceRelationTableShow")).toHaveLength(1);
     expect(
       wrapper2.find("InstanceRelationTableShow").prop("isPagination")
@@ -87,10 +89,16 @@ describe("InstanceDetail", () => {
         right_description: "名称",
         __id: "name",
       },
+      searchValue: "test",
     });
     expect(wrapper2.find("Modal").prop("visible")).toBeTruthy();
     expect(wrapper2.find("Modal").prop("title")).toBe("名称");
     wrapper2.find("Modal").first().simulate("cancel");
+    expect(instance2.state.relationTablePagination).toEqual({
+      current: 1,
+      pageSize: 10,
+    });
+    expect(instance2.state.searchValue).toBe("");
     expect(wrapper2.find("Modal").prop("visible")).toBeFalsy();
     expect(instance2.state.currentAttr).toBe(null);
 
