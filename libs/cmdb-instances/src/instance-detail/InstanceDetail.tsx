@@ -771,11 +771,11 @@ export class LegacyInstanceDetail extends React.Component<
 
     let query = {};
 
-    if (value || this.state.searchValue) {
+    if (value !== undefined ? value : this.state.searchValue) {
       query = getQuery(
         modelDataMap[objectId],
         modelDataMap,
-        value || this.state.searchValue,
+        value !== undefined ? value : this.state.searchValue,
         fields,
         false
       );
@@ -805,7 +805,7 @@ export class LegacyInstanceDetail extends React.Component<
         current: page,
         pageSize: pageSize,
       },
-      searchValue: value || this.state.searchValue,
+      searchValue: value !== undefined ? value : this.state.searchValue,
     });
   }
 
