@@ -1,10 +1,10 @@
 import React, { CSSProperties } from "react";
-import { Button } from "antd";
+import { Button, Input } from "antd";
 import i18n from "i18next";
 import { NS_LIBS_CMDB_INSTANCES, K } from "../i18n/constants";
 import { StructTable } from "./StructTable";
 import { AddStructModal } from "./AddStructModal";
-import { isArray, isEmpty } from "lodash";
+import { isArray, isEmpty, compact } from "lodash";
 import { Attribute } from "./interfaces";
 import { CmdbModels } from "@next-sdk/cmdb-sdk";
 
@@ -61,22 +61,60 @@ export class AddStruct extends React.Component<AddStructProps, AddStructState> {
   handleOpenAddModal = () => {
     this.setState({ showModal: true });
   };
+  // istanbul ignore next
+  onSearch = (value: string) => {
+    let structData = this.props.structData;
+    if (value) {
+      structData = compact(
+        structData.map((r: any) => {
+          const values: string[] = Object.values(r);
+          if (values?.find((s: string) => s.toString().match(value))) {
+            return r;
+          }
+        })
+      );
+    }
+    this.setState({
+      structData,
+    });
+  };
+
   render() {
     const { structData, attribute, isLegacy, className } = this.props;
     const { showModal } = this.state;
     return (
       <div className={className}>
         {/* 单结构体并且已经添加过的，添加按钮置灰 */}
-        <Button
-          type="link"
-          disabled={
-            (isLegacy && !isEmpty(structData)) ||
-            (attribute.readonly === "true" && !this.props.isCreate)
-          }
-          onClick={this.handleOpenAddModal}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            marginBottom: 20,
+          }}
         >
-          {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.ADD}`)}
-        </Button>
+          {
+            // istanbul ignore next
+            <Input.Search
+              style={{ width: 300 }}
+              onSearch={(value) => {
+                this.onSearch(value);
+              }}
+              enterButton
+            />
+          }
+          <Button
+            type="link"
+            disabled={
+              (isLegacy && !isEmpty(structData)) ||
+              (attribute.readonly === "true" && !this.props.isCreate)
+            }
+            onClick={this.handleOpenAddModal}
+          >
+            {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.ADD}`)}
+          </Button>
+        </div>
+
         <AddStructModal
           // 新建的情况下不必给初值，初值为空对象时codeEditor才能正常回填
           structData={{}}
@@ -88,7 +126,7 @@ export class AddStruct extends React.Component<AddStructProps, AddStructState> {
           handleCancelFunction={this.handleCloseModal}
         />
         <StructTable
-          structData={structData}
+          structData={this.state.structData}
           attribute={attribute as Attribute}
           isEditable={
             this.props.attribute.readonly === "false" || this.props.isCreate

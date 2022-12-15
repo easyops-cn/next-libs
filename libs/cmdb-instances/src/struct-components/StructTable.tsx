@@ -1,8 +1,8 @@
 import React from "react";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Button, Modal, Table } from "antd";
+import { Button, Modal, Table, Input } from "antd";
 import { Attribute, Structkey } from "./interfaces";
-import { isEmpty, isObject } from "lodash";
+import { isEmpty, isObject, compact, uniq } from "lodash";
 import { AddStructModal } from "./AddStructModal";
 import { SizeType } from "antd/lib/config-provider/SizeContext";
 import styles from "./index.module.css";
@@ -25,6 +25,7 @@ export interface StructTableState {
   showAllStructData: boolean;
   page: number;
   pageSize: number;
+  filterDataSource: any;
 }
 export class StructTable extends React.Component<
   StructTableProps,
@@ -39,8 +40,17 @@ export class StructTable extends React.Component<
       showAllStructData: false,
       page: 1,
       pageSize: 10,
+      filterDataSource: this.getDataSource(),
     };
   }
+  getDataSource() {
+    return isEmpty(this.props.structData)
+      ? []
+      : this.props.isLegacy
+      ? [this.props.structData]
+      : [...this.props.structData];
+  }
+
   getColumns(defines: Structkey[]) {
     const columns: any = defines.map((item: Structkey) => ({
       title: item.name,
@@ -173,19 +183,35 @@ export class StructTable extends React.Component<
     );
   };
   closeAllDataModal = () => {
-    this.setState({ showAllStructData: false });
+    this.setState({
+      showAllStructData: false,
+      filterDataSource: this.getDataSource(),
+    });
+  };
+  // istanbul ignore next
+  onSearch = (value: string) => {
+    let filterDataSource = this.getDataSource();
+    if (value) {
+      filterDataSource = compact(
+        filterDataSource.map((r: any) => {
+          const values: string[] = Object.values(r);
+          if (values?.find((s: string) => s.toString().match(value))) {
+            return r;
+          }
+        })
+      );
+    }
+    this.setState({
+      filterDataSource,
+    });
   };
   render() {
-    const { attribute, isLegacy, structData, isEditable } = this.props;
+    const { attribute, isEditable } = this.props;
     const { showAllStructData } = this.state;
     const structDefine = attribute.value.struct_define;
     const columns = this.getColumns(structDefine);
     // 单结构体数据是对象，显示时要转换为数组
-    const dataSource = isEmpty(structData)
-      ? []
-      : isLegacy
-      ? [structData]
-      : [...structData];
+    const dataSource = this.getDataSource();
     const displayDataSource = isEditable ? dataSource : dataSource.slice(0, 10);
     return (
       <div style={{ overflowX: "hidden" }}>
@@ -226,9 +252,21 @@ export class StructTable extends React.Component<
               {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CONFIRM}`)}
             </Button>
           }
+          destroyOnClose={true}
         >
+          {
+            // istanbul ignore next
+            <Input.Search
+              style={{ marginBottom: 30, width: 300 }}
+              onSearch={(value) => {
+                // istanbul ignore next
+                this.onSearch(value);
+              }}
+              enterButton
+            />
+          }
           <Table
-            dataSource={dataSource}
+            dataSource={this.state.filterDataSource}
             scroll={{ x: "max-content" }}
             columns={columns}
             pagination={{

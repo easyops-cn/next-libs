@@ -4,7 +4,7 @@ import { AddStruct } from "./AddStruct";
 import { AddStructModal } from "./AddStructModal";
 import { StructTable } from "./StructTable";
 import { attribute, structData, structList } from "./mockData";
-import { Button } from "antd";
+import { Button, Input } from "antd";
 
 describe("AddStruct", () => {
   const structsProps = {
@@ -35,6 +35,7 @@ describe("AddStruct", () => {
   };
   it("should render", () => {
     expect(instance.state.showModal).toEqual(false);
+    expect(structsWrapper.find(Input.Search).length).toBe(1);
   });
   it("should open add struct modal", () => {
     structsWrapper.find(Button).prop("onClick")(expect.anything());
