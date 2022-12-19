@@ -1,6 +1,6 @@
 {
   "name": "@next-libs/cmdb-instances",
-  "version": "7.0.13",
+  "version": "7.0.14",
   "description": "> TODO: description",
   "homepage": "https://github.com/easyops-cn/next-libs/tree/master/libs/cmdb-instances",
   "license": "GPL-3.0",
@@ -37,7 +37,7 @@
   "dependencies": {
     "@next-core/brick-types": "^2.16.0",
     "@next-libs/basic-components": "^5.2.0",
-    "@next-libs/cmdb-utils": "^3.3.2",
+    "@next-libs/cmdb-utils": "^3.3.3",
     "@next-libs/code-editor-components": "^4.8.0",
     "@next-libs/forms": "^3.3.6",
     "@next-libs/storage": "^2.0.4",
