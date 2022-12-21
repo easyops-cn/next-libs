@@ -369,7 +369,7 @@ export class ModelAttributeForm extends Component<
         this.setState({ sending: false });
       }
       if (result !== "error" && type === "continue") {
-        this.props.form.setFieldsValue({});
+        this.props.form.resetFields();
         setTimeout(() => {
           this.setState({ sending: false });
         }, 2500);
