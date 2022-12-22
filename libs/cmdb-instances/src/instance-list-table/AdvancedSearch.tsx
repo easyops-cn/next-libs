@@ -632,7 +632,7 @@ export class AdvancedSearchForm extends React.Component<
         }
 
         fields.push({
-          id: attr.id,
+          id: `_${attr.id}`,
           name: attr.name,
           attrValue,
           isRelation: false,
@@ -652,7 +652,7 @@ export class AdvancedSearchForm extends React.Component<
         showKeys.forEach((showKey, index) => {
           const nameOfShowKey =
             find(relationObject?.attrList, ["id", showKey])?.name ?? showKey;
-          const id = `${
+          const id = `_${
             relation[`${sides.this}_id` as RelationIdKeys]
           }.${showKey}`;
           const type = ModelAttributeValueType.STRING;
@@ -886,13 +886,14 @@ export class AdvancedSearchForm extends React.Component<
 
   handleSearch = (e: FormEvent<any>): void => {
     e.preventDefault();
-    if (this.props?.autoSearch) this.props.autoSearch(this.state.fields);
+    const fields = this.state.fields.map((v) => ({ ...v, id: v.id.slice(1) }));
+    if (this.props?.autoSearch) this.props.autoSearch(fields);
     if (this.props.onSearch) {
       // 当过滤字段为relation并且过滤条件为ElementOperators.Exists的时候，发起后台请求的搜索queries与负责前端展示的query不同。需要额外处理。
       let queries: Query[] = [];
       let queriesToShow: Query[] = [];
       const fieldToShow: Record<string, any[]>[] = [];
-      this.state.fields.forEach((field) => {
+      fields.forEach((field) => {
         const expressions: QueryOperatorExpressions = {};
         let fieldQuery: Query = { [field.id]: expressions };
         let fieldQueryToShow: Query = { [field.id]: expressions };
