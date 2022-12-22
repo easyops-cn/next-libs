@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.15](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.0.14...@next-libs/cmdb-instances@7.0.15) (2022-12-22)
+
+
+### Bug Fixes
+
+* 新建应用实例时 保存并添加清空表格 ([34a0e30](https://github.com/easyops-cn/next-libs/commit/34a0e303a6a6667ad8ca767a2da36cfc8cb9001e))
+* 新建应用实例时，点击保存并继续添加后 表格内容清空 ([fe0c66a](https://github.com/easyops-cn/next-libs/commit/fe0c66a974e8ef04a6272ac2379dd2f8c623663e))
+
+
+
+
+
 ## [7.0.14](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.0.13...@next-libs/cmdb-instances@7.0.14) (2022-12-19)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
