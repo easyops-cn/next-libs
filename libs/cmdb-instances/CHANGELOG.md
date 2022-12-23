@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.16](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.0.15...@next-libs/cmdb-instances@7.0.16) (2022-12-23)
+
+**Note:** Version bump only for package @next-libs/cmdb-instances
+
+
+
+
+
 ## [7.0.15](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.0.14...@next-libs/cmdb-instances@7.0.15) (2022-12-22)
 
 
