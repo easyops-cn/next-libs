@@ -63,8 +63,8 @@ export function CodeEditorItem(
       !props.jsonSchema
     ) {
       schemaValue = storyboardJsonSchema;
+      setJsonSchema(schemaValue);
     }
-    setJsonSchema(schemaValue);
   }, [props.jsonSchema, props.mode]);
 
   const schemaLint = (data: any): Annotation[] => {
