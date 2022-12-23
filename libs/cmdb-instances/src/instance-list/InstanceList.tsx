@@ -1584,25 +1584,23 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
   >(props.objectList);
 
   useEffect(() => {
-    if (props.objectList) {
+    if (props.objectList?.length) {
       setObjectList(props.objectList);
     } else {
       (async () => {
-        if (!props.objectList) {
-          const cacheData = objectListCache.get(props.objectId);
-          if (cacheData) {
-            setObjectList(cacheData);
-          } else {
-            try {
-              const list = (
-                await CmdbObjectApi_getObjectRef({ ref_object: props.objectId })
-              ).data;
-              setObjectList(list);
-              objectListCache.set(props.objectId, list);
-            } catch (e) {
-              // istanbul ignore next
-              handleHttpError(e);
-            }
+        const cacheData = objectListCache.get(props.objectId);
+        if (cacheData) {
+          setObjectList(cacheData);
+        } else {
+          try {
+            const list = (
+              await CmdbObjectApi_getObjectRef({ ref_object: props.objectId })
+            ).data;
+            setObjectList(list);
+            objectListCache.set(props.objectId, list);
+          } catch (e) {
+            // istanbul ignore next
+            handleHttpError(e);
           }
         }
       })();
