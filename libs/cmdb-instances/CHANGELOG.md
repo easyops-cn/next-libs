@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.17](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.0.16...@next-libs/cmdb-instances@7.0.17) (2022-12-23)
+
+
+### Bug Fixes
+
+* **cmdb-instances:** objectList为空数组时,if判断为真,造成ref接口无法调用 ([#499](https://github.com/easyops-cn/next-libs/issues/499)) ([7b9a22a](https://github.com/easyops-cn/next-libs/commit/7b9a22a1716ba982f00785714768be60bab2cbdf))
+
+
+
+
+
 ## [7.0.16](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.0.15...@next-libs/cmdb-instances@7.0.16) (2022-12-23)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
