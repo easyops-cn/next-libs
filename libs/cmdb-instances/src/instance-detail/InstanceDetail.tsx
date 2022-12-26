@@ -264,7 +264,7 @@ export class LegacyInstanceDetail extends React.Component<
                 {
                   // istanbul ignore next
                   <Input.Search
-                    style={{ marginBottom: 30, width: 300 }}
+                    style={{ marginBottom: 16, width: 300 }}
                     onSearch={(value) => {
                       this.searchInstanceRelationData(
                         1,

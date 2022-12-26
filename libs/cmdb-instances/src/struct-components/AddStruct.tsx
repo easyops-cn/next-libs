@@ -136,7 +136,7 @@ export class AddStruct extends React.Component<AddStructProps, AddStructState> {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            marginBottom: 20,
+            marginBottom: 16,
           }}
         >
           {
