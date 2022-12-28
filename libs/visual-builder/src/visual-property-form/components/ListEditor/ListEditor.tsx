@@ -142,34 +142,21 @@ export function ListEditor({
         label={label}
         rules={[{ required: required, message: `请输入${name}` }]}
       >
-        <div className={styles.listTitle}>
-          <span>List</span>
-          <span className={styles.listActionContainer}>
-            <span
-              onClick={() => {
-                setList([]);
-                onChange([]);
-              }}
-            >
-              Clear
-            </span>
-            <span className={styles.listAddItem} onClick={handleAddListItem}>
-              <GeneralIcon
-                icon={{
-                  lib: "easyops",
-                  category: "assets-inventory",
-                  icon: "xin",
-                  color: "blue",
-                }}
-                style={{
-                  marginRight: "4px",
-                }}
-              />
-              Add
-            </span>
-          </span>
-        </div>
         <div className={styles.listContent}>{renderListContent}</div>
+        <span className={styles.addListItem} onClick={handleAddListItem}>
+          <GeneralIcon
+            icon={{
+              lib: "easyops",
+              category: "assets-inventory",
+              icon: "xin",
+              color: "blue",
+            }}
+            style={{
+              marginRight: "4px",
+            }}
+          />
+          添加
+        </span>
       </Form.Item>
     </div>
   );

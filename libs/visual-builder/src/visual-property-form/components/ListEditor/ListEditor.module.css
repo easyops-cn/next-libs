@@ -3,18 +3,6 @@
   align-items: "center";
 }
 
-.listTitle {
-  display: flex;
-  justify-content: space-between;
-  padding: 0 6px;
-  border-radius: 6px 6px 0 0;
-  outline-width: 1px;
-  outline-style: solid;
-  outline-offset: -1px;
-  outline-color: var(--antd-input-border-color);
-  background: rgba(0, 0, 0, 0.25);
-}
-
 .listActionContainer {
   display: flex;
 }
@@ -49,7 +37,21 @@
   outline-color: var(--antd-input-border-color);
 }
 
-.listItem:hover {
+.addListItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4px;
+  padding: 0px 20px;
+  outline-width: 1px;
+  outline-style: solid;
+  outline-offset: -1px;
+  outline-color: var(--antd-input-border-color);
+  border-radius: 4px;
+}
+
+.listItem:hover,
+.addListItem:hover {
   cursor: pointer;
   background: rgba(0, 0, 0, 0.5);
 }

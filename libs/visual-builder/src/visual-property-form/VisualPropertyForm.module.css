@@ -2,6 +2,12 @@
   cursor: pointer;
 }
 
+.visualPropertyForm {
+  :global(.ant-form-item) {
+    margin-bottom: 8px;
+  }
+}
+
 .panelContainer {
   > :global(.ant-collapse-item) {
     > :global(.ant-collapse-header) {
