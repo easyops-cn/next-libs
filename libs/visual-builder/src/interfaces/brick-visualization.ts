@@ -28,6 +28,7 @@ export interface PropertyType {
   default?: string;
   group?: string;
   groupI18N?: Record<string, { [language: string]: string }>;
+  enums?: string;
 }
 
 export interface UnionPropertyType extends PropertyType {

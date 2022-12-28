@@ -527,13 +527,12 @@ export function LegacyVisualPropertyForm(
   };
 
   const getFormItem = (item: PropertyType): React.ReactElement => {
-    const type = item.type as string;
     // todo(sailor): update unit text
-    if (/true|false/.test(type as string)) {
+    if (/true|false/.test(item.type as string)) {
       return renderBooleanItem(item);
     }
-    if ((type as string).indexOf("|") > 0) {
-      const emunList = (type as string).replace(/"|'/g, "").split("|");
+    if (item.enums) {
+      const emunList = (item.enums as string).replace(/"|'/g, "").split("|");
       return renderEnumItem(item, emunList);
     }
     switch (item.type) {
@@ -586,9 +585,10 @@ export function LegacyVisualPropertyForm(
     />
   ) : (
     <Form
+      className={styles.visualPropertyForm}
       name="propertyForm"
       layout="horizontal"
-      labelAlign="left"
+      labelAlign="right"
       labelCol={{
         style: {
           minWidth: "120px",
