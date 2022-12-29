@@ -652,13 +652,13 @@ export class AdvancedSearchForm extends React.Component<
         showKeys.forEach((showKey, index) => {
           const nameOfShowKey =
             find(relationObject?.attrList, ["id", showKey])?.name ?? showKey;
-          const id = `_${
+          const id = `${
             relation[`${sides.this}_id` as RelationIdKeys]
           }.${showKey}`;
           const type = ModelAttributeValueType.STRING;
 
           fields.push({
-            id,
+            id: `_${id}`,
             name: `${
               relation[`${sides.this}_name` as RelationNameKeys]
             }(${nameOfShowKey})`,
