@@ -91,7 +91,7 @@ interface ModelAttributeFormProps extends FormComponentProps {
 export type attributesFieldsByTag = [string, ModifiedModelObjectField[]];
 
 const RefCmdbInstancesSelectPanel = React.forwardRef(CmdbInstancesSelectPanel);
-
+const ATTRIBUTE_ID_PREFIX = "__ATTRIBUTE_ID_PREFIX__";
 interface ModelAttributeFormState {
   sending: boolean;
   attrListGroupByTag: attributesFieldsByTag[];
@@ -354,12 +354,19 @@ export class ModelAttributeForm extends Component<
     if (!err) {
       const { continueCreating } = this.state;
       this.setState({ sending: true });
+      const actualValues = Object.fromEntries(
+        Object.entries(values).map(([attrId, value]) => [
+          attrId.replace(ATTRIBUTE_ID_PREFIX, ""),
+          value,
+        ])
+      );
+
       const result = await this.props.onSubmit({
         continueCreating,
         values:
           this.props.enabledWhiteList && this.props.permissionList
-            ? this.valuesProcess(values)
-            : values,
+            ? this.valuesProcess(actualValues)
+            : actualValues,
         type,
       });
       if (result !== "error" && continueCreating) {
@@ -644,24 +651,32 @@ export class ModelAttributeForm extends Component<
                     key={attribute.name}
                     {...this.formItemProps}
                   >
-                    {getFieldDecorator(attribute.id, {
-                      rules: this.rules(attribute),
-                      //默认值为string，但是新建时接口转成了object，故编辑时后台返回的也是object
-                      initialValue:
-                        attribute.value.type === "json" &&
-                        !_.isString(
-                          attributeFormControlInitialValueMap[attribute.id]
-                        )
-                          ? JSON.stringify(
-                              attributeFormControlInitialValueMap[attribute.id],
-                              null,
-                              2
-                            )
-                          : attributeFormControlInitialValueMap[attribute.id],
-                    })(
+                    {getFieldDecorator(
+                      `${ATTRIBUTE_ID_PREFIX + attribute.id}`,
+                      {
+                        rules: this.rules(attribute),
+                        //默认值为string，但是新建时接口转成了object，故编辑时后台返回的也是object
+                        initialValue:
+                          attribute.value.type === "json" &&
+                          !_.isString(
+                            attributeFormControlInitialValueMap[attribute.id]
+                          )
+                            ? JSON.stringify(
+                                attributeFormControlInitialValueMap[
+                                  attribute.id
+                                ],
+                                null,
+                                2
+                              )
+                            : attributeFormControlInitialValueMap[attribute.id],
+                      }
+                    )(
                       <ModelAttributeFormControl
                         isCreate={this.props.isCreate}
-                        attribute={attribute}
+                        attribute={{
+                          ...attribute,
+                          id: `${ATTRIBUTE_ID_PREFIX + attribute.id}`,
+                        }}
                         multiSelect={
                           attribute?.value?.type ===
                           ModelAttributeValueType.ENUMS
