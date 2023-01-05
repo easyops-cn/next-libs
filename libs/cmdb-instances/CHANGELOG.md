@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.20](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.0.19...@next-libs/cmdb-instances@7.0.20) (2023-01-05)
+
+
+### Bug Fixes
+
+* 修复模型属性表单如果有`nodename`属性就报错bug ([2fcb93e](https://github.com/easyops-cn/next-libs/commit/2fcb93ec35f329277ea888a3ac2f1c64e5aed0d6))
+
+
+
+
+
 ## [7.0.19](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.0.18...@next-libs/cmdb-instances@7.0.19) (2022-12-29)
 
 
