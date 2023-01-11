@@ -240,4 +240,13 @@ describe("AdvancedSearchCondition", () => {
     wrapper.update();
     expect(wrapper.find("Tag").length).toBe(1);
   });
+  it("should work with hideDynamicSearch", async () => {
+    const wrapper = mount(
+      <AdvancedSearchCondition fields={Fields} hideDynamicSearch={true} />
+    );
+    await (global as any).flushPromises();
+    await jest.runAllTimers();
+    wrapper.update();
+    expect(wrapper.find(DynamicSearch).length).toBe(0);
+  });
 });

@@ -12,6 +12,7 @@ export interface AdvancedSearchConditionProps {
   isInstanceFilterForm?: boolean;
   aq?: Query[];
   aqToShow?: Query[];
+  hideDynamicSearch?: boolean;
   hideSearchConditions?: boolean;
 }
 
@@ -193,18 +194,19 @@ export function AdvancedSearchCondition(
   };
 
   const conditions = translateAqConditions(state.aqToShow, state.fields);
-
   return (
     <div className={styles.advancedSearchWrapper}>
-      <div style={{ marginBottom: "18px" }}>
-        <DynamicSearch
-          fields={state.fields}
-          onSearch={onAdvancedSearch}
-          key={newKey(state.fieldIds, state.aq)}
-          q={state.aqToShow}
-          fieldToShow={state.fieldToShow}
-        />
-      </div>
+      {!props?.hideDynamicSearch && (
+        <div style={{ marginBottom: "18px" }}>
+          <DynamicSearch
+            fields={state.fields}
+            onSearch={onAdvancedSearch}
+            key={newKey(state.fieldIds, state.aq)}
+            q={state.aqToShow}
+            fieldToShow={state.fieldToShow}
+          />
+        </div>
+      )}
       {!props.hideSearchConditions && !isEmpty(conditions) && (
         <div className={styles.searchConditions}>
           <span>
