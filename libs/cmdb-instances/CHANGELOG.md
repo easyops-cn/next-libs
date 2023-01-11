@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.1.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.0.20...@next-libs/cmdb-instances@7.1.0) (2023-01-11)
+
+
+### Features
+
+* add hideDynamicSearch prop ([a855008](https://github.com/easyops-cn/next-libs/commit/a855008bbd06a8f37963f3b790c0de6466925880))
+
+
+
+
+
 ## [7.0.20](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.0.19...@next-libs/cmdb-instances@7.0.20) (2023-01-05)
 
 
