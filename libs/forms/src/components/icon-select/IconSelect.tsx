@@ -41,7 +41,13 @@ export function LegacyIconSelectItem(
 
   useEffect(() => {
     setValue(props.value);
-    setCategory(props.value?.lib);
+    if (props.value?.lib) {
+      if (props.value.lib !== category) {
+        setCategory(props.value.lib);
+      }
+    } else {
+      setCategory("fa");
+    }
     setColor(props.value?.color ?? props.defaultColor);
   }, [props.value, props.defaultColor]);
 

@@ -61,7 +61,7 @@ describe("IconSelect", () => {
         onChange={onChange}
         visible={false}
         value={{
-          lib: "fa",
+          lib: "antd",
           icon: "image",
         }}
         openModal={openModal}
@@ -76,9 +76,15 @@ describe("IconSelect", () => {
       visible: true,
     });
     wrapper.update();
+    expect(wrapper.find(Radio.Group).prop("value")).toBe("antd");
     expect(wrapper.find(".colorBox").length).toBe(9);
     wrapper.find(".emptyColor").at(0).simulate("click");
     wrapper.find(".colorBox").at(0).simulate("click");
+    wrapper.setProps({
+      value: null,
+    });
+    wrapper.update();
+    expect(wrapper.find(Radio.Group).prop("value")).toBe("fa");
   });
 
   it("should work with defaultColor", async () => {
