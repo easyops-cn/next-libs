@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { GeneralIcon } from "@next-libs/basic-components";
 import { Form, Popover } from "antd";
 import styles from "./ListEditor.module.css";
@@ -34,6 +34,15 @@ export function ListEditor({
       [COLUMN_KEY]: ++key,
     }))
   );
+
+  useEffect(() => {
+    setList(
+      (value ?? []).map((item) => ({
+        ...item,
+        [COLUMN_KEY]: ++key,
+      }))
+    );
+  }, [value]);
 
   const handleRemoveItem = useCallback(
     (e: React.MouseEvent, item: any): void => {

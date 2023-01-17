@@ -75,7 +75,7 @@ export function MenuEditorItem(props: MenuEditorItemProps): React.ReactElement {
       <div
         style={{
           fontSize: "18px",
-          marginTop: "10px",
+          marginBottom: "8px",
           marginLeft: "10px",
           cursor: "pointer",
           display: "inline-block",

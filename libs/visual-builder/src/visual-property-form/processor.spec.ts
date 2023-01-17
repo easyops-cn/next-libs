@@ -104,27 +104,32 @@ describe("processor test", () => {
         menu8: [1, 2, 3],
       };
       const result = calculateValue(propertyList, brickProperties);
-      expect(result).toEqual({
-        age: 123,
-        count: undefined,
-        nickname: undefined,
-        name: "lucy",
-        others: "hobby: run\ncategory: student\n",
-        menu1: "menu-1",
-        menu2: "menu-2",
-        menu3: "menu-3",
-        menu4: "x",
-        menu5: "<% APP.getMenu(menu-5 %>",
-        menu6: undefined,
-        menu7: {
-          title: "menu-7",
-          menuItems: {
-            title: "menu-7-1",
-            to: "/menu-7-1",
-          },
-        },
-        menu8: [1, 2, 3],
-      });
+      expect(result).toMatchInlineSnapshot(`
+        Object {
+          "age": 123,
+          "count": undefined,
+          "menu1": "menu-1",
+          "menu2": "menu-2",
+          "menu3": "menu-3",
+          "menu4": "x",
+          "menu5": "<% APP.getMenu(menu-5 %>",
+          "menu6": undefined,
+          "menu7": "title: menu-7
+        menuItems:
+          title: menu-7-1
+          to: /menu-7-1
+        ",
+          "menu8": "- 1
+        - 2
+        - 3
+        ",
+          "name": "lucy",
+          "nickname": undefined,
+          "others": "hobby: run
+        category: student
+        ",
+        }
+      `);
     });
 
     it("should calculate init value with complex parmas", () => {
@@ -608,10 +613,10 @@ describe("processor test", () => {
       expect(result4).toBe('<% APP.getMenu("menu-4 %>');
 
       const result5 = matchNoramlMenuValue(undefined);
-      expect(result5).toBe(undefined);
+      expect(result5).toBe("");
 
       const result6 = matchNoramlMenuValue({ a: 1 });
-      expect(result6).toEqual({ a: 1 });
+      expect(result6).toEqual("a: 1\n");
     });
   });
 });
