@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/visual-builder@1.4.1...@next-libs/visual-builder@1.5.0) (2023-01-17)
+
+
+### Features
+
+* support both change ([d523373](https://github.com/easyops-cn/next-libs/commit/d523373aa61e88ef464ebc1c8390731914c95f02))
+
+
+
+
+
 ## [1.4.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/visual-builder@1.4.0...@next-libs/visual-builder@1.4.1) (2023-01-12)
 
 **Note:** Version bump only for package @next-libs/visual-builder
