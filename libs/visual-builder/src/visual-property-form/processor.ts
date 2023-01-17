@@ -17,8 +17,9 @@ import {
 
 export function isAdvanceMode(value: unknown): boolean {
   if (
-    typeof value === "string" &&
-    (value.startsWith("<%") || value.includes("${"))
+    (typeof value === "string" &&
+      (value.startsWith("<%") || value.includes("${"))) ||
+    typeof value === "object"
   ) {
     return true;
   }
@@ -58,7 +59,7 @@ export function matchNoramlMenuValue(value: unknown): unknown {
     const reg = /<% APP\.getMenu\((.*)\) %>/;
     return value.match(reg)?.[1]?.replace(/'|"/g, "") || value;
   }
-  return value;
+  return yamlStringify(value);
 }
 
 function calcMenuValue(value: string): string {
@@ -99,7 +100,7 @@ export function calculateValue(
           (typeItem) => typeItem.name === item.name
         );
         if (selected?.mode === ItemModeType.Advanced) {
-          obj[item.name] = v;
+          obj[item.name] = yamlStringify(v);
         } else {
           obj[item.name] = matchNoramlMenuValue(v);
         }

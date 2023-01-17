@@ -128,6 +128,7 @@ export function LegacyVisualPropertyForm(
     getCurTypeList: (): UnionPropertyType[] => {
       return typeList?.map((item) => pick(item, ["name", "type", "mode"]));
     },
+    getFieldsValue: form.getFieldsValue,
   }));
 
   useEffect(() => {
@@ -139,6 +140,7 @@ export function LegacyVisualPropertyForm(
       brickProperties,
       newTypeList
     );
+    form.resetFields();
     form.setFieldsValue(newValue);
   }, [propertyTypeList, brickProperties]);
 
@@ -247,7 +249,7 @@ export function LegacyVisualPropertyForm(
           },
         ]}
       >
-        <Switch />
+        <Switch defaultChecked={props.brickProperties[item.name]} />
       </Form.Item>
     );
   };
@@ -370,10 +372,11 @@ export function LegacyVisualPropertyForm(
           value: value,
         })}
         onChange={(value) => {
-          form.setFieldsValue({
+          const changeValue = {
             [item.name]: value,
-          });
-          props.onValuesChange(value, value);
+          };
+          form.setFieldsValue(changeValue);
+          props.onValuesChange(changeValue, form.getFieldsValue());
         }}
       />
     );
@@ -428,10 +431,11 @@ export function LegacyVisualPropertyForm(
         })}
         renderFormItem={renderFormItem}
         onChange={(value) => {
-          form.setFieldsValue({
+          const changeValue = {
             [item.name]: value,
-          });
-          props.onValuesChange(value, value);
+          };
+          form.setFieldsValue(changeValue);
+          props.onValuesChange(changeValue, form.getFieldsValue());
         }}
       />
     );
@@ -492,10 +496,11 @@ export function LegacyVisualPropertyForm(
           text: value,
         })}
         onChange={(value) => {
-          form.setFieldsValue({
+          const changeValue = {
             [item.name]: value,
-          });
-          props.onValuesChange(value, value);
+          };
+          form.setFieldsValue(changeValue);
+          props.onValuesChange(changeValue, form.getFieldsValue());
         }}
       />
     );
@@ -576,6 +581,10 @@ export function LegacyVisualPropertyForm(
     );
   };
 
+  const gorupList = React.useMemo(() => {
+    return groupByType(typeList);
+  }, [typeList]);
+
   return isEmpty(typeList) ? (
     <Empty
       className={styles.empty}
@@ -594,6 +603,7 @@ export function LegacyVisualPropertyForm(
           minWidth: "120px",
         },
       }}
+      size="small"
       form={form}
       onValuesChange={props.onValuesChange}
       initialValues={calculateValue(
@@ -603,8 +613,12 @@ export function LegacyVisualPropertyForm(
       )}
     >
       {!hiddenPropsCategory ? (
-        <Collapse ghost defaultActiveKey="0" className={styles.panelContainer}>
-          {groupByType(typeList)?.map(([category, list], index) => {
+        <Collapse
+          ghost
+          defaultActiveKey={gorupList.map((_, index) => String(index))}
+          className={styles.panelContainer}
+        >
+          {gorupList?.map(([category, list], index) => {
             return (
               <Collapse.Panel
                 header={upperFirst(category)}
