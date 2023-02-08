@@ -11,7 +11,6 @@ const getUserInfoByNameOrInstanceId = makeThrottledAggregation(
   (ids: string[]) =>
     UserAdminApi_searchAllUsersInfo({
       query: {
-        state: "valid",
         $or: [
           {
             name: {
