@@ -31,7 +31,10 @@ import {
   removeNoPermissionNode,
 } from "./processors";
 import style from "./style.module.css";
-
+import {
+  PermissionApi_validatePermissions,
+  PermissionApi_ValidatePermissionsResponseBody_actions_item,
+} from "@next-sdk/micro-app-sdk";
 export interface SelectInfo {
   event: "select";
   selected: boolean;
@@ -137,6 +140,10 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
   cacheOnLoad: Map<string, CustomTreeNode[]> = new Map();
   username: string;
   userGroupIds: string[] = [];
+  permissionsMap: Record<
+    string,
+    PermissionApi_ValidatePermissionsResponseBody_actions_item
+  > = {};
   constructor(props: CMDBTreeProps) {
     super(props);
     this.state = {
@@ -242,7 +249,12 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
             ignore_app: this.props.showNoSystemAppsNode ? true : false,
           };
 
-          if (this.props.showNoSystemAppsNode) {
+          if (
+            (!this.props.checkWhiteList ||
+              this.permissionsMap["cmdb:APP_instance_access"]
+                .authorizationStatus === "authorized") &&
+            this.props.showNoSystemAppsNode
+          ) {
             [resp, notSlaveSystemApplicationData] = await Promise.all([
               InstanceTreeApi_instanceTree(data),
               this.expandTreeeWithNotSlaveSystemApplication(),
@@ -325,6 +337,12 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
     this.objectMap = keyBy(objectList, "objectId");
     this.objectId2ShowKeys = getObjectId2ShowKeys(objectList);
     this.objectIds = getObjectIds(objectList, treeRequest);
+    if (this.props.checkWhiteList) {
+      const result = await PermissionApi_validatePermissions({
+        actions: this.objectIds.map((o) => `cmdb:${o}_instance_access`),
+      });
+      this.permissionsMap = keyBy(result.actions, "action");
+    }
     // inside `fixRequestFields`, treeRequestBody will be updated
     this.fields = fixRequestFields(
       objectList,
@@ -346,7 +364,12 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
     this.relation2ObjectId = getRelation2ObjectId(objectList, treeRequest);
     this.relations = Array.from(this.relation2ObjectId.keys());
     const nodes = this.formatTreeNodes(data, this.objectIds);
-    if (this.props.showNoSystemAppsNode) {
+    if (
+      (!this.props.checkWhiteList ||
+        this.permissionsMap["cmdb:APP_instance_access"].authorizationStatus ===
+          "authorized") &&
+      this.props.showNoSystemAppsNode
+    ) {
       nodes.push({
         key: "not_slave_system_application",
         title: "无所属系统的应用",
@@ -446,7 +469,9 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
         const showKeys = this.objectId2ShowKeys.get(objectId);
         const title = getTitle(instance, showKeys);
         const authorized = this.props.checkWhiteList
-          ? checkPermission(
+          ? this.permissionsMap[`cmdb:${objectId}_instance_access`]
+              .authorizationStatus === "authorized" &&
+            checkPermission(
               [
                 ...(instance.readAuthorizers || []),
                 ...(instance.inheritedReadAuthorizers || []),
@@ -483,7 +508,9 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
         objectId: item._object_id,
         isLeaf:
           this.props.checkWhiteList && item.readAuthorizers
-            ? checkPermission(
+            ? this.permissionsMap[`cmdb:${item._object_id}_instance_access`]
+                .authorizationStatus === "authorized" &&
+              checkPermission(
                 [
                   ...item.readAuthorizers,
                   ...(item.inheritedReadAuthorizers || []),
@@ -634,7 +661,9 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
       const showKeys = this.objectId2ShowKeys.get(instance.objectId);
       instance.title = getTitle(instance, showKeys);
       instance.authorized = this.props.checkWhiteList
-        ? checkPermission(
+        ? this.permissionsMap[`cmdb:${instance._object_id}_instance_access`]
+            .authorizationStatus === "authorized" &&
+          checkPermission(
             [
               ...(instance.readAuthorizers || []),
               ...(instance.inheritedReadAuthorizers || []),
