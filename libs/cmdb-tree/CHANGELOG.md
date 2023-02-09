@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.5.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-tree@4.5.4...@next-libs/cmdb-tree@4.5.5) (2023-02-09)
+
+
+### Bug Fixes
+
+* CD-3791 【持续交付】部署编排业务树获取接口没有校验基础权限点【应用系统访问】，导致返回的数据里存在用户无法查看的实例 ([7f6c363](https://github.com/easyops-cn/next-libs/commit/7f6c3633c6439cfb8b3e41913c293dcbdc76e264))
+
+
+
+
+
 ## [4.5.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-tree@4.5.3...@next-libs/cmdb-tree@4.5.4) (2022-12-01)
 
 
