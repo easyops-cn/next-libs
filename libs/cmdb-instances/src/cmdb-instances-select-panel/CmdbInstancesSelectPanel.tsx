@@ -265,7 +265,7 @@ export function CmdbInstancesSelectPanel(
         }}
         selectDisabled={!props.ipCopy}
         ipCopy={props.ipCopy}
-        showCloseBtn={props.showCloseBtn}
+        showCloseBtn={props.ipCopy ? true : props.showCloseBtn}
         showSizeChanger={props.showSizeChanger}
         pageSizeOptions={props.pageSizeOptions}
         onCancel={closeAllSelectedInstancesModal}
