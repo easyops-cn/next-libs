@@ -144,7 +144,7 @@ export const LegacyCmdbInstancesInputFormItem = (
 
   const updateSelected = async (instanceIds: string[]): Promise<any[]> => {
     let selectedInstances: any[] = [];
-    if (instanceIds.length) {
+    if (instanceIds?.length) {
       selectedInstances = (
         await InstanceApi_postSearch(props.objectId, {
           page: 1,
@@ -180,11 +180,8 @@ export const LegacyCmdbInstancesInputFormItem = (
   };
 
   useEffect(() => {
-    if (props.value) {
-      updateSelected(props.value);
-    }
-    // todo(ice): how formItem to change its value??????
-  }, []);
+    updateSelected(props.value);
+  }, [props.value]);
 
   const handleChange = (instances: any[]): void => {
     props.onChange?.(instances.map((instance) => instance.instanceId));
