@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.1.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.1.1...@next-libs/cmdb-instances@7.1.2) (2023-02-10)
+
+
+### Bug Fixes
+
+* 查看实例modal应该只有关闭按钮 ([a371bc7](https://github.com/easyops-cn/next-libs/commit/a371bc7fb63b4e9ff3fbbf12c86c0d9d6871aa5e))
+
+
+
+
+
 ## [7.1.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.1.0...@next-libs/cmdb-instances@7.1.1) (2023-01-12)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
