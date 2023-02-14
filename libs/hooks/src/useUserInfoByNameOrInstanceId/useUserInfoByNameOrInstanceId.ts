@@ -31,10 +31,13 @@ const getUserInfoByNameOrInstanceId = makeThrottledAggregation(
         user_tel: true,
         user_icon: true,
         user_memo: true,
+        "#showKey": true,
       },
     }),
   ({ list }: UserAdminApi_SearchAllUsersInfoResponseBody, id: string) =>
-    list.find((item) => item.instanceId === id || item.name === id) as UserInfo
+    list.find(
+      (item) => item.instanceId === id || item.name === id
+    ) as UserInfo & { showKey: string[] }
 );
 type UseUserInfoByNameOrInstanceIdReturn = {
   user: UserInfo;
@@ -43,7 +46,7 @@ type UseUserInfoByNameOrInstanceIdReturn = {
 export function useUserInfoByNameOrInstanceId(
   nameOrInstanceId: string
 ): UseUserInfoByNameOrInstanceIdReturn {
-  const [user, setUser] = useState<UserInfo>(null);
+  const [user, setUser] = useState<UserInfo & { showKey: string[] }>(null);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     setUser(null);
