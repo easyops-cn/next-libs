@@ -1,6 +1,6 @@
 {
   "name": "@next-libs/user-components",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "> TODO: description",
   "homepage": "https://github.com/easyops-cn/next-libs/tree/master/libs/user-component",
   "license": "GPL-3.0",
@@ -30,6 +30,6 @@
   },
   "dependencies": {
     "@next-core/brick-types": "^2.16.0",
-    "@next-libs/hooks": "^2.2.3"
+    "@next-libs/hooks": "^2.2.4"
   }
 }
