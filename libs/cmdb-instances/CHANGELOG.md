@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.1.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.1.3...@next-libs/cmdb-instances@7.1.4) (2023-02-16)
+
+
+### Bug Fixes
+
+* add loading in instances-list ([#515](https://github.com/easyops-cn/next-libs/issues/515)) ([a263e52](https://github.com/easyops-cn/next-libs/commit/a263e520b892bbb7d917ae4f1dff0a7675d88107))
+
+
+
+
+
 ## [7.1.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.1.2...@next-libs/cmdb-instances@7.1.3) (2023-02-10)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
