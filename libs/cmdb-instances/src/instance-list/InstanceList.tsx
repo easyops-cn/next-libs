@@ -1568,7 +1568,10 @@ export function LegacyInstanceList(
             />
           )}
         </React.Fragment>
-      ) : null}
+      ) : (
+        // 加个空白的div是为了将loading效果撑起来
+        <div className={styles.virtualLoading}></div>
+      )}
     </Spin>
   );
 }
