@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.1.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.1.4...@next-libs/cmdb-instances@7.1.5) (2023-02-20)
+
+
+### Bug Fixes
+
+* CmdbInstancesselectPanel 暴露属性aq ([ea13b83](https://github.com/easyops-cn/next-libs/commit/ea13b832e2fc1e574279f1720fdc053a9a5063ed))
+
+
+
+
+
 ## [7.1.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.1.3...@next-libs/cmdb-instances@7.1.4) (2023-02-16)
 
 
