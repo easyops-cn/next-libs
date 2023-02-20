@@ -11,6 +11,7 @@ import { InstanceListModal } from "../instance-list-modal/InstanceListModal";
 import {
   modifyModelData,
   ModifiedModelObjectRelation,
+  Query,
 } from "@next-libs/cmdb-utils";
 import style from "./style.module.css";
 import i18n from "i18next";
@@ -39,6 +40,7 @@ export interface BaseCmdbInstancesSelectPanelProps {
   searchDisabled?: boolean;
   advancedSearchDisabled?: boolean;
   showPagination?: boolean;
+  aq?: Query[];
 }
 
 export interface CmdbInstancesSelectPanelPropsWithObjectMap
@@ -248,6 +250,7 @@ export function CmdbInstancesSelectPanel(
         showCloseBtn={props.showCloseBtn}
         showSizeChanger={props.showSizeChanger}
         pageSizeOptions={props.pageSizeOptions}
+        aq={props.aq}
       />
       <InstanceListModal
         objectMap={modelMap}
