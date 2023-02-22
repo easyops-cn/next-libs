@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.1.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.1.5...@next-libs/cmdb-instances@7.1.6) (2023-02-22)
+
+
+### Bug Fixes
+
+* 导出translateConditions方法 ([abd41a8](https://github.com/easyops-cn/next-libs/commit/abd41a801a383d1a5ff005e69410a050dd48b675))
+
+
+
+
+
 ## [7.1.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.1.4...@next-libs/cmdb-instances@7.1.5) (2023-02-20)
 
 
