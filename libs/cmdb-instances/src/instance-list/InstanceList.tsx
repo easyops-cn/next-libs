@@ -208,7 +208,7 @@ export const isValueEqualFn = (
     : false;
 };
 
-function translateConditions(
+export function translateConditions(
   aq: Query[],
   idObjectMap: Record<string, Partial<CmdbModels.ModelCmdbObject>>,
   modelData: Partial<CmdbModels.ModelCmdbObject>,
