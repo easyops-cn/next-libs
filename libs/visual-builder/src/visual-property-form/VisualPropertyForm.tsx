@@ -106,6 +106,16 @@ export interface VisualPropertyFormProps {
   childMountPointList?: string[];
 }
 
+export function typeMatched(
+  actualValue: any,
+  selectedValue: UnionPropertyType
+): boolean {
+  if (typeof actualValue === (selectedValue.type as string)) {
+    return true;
+  }
+  // TODO: 补充更多的类型检查，例如 enum 等
+  return false;
+}
 export function LegacyVisualPropertyForm(
   props: VisualPropertyFormProps,
   ref: React.Ref<visualFormUtils>
@@ -156,14 +166,6 @@ export function LegacyVisualPropertyForm(
     form.setFieldsValue(newValue);
   }, [propertyTypeList, brickProperties]);
 
-  const typeMatched = (actualType: string, defType: string): boolean => {
-    if (actualType === defType) {
-      return true;
-    }
-    // TODO: 补充更多的类型检查，例如 enum 等
-    return false;
-  };
-
   const handleLabelClick = (name: string): void => {
     const selected = typeList.find((item) => item.name === name);
     const index = typeList.findIndex((item) => item.name === name);
@@ -188,7 +190,7 @@ export function LegacyVisualPropertyForm(
       } else if (supportBasicType.includes(selected.type as string)) {
         // yaml解析后检查下类型，不符合属性类型就不更新了
         const parsedValue = yaml(selected.value);
-        if (typeMatched(typeof parsedValue, selected.type as string)) {
+        if (typeMatched(parsedValue, selected)) {
           selected.value = parsedValue;
         } else {
           selected.value = undefined;

@@ -1,10 +1,11 @@
 import React from "react";
 import { Input, Tooltip, Empty } from "antd";
 import { mount, shallow } from "enzyme";
-import { VisualPropertyForm } from "./VisualPropertyForm";
+import { typeMatched, VisualPropertyForm } from "./VisualPropertyForm";
 import { CodeEditorFormItem } from "./components/CodeEditor/CodeEditorFormItem";
 import { act } from "react-dom/test-utils";
 import * as brickKit from "@next-core/brick-kit";
+import { UnionPropertyType } from "../interfaces";
 
 jest.mock("@next-libs/code-editor-components", () => ({
   CodeEditorItem: function MockEditor(props: any) {
@@ -283,5 +284,15 @@ describe("VisualPropertyForm", () => {
     const wrapper = mount(<VisualPropertyForm {...props} />);
 
     expect(wrapper.find("MenuEditorItem").length).toBe(1);
+  });
+
+  it("typeMatched should work", () => {
+    const result1 = typeMatched("test", {
+      type: "string",
+    } as UnionPropertyType);
+    expect(result1).toBe(true);
+
+    const result2 = typeMatched(123, { type: "string" } as UnionPropertyType);
+    expect(result2).toBe(false);
   });
 });
