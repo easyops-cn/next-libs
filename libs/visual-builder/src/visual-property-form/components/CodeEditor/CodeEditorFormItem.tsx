@@ -31,6 +31,8 @@ export function CodeEditorFormItem(
 
   return (
     <Form.Item
+      labelCol={props.labelCol}
+      wrapperCol={props.wrapperCol}
       key={props.name}
       name={props.name}
       label={props.label}
@@ -41,10 +43,11 @@ export function CodeEditorFormItem(
     >
       <CodeEditorItem
         tabSize={2}
-        minLines={5}
+        minLines={3}
         maxLines={12}
         printMargin={false}
-        showLineNumbers={false}
+        showLineNumbers={props.showLineNumbers}
+        showGutter={props.showGutter}
         showCopyButton={true}
         showExpandButton={true}
         theme="tomorrow"

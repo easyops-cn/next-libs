@@ -36,6 +36,7 @@ export interface UnionPropertyType extends PropertyType {
   value?: any;
   jsonSchema?: Record<string, any>;
   schemaRef?: string;
+  modeValueMap?: Record<string, any>;
 }
 
 export type BrickProperties = Record<string, any>;

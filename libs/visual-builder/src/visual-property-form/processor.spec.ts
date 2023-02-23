@@ -117,17 +117,14 @@ describe("processor test", () => {
           "menu7": "title: menu-7
         menuItems:
           title: menu-7-1
-          to: /menu-7-1
-        ",
+          to: /menu-7-1",
           "menu8": "- 1
         - 2
-        - 3
-        ",
+        - 3",
           "name": "lucy",
           "nickname": undefined,
           "others": "hobby: run
-        category: student
-        ",
+        category: student",
         }
       `);
     });
@@ -150,8 +147,8 @@ describe("processor test", () => {
       expect(result).toEqual({
         age: 123,
         name: "lucy",
-        lable: undefined,
-        others: "hot: true\nhobby: run\ncategory: <% CTX.category %>\n",
+        label: undefined,
+        others: "hot: true\nhobby: run\ncategory: <% CTX.category %>",
       });
 
       const brickProperties2 = {
@@ -164,7 +161,7 @@ describe("processor test", () => {
       expect(result2).toEqual({
         name: "lucy",
         age: 12,
-        label: "name\n",
+        label: "name",
         others: "",
       });
     });
@@ -497,7 +494,7 @@ describe("processor test", () => {
       [
         { key: "showCard", value: "${CTX.showCard}" },
         [{ name: "showCard", type: "boolean", mode: "advanced" }],
-        true,
+        false,
       ],
       [
         { key: "label", value: ["a", "b"] },
@@ -616,7 +613,7 @@ describe("processor test", () => {
       expect(result5).toBe("");
 
       const result6 = matchNoramlMenuValue({ a: 1 });
-      expect(result6).toEqual("a: 1\n");
+      expect(result6).toEqual("a: 1");
     });
   });
 });

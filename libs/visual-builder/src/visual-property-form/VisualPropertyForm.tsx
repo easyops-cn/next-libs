@@ -15,7 +15,14 @@ import { useCurrentTheme } from "@next-core/brick-kit";
 import { MenuIcon } from "@next-core/brick-types";
 import { GeneralIcon } from "@next-libs/basic-components";
 import update from "immutability-helper";
-import { isNil, pick, upperFirst, isEmpty } from "lodash";
+import _, {
+  isNil,
+  pick,
+  upperFirst,
+  isEmpty,
+  cloneDeep,
+  isString,
+} from "lodash";
 import styles from "./VisualPropertyForm.module.css";
 import { FormProps } from "antd/lib/form";
 import { CodeEditorFormItem } from "./components/CodeEditor/CodeEditorFormItem";
@@ -29,8 +36,13 @@ import {
   calculateValue,
   groupByType,
   yamlStringify,
+  yaml,
 } from "./processor";
-import { OTHER_FORM_ITEM_FIELD, supportMenuType } from "./constant";
+import {
+  OTHER_FORM_ITEM_FIELD,
+  supportBasicType,
+  supportMenuType,
+} from "./constant";
 import { matchNoramlMenuValue } from "./processor";
 import {
   PropertyType,
@@ -144,6 +156,14 @@ export function LegacyVisualPropertyForm(
     form.setFieldsValue(newValue);
   }, [propertyTypeList, brickProperties]);
 
+  const typeMatched = (actualType: string, defType: string): boolean => {
+    if (actualType === defType) {
+      return true;
+    }
+    // TODO: 补充更多的类型检查，例如 enum 等
+    return false;
+  };
+
   const handleLabelClick = (name: string): void => {
     const selected = typeList.find((item) => item.name === name);
     const index = typeList.findIndex((item) => item.name === name);
@@ -151,19 +171,42 @@ export function LegacyVisualPropertyForm(
       selected.mode === ItemModeType.Advanced
         ? ItemModeType.Normal
         : ItemModeType.Advanced;
-
-    let value = selected.value;
-    if (nextMode === ItemModeType.Normal) {
+    selected.value = form.getFieldValue(selected.name);
+    // 记录切换前的模式下的值
+    selected.modeValueMap = {
+      ...selected.modeValueMap,
+      ...{ [selected.mode]: selected.value },
+    };
+    // let value = cloneDeep(selected.value);
+    if (!isNil(selected.modeValueMap[nextMode])) {
+      // 切换后的模式原本有值时，则用原本的值
+      selected.value = selected.modeValueMap[nextMode];
+    } else if (nextMode === ItemModeType.Normal) {
+      // 切换到普通模式没有值时可以根据高级模式来更新值
       if (supportMenuType.includes(selected.type as string)) {
-        value = matchNoramlMenuValue(value);
+        selected.value = matchNoramlMenuValue(selected.value);
+      } else if (supportBasicType.includes(selected.type as string)) {
+        // yaml解析后检查下类型，不符合属性类型就不更新了
+        const parsedValue = yaml(selected.value);
+        if (typeMatched(typeof parsedValue, selected.type as string)) {
+          selected.value = parsedValue;
+        } else {
+          selected.value = undefined;
+        }
       }
-    } else if (isNil(selected.value)) {
-      value = "";
     } else {
-      value = yamlStringify(selected.value);
+      // 切换到高级模式没有值时可以根据普通模式来更新值
+      if (isNil(selected.value)) {
+        selected.value = "";
+      } else if (isString(selected.value)) {
+        // do nothing
+      } else {
+        selected.value = yamlStringify(selected.value);
+      }
     }
+    selected.modeValueMap[nextMode] = selected.value;
     form.setFieldsValue({
-      [name]: value,
+      [name]: selected.value,
     });
     const newTypeList = update(typeList, {
       $splice: [[index, 1, { ...selected, mode: nextMode }]],
@@ -210,6 +253,17 @@ export function LegacyVisualPropertyForm(
         jsonSchema={item?.jsonSchema}
         schemaRef={item?.schemaRef}
         mode={item?.editor?.model || "brick_next_yaml"}
+        showLineNumbers={true}
+        showGutter={true}
+        labelCol={{
+          span: 24,
+          style: {
+            padding: 0,
+          },
+        }}
+        wrapperCol={{
+          span: 24,
+        }}
       />
     );
   };
@@ -248,6 +302,7 @@ export function LegacyVisualPropertyForm(
             message: `请输入${item.name}`,
           },
         ]}
+        valuePropName="checked"
       >
         <Switch defaultChecked={props.brickProperties[item.name]} />
       </Form.Item>
@@ -597,12 +652,14 @@ export function LegacyVisualPropertyForm(
       className={styles.visualPropertyForm}
       name="propertyForm"
       layout="horizontal"
-      labelAlign="right"
+      labelAlign="left"
       labelCol={{
+        span: 8,
         style: {
           minWidth: "120px",
         },
       }}
+      wrapperCol={{ span: 16 }}
       size="small"
       form={form}
       onValuesChange={props.onValuesChange}
@@ -611,12 +668,14 @@ export function LegacyVisualPropertyForm(
         brickProperties,
         typeList
       )}
+      colon={false}
     >
       {!hiddenPropsCategory ? (
         <Collapse
           ghost
           defaultActiveKey={gorupList.map((_, index) => String(index))}
           className={styles.panelContainer}
+          expandIconPosition="left"
         >
           {gorupList?.map(([category, list], index) => {
             return (

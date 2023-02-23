@@ -31,13 +31,21 @@ export function mergeProperties(
   propertyList: PropertyType[] = [],
   brickProperties: BrickProperties = {}
 ): UnionPropertyType[] {
-  return propertyList?.map((item) => ({
-    ...item,
-    value: brickProperties?.[item.name],
-    mode: isAdvanceMode(brickProperties?.[item.name])
-      ? ItemModeType.Advanced
-      : ItemModeType.Normal,
-  }));
+  return propertyList?.map((item) => {
+    if (isAdvanceMode(brickProperties?.[item.name])) {
+      return {
+        ...item,
+        mode: ItemModeType.Advanced,
+        value: yamlStringify(brickProperties?.[item.name]),
+      };
+    } else {
+      return {
+        ...item,
+        mode: ItemModeType.Normal,
+        value: brickProperties?.[item.name],
+      };
+    }
+  });
 }
 
 export function yamlStringify(value: unknown, indent = 2): string {
@@ -47,7 +55,7 @@ export function yamlStringify(value: unknown, indent = 2): string {
     skipInvalid: true,
     noRefs: true,
     noCompatMode: true,
-  });
+  }).replace(/[\n\r]+$/, "");
 }
 
 export function yaml(value: string): any {
@@ -90,7 +98,10 @@ export function calculateValue(
     obj[item.name] = v;
     if (v !== undefined) {
       if (
-        !supportBasicType.concat(supportMenuType).includes(item.type as string)
+        !supportBasicType
+          .concat(supportMenuType)
+          .includes(item.type as string) || // 非已知类型
+        typeof v === "object" // 值为object
       ) {
         obj[item.name] = yamlStringify(v);
       }
@@ -122,6 +133,7 @@ export function calculateValue(
  *  1. 当前属性的类型不是内置支持的类型
  *  2. 当前属性虽然是支持的类型，但是当前切换到高级模式编辑
  *  3. 不是构件本身申明的属性，为 html 共有的通用属性，目前统一放在 others 的编辑器中
+ *  4. 表达式也不需要解析成 JSON 模式
  * @param field  字段值
  * @param typeList  属性列表包含每个属性的类型和当前编辑模式
  * @return boolean
@@ -131,7 +143,11 @@ export function isUseYamlParse(
   field: { key: string; value: any },
   typeList: UnionPropertyType[]
 ): boolean {
-  if (typeof field.value !== "string") return false;
+  if (typeof field.value !== "string") {
+    return false;
+  } else if (field.value.startsWith("<%") || field.value.includes("${")) {
+    return false;
+  }
 
   if (field.key === OTHER_FORM_ITEM_FIELD) return true;
 
