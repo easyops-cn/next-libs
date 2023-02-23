@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/visual-builder@1.5.0...@next-libs/visual-builder@1.5.1) (2023-02-23)
+
+
+### Bug Fixes
+
+* 优化样式,修复一些小问题 ([7d2a9a5](https://github.com/easyops-cn/next-libs/commit/7d2a9a5b92c095b7b892b527a6016bf96dcddbeb))
+
+
+
+
+
 # [1.5.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/visual-builder@1.4.1...@next-libs/visual-builder@1.5.0) (2023-01-17)
 
 
