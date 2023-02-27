@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.3.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@3.3.7...@next-libs/forms@3.3.8) (2023-02-27)
+
+
+### Bug Fixes
+
+* 修复文档没有生成继承属性的问题 ([8289073](https://github.com/easyops-cn/next-libs/commit/8289073140c989e1112b1bf6ee9372ffe391ce22))
+
+
+
+
+
 ## [3.3.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@3.3.6...@next-libs/forms@3.3.7) (2023-01-12)
 
 
