@@ -39,6 +39,8 @@ export interface CmdbInstancesInputFormItemProps {
   pageSize?: number;
   pageSizeOptions?: string[];
   showSizeChanger?: boolean;
+  hideSearchConditions?: boolean;
+  advancedSearchDisabled?: boolean;
 }
 
 export const LegacyCmdbInstancesInputFormItem = (
@@ -376,6 +378,8 @@ export const LegacyCmdbInstancesInputFormItem = (
         pageSize={props.pageSize}
         pageSizeOptions={props.pageSizeOptions}
         showSizeChanger={props.showSizeChanger}
+        hideSearchConditions={props.hideSearchConditions}
+        advancedSearchDisabled={props.advancedSearchDisabled}
         data-testid="select-modal"
       />
       <div className={style.cmdbInstancesInputFormWrapper}>
