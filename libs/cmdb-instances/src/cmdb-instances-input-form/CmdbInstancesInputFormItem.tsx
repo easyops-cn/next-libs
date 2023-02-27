@@ -111,6 +111,7 @@ export const LegacyCmdbInstancesInputFormItem = (
     if (selectedInstances) {
       const instances = (
         await InstanceApi_postSearch(props.objectId, {
+          page_size: selectedInstances.length,
           query: {
             instanceId: {
               $in: selectedInstances.map((instance) => instance.instanceId),
