@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.1.9](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.1.8...@next-libs/cmdb-instances@7.1.9) (2023-02-27)
+
+
+### Bug Fixes
+
+* CmdbInstancesInputFormItem补充page_size属性 ([44791c8](https://github.com/easyops-cn/next-libs/commit/44791c8caa927a9b736175ebb28da5c445c0953d))
+
+
+
+
+
 ## [7.1.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.1.7...@next-libs/cmdb-instances@7.1.8) (2023-02-27)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
