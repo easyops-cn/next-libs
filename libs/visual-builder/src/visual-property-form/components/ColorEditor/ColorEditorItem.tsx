@@ -47,6 +47,7 @@ export function LegacyColorPick(
 ) {
   const [value, setValue] = useState(props.value);
   const [visible, setVisible] = useState(false);
+  const [pos, setPos] = useState([0, 0]);
 
   useEffect(() => {
     setValue(props.value);
@@ -57,7 +58,8 @@ export function LegacyColorPick(
     props.onChange(color.hex);
   };
 
-  const handleClick = () => {
+  const handleClick = (e: React.MouseEvent<HTMLDivElement>): void => {
+    setPos([e.clientX, e.clientY]);
     setVisible(true);
   };
 
@@ -70,7 +72,12 @@ export function LegacyColorPick(
         />
       </div>
       {visible && (
-        <div className={styles.popover}>
+        <div
+          className={styles.popover}
+          style={{
+            top: pos[1] - 385 - 16,
+          }}
+        >
           <div className={styles.cover} onClick={() => setVisible(false)} />
           <SketchPicker
             width="230px"

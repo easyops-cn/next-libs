@@ -9,6 +9,7 @@ import {
   Empty,
   Switch,
   AutoComplete,
+  Radio,
 } from "antd";
 import { EmptyProps } from "antd/lib/empty";
 import { useCurrentTheme } from "@next-core/brick-kit";
@@ -52,6 +53,7 @@ import {
   UnionPropertyType,
   Required,
 } from "../interfaces";
+import { MessageEditor } from "./components/MessageEditor/MessageEditor";
 
 const ButtonTypeEmun = [
   "link",
@@ -254,7 +256,6 @@ export function LegacyVisualPropertyForm(
         theme={theme === "dark-v2" ? "monokai" : "tomorrow"}
         jsonSchema={item?.jsonSchema}
         schemaRef={item?.schemaRef}
-        mode={item?.editor?.model || "brick_next_yaml"}
         showLineNumbers={true}
         showGutter={true}
         labelCol={{
@@ -266,6 +267,10 @@ export function LegacyVisualPropertyForm(
         wrapperCol={{
           span: 24,
         }}
+        mode={
+          (typeof item?.editor !== "string" && item?.editor?.model) ||
+          "brick_next_yaml"
+        }
       />
     );
   };
@@ -285,7 +290,27 @@ export function LegacyVisualPropertyForm(
           },
         ]}
       >
-        <Input />
+        <Input {...(item.editorProps ?? {})} />
+      </Form.Item>
+    );
+  };
+
+  const renderRadioItem = (item: UnionPropertyType): React.ReactElement => {
+    return item.mode === ItemModeType.Advanced ? (
+      renderEditorItem(item)
+    ) : (
+      <Form.Item
+        key={item.name}
+        label={renderLabel(item)}
+        name={item.name}
+        rules={[
+          {
+            required: item.required === Required.True,
+            message: `请输入${item.name}`,
+          },
+        ]}
+      >
+        <Radio.Group {...(item.editorProps ?? {})} />
       </Form.Item>
     );
   };
@@ -306,7 +331,10 @@ export function LegacyVisualPropertyForm(
         ]}
         valuePropName="checked"
       >
-        <Switch defaultChecked={props.brickProperties[item.name]} />
+        <Switch
+          defaultChecked={props.brickProperties[item.name]}
+          {...(item.editorProps ?? {})}
+        />
       </Form.Item>
     );
   };
@@ -328,7 +356,7 @@ export function LegacyVisualPropertyForm(
           },
         ]}
       >
-        <InputNumber />
+        <InputNumber {...(item.editorProps ?? {})} />
       </Form.Item>
     );
   };
@@ -350,7 +378,7 @@ export function LegacyVisualPropertyForm(
           },
         ]}
       >
-        <Select mode="tags" />
+        <Select mode="tags" {...(item.editorProps ?? {})} />
       </Form.Item>
     );
   };
@@ -362,6 +390,27 @@ export function LegacyVisualPropertyForm(
         name={item.name}
         label={renderLabel(item, true) as any}
         required={item.required === Required.True}
+      />
+    );
+  };
+
+  const renderMessageItem = (item: UnionPropertyType): React.ReactElement => {
+    return item.mode === ItemModeType.Advanced ? (
+      renderEditorItem(item)
+    ) : (
+      <MessageEditor
+        key={item.name}
+        name={item.name}
+        label={renderLabel(item)}
+        value={item.value}
+        required={item.required === Required.True}
+        onChange={(value) => {
+          const changeValue = {
+            [item.name]: value,
+          };
+          form.setFieldsValue(changeValue);
+          props.onValuesChange(changeValue, form.getFieldsValue());
+        }}
       />
     );
   };
@@ -596,6 +645,20 @@ export function LegacyVisualPropertyForm(
     if (item.enums) {
       const emunList = (item.enums as string).replace(/"|'/g, "").split("|");
       return renderEnumItem(item, emunList);
+    }
+    switch (item.editor) {
+      case "input":
+        return renderStringItem(item);
+      case "radio":
+        return renderRadioItem(item);
+      case "switch":
+        return renderBooleanItem(item);
+      case "color":
+        return renderColorItem(item);
+      case "icon":
+        return renderIconItem(item);
+      case "message":
+        return renderMessageItem(item);
     }
     switch (item.type) {
       case "string":

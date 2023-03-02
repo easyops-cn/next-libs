@@ -1,25 +1,25 @@
 .colorContainer {
   position: relative;
+  display: flex;
 
   > .colorCube {
     display: inline-block;
+    width: 100%;
     padding: 5px;
     border-radius: 1px;
+    border: 2px solid var(--antd-btn-default-border);
     box-shadow: rgb(0 0 0 / 10%) 0px 0px 0px 1px;
     cursor: pointer;
 
     > .colorContent {
-      width: 36px;
       height: 14px;
       border-radius: 2px;
     }
   }
 
   > .popover {
-    position: absolute;
-    z-index: 2;
-    left: 55px;
-    top: -130px;
+    position: fixed;
+    z-index: 1000;
 
     > .cover {
       position: fixed;

@@ -1,0 +1,19 @@
+.messageEditorContainer {
+  display: "flex";
+  align-items: "center";
+}
+
+.editBtn {
+  display: flex;
+  justify-content: center;
+  padding: 4px;
+  outline-width: 1px;
+  outline-style: solid;
+  outline-offset: -1px;
+  outline-color: var(--antd-input-border-color);
+}
+
+.editBtn:hover {
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.5);
+}
