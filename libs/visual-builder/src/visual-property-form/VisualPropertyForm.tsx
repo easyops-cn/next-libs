@@ -13,7 +13,7 @@ import {
 } from "antd";
 import { EmptyProps } from "antd/lib/empty";
 import { useCurrentTheme } from "@next-core/brick-kit";
-import { MenuIcon } from "@next-core/brick-types";
+import { MenuIcon, SrcIcon } from "@next-core/brick-types";
 import { GeneralIcon } from "@next-libs/basic-components";
 import update from "immutability-helper";
 import _, {
@@ -23,6 +23,7 @@ import _, {
   isEmpty,
   cloneDeep,
   isString,
+  omit,
 } from "lodash";
 import styles from "./VisualPropertyForm.module.css";
 import { FormProps } from "antd/lib/form";
@@ -54,6 +55,8 @@ import {
   Required,
 } from "../interfaces";
 import { MessageEditor } from "./components/MessageEditor/MessageEditor";
+import { options } from "marked";
+import { GeneralOption } from "@next-libs/forms";
 
 const ButtonTypeEmun = [
   "link",
@@ -295,7 +298,54 @@ export function LegacyVisualPropertyForm(
     );
   };
 
+  const renderSingleRadio = (Component: any, options: GeneralOption[]) => {
+    return options.map((item: any) => {
+      const icon = item.icon;
+      let buttonIcon: JSX.Element = null;
+      if (icon) {
+        if ("imgSrc" in icon) {
+          const mergedIcon = {
+            imgSrc: icon.imgSrc,
+            imgStyle: {
+              verticalAlign: "-0.125em",
+              ...icon.imgStyle,
+            },
+          };
+          buttonIcon = <GeneralIcon icon={mergedIcon} size={14} />;
+        } else {
+          buttonIcon = (
+            <GeneralIcon
+              icon={icon}
+              style={{
+                fontSize: "14px",
+                ...icon.iconStyle,
+              }}
+            />
+          );
+        }
+      }
+      let defaultStyle = {};
+      if (Component === Radio.Button) {
+        defaultStyle = { textAlign: "center", flex: "1 1 0" };
+      }
+      return (
+        <Component
+          key={item.value}
+          value={item.value}
+          disabled={item.disabled}
+          style={{ ...defaultStyle, ...item.style }}
+        >
+          {buttonIcon}
+          {item.label && (
+            <span style={{ paddingLeft: "5px" }}>{item.label}</span>
+          )}
+        </Component>
+      );
+    });
+  };
+
   const renderRadioItem = (item: UnionPropertyType): React.ReactElement => {
+    const radioProps = omit(item.editorProps, "options");
     return item.mode === ItemModeType.Advanced ? (
       renderEditorItem(item)
     ) : (
@@ -310,7 +360,18 @@ export function LegacyVisualPropertyForm(
           },
         ]}
       >
-        <Radio.Group {...(item.editorProps ?? {})} />
+        <Radio.Group
+          className={styles.radioGroup}
+          style={
+            item.editorProps.optionType === "button" ? { display: "flex" } : {}
+          }
+          {...(radioProps ?? {})}
+        >
+          {renderSingleRadio(
+            item.editorProps.optionType === "button" ? Radio.Button : Radio,
+            item.editorProps?.options
+          )}
+        </Radio.Group>
       </Form.Item>
     );
   };
