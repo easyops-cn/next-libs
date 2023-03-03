@@ -3,11 +3,15 @@ import { PropertyType } from "../interfaces";
 export const groupI18nMap = {
   basic: {
     en: "Basic",
-    zh: "常用",
+    zh: "基础",
   },
   ui: {
     en: "UI",
     zh: "外观",
+  },
+  style: {
+    en: "Style",
+    zh: "样式",
   },
   advanced: {
     en: "Advanced",
@@ -20,6 +24,14 @@ export const groupI18nMap = {
   advancedFormItem: {
     en: "Advanced Form Item",
     zh: "表单项高级",
+  },
+  formValidation: {
+    en: "Validation",
+    zh: "数据验证",
+  },
+  formLabel: {
+    en: "Label",
+    zh: "标签",
   },
   other: {
     en: "Other",

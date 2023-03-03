@@ -6,6 +6,26 @@
   }
 }
 
+.radioGroup {
+  :global(.ant-radio-button-wrapper-checked) {
+    background: var(--antd-radio-dot-color);
+    color: var(--antd-radio-solid-checked-color);
+    border-color: var(--antd-radio-dot-color);
+  }
+  :global(.ant-radio-button-wrapper-checked:hover) {
+    color: var(--antd-radio-solid-checked-color);
+    background: var(--antd-radio-button-hover-color);
+    border-color: var(--antd-radio-button-hover-color);
+  }
+  :global(.ant-radio-wrapper) {
+    margin-right: 0px;
+    margin-left: 16px;
+    :global(span.ant-radio + *) {
+      padding-right: 0px;
+    }
+  }
+}
+
 .visualPropertyForm {
   :global(.ant-form-item) {
     margin-bottom: 8px;

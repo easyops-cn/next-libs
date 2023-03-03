@@ -19,8 +19,8 @@ export abstract class FormItemElement extends UpdatingElement {
    * @kind string
    * @required true
    * @default -
-   * @description 表单 name
-   * @group basicFormItem
+   * @description 表单项的 name 值, 即唯一 id
+   * @group basic
    */
   @property()
   name: string;
@@ -30,8 +30,8 @@ export abstract class FormItemElement extends UpdatingElement {
    * @kind string
    * @required false
    * @default -
-   * @description 表单 label
-   * @group basicFormItem
+   * @description 标签文字
+   * @group basic
    */
   @property()
   label: string;
@@ -41,8 +41,8 @@ export abstract class FormItemElement extends UpdatingElement {
    * @kind string
    * @required false
    * @default -
-   * @description 表单 label颜色
-   * @group basicFormItem
+   * @description 标签颜色
+   * @group formLabel
    */
   @property()
   labelColor: string;
@@ -52,8 +52,8 @@ export abstract class FormItemElement extends UpdatingElement {
    * @kind boolean
    * @required false
    * @default -
-   * @description 表单 label加粗
-   * @group basicFormItem
+   * @description 标签加粗
+   * @group formLabel
    */
   @property({ type: Boolean })
   labelBold: boolean;
@@ -64,7 +64,7 @@ export abstract class FormItemElement extends UpdatingElement {
    * @required false
    * @default -
    * @description 表单项是否必填
-   * @group basicFormItem
+   * @group formValidation
    */
   @property({
     type: Boolean,
@@ -76,8 +76,8 @@ export abstract class FormItemElement extends UpdatingElement {
    * @kind string
    * @required false
    * @default -
-   * @description 表单项占位符
-   * @group basicFormItem
+   * @description 占位符
+   * @group basic
    */
   @property()
   placeholder: string;
@@ -87,8 +87,8 @@ export abstract class FormItemElement extends UpdatingElement {
    * @kind string
    * @required false
    * @default -
-   * @description 表单项正则
-   * @group basicFormItem
+   * @description 数据校验格式(正则表达式)
+   * @group formValidation
    */
   @property()
   pattern: string;
@@ -98,8 +98,9 @@ export abstract class FormItemElement extends UpdatingElement {
    * @kind Record<string, string>
    * @required false
    * @default -
-   * @description 表单项校验信息文本
-   * @group basicFormItem
+   * @editor message
+   * @description 数据校验错误提示
+   * @group formValidation
    */
   @property({
     attribute: false,
@@ -111,8 +112,8 @@ export abstract class FormItemElement extends UpdatingElement {
    * @kind ValidationRule
    * @required false
    * @default -
-   * @description 表单项自定义校验
-   * @group advancedFormItem
+   * @description 自定义校验规则
+   * @group formValidation
    */
   @property({
     attribute: false,
@@ -124,8 +125,8 @@ export abstract class FormItemElement extends UpdatingElement {
   /**
    * @property
    * @required false
-   * @description 表单项标签 tooltip 配置
-   * @group basicFormItem
+   * @description 标签 tooltip
+   * @group formLabel
    */
   @property({
     attribute: false,
@@ -135,8 +136,8 @@ export abstract class FormItemElement extends UpdatingElement {
   /**
    * @property
    * @required false
-   * @description 表单项的 helpBrick，通常用于在表单末尾和下面额外展示相关信息
-   * @group advancedFormItem
+   * @description 帮助构件, 通常用于在表单末尾和下面额外展示相关信息
+   * @group ui
    */
   @property({
     attribute: false,
@@ -146,8 +147,8 @@ export abstract class FormItemElement extends UpdatingElement {
   /**
    * @property
    * @required false
-   * @description 表单项的 labelBrick, 可以指定额外构件作为 label 的展示
-   * @group advancedFormItem
+   * @description 标签构件, 可以指定额外构件作为标签展示
+   * @group formLabel
    */
   @property({
     attribute: false,
@@ -157,8 +158,8 @@ export abstract class FormItemElement extends UpdatingElement {
   /**
    * @property
    * @required false
-   * @description 表单项 label 标签布局
-   * @group ui
+   * @description 标签布局，可设置 span offset 值
+   * @group formLabel
    */
   @property({
     attribute: false,
@@ -168,8 +169,8 @@ export abstract class FormItemElement extends UpdatingElement {
   /**
    * @property
    * @required false
-   * @description 表单项控件布局
-   * @group ui
+   * @description 控件布局，可设置 span offset 值
+   * @group formLabel
    */
   @property({
     attribute: false,
@@ -180,7 +181,7 @@ export abstract class FormItemElement extends UpdatingElement {
    * @property
    * @default true
    * @description 是否自动去除前后的空白字符
-   * @group advancedFormItem
+   * @group formValidation
    */
   @property({
     attribute: false,
@@ -192,7 +193,7 @@ export abstract class FormItemElement extends UpdatingElement {
    * @required false
    * @default false
    * @description 控制该表单项是否隐藏
-   * @group ui
+   * @group basic
    */
   @property({
     __unstable_doNotDecorate: true,

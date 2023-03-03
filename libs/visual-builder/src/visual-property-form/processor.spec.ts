@@ -254,7 +254,7 @@ describe("processor test", () => {
 
       expect(result).toEqual([
         [
-          "常用",
+          "基础",
           [
             {
               name: "name",
@@ -323,7 +323,7 @@ describe("processor test", () => {
 
       expect(result).toEqual([
         [
-          "常用",
+          "基础",
           [
             {
               name: "name",
@@ -578,9 +578,21 @@ describe("processor test", () => {
           groupI18N: {
             advanced: { en: "Advanced", zh: "高级" },
             advancedFormItem: { en: "Advanced Form Item", zh: "表单项高级" },
-            basic: { en: "Basic", zh: "常用" },
+            basic: { en: "Basic", zh: "基础" },
             basicFormItem: { en: "Basic Form Item", zh: "表单项常用" },
             other: { en: "Other", zh: "其他" },
+            formValidation: {
+              en: "Validation",
+              zh: "数据验证",
+            },
+            formLabel: {
+              en: "Label",
+              zh: "标签",
+            },
+            style: {
+              en: "Style",
+              zh: "样式",
+            },
             ui: { en: "UI", zh: "外观" },
           },
           name: "style",

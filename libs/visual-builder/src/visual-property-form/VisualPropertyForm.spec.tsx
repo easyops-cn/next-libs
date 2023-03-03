@@ -1,5 +1,5 @@
 import React from "react";
-import { Input, Tooltip, Empty } from "antd";
+import { Input, Tooltip, Empty, Radio } from "antd";
 import { mount, shallow } from "enzyme";
 import { typeMatched, VisualPropertyForm } from "./VisualPropertyForm";
 import { CodeEditorFormItem } from "./components/CodeEditor/CodeEditorFormItem";
@@ -284,6 +284,114 @@ describe("VisualPropertyForm", () => {
     const wrapper = mount(<VisualPropertyForm {...props} />);
 
     expect(wrapper.find("MenuEditorItem").length).toBe(1);
+  });
+
+  it("should render color with editor setting", () => {
+    const props = {
+      brickProperties: {
+        color: "#e8e8e8",
+      },
+      propertyTypeList: [
+        {
+          name: "color",
+          type: "some type",
+          description: "颜色",
+          editor: "color",
+        },
+      ],
+      labelIcon: {
+        normal: {
+          lib: "fa",
+          icon: "code",
+          prefix: "fas",
+          color: "#167be0",
+        },
+        advanced: {
+          lib: "fa",
+          icon: "cog",
+          prefix: "fas",
+          color: "#167be0",
+        },
+      },
+    } as any;
+
+    const wrapper = mount(<VisualPropertyForm {...props} />);
+
+    expect(wrapper.find("ColorEditorItem").length).toBe(1);
+  });
+
+  it("should render message", () => {
+    const props = {
+      propertyTypeList: [
+        {
+          name: "message",
+          type: "some ",
+          description: "message",
+          editor: "message",
+        },
+      ],
+    } as any;
+
+    const wrapper = mount(<VisualPropertyForm {...props} />);
+
+    expect(wrapper.find("MessageEditor").length).toBe(1);
+  });
+
+  it("should render radio", () => {
+    const props = {
+      propertyTypeList: [
+        {
+          name: "radio",
+          type: "some",
+          description: "radio",
+          editor: "radio",
+          editorProps: { options: ["a", "b", "c"] },
+        },
+      ],
+    } as any;
+
+    const wrapper = mount(<VisualPropertyForm {...props} />);
+
+    expect(wrapper.find("Radio").length).toBe(3);
+  });
+
+  it("should render radio button", () => {
+    const props = {
+      propertyTypeList: [
+        {
+          name: "radio",
+          type: "some",
+          description: "radio",
+          editor: "radio",
+          editorProps: {
+            optionType: "button",
+            options: [
+              {
+                icon: {
+                  lib: "antd",
+                  icon: "align-left",
+                  theme: "outlined",
+                },
+                value: "left",
+              },
+              {
+                icon: {
+                  lib: "antd",
+                  icon: "align-right",
+                  theme: "outlined",
+                },
+                value: "right",
+              },
+            ],
+          },
+        },
+      ],
+    } as any;
+
+    const wrapper = mount(<VisualPropertyForm {...props} />);
+
+    expect(wrapper.find("Radio").length).toBe(2);
+    expect(wrapper.find("GeneralIcon").length).toBe(2);
   });
 
   it("typeMatched should work", () => {
