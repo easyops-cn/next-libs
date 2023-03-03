@@ -12,6 +12,7 @@ export interface GetIconListParams {
   type?: IconType;
   page?: number;
   pageSize?: number;
+  category?: string;
 }
 
 export const antedThemeMap = {
@@ -21,7 +22,13 @@ export const antedThemeMap = {
 };
 
 export function getIconList(params: GetIconListParams) {
-  const { q = "", type = "easyops", page = 1, pageSize = 20 } = params;
+  const {
+    q = "",
+    type = "easyops",
+    page = 1,
+    pageSize = 20,
+    category = "",
+  } = params;
 
   const iconList: any[] = [];
 
@@ -84,14 +91,24 @@ export function getIconList(params: GetIconListParams) {
       });
     }
   }
-
-  // 先过滤关键字
   let filters = [];
-  if (q === "") {
-    filters = iconList;
-  } else {
-    const query = q.toLocaleLowerCase().trim();
+  filters = iconList;
+
+  //先过滤目录
+  if (category !== "") {
+    const categoryQuery = category.toLocaleLowerCase().trim();
     filters = iconList.filter(
+      (item) =>
+        item.icon.category.toLowerCase() === categoryQuery ||
+        item.descriptionList.find(
+          (i: string) => i.toLowerCase() === category.toLocaleLowerCase().trim()
+        )
+    );
+  }
+
+  if (q !== "") {
+    const query = q.toLocaleLowerCase().trim();
+    filters = filters.filter(
       (item) =>
         item.title.toLowerCase().includes(query) ||
         item.descriptionList.find((i: string) =>
