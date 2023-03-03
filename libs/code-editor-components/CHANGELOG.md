@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.8.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.8.5...@next-libs/code-editor-components@4.8.6) (2023-03-03)
+
+**Note:** Version bump only for package @next-libs/code-editor-components
+
+
+
+
+
 ## [4.8.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.8.4...@next-libs/code-editor-components@4.8.5) (2023-03-03)
 
 **Note:** Version bump only for package @next-libs/code-editor-components

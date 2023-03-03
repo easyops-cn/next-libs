@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.3.11](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@3.3.10...@next-libs/forms@3.3.11) (2023-03-03)
+
+
+### Bug Fixes
+
+* 增加labelAlign属性, 优化属性editor ([1023960](https://github.com/easyops-cn/next-libs/commit/1023960c808369281f54ea1ada63d586b3cbd08a))
+
+
+
+
+
 ## [3.3.10](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@3.3.9...@next-libs/forms@3.3.10) (2023-03-03)
 
 **Note:** Version bump only for package @next-libs/forms
