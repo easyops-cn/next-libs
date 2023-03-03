@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/visual-builder@1.6.0...@next-libs/visual-builder@1.6.1) (2023-03-03)
+
+
+### Bug Fixes
+
+* 优化radio样式,新增几种内置分类 ([06e609c](https://github.com/easyops-cn/next-libs/commit/06e609c01a6d558c7c9ee2ae17b0235600e143a7))
+
+
+
+
+
 # [1.6.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/visual-builder@1.5.2...@next-libs/visual-builder@1.6.0) (2023-03-02)
 
 
