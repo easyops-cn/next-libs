@@ -55,8 +55,7 @@ export abstract class FormItemElement extends UpdatingElement {
    *       }
    *     },
    *     {
-   *       "label": "right",
-   *       "value": "password",
+   *       "value": "right",
    *       "icon": {
    *         "lib": "antd",
    *         "icon": "align-right",
