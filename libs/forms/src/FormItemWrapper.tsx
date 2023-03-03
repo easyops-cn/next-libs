@@ -47,6 +47,7 @@ export interface FormItemWrapperProps extends CommonEventProps {
   labelBrick?: LabelBrick;
   labelColor?: string;
   labelBold?: boolean;
+  labelAlign?: string;
   required?: boolean;
   min?: number;
   max?: number;
@@ -210,6 +211,7 @@ export function FormItemWrapper(
     labelBrick,
     labelBold,
     labelColor,
+    labelAlign,
     helpBrick,
     className,
     notRender,
@@ -302,6 +304,9 @@ export function FormItemWrapper(
 
   const formItemProps: Record<string, any> = {
     label,
+    labelAlign,
+    labelCol,
+    wrapperCol,
   };
   const { formElement } = props;
 
@@ -368,6 +373,7 @@ export function FormItemWrapper(
         label ? layout : convertLabelSpanToWrapperOffset(layout)
       );
     }
+    formItemProps.labelAlign = labelAlign ?? props.formElement.labelAlign;
     formItemProps.colon = !props.formElement.noColon;
   }
 

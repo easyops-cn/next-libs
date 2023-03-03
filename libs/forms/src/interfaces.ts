@@ -9,6 +9,7 @@ export interface AbstractGeneralFormElement extends HTMLElement {
   noColon: boolean;
   labelCol: ColProps;
   wrapperCol: ColProps;
+  labelAlign: string;
 }
 
 export type GeneralOption =

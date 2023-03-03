@@ -38,10 +38,45 @@ export abstract class FormItemElement extends UpdatingElement {
 
   /**
    * @property
+   * @kind left | right
+   * @required false
+   * @default -
+   * @description 标签对齐方式
+   * @editor radio
+   * @editorProps {
+   *   "optionType": "button",
+   *   "options": [
+   *     {
+   *       "value": "left",
+   *       "icon": {
+   *         "lib": "antd",
+   *         "icon": "align-left",
+   *         "theme": "outlined"
+   *       }
+   *     },
+   *     {
+   *       "label": "right",
+   *       "value": "password",
+   *       "icon": {
+   *         "lib": "antd",
+   *         "icon": "align-right",
+   *         "theme": "outlined"
+   *       }
+   *     }
+   *   ]
+   * }
+   * @group formLabel
+   */
+  @property()
+  labelAlign: string;
+
+  /**
+   * @property
    * @kind string
    * @required false
    * @default -
    * @description 标签颜色
+   * @editor color
    * @group formLabel
    */
   @property()
