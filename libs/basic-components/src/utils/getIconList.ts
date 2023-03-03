@@ -100,9 +100,7 @@ export function getIconList(params: GetIconListParams) {
     filters = iconList.filter(
       (item) =>
         item.icon.category.toLowerCase() === categoryQuery ||
-        item.descriptionList.find(
-          (i: string) => i.toLowerCase() === category.toLocaleLowerCase().trim()
-        )
+        item.descriptionList.find((i: string) => i.toLowerCase() === category)
     );
   }
 
