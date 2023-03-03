@@ -30,6 +30,7 @@ const formElement = {
   wrapperCol: {
     span: 14,
   },
+  labelAlign: "left",
 };
 
 describe("FormItemWrapper", () => {
@@ -51,11 +52,13 @@ describe("FormItemWrapper", () => {
             brick: "div",
           },
         }}
+        labelAlign="left"
       />
     );
     const Label = () =>
       wrapper.find(Form.Item).prop("label") as React.ReactElement;
 
+    expect(wrapper.find(Form.Item).prop("labelAlign")).toEqual("left");
     const labelWrapper = shallow(<Label />);
     expect(labelWrapper.text()).toEqual(
       "hello<GeneralIcon /><BrickAsComponent />"
@@ -83,6 +86,7 @@ describe("FormItemWrapper", () => {
       wrapperCol: {
         span: 14,
       },
+      labelAlign: "left",
     });
 
     // without label
