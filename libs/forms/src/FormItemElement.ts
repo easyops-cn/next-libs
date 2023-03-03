@@ -136,7 +136,7 @@ export abstract class FormItemElement extends UpdatingElement {
   /**
    * @property
    * @required false
-   * @description 帮助构件, 通常用于在表单末尾和下面额外展示相关信息
+   * @description 帮助构件, 通常用于在表单项右侧和下方，展示此表单项的帮助信息
    * @group ui
    */
   @property({
