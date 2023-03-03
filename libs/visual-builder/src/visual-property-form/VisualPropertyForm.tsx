@@ -298,8 +298,10 @@ export function LegacyVisualPropertyForm(
     );
   };
 
-  const renderSingleRadio = (Component: any, options: GeneralOption[]) => {
-    return options.map((item: any) => {
+  const renderSingleRadio = (props: Record<string, any>) => {
+    // item.editorProps.optionType === "button" ? Radio.Button : Radio,
+    // item.editorProps?.options)}
+    return props.options?.map((item: any) => {
       const icon = item.icon;
       let buttonIcon: JSX.Element = null;
       if (icon) {
@@ -324,23 +326,35 @@ export function LegacyVisualPropertyForm(
           );
         }
       }
-      let defaultStyle = {};
-      if (Component === Radio.Button) {
-        defaultStyle = { textAlign: "center", flex: "1 1 0" };
+      if (props.optionType === "button") {
+        return (
+          <Radio.Button
+            key={item.value}
+            value={item.value}
+            disabled={item.disabled}
+            style={{ textAlign: "center", flex: "1 1 0", ...item.style }}
+          >
+            {buttonIcon}
+            {item.label && (
+              <span style={{ paddingLeft: "5px" }}>{item.label}</span>
+            )}
+          </Radio.Button>
+        );
+      } else {
+        return (
+          <Radio
+            key={item.value}
+            value={item.value}
+            disabled={item.disabled}
+            style={item.style}
+          >
+            {buttonIcon}
+            {item.label && (
+              <span style={{ paddingLeft: "5px" }}>{item.label}</span>
+            )}
+          </Radio>
+        );
       }
-      return (
-        <Component
-          key={item.value}
-          value={item.value}
-          disabled={item.disabled}
-          style={{ ...defaultStyle, ...item.style }}
-        >
-          {buttonIcon}
-          {item.label && (
-            <span style={{ paddingLeft: "5px" }}>{item.label}</span>
-          )}
-        </Component>
-      );
     });
   };
 
@@ -367,10 +381,7 @@ export function LegacyVisualPropertyForm(
           }
           {...(radioProps ?? {})}
         >
-          {renderSingleRadio(
-            item.editorProps.optionType === "button" ? Radio.Button : Radio,
-            item.editorProps?.options
-          )}
+          {renderSingleRadio(item.editorProps)}
         </Radio.Group>
       </Form.Item>
     );
