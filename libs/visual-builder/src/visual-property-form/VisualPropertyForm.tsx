@@ -299,8 +299,6 @@ export function LegacyVisualPropertyForm(
   };
 
   const renderSingleRadio = (props: Record<string, any>) => {
-    // item.editorProps.optionType === "button" ? Radio.Button : Radio,
-    // item.editorProps?.options)}
     return props.options?.map((item: any) => {
       const icon = item.icon;
       let buttonIcon: JSX.Element = null;
