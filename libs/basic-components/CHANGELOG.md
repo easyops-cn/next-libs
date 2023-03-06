@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.3.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@5.2.0...@next-libs/basic-components@5.3.0) (2023-03-06)
+
+
+### Bug Fixes
+
+* fix getIconList ([1808fa6](https://github.com/easyops-cn/next-libs/commit/1808fa6eaedae4deadb8dec80138b4ba1030c2bd))
+* fix getIconList ([3d54553](https://github.com/easyops-cn/next-libs/commit/3d54553399d6c816bfbe61db67cf990cb2c7e6aa))
+* getIconList增加过滤category条件 ([3bdf25d](https://github.com/easyops-cn/next-libs/commit/3bdf25d0bd1eb746ae6dfb3da1b9dae60410b40c))
+
+
+### Features
+
+* 增加category单测 ([5eef802](https://github.com/easyops-cn/next-libs/commit/5eef80298055a898fac22dc7f10ea17685401bd4))
+
+
+
+
+
 # [5.2.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@5.1.0...@next-libs/basic-components@5.2.0) (2022-11-23)
 
 
