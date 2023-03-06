@@ -227,6 +227,35 @@ describe("GetIconList", () => {
         total: 4,
       },
     ],
+    [
+      {
+        type: "easyops",
+        category: "app",
+      },
+      {
+        list: [
+          {
+            title: "all-cmdb",
+            descriptionList: ["category: app", "icon: all-cmdb"],
+            icon: {
+              category: "app",
+              icon: "all-cmdb",
+              lib: "easyops",
+            },
+          },
+          {
+            title: "brick-group",
+            descriptionList: ["category: app", "icon: brick-group"],
+            icon: {
+              category: "app",
+              icon: "brick-group",
+              lib: "easyops",
+            },
+          },
+        ],
+        total: 2,
+      },
+    ],
   ])("GetIconList(%j) should work", (params, result) => {
     expect(getIconList(params)).toEqual(result);
   });
