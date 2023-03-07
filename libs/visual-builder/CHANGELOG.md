@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/visual-builder@1.6.5...@next-libs/visual-builder@1.6.6) (2023-03-07)
+
+
+### Bug Fixes
+
+* 修改visual-property-form的默认属性style的分组 ([685e39b](https://github.com/easyops-cn/next-libs/commit/685e39bc817cdfd69b46bffe91b708b909d9c41e))
+
+
+
+
+
 ## [1.6.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/visual-builder@1.6.4...@next-libs/visual-builder@1.6.5) (2023-03-06)
 
 **Note:** Version bump only for package @next-libs/visual-builder
