@@ -546,7 +546,7 @@ describe("processor test", () => {
           name: "style",
           type: "Record<string, any>",
           description: "构件样式",
-          group: "ui",
+          group: "style",
           groupI18N: groupI18nMap,
         },
         {
