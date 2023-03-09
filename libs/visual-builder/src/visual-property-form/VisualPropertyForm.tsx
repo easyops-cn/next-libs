@@ -709,13 +709,6 @@ export function LegacyVisualPropertyForm(
 
   const getFormItem = (item: PropertyType): React.ReactElement => {
     // todo(sailor): update unit text
-    if (/true|false/.test(item.type as string)) {
-      return renderBooleanItem(item);
-    }
-    if (item.enums) {
-      const emunList = (item.enums as string).replace(/"|'/g, "").split("|");
-      return renderEnumItem(item, emunList);
-    }
     switch (item.editor) {
       case "input":
         return renderStringItem(item);
@@ -729,6 +722,13 @@ export function LegacyVisualPropertyForm(
         return renderIconItem(item);
       case "message":
         return renderMessageItem(item);
+    }
+    if (/true|false/.test(item.type as string)) {
+      return renderBooleanItem(item);
+    }
+    if (item.enums) {
+      const emunList = (item.enums as string).replace(/"|'/g, "").split("|");
+      return renderEnumItem(item, emunList);
     }
     switch (item.type) {
       case "string":
