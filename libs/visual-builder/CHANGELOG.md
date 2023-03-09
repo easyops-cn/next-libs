@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/visual-builder@1.6.7...@next-libs/visual-builder@1.6.8) (2023-03-09)
+
+
+### Bug Fixes
+
+* fix VB editor bug ([4fd1b8a](https://github.com/easyops-cn/next-libs/commit/4fd1b8a60d82925cf721866f5600c57486abd939))
+
+
+
+
+
 ## [1.6.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/visual-builder@1.6.6...@next-libs/visual-builder@1.6.7) (2023-03-08)
 
 **Note:** Version bump only for package @next-libs/visual-builder
