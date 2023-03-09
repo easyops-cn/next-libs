@@ -14,6 +14,8 @@ export abstract class FormItemElement extends UpdatingElement {
   readonly isFormItemElement = true;
   private _notRender = false;
 
+  /* =========================== Group: basic =========================== */
+
   /**
    * @property
    * @kind string
@@ -30,8 +32,21 @@ export abstract class FormItemElement extends UpdatingElement {
    * @kind string
    * @required false
    * @default -
-   * @description 标签文字
+   * @description 占位符
    * @group basic
+   */
+  @property()
+  placeholder: string;
+
+  /* =========================== Group: formLabel =========================== */
+
+  /**
+   * @property
+   * @kind string
+   * @required false
+   * @default -
+   * @description 标签文字
+   * @group formLabel
    */
   @property()
   label: string;
@@ -94,6 +109,52 @@ export abstract class FormItemElement extends UpdatingElement {
 
   /**
    * @property
+   * @required false
+   * @description 标签 tooltip
+   * @group formLabel
+   */
+  @property({
+    attribute: false,
+  })
+  labelTooltip: LabelTooltipProps | string | number;
+
+  /**
+   * @property
+   * @required false
+   * @description 标签布局，可设置 span offset 值
+   * @group formLabel
+   */
+  @property({
+    attribute: false,
+  })
+  labelCol: ColProps;
+
+  /**
+   * @property
+   * @required false
+   * @description 控件布局，可设置 span offset 值
+   * @group formLabel
+   */
+  @property({
+    attribute: false,
+  })
+  wrapperCol: ColProps;
+
+  /**
+   * @property
+   * @required false
+   * @description 标签构件, 可以指定额外构件作为标签展示
+   * @group formLabel
+   */
+  @property({
+    attribute: false,
+  })
+  labelBrick: LabelBrick;
+
+  /* =========================== Group: formValidation =========================== */
+
+  /**
+   * @property
    * @kind boolean
    * @required false
    * @default -
@@ -104,17 +165,6 @@ export abstract class FormItemElement extends UpdatingElement {
     type: Boolean,
   })
   required: boolean;
-
-  /**
-   * @property
-   * @kind string
-   * @required false
-   * @default -
-   * @description 占位符
-   * @group basic
-   */
-  @property()
-  placeholder: string;
 
   /**
    * @property
@@ -158,61 +208,6 @@ export abstract class FormItemElement extends UpdatingElement {
 
   /**
    * @property
-   * @required false
-   * @description 标签 tooltip
-   * @group formLabel
-   */
-  @property({
-    attribute: false,
-  })
-  labelTooltip: LabelTooltipProps | string | number;
-
-  /**
-   * @property
-   * @required false
-   * @description 帮助构件, 通常用于在表单项右侧和下方，展示此表单项的帮助信息
-   * @group ui
-   */
-  @property({
-    attribute: false,
-  })
-  helpBrick: HelpBrickProps | string | number;
-
-  /**
-   * @property
-   * @required false
-   * @description 标签构件, 可以指定额外构件作为标签展示
-   * @group formLabel
-   */
-  @property({
-    attribute: false,
-  })
-  labelBrick: LabelBrick;
-
-  /**
-   * @property
-   * @required false
-   * @description 标签布局，可设置 span offset 值
-   * @group formLabel
-   */
-  @property({
-    attribute: false,
-  })
-  labelCol: ColProps;
-
-  /**
-   * @property
-   * @required false
-   * @description 控件布局，可设置 span offset 值
-   * @group formLabel
-   */
-  @property({
-    attribute: false,
-  })
-  wrapperCol: ColProps;
-
-  /**
-   * @property
    * @default true
    * @description 是否自动去除前后的空白字符
    * @group formValidation
@@ -222,12 +217,14 @@ export abstract class FormItemElement extends UpdatingElement {
   })
   trim? = true;
 
+  /* =========================== Group: ui =========================== */
+
   /**
    * @property
    * @required false
    * @default false
    * @description 控制该表单项是否隐藏
-   * @group basic
+   * @group ui
    */
   @property({
     __unstable_doNotDecorate: true,
@@ -240,6 +237,17 @@ export abstract class FormItemElement extends UpdatingElement {
   get notRender(): boolean {
     return this._notRender;
   }
+
+  /**
+   * @property
+   * @required false
+   * @description 帮助构件, 通常用于在表单项右侧和下方，展示此表单项的帮助信息
+   * @group ui
+   */
+  @property({
+    attribute: false,
+  })
+  helpBrick: HelpBrickProps | string | number;
 
   getFormElement(): AbstractGeneralFormElement {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
