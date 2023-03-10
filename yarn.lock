@@ -2344,6 +2344,11 @@
   resolved "https://registry.npmjs.org/@next-core/brick-icons/-/brick-icons-2.30.26.tgz#01d1b299d597a9d872985d24deb3cd5306b0eab3"
   integrity sha512-RB5sfi7jUAuEhv9GErd9KOVUPQ19TVNFCy5R8XAvtxEctkLGZlhtAKODKFkF2EVRyYNhO7zg19h+BpSgO/WodA==
 
+"@next-core/brick-icons@^2.31.16":
+  version "2.31.16"
+  resolved "https://registry.npmjs.org/@next-core/brick-icons/-/brick-icons-2.31.16.tgz#ea6800bc567128bf15533346a0fe885477e1b021"
+  integrity sha512-3U888yCgNMZBG9WEz8JO+yX9L6GOXOFq6ThqtjyTmu/Bie2j+7RAoWu7b38+JMn7yFUFpxyTKzAOQVPDhVEH2A==
+
 "@next-core/brick-kit@^2.156.9":
   version "2.156.9"
   resolved "https://registry.npmjs.org/@next-core/brick-kit/-/brick-kit-2.156.9.tgz#fad14ffc3a8acfc5c13a146ce38ef68d3c87f0fb"
