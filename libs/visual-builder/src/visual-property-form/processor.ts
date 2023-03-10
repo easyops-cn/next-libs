@@ -207,11 +207,14 @@ export function processFormValue(
 export function groupByType(
   typeList: UnionPropertyType[] = []
 ): Array<[string, UnionPropertyType[]]> {
-  const normals = typeList.filter((item) => item.group !== "other");
+  const normals = typeList.filter(
+    (item) => item.group !== "other" && item.group !== "style"
+  );
   const others = typeList.filter((item) => item.group === "other");
+  const styles = typeList.filter((item) => item.group === "style");
 
   return Object.entries(
-    groupBy(normals.concat(others), (item) => {
+    groupBy(normals.concat(styles).concat(others), (item) => {
       const group = item.group || "basic";
       const groupI18N: Record<string, any> = {
         ...groupI18nMap,

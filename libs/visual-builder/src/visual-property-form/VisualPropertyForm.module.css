@@ -31,7 +31,7 @@
     margin-bottom: 8px;
     > :global(.ant-form-item-control) {
       text-align: right;
-      > :global(.ant-select-selector) {
+      :global(.ant-select-selector) {
         text-align: left;
       }
     }
