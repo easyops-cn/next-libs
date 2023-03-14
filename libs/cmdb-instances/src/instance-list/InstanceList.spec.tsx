@@ -1104,7 +1104,7 @@ describe("InstanceList", () => {
   });
 
   it("instanceListTable should be hidden", async () => {
-    expect(InstanceApi_postSearchV3).toBeCalledTimes(15);
+    expect(InstanceApi_postSearchV3).toBeCalledTimes(36);
     const wrapper = mount(
       <LegacyInstanceList
         objectId="HOST"
@@ -1116,7 +1116,7 @@ describe("InstanceList", () => {
     await jest.runAllTimers();
     wrapper.update();
     expect(wrapper.find(InstanceListTable)).toEqual({});
-    expect(InstanceApi_postSearchV3).toBeCalledTimes(15);
+    expect(InstanceApi_postSearchV3).toBeCalledTimes(36);
   });
 
   it("should work with enableSearchByApp", async () => {
@@ -1159,7 +1159,7 @@ describe("InstanceList", () => {
     await (global as any).flushPromises();
     wrapper.update();
     expect(CmdbObjectApi_getObjectRef).not.toHaveBeenCalled();
-    expect(InstanceApi_postSearchV3).toBeCalledTimes(21);
+    expect(InstanceApi_postSearchV3).toBeCalledTimes(48);
     expect(providerQuery).toBeCalledTimes(0);
   });
   it("should work with extraFixedFieldIds", async () => {
@@ -1172,7 +1172,7 @@ describe("InstanceList", () => {
     );
     await (global as any).flushPromises();
     wrapper.update();
-    expect(InstanceApi_postSearchV3).toBeCalledTimes(22);
+    expect(InstanceApi_postSearchV3).toBeCalledTimes(51);
     expect(InstanceApi_postSearchV3).lastCalledWith("HOST", {
       fields: ["mmmm", "_ts", "instanceId", "_ts"],
       ignore_missing_field_error: true,
@@ -1182,7 +1182,7 @@ describe("InstanceList", () => {
     wrapper.setProps({ presetConfigs: undefined });
     await (global as any).flushPromises();
     wrapper.update();
-    expect(InstanceApi_postSearchV3).toBeCalledTimes(23);
+    expect(InstanceApi_postSearchV3).toBeCalledTimes(52);
     expect(InstanceApi_postSearchV3).lastCalledWith("HOST", {
       fields: [
         "creator",
@@ -1210,7 +1210,7 @@ describe("InstanceList", () => {
     );
     await (global as any).flushPromises();
     wrapper.update();
-    expect(InstanceApi_postSearchV3).toBeCalledTimes(23);
+    expect(InstanceApi_postSearchV3).toBeCalledTimes(52);
     expect(providerQuery).toBeCalledWith([
       "HOST",
       {
@@ -1235,8 +1235,8 @@ describe("InstanceList", () => {
     );
     await (global as any).flushPromises();
     wrapper.update();
-    expect(InstanceApi_postSearchV3).toBeCalledTimes(23);
-    expect(providerQuery).toBeCalledTimes(2);
+    expect(InstanceApi_postSearchV3).toBeCalledTimes(52);
+    expect(providerQuery).toBeCalledTimes(6);
   });
 });
 

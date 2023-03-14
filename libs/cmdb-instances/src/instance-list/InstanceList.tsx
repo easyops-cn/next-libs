@@ -733,6 +733,44 @@ export function LegacyInstanceList(
   const cache = useRef(new Map<string, InstanceApi_PostSearchV3ResponseBody>());
   const isFirstRunRef = useRef(true);
 
+  // istanbul ignore next
+  const onSelectionChange = useCallback(
+    async (selected: { selectedKeys: string[]; selectedItems: any[] }) => {
+      let { selectedItems, selectedKeys } = selected;
+      setSelectedRowKeys(selectedKeys);
+      if (selectedKeys.length > compact(selectedItems).length) {
+        const ids = selectedKeys.filter((id) => !cache.current.has(id));
+        if (ids.length) {
+          let resp;
+          const params = {
+            fields: ["instanceId"],
+            query: {
+              instanceId: {
+                $in: ids,
+              },
+            },
+            page_size: ids.length,
+          };
+          // useAutoDiscoveryProvider=true, 使用useProvider的接口，虽然这里列表用不到选择功能，但还是加上保持统一
+          if (props.useAutoDiscoveryProvider) {
+            resp = await listProvider.query([
+              props.objectId,
+              Object.assign(params, props.extraParams),
+            ]);
+          } else {
+            resp = await InstanceApi_postSearchV3(props.objectId, params);
+          }
+          resp.list.forEach((i: Record<string, any>) =>
+            cache.current.set(i.instanceId, i)
+          );
+        }
+        selectedItems = selectedKeys.map((id) => cache.current.get(id));
+      }
+      props.onSelectionChange?.({ selectedItems, selectedKeys });
+    },
+    []
+  );
+
   const getInstanceListData = async (
     sort: string,
     asc: boolean,
@@ -952,11 +990,14 @@ export function LegacyInstanceList(
     }
 
     refreshInstanceList(state.sort, state.asc, 1);
+    onSelectionChange({
+      selectedKeys: [],
+      selectedItems: [],
+    });
   }, [
     state.q,
     state.aq,
     state.instanceSourceQuery,
-    state.pageSize,
     state.aliveHosts,
     state.relatedToMe,
     props.objectId,
@@ -964,12 +1005,49 @@ export function LegacyInstanceList(
     props.defaultQuery,
   ]);
 
+  // on pageSize condition change
+  useEffect(() => {
+    if (isFirstRunRef.current) {
+      isFirstRunRef.current = false;
+      return;
+    }
+
+    let skip = false;
+
+    if (state.page !== 1) {
+      setState({ page: 1 });
+      props.onPaginationChange?.({ page: 1, pageSize: state.pageSize });
+      skip = true;
+    }
+
+    // 当 prop.objectId 改变时先跳过，等 state.fieldIds 更新后再获取数据
+    if (props.objectId !== state.objectId) {
+      setState({ objectId: props.objectId });
+      skip = true;
+    }
+
+    if (skip) {
+      return;
+    }
+
+    refreshInstanceList(state.sort, state.asc, 1);
+  }, [state.pageSize]);
+
   // on other condition change
   useEffect(() => {
     if (isEmpty(state.fieldIds)) return;
     refreshInstanceList(state.sort, state.asc, state.page);
+  }, [state.page]);
+
+  // on other condition change
+  useEffect(() => {
+    if (isEmpty(state.fieldIds)) return;
+    refreshInstanceList(state.sort, state.asc, state.page);
+    onSelectionChange({
+      selectedKeys: [],
+      selectedItems: [],
+    });
   }, [
-    state.page,
     state.sort,
     state.asc,
     state.fieldIds,
@@ -984,48 +1062,14 @@ export function LegacyInstanceList(
     setQ(e.target.value);
   };
 
-  // istanbul ignore next
-  const onSelectionChange = useCallback(
-    async (selected: { selectedKeys: string[]; selectedItems: any[] }) => {
-      let { selectedItems, selectedKeys } = selected;
-      setSelectedRowKeys(selectedKeys);
-      if (selectedKeys.length > compact(selectedItems).length) {
-        const ids = selectedKeys.filter((id) => !cache.current.has(id));
-        if (ids.length) {
-          let resp;
-          const params = {
-            fields: ["instanceId"],
-            query: {
-              instanceId: {
-                $in: ids,
-              },
-            },
-            page_size: ids.length,
-          };
-          // useAutoDiscoveryProvider=true, 使用useProvider的接口，虽然这里列表用不到选择功能，但还是加上保持统一
-          if (props.useAutoDiscoveryProvider) {
-            resp = await listProvider.query([
-              props.objectId,
-              Object.assign(params, props.extraParams),
-            ]);
-          } else {
-            resp = await InstanceApi_postSearchV3(props.objectId, params);
-          }
-          resp.list.forEach((i: Record<string, any>) =>
-            cache.current.set(i.instanceId, i)
-          );
-        }
-        selectedItems = selectedKeys.map((id) => cache.current.get(id));
-      }
-      props.onSelectionChange?.({ selectedItems, selectedKeys });
-    },
-    []
-  );
-
   const onSearch = (value: string) => {
     const q = value.trim();
     setState({ q });
     props.onSearch?.(q);
+    onSelectionChange({
+      selectedKeys: [],
+      selectedItems: [],
+    });
   };
 
   const onAdvancedSearch = (
@@ -1039,6 +1083,10 @@ export function LegacyInstanceList(
       aqToShow: queriesToShow,
     });
     props.onAdvancedSearch?.(queries);
+    onSelectionChange({
+      selectedKeys: [],
+      selectedItems: [],
+    });
   };
 
   const onSortingChange = useCallback(
