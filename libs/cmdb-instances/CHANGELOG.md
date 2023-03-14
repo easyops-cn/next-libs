@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.1.16](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.1.15...@next-libs/cmdb-instances@7.1.16) (2023-03-14)
+
+
+### Bug Fixes
+
+* instanceList在搜索之后清空select 避免复制IP错误 Closes VIEW-473 ([86b1e62](https://github.com/easyops-cn/next-libs/commit/86b1e62a0957524f680f722d611712c1f205deca))
+
+
+
+
+
 ## [7.1.15](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.1.14...@next-libs/cmdb-instances@7.1.15) (2023-03-10)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
