@@ -171,7 +171,7 @@ describe("formatAttrValue", () => {
         wordIndexDenied: false,
       },
       "HOST",
-      "1 MB",
+      "1.02 MB",
     ],
     [
       [1, 2, 3],

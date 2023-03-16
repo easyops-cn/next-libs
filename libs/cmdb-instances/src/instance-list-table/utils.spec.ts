@@ -64,8 +64,8 @@ describe("cpuHz formatter", () => {
 
 describe("memSize formatter", () => {
   const testcases = [
-    [2400, "2.3 MB"],
-    [0, "0 B"],
+    [2400, "2.40 MB"],
+    [0, "0 KB"],
     [null, ""],
     [undefined, ""],
   ];
@@ -76,8 +76,8 @@ describe("memSize formatter", () => {
 
 describe("diskSize formatter", () => {
   const testcases = [
-    [2400, "2.3 MB"],
-    [0, "0 B"],
+    [2400, "2.40 MB"],
+    [0, "0 KB"],
     [null, ""],
     [undefined, ""],
   ];
