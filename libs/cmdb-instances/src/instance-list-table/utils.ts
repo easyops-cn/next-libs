@@ -1,14 +1,16 @@
 import { isNaN, isFinite, clamp, isNil } from "lodash";
 const { floor, log, abs } = Math;
+import { pipes } from "@next-core/brick-utils";
 
-export const returnEmptyStringWhen = (emptyCheck: any) => (fn: any) => (
-  ...args: any[]
-) => {
-  if (emptyCheck(...args)) {
-    return "";
-  }
-  return fn(...args);
-};
+export const returnEmptyStringWhen =
+  (emptyCheck: any) =>
+  (fn: any) =>
+  (...args: any[]) => {
+    if (emptyCheck(...args)) {
+      return "";
+    }
+    return fn(...args);
+  };
 
 export const parseBytes = (
   bytes: any,
@@ -94,17 +96,17 @@ export const customRules = {
     );
   },
   memSize(value: any) {
-    return formatBytesWithEmptyString(
-      isNil(value) ? value : value * 1024,
-      1,
-      "B"
-    );
+    return isNil(value)
+      ? ""
+      : value === 0
+      ? "0 KB"
+      : pipes.unitFormat(value, "KB").join(" ");
   },
   diskSize(value: any) {
-    return formatBytesWithEmptyString(
-      isNil(value) ? value : value * 1024,
-      1,
-      "B"
-    );
+    return isNil(value)
+      ? ""
+      : value === 0
+      ? "0 KB"
+      : pipes.unitFormat(value, "KB").join(" ");
   },
 };

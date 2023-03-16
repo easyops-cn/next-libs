@@ -1,5 +1,6 @@
 import { returnEmptyStringWhen, formatBytes } from "./util";
 import { isNil } from "lodash";
+import { pipes } from "@next-core/brick-utils";
 
 const formatBytesWithEmptyString = returnEmptyStringWhen(isNil)(formatBytes);
 export default {
@@ -11,17 +12,17 @@ export default {
     );
   },
   memSize(value: any) {
-    return formatBytesWithEmptyString(
-      isNil(value) ? value : value * 1024,
-      1,
-      "B"
-    );
+    return isNil(value)
+      ? ""
+      : value === 0
+      ? "0 KB"
+      : pipes.unitFormat(value, "KB").join(" ");
   },
   diskSize(value: any) {
-    return formatBytesWithEmptyString(
-      isNil(value) ? value : value * 1024,
-      1,
-      "B"
-    );
-  }
+    return isNil(value)
+      ? ""
+      : value === 0
+      ? "0 KB"
+      : pipes.unitFormat(value, "KB").join(" ");
+  },
 };

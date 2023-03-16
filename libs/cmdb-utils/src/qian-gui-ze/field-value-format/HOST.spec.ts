@@ -5,7 +5,7 @@ describe("cpuHz formatter", () => {
     [2400, "2.4 GHz"],
     [0, "0 Hz"],
     [null, ""],
-    [undefined, ""]
+    [undefined, ""],
   ];
   it.each(testcases)(`cpuHz(%s) should return %s`, (frequency, expected) => {
     expect(hostFormatter.cpuHz(frequency)).toBe(expected);
@@ -13,14 +13,24 @@ describe("cpuHz formatter", () => {
 });
 
 describe("memSize formatter", () => {
-  const testcases = [[2400, "2.3 MB"], [0, "0 B"], [null, ""], [undefined, ""]];
+  const testcases = [
+    [2400, "2.40 MB"],
+    [0, "0 KB"],
+    [null, ""],
+    [undefined, ""],
+  ];
   it.each(testcases)(`memSize(%s) should return %s`, (memSize, expected) => {
     expect(hostFormatter.memSize(memSize)).toBe(expected);
   });
 });
 
 describe("diskSize formatter", () => {
-  const testcases = [[2400, "2.3 MB"], [0, "0 B"], [null, ""], [undefined, ""]];
+  const testcases = [
+    [2400, "2.40 MB"],
+    [0, "0 KB"],
+    [null, ""],
+    [undefined, ""],
+  ];
   it.each(testcases)(`diskSize(%s) should return %s`, (memSize, expected) => {
     expect(hostFormatter.diskSize(memSize)).toBe(expected);
   });
