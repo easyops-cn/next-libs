@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.1.17](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.1.16...@next-libs/cmdb-instances@7.1.17) (2023-03-16)
+
+
+### Bug Fixes
+
+* diskSize和memSize的转换 Closes INSTANCE-4420 ([#532](https://github.com/easyops-cn/next-libs/issues/532)) ([a8aa862](https://github.com/easyops-cn/next-libs/commit/a8aa86245012e10010d8b7767afd838be463aafc))
+
+
+
+
+
 ## [7.1.16](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.1.15...@next-libs/cmdb-instances@7.1.16) (2023-03-14)
 
 
