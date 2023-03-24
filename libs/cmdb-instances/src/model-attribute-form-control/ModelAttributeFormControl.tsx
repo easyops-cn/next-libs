@@ -6,7 +6,7 @@ import { DatePicker, Input, InputNumber, Radio, Select } from "antd";
 import { AddStruct } from "../struct-components";
 import moment, { Moment } from "moment";
 import { AttributeFormControlUrl } from "../attribute-form-control-url/AttributeFormControlUrl";
-import { computeDateFormat } from "../processors";
+import { computeDateFormat, isClusterType } from "../processors";
 import { clusterMap } from "../instance-list-table/constants";
 import { CodeEditor } from "@next-libs/code-editor-components";
 import { some } from "lodash";
@@ -132,8 +132,7 @@ export class ModelAttributeFormControl extends Component<
           this.props.attribute,
           this.props.id,
           this.props.type,
-          this.props.objectId === "CLUSTER" &&
-            this.props.attribute.id === "type"
+          isClusterType(this.props.objectId, this.props.attribute.id)
         ),
       });
     }
@@ -151,8 +150,7 @@ export class ModelAttributeFormControl extends Component<
           attribute,
           id,
           type,
-          this.props.objectId === "CLUSTER" &&
-            this.props.attribute.id === "type"
+          isClusterType(objectId, attribute.id)
         ),
       };
     } catch (error) {

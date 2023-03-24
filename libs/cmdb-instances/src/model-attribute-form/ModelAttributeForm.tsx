@@ -36,6 +36,7 @@ import { UserOrUserGroupSelect } from "../components";
 import { permissionListMapOfApp } from "./constants";
 import i18n from "i18next";
 import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
+import { ATTRIBUTE_ID_PREFIX } from "../processors";
 const DEFAULT_ATTRIBUTE_TAG = "基本信息";
 export interface ModelAttributeFormChildren {
   header: string;
@@ -91,7 +92,6 @@ interface ModelAttributeFormProps extends FormComponentProps {
 export type attributesFieldsByTag = [string, ModifiedModelObjectField[]];
 
 const RefCmdbInstancesSelectPanel = React.forwardRef(CmdbInstancesSelectPanel);
-const ATTRIBUTE_ID_PREFIX = "__ATTRIBUTE_ID_PREFIX__";
 interface ModelAttributeFormState {
   sending: boolean;
   attrListGroupByTag: attributesFieldsByTag[];
