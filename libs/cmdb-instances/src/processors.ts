@@ -80,3 +80,11 @@ export const changeQueryWithCustomRules = (
   }
   return modifiedQuery;
 };
+
+export const ATTRIBUTE_ID_PREFIX = "__ATTRIBUTE_ID_PREFIX__";
+export const isClusterType = (objectId: string, type: string): boolean => {
+  return (
+    objectId === "CLUSTER" &&
+    (type || "").replace(ATTRIBUTE_ID_PREFIX, "").replace("_", "") === "type"
+  );
+};

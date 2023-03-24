@@ -1,6 +1,11 @@
 import moment from "moment";
 import { Moment } from "moment";
-import { computeDateFormat, processAttrValueWithQuote } from "./processors";
+import {
+  ATTRIBUTE_ID_PREFIX,
+  computeDateFormat,
+  isClusterType,
+  processAttrValueWithQuote,
+} from "./processors";
 
 describe("processAttrValueWithQuote", () => {
   const cases: [string, string[]][] = [
@@ -12,7 +17,7 @@ describe("processAttrValueWithQuote", () => {
     ["ab 9", ["ab", "9"]],
   ];
   it.each(cases)(
-    "processAttrValueWithQuote(%s,%s) should return %s",
+    "processAttrValueWithQuote(%s,any) should return %s",
     (attrValue, expected) => {
       expect(processAttrValueWithQuote(attrValue, [])).toEqual(expected);
     }
@@ -40,6 +45,28 @@ describe("computeDateFormat", () => {
       } else {
         expect(result.value).toEqual(expected.value);
       }
+    }
+  );
+});
+
+describe("isClusterType", () => {
+  const cases: [string, string, boolean][] = [
+    ["CLUSTER", `${ATTRIBUTE_ID_PREFIX}type`, true],
+    ["CLUSTER", `_type`, true],
+    ["CLUSTER", `type`, true],
+    ["CLUSTER", `foo`, false],
+    ["CLUSTER", null, false],
+    ["HOST", `${ATTRIBUTE_ID_PREFIX}type`, false],
+    ["HOST", `_type`, false],
+    ["HOST", `type`, false],
+    ["HOST", `bar`, false],
+  ];
+
+  it.each(cases)(
+    "isCluster(%s,%s) should return %s",
+    (objectId, type, expected) => {
+      const result = isClusterType(objectId, type);
+      expect(result).toBe(expected);
     }
   );
 });
