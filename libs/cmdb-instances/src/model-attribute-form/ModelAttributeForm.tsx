@@ -377,8 +377,9 @@ export class ModelAttributeForm extends Component<
         this.setState({ sending: false });
       }
       if (result !== "error" && type === "continue") {
+        // istanbul ignore if
         if (this.props.isResetInstanceNameWhenSaveAndContinueToAddInstance) {
-          this.props.form.resetFields(["name"]);
+          this.props.form.resetFields([ATTRIBUTE_ID_PREFIX + "name"]);
         }
         setTimeout(() => {
           this.setState({ sending: false });
