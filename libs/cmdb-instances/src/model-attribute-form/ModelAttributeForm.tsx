@@ -87,6 +87,7 @@ interface ModelAttributeFormProps extends FormComponentProps {
     selectedUser?: string[];
     selectedUserGroup?: string[];
   };
+  isResetInstanceNameWhenSaveAndContinueToAddInstance?: boolean;
 }
 
 export type attributesFieldsByTag = [string, ModifiedModelObjectField[]];
@@ -376,7 +377,9 @@ export class ModelAttributeForm extends Component<
         this.setState({ sending: false });
       }
       if (result !== "error" && type === "continue") {
-        this.props.form.resetFields();
+        if (this.props.isResetInstanceNameWhenSaveAndContinueToAddInstance) {
+          this.props.form.resetFields(["name"]);
+        }
         setTimeout(() => {
           this.setState({ sending: false });
         }, 2500);
