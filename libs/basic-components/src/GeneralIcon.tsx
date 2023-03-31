@@ -163,8 +163,6 @@ export function GeneralIcon({
         }
       }
 
-      const generalIconId = uniqueId("generalIcon");
-
       const iconType =
         (icon as RefinedAntdIcon | FaIcon | EasyopsIcon)?.icon ||
         (icon as LegacyAntdIcon)?.type;
@@ -172,6 +170,18 @@ export function GeneralIcon({
       if (!icon || (!iconType && showEmptyIcon)) {
         return getDefaultIcon(bg, mergedStyle, iconNode);
       }
+
+      const migrateV3 =
+        process.env.NODE_ENV === "test"
+          ? false
+          : getRuntime().getFeatureFlags()["migrate-to-brick-next-v3"];
+      const gradientColor = isGradientColor(icon.color)
+        ? icon.color
+        : undefined;
+      const generalIconId =
+        gradientColor && (!migrateV3 || icon.lib !== "fa")
+          ? uniqueId("generalIcon")
+          : undefined;
 
       const mergedStyleByBg = bg
         ? omit(mergedStyle, "background")
@@ -197,15 +207,20 @@ export function GeneralIcon({
       if (icon.lib === "fa") {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        const faIcon = icon.prefix ? [icon.prefix, icon.icon] : icon.icon;
+        const faIcon: IconName | [IconPrefix, IconName] = icon.prefix
+          ? [icon.prefix, icon.icon]
+          : icon.icon;
+        const migrateProps = migrateV3 ? { gradientColor } : null;
 
         iconNode = (
           <Icon
             style={{ ...mergedStyleByBg, verticalAlign: 0 }}
             component={() => (
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              <FontAwesomeIcon icon={faIcon} className={cssStyle.faIcon} />
+              <FontAwesomeIcon
+                icon={faIcon}
+                className={cssStyle.faIcon}
+                {...migrateProps}
+              />
             )}
             onClick={onClick}
             className={generalIconId}
@@ -231,9 +246,9 @@ export function GeneralIcon({
         );
       }
 
-      if (isGradientColor(icon.color)) {
+      if (gradientColor && generalIconId) {
         let gradientIconDirection;
-        switch (icon.color?.direction) {
+        switch (gradientColor.direction) {
           case "left-to-right":
             gradientIconDirection = { x1: "0", y1: "0", x2: "1", y2: "0" };
             break;
@@ -253,8 +268,8 @@ export function GeneralIcon({
                     {...gradientIconDirection}
                   >
                     `
-                    <stop offset="0%" stopColor={icon.color.startColor} />
-                    <stop offset="100%" stopColor={icon.color.endColor} />
+                    <stop offset="0%" stopColor={gradientColor.startColor} />
+                    <stop offset="100%" stopColor={gradientColor.endColor} />
                   </linearGradient>
                 </defs>
               </svg>
@@ -275,9 +290,7 @@ export function GeneralIcon({
             size={size ?? "default"}
             shape={(shape as AvatarProps["shape"]) ?? "circle"}
             style={{
-              ...(isGradientColor(icon.color)
-                ? { backgroundColor: "#fff" }
-                : {}),
+              ...(gradientColor ? { backgroundColor: "#fff" } : {}),
               ...mergedStyle,
             }}
             className={classnames({
