@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.3.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@5.3.0...@next-libs/basic-components@5.3.1) (2023-03-31)
+
+
+### Bug Fixes
+
+* make fa icons gradient color compatible with brick next v3 ([bbf3663](https://github.com/easyops-cn/next-libs/commit/bbf36630389aae0a6688c390c2d5db2fbddf961f))
+
+
+
+
+
 # [5.3.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@5.2.0...@next-libs/basic-components@5.3.0) (2023-03-06)
 
 

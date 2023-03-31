@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.30](https://github.com/easyops-cn/next-libs/compare/@next-libs/searchable-tree@3.0.29...@next-libs/searchable-tree@3.0.30) (2023-03-31)
+
+**Note:** Version bump only for package @next-libs/searchable-tree
+
+
+
+
+
 ## [3.0.29](https://github.com/easyops-cn/next-libs/compare/@next-libs/searchable-tree@3.0.28...@next-libs/searchable-tree@3.0.29) (2023-03-06)
 
 **Note:** Version bump only for package @next-libs/searchable-tree

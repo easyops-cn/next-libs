@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.16](https://github.com/easyops-cn/next-libs/compare/@next-libs/pipeline@0.6.15...@next-libs/pipeline@0.6.16) (2023-03-31)
+
+**Note:** Version bump only for package @next-libs/pipeline
+
+
+
+
+
 ## [0.6.15](https://github.com/easyops-cn/next-libs/compare/@next-libs/pipeline@0.6.14...@next-libs/pipeline@0.6.15) (2023-03-06)
 
 **Note:** Version bump only for package @next-libs/pipeline
