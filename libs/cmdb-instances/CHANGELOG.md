@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.1.19](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.1.18...@next-libs/cmdb-instances@7.1.19) (2023-03-31)
+
+
+### Bug Fixes
+
+* INSTANCE-4576 新建实例时，保存并继续添加，之前填写的值清空了 refs INSTANCE-4576 ([ffc295e](https://github.com/easyops-cn/next-libs/commit/ffc295ef3a6636631ebde2e4057ebdbd5a5db83a))
+* INSTANCE-4576 新建实例时，保存并继续添加，之前填写的值清空了 refs INSTANCE-4576 ([d5a4d1f](https://github.com/easyops-cn/next-libs/commit/d5a4d1f2791a00c6edecf1be49fddde0a639de6c))
+
+
+
+
+
 ## [7.1.18](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.1.17...@next-libs/cmdb-instances@7.1.18) (2023-03-24)
 
 
