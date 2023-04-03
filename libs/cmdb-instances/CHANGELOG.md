@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.2.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.1.20...@next-libs/cmdb-instances@7.2.0) (2023-04-03)
+
+
+### Features
+
+* add extraFilterBricks for cmdbInstancesInputForm ([7bd8378](https://github.com/easyops-cn/next-libs/commit/7bd8378ccc989eb9cc2125d05c22e0ae9bbaad8b))
+
+
+
+
+
 ## [7.1.20](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.1.19...@next-libs/cmdb-instances@7.1.20) (2023-03-31)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
