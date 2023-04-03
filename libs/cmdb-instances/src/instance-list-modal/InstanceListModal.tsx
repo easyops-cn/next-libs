@@ -8,7 +8,10 @@ import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
 import { InstanceList } from "../instance-list/InstanceList";
 import { InstanceListPresetConfigs } from "../instance-list-table/interfaces";
 import { addResourceBundle } from "../i18n";
-import { ReadPaginationChangeDetail } from "@next-core/brick-types";
+import {
+  ReadPaginationChangeDetail,
+  UseBrickConf,
+} from "@next-core/brick-types";
 addResourceBundle();
 export interface InstanceListModalProps {
   objectMap: { [key: string]: Partial<CmdbModels.ModelCmdbObject> };
@@ -48,6 +51,9 @@ export interface InstanceListModalProps {
   getPaginationData?(pagination: ReadPaginationChangeDetail): void;
   extraFixedFields?: string[];
   limitInstanceRange?: boolean;
+  extraFilterBricks?: {
+    useBrick: UseBrickConf;
+  };
 }
 
 export function InstanceListModal(
@@ -173,6 +179,7 @@ export function InstanceListModal(
           objectId={props.objectId}
           objectList={Object.values(props.objectMap)}
           presetConfigs={presetConfigs}
+          extraFilterBricks={props.extraFilterBricks}
           permission={props.permission}
           aliveHosts={fixAliveHosts}
           fixAliveHosts={fixAliveHosts}
