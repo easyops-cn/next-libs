@@ -12,6 +12,7 @@ import { useTranslation } from "react-i18next";
 import { NS_LIBS_CMDB_INSTANCES, K } from "../i18n/constants";
 
 import style from "./cmdb-instances-input-form.module.css";
+import { UseBrickConf } from "@next-core/brick-types";
 
 const separator = " ";
 
@@ -41,6 +42,9 @@ export interface CmdbInstancesInputFormItemProps {
   showSizeChanger?: boolean;
   hideSearchConditions?: boolean;
   advancedSearchDisabled?: boolean;
+  extraFilterBricks?: {
+    useBrick: UseBrickConf;
+  };
 }
 
 export const LegacyCmdbInstancesInputFormItem = (
@@ -363,6 +367,7 @@ export const LegacyCmdbInstancesInputFormItem = (
       </Modal>
       <InstanceListModal
         objectMap={props.objectMap}
+        extraFilterBricks={props.extraFilterBricks}
         objectId={props.objectId}
         visible={visible}
         title={text}
@@ -406,6 +411,7 @@ export const LegacyCmdbInstancesInputFormItem = (
         <>
           <InstanceListModal
             objectMap={props.objectMap}
+            extraFilterBricks={props.extraFilterBricks}
             objectId={props.objectId}
             visible={previewVisible}
             title={t(K.VIEW_SPECIFIC_INSTANCES)}
