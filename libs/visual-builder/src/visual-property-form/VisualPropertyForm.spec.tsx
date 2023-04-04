@@ -404,3 +404,37 @@ describe("VisualPropertyForm", () => {
     expect(result2).toBe(false);
   });
 });
+
+it("should render textarea", () => {
+  const props = {
+    propertyTypeList: [
+      {
+        name: "value",
+        type: "string",
+        description: "value",
+        editor: "textarea",
+      },
+    ],
+  } as any;
+
+  const wrapper = mount(<VisualPropertyForm {...props} />);
+
+  expect(wrapper.find("TextArea").length).toBe(1);
+});
+
+it("should render number-input", () => {
+  const props = {
+    propertyTypeList: [
+      {
+        name: "value",
+        type: "number",
+        description: "value",
+        editor: "number",
+      },
+    ],
+  } as any;
+
+  const wrapper = mount(<VisualPropertyForm {...props} />);
+
+  expect(wrapper.find("InputNumber").length).toBe(1);
+});

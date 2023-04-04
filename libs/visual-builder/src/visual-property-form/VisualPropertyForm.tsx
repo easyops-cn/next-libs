@@ -298,6 +298,46 @@ export function LegacyVisualPropertyForm(
     );
   };
 
+  const renderNumberItem = (item: UnionPropertyType): React.ReactElement => {
+    return item.mode === ItemModeType.Advanced ? (
+      renderEditorItem(item)
+    ) : (
+      <Form.Item
+        key={item.name}
+        label={renderLabel(item)}
+        name={item.name}
+        rules={[
+          {
+            required: item.required === Required.True,
+            message: `请输入${item.name}`,
+          },
+        ]}
+      >
+        <InputNumber {...(item.editorProps ?? {})} />
+      </Form.Item>
+    );
+  };
+
+  const renderTextareaItem = (item: UnionPropertyType): React.ReactElement => {
+    return item.mode === ItemModeType.Advanced ? (
+      renderEditorItem(item)
+    ) : (
+      <Form.Item
+        key={item.name}
+        label={renderLabel(item)}
+        name={item.name}
+        rules={[
+          {
+            required: item.required === Required.True,
+            message: `请输入${item.name}`,
+          },
+        ]}
+      >
+        <Input.TextArea {...(item.editorProps ?? {})} />
+      </Form.Item>
+    );
+  };
+
   const renderSingleRadio = (props: Record<string, any>) => {
     return props.options?.map((item: any) => {
       const icon = item.icon;
@@ -722,6 +762,10 @@ export function LegacyVisualPropertyForm(
         return renderIconItem(item);
       case "message":
         return renderMessageItem(item);
+      case "number":
+        return renderNumberItem(item);
+      case "textarea":
+        return renderTextareaItem(item);
     }
     if (/true|false/.test(item.type as string)) {
       return renderBooleanItem(item);
