@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.8.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/visual-builder@1.7.1...@next-libs/visual-builder@1.8.0) (2023-04-04)
+
+
+### Features
+
+* feat textarea and number editor ([39b095a](https://github.com/easyops-cn/next-libs/commit/39b095a4c492eb368025e6a6ab695c286e7cd975))
+
+
+
+
+
 ## [1.7.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/visual-builder@1.7.0...@next-libs/visual-builder@1.7.1) (2023-03-31)
 
 **Note:** Version bump only for package @next-libs/visual-builder
