@@ -10,6 +10,7 @@ import {
   Switch,
   AutoComplete,
   Radio,
+  Checkbox,
 } from "antd";
 import { EmptyProps } from "antd/lib/empty";
 import { useCurrentTheme } from "@next-core/brick-kit";
@@ -294,26 +295,6 @@ export function LegacyVisualPropertyForm(
         ]}
       >
         <Input {...(item.editorProps ?? {})} />
-      </Form.Item>
-    );
-  };
-
-  const renderNumberItem = (item: UnionPropertyType): React.ReactElement => {
-    return item.mode === ItemModeType.Advanced ? (
-      renderEditorItem(item)
-    ) : (
-      <Form.Item
-        key={item.name}
-        label={renderLabel(item)}
-        name={item.name}
-        rules={[
-          {
-            required: item.required === Required.True,
-            message: `请输入${item.name}`,
-          },
-        ]}
-      >
-        <InputNumber {...(item.editorProps ?? {})} />
       </Form.Item>
     );
   };
@@ -761,6 +742,46 @@ export function LegacyVisualPropertyForm(
     );
   };
 
+  const renderSelectItem = (item: UnionPropertyType): React.ReactElement => {
+    return item.mode === ItemModeType.Advanced ? (
+      renderEditorItem(item)
+    ) : (
+      <Form.Item
+        key={item.name}
+        label={renderLabel(item)}
+        name={item.name}
+        rules={[
+          {
+            required: item.required === Required.True,
+            message: `请输入${item.name}`,
+          },
+        ]}
+      >
+        <Select {...(item.editorProps ?? {})} />
+      </Form.Item>
+    );
+  };
+
+  const renderCheckboxItem = (item: UnionPropertyType): React.ReactElement => {
+    return item.mode === ItemModeType.Advanced ? (
+      renderEditorItem(item)
+    ) : (
+      <Form.Item
+        key={item.name}
+        label={renderLabel(item)}
+        name={item.name}
+        rules={[
+          {
+            required: item.required === Required.True,
+            message: `请输入${item.name}`,
+          },
+        ]}
+      >
+        <Checkbox.Group {...(item.editorProps ?? {})} />
+      </Form.Item>
+    );
+  };
+
   const getFormItem = (item: PropertyType): React.ReactElement => {
     // todo(sailor): update unit text
     switch (item.editor) {
@@ -777,9 +798,13 @@ export function LegacyVisualPropertyForm(
       case "message":
         return renderMessageItem(item);
       case "number":
-        return renderNumberItem(item);
+        return renderInputNumberItem(item);
       case "textarea":
         return renderTextareaItem(item);
+      case "select":
+        return renderSelectItem(item);
+      case "checkbox":
+        return renderCheckboxItem(item);
     }
     if (/true|false/.test(item.type as string)) {
       return renderBooleanItem(item);
