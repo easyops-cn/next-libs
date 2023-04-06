@@ -805,6 +805,8 @@ export function LegacyVisualPropertyForm(
         return renderSelectItem(item);
       case "checkbox":
         return renderCheckboxItem(item);
+      case "code":
+        return renderCodeEditorItem(item);
     }
     if (/true|false/.test(item.type as string)) {
       return renderBooleanItem(item);

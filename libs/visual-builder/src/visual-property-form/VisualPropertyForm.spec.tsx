@@ -496,3 +496,20 @@ it("should render checkbox", () => {
 
   expect(wrapper.find(".ant-checkbox-group").length).toBe(1);
 });
+
+it("should render code", () => {
+  const props = {
+    propertyTypeList: [
+      {
+        name: "value",
+        type: "number",
+        description: "value",
+        editor: "code",
+      },
+    ],
+  } as any;
+
+  const wrapper = mount(<VisualPropertyForm {...props} />);
+
+  expect(wrapper.find("CodeEditorFormItem").length).toBe(2);
+});
