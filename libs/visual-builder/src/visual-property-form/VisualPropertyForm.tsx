@@ -341,9 +341,7 @@ export function LegacyVisualPropertyForm(
   const renderSingleRadio = (item: UnionPropertyType) => {
     const { editorProps: prop, name } = item;
 
-    const handleRadioUncheck = (
-      e: React.MouseEvent<HTMLElement, MouseEvent>
-    ) => {
+    const handleRadioUncheck = (e: any) => {
       const value = e?.target?.value;
       const formValue = form.getFieldsValue();
       const changeValue = {
