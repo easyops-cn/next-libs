@@ -438,3 +438,78 @@ it("should render number-input", () => {
 
   expect(wrapper.find("InputNumber").length).toBe(1);
 });
+
+it("should render select", () => {
+  const props = {
+    propertyTypeList: [
+      {
+        name: "value",
+        type: "number",
+        description: "value",
+        editor: "select",
+        editorProps: {
+          options: [
+            {
+              label: "value1",
+              value: "value1",
+            },
+            {
+              label: "value2",
+              value: "value2",
+            },
+          ],
+        },
+      },
+    ],
+  } as any;
+
+  const wrapper = mount(<VisualPropertyForm {...props} />);
+
+  expect(wrapper.find("Select").length).toBe(1);
+});
+
+it("should render checkbox", () => {
+  const props = {
+    propertyTypeList: [
+      {
+        name: "value",
+        type: "number",
+        description: "value",
+        editor: "checkbox",
+        editorProps: {
+          options: [
+            {
+              label: "value1",
+              value: "value1",
+            },
+            {
+              label: "value2",
+              value: "value2",
+            },
+          ],
+        },
+      },
+    ],
+  } as any;
+
+  const wrapper = mount(<VisualPropertyForm {...props} />);
+
+  expect(wrapper.find(".ant-checkbox-group").length).toBe(1);
+});
+
+it("should render code", () => {
+  const props = {
+    propertyTypeList: [
+      {
+        name: "value",
+        type: "number",
+        description: "value",
+        editor: "code",
+      },
+    ],
+  } as any;
+
+  const wrapper = mount(<VisualPropertyForm {...props} />);
+
+  expect(wrapper.find("CodeEditorFormItem").length).toBe(2);
+});

@@ -10,6 +10,7 @@ import {
   Switch,
   AutoComplete,
   Radio,
+  Checkbox,
 } from "antd";
 import { EmptyProps } from "antd/lib/empty";
 import { useCurrentTheme } from "@next-core/brick-kit";
@@ -298,26 +299,6 @@ export function LegacyVisualPropertyForm(
     );
   };
 
-  const renderNumberItem = (item: UnionPropertyType): React.ReactElement => {
-    return item.mode === ItemModeType.Advanced ? (
-      renderEditorItem(item)
-    ) : (
-      <Form.Item
-        key={item.name}
-        label={renderLabel(item)}
-        name={item.name}
-        rules={[
-          {
-            required: item.required === Required.True,
-            message: `请输入${item.name}`,
-          },
-        ]}
-      >
-        <InputNumber {...(item.editorProps ?? {})} />
-      </Form.Item>
-    );
-  };
-
   const renderTextareaItem = (item: UnionPropertyType): React.ReactElement => {
     return item.mode === ItemModeType.Advanced ? (
       renderEditorItem(item)
@@ -338,8 +319,20 @@ export function LegacyVisualPropertyForm(
     );
   };
 
-  const renderSingleRadio = (props: Record<string, any>) => {
-    return props.options?.map((item: any) => {
+  const renderSingleRadio = (item: UnionPropertyType) => {
+    const { editorProps: prop, name } = item;
+
+    const handleRadioUncheck = (e: any) => {
+      const value = e?.target?.value;
+      const formValue = form.getFieldsValue();
+      const changeValue = {
+        [name]: formValue[name] === value ? undefined : value,
+      };
+      form.setFieldsValue(changeValue);
+      props.onValuesChange(changeValue, formValue);
+    };
+
+    return prop.options?.map((item: any) => {
       const icon = item.icon;
       let buttonIcon: JSX.Element = null;
       if (icon) {
@@ -364,13 +357,14 @@ export function LegacyVisualPropertyForm(
           );
         }
       }
-      if (props.optionType === "button") {
+      if (prop.optionType === "button") {
         return (
           <Radio.Button
             key={item.value}
             value={item.value}
             disabled={item.disabled}
             style={{ textAlign: "center", flex: "1 1 0", ...item.style }}
+            onClick={!prop?.disableUnchek ? handleRadioUncheck : () => null}
           >
             {buttonIcon}
             {item.label && (
@@ -385,6 +379,7 @@ export function LegacyVisualPropertyForm(
             value={item.value}
             disabled={item.disabled}
             style={item.style}
+            onClick={!prop?.disableUnchek ? handleRadioUncheck : () => null}
           >
             {buttonIcon}
             {item.label && (
@@ -419,7 +414,7 @@ export function LegacyVisualPropertyForm(
           }
           {...(radioProps ?? {})}
         >
-          {renderSingleRadio(item.editorProps)}
+          {renderSingleRadio(item)}
         </Radio.Group>
       </Form.Item>
     );
@@ -747,6 +742,46 @@ export function LegacyVisualPropertyForm(
     );
   };
 
+  const renderSelectItem = (item: UnionPropertyType): React.ReactElement => {
+    return item.mode === ItemModeType.Advanced ? (
+      renderEditorItem(item)
+    ) : (
+      <Form.Item
+        key={item.name}
+        label={renderLabel(item)}
+        name={item.name}
+        rules={[
+          {
+            required: item.required === Required.True,
+            message: `请输入${item.name}`,
+          },
+        ]}
+      >
+        <Select {...(item.editorProps ?? {})} />
+      </Form.Item>
+    );
+  };
+
+  const renderCheckboxItem = (item: UnionPropertyType): React.ReactElement => {
+    return item.mode === ItemModeType.Advanced ? (
+      renderEditorItem(item)
+    ) : (
+      <Form.Item
+        key={item.name}
+        label={renderLabel(item)}
+        name={item.name}
+        rules={[
+          {
+            required: item.required === Required.True,
+            message: `请输入${item.name}`,
+          },
+        ]}
+      >
+        <Checkbox.Group {...(item.editorProps ?? {})} />
+      </Form.Item>
+    );
+  };
+
   const getFormItem = (item: PropertyType): React.ReactElement => {
     // todo(sailor): update unit text
     switch (item.editor) {
@@ -763,9 +798,15 @@ export function LegacyVisualPropertyForm(
       case "message":
         return renderMessageItem(item);
       case "number":
-        return renderNumberItem(item);
+        return renderInputNumberItem(item);
       case "textarea":
         return renderTextareaItem(item);
+      case "select":
+        return renderSelectItem(item);
+      case "checkbox":
+        return renderCheckboxItem(item);
+      case "code":
+        return renderCodeEditorItem(item);
     }
     if (/true|false/.test(item.type as string)) {
       return renderBooleanItem(item);
