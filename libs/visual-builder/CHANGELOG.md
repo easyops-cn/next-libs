@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.9.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/visual-builder@1.8.0...@next-libs/visual-builder@1.9.0) (2023-04-07)
+
+
+### Features
+
+* feat checkbox and select editor ([1172fae](https://github.com/easyops-cn/next-libs/commit/1172fae3225862db1ac19b2b7d2fb4e12d5e8ca0))
+* feat code editor ([1e989e6](https://github.com/easyops-cn/next-libs/commit/1e989e6e458c4f8b6c196db4d7b4a526ddcc521d))
+* feat radio editor disableUncheck ([a24a92d](https://github.com/easyops-cn/next-libs/commit/a24a92d2a802b1e51b74a9bb1dc88cccf5e10763))
+* feat radio editor disableUncheck ([be99a6c](https://github.com/easyops-cn/next-libs/commit/be99a6c9525b7c4a64301c67a279a45fb914b944))
+
+
+
+
+
 # [1.8.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/visual-builder@1.7.1...@next-libs/visual-builder@1.8.0) (2023-04-04)
 
 
