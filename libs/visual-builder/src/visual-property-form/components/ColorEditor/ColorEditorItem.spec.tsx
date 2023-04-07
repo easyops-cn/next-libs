@@ -2,7 +2,11 @@ import React from "react";
 import { mount } from "enzyme";
 import { Form } from "antd";
 import { SketchPicker } from "react-color";
-import { ColorEditorItem, ColorPick, getPresetColors } from "./ColorEditorItem";
+import {
+  ColorEditorItem,
+  ColorPick,
+  getDefaultPresetColors,
+} from "./ColorEditorItem";
 
 jest.mock("react-color");
 
@@ -29,9 +33,12 @@ describe("ColorEditor", () => {
     // @ts-ignore
     wrapper.find(SketchPicker).invoke("onChangeComplete")({
       hex: "#e9e9e9",
+      rgb: { r: 11, g: 22, b: 33, a: 44 },
     });
 
-    expect(wrapper.find(ColorPick).prop("value")).toEqual("#e9e9e9");
+    expect(wrapper.find(ColorPick).prop("value")).toEqual(
+      "rgba( 11, 22, 33, 44)"
+    );
 
     wrapper.find(".cover").simulate("click");
     expect(wrapper.find(".popover").length).toEqual(0);
@@ -70,13 +77,13 @@ describe("getPresetColors", () => {
         borderColor: "var(--theme-gray-background)",
       },
     } as any;
-    const result = getPresetColors(colorMap);
+    const result = getDefaultPresetColors(colorMap);
     expect(result).toEqual([
-      "#eaf8ec",
-      "#97e0ad73",
-      "#fda7a173",
-      "#ebf3fd",
-      "#ffd09a73",
+      { color: "#eaf8ec", title: "var(--theme-green-color)" },
+      { color: "#97e0ad73", title: "var(--theme-green-border-color)" },
+      { color: "#fda7a173", title: "var(--theme-red-border-color)" },
+      { color: "#ebf3fd", title: "var(--theme-blue-background)" },
+      { color: "#ffd09a73", title: "var(--theme-orange-border-color)" },
     ]);
   });
 });
