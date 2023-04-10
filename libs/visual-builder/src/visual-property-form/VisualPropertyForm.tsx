@@ -531,6 +531,7 @@ export function LegacyVisualPropertyForm(
         name={item.name}
         label={renderLabel(item, true)}
         required={item.required === Required.True}
+        {...(item.editorProps ?? {})}
       />
     );
   };

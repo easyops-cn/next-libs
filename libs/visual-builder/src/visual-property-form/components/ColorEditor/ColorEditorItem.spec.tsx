@@ -2,7 +2,13 @@ import React from "react";
 import { mount } from "enzyme";
 import { Form } from "antd";
 import { SketchPicker } from "react-color";
-import { ColorEditorItem, ColorPick, getPresetColors } from "./ColorEditorItem";
+import {
+  ColorEditorItem,
+  ColorPick,
+  getDefaultPresetColors,
+  presetColorMap,
+  processEditorPresetColors,
+} from "./ColorEditorItem";
 
 jest.mock("react-color");
 
@@ -14,9 +20,20 @@ describe("ColorEditor", () => {
   } as any);
 
   it("ColorEditorItem should work", () => {
+    const editorPresetColors = [
+      "var(--theme-blue-background)",
+      "#4891B0",
+      { title: "testColor1", color: "rgba( 20, 25, 30, 0.3)" },
+      { title: "testColor2", color: "var(--theme-orange-border-color)" },
+    ];
+
     const wrapper = mount(
       <Form>
-        <ColorEditorItem name="color" label="颜色" />
+        <ColorEditorItem
+          name="color"
+          label="颜色"
+          editorPresetColors={editorPresetColors}
+        />
       </Form>
     );
 
@@ -29,9 +46,12 @@ describe("ColorEditor", () => {
     // @ts-ignore
     wrapper.find(SketchPicker).invoke("onChangeComplete")({
       hex: "#e9e9e9",
+      rgb: { r: 11, g: 22, b: 33, a: 0.4 },
     });
 
-    expect(wrapper.find(ColorPick).prop("value")).toEqual("#e9e9e9");
+    expect(wrapper.find(ColorPick).prop("value")).toEqual(
+      "rgba( 11, 22, 33, 0.4)"
+    );
 
     wrapper.find(".cover").simulate("click");
     expect(wrapper.find(".popover").length).toEqual(0);
@@ -47,11 +67,13 @@ describe("getPresetColors", () => {
         "--theme-red-border-color": "#fda7a173",
         "--theme-blue-background": "#ebf3fd",
         "--theme-orange-border-color": "#ffd09a73",
+        "--test-color-1": "#278783",
+        "--test-color-2": "#654832",
       };
       return colorMap[color];
     },
   } as any);
-  it("should return color list", () => {
+  it("should return default preset color list", () => {
     const colorMap = {
       green: {
         color: "var(--theme-green-color)",
@@ -70,13 +92,40 @@ describe("getPresetColors", () => {
         borderColor: "var(--theme-gray-background)",
       },
     } as any;
-    const result = getPresetColors(colorMap);
+    const result = getDefaultPresetColors(colorMap);
     expect(result).toEqual([
-      "#eaf8ec",
-      "#97e0ad73",
-      "#fda7a173",
-      "#ebf3fd",
-      "#ffd09a73",
+      { color: "#eaf8ec", title: "var(--theme-green-color)" },
+      { color: "#97e0ad73", title: "var(--theme-green-border-color)" },
+      { color: "#fda7a173", title: "var(--theme-red-border-color)" },
+      { color: "#ebf3fd", title: "var(--theme-blue-background)" },
+      { color: "#ffd09a73", title: "var(--theme-orange-border-color)" },
     ]);
+  });
+
+  it("should return editor preset color list", () => {
+    const editorPresetColors = [
+      "var(--test-color-1)",
+      "#4891B0",
+      { title: "testColor1", color: "rgba( 20, 25, 30, 0.3)" },
+      { title: "testColor2", color: "var(--test-color-2)" },
+    ];
+
+    const result = processEditorPresetColors(editorPresetColors);
+    expect(result).toEqual([
+      { color: "#278783", title: "var(--test-color-1)" },
+      "#4891B0",
+      { color: "rgba( 20, 25, 30, 0.3)", title: "testColor1" },
+      { color: "#654832", title: "testColor2" },
+    ]);
+
+    expect(presetColorMap).toEqual({
+      "#278783": "var(--test-color-1)",
+      "#654832": "var(--test-color-2)",
+      "#97e0ad73": "var(--theme-green-border-color)",
+      "#eaf8ec": "var(--theme-green-color)",
+      "#ebf3fd": "var(--theme-blue-background)",
+      "#fda7a173": "var(--theme-red-border-color)",
+      "#ffd09a73": "var(--theme-orange-border-color)",
+    });
   });
 });
