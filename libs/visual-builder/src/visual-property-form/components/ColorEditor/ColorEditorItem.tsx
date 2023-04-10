@@ -15,7 +15,7 @@ export interface ColorEditorItemProps {
   editorPresetColors?: PresetColor[];
 }
 
-const presetColorMap: Record<string, string> = {};
+export const presetColorMap: Record<string, string> = {};
 
 const getComputedColor = (key: string) => {
   return window
@@ -55,7 +55,9 @@ export function getDefaultPresetColors(
   return colorList;
 }
 
-const processEditorPresetColors = (editorPresetColors: PresetColor[]) => {
+export const processEditorPresetColors = (
+  editorPresetColors: PresetColor[]
+) => {
   const res: PresetColor[] = [];
 
   editorPresetColors?.forEach((item) => {
