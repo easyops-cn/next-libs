@@ -33,11 +33,49 @@ describe("ColorEditor", () => {
     // @ts-ignore
     wrapper.find(SketchPicker).invoke("onChangeComplete")({
       hex: "#e9e9e9",
-      rgb: { r: 11, g: 22, b: 33, a: 44 },
+      rgb: { r: 11, g: 22, b: 33, a: 0.4 },
     });
 
     expect(wrapper.find(ColorPick).prop("value")).toEqual(
-      "rgba( 11, 22, 33, 44)"
+      "rgba( 11, 22, 33, 0.4)"
+    );
+
+    wrapper.find(".cover").simulate("click");
+    expect(wrapper.find(".popover").length).toEqual(0);
+  });
+
+  it("ColorEditorItem should work with editorPresetColors", () => {
+    const editorPresetColors = [
+      "var(--theme-blue-background)",
+      "#4891B0",
+      { title: "testColor1", color: "rgba( 20, 25, 30, 0.3)" },
+      { title: "testColor2", color: "var(--theme-orange-border-color)" },
+    ];
+
+    const wrapper = mount(
+      <Form>
+        <ColorEditorItem
+          name="color"
+          label="颜色"
+          editorPresetColors={editorPresetColors}
+        />
+      </Form>
+    );
+
+    expect(wrapper.find(".popover").length).toEqual(0);
+    wrapper.find(".colorCube").simulate("click");
+
+    wrapper.update();
+    expect(wrapper.find(".popover").length).toEqual(1);
+
+    // @ts-ignore
+    wrapper.find(SketchPicker).invoke("onChangeComplete")({
+      hex: "#e9e9e9",
+      rgb: { r: 11, g: 22, b: 33, a: 0.4 },
+    });
+
+    expect(wrapper.find(ColorPick).prop("value")).toEqual(
+      "rgba( 11, 22, 33, 0.4)"
     );
 
     wrapper.find(".cover").simulate("click");
