@@ -110,7 +110,11 @@ export function LegacyColorPick(
     const rgba = `rgba( ${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b}, ${color.rgb.a})`;
     const rgb = `rgb( ${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b})`;
     // 优先使用变量作为value
-    const res = presetColorMap[rgba] ?? presetColorMap[rgb] ?? rgba;
+    const res =
+      presetColorMap[rgba] ??
+      presetColorMap[rgb] ??
+      presetColorMap[color.hex] ??
+      rgba;
     setValue(res);
     props.onChange(res);
   };
