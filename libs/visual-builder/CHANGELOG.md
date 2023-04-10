@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.10.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/visual-builder@1.9.0...@next-libs/visual-builder@1.10.0) (2023-04-10)
+
+
+### Features
+
+* feat color editor preset color ([5978228](https://github.com/easyops-cn/next-libs/commit/5978228d736e8927a94aab0be51bc8d9ee95b0c9))
+* feat color editor preset color ([0760dca](https://github.com/easyops-cn/next-libs/commit/0760dcae01e4465dbe63216e81b65d85c5c2eebd))
+
+
+
+
+
 # [1.9.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/visual-builder@1.8.0...@next-libs/visual-builder@1.9.0) (2023-04-07)
 
 
