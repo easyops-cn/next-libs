@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.2.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.2.0...@next-libs/cmdb-instances@7.2.1) (2023-04-11)
+
+
+### Bug Fixes
+
+* useEffect分开监听page、pagesize导致接口调用重复 Closes MONITOR-5625 ([82b9bc2](https://github.com/easyops-cn/next-libs/commit/82b9bc2e8f8489c78670080bdff1ba9c197af536))
+
+
+
+
+
 # [7.2.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.1.20...@next-libs/cmdb-instances@7.2.0) (2023-04-03)
 
 
