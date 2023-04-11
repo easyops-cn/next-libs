@@ -964,6 +964,31 @@ export function LegacyInstanceList(
     setSelectedRowKeys(props.selectedRowKeys ?? []);
   }, [props.objectId, props.selectedRowKeys]);
 
+  // istanbul ignore next
+  useEffect(() => {
+    onSelectionChange({
+      selectedKeys: [],
+      selectedItems: [],
+    });
+  }, [
+    state.sort,
+    state.asc,
+    state.fieldIds,
+    state.appSearchInstanceId,
+    state.currentChangeSelect,
+    state.searchByApp,
+    props.dataSource,
+    state.presetConfigsQuery,
+    state.q,
+    state.aq,
+    state.instanceSourceQuery,
+    state.aliveHosts,
+    state.relatedToMe,
+    props.objectId,
+    props.permission,
+    props.defaultQuery,
+  ]);
+
   // on filter condition change
   useEffect(() => {
     if (isFirstRunRef.current) {
@@ -990,14 +1015,11 @@ export function LegacyInstanceList(
     }
 
     refreshInstanceList(state.sort, state.asc, 1);
-    onSelectionChange({
-      selectedKeys: [],
-      selectedItems: [],
-    });
   }, [
     state.q,
     state.aq,
     state.instanceSourceQuery,
+    state.pageSize,
     state.aliveHosts,
     state.relatedToMe,
     props.objectId,
@@ -1005,49 +1027,12 @@ export function LegacyInstanceList(
     props.defaultQuery,
   ]);
 
-  // on pageSize condition change
-  useEffect(() => {
-    if (isFirstRunRef.current) {
-      isFirstRunRef.current = false;
-      return;
-    }
-
-    let skip = false;
-
-    if (state.page !== 1) {
-      setState({ page: 1 });
-      props.onPaginationChange?.({ page: 1, pageSize: state.pageSize });
-      skip = true;
-    }
-
-    // 当 prop.objectId 改变时先跳过，等 state.fieldIds 更新后再获取数据
-    if (props.objectId !== state.objectId) {
-      setState({ objectId: props.objectId });
-      skip = true;
-    }
-
-    if (skip) {
-      return;
-    }
-
-    refreshInstanceList(state.sort, state.asc, 1);
-  }, [state.pageSize]);
-
   // on other condition change
   useEffect(() => {
     if (isEmpty(state.fieldIds)) return;
     refreshInstanceList(state.sort, state.asc, state.page);
-  }, [state.page]);
-
-  // on other condition change
-  useEffect(() => {
-    if (isEmpty(state.fieldIds)) return;
-    refreshInstanceList(state.sort, state.asc, state.page);
-    onSelectionChange({
-      selectedKeys: [],
-      selectedItems: [],
-    });
   }, [
+    state.page,
     state.sort,
     state.asc,
     state.fieldIds,
