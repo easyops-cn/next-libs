@@ -214,7 +214,7 @@ export function GeneralIcon({
 
         iconNode = (
           <Icon
-            style={{ ...mergedStyleByBg, verticalAlign: 0 }}
+            style={{ verticalAlign: 0, ...mergedStyleByBg }}
             component={() => (
               <FontAwesomeIcon
                 icon={faIcon}
