@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.3.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@5.3.1...@next-libs/basic-components@5.3.2) (2023-04-12)
+
+
+### Bug Fixes
+
+* **GeneralIcon:** 修复generalIcon在v3中的圆点居中问题 ([c65a19d](https://github.com/easyops-cn/next-libs/commit/c65a19dd601c6237aea5104572c7037a288cae53))
+
+
+
+
+
 ## [5.3.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@5.3.0...@next-libs/basic-components@5.3.1) (2023-03-31)
 
 
