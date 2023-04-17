@@ -27,6 +27,18 @@ type useAvatarReturnType = {
  *   )
  * }
  */
+export const getAvatar = (user: UserInfo, conf: UseAvatarConfig = {}) => (
+  <AAvatar
+    src={user?.user_icon}
+    style={{
+      backgroundColor: user?.user_icon ? undefined : "rgb(0, 113, 235)",
+    }}
+    {...conf}
+  >
+    {(user?.name || "")?.slice(0, 2)}
+  </AAvatar>
+);
+
 export default function useAvatar(
   nameOrInstanceId: string,
   config: UseAvatarConfig = {}
@@ -37,17 +49,7 @@ export default function useAvatar(
     setConf({ ...conf, ...config });
   };
   const Avatar = useMemo(() => {
-    return (
-      <AAvatar
-        src={user?.user_icon}
-        style={{
-          backgroundColor: user?.user_icon ? undefined : "rgb(0, 113, 235)",
-        }}
-        {...conf}
-      >
-        {(user?.name || "")?.slice(0, 2)}
-      </AAvatar>
-    );
+    return getAvatar(user, conf);
   }, [user, conf]);
 
   return {
