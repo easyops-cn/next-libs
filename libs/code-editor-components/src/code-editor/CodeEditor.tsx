@@ -118,12 +118,27 @@ export function CodeEditorItem(
     let schemaAnnotations: Annotation[] = [];
     if (props.value) {
       try {
-        const data = yaml.safeLoad(props.value, {
-          schema: yaml.JSON_SCHEMA,
-          json: true,
-        });
-        if (jsonSchema) {
-          schemaAnnotations = schemaLint(data);
+        if (!props.enableUseMultipleYamlFiles) {
+          const data = yaml.safeLoad(props.value, {
+            schema: yaml.JSON_SCHEMA,
+            json: true,
+          });
+          if (jsonSchema) {
+            schemaAnnotations = schemaLint(data);
+          }
+        } else {
+          yaml.safeLoadAll(
+            props.value,
+            function (doc) {
+              if (jsonSchema) {
+                schemaAnnotations.push(...schemaLint(doc));
+              }
+            },
+            {
+              schema: yaml.JSON_SCHEMA,
+              json: true,
+            }
+          );
         }
       } catch (e) {
         const lastRow = editor.getLastVisibleRow();

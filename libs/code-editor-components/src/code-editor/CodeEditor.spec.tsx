@@ -14,7 +14,7 @@ import {
   CodeEditorItemWrapper,
 } from "./CodeEditor";
 import { getClickableMarker } from "./getClickableMarker";
-
+import yaml from "js-yaml";
 jest.mock("./getHighlightMarkers");
 jest.mock("./getClickableMarker");
 
@@ -466,7 +466,54 @@ describe("CodeEditor", () => {
     wrapper.find(ExportOutlined).simulate("click");
     expect(spyOnSaveAs).toHaveBeenCalled();
   });
+  it("should work with yaml", async () => {
+    const onChange = jest.fn();
+    const onBlur = jest.fn();
+    const onErrorChange = jest.fn();
+    const wrapper = mount(
+      <CodeEditor
+        formElement={formElement as any}
+        mode="yaml"
+        value="123"
+        minLines={5}
+        onChange={onChange}
+        onBlur={onBlur}
+        onErrorChange={onErrorChange}
+        required={true}
+        showCopyButton={true}
+        showExportButton={true}
+        enableUseMultipleYamlFiles={true}
+        jsonSchema={{
+          type: "string",
+          $schema: "http://json-schema.org/draft-07/schema#",
+        }}
+      />
+    );
 
+    const spyOnYaml = jest.spyOn(yaml, "safeLoadAll").mockImplementationOnce(((
+      value: string,
+      callback: (doc: any) => void,
+      jsonSchema: Record<string, any>
+    ) => {
+      callback(value);
+    }) as any);
+
+    const mockSetMock = jest.fn();
+    wrapper.find(AceEditor).invoke("onLoad")({
+      getSession: jest.fn().mockReturnValue({
+        setAnnotations: jest.fn(),
+        getAnnotations: jest.fn().mockReturnValueOnce([]),
+        setMode: mockSetMock,
+      }),
+      getLastVisibleRow: jest.fn().mockReturnValue(2),
+    });
+    wrapper.find(AceEditor).invoke("onChange")("a: b");
+    wrapper.setProps({
+      value: "a: b",
+    });
+    wrapper.update();
+    expect(spyOnYaml).toHaveBeenCalled();
+  });
   it("should work with brick_next", async () => {
     const onChange = jest.fn();
     const onBlur = jest.fn();
