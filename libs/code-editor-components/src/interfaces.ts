@@ -53,6 +53,7 @@ export interface CodeEditorProps extends FormItemWrapperProps {
     type: HighlightTokenType;
     value: string;
   }) => void;
+  enableUseMultipleYamlFiles?: boolean;
 }
 
 export interface HighlightTokenSettings {
