@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.9.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.8.11...@next-libs/code-editor-components@4.9.0) (2023-04-27)
+
+
+### Features
+
+* codeEditor的模式为yaml时，支持以字符串---分割成多个文件  refs WORKSPACE-174 ([151daed](https://github.com/easyops-cn/next-libs/commit/151daede43c131f5d3a4553e0d07ceff0b0d2213))
+
+
+
+
+
 ## [4.8.11](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.8.10...@next-libs/code-editor-components@4.8.11) (2023-04-12)
 
 **Note:** Version bump only for package @next-libs/code-editor-components
