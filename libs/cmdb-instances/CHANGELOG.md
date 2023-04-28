@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.2.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.2.3...@next-libs/cmdb-instances@7.2.4) (2023-04-28)
+
+
+### Bug Fixes
+
+* 查看采集实例时translateConditions函数找不到attr报错 Closes MONITOR-5911 ([d180aa4](https://github.com/easyops-cn/next-libs/commit/d180aa46ad86305bd83e8bdf555528e44a189fc7))
+
+
+
+
+
 ## [7.2.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.2.2...@next-libs/cmdb-instances@7.2.3) (2023-04-27)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
