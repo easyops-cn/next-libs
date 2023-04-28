@@ -275,7 +275,7 @@ export function translateConditions(
         );
         if (
           Object.keys(value)[0] === ElementOperators.Exists &&
-          attr.relationSideId
+          attr?.relationSideId
         ) {
           const relationSideId = attr.relationSideId;
           attr =
