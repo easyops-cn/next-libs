@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.2.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.2.4...@next-libs/cmdb-instances@7.2.5) (2023-05-06)
+
+
+### Bug Fixes
+
+* 去掉搜索后默认清空 Closes COLLECTOR_CENTER-404 ([1181535](https://github.com/easyops-cn/next-libs/commit/1181535100dc62758e43d9f09b979c5352beb3c2))
+
+
+
+
+
 ## [7.2.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.2.3...@next-libs/cmdb-instances@7.2.4) (2023-04-28)
 
 
