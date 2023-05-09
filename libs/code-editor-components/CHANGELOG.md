@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.10.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.9.0...@next-libs/code-editor-components@4.10.0) (2023-05-09)
+
+
+### Features
+
+* support brick next new syntax ([b36cc03](https://github.com/easyops-cn/next-libs/commit/b36cc03ec0009a6ba066a2c95773f15bfbb60459))
+
+
+
+
+
 # [4.9.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.8.11...@next-libs/code-editor-components@4.9.0) (2023-04-27)
 
 
