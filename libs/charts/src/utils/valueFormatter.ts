@@ -23,7 +23,7 @@ export const convertValueByPrecision = (
 };
 
 export const formatValue = (
-  value: number,
+  value: number | string,
   format?: Format
 ): [string, string] => {
   if (format) {
@@ -49,14 +49,14 @@ export const formatValue = (
     switch (type) {
       case FormatType.Percent: {
         const percentValue = humanizePercentValue(
-          value,
+          +value,
           format.unit as PercentUnitId
         );
         return [`${convertValueByPrecision(percentValue, precision)}%`, null];
       }
       case FormatType.Time: {
         const [timeValue, timeUnitDisplay] = humanizeTimeValue(
-          value,
+          +value,
           format.unit as TimesUnitId
         );
         return [
@@ -69,7 +69,7 @@ export const formatValue = (
       }
       case FormatType.Data: {
         const [dataValue, dataUnitDisplay] = humanizeDataValue(
-          value,
+          +value,
           format.unit as BytesUnitId
         );
         return [
@@ -79,7 +79,7 @@ export const formatValue = (
       }
       case FormatType.DataRate: {
         const [dataRateValue, dataRateUnitDisplay] = humanizeDataRateValue(
-          value,
+          +value,
           format.unit as ByteRatesUnitId
         );
         return [
@@ -88,16 +88,19 @@ export const formatValue = (
         ];
       }
       case FormatType.None: {
-        return [convertValueByPrecision(value, precision), ""];
+        return [convertValueByPrecision(+value, precision), ""];
+      }
+      case FormatType.String: {
+        return [value.toString(), ""];
       }
       default: {
         return [
-          humanizeNumberValue(value, format.unit as ShortUnitId, precision),
+          humanizeNumberValue(+value, format.unit as ShortUnitId, precision),
           format.unit,
         ];
       }
     }
   } else {
-    return [humanizeNumberValue(value), null];
+    return [humanizeNumberValue(+value), null];
   }
 };

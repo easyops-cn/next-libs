@@ -142,5 +142,11 @@ describe("valueFormatter", () => {
         unit: "KBps",
       })
     ).toEqual(["-1.00", "MBps"]);
+
+    expect(
+      formatValue("yellow", {
+        type: FormatType.String,
+      })
+    ).toEqual(["yellow", ""]);
   });
 });

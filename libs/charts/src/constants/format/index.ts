@@ -10,6 +10,7 @@ export enum FormatType {
   Time = "time",
   Data = "data",
   DataRate = "data_rate",
+  String = "string",
 }
 
 export const formatUnitIds: { [type: string]: string[] } = {
@@ -19,6 +20,7 @@ export const formatUnitIds: { [type: string]: string[] } = {
   [FormatType.Time]: timeFormatUnitIds,
   [FormatType.Data]: dataFormatUnitIds,
   [FormatType.DataRate]: dataRateFormatUnitIds,
+  [FormatType.String]: [],
 };
 
 export * from "./time";
