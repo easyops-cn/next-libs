@@ -61,19 +61,15 @@ export default function useMention(
   name?: string,
   config: UseMentionConfig = {}
 ): UseMentionReturnType {
-  const { debounceTime = 300 } = config || {};
-  const [q, setQ] = useState(name);
+  const { debounceTime = 300 } = config;
+  const [query, setQuery] = useState({ name });
   const [users, setUsers] = useState<UserInfo[]>([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (!q) {
-      users?.length && setUsers([]);
-      return;
-    }
     let isSubscribed = true;
     setLoading(true);
-    getUserInfoByName(q)
+    getUserInfoByName(query.name)
       .then(
         (users) => {
           if (isSubscribed) {
@@ -89,14 +85,14 @@ export default function useMention(
     return () => {
       isSubscribed = false;
     };
-  }, [q]);
+  }, [query]);
 
   const handleMentionSearch = useMemo(
     () =>
       debounce((text: string) => {
-        setQ(text);
+        text !== query.name && setQuery({ name: text });
       }, debounceTime),
-    [debounceTime]
+    [debounceTime, query]
   );
 
   return {
