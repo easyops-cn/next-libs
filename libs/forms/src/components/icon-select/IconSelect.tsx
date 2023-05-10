@@ -219,7 +219,7 @@ export function LegacyIconSelectItem(
               onChange={handleCategoryChange}
               value={category}
               defaultValue="fa"
-              style={{ marginLeft: "30px" }}
+              style={{ marginLeft: "30px", marginTop: "5px" }}
             >
               <Radio value="fa">font awesome</Radio>
               <Radio value="antd">ant design</Radio>
