@@ -61,16 +61,12 @@ export default function useMention(
   name?: string,
   config: UseMentionConfig = {}
 ): UseMentionReturnType {
-  const { debounceTime = 300 } = config || {};
+  const { debounceTime = 300 } = config;
   const [q, setQ] = useState(name);
   const [users, setUsers] = useState<UserInfo[]>([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (!q) {
-      users?.length && setUsers([]);
-      return;
-    }
     let isSubscribed = true;
     setLoading(true);
     getUserInfoByName(q)

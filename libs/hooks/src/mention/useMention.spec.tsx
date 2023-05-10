@@ -24,7 +24,11 @@ const fakeUsers = [
   (objectId, { query }: { query: any }) => {
     // Fake matching.
     const list = fakeUsers
-      .filter((user) => query.$or[0].name.$like === `%${user.name}%`)
+      .filter(
+        (user) =>
+          query.$or[0].name.$like === "%%" ||
+          query.$or[0].name.$like === `%${user.name}%`
+      )
       .map((item) => ({ ...item }));
     return list.length > 0
       ? Promise.resolve({
@@ -99,8 +103,50 @@ describe("useMention", () => {
     });
 
     expect(result.current).toEqual(
-      expect.objectContaining({ loading: false, users: [] })
+      expect.objectContaining({
+        loading: false,
+        users: [
+          {
+            name: "a",
+            instanceId: "1",
+            user_icon: "a.jpg",
+          },
+          {
+            name: "b",
+            instanceId: "2",
+            user_icon: "b.jpg",
+          },
+        ],
+      })
     );
+    expect(InstanceApi_postSearchV3).toHaveBeenCalledTimes(3);
+
+    result.current.updateUserName("");
+    rerender();
+    await jest.advanceTimersByTime(400);
+    await act(async () => {
+      await (global as any).flushPromises();
+    });
+
+    expect(result.current).toEqual(
+      expect.objectContaining({
+        loading: false,
+        users: [
+          {
+            name: "a",
+            instanceId: "1",
+            user_icon: "a.jpg",
+          },
+          {
+            name: "b",
+            instanceId: "2",
+            user_icon: "b.jpg",
+          },
+        ],
+      })
+    );
+    // test:参数相同时，不发起请求
+    expect(InstanceApi_postSearchV3).toHaveBeenCalledTimes(3);
   });
 
   it("should work when error occurred", async () => {
