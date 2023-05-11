@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/crontab@2.0.5...@next-libs/crontab@2.0.6) (2023-05-11)
+
+
+### Bug Fixes
+
+* 周期构件校验支持L字符 ([1df90e3](https://github.com/easyops-cn/next-libs/commit/1df90e38276f5e27b5fd0fd71dfd4b47e2b2dddd))
+* 周期构件校验支持L字符 ([fd8e1bb](https://github.com/easyops-cn/next-libs/commit/fd8e1bb861d060d98e52b83c139535de10110c9b))
+
+
+
+
+
 ## [2.0.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/crontab@2.0.4...@next-libs/crontab@2.0.5) (2022-11-10)
 
 **Note:** Version bump only for package @next-libs/crontab
