@@ -183,7 +183,7 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
         <Link to={item.to} href={item.href} target={item.target}>
           {item.icon && (
             <i className={style.menuItemIcon}>
-              <GeneralIcon icon={item.icon} />
+              <GeneralIcon icon={item.icon} size={14} />
             </i>
           )}
           <span className={style.menuItemText}>{item.text}</span>
@@ -208,7 +208,7 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
           <span>
             {item.icon && (
               <i className={style.menuItemIcon}>
-                <GeneralIcon icon={item.icon} />
+                <GeneralIcon icon={item.icon} size={14} />
               </i>
             )}
             <span className={style.menuItemText}>{item.title}</span>

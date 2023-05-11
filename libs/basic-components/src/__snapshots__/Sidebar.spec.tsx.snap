@@ -79,6 +79,7 @@ exports[`Sidebar should work 1`] = `
                   "lib": "fa",
                 }
               }
+              size={14}
             />
           </i>
           <span
