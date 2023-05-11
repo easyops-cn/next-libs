@@ -1,4 +1,4 @@
-const getCrontabRegex = function(
+const getCrontabRegex = function (
   replacement: string,
   numbers?: string
 ): RegExp {
@@ -19,7 +19,7 @@ const getCrontabRegex = function(
 export default {
   minute: getCrontabRegex("[0-5]?\\d"),
   hour: getCrontabRegex("[01]?\\d|2[0-3]"),
-  date: getCrontabRegex("0?[1-9]|[12]\\d|3[01]"),
+  date: getCrontabRegex("L|0?[1-9]|[12]\\d|3[01]"),
   month: getCrontabRegex(
     "[1-9]|1[012]|[jJ]an|[fF]eb|[mM]ar|[aA]pr|[mM]ay|[jJ]un|[jJ]ul|[aA]ug|[sS]ep|[oO]ct|[nN]ov|[dD]ec",
     "[1-9]|1[012]"
@@ -27,5 +27,5 @@ export default {
   dow: getCrontabRegex(
     "[0-6]|[mM]on|[tT]ue|[wW]ed|[tT]hu|[fF]ri|[sS]at|[sS]un",
     "[0-6]"
-  )
+  ),
 };
