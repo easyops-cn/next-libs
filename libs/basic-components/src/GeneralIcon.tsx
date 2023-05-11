@@ -133,7 +133,7 @@ export function GeneralIcon({
     if (!icon) icon = {};
     let mergedStyle: React.CSSProperties;
 
-    if ("imgSrc" in icon) {
+    if ("imgSrc" in icon && icon.imgSrc) {
       iconNode = (
         <img
           src={
