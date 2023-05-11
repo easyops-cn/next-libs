@@ -1,6 +1,6 @@
 {
   "name": "@next-libs/pipeline",
-  "version": "0.6.18",
+  "version": "0.6.19",
   "description": "> TODO: description",
   "homepage": "https://github.com/easyops-cn/next-libs/tree/master/libs/pipeline",
   "license": "GPL-3.0",
@@ -33,6 +33,6 @@
     "@next-core/brick-dll": "*"
   },
   "dependencies": {
-    "@next-libs/basic-components": "^5.3.2"
+    "@next-libs/basic-components": "^5.3.3"
   }
 }
