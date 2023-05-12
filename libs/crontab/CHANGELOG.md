@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/crontab@2.0.6...@next-libs/crontab@2.0.7) (2023-05-12)
+
+
+### Bug Fixes
+
+* crontab支持L字符 ([97b72c1](https://github.com/easyops-cn/next-libs/commit/97b72c12b4e8ab24c56e314ebceedb643bc6197f))
+
+
+
+
+
 ## [2.0.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/crontab@2.0.5...@next-libs/crontab@2.0.6) (2023-05-11)
 
 
