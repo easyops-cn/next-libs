@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.11.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/visual-builder@1.10.5...@next-libs/visual-builder@1.11.0) (2023-05-16)
+
+
+### Features
+
+* support iconUseBrick ([20a4169](https://github.com/easyops-cn/next-libs/commit/20a4169bc61ec89b4fc78b692badf43e3378f901))
+
+
+
+
+
 ## [1.10.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/visual-builder@1.10.4...@next-libs/visual-builder@1.10.5) (2023-05-11)
 
 **Note:** Version bump only for package @next-libs/visual-builder
