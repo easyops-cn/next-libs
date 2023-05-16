@@ -1,6 +1,9 @@
 import React, { useCallback, useMemo } from "react";
 import classNames from "classnames";
-import { looseCheckIfByTransform } from "@next-core/brick-kit";
+import {
+  BrickAsComponent,
+  looseCheckIfByTransform,
+} from "@next-core/brick-kit";
 import { GeneralIcon } from "@next-libs/basic-components";
 import { WorkbenchTreeAction, ActionClickDetail } from "../interfaces";
 
@@ -98,7 +101,11 @@ function WorkbenchSubAction({
       onContextMenu={preventMouseEvent}
       onMouseDown={preventMouseEvent}
     >
-      <GeneralIcon icon={action.icon} />
+      {action.iconUseBrick?.useBrick ? (
+        <BrickAsComponent useBrick={action.iconUseBrick.useBrick} data={data} />
+      ) : (
+        <GeneralIcon icon={action.icon} />
+      )}
     </a>
   );
 }
