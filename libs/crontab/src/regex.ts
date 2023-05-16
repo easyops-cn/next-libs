@@ -12,10 +12,9 @@ const getCrontabRegex = function (
     .replace(/%s/g, `(${replacement})`);
   isDate ? (elementRegex = elementRegex + "|L") : "";
 
-  return new RegExp(
-    splitRegexTemplate.replace(/%s/g, `(${elementRegex})`),
-    "i"
-  );
+  return isDate
+    ? new RegExp(splitRegexTemplate.replace(/%s/g, `(${elementRegex})`))
+    : new RegExp(splitRegexTemplate.replace(/%s/g, `(${elementRegex})`), "i");
 };
 
 export default {
