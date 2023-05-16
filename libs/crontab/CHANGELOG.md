@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/crontab@2.0.7...@next-libs/crontab@2.0.8) (2023-05-16)
+
+
+### Bug Fixes
+
+* **crontab:** 周期构件L字符校验bug ([ae826cf](https://github.com/easyops-cn/next-libs/commit/ae826cf4470da5c16ba966f76c24a6da409b2629))
+
+
+
+
+
 ## [2.0.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/crontab@2.0.6...@next-libs/crontab@2.0.7) (2023-05-12)
 
 
