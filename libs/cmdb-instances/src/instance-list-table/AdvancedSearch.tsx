@@ -346,9 +346,10 @@ export function convertValue(valueType: string, value: any): any {
   if (typeof value !== "boolean") {
     switch (valueType) {
       case ModelAttributeValueType.INTEGER:
-        return parseInt(value);
+        // undefined 后台可剔除
+        return isNaN(parseInt(value)) ? undefined : parseInt(value);
       case ModelAttributeValueType.FLOAT:
-        return parseFloat(value);
+        return isNaN(parseFloat(value)) ? undefined : parseFloat(value);
       case ModelAttributeValueType.BOOLEAN:
         return value === "true";
     }
@@ -365,11 +366,11 @@ export function getFieldConditionsAndValues(
   objectId?: string,
   attrId?: string
 ) {
-  let isRelationWithNoExpression = false;
+  // let isRelationWithNoExpression = false;
   let expressions = fieldQueryOperatorExpressionsMap[id];
   let expressionsKeys: string[];
   if (!expressions && isRelation) {
-    isRelationWithNoExpression = true;
+    // isRelationWithNoExpression = true;
     const relatedKey = findKey(
       fieldQueryOperatorExpressionsMap,
       (v, k) => startsWith(k, `${relationSideId}.`) || k === relationSideId
@@ -442,7 +443,8 @@ export function getFieldConditionsAndValues(
           values = expressions[operation.operator]
             .trim()
             .split(/\s+/)
-            .map((value: string) => convertValue(valueType, value));
+            .map((value: string) => convertValue(valueType, value))
+            .filter((value: any) => !isNil(value));
           if (objectId === "CLUSTER" && attrId === "type") {
             values = values.map((value) => clusterMap[value]);
           }
@@ -793,11 +795,15 @@ export class AdvancedSearchForm extends React.Component<
       let style: React.CSSProperties;
       let attrValue: any = field.attrValue;
       let multiSelect = false;
+      const isBetween: boolean =
+        field.currentCondition.type === ConditionType.Between;
       switch (field.attrValue.type) {
         case ModelAttributeValueType.INTEGER:
         case ModelAttributeValueType.FLOAT:
           attrValue = {
-            type: ModelAttributeValueType.STRING,
+            type: isBetween
+              ? ModelAttributeValueType.INTEGER
+              : ModelAttributeValueType.STRING,
           };
           break;
         case ModelAttributeValueType.ENUM:
@@ -939,7 +945,8 @@ export class AdvancedSearchForm extends React.Component<
                   values = value
                     .trim()
                     .split(/\s+/)
-                    .map((value) => convertValue(field.attrValue.type, value));
+                    .map((value) => convertValue(field.attrValue.type, value))
+                    .filter((value) => !isNil(value));
                 } else {
                   values = processAttrValueWithQuote(value, []);
                 }
