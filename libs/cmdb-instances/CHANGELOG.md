@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.2.9](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.2.8...@next-libs/cmdb-instances@7.2.9) (2023-05-17)
+
+
+### Bug Fixes
+
+* **cmdb-instances:** 数据类型为int/float时，输入非数字展示有问题 ([#559](https://github.com/easyops-cn/next-libs/issues/559)) ([42328d9](https://github.com/easyops-cn/next-libs/commit/42328d9ab82e22d26004922570805230778c69e9))
+
+
+
+
+
 ## [7.2.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.2.7...@next-libs/cmdb-instances@7.2.8) (2023-05-11)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
