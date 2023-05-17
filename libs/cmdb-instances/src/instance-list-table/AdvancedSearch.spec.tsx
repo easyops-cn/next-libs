@@ -444,6 +444,97 @@ describe("AdvancedSearch", () => {
       queryValuesStr: "",
       values: [false],
     });
+    expect(
+      getFieldConditionsAndValues(
+        {
+          cpuHz: {
+            $gte: undefined,
+            $lte: 1000,
+          },
+        },
+        "cpuHz",
+        "int" as ModelAttributeValueType,
+        false
+      )
+    ).toEqual({
+      availableConditions: [
+        {
+          label: i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.OPERATOR_EQUAL_DEFINE}`),
+          operations: [
+            {
+              operator: "$eq",
+            },
+          ],
+          type: "equal",
+        },
+        {
+          label: i18n.t(
+            `${NS_LIBS_CMDB_INSTANCES}:${K.OPERATOR_NOT_EQUAL_DEFINE}`
+          ),
+          operations: [
+            {
+              operator: "$ne",
+            },
+          ],
+          type: "notEqual",
+        },
+        {
+          label: i18n.t(
+            `${NS_LIBS_CMDB_INSTANCES}:${K.OPERATOR_BETWEEN_DEFINE_TEXT_INT}`
+          ),
+          operations: [
+            {
+              operator: "$gte",
+            },
+            {
+              operator: "$lte",
+            },
+          ],
+          type: "between",
+        },
+        {
+          label: i18n.t(
+            `${NS_LIBS_CMDB_INSTANCES}:${K.OPERATOR_IS_EMPTY_DEFINE}`
+          ),
+          operations: [
+            {
+              fixedValue: false,
+              operator: "$exists",
+            },
+          ],
+          type: "empty",
+        },
+        {
+          label: i18n.t(
+            `${NS_LIBS_CMDB_INSTANCES}:${K.OPERATOR_IS_NOT_EMPTY_DEFINE}`
+          ),
+          operations: [
+            {
+              fixedValue: true,
+              operator: "$exists",
+            },
+          ],
+          type: "notEmpty",
+        },
+      ],
+      currentCondition: {
+        label: i18n.t(
+          `${NS_LIBS_CMDB_INSTANCES}:${K.OPERATOR_BETWEEN_DEFINE_TEXT_INT}`
+        ),
+        operations: [
+          {
+            operator: "$gte",
+          },
+          {
+            operator: "$lte",
+          },
+        ],
+        type: "between",
+      },
+      disabled: false,
+      queryValuesStr: "1000",
+      values: [null, "1000"],
+    });
   });
   it("getCondition should work", () => {
     expect(
@@ -512,5 +603,9 @@ describe("AdvancedSearch", () => {
     expect(convertValue(ModelAttributeValueType.STRING, "test")).toEqual(
       "test"
     );
+    expect(
+      convertValue(ModelAttributeValueType.INTEGER, "test")
+    ).toBeUndefined();
+    expect(convertValue(ModelAttributeValueType.FLOAT, "test")).toBeUndefined();
   });
 });
