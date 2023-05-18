@@ -79,8 +79,8 @@ describe("DatetimeRange rangeDays", () => {
     wrapper.setState({
       dates: [moment(), moment()],
     });
-    expect(component.disabledDate(moment().add(100, "days"))).toBe(false);
-    expect(component.disabledDate(moment().add(10, "days"))).toBe(true);
+    expect(component.disabledDate(moment().add(100, "days"))).toBe(true);
+    expect(component.disabledDate(moment().add(10, "days"))).toBe(false);
   });
 });
 

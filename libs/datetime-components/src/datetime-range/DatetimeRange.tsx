@@ -152,6 +152,7 @@ export class DatetimeRange extends React.Component<
       type: DATE_RANGE,
       range: e.target.value,
       specifiedDate: null,
+      dates: null,
     });
     if (this.props.onConfirm) {
       this.props.onConfirm(dateRange);
@@ -219,7 +220,7 @@ export class DatetimeRange extends React.Component<
         startTime &&
         moment(startTime)
           .add(this.props.rangeDays, "days")
-          .format("YYYY-MM-DD") > current.format("YYYY-MM-DD");
+          .format("YYYY-MM-DD") < current.format("YYYY-MM-DD");
       return start || end;
     } else {
       return false;
