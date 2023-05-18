@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/datetime-components@3.2.0...@next-libs/datetime-components@3.2.1) (2023-05-18)
+
+
+### Bug Fixes
+
+* **datetime:** 修改rangeDays属性bug ([ffb3351](https://github.com/easyops-cn/next-libs/commit/ffb33517381678e8ce17bc3b87c28fb8189100d5))
+
+
+
+
+
 # [3.2.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/datetime-components@3.1.2...@next-libs/datetime-components@3.2.0) (2023-05-18)
 
 
