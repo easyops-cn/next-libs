@@ -71,6 +71,19 @@ describe("DatetimeRange selectNearDays", () => {
   });
 });
 
+describe("DatetimeRange rangeDays", () => {
+  const wrapper = shallow(<DatetimeRange rangeDays={90} />);
+  const component = wrapper.instance() as DatetimeRange;
+
+  it("test disabledDate", () => {
+    wrapper.setState({
+      dates: [moment(), moment()],
+    });
+    expect(component.disabledDate(moment().add(100, "days"))).toBe(false);
+    expect(component.disabledDate(moment().add(10, "days"))).toBe(true);
+  });
+});
+
 describe("DatetimeRange onConfirm", () => {
   const onConfirm = jest.fn();
   const wrapper = shallow(<DatetimeRange onConfirm={onConfirm} />);
