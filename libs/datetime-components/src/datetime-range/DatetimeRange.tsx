@@ -42,6 +42,7 @@ export interface DatatimeRangeProps {
   placement?: TooltipPlacement;
   size?: ButtonSize;
   selectNearDays?: number;
+  rangeDays?: number;
 }
 
 export interface DatatimeRangeState {
@@ -51,6 +52,7 @@ export interface DatatimeRangeState {
   specifiedDate: RangeValue<moment.Moment> | null;
   visible: boolean;
   format: string;
+  dates?: RangeValue<moment.Moment> | null;
 }
 
 export interface RangeText {
@@ -123,6 +125,7 @@ export class DatetimeRange extends React.Component<
           : null,
       visible: false,
       format: this.props.format || "YYYY-MM-DD HH:mm:ss",
+      dates: null,
     };
   }
 
@@ -194,14 +197,33 @@ export class DatetimeRange extends React.Component<
       specifiedDate: v,
     });
   };
+  calendarChange = (value: RangeValue<moment.Moment>) => {
+    this.setState({ dates: value });
+  };
   disabledDate = (current: moment.Moment) => {
-    if (!this.props.selectNearDays) {
+    if (this.props.selectNearDays) {
+      const tooSelectNearDays =
+        current <= moment().subtract(this.props.selectNearDays, "days") ||
+        current > moment().endOf("day");
+      return !!tooSelectNearDays;
+    } else if (this.props.rangeDays) {
+      const { dates } = this.state;
+      if (!dates) {
+        return false;
+      }
+      const startTime = dates[0];
+      const start =
+        startTime &&
+        startTime.format("YYYY-MM-DD") < current.format("YYYY-MM-DD");
+      const end =
+        startTime &&
+        moment(startTime)
+          .add(this.props.rangeDays, "days")
+          .format("YYYY-MM-DD") > current.format("YYYY-MM-DD");
+      return start && end;
+    } else {
       return false;
     }
-    const tooSelectNearDays =
-      current <= moment().subtract(this.props.selectNearDays, "days") ||
-      current > moment().endOf("day");
-    return !!tooSelectNearDays;
   };
 
   render(): React.ReactNode {
@@ -262,6 +284,7 @@ export class DatetimeRange extends React.Component<
             onChange={this.onDateChange}
             allowClear={false}
             disabledDate={this.disabledDate}
+            onCalendarChange={this.calendarChange}
           />
         </div>
         <Button type="primary" onClick={this.save}>
