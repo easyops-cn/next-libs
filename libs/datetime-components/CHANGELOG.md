@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.2.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/datetime-components@3.1.2...@next-libs/datetime-components@3.2.0) (2023-05-18)
+
+
+### Features
+
+* **datetime:** 增加rangeDays属性控制选择范围天数 ([6333d29](https://github.com/easyops-cn/next-libs/commit/6333d2998f0a2c1a3cfbbba2c88fede7e346d73b))
+
+
+
+
+
 ## [3.1.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/datetime-components@3.1.1...@next-libs/datetime-components@3.1.2) (2022-11-10)
 
 **Note:** Version bump only for package @next-libs/datetime-components
