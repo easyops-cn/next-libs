@@ -214,13 +214,13 @@ export class DatetimeRange extends React.Component<
       const startTime = dates[0];
       const start =
         startTime &&
-        startTime.format("YYYY-MM-DD") < current.format("YYYY-MM-DD");
+        startTime.format("YYYY-MM-DD") > current.format("YYYY-MM-DD");
       const end =
         startTime &&
         moment(startTime)
           .add(this.props.rangeDays, "days")
           .format("YYYY-MM-DD") > current.format("YYYY-MM-DD");
-      return start && end;
+      return start || end;
     } else {
       return false;
     }
