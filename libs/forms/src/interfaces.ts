@@ -21,7 +21,9 @@ export type GeneralOption =
 
 export interface GeneralComplexOption<T = string | number | boolean> {
   label: string;
+  caption?: string;
   value: T;
+  disabled?: boolean;
 }
 
 export interface LabelTooltipProps {
