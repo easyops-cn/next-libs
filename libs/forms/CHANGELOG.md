@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.5.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@3.4.0...@next-libs/forms@3.5.0) (2023-05-29)
+
+
+### Features
+
+* update GeneralOptions form ([6fdb8c6](https://github.com/easyops-cn/next-libs/commit/6fdb8c6b97955f4080c735a57b26660ea61d1763))
+
+
+
+
+
 # [3.4.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@3.3.18...@next-libs/forms@3.4.0) (2023-05-29)
 
 
