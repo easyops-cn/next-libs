@@ -6,7 +6,10 @@ import {
   attrFilter,
   getRelationShowKeys,
 } from "./InstanceDetail";
-import { getRelationShowFields } from "./components/instance-relation-table-show/instance-relation-table-show";
+import {
+  getRelationShowFields,
+  reOrderAttrs,
+} from "./components/instance-relation-table-show/instance-relation-table-show";
 import * as fetchCmdbObjectRef from "../data-providers/fetchCmdbObjectRef";
 import {
   fetchCmdbInstanceDetail,
@@ -412,6 +415,25 @@ describe("InstanceDetail", () => {
     ]);
     expect(getRelationShowKeys(attrIdList, {})).toEqual(attrIdList);
   });
+  it("test reOrderAttrs", () => {
+    const attrIdList = [
+      "nickname",
+      "id",
+      "name",
+      "dingding",
+      "testApps",
+      "developApps",
+    ];
+    const attr_order = ["id", "name", "testApps"];
+    expect(reOrderAttrs(attrIdList, attr_order)).toEqual([
+      "id",
+      "name",
+      "testApps",
+      "nickname",
+      "dingding",
+      "developApps",
+    ]);
+  });
   it("test getRelationShowFields", () => {
     const attrIdList = ["nickname", "id", "name", "dingding"];
     const relationDefaultAttrs = [
@@ -430,5 +452,11 @@ describe("InstanceDetail", () => {
     ]);
     expect(getRelationShowFields([], attrIdList)).toEqual(attrIdList);
     expect(getRelationShowFields(undefined, attrIdList)).toEqual(attrIdList);
+    expect(
+      getRelationShowFields(relationDefaultAttrs, attrIdList, [
+        "nickname",
+        "developApps",
+      ])
+    ).toEqual(["nickname", "developApps", "dingding", "testApps", "ownApps"]);
   });
 });
