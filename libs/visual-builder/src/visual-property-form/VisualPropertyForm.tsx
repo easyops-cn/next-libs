@@ -78,6 +78,7 @@ export type CustomColumn = {
 
 export type GeneralOptionProps = {
   label: string;
+  caption?: string;
   value: string;
   disabled?: boolean;
 };
@@ -559,6 +560,9 @@ export function LegacyVisualPropertyForm(
         <>
           <Form.Item name="label" label="label">
             <Input defaultValue={item.label} />
+          </Form.Item>
+          <Form.Item name="caption" label="caption">
+            <Input defaultValue={item.caption} />
           </Form.Item>
           <Form.Item name="value" label="value">
             <Input defaultValue={item.value} />
