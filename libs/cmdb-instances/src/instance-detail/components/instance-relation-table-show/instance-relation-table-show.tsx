@@ -8,7 +8,7 @@ import { CmdbModels } from "@next-sdk/cmdb-sdk";
 import { InstanceListTable } from "../../../instance-list-table";
 import { NS_LIBS_CMDB_INSTANCES, K } from "../../../i18n/constants";
 import i18n from "i18next";
-import { get } from "lodash";
+import { get, sortBy } from "lodash";
 import styles from "../../../instance-list-table/InstanceListTable.module.css";
 export interface InstanceRelationTableShowProps {
   modelDataMap: { [objectId: string]: CmdbModels.ModelCmdbObject };
@@ -28,15 +28,27 @@ export interface InstanceRelationTableShowProps {
     relationData: ModifiedModelObjectRelation
   ) => Promise<void>;
 }
+export function reOrderAttrs(fields: string[], fieldOrder: string[] = []) {
+  return sortBy(fields, (field) => {
+    const index = fieldOrder.indexOf(field);
+    return index === -1 ? fields.length : index;
+  });
+}
 export function getRelationShowFields(
   defaultRelationFields: string[],
-  oppositeAttrList: string[]
+  oppositeAttrList: string[],
+  attr_order: string[] = []
 ) {
-  return defaultRelationFields?.length
-    ? defaultRelationFields.map((item: string) =>
+  let showFields = oppositeAttrList;
+  if (defaultRelationFields?.length) {
+    showFields = reOrderAttrs(
+      defaultRelationFields.map((item: string) =>
         item.startsWith("#") ? item.slice(1) : item
-      )
-    : oppositeAttrList;
+      ),
+      attr_order
+    );
+  }
+  return showFields;
 }
 //istanbul ignore next
 export function InstanceRelationTableShow(
@@ -64,7 +76,8 @@ export function InstanceRelationTableShow(
 
   const fieldIds = getRelationShowFields(
     defaultRelationFields,
-    oppositeModelData.attrList.map((attr) => attr.id)
+    oppositeModelData.attrList.map((attr) => attr.id),
+    get(oppositeModelData, ["view", "attr_order"])
   );
   //过滤掉视图不可见字段
   const hideModelData = oppositeModelData.view.hide_columns || [];
