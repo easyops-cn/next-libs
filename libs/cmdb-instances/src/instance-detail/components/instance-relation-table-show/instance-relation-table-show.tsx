@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Table } from "antd";
 import {
   ModifiedModelObjectRelation,
@@ -8,8 +8,10 @@ import { CmdbModels } from "@next-sdk/cmdb-sdk";
 import { InstanceListTable } from "../../../instance-list-table";
 import { NS_LIBS_CMDB_INSTANCES, K } from "../../../i18n/constants";
 import i18n from "i18next";
-import { get, sortBy } from "lodash";
+import { get, sortBy, keyBy } from "lodash";
 import styles from "../../../instance-list-table/InstanceListTable.module.css";
+import { fetchCmdbObjectRef } from "../../../data-providers";
+import { handleHttpError } from "@next-core/brick-kit";
 export interface InstanceRelationTableShowProps {
   modelDataMap: { [objectId: string]: CmdbModels.ModelCmdbObject };
   relationData: ModifiedModelObjectRelation;
@@ -63,6 +65,23 @@ export function InstanceRelationTableShow(
     total,
     relationTablePagination,
   } = props;
+  const [oppositeModelDataMap, setOppositeModelDataMap] = useState({});
+  /**
+   * 实例详情中展示对端实例的关系时，需要重新拉取对端关系所关联的模型。
+   * 如在主机详情中展示负责人所在的角色，需要拿到与USER相关的模型ROLE@ONEMODEL
+   * 而原来的modelDataMap是与HOST相关的，可能不包括ROLE@ONEMODEL，就造成取不到角色的showKey
+   */
+  useEffect(() => {
+    const fetchOppositeModelData = async () => {
+      const modelListData = await fetchCmdbObjectRef(
+        relationData.right_object_id
+      );
+      setOppositeModelDataMap(keyBy(modelListData.data, "objectId"));
+    };
+    fetchOppositeModelData().catch((error) => {
+      handleHttpError(error);
+    });
+  }, [relationData]);
   const modelData = modelDataMap[relationData.left_object_id];
   let oppositeModelData = modifyModelData(
     modelDataMap[relationData.right_object_id]
@@ -80,7 +99,7 @@ export function InstanceRelationTableShow(
     get(oppositeModelData, ["view", "attr_order"])
   );
   //过滤掉视图不可见字段
-  const hideModelData = oppositeModelData.view.hide_columns || [];
+  const hideModelData = oppositeModelData.view?.hide_columns ?? [];
   oppositeModelData = {
     ...oppositeModelData,
     attrList: oppositeModelData.attrList.filter(
@@ -104,11 +123,12 @@ export function InstanceRelationTableShow(
           [relationData.right_object_id]:
             "/next-cmdb-instance-management/next/#{objectId}/instance/#{instanceId}",
         }}
-        idObjectMap={props.modelDataMap}
+        idObjectMap={oppositeModelDataMap}
         modelData={oppositeModelData}
         instanceListData={{
           list: value,
         }}
+        autoBreakLine={true}
         fieldIds={fieldIds}
         selectDisabled={true}
         sortDisabled={true}
