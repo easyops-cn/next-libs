@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.4.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@3.3.18...@next-libs/forms@3.4.0) (2023-05-29)
+
+
+### Features
+
+* **cmdb:** 实例详情展示关系默认视图中指定的字段 ([9d65f97](https://github.com/easyops-cn/next-libs/commit/9d65f974f691d78942ee775a888c26b8f45f46b9))
+
+
+
+
+
 ## [3.3.18](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@3.3.17...@next-libs/forms@3.3.18) (2023-05-11)
 
 **Note:** Version bump only for package @next-libs/forms
