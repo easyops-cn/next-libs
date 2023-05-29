@@ -114,7 +114,37 @@ export function attrFilter(
     )
   );
 }
-
+export function getRelationShowKeys(
+  attrIdList: string[],
+  defaultAttrs: Record<string, string[]>
+): string[] {
+  /* 关系默认视图设置,结构是{关系id: [attr1, attr2, relation1,...]},其中为了区分关系，在关系id前加#
+    view: {
+      relation_default_attr: {
+        USER: [
+          'nickname',
+          'name',
+          '#developApp',
+          '#ownApp'
+        ]
+      }
+    }
+    在获取实例详情时，如果不额外指定，只能拿到关系对端实例的属性，比如主机的负责人，只能拿到负责人的name等基本属性。
+    若要拿到负责人开发的应用，则需要在fields加上USER.developApp
+  */
+  const relationKey = Object.keys(defaultAttrs);
+  relationKey.forEach((key) => {
+    const relationFields = defaultAttrs[key].filter((item: string) =>
+      item.startsWith("#")
+    );
+    if (relationFields?.length) {
+      attrIdList.push(
+        ...relationFields.map((field: string) => `${key}.${field.slice(1)}`)
+      );
+    }
+  });
+  return attrIdList;
+}
 interface LegacyInstanceDetailProps extends WithTranslation {
   modelDataList?: CmdbModels.ModelCmdbObject[];
   objectId: string;
@@ -750,7 +780,7 @@ export class LegacyInstanceDetail extends React.Component<
     value?: string
   ): Promise<void> {
     const { right_id, left_object_id, right_object_id, left_id } = attr;
-    let objectId, queryId;
+    let objectId, queryId, oppositeId;
     const { modelData, modelDataMap } = this.state;
     const hideColumns = modelData?.view?.hide_columns || [];
     if (
@@ -759,6 +789,7 @@ export class LegacyInstanceDetail extends React.Component<
     ) {
       objectId = right_object_id;
       queryId = right_id;
+      oppositeId = left_id;
     }
     if (
       right_object_id === modelData.objectId &&
@@ -766,8 +797,18 @@ export class LegacyInstanceDetail extends React.Component<
     ) {
       objectId = left_object_id;
       queryId = left_id;
+      oppositeId = right_id;
     }
-    const fields = uniq(map(modelDataMap[objectId]?.attrList, "id"));
+    const defaultRelationFields = get(modelData, [
+      "view",
+      "relation_default_attr",
+      oppositeId,
+    ]);
+    const fields = defaultRelationFields?.length
+      ? defaultRelationFields.map((item: string) =>
+          item.startsWith("#") ? item.slice(1) : item
+        )
+      : uniq(map(modelDataMap[objectId]?.attrList, "id"));
 
     let query = {};
 
@@ -1005,11 +1046,19 @@ export class LegacyInstanceDetail extends React.Component<
       modifyModelData(filterModelData),
       []
     );
-    const attrIdList = flatten(
+    let attrIdList = flatten(
       basicInfoGroupList.map((v) => {
         return v.attrList.map((attr: any) => attr.id || attr.__id);
       })
     );
+
+    const relationDefaultFields = get(filterModelData, [
+      "view",
+      "relation_default_attr",
+    ]);
+    if (relationDefaultFields) {
+      attrIdList = getRelationShowKeys(attrIdList, relationDefaultFields);
+    }
     const fields = uniq([
       "_object_id",
       "instanceId",

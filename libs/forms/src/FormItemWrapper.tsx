@@ -73,7 +73,6 @@ export interface FormItemWrapperProps extends CommonEventProps {
 
 export function getRules(props: FormItemWrapperProps): ValidationRule[] {
   const rules: ValidationRule[] = [];
-
   ["required", "min", "max", "pattern"].forEach((attr) => {
     const value = props[attr as keyof FormItemWrapperProps];
     if (value) {

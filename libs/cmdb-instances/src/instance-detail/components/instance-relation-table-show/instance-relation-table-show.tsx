@@ -8,6 +8,7 @@ import { CmdbModels } from "@next-sdk/cmdb-sdk";
 import { InstanceListTable } from "../../../instance-list-table";
 import { NS_LIBS_CMDB_INSTANCES, K } from "../../../i18n/constants";
 import i18n from "i18next";
+import { get } from "lodash";
 import styles from "../../../instance-list-table/InstanceListTable.module.css";
 export interface InstanceRelationTableShowProps {
   modelDataMap: { [objectId: string]: CmdbModels.ModelCmdbObject };
@@ -27,7 +28,16 @@ export interface InstanceRelationTableShowProps {
     relationData: ModifiedModelObjectRelation
   ) => Promise<void>;
 }
-
+export function getRelationShowFields(
+  defaultRelationFields: string[],
+  oppositeAttrList: string[]
+) {
+  return defaultRelationFields?.length
+    ? defaultRelationFields.map((item: string) =>
+        item.startsWith("#") ? item.slice(1) : item
+      )
+    : oppositeAttrList;
+}
 //istanbul ignore next
 export function InstanceRelationTableShow(
   props: InstanceRelationTableShowProps
@@ -41,8 +51,20 @@ export function InstanceRelationTableShow(
     total,
     relationTablePagination,
   } = props;
+  const modelData = modelDataMap[relationData.left_object_id];
   let oppositeModelData = modifyModelData(
     modelDataMap[relationData.right_object_id]
+  );
+  // 如果指定了relation_default_attr，则取里面的字段
+  const defaultRelationFields = get(modelData, [
+    "view",
+    "relation_default_attr",
+    relationData.__id,
+  ]);
+
+  const fieldIds = getRelationShowFields(
+    defaultRelationFields,
+    oppositeModelData.attrList.map((attr) => attr.id)
   );
   //过滤掉视图不可见字段
   const hideModelData = oppositeModelData.view.hide_columns || [];
@@ -74,7 +96,7 @@ export function InstanceRelationTableShow(
         instanceListData={{
           list: value,
         }}
-        fieldIds={oppositeModelData.attrList.map((attr) => attr.id)}
+        fieldIds={fieldIds}
         selectDisabled={true}
         sortDisabled={true}
         configProps={{
