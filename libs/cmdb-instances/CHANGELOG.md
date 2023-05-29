@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.3.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.3.0...@next-libs/cmdb-instances@7.3.1) (2023-05-29)
+
+
+### Bug Fixes
+
+* **cmdb:** 指定关系默认字段的在实例详情中要根据attr_order排一下序 ([66866e9](https://github.com/easyops-cn/next-libs/commit/66866e905bab3043b45f7e27ebababe0149439c6))
+
+
+
+
+
 # [7.3.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.2.9...@next-libs/cmdb-instances@7.3.0) (2023-05-29)
 
 
