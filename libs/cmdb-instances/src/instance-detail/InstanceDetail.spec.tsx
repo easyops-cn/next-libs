@@ -86,7 +86,6 @@ describe("InstanceDetail", () => {
     expect(wrapper2.find("InstanceRelationTableShow").prop("value")).toEqual(
       expect.arrayContaining([])
     );
-
     instance2.setState({
       currentAttr: {
         id: "name",
@@ -117,7 +116,6 @@ describe("InstanceDetail", () => {
     expect(spyFetchCmdbObjectList).toBeCalled();
     expect(fetchCmdbInstanceDetailByFields).not.toBeCalled();
   });
-
   it("tests isMarkdownField", () => {
     const data = {
       value: {

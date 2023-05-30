@@ -183,6 +183,8 @@ interface LegacyInstanceDetailState {
     pageSize?: number;
   };
   searchValue?: string;
+  oppositeObjectId?: string;
+  oppositeModelDataMap?: Record<string, Partial<CmdbModels.ModelCmdbObject>>;
 }
 function getHref(hash: string) {
   const isHash = (hash || "").startsWith("#");
@@ -799,6 +801,7 @@ export class LegacyInstanceDetail extends React.Component<
       queryId = left_id;
       oppositeId = right_id;
     }
+
     const defaultRelationFields = get(modelData, [
       "view",
       "relation_default_attr",
@@ -811,11 +814,19 @@ export class LegacyInstanceDetail extends React.Component<
       : uniq(map(modelDataMap[objectId]?.attrList, "id"));
 
     let query = {};
-
     if (value !== undefined ? value : this.state.searchValue) {
+      let oppositeModelDataMap = this.state.oppositeModelDataMap;
+      if (this.state.oppositeObjectId !== objectId) {
+        const oppositeModelList = await fetchCmdbObjectRef(objectId);
+        oppositeModelDataMap = keyBy(oppositeModelList.data, "objectId");
+        this.setState({
+          oppositeObjectId: objectId,
+          oppositeModelDataMap,
+        });
+      }
       query = getQuery(
         modelDataMap[objectId],
-        modelDataMap,
+        oppositeModelDataMap,
         value !== undefined ? value : this.state.searchValue,
         fields,
         false
