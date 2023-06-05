@@ -25,6 +25,7 @@ export function DisplaySettingsModal(
     modelData,
     currentFields,
     defaultFields,
+    extraDisabledField,
     extraDisabledFields,
     onOk,
     onCancel,
@@ -92,6 +93,7 @@ export function DisplaySettingsModal(
         objectId={objectId}
         modelData={modelData}
         currentFields={nextFields}
+        extraDisabledField={extraDisabledField}
         extraDisabledFields={extraDisabledFields}
         onChange={(fields) => setNextFields(fields)}
       />
