@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.3.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.3.3...@next-libs/cmdb-instances@7.3.4) (2023-06-05)
+
+
+### Bug Fixes
+
+* 修复extraDisabledField字段未生效  Refs API_GW-145 ([#568](https://github.com/easyops-cn/next-libs/issues/568)) ([647d155](https://github.com/easyops-cn/next-libs/commit/647d155762cfd854144b637523fdb52e52fc0a09))
+
+
+
+
+
 ## [7.3.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.3.2...@next-libs/cmdb-instances@7.3.3) (2023-05-30)
 
 
