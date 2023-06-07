@@ -29,11 +29,11 @@ describe("parseTemplate", () => {
   });
 
   it("parse the array element in data", () => {
-    const url = "/next/product/#{arr[0].name}/#{arr[2]}";
+    const url = "/next/product/#{arr1[0].name}/#{arr1[2]}/#{arr2[0]}";
     const data = {
       instanceId: "232bda",
       name: "console",
-      arr: [
+      arr1: [
         {
           name: "hello",
         },
@@ -41,11 +41,12 @@ describe("parseTemplate", () => {
           name: "world",
         },
       ],
+      arr2: ["a", "b"],
     };
     const skipUndefined = true;
     const result = parseTemplate(url, data, skipUndefined);
 
-    expect(result).toEqual("/next/product/hello/#{arr[2]}");
+    expect(result).toEqual("/next/product/hello/#{arr1[2]}/a");
   });
 
   it("skip the key not found", () => {
