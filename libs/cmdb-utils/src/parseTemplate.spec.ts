@@ -5,7 +5,7 @@ describe("parseTemplate", () => {
     const url = "/next/product/#{instanceId}";
     const data = {
       instanceId: "232bda",
-      name: "console"
+      name: "console",
     };
 
     const result = parseTemplate(url, data);
@@ -20,12 +20,32 @@ describe("parseTemplate", () => {
       name: "console",
       description: {
         title: "new-brick",
-        text: "hello-words"
-      }
+        text: "hello-words",
+      },
     };
     const result = parseTemplate(url, data);
 
     expect(result).toEqual("/next/product/hello-words");
+  });
+
+  it("parse the array element in data", () => {
+    const url = "/next/product/#{arr[0].name}/#{arr[2]}";
+    const data = {
+      instanceId: "232bda",
+      name: "console",
+      arr: [
+        {
+          name: "hello",
+        },
+        {
+          name: "world",
+        },
+      ],
+    };
+    const skipUndefined = true;
+    const result = parseTemplate(url, data, skipUndefined);
+
+    expect(result).toEqual("/next/product/hello/#{arr[2]}");
   });
 
   it("skip the key not found", () => {
@@ -35,8 +55,8 @@ describe("parseTemplate", () => {
       name: "console",
       description: {
         title: "new-brick",
-        text: "hello-words"
-      }
+        text: "hello-words",
+      },
     };
     const skipUndefined = true;
     const result = parseTemplate(url, data, skipUndefined);
@@ -51,8 +71,8 @@ describe("parseTemplate", () => {
       name: "console",
       description: {
         title: "new-brick",
-        text: "hello-words"
-      }
+        text: "hello-words",
+      },
     };
     const result = parseTemplate(url, data);
 
