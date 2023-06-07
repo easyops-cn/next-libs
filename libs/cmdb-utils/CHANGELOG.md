@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.4.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@3.3.4...@next-libs/cmdb-utils@3.4.0) (2023-06-07)
+
+
+### Features
+
+* cmdb-select构件的labelTemplate支持关系字段 ([371e5f8](https://github.com/easyops-cn/next-libs/commit/371e5f860ca97c0bd822d94079928b660a6648ae))
+
+
+
+
+
 ## [3.3.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@3.3.3...@next-libs/cmdb-utils@3.3.4) (2023-03-16)
 
 
