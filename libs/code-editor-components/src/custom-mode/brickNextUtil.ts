@@ -52,6 +52,7 @@ export const brickNextKeywords = [
   "BASE_URL",
   "PATH_NAME",
   "STATE",
+  "SNIPPET_PARAMS",
   "action",
   "target",
   "method",
