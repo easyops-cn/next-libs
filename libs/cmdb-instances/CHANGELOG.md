@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.3.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.3.6...@next-libs/cmdb-instances@7.3.7) (2023-06-13)
+
+
+### Bug Fixes
+
+* **cmdb:** cmdb实例弹窗新建并绑定按钮disabled属性 ([888828d](https://github.com/easyops-cn/next-libs/commit/888828d1644eae8cb5ec2f1f8f72e056bd8c2625))
+
+
+
+
+
 ## [7.3.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.3.5...@next-libs/cmdb-instances@7.3.6) (2023-06-13)
 
 
