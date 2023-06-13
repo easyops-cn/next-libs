@@ -54,6 +54,8 @@ export interface InstanceListModalProps {
   extraFilterBricks?: {
     useBrick: UseBrickConf;
   };
+  showBindButton?: boolean;
+  bindEvent?: () => void;
 }
 
 export function InstanceListModal(
@@ -126,6 +128,14 @@ export function InstanceListModal(
   const renderFooter = (): React.ReactElement => {
     return (
       <>
+        {!!props.showBindButton && (
+          <Button
+            style={{ position: "absolute", left: "24px" }}
+            onClick={props.bindEvent}
+          >
+            {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CREATE_AND_BIND}`)}
+          </Button>
+        )}
         {props.singleSelect && selectedInstanceListTemp.length > 1 && (
           <span style={{ color: "#ff0016", marginRight: "20px" }}>
             <WarningOutlined
