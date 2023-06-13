@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { WarningOutlined } from "@ant-design/icons";
-import { Modal, Button } from "antd";
+import { Modal, Button, Tooltip } from "antd";
 import i18n from "i18next";
 import { CmdbModels, InstanceApi_postSearch } from "@next-sdk/cmdb-sdk";
 import { Query } from "@next-libs/cmdb-utils";
@@ -56,6 +56,8 @@ export interface InstanceListModalProps {
   };
   showBindButton?: boolean;
   bindEvent?: () => void;
+  bindButtonDisabled?: boolean;
+  disabledTooltip?: string;
 }
 
 export function InstanceListModal(
@@ -126,16 +128,29 @@ export function InstanceListModal(
   }, [props.selectedRowKeys]);
 
   const renderFooter = (): React.ReactElement => {
+    const { showBindButton, bindButtonDisabled, disabledTooltip } = props;
     return (
       <>
-        {!!props.showBindButton && (
-          <Button
-            style={{ position: "absolute", left: "24px" }}
-            onClick={props.bindEvent}
-          >
-            {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CREATE_AND_BIND}`)}
-          </Button>
-        )}
+        {!!showBindButton &&
+          (bindButtonDisabled ? (
+            <Tooltip
+              title={
+                disabledTooltip ||
+                i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.PERMISSION_DENIED}`)
+              }
+            >
+              <Button style={{ position: "absolute", left: "24px" }} disabled>
+                {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CREATE_AND_BIND}`)}
+              </Button>
+            </Tooltip>
+          ) : (
+            <Button
+              style={{ position: "absolute", left: "24px" }}
+              onClick={props.bindEvent}
+            >
+              {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CREATE_AND_BIND}`)}
+            </Button>
+          ))}
         {props.singleSelect && selectedInstanceListTemp.length > 1 && (
           <span style={{ color: "#ff0016", marginRight: "20px" }}>
             <WarningOutlined
