@@ -120,6 +120,7 @@ const locale: Locale = {
   [K.VIEW_SPECIFIC_INSTANCES]: "View specific instances",
   [K.VIEW_MORE]: "View more",
   [K.CREATE_AND_BIND]: "Create and bind",
+  [K.PERMISSION_DENIED]: "Permission denied",
 };
 
 export default locale;

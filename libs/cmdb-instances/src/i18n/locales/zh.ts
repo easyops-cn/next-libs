@@ -109,6 +109,7 @@ const locale: Locale = {
   [K.VIEW_SPECIFIC_INSTANCES]: "查看具体实例",
   [K.VIEW_MORE]: "查看更多",
   [K.CREATE_AND_BIND]: "新建并绑定",
+  [K.PERMISSION_DENIED]: "没有权限",
 };
 
 export default locale;

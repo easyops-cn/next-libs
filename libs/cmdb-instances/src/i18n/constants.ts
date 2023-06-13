@@ -109,6 +109,7 @@ export enum K {
   VIEW_SPECIFIC_INSTANCES = "VIEW_SPECIFIC_INSTANCES",
   VIEW_MORE = "VIEW_MORE",
   CREATE_AND_BIND = "CREATE_AND_BIND",
+  PERMISSION_DENIED = "PERMISSION_DENIED",
 }
 
 export type Locale = { [key in K]: string };
