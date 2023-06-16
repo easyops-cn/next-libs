@@ -211,10 +211,11 @@ export function GeneralIcon({
           ? [icon.prefix, icon.icon]
           : icon.icon;
         const migrateProps = migrateV3 ? { gradientColor } : null;
+        const iconStyle = migrateV3 ? null : { verticalAlign: 0 };
 
         iconNode = (
           <Icon
-            style={{ verticalAlign: 0, ...mergedStyleByBg }}
+            style={{ ...iconStyle, ...mergedStyleByBg }}
             component={() => (
               <FontAwesomeIcon
                 icon={faIcon}
