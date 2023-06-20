@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.3.9](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.3.8...@next-libs/cmdb-instances@7.3.9) (2023-06-20)
+
+
+### Bug Fixes
+
+* **CmdbInstancesInputFormItem:** remove invalid items when clicking ok button of selection modal ([76f3d53](https://github.com/easyops-cn/next-libs/commit/76f3d53b3a440ce28a1b609f0afcc9cf84984b57))
+
+
+
+
+
 ## [7.3.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.3.7...@next-libs/cmdb-instances@7.3.8) (2023-06-16)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
