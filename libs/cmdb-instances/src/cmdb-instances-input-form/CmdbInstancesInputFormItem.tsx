@@ -2,7 +2,7 @@
 
 import React, { forwardRef, useState, useEffect, useMemo } from "react";
 import { Input, Button, Modal } from "antd";
-import { groupBy } from "lodash";
+import { groupBy, map } from "lodash";
 
 import { InstanceListModal } from "../instance-list-modal/InstanceListModal";
 import { modifyModelData, Query } from "@next-libs/cmdb-utils";
@@ -69,13 +69,15 @@ export const LegacyCmdbInstancesInputFormItem = (
     return { presetQuery, permission };
   }, [props.objectId, props.checkAgentStatus, props.checkPermission]);
   const fields = useMemo(() => {
-    const fields: Record<string, boolean> = {};
+    if (props.fields?.length) {
+      const fields: Record<string, boolean> = {};
 
-    props.fields?.forEach((field) => {
-      fields[field] = true;
-    });
+      props.fields.forEach((field) => {
+        fields[field] = true;
+      });
 
-    return fields;
+      return fields;
+    }
   }, [props.fields]);
 
   const objectData = modifyModelData(props.objectMap[props.objectId]);
@@ -195,14 +197,7 @@ export const LegacyCmdbInstancesInputFormItem = (
     props.onChangeV2?.(instances);
   };
 
-  const checkInputValue = async (inputValue: string): Promise<void> => {
-    const fieldValues =
-      props.fieldId === "ip"
-        ? inputValue.match(
-            /\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b(?:\[[^[\],;\s]*\])?/g
-          )
-        : inputValue.split(separator);
-
+  const checkFieldValues = async (fieldValues: string[]): Promise<void> => {
     if (fieldValues) {
       const instances = (
         await InstanceApi_postSearch(props.objectId, {
@@ -241,8 +236,19 @@ export const LegacyCmdbInstancesInputFormItem = (
         invalid: invalidFieldValues || [],
       });
 
-      handleChange(validSelectedInstances);
+      !invalidFieldValues.length && handleChange(validSelectedInstances);
     }
+  };
+
+  const checkInputValue = async (inputValue: string): Promise<void> => {
+    const fieldValues =
+      props.fieldId === "ip"
+        ? inputValue.match(
+            /\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b(?:\[[^[\],;\s]*\])?/g
+          )
+        : inputValue.split(separator);
+
+    checkFieldValues(fieldValues);
   };
 
   const openSelectInstancesModal = (): void => {
@@ -260,7 +266,11 @@ export const LegacyCmdbInstancesInputFormItem = (
 
     const instances = await updateSelected(selectedKeys);
 
-    handleChange(instances);
+    if (!props.checkDisabled) {
+      await checkFieldValues(map(instances, props.fieldId));
+    } else {
+      handleChange(instances);
+    }
   };
 
   const handleInputChanged = (event: { target: { value: string } }): void => {
