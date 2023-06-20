@@ -62,18 +62,18 @@ describe("HostInstanceSelect", () => {
     const handleChange = jest.fn();
     const handleChangeV2 = jest.fn();
     let ref;
-    const { getByTestId } = render(
-      <CmdbInstancesInputFormItem
-        {...{
-          objectMap,
-          objectId: "HOST",
-          fieldId: "ip",
-          value: ["123"],
-          onChange: handleChange,
-          onChangeV2: handleChangeV2,
-          ref: (el: HTMLDivElement) => (ref = el),
-        }}
-      />
+    const props = {
+      objectMap,
+      objectId: "HOST",
+      fieldId: "ip",
+      fields: ["ip"],
+      value: ["123"],
+      onChange: handleChange,
+      onChangeV2: handleChangeV2,
+      ref: (el: HTMLDivElement) => (ref = el),
+    };
+    const { getByTestId, rerender } = render(
+      <CmdbInstancesInputFormItem {...props} />
     );
 
     expect(ref).not.toBeUndefined();
@@ -84,7 +84,23 @@ describe("HostInstanceSelect", () => {
         getByTestId(
           "select-modal"
         ) as MockedComponentElement<InstanceListModalProps>
-      )._props.onSelected(instanceIds);
+      )._props.onSelected([...instanceIds, "invalid id"]);
+    });
+
+    await (global as any).flushPromises();
+
+    expect(handleChange).toBeCalledWith(instanceIds);
+    expect(handleChangeV2).toBeCalledWith(
+      instanceIds.map((instanceId) => expect.objectContaining({ instanceId }))
+    );
+
+    rerender(<CmdbInstancesInputFormItem {...props} checkDisabled />);
+    act(() => {
+      (
+        getByTestId(
+          "select-modal"
+        ) as MockedComponentElement<InstanceListModalProps>
+      )._props.onSelected([...instanceIds, "invalid id"]);
     });
 
     await (global as any).flushPromises();
