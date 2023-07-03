@@ -1238,6 +1238,21 @@ describe("InstanceList", () => {
     expect(InstanceApi_postSearchV3).toBeCalledTimes(23);
     expect(providerQuery).toBeCalledTimes(2);
   });
+  it("should work with extraFilterBricks property", async () => {
+    const extraOperateBricks = { useBrick: { brick: "span" } };
+    const wrapper = mount(
+      <InstanceList objectId="HOST" extraOperateBricks={extraOperateBricks} />
+    );
+
+    await (global as any).flushPromises();
+    await jest.runAllTimers();
+    wrapper.update();
+
+    const brickAsComponentProps = wrapper
+      .find(brickKit.BrickAsComponent)
+      .props();
+    expect(brickAsComponentProps.useBrick).toBe(extraOperateBricks.useBrick);
+  });
 });
 
 it("isSpecialFn as pass", () => {

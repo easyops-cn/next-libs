@@ -522,6 +522,9 @@ interface InstanceListProps {
   limitInstanceRange?: boolean;
   useInstanceArchiveProvider?: boolean;
   placeholder?: string;
+  extraOperateBricks?: {
+    useBrick: UseBrickConf;
+  };
 }
 
 interface InstanceListState {
@@ -1393,6 +1396,11 @@ export function LegacyInstanceList(
                       {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CLEAR}`)}
                     </a>
                   </div>
+                )}
+                {props.extraOperateBricks?.useBrick && (
+                  <BrickAsComponent
+                    useBrick={props.extraOperateBricks.useBrick}
+                  />
                 )}
                 {props.objectId === "HOST" && props.enableSearchByApp && (
                   <Button type={"link"} onClick={toggleSearchMode}>
