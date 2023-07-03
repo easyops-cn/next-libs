@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.3.10](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.3.9...@next-libs/cmdb-instances@7.3.10) (2023-07-03)
+
+
+### Bug Fixes
+
+* **instance-list:** 增加实例列表额外操作插槽 ([#576](https://github.com/easyops-cn/next-libs/issues/576)) ([1023464](https://github.com/easyops-cn/next-libs/commit/1023464c6ac5c7dd7d85c05866288f8eb1865f81))
+
+
+
+
+
 ## [7.3.9](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.3.8...@next-libs/cmdb-instances@7.3.9) (2023-06-20)
 
 
