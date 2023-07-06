@@ -38,3 +38,10 @@
 .conditionInputGroup :global(.ant-select-selection-selected-value) {
   margin-right: 4px;
 }
+
+.conditionInputGroup:global(.ant-input-group.ant-input-group-compact
+    > .ant-select:first-child
+    > .ant-select-selector) {
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
