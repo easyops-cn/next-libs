@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.3.11](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.3.10...@next-libs/cmdb-instances@7.3.11) (2023-07-06)
+
+
+### Bug Fixes
+
+* **cmdb-instances:** 按钮圆角调整 ([2a64a26](https://github.com/easyops-cn/next-libs/commit/2a64a26aa2da768682c16155159ff66c7c6f3c4d))
+
+
+
+
+
 ## [7.3.10](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.3.9...@next-libs/cmdb-instances@7.3.10) (2023-07-03)
 
 
