@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.3.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@5.3.4...@next-libs/basic-components@5.3.5) (2023-07-19)
+
+
+### Bug Fixes
+
+* 增加icon类样式,使其可以支持hover效果 ([e668dd6](https://github.com/easyops-cn/next-libs/commit/e668dd6b47a187471144d979f0d975851f1b28f5))
+
+
+
+
+
 ## [5.3.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@5.3.3...@next-libs/basic-components@5.3.4) (2023-06-16)
 
 
