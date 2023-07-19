@@ -34,6 +34,7 @@ interface MenuIconProps {
   showEmptyIcon?: boolean;
   noPublicRoot?: boolean;
   imageLoading?: "lazy" | "eager";
+  iconClassName?: string;
 }
 
 function isGradientColor(
@@ -57,6 +58,7 @@ export function GeneralIcon({
   style,
   noPublicRoot,
   imageLoading,
+  iconClassName,
 }: MenuIconProps): React.ReactElement {
   const memoizedIcon = useDeepEqualMemo(_icon);
   const getStyle = (icon: MenuIcon): React.CSSProperties => {
@@ -196,7 +198,7 @@ export function GeneralIcon({
             theme={icon.theme}
             style={mergedStyleByBg}
             onClick={onClick}
-            className={generalIconId}
+            className={classnames(generalIconId, iconClassName)}
             data-icon={
               (icon as RefinedAntdIcon).icon || (icon as LegacyAntdIcon).type
             }
@@ -219,7 +221,7 @@ export function GeneralIcon({
             component={() => (
               <FontAwesomeIcon
                 icon={faIcon}
-                className={cssStyle.faIcon}
+                className={classnames(cssStyle.faIcon, iconClassName)}
                 {...migrateProps}
               />
             )}
@@ -241,7 +243,7 @@ export function GeneralIcon({
               />
             )}
             onClick={onClick}
-            className={generalIconId}
+            className={classnames(generalIconId, iconClassName)}
             data-icon={icon.icon}
           />
         );
