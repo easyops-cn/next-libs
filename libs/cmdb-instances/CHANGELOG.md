@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.4.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.3.12...@next-libs/cmdb-instances@7.4.0) (2023-07-21)
+
+
+### Features
+
+* **instance-list:** 新增强制刷新实例列表参数 ([#579](https://github.com/easyops-cn/next-libs/issues/579)) ([af84c66](https://github.com/easyops-cn/next-libs/commit/af84c66d0d56466e908d277d8c960007799b426f))
+
+
+
+
+
 ## [7.3.12](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.3.11...@next-libs/cmdb-instances@7.3.12) (2023-07-19)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
