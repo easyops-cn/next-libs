@@ -525,6 +525,7 @@ interface InstanceListProps {
   extraOperateBricks?: {
     useBrick: UseBrickConf;
   };
+  updateDataTime?: number;
 }
 
 interface InstanceListState {
@@ -981,6 +982,7 @@ export function LegacyInstanceList(
     state.searchByApp,
     props.dataSource,
     state.presetConfigsQuery,
+    props.updateDataTime,
   ]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
