@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.5.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.4.0...@next-libs/cmdb-instances@7.5.0) (2023-07-28)
+
+
+### Features
+
+* cmdb-instance-list构件支持动态设置query ([1f415d3](https://github.com/easyops-cn/next-libs/commit/1f415d3bd8fbdf87dbcc924270a638620c57ddc4))
+
+
+
+
+
 # [7.4.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.3.12...@next-libs/cmdb-instances@7.4.0) (2023-07-21)
 
 
