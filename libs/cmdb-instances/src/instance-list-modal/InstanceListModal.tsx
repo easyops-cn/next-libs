@@ -5,7 +5,10 @@ import i18n from "i18next";
 import { CmdbModels, InstanceApi_postSearch } from "@next-sdk/cmdb-sdk";
 import { Query } from "@next-libs/cmdb-utils";
 import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
-import { InstanceList } from "../instance-list/InstanceList";
+import {
+  InstanceList,
+  filterObjectIdQuery,
+} from "../instance-list/InstanceList";
 import { InstanceListPresetConfigs } from "../instance-list-table/interfaces";
 import { addResourceBundle } from "../i18n";
 import {
@@ -58,6 +61,12 @@ export interface InstanceListModalProps {
   bindEvent?: () => void;
   bindButtonDisabled?: boolean;
   disabledTooltip?: string;
+  // 是否开启实例来源筛选
+  showFilterInstanceSource?: boolean;
+  filterInstanceSource?: boolean;
+  onFilterInstanceSourceChange?(value: boolean): void;
+  onFilterObjectIdChange?(value: filterObjectIdQuery): void;
+  objectIdQuery?: string;
 }
 
 export function InstanceListModal(
@@ -232,6 +241,11 @@ export function InstanceListModal(
           onPaginationChange={handlePaginationChange}
           extraFixedFields={props.extraFixedFields}
           limitInstanceRange={props.limitInstanceRange}
+          showFilterInstanceSource={props.showFilterInstanceSource}
+          filterInstanceSource={props.filterInstanceSource}
+          onFilterInstanceSourceChange={props.onFilterInstanceSourceChange}
+          objectIdQuery={props.objectIdQuery}
+          onFilterObjectIdChange={props.onFilterObjectIdChange}
         />
       </div>
     </Modal>

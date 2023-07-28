@@ -1,0 +1,13 @@
+.content {
+  margin: 16px 0 8px;
+  max-height: 264px;
+  overflow-x: hidden;
+}
+.footer {
+  margin: 0 -16px -12px;
+  padding: 8px 8px 8px 2px;
+  background-color: #f3f4f7;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}

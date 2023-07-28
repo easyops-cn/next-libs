@@ -15,6 +15,8 @@ import * as brickKit from "@next-core/brick-kit";
 import i18n from "i18next";
 import { Query } from "@next-libs/cmdb-utils";
 import { IconButton } from "./IconButton";
+import FilterInstanceSource from "./FilterInstanceSource";
+
 import {
   LegacyInstanceList,
   InstanceList,
@@ -1252,6 +1254,23 @@ describe("InstanceList", () => {
       .find(brickKit.BrickAsComponent)
       .props();
     expect(brickAsComponentProps.useBrick).toBe(extraOperateBricks.useBrick);
+  });
+
+  it("should work with showFilterInstanceSource is true", async () => {
+    (CmdbObjectApi_getObjectRef as jest.Mock).mockResolvedValue({
+      data: [HOST],
+    });
+    const wrapper = mount(
+      <InstanceList objectId="HOST" showFilterInstanceSource={true} />
+    );
+
+    await (global as any).flushPromises();
+    await jest.runAllTimers();
+    wrapper.update();
+    const instanceSource = wrapper.find(FilterInstanceSource);
+    expect(instanceSource.prop("checked")).toBeFalsy();
+    expect(wrapper.find(LegacyInstanceList).prop("objectList")).toEqual([HOST]);
+    (CmdbObjectApi_getObjectRef as jest.Mock).mockClear();
   });
 });
 
