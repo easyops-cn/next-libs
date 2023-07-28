@@ -968,6 +968,11 @@ export function LegacyInstanceList(
     props.defaultQuery,
   ]);
 
+  useEffect(() => {
+    setQ(props.q);
+    setState({ q: props.q });
+  }, [props.q]);
+
   // on other condition change
   useEffect(() => {
     if (isEmpty(state.fieldIds)) return;
