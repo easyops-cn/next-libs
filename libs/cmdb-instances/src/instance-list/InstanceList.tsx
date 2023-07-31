@@ -971,7 +971,7 @@ export function LegacyInstanceList(
   useEffect(() => {
     setQ(props.q);
     setState({ q: props.q });
-  }, [props.q]);
+  }, [props.q, props.updateDataTime]);
 
   // on other condition change
   useEffect(() => {
