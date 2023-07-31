@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.6.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.5.0...@next-libs/cmdb-instances@7.6.0) (2023-07-31)
+
+
+### Features
+
+* 拓扑实例列表支持子模型筛选 ([#582](https://github.com/easyops-cn/next-libs/issues/582)) ([8e98061](https://github.com/easyops-cn/next-libs/commit/8e9806176edef412321a85ad486e15ed79128216))
+
+
+
+
+
 # [7.5.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.4.0...@next-libs/cmdb-instances@7.5.0) (2023-07-28)
 
 
