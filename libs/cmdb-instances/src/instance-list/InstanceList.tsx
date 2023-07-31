@@ -50,7 +50,7 @@ import {
   CmdbObjectApi_getObjectRef,
 } from "@next-sdk/cmdb-sdk";
 import { Icon as LegacyIcon } from "@ant-design/compatible";
-import { Button, Spin, Input, Tag, Select } from "antd";
+import { Button, Spin, Input, Tag, Select, Popover } from "antd";
 import {
   getRelationObjectSides,
   forEachAvailableFields,
@@ -89,6 +89,7 @@ import { ModelAttributeValueType } from "../model-attribute-form-control/ModelAt
 import { IconButton } from "./IconButton";
 import { changeQueryWithCustomRules } from "../processors";
 import { DisplaySettingsModalData } from "../instance-list-table/DisplaySettingsModal";
+import FilterInstanceSource from "./FilterInstanceSource";
 
 export interface instanceArchiveRequestBody {
   // 搜索内容
@@ -436,6 +437,13 @@ export const initAqToShow = (
   return;
 };
 
+export interface filterObjectIdQuery {
+  objectId?: string;
+  objectName?: string;
+  query?: Record<string, string>;
+  checked?: boolean;
+}
+
 interface InstanceListProps {
   objectId: string;
   objectList?: Partial<CmdbModels.ModelCmdbObject>[];
@@ -526,6 +534,12 @@ interface InstanceListProps {
     useBrick: UseBrickConf;
   };
   updateDataTime?: number;
+  // 是否开启实例来源筛选
+  showFilterInstanceSource?: boolean;
+  filterInstanceSource?: boolean;
+  onFilterInstanceSourceChange?(value: boolean): void;
+  onFilterObjectIdChange?(query: filterObjectIdQuery): void;
+  objectIdQuery?: string;
 }
 
 interface InstanceListState {
@@ -558,6 +572,9 @@ interface InstanceListState {
   searchByApp?: boolean;
   showTooltip?: boolean;
   presetConfigsQuery?: Record<string, any>;
+  filterInstanceSource?: boolean;
+  objectIdQuery?: string;
+  instanceSourcePopoverVisible?: boolean;
 }
 
 export function LegacyInstanceList(
@@ -622,6 +639,12 @@ export function LegacyInstanceList(
       idNameMap = await CmdbObjectApi_getIdMapName({
         parentObjectId: modelData.objectId,
       } as any);
+      props.showFilterInstanceSource &&
+        jsonLocalStorage.setItem(`instances-sources-objectId-name-map`, {
+          parentObjectId: modelData.objectId,
+          query: props.presetConfigs.query,
+          idNameMap,
+        });
     }
     setInheritanceModelIdNameMap(idNameMap);
   };
@@ -711,6 +734,9 @@ export function LegacyInstanceList(
     pageSize: props.dataSource?.pageSize ?? props.pageSize ?? 10,
     aliveHosts: props.aliveHosts,
     relatedToMe: props.relatedToMe,
+    objectIdQuery: props.objectIdQuery,
+    filterInstanceSource: props.filterInstanceSource,
+    instanceSourcePopoverVisible: false,
     inited: false,
     loading: false,
     failed: false,
@@ -1297,11 +1323,34 @@ export function LegacyInstanceList(
       props.onAdvancedSearch?.(queries);
     };
   };
+
+  const onFilterInstanceSourceChange = (checked: boolean): void => {
+    setState({ filterInstanceSource: checked });
+    props.onFilterInstanceSourceChange?.(checked);
+  };
+
+  const onFilterObjectIdChange = (objectIdQuery: any): void => {
+    setState({ objectIdQuery: objectIdQuery });
+    props.onFilterObjectIdChange?.(objectIdQuery);
+  };
+
+  const onPopoverVisibleChange = (visible: boolean): void => {
+    setState({ instanceSourcePopoverVisible: visible });
+  };
+
   const conditions = translateConditions(
     state.aqToShow,
     idObjectMap,
     modelData
   );
+
+  useEffect(() => {
+    if (props.showFilterInstanceSource) {
+      const aq = initAqToShow(props.aq, modelData, false);
+      const aqToShow = props.aqToShow || initAqToShow(props.aq, modelData);
+      setState({ aq, aqToShow });
+    }
+  }, [props.aq, props.aqToShow, props.showFilterInstanceSource]);
 
   return (
     <Spin spinning={state.loading}>
@@ -1407,6 +1456,19 @@ export function LegacyInstanceList(
                 {props.extraOperateBricks?.useBrick && (
                   <BrickAsComponent
                     useBrick={props.extraOperateBricks.useBrick}
+                  />
+                )}
+                {props.showFilterInstanceSource && (
+                  <FilterInstanceSource
+                    visible={state.instanceSourcePopoverVisible}
+                    checked={state.filterInstanceSource}
+                    onPopoverVisibleChange={onPopoverVisibleChange}
+                    onIconClicKChange={onFilterInstanceSourceChange}
+                    onChange={onFilterObjectIdChange}
+                    inheritanceModelIdNameMap={inheritanceModelIdNameMap}
+                    value={state.objectIdQuery}
+                    jsonLocalStorage={jsonLocalStorage}
+                    isAbstract={modelData.isAbstract}
                   />
                 )}
                 {props.objectId === "HOST" && props.enableSearchByApp && (

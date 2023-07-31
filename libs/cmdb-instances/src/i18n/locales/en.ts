@@ -121,6 +121,9 @@ const locale: Locale = {
   [K.VIEW_MORE]: "View more",
   [K.CREATE_AND_BIND]: "Create and bind",
   [K.PERMISSION_DENIED]: "Permission denied",
+  [K.CLICK_TO_FILTER_INSTANCE_SOURCE]:
+    "Filter the instance source to view all field information for the source model",
+  [K.SEARCH_MODEL]: "Search the model",
 };
 
 export default locale;

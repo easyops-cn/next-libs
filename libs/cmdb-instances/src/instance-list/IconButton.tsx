@@ -39,6 +39,12 @@ export function IconButton(props: IconButtonProps) {
         return <GeneralIcon icon={{ lib: "fa", icon: "tv", prefix: "fas" }} />;
       case "allName":
         return <GeneralIcon icon={{ lib: "fa", icon: "cube" }} />;
+      case "filterInstanceSource":
+        return (
+          <GeneralIcon
+            icon={{ lib: "antd", icon: "filter", theme: "filled" }}
+          />
+        );
     }
   };
   const getTooltip = () => {
@@ -61,6 +67,10 @@ export function IconButton(props: IconButtonProps) {
           : i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CLICK_TO_SHOW}`, {
               label: props.label,
             });
+      case "filterInstanceSource":
+        return i18n.t(
+          `${NS_LIBS_CMDB_INSTANCES}:${K.CLICK_TO_FILTER_INSTANCE_SOURCE}`
+        );
     }
   };
 
