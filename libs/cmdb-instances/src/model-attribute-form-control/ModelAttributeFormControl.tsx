@@ -624,6 +624,7 @@ export class ModelAttributeFormControl extends Component<
             disabled={readOnly}
             className={this.props.className}
             style={this.props.style}
+            showSearch
           >
             {restProps.items &&
               restProps.items.map(({ id, text }) => (
