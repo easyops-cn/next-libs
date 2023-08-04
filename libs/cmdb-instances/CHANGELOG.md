@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.6.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.6.1...@next-libs/cmdb-instances@7.6.2) (2023-08-04)
+
+
+### Bug Fixes
+
+* 修复实例弹窗构件开启实例来源过滤的问题 ([92169b2](https://github.com/easyops-cn/next-libs/commit/92169b24c8580019e23b3a986228814f319e11cd))
+
+
+
+
+
 ## [7.6.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.6.0...@next-libs/cmdb-instances@7.6.1) (2023-08-03)
 
 
