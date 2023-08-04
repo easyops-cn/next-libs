@@ -21,6 +21,7 @@ export interface InstanceListModalProps {
   objectId: string;
   visible: boolean;
   title: React.ReactNode | string;
+  q?: string;
   query?: any;
   presetConfigs?: InstanceListPresetConfigs;
   permission?: string[];
@@ -210,6 +211,7 @@ export function InstanceListModal(
       <div style={{ maxHeight: 720, overflow: "auto" }}>
         <InstanceList
           aq={props.aq}
+          q={props.q}
           objectId={props.objectId}
           objectList={Object.values(props.objectMap)}
           presetConfigs={presetConfigs}

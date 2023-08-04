@@ -1,11 +1,4 @@
-import React, {
-  FC,
-  ReactElement,
-  useEffect,
-  useMemo,
-  useState,
-  memo,
-} from "react";
+import React, { FC, ReactElement, useEffect, useMemo, useState } from "react";
 import { Popover, Input, Button, Radio, Space } from "antd";
 import { IconButton } from "./IconButton";
 import { SearchOutlined } from "@ant-design/icons";
@@ -38,9 +31,11 @@ const FilterInstanceSource: FC<FilterInstanceSourceProps> = (props) => {
   const [objectIdNameList, setObjectIdNameList] = useState([]);
   const { checked, visible, jsonLocalStorage, isAbstract } = props;
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const objectNameMap =
-    jsonLocalStorage.getItem("instances-sources-objectId-name-map") || {};
+  const objectNameMap = useMemo(() => {
+    return (
+      jsonLocalStorage.getItem("instances-sources-objectId-name-map") || {}
+    );
+  }, [jsonLocalStorage]);
 
   const _modelIdNameMap = useMemo(() => {
     return isEmpty(props.inheritanceModelIdNameMap)
@@ -164,4 +159,4 @@ const FilterInstanceSource: FC<FilterInstanceSourceProps> = (props) => {
   );
 };
 
-export default memo(FilterInstanceSource);
+export default FilterInstanceSource;
