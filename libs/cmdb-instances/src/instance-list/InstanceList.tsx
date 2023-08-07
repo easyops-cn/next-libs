@@ -1458,7 +1458,7 @@ export function LegacyInstanceList(
                     useBrick={props.extraOperateBricks.useBrick}
                   />
                 )}
-                {props.showFilterInstanceSource && (
+                {props.showFilterInstanceSource && modelData.isAbstract && (
                   <FilterInstanceSource
                     visible={state.instanceSourcePopoverVisible}
                     checked={state.filterInstanceSource}

@@ -1257,8 +1257,10 @@ describe("InstanceList", () => {
   });
 
   it("should work with showFilterInstanceSource is true", async () => {
+    const modelData = { ...HOST, isAbstract: true };
+
     (CmdbObjectApi_getObjectRef as jest.Mock).mockResolvedValue({
-      data: [HOST],
+      data: [modelData],
     });
     const wrapper = mount(
       <InstanceList objectId="HOST" showFilterInstanceSource={true} />
@@ -1268,7 +1270,7 @@ describe("InstanceList", () => {
     await jest.runAllTimers();
     wrapper.update();
     const instanceSource = wrapper.find(FilterInstanceSource);
-    expect(instanceSource.prop("checked")).toBeFalsy();
+    expect(instanceSource.length).toBe(0);
     expect(wrapper.find(LegacyInstanceList).prop("objectList")).toEqual([HOST]);
     (CmdbObjectApi_getObjectRef as jest.Mock).mockClear();
   });
