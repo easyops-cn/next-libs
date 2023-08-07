@@ -642,7 +642,7 @@ export function LegacyInstanceList(
       props.showFilterInstanceSource &&
         jsonLocalStorage.setItem(`instances-sources-objectId-name-map`, {
           parentObjectId: modelData.objectId,
-          query: props.presetConfigs.query,
+          query: props.presetConfigs?.query,
           idNameMap,
         });
     }
