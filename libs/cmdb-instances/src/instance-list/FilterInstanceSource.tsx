@@ -29,6 +29,7 @@ function encode(keyword: string): string {
 const FilterInstanceSource: FC<FilterInstanceSourceProps> = (props) => {
   const [instanceSource, setInstanceSource] = useState(props.value);
   const [objectIdNameList, setObjectIdNameList] = useState([]);
+  const [keyword, setKeyword] = useState(undefined);
   const { checked, visible, jsonLocalStorage, isAbstract } = props;
 
   const objectNameMap = useMemo(() => {
@@ -59,6 +60,7 @@ const FilterInstanceSource: FC<FilterInstanceSourceProps> = (props) => {
       query,
       checked: false,
     };
+    setKeyword(undefined);
     setInstanceSource("");
     props?.onChange(value);
     props?.onIconClicKChange(false);
@@ -69,9 +71,10 @@ const FilterInstanceSource: FC<FilterInstanceSourceProps> = (props) => {
     const query: filterObjectIdQuery = {
       objectId: instanceSource,
       objectName: _modelIdNameMap[instanceSource],
-      query: {},
+      query: objectNameMap?.query || {},
       checked,
     };
+    setKeyword(undefined);
     props?.onChange(query);
     props?.onPopoverVisibleChange(false);
   };
@@ -90,6 +93,7 @@ const FilterInstanceSource: FC<FilterInstanceSourceProps> = (props) => {
     const filterObjectIdNameList = _objectIdNameList.filter((v) =>
       regex.test(v.text)
     );
+    setKeyword(e.target.value.trim());
     setObjectIdNameList(filterObjectIdNameList);
   };
 
@@ -110,6 +114,7 @@ const FilterInstanceSource: FC<FilterInstanceSourceProps> = (props) => {
           placeholder={i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.SEARCH_MODEL}`)}
           suffix={<SearchOutlined />}
           onPressEnter={onSearch}
+          value={keyword}
           data-testid="instance-source-search"
         />
         <div className={styles.content}>
