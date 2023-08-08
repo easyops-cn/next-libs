@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.4.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@3.4.0...@next-libs/cmdb-utils@3.4.1) (2023-08-08)
+
+
+### Bug Fixes
+
+* 售中工单_主机实例列表显示的内存大小与服务器实际内存不一致 ([3b48364](https://github.com/easyops-cn/next-libs/commit/3b48364dc5e0010606bca31e2f6dd819046b8bbc))
+
+
+
+
+
 # [3.4.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@3.3.4...@next-libs/cmdb-utils@3.4.0) (2023-06-07)
 
 
