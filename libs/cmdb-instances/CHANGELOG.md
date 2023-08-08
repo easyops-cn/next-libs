@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.6.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.6.6...@next-libs/cmdb-instances@7.6.7) (2023-08-08)
+
+
+### Bug Fixes
+
+* 主机的磁盘大小和内存大小要改成1000+GB的换算 ([57d04d4](https://github.com/easyops-cn/next-libs/commit/57d04d43ce2536cc7a4384c4aec1cdfc7aebe578))
+
+
+
+
+
 ## [7.6.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.6.5...@next-libs/cmdb-instances@7.6.6) (2023-08-08)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
