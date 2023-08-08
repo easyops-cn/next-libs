@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.6.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.6.7...@next-libs/cmdb-instances@7.6.8) (2023-08-08)
+
+
+### Bug Fixes
+
+* 实例来源过滤去除父模型的判断条件 ([73c0c0d](https://github.com/easyops-cn/next-libs/commit/73c0c0db3759a983d23de4b2a87c9070bfcde235))
+
+
+
+
+
 ## [7.6.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.6.6...@next-libs/cmdb-instances@7.6.7) (2023-08-08)
 
 
