@@ -99,14 +99,14 @@ export const customRules = {
     return isNil(value)
       ? ""
       : value === 0
-      ? "0 KB"
-      : pipes.unitFormat(value, "KB").join(" ");
+      ? "0 KiB"
+      : pipes.unitFormat(value, "KiB").join(" ");
   },
   diskSize(value: any) {
     return isNil(value)
       ? ""
       : value === 0
-      ? "0 KB"
-      : pipes.unitFormat(value, "KB").join(" ");
+      ? "0 KiB"
+      : pipes.unitFormat(value, "KiB").join(" ");
   },
 };
