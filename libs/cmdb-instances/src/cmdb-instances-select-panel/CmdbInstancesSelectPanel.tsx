@@ -130,7 +130,12 @@ export function CmdbInstancesSelectPanel(
           page: 1,
           page_size: instanceIdList.length,
           // todo(ice): selected confirm with instances
-          fields: { "*": true },
+          fields: props.fields?.length
+            ? props.fields.reduce(
+                (prev, next) => ({ ...prev, [next]: true }),
+                {}
+              )
+            : { "*": true },
         })
       ).list;
     }
@@ -265,6 +270,7 @@ export function CmdbInstancesSelectPanel(
               $in: selectedInstanceList.map((instance) => instance.instanceId),
             },
           },
+          fieldIds: props.fields,
         }}
         selectDisabled={!props.ipCopy}
         ipCopy={props.ipCopy}
