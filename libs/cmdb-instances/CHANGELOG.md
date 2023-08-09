@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.6.9](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.6.8...@next-libs/cmdb-instances@7.6.9) (2023-08-09)
+
+
+### Bug Fixes
+
+* **cmdb-instances:** 指定实例当数量超过5条时，点击查看实例，未透传fields，导致弹窗内字段显示不一致 ([#591](https://github.com/easyops-cn/next-libs/issues/591)) ([1229cd1](https://github.com/easyops-cn/next-libs/commit/1229cd170b89314021b04f5024aa6b2ac0685127))
+
+
+
+
+
 ## [7.6.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.6.7...@next-libs/cmdb-instances@7.6.8) (2023-08-08)
 
 
