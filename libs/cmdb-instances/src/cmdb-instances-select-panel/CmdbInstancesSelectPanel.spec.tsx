@@ -80,6 +80,7 @@ describe("CmdbInstancesSelectPanel", () => {
         value={[]}
         onChange={onChange}
         isFilterView={true}
+        fields={["name"]}
         onFetchedInstances={onFetchedInstances}
       />
     );
