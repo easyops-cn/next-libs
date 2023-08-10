@@ -29,7 +29,7 @@ function encode(keyword: string): string {
 const FilterInstanceSource: FC<FilterInstanceSourceProps> = (props) => {
   const [instanceSource, setInstanceSource] = useState(props.value);
   const [objectIdNameList, setObjectIdNameList] = useState([]);
-  const [keyword, setKeyword] = useState(undefined);
+  const [keyword, setKeyword] = useState("");
   const { checked, visible, jsonLocalStorage, isAbstract } = props;
 
   const objectNameMap = useMemo(() => {
@@ -50,7 +50,7 @@ const FilterInstanceSource: FC<FilterInstanceSourceProps> = (props) => {
       value: key,
     }));
     setObjectIdNameList(_objectIdNameList);
-  }, [_modelIdNameMap]);
+  }, [_modelIdNameMap, checked]);
 
   const onReset = (e: any): void => {
     const { parentObjectId, query } = objectNameMap;
@@ -60,7 +60,7 @@ const FilterInstanceSource: FC<FilterInstanceSourceProps> = (props) => {
       query,
       checked: false,
     };
-    setKeyword(undefined);
+    setKeyword("");
     setInstanceSource("");
     props?.onChange(value);
     props?.onIconClicKChange(false);
@@ -68,13 +68,19 @@ const FilterInstanceSource: FC<FilterInstanceSourceProps> = (props) => {
   };
 
   const onConfirm = (e: any): void => {
+    if (!instanceSource) {
+      setKeyword("");
+      props?.onIconClicKChange(false);
+      props?.onPopoverVisibleChange(false);
+      return;
+    }
     const query: filterObjectIdQuery = {
       objectId: instanceSource,
       objectName: _modelIdNameMap[instanceSource],
       query: objectNameMap?.query || {},
       checked,
     };
-    setKeyword(undefined);
+    setKeyword("");
     props?.onChange(query);
     props?.onPopoverVisibleChange(false);
   };
@@ -83,7 +89,7 @@ const FilterInstanceSource: FC<FilterInstanceSourceProps> = (props) => {
     setInstanceSource(e.target.value);
   };
 
-  const onSearch = (e: any): void => {
+  const onChange = (e: any): void => {
     const value = encode(e.target.value.trim());
     const _objectIdNameList = map(_modelIdNameMap, (value, key) => ({
       text: value,
@@ -113,20 +119,26 @@ const FilterInstanceSource: FC<FilterInstanceSourceProps> = (props) => {
         <Input
           placeholder={i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.SEARCH_MODEL}`)}
           suffix={<SearchOutlined />}
-          onPressEnter={onSearch}
+          onChange={onChange}
           value={keyword}
           data-testid="instance-source-search"
         />
         <div className={styles.content}>
-          <Radio.Group value={instanceSource} onChange={handleRadioChange}>
-            <Space direction="vertical">
-              {objectIdNameList.map(({ text, value }) => (
-                <Radio key={value} value={value}>
-                  {text}
-                </Radio>
-              ))}
-            </Space>
-          </Radio.Group>
+          {objectIdNameList.length ? (
+            <Radio.Group value={instanceSource} onChange={handleRadioChange}>
+              <Space direction="vertical">
+                {objectIdNameList.map(({ text, value }) => (
+                  <Radio key={value} value={value}>
+                    {text}
+                  </Radio>
+                ))}
+              </Space>
+            </Radio.Group>
+          ) : (
+            <div className={styles.noData}>
+              {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.NO_DATA}`)}
+            </div>
+          )}
         </div>
         <div className={styles.footer}>
           <Button
