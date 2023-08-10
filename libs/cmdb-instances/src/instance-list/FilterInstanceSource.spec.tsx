@@ -35,11 +35,7 @@ describe("FilterInstanceSource", () => {
     );
     const input = getByTestId("instance-source-search");
 
-    fireEvent.keyDown(input, {
-      key: "Enter",
-      code: "Enter",
-      keyCode: 13,
-      charCode: 13,
+    fireEvent.change(input, {
       target: { value: "主机" },
     });
 
@@ -55,7 +51,7 @@ describe("FilterInstanceSource", () => {
     const IconButton = getByRole("img", { name: "filter" });
     fireEvent.click(IconButton, true);
 
-    expect(onIconClicKChange).toHaveBeenCalledTimes(2);
+    expect(onIconClicKChange).toHaveBeenCalledTimes(3);
     expect(onPopoverVisibleChange).toHaveBeenCalledTimes(3);
 
     expect(findByText("主机")).toBeTruthy();
@@ -79,11 +75,7 @@ describe("FilterInstanceSource", () => {
     );
     const input = getByTestId("instance-source-search");
 
-    fireEvent.keyDown(input, {
-      key: "Enter",
-      code: "Enter",
-      keyCode: 13,
-      charCode: 13,
+    fireEvent.change(input, {
       target: { value: "主机" },
     });
 
@@ -99,7 +91,7 @@ describe("FilterInstanceSource", () => {
     const IconButton = getByRole("img", { name: "filter" });
     fireEvent.click(IconButton, true);
 
-    expect(onIconClicKChange).toHaveBeenCalledTimes(1);
+    expect(onIconClicKChange).toHaveBeenCalledTimes(2);
     expect(onPopoverVisibleChange).toHaveBeenCalledTimes(2);
 
     expect(findByText("主机")).toBeTruthy();
