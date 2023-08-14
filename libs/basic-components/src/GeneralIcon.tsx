@@ -139,7 +139,8 @@ export function GeneralIcon({
       iconNode = (
         <img
           src={
-            /^(?:https?|data):|^\//.test(icon.imgSrc)
+            /^(?:https?|data):|^\//.test(icon.imgSrc) ||
+            icon.imgSrc.startsWith("api/")
               ? icon.imgSrc
               : `${
                   noPublicRoot
