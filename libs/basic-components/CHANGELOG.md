@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.3.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@5.3.5...@next-libs/basic-components@5.3.6) (2023-08-14)
+
+
+### Bug Fixes
+
+* 无法显示用户上传的图片 ([a98c384](https://github.com/easyops-cn/next-libs/commit/a98c384afb0b0aded10c44abddeefc09a8647af1))
+
+
+
+
+
 ## [5.3.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@5.3.4...@next-libs/basic-components@5.3.5) (2023-07-19)
 
 

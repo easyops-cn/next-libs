@@ -1,6 +1,6 @@
 {
   "name": "@next-libs/code-editor-components",
-  "version": "4.10.7",
+  "version": "4.10.8",
   "description": "Code editor components",
   "homepage": "https://github.com/easyops-cn/next-libs/tree/master/libs/code-editor-components",
   "license": "GPL-3.0",
@@ -31,9 +31,9 @@
     "brace": "*"
   },
   "dependencies": {
-    "@next-libs/basic-components": "^5.3.5",
+    "@next-libs/basic-components": "^5.3.6",
     "@next-libs/clipboard": "^3.0.4",
-    "@next-libs/forms": "^3.5.2",
+    "@next-libs/forms": "^3.5.3",
     "ajv": "^6.12.6",
     "classnames": "^2.3.2",
     "file-saver": "^2.0.5"
