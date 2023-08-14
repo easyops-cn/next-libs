@@ -270,6 +270,17 @@ describe("GeneralIcon", () => {
       height: 12,
     });
     expect(imgElement.prop("src")).toBe("https://test.com/image.jpg");
+
+    wrapper.setProps({
+      icon: {
+        imgSrc:
+          "api/gateway/object_store.object_store.GetObject/api/v1/objectStore/bucket/next-builder/object/test.jpeg",
+      },
+    });
+    wrapper.update();
+    expect(wrapper.find("img").prop("src")).toBe(
+      "api/gateway/object_store.object_store.GetObject/api/v1/objectStore/bucket/next-builder/object/test.jpeg"
+    );
   });
 
   it("use icon imgSrc with relative path", () => {
