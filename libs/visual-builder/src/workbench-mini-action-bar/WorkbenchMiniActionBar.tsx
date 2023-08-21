@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import classNames from "classnames";
 import {
   BrickAsComponent,
@@ -17,6 +17,7 @@ export interface WorkbenchSubActionBarProps {
   isLast?: boolean;
   actions?: WorkbenchTreeAction[];
   actionsHidden?: boolean;
+  useNativeEvent?: boolean;
   onActionClick?(detail: ActionClickDetail): void;
 }
 
@@ -28,6 +29,7 @@ export function WorkbenchMiniActionBar({
   isLast,
   actions,
   actionsHidden,
+  useNativeEvent,
   onActionClick,
 }: WorkbenchSubActionBarProps): React.ReactElement {
   const enabledActions = useMemo(
@@ -48,6 +50,7 @@ export function WorkbenchMiniActionBar({
           data={data}
           isFirst={isFirst}
           isLast={isLast}
+          useNativeEvent={useNativeEvent}
           onActionClick={onActionClick}
         />
       ))}
@@ -60,6 +63,7 @@ interface WorkbenchSubActionProps {
   data?: unknown;
   isFirst?: boolean;
   isLast?: boolean;
+  useNativeEvent?: boolean;
   onActionClick?(detail: ActionClickDetail): void;
 }
 
@@ -68,14 +72,16 @@ function WorkbenchSubAction({
   data,
   isFirst,
   isLast,
+  useNativeEvent,
   onActionClick,
 }: WorkbenchSubActionProps): React.ReactElement {
   const disabled =
     (isFirst && action.action === "move-up") ||
     (isLast && action.action === "move-down");
+  const linkRef = useRef<HTMLAnchorElement>();
 
   const handleActionClick = useCallback(
-    (event: React.MouseEvent) => {
+    (event: MouseEvent | React.MouseEvent) => {
       event.preventDefault();
       event.stopPropagation();
       disabled ||
@@ -87,6 +93,17 @@ function WorkbenchSubAction({
     [action.action, data, disabled, onActionClick]
   );
 
+  useEffect(() => {
+    const link = linkRef.current;
+    if (!link || !useNativeEvent) {
+      return;
+    }
+    link.addEventListener("click", handleActionClick);
+    return () => {
+      link.removeEventListener("click", handleActionClick);
+    };
+  }, [handleActionClick, useNativeEvent]);
+
   const preventMouseEvent = useCallback((event: React.MouseEvent) => {
     event.preventDefault();
     event.stopPropagation();
@@ -97,6 +114,7 @@ function WorkbenchSubAction({
       className={classNames(styles.action, { [styles.disabled]: disabled })}
       title={action.title}
       role="button"
+      ref={linkRef}
       onClick={handleActionClick}
       onContextMenu={preventMouseEvent}
       onMouseDown={preventMouseEvent}
