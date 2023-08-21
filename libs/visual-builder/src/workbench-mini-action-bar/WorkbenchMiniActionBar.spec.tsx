@@ -3,6 +3,8 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { WorkbenchTreeAction } from "../interfaces";
 import { WorkbenchMiniActionBar } from "./WorkbenchMiniActionBar";
 
+jest.spyOn(console, "error").mockImplementation();
+
 test("WorkbenchMiniActionBar with no actions", () => {
   const { container } = render(<WorkbenchMiniActionBar />);
   expect(container.children.length).toBe(0);
@@ -134,6 +136,7 @@ test("WorkbenchMiniActionBar with actions for moving last node", () => {
       onActionClick={onActionClick}
       actions={actions as WorkbenchTreeAction[]}
       isLast
+      useNativeEvent
     />
   );
 
