@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/visual-builder@1.12.4...@next-libs/visual-builder@1.12.5) (2023-08-21)
+
+
+### Bug Fixes
+
+* **WorkbenchMiniActionBar:** support prop `useNativeEvent` ([4a857bd](https://github.com/easyops-cn/next-libs/commit/4a857bd213c01a03f517e205df9230734e9544bb))
+
+
+
+
+
 ## [1.12.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/visual-builder@1.12.3...@next-libs/visual-builder@1.12.4) (2023-08-14)
 
 **Note:** Version bump only for package @next-libs/visual-builder
