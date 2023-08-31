@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.6.12](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.6.11...@next-libs/cmdb-instances@7.6.12) (2023-08-31)
+
+
+### Bug Fixes
+
+* 修复cmdb-instances-select-panel中InstanceListModal漏了pageSize 的配置 ([e3b84c0](https://github.com/easyops-cn/next-libs/commit/e3b84c01ab98f17d7d19dc58a28bc9cd40c6b120))
+
+
+
+
+
 ## [7.6.11](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.6.10...@next-libs/cmdb-instances@7.6.11) (2023-08-14)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
