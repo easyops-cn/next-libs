@@ -61,6 +61,7 @@ export interface InstanceListModalProps {
   showBindButton?: boolean;
   bindEvent?: () => void;
   bindButtonDisabled?: boolean;
+  bindButtonText?: string;
   disabledTooltip?: string;
   // 是否开启实例来源筛选
   showFilterInstanceSource?: boolean;
@@ -138,7 +139,12 @@ export function InstanceListModal(
   }, [props.selectedRowKeys]);
 
   const renderFooter = (): React.ReactElement => {
-    const { showBindButton, bindButtonDisabled, disabledTooltip } = props;
+    const {
+      showBindButton,
+      bindButtonDisabled,
+      disabledTooltip,
+      bindButtonText,
+    } = props;
     return (
       <>
         {!!showBindButton &&
@@ -150,7 +156,8 @@ export function InstanceListModal(
               }
             >
               <Button style={{ position: "absolute", left: "24px" }} disabled>
-                {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CREATE_AND_BIND}`)}
+                {bindButtonText ||
+                  i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CREATE_AND_BIND}`)}
               </Button>
             </Tooltip>
           ) : (
@@ -158,7 +165,8 @@ export function InstanceListModal(
               style={{ position: "absolute", left: "24px" }}
               onClick={props.bindEvent}
             >
-              {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CREATE_AND_BIND}`)}
+              {bindButtonText ||
+                i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CREATE_AND_BIND}`)}
             </Button>
           ))}
         {props.singleSelect && selectedInstanceListTemp.length > 1 && (

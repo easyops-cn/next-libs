@@ -26,6 +26,10 @@ export interface BaseCmdbInstancesSelectPanelProps {
   instanceQuery?: any;
   fields?: string[];
   singleSelect?: boolean;
+  showBindButton?: boolean;
+  bindButtonDisabled?: boolean;
+  bindButtonText?: string;
+  bindEvent?: () => void;
   addTitle?: React.ReactNode | string;
   modalTitle?: React.ReactNode | string;
   previewMaxNumber?: number;
@@ -248,6 +252,10 @@ export function CmdbInstancesSelectPanel(
           query,
           fieldIds: props.fields,
         }}
+        showBindButton={props.showBindButton}
+        bindButtonDisabled={props.bindButtonDisabled}
+        bindButtonText={props.bindButtonText}
+        bindEvent={props.bindEvent}
         pageSize={props.addInstancesModalPageSize}
         searchDisabled={props.searchDisabled}
         advancedSearchDisabled={props.advancedSearchDisabled}
@@ -261,6 +269,10 @@ export function CmdbInstancesSelectPanel(
         objectMap={modelMap}
         objectId={props.objectId}
         visible={allSelectedInstancesModal.visible}
+        showBindButton={props.showBindButton}
+        bindButtonDisabled={props.bindButtonDisabled}
+        bindButtonText={props.bindButtonText}
+        bindEvent={props.bindEvent}
         title={i18n.t(
           `${NS_LIBS_CMDB_INSTANCES}:${K.VIEW_ALL_SELECTED_INSTANCES}`
         )}
