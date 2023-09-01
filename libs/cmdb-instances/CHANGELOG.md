@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.7.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.6.12...@next-libs/cmdb-instances@7.7.0) (2023-09-01)
+
+
+### Features
+
+* 在新建/编辑系统时，可前往新建应用 ([d5838a1](https://github.com/easyops-cn/next-libs/commit/d5838a11e433ac229dfbcd24981bbffeaf99a9d1))
+
+
+
+
+
 ## [7.6.12](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.6.11...@next-libs/cmdb-instances@7.6.12) (2023-08-31)
 
 
