@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.10.9](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.10.8...@next-libs/code-editor-components@4.10.9) (2023-09-05)
+
+
+### Bug Fixes
+
+* add keywords: ITEM and INDEX ([1d0c01e](https://github.com/easyops-cn/next-libs/commit/1d0c01e39f6716ea2bae622afe5984fce213e946))
+
+
+
+
+
 ## [4.10.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.10.7...@next-libs/code-editor-components@4.10.8) (2023-08-14)
 
 **Note:** Version bump only for package @next-libs/code-editor-components
