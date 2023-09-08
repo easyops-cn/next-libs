@@ -39,7 +39,8 @@ export function reOrderAttrs(fields: string[], fieldOrder: string[] = []) {
 export function getRelationShowFields(
   defaultRelationFields: string[],
   oppositeAttrList: string[],
-  attr_order: string[] = []
+  attr_order: string[] = [],
+  isAbstract?: boolean
 ) {
   let showFields = oppositeAttrList;
   if (defaultRelationFields?.length) {
@@ -49,6 +50,9 @@ export function getRelationShowFields(
       ),
       attr_order
     );
+  }
+  if (isAbstract) {
+    showFields.unshift("_object_id");
   }
   return showFields;
 }
@@ -96,7 +100,8 @@ export function InstanceRelationTableShow(
   const fieldIds = getRelationShowFields(
     defaultRelationFields,
     oppositeModelData.attrList.map((attr) => attr.id),
-    get(oppositeModelData, ["view", "attr_order"])
+    get(oppositeModelData, ["view", "attr_order"]),
+    oppositeModelData.isAbstract
   );
   //过滤掉视图不可见字段
   const hideModelData = oppositeModelData.view?.hide_columns ?? [];
