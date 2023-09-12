@@ -17,6 +17,7 @@ import {
   Input,
 } from "antd";
 import { withTranslation, WithTranslation } from "react-i18next";
+import { http } from "@next-core/brick-http";
 import marked from "marked";
 import DOMPurify from "dompurify";
 import {
@@ -162,6 +163,7 @@ interface LegacyInstanceDetailProps extends WithTranslation {
   showFields?: boolean;
   anchorOffset?: number;
   useAnchor?: boolean;
+  ignorePermission?: boolean;
 }
 
 interface LegacyInstanceDetailState {
@@ -1121,10 +1123,20 @@ export class LegacyInstanceDetail extends React.Component<
             relationLimit
           );
         } else {
-          [modelListData, instanceData] = await Promise.all([
-            fetchCmdbObjectRef(props.objectId),
-            fetchCmdbInstanceDetail(props.objectId, props.instanceId),
-          ]);
+          if (props.ignorePermission) {
+            [modelListData, { data: instanceData }] = await Promise.all([
+              fetchCmdbObjectRef(props.objectId),
+              http.get(
+                `api/gateway/easyops.api.cmdb.instance.GetDetailWithAdmin/object/${props.objectId}/instance/${props.instanceId}`,
+                {}
+              ) as any,
+            ]);
+          } else {
+            [modelListData, instanceData] = await Promise.all([
+              fetchCmdbObjectRef(props.objectId),
+              fetchCmdbInstanceDetail(props.objectId, props.instanceId),
+            ]);
+          }
           modelDataMap = keyBy(modelListData.data, "objectId") as {
             [objectId: string]: CmdbModels.ModelCmdbObject;
           };

@@ -69,6 +69,7 @@ export interface InstanceListModalProps {
   onFilterInstanceSourceChange?(value: boolean): void;
   onFilterObjectIdChange?(value: filterObjectIdQuery): void;
   objectIdQuery?: string;
+  ignorePermission?: boolean;
 }
 
 export function InstanceListModal(
@@ -256,6 +257,7 @@ export function InstanceListModal(
           onFilterInstanceSourceChange={props.onFilterInstanceSourceChange}
           objectIdQuery={props.objectIdQuery}
           onFilterObjectIdChange={props.onFilterObjectIdChange}
+          ignorePermission={props.ignorePermission}
         />
       </div>
     </Modal>

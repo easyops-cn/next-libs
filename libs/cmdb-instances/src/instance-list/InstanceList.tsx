@@ -540,6 +540,7 @@ interface InstanceListProps {
   onFilterInstanceSourceChange?(value: boolean): void;
   onFilterObjectIdChange?(query: filterObjectIdQuery): void;
   objectIdQuery?: string;
+  ignorePermission?: boolean;
 }
 
 interface InstanceListState {
@@ -610,6 +611,11 @@ export function LegacyInstanceList(
       cache: false,
     }
   );
+  const ignorePermissionProvider = useProvider(
+    "easyops.api.cmdb.instance@PostSearchV3WithAdmin:1.0.0",
+    { cache: false }
+  );
+
   const { modelData, idObjectMap } = useMemo(() => {
     let modelData: Partial<CmdbModels.ModelCmdbObject>;
     const idObjectMap: Record<string, Partial<CmdbModels.ModelCmdbObject>> = {};
@@ -900,6 +906,8 @@ export function LegacyInstanceList(
       ? promise
       : props.useAutoDiscoveryProvider
       ? listProvider.query([props.objectId, v3Data])
+      : props.ignorePermission
+      ? ignorePermissionProvider.query([props.objectId, v3Data])
       : InstanceApi_postSearchV3(props.objectId, v3Data);
   };
 
@@ -1041,6 +1049,11 @@ export function LegacyInstanceList(
           // useAutoDiscoveryProvider=true, 使用useProvider的接口，虽然这里列表用不到选择功能，但还是加上保持统一
           if (props.useAutoDiscoveryProvider) {
             resp = await listProvider.query([
+              props.objectId,
+              Object.assign(params, props.extraParams),
+            ]);
+          } else if (props.ignorePermission) {
+            resp = await ignorePermissionProvider.query([
               props.objectId,
               Object.assign(params, props.extraParams),
             ]);
