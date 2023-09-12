@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.8.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.7.1...@next-libs/cmdb-instances@7.8.0) (2023-09-12)
+
+
+### Features
+
+* **cmdb-instances:** 实例详情和列表支持越权查询 ([a4af23a](https://github.com/easyops-cn/next-libs/commit/a4af23a24cf8e34398022da649a95aaad7589df9))
+
+
+
+
+
 ## [7.7.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.7.0...@next-libs/cmdb-instances@7.7.1) (2023-09-05)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
