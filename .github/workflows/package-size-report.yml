@@ -1,0 +1,50 @@
+name: Package Size Report
+
+on:
+  pull_request:
+    branches: [ master ]
+  workflow_run:
+    workflows: ["CI"]  
+    types:
+      - completed
+
+jobs:
+  pkg-size-report:
+    name: Package Size Report
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+      - name: Setup timezone
+        uses: zcong1993/setup-timezone@master
+        with:
+            timezone: Asia/Shanghai
+
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+            node-version: ${{ matrix.node-version }}
+            registry-url: 'https://registry.npmjs.org'
+            cache: yarn
+
+      - name: Cache nx cache
+        uses: actions/cache@v3
+        with:
+            path: .cache
+            key: ${{ runner.os }}-nx-${{ hashFiles('**/package.json') }}
+            restore-keys: |
+              ${{ runner.os }}-nx-
+
+      - name: Package size report
+        uses: pkg-size/action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+            unchanged-files: hide  
+            display-size: uncompressed, gzip
+            build-command: yarn build
