@@ -70,6 +70,7 @@ export interface InstanceListModalProps {
   onFilterObjectIdChange?(value: filterObjectIdQuery): void;
   objectIdQuery?: string;
   ignorePermission?: boolean;
+  saveFieldsBackend?: boolean;
 }
 
 export function InstanceListModal(
@@ -258,6 +259,7 @@ export function InstanceListModal(
           objectIdQuery={props.objectIdQuery}
           onFilterObjectIdChange={props.onFilterObjectIdChange}
           ignorePermission={props.ignorePermission}
+          saveFieldsBackend={props.saveFieldsBackend}
         />
       </div>
     </Modal>

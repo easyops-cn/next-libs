@@ -26,6 +26,8 @@ import {
   isSpecialFn,
   specialQueryHandler,
   joinRelationFieldAndShowkey,
+  mergeFields,
+  updateSortFields,
 } from "./InstanceList";
 import {
   getInstanceListData,
@@ -1346,4 +1348,77 @@ it("should work with joinRelationFieldAndShowkey", () => {
       objectList
     )
   ).toEqual(["name", "IP", "backup.nickname", "_SERVICENODE.name"]);
+});
+it("should work with mergeFields", () => {
+  const oldFields = [
+    { field: "name", order: 0 },
+    {
+      field: "ip",
+      order: 1,
+    },
+  ];
+  expect(mergeFields(oldFields, ["name", "ip", "status"])).toEqual([
+    { field: "name", order: 0 },
+    {
+      field: "ip",
+      order: 1,
+    },
+    {
+      field: "status",
+      order: 0,
+    },
+  ]);
+  expect(mergeFields(oldFields, ["name", "status"])).toEqual([
+    { field: "name", order: 0 },
+    {
+      field: "status",
+      order: 0,
+    },
+  ]);
+});
+it("should work with updateSortFields", () => {
+  const oldFields = [
+    {
+      field: "name",
+      order: 0,
+    },
+    {
+      field: "ip",
+      order: 1,
+    },
+    {
+      field: "status",
+      order: -1,
+    },
+  ];
+  expect(updateSortFields(oldFields, { asc: true, sort: "status" })).toEqual([
+    {
+      field: "name",
+      order: 0,
+    },
+    {
+      field: "ip",
+      order: 0,
+    },
+    {
+      field: "status",
+      order: 1,
+    },
+  ]);
+  expect(
+    updateSortFields(oldFields, { asc: false, sort: "status" }, "series-number")
+  ).toEqual([
+    {
+      field: "name",
+      order: 0,
+    },
+    {
+      field: "ip",
+      order: 0,
+    },
+    {
+      field: "status",
+      order: -2,
+    },
+  ]);
 });
