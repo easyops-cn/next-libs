@@ -24,6 +24,7 @@ import {
   compact,
   omit,
   keyBy,
+  cloneDeep,
 } from "lodash";
 import {
   BrickAsComponent,
@@ -50,7 +51,7 @@ import {
   CmdbObjectApi_getObjectRef,
 } from "@next-sdk/cmdb-sdk";
 import { Icon as LegacyIcon } from "@ant-design/compatible";
-import { Button, Spin, Input, Tag, Select, Popover } from "antd";
+import { Button, Spin, Input, Tag, Select, Popover, message } from "antd";
 import {
   getRelationObjectSides,
   forEachAvailableFields,
@@ -100,7 +101,10 @@ export interface instanceArchiveRequestBody {
   page_size?: number;
   fields?: string;
 }
-
+interface ISortField {
+  field: string;
+  order: number;
+}
 export interface InstanceListPresetConfigs {
   query?: Record<string, any>;
   fieldIds?: string[];
@@ -208,6 +212,38 @@ export const isValueEqualFn = (
     ? valuesStr && Object.values(query[attrId]).join(" ") !== valuesStr // 当条件是为空和不为空时，需要判断valuesStr是否存在
     : false;
 };
+export function mergeFields(
+  oldFields: ISortField[],
+  newFieldIds: string[]
+): ISortField[] {
+  return newFieldIds.map((field) => {
+    const existField = oldFields.find((f) => f.field === field);
+    const order = existField ? existField.order : 0;
+    return { field, order };
+  });
+}
+export function updateSortFields(
+  oldFields: ISortField[],
+  sortInfo: { asc?: boolean; sort?: string },
+  sortType?: string
+): ISortField[] {
+  const { asc, sort } = sortInfo;
+  const order = ["series-number", "auto-increment-id"].includes(sortType)
+    ? asc
+      ? 2
+      : -2
+    : asc
+    ? 1
+    : -1;
+  return oldFields.map((item) => {
+    if (item.field === sort) {
+      item.order = order;
+    } else {
+      item.order = 0;
+    }
+    return item;
+  });
+}
 
 export function translateConditions(
   aq: Query[],
@@ -541,6 +577,7 @@ interface InstanceListProps {
   onFilterObjectIdChange?(query: filterObjectIdQuery): void;
   objectIdQuery?: string;
   ignorePermission?: boolean;
+  saveFieldsBackend?: boolean;
 }
 
 interface InstanceListState {
@@ -576,6 +613,7 @@ interface InstanceListState {
   filterInstanceSource?: boolean;
   objectIdQuery?: string;
   instanceSourcePopoverVisible?: boolean;
+  sortFields?: { field: string; order: number }[];
 }
 
 export function LegacyInstanceList(
@@ -613,6 +651,16 @@ export function LegacyInstanceList(
   );
   const ignorePermissionProvider = useProvider(
     "easyops.api.cmdb.instance@PostSearchV3WithAdmin:1.0.0",
+    { cache: false }
+  );
+  // istanbul ignore next
+
+  const fieldsProvider = useProvider(
+    "easyops.api.cmdb.instance@GetListDisplayView:1.0.1",
+    { cache: false }
+  );
+  const updateFieldsProvider = useProvider(
+    "easyops.api.cmdb.instance@UpdateListDisplayView:1.0.0",
     { cache: false }
   );
 
@@ -702,6 +750,60 @@ export function LegacyInstanceList(
     );
     return [...frontFields, ...restFields];
   };
+  // istanbul ignore next
+
+  const getFieldsAsync = async () => {
+    let sort = props.sort;
+    let fieldIds = props.presetConfigs?.fieldIds;
+    const sortType = modelData?.attrList?.find((attr) => attr.id === sort)
+      ?.value?.default_type;
+    let asc;
+    if (props.asc === true) {
+      asc = ["series-number", "auto-increment-id"].includes(sortType) ? 2 : 1;
+    } else {
+      asc = ["series-number", "auto-increment-id"].includes(sortType) ? -2 : -1;
+    }
+    let sortFields;
+    if (props.saveFieldsBackend) {
+      sortFields = (
+        (await fieldsProvider.query([props.objectId])) as {
+          sortFields: ISortField[];
+          object_id: string;
+        }
+      ).sortFields;
+    }
+    const extraFixedFieldIds = props.extraFixedFields ?? [];
+    if (isEmpty(fieldIds)) {
+      if (props.saveFieldsBackend) {
+        fieldIds = sortFields.map((item) => item.field);
+        if (isEmpty(sort) || isEmpty(asc)) {
+          const orderField = sortFields.find((item) => item.order !== 0);
+          if (orderField) {
+            sort = orderField.field;
+            asc = orderField.order;
+          }
+        }
+      } else {
+        fieldIds = jsonLocalStorage.getItem(
+          `${modelData.objectId}-selectAttrIds`
+        );
+      }
+    }
+    if (isEmpty(fieldIds)) {
+      fieldIds = computeDefaultFields().fieldIds;
+    }
+    if (!isEmpty(extraFixedFieldIds)) {
+      fieldIds = uniq([...fieldIds, ...extraFixedFieldIds]);
+    }
+    fieldIds = props.extraDisabledField
+      ? uniq([...fieldIds, props.extraDisabledField])
+      : fieldIds;
+    fieldIds = _sortFieldIds(fieldIds);
+    const hideModelData: string[] = modelData.view.hide_columns || [];
+    fieldIds = fieldIds.filter((field) => !hideModelData.includes(field));
+    modelData.isAbstract && fieldIds.push("_object_id");
+    return { fieldIds, sort, asc, sortFields };
+  };
 
   const getFields = () => {
     let fieldIds = props.presetConfigs?.fieldIds;
@@ -732,6 +834,7 @@ export function LegacyInstanceList(
     objectId: props.objectId,
     q: props.q,
     aq: initAqToShow(props.aq, modelData, false),
+    sortFields: [],
     aqToShow: props.aqToShow || initAqToShow(props.aq, modelData),
     instanceSourceQuery: props.instanceSourceQuery,
     asc: props.asc,
@@ -747,7 +850,7 @@ export function LegacyInstanceList(
     loading: false,
     failed: false,
     isAdvancedSearchVisible: false,
-    fieldIds: getFields(),
+    fieldIds: props.saveFieldsBackend ? [] : getFields(),
     presetConfigsQuery: props.presetConfigs?.query,
     autoBreakLine: false,
     appSearchInstanceId: "",
@@ -944,19 +1047,41 @@ export function LegacyInstanceList(
       setState({ inited: true, loading: false });
     }
   };
-
+  // const [fieldIds,setFieldIds] = useState([]);
+  // istanbul ignore next
   useEffect(() => {
-    const fieldIds = getFields();
-    if (
-      // 当 props.objectId 改变时，总是更新 state.fieldIds
-      props.objectId !== state.objectId ||
-      !isEqual(fieldIds, state.fieldIds) ||
-      !isEqual(props.presetConfigs?.query, state.presetConfigsQuery)
-    ) {
-      setState({
-        fieldIds,
-        presetConfigsQuery: props.presetConfigs?.query,
-      });
+    if (props.saveFieldsBackend) {
+      const getFieldIds = async () => {
+        const fieldConfig = await getFieldsAsync();
+        const { fieldIds, sort, asc, sortFields } = fieldConfig;
+        if (
+          // 当 props.objectId 改变时，总是更新 state.fieldIds
+          props.objectId !== state.objectId ||
+          !isEqual(fieldIds, state.fieldIds) ||
+          !isEqual(props.presetConfigs?.query, state.presetConfigsQuery)
+        )
+          setState({
+            fieldIds,
+            presetConfigsQuery: props.presetConfigs?.query,
+            sort,
+            asc: [1, 2].includes(asc) ? true : false,
+            sortFields,
+          });
+      };
+      getFieldIds();
+    } else {
+      const fieldIds = getFields();
+      if (
+        // 当 props.objectId 改变时，总是更新 state.fieldIds
+        props.objectId !== state.objectId ||
+        !isEqual(fieldIds, state.fieldIds) ||
+        !isEqual(props.presetConfigs?.query, state.presetConfigsQuery)
+      ) {
+        setState({
+          fieldIds,
+          presetConfigsQuery: props.presetConfigs?.query,
+        });
+      }
     }
   }, [props.objectId, props.presetConfigs]);
 
@@ -1091,7 +1216,7 @@ export function LegacyInstanceList(
   };
 
   const onSortingChange = useCallback(
-    (info: ReadSortingChangeDetail) => {
+    async (info: ReadSortingChangeDetail, sortFields?: ISortField[]) => {
       let asc: boolean;
       let sort: string;
       if (info.asc === undefined) {
@@ -1105,6 +1230,25 @@ export function LegacyInstanceList(
         asc = info.asc;
         sort = info.sort;
       }
+      // istanbul ignore next
+      if (props.saveFieldsBackend) {
+        try {
+          const oldsortFields = sortFields;
+          const sortType = modelData?.attrList?.find((attr) => attr.id === sort)
+            ?.value?.default_type;
+          const newSortFields = updateSortFields(oldsortFields, info, sortType);
+          setState({
+            sortFields: newSortFields,
+          });
+          await updateFieldsProvider.query([
+            props.objectId,
+            { sortFields: newSortFields },
+          ]);
+        } catch (e) {
+          handleHttpError;
+        }
+      }
+      // istanbul ignore next
       props.onSortingChange?.(info);
     },
     [state.sort]
@@ -1195,18 +1339,41 @@ export function LegacyInstanceList(
   }, [props.presetConfigs, modelData]);
 
   // istanbul ignore next
-  const handleConfirm = ({ fields, isReset }: DisplaySettingsModalData) => {
+  const handleConfirm = async ({
+    fields,
+    isReset,
+  }: DisplaySettingsModalData) => {
     if (isReset) {
       const fieldIds = defaultFields;
       modelData.isAbstract && fieldIds.push("_object_id");
-      setState({ fieldIds });
-      jsonLocalStorage.removeItem(`${modelData.objectId}-selectAttrIds`);
-      props.onFieldsModalConfirm(fieldIds);
+      if (props.saveFieldsBackend) {
+        const sortFields = mergeFields(state.sortFields, fieldIds);
+        await updateFieldsProvider.query([props.objectId, { sortFields }]);
+        setState({ fieldIds, sortFields });
+        props.onFieldsModalConfirm(fieldIds);
+      } else {
+        jsonLocalStorage.removeItem(`${modelData.objectId}-selectAttrIds`);
+        setState({ fieldIds });
+        props.onFieldsModalConfirm(fieldIds);
+      }
     } else {
-      setState({
-        fieldIds: _sortFieldIds(fields),
-      });
-      jsonLocalStorage.setItem(`${modelData.objectId}-selectAttrIds`, fields);
+      if (props.saveFieldsBackend) {
+        try {
+          const sortFields = mergeFields(state.sortFields, fields);
+          await updateFieldsProvider.query([props.objectId, { sortFields }]);
+          setState({
+            fieldIds: _sortFieldIds(fields),
+            sortFields,
+          });
+        } catch (e) {
+          handleHttpError(e);
+        }
+      } else {
+        setState({
+          fieldIds: _sortFieldIds(fields),
+        });
+        jsonLocalStorage.setItem(`${modelData.objectId}-selectAttrIds`, fields);
+      }
       props.onFieldsModalConfirm(fields);
     }
   };
@@ -1638,7 +1805,9 @@ export function LegacyInstanceList(
               onClickItem={props.onClickItem}
               onClickItemV2={props.onClickItemV2}
               onPaginationChange={onPaginationChange}
-              onSortingChange={onSortingChange}
+              onSortingChange={(info) => {
+                onSortingChange(info, state.sortFields);
+              }}
               onSelectionChange={onSelectionChange}
               onInstanceSourceChange={onInstanceSourceChange}
               instanceSourceQuery={state.instanceSourceQuery}
