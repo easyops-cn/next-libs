@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.9.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.8.0...@next-libs/cmdb-instances@7.9.0) (2023-09-14)
+
+
+### Features
+
+* **cmdb:** 实例列表显示列设置存到接口里 ([9765e75](https://github.com/easyops-cn/next-libs/commit/9765e751e8d9f32085c03db1492c7f8ba0b41e06))
+
+
+
+
+
 # [7.8.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.7.1...@next-libs/cmdb-instances@7.8.0) (2023-09-12)
 
 
