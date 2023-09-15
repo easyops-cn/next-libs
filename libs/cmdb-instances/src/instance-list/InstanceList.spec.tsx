@@ -1421,4 +1421,20 @@ it("should work with updateSortFields", () => {
       order: -2,
     },
   ]);
+  expect(
+    updateSortFields(oldFields, { asc: undefined, sort: "status" }, "order")
+  ).toEqual([
+    {
+      field: "name",
+      order: 0,
+    },
+    {
+      field: "ip",
+      order: 0,
+    },
+    {
+      field: "status",
+      order: 0,
+    },
+  ]);
 });
