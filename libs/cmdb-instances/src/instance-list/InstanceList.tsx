@@ -25,6 +25,7 @@ import {
   omit,
   keyBy,
   cloneDeep,
+  isNil,
 } from "lodash";
 import {
   BrickAsComponent,
@@ -228,7 +229,9 @@ export function updateSortFields(
   sortType?: string
 ): ISortField[] {
   const { asc, sort } = sortInfo;
-  const order = ["series-number", "auto-increment-id"].includes(sortType)
+  const order = isNil(asc)
+    ? 0
+    : ["series-number", "auto-increment-id"].includes(sortType)
     ? asc
       ? 2
       : -2
@@ -763,30 +766,21 @@ export function LegacyInstanceList(
     } else {
       asc = ["series-number", "auto-increment-id"].includes(sortType) ? -2 : -1;
     }
-    let sortFields;
-    if (props.saveFieldsBackend) {
-      sortFields = (
-        (await fieldsProvider.query([props.objectId])) as {
-          sortFields: ISortField[];
-          object_id: string;
-        }
-      ).sortFields;
-    }
+    const sortFields = (
+      (await fieldsProvider.query([props.objectId])) as {
+        sortFields: ISortField[];
+        object_id: string;
+      }
+    ).sortFields;
     const extraFixedFieldIds = props.extraFixedFields ?? [];
     if (isEmpty(fieldIds)) {
-      if (props.saveFieldsBackend) {
-        fieldIds = sortFields.map((item) => item.field);
-        if (isEmpty(sort) || isEmpty(asc)) {
-          const orderField = sortFields.find((item) => item.order !== 0);
-          if (orderField) {
-            sort = orderField.field;
-            asc = orderField.order;
-          }
+      fieldIds = sortFields.map((item) => item.field);
+      if (isEmpty(sort) || isEmpty(asc)) {
+        const orderField = sortFields.find((item) => item.order !== 0);
+        if (orderField) {
+          sort = orderField.field;
+          asc = orderField.order;
         }
-      } else {
-        fieldIds = jsonLocalStorage.getItem(
-          `${modelData.objectId}-selectAttrIds`
-        );
       }
     }
     if (isEmpty(fieldIds)) {
@@ -1231,7 +1225,10 @@ export function LegacyInstanceList(
         sort = info.sort;
       }
       // istanbul ignore next
-      if (props.saveFieldsBackend) {
+      if (
+        props.saveFieldsBackend &&
+        sortFields.find((item) => item.field === info.sort)
+      ) {
         try {
           const oldsortFields = sortFields;
           const sortType = modelData?.attrList?.find((attr) => attr.id === sort)
