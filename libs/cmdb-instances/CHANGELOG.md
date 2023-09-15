@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.9.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.9.0...@next-libs/cmdb-instances@7.9.1) (2023-09-15)
+
+
+### Bug Fixes
+
+* **cmdb:** 新增显示列的排序不会影响配置列的排序 ([1aea723](https://github.com/easyops-cn/next-libs/commit/1aea7233a59aa9aae07d1d036149c722fd4372bb))
+
+
+
+
+
 # [7.9.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.8.0...@next-libs/cmdb-instances@7.9.0) (2023-09-14)
 
 
