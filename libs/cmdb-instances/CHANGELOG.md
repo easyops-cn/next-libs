@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.9.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.9.1...@next-libs/cmdb-instances@7.9.2) (2023-09-19)
+
+
+### Bug Fixes
+
+* **cmdb:** 越权查询时隐藏关系的跳转 ([8d247e4](https://github.com/easyops-cn/next-libs/commit/8d247e4962115bb6e19574f77c2d9b5235be3d56))
+
+
+
+
+
 ## [7.9.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.9.0...@next-libs/cmdb-instances@7.9.1) (2023-09-15)
 
 
