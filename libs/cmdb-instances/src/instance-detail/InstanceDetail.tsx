@@ -849,10 +849,22 @@ export class LegacyInstanceDetail extends React.Component<
         ...query,
       },
     };
-    const instanceRelationModalData = await fetchCmdbInstanceSearch(
-      objectId,
-      params
-    );
+    let instanceRelationModalData;
+    if (this.props.ignorePermission) {
+      instanceRelationModalData = (
+        (await http.post(
+          `api/gateway/easyops.api.cmdb.instance.PostSearchV3WithAdmin/v3/object/${objectId}/instance/_search`,
+          {
+            ...params,
+          }
+        )) as any
+      ).data;
+    } else {
+      instanceRelationModalData = await fetchCmdbInstanceSearch(
+        objectId,
+        params
+      );
+    }
 
     this.setState({
       instanceRelationModalData,
