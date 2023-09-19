@@ -313,6 +313,7 @@ export class LegacyInstanceDetail extends React.Component<
                 <InstanceRelationTableShow
                   modelDataMap={this.state.modelDataMap}
                   relationData={currentAttr}
+                  hideRelationLink={this.props.ignorePermission}
                   value={
                     instanceRelationModalData
                       ? instanceRelationModalData?.list || []
@@ -687,6 +688,7 @@ export class LegacyInstanceDetail extends React.Component<
           {attr.__isRelation && !isUrl(attr) && (
             <div>
               <InstanceRelationTableShow
+                hideRelationLink={this.props.ignorePermission}
                 modelDataMap={modelDataMap}
                 relationData={attr}
                 value={instanceData[attr.__id]?.slice(0, 10)}

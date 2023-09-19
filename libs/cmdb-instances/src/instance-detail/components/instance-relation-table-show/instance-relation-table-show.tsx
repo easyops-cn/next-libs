@@ -29,6 +29,7 @@ export interface InstanceRelationTableShowProps {
     pageSize: number,
     relationData: ModifiedModelObjectRelation
   ) => Promise<void>;
+  hideRelationLink?: boolean;
 }
 export function reOrderAttrs(fields: string[], fieldOrder: string[] = []) {
   return sortBy(fields, (field) => {
@@ -119,10 +120,14 @@ export function InstanceRelationTableShow(
   return (
     <div style={{ display: "grid" }}>
       <InstanceListTable
-        detailUrlTemplates={{
-          [relationData.right_object_id]:
-            "/next-cmdb-instance-management/next/#{objectId}/instance/#{instanceId}",
-        }}
+        detailUrlTemplates={
+          props.hideRelationLink
+            ? null
+            : {
+                [relationData.right_object_id]:
+                  "/next-cmdb-instance-management/next/#{objectId}/instance/#{instanceId}",
+              }
+        }
         idObjectMap={oppositeModelDataMap}
         modelData={oppositeModelData}
         instanceListData={{
