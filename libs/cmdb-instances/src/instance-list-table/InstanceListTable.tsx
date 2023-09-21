@@ -55,6 +55,7 @@ import { NS_LIBS_CMDB_INSTANCES, K } from "../i18n/constants";
 import i18n from "i18next";
 import { CmdbUrlLink } from "../cmdb-url-link/CmdbUrlLink";
 import { FloatDisplayBrick } from "../float-display-brick/FloatDisplayBrick";
+import { JsonDisplayBrick } from "../json-display-brick/JsonDisplayBrick";
 // const { Paragraph } = Typography;
 export interface CustomColumn extends ColumnType<Record<string, unknown>> {
   useBrick: UseBrickConf;
@@ -656,8 +657,15 @@ export class LegacyInstanceListTable extends React.Component<
           tempColumns = (v: boolean) => (isNil(v) ? "" : "" + v);
           break;
         case ModelAttributeValueType.JSON:
-          tempColumns = (v: any) =>
-            typeof v === "string" ? v : JSON.stringify(v);
+          tempColumns = (value: any) => {
+            return (
+              <JsonDisplayBrick
+                value={value}
+                name={attribute.name}
+                isNumControlEllipsis={false}
+              />
+            );
+          };
           break;
         case ModelAttributeValueType.STRING:
           tempColumns = (v: string) => v;
