@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.10.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.9.3...@next-libs/cmdb-instances@7.10.0) (2023-09-21)
+
+
+### Features
+
+* **cmdb-instances:** 列表&详情查看JSON数据时提供格式化的数据预览 ([#606](https://github.com/easyops-cn/next-libs/issues/606)) ([91bc41b](https://github.com/easyops-cn/next-libs/commit/91bc41b8a0b7af12d5c31c755d3ee8a9c113445b))
+
+
+
+
+
 ## [7.9.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.9.2...@next-libs/cmdb-instances@7.9.3) (2023-09-19)
 
 
