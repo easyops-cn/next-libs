@@ -62,7 +62,7 @@ export function JsonDisplayBrick(
           mode="json"
           value={JSON.stringify(value, null, 2)}
           maxLines={30}
-          min={10}
+          minLines={10}
           showCopyButton={true}
           readOnly={true}
         />
