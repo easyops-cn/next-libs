@@ -182,6 +182,13 @@ describe("InstanceDetail", () => {
 
     expect(instance.isUrl({})).toBeFalsy();
   });
+  it("tests isJson", () => {
+    expect(
+      instance.isJson({
+        value: { type: "json" },
+      })
+    ).toBeTruthy();
+  });
   it("tests isSpecialDisplayField", () => {
     let data = {
       id: "id",

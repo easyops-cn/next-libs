@@ -82,6 +82,7 @@ import { UseBrickConf } from "@next-core/brick-types";
 import { CmdbUrlLink } from "../cmdb-url-link/CmdbUrlLink";
 import { FloatDisplayBrick } from "../float-display-brick/FloatDisplayBrick";
 import { getQuery } from "../instance-list/InstanceList";
+import { JsonDisplayBrick } from "../json-display-brick/JsonDisplayBrick";
 
 export interface AttrCustomConfigs {
   [attrId: string]: LegacyCustomComponent;
@@ -605,8 +606,15 @@ export class LegacyInstanceDetail extends React.Component<
 
   // istanbul ignore next
   getAttrListNode(attr: any, linkFlag?: boolean): React.ReactNode {
-    const { isStruct, isStructs, isRelation, isMarkdownField, isUrl, isFloat } =
-      this;
+    const {
+      isStruct,
+      isStructs,
+      isRelation,
+      isMarkdownField,
+      isUrl,
+      isFloat,
+      isJson,
+    } = this;
     const { modelDataMap, modelData, instanceData } = this.state;
     let config;
     let isComponentMode = false;
@@ -674,6 +682,13 @@ export class LegacyInstanceDetail extends React.Component<
           }
         >
           {/* istanbul ignore next */}
+          {isJson(attr) && (
+            <JsonDisplayBrick
+              name={attr.name}
+              value={instanceData[attr.id]}
+              isNumControlEllipsis={true}
+            />
+          )}
           {isUrl(attr) && <CmdbUrlLink linkStr={instanceData[attr.id]} />}
           {isFloat(attr) && (
             <FloatDisplayBrick floatValue={instanceData[attr.id]} />
@@ -711,6 +726,7 @@ export class LegacyInstanceDetail extends React.Component<
             isComponentMode &&
             !isUrl(attr) &&
             !isFloat(attr) &&
+            !isJson(attr) &&
             (attrCustomConfig.useBrick ? (
               <BrickAsComponent
                 useBrick={attrCustomConfig.useBrick}
@@ -736,6 +752,7 @@ export class LegacyInstanceDetail extends React.Component<
             !isComponentMode &&
             !isUrl(attr) &&
             !isFloat(attr) &&
+            !isJson(attr) &&
             (linkFlag ? (
               <Link
                 to={`/next-cmdb-instance-management/next/${instanceData._object_id}/instance/${instanceData.instanceId}`}
@@ -1194,6 +1211,9 @@ export class LegacyInstanceDetail extends React.Component<
   }
   isFloat(attr: any) {
     return attr.value?.type === "float";
+  }
+  isJson(attr: any) {
+    return attr.value?.type === "json";
   }
 
   isSpecialDisplayField(attr: any) {
