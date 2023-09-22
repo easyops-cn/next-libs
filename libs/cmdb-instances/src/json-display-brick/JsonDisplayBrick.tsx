@@ -65,6 +65,7 @@ export function JsonDisplayBrick(
           minLines={10}
           showCopyButton={true}
           readOnly={true}
+          printMargin={false}
         />
       </Modal>
     </div>
