@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.10.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.10.1...@next-libs/cmdb-instances@7.10.2) (2023-09-22)
+
+
+### Bug Fixes
+
+* **cmdb-instances:** json预览去掉显示打印边距 ([#608](https://github.com/easyops-cn/next-libs/issues/608)) ([645c606](https://github.com/easyops-cn/next-libs/commit/645c606f708e9efcc13ae816a3b482f4e806f359))
+
+
+
+
+
 ## [7.10.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.10.0...@next-libs/cmdb-instances@7.10.1) (2023-09-22)
 
 
