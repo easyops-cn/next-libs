@@ -38,6 +38,7 @@ import {
 import {
   processAttrValueWithQuote,
   ENABLED_CMDB_ADVANCE_SEARCH_WITH_QUOTE,
+  isAgentStatus,
 } from "../processors";
 
 export enum ConditionType {
@@ -149,6 +150,10 @@ const FieldTypeConditionTypesMap: Record<string, ConditionType[]> = {
   ],
 };
 
+const AgentStatusConditionType: ConditionType[] = [
+  ConditionType.Equal,
+  ConditionType.NotEqual,
+];
 const multiValueSearchOperators = [
   {
     comparisonOperator: ComparisonOperators.Like,
@@ -367,6 +372,7 @@ export function getFieldConditionsAndValues(
   attrId?: string
 ) {
   // let isRelationWithNoExpression = false;
+  // 针对主机的 agent状态，暂不支持 为空/不为空的筛选，将特殊处理
   let expressions = fieldQueryOperatorExpressionsMap[id];
   let expressionsKeys: string[];
   if (!expressions && isRelation) {
@@ -388,36 +394,38 @@ export function getFieldConditionsAndValues(
     expressionsKeys = Object.keys(expressions);
   }
   let currentCondition: Condition;
-  const availableConditions = FieldTypeConditionTypesMap[valueType].map(
-    (conditionType) => {
-      const condition = getCondition(conditionType, valueType);
+  const fieldConditionType =
+    isAgentStatus(objectId, id) && valueType === ModelAttributeValueType.ENUM
+      ? AgentStatusConditionType
+      : FieldTypeConditionTypesMap[valueType];
+  const availableConditions = fieldConditionType.map((conditionType) => {
+    const condition = getCondition(conditionType, valueType);
 
-      if (expressionsKeys?.length) {
-        const operatorsStr: string[] = [];
-        // 由于当 ConditionType.Between ，operations 有两个，当用户只填选一个时，currentCondition会默认第一个选择器。与实际不符
-        const isFixedValueEqual = condition.operations.every((operation) => {
-          operatorsStr.push(operation.operator);
+    if (expressionsKeys?.length) {
+      const operatorsStr: string[] = [];
+      // 由于当 ConditionType.Between ，operations 有两个，当用户只填选一个时，currentCondition会默认第一个选择器。与实际不符
+      const isFixedValueEqual = condition.operations.every((operation) => {
+        operatorsStr.push(operation.operator);
 
-          if (operation.fixedValue !== undefined) {
-            return (
-              operation.fixedValue?.toString() ===
-              expressions[operation?.operator]?.toString()
-            );
-          } else {
-            return true;
-          }
-        });
-        if (
-          isFixedValueEqual &&
-          expressionsKeys.every((operator) => operatorsStr.includes(operator))
-        ) {
-          currentCondition = condition;
+        if (operation.fixedValue !== undefined) {
+          return (
+            operation.fixedValue?.toString() ===
+            expressions[operation?.operator]?.toString()
+          );
+        } else {
+          return true;
         }
+      });
+      if (
+        isFixedValueEqual &&
+        expressionsKeys.every((operator) => operatorsStr.includes(operator))
+      ) {
+        currentCondition = condition;
       }
-
-      return condition;
     }
-  );
+
+    return condition;
+  });
   if (!currentCondition) {
     currentCondition = availableConditions[0];
   }
@@ -641,7 +649,10 @@ export class AdvancedSearchForm extends React.Component<
           ...getFieldConditionsAndValues(
             fieldQueryOperatorExpressionsMap,
             attr.id,
-            attr.value.type as ModelAttributeValueType
+            attr.value.type as ModelAttributeValueType,
+            false,
+            "",
+            this.props.modelData.objectId
           ),
         });
       },
@@ -672,7 +683,8 @@ export class AdvancedSearchForm extends React.Component<
               id,
               type,
               true,
-              relation[`${sides.this}_id` as RelationNameKeys]
+              relation[`${sides.this}_id` as RelationNameKeys],
+              this.props.modelData.objectId
             ),
           });
         });

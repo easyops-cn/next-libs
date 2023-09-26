@@ -535,6 +535,55 @@ describe("AdvancedSearch", () => {
       queryValuesStr: "1000",
       values: [null, "1000"],
     });
+    expect(
+      getFieldConditionsAndValues(
+        {
+          _agentStatus: {
+            $eq: "正常",
+          },
+        },
+        "_agentStatus",
+        "enum" as ModelAttributeValueType,
+        false,
+        "",
+        "HOST"
+      )
+    ).toEqual({
+      availableConditions: [
+        {
+          label: i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.OPERATOR_EQUAL_DEFINE}`),
+          operations: [
+            {
+              operator: "$eq",
+            },
+          ],
+          type: "equal",
+        },
+        {
+          label: i18n.t(
+            `${NS_LIBS_CMDB_INSTANCES}:${K.OPERATOR_NOT_EQUAL_DEFINE}`
+          ),
+          operations: [
+            {
+              operator: "$ne",
+            },
+          ],
+          type: "notEqual",
+        },
+      ],
+      currentCondition: {
+        label: i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.OPERATOR_EQUAL_DEFINE}`),
+        operations: [
+          {
+            operator: "$eq",
+          },
+        ],
+        type: "equal",
+      },
+      disabled: false,
+      queryValuesStr: "正常",
+      values: [["正常"]],
+    });
   });
   it("getCondition should work", () => {
     expect(

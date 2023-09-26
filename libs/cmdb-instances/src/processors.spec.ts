@@ -1,10 +1,9 @@
-import moment from "moment";
-import { Moment } from "moment";
 import {
   ATTRIBUTE_ID_PREFIX,
   computeDateFormat,
   isClusterType,
   processAttrValueWithQuote,
+  isAgentStatus,
 } from "./processors";
 
 describe("processAttrValueWithQuote", () => {
@@ -66,6 +65,21 @@ describe("isClusterType", () => {
     "isCluster(%s,%s) should return %s",
     (objectId, type, expected) => {
       const result = isClusterType(objectId, type);
+      expect(result).toBe(expected);
+    }
+  );
+});
+
+describe("isAgentStatus", () => {
+  const cases: [string, string, boolean][] = [
+    ["HOST", "hostname", false],
+    ["HOST", "_agentStatus", true],
+    ["APP", "name", false],
+  ];
+  it.each(cases)(
+    "isAgentStatus(%s,%s) should return %s",
+    (objectId, type, expected) => {
+      const result = isAgentStatus(objectId, type);
       expect(result).toBe(expected);
     }
   );

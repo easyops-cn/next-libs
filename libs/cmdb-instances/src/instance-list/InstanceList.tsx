@@ -1036,7 +1036,11 @@ export function LegacyInstanceList(
       }
     } catch (e) {
       handleHttpError(e);
-      setState({ failed: true });
+      // 为了接口报错，不把整页面列干掉，去掉 failed: true 这个逻辑
+      setState({
+        idObjectMap: idObjectMap,
+        instanceListData: [] as InstanceApi_PostSearchV3ResponseBody,
+      });
     } finally {
       setState({ inited: true, loading: false });
     }

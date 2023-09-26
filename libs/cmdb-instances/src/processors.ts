@@ -5,6 +5,7 @@ import { Query } from "@next-libs/cmdb-utils";
 
 import { FormControlTypeEnum } from "./model-attribute-form-control/ModelAttributeFormControl";
 import { clusterMap } from "./instance-list-table/constants";
+import { objectListCache } from "./instance-list/constants";
 
 const featureFlags =
   process.env.NODE_ENV === "test"
@@ -87,4 +88,8 @@ export const isClusterType = (objectId: string, type: string): boolean => {
     objectId === "CLUSTER" &&
     (type || "").replace(ATTRIBUTE_ID_PREFIX, "").replace("_", "") === "type"
   );
+};
+
+export const isAgentStatus = (objectId: string, field: string): boolean => {
+  return objectId === "HOST" && field === "_agentStatus";
 };
