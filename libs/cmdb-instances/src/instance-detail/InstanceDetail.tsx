@@ -1092,7 +1092,7 @@ export class LegacyInstanceDetail extends React.Component<
     );
     let attrIdList = flatten(
       basicInfoGroupList.map((v) => {
-        return v.attrList.map((attr: any) => attr.id || attr.__id);
+        return v.attrList.map((attr: any) => attr.id || `${attr.__id}.*`);
       })
     );
 
