@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.10.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.10.3...@next-libs/cmdb-instances@7.10.4) (2023-09-26)
+
+
+### Bug Fixes
+
+* **cmdb-instances:** agent状态筛选条件设置为为空，接口报错 ([#611](https://github.com/easyops-cn/next-libs/issues/611)) ([362d59c](https://github.com/easyops-cn/next-libs/commit/362d59ceb2c3d3e81f7076d7c5ebe9304d7941c6))
+
+
+
+
+
 ## [7.10.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.10.2...@next-libs/cmdb-instances@7.10.3) (2023-09-26)
 
 
