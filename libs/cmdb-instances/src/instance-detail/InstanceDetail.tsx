@@ -31,6 +31,7 @@ import {
   compact,
   flatten,
   uniq,
+  isNil,
 } from "lodash";
 import {
   handleHttpError,
@@ -188,6 +189,7 @@ interface LegacyInstanceDetailState {
   searchValue?: string;
   oppositeObjectId?: string;
   oppositeModelDataMap?: Record<string, Partial<CmdbModels.ModelCmdbObject>>;
+  filterObjectId?: string;
 }
 function getHref(hash: string) {
   const isHash = (hash || "").startsWith("#");
@@ -281,6 +283,7 @@ export class LegacyInstanceDetail extends React.Component<
                     pageSize: 10,
                   },
                   searchValue: "",
+                  filterObjectId: null,
                 });
               }}
               onOk={() => {
@@ -291,6 +294,7 @@ export class LegacyInstanceDetail extends React.Component<
                     pageSize: 10,
                   },
                   searchValue: "",
+                  filterObjectId: null,
                 });
               }}
               destroyOnClose={true}
@@ -320,17 +324,34 @@ export class LegacyInstanceDetail extends React.Component<
                       ? instanceRelationModalData?.list || []
                       : []
                   }
+                  onInstanceSourceChange={(_object_id) => {
+                    if (_object_id !== this.state.filterObjectId) {
+                      this.setState({ filterObjectId: _object_id }, () => {
+                        this.searchInstanceRelationData(
+                          1,
+                          this.state.relationTablePagination.pageSize,
+                          this.state.currentAttr,
+                          undefined
+                        );
+                      });
+                    }
+                  }}
                   relationTablePagination={this.state.relationTablePagination}
                   relationFieldUrlTemplate={this.props.relationFieldUrlTemplate}
                   isPagination={true}
                   total={instanceRelationModalData?.total || 0}
-                  paginationChange={(page, pageSize, relationData) =>
-                    this.searchInstanceRelationData(
-                      page,
-                      pageSize,
-                      relationData
-                    )
-                  }
+                  paginationChange={(page, pageSize, relationData) => {
+                    if (
+                      page !== this.state.relationTablePagination.current ||
+                      pageSize !== this.state.relationTablePagination.pageSize
+                    ) {
+                      this.searchInstanceRelationData(
+                        page,
+                        pageSize,
+                        relationData
+                      );
+                    }
+                  }}
                 />
               </div>
             </Modal>
@@ -708,6 +729,7 @@ export class LegacyInstanceDetail extends React.Component<
                 relationData={attr}
                 value={instanceData[attr.__id]?.slice(0, 10)}
                 relationFieldUrlTemplate={this.props.relationFieldUrlTemplate}
+                filterInstanceSourceDisabled={true}
               />
               {instanceData[attr.__id]?.length >= 10 && (
                 <Button
@@ -833,7 +855,9 @@ export class LegacyInstanceDetail extends React.Component<
           item.startsWith("#") ? item.slice(1) : item
         )
       : uniq(map(modelDataMap[objectId]?.attrList, "id"));
-
+    if (modelDataMap[objectId].isAbstract) {
+      fields.unshift("_object_id");
+    }
     let query = {};
     if (value !== undefined ? value : this.state.searchValue) {
       let oppositeModelDataMap = this.state.oppositeModelDataMap;
@@ -852,6 +876,12 @@ export class LegacyInstanceDetail extends React.Component<
         fields,
         false
       );
+    }
+    if (!isNil(this.state.filterObjectId)) {
+      query = {
+        ...query,
+        _object_id: this.state.filterObjectId,
+      };
     }
 
     const params: InstanceApi_PostSearchV3RequestBody = {
