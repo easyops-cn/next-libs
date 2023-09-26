@@ -28,8 +28,10 @@ export interface InstanceRelationTableShowProps {
     page: number,
     pageSize: number,
     relationData: ModifiedModelObjectRelation
-  ) => Promise<void>;
+  ) => Promise<void> | void;
   hideRelationLink?: boolean;
+  onInstanceSourceChange?: (instanceSource: string) => void;
+  filterInstanceSourceDisabled?: boolean;
 }
 export function reOrderAttrs(fields: string[], fieldOrder: string[] = []) {
   return sortBy(fields, (field) => {
@@ -83,6 +85,7 @@ export function InstanceRelationTableShow(
       handleHttpError(error);
     });
   }, [relationData]);
+  const [instanceSourceQuery, setInstanceSourceQuery] = useState(null);
   const modelData = modelDataMap[relationData.left_object_id];
   let oppositeModelData = modifyModelData(
     modelDataMap[relationData.right_object_id]
@@ -133,6 +136,10 @@ export function InstanceRelationTableShow(
         instanceListData={{
           list: value,
         }}
+        onInstanceSourceChange={(instanceQuery) => {
+          props.onInstanceSourceChange(instanceQuery);
+        }}
+        filterInstanceSourceDisabled={props.filterInstanceSourceDisabled}
         autoBreakLine={true}
         fieldIds={fieldIds}
         selectDisabled={true}
