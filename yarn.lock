@@ -2339,12 +2339,7 @@
   resolved "https://registry.npmjs.org/@next-core/brick-http/-/brick-http-2.7.7.tgz#08058055729d30455d2d2516f01e32c42e6fccb4"
   integrity sha512-YE4ChdgMkN9SO2W5JQGL9KVRTHHKcif+2RY4UyAgGBOhrKrVuwIvW/CoG8PaWV6Lvbv033v8rrOQqbZzijABQw==
 
-"@next-core/brick-icons@^2.30.26":
-  version "2.30.26"
-  resolved "https://registry.npmjs.org/@next-core/brick-icons/-/brick-icons-2.30.26.tgz#01d1b299d597a9d872985d24deb3cd5306b0eab3"
-  integrity sha512-RB5sfi7jUAuEhv9GErd9KOVUPQ19TVNFCy5R8XAvtxEctkLGZlhtAKODKFkF2EVRyYNhO7zg19h+BpSgO/WodA==
-
-"@next-core/brick-icons@^2.31.16":
+"@next-core/brick-icons@^2.30.26", "@next-core/brick-icons@^2.31.16":
   version "2.31.16"
   resolved "https://registry.npmjs.org/@next-core/brick-icons/-/brick-icons-2.31.16.tgz#ea6800bc567128bf15533346a0fe885477e1b021"
   integrity sha512-3U888yCgNMZBG9WEz8JO+yX9L6GOXOFq6ThqtjyTmu/Bie2j+7RAoWu7b38+JMn7yFUFpxyTKzAOQVPDhVEH2A==
@@ -3740,10 +3735,10 @@
   resolved "https://registry.npmjs.org/@types/lolex/-/lolex-5.1.2.tgz#0a0d336f96f70919107399a52877a7dea4a4f284"
   integrity sha512-ZmfpBbjp2obo1dKm2l57tL/yVAVfDryHX/6nsivGQ1Gd86Ylu6GFNdxH69kUmYWmmO+Yedq9i7m0/obFww4XiQ==
 
-"@types/marked@^2.0.4":
-  version "2.0.4"
-  resolved "https://registry.npmjs.org/@types/marked/-/marked-2.0.4.tgz#34a0ea548afe6e0c01095229d47b48b2af650613"
-  integrity sha512-L9VRSe0Id8xbPL99mUo/4aKgD7ZoRwFZqUQScNKHi2pFjF9ZYSMNShUHD6VlMT6J/prQq0T1mxuU25m3R7dFzg==
+"@types/marked@^5.0.2":
+  version "5.0.2"
+  resolved "https://registry.npmjs.org/@types/marked/-/marked-5.0.2.tgz#ca6b0cd7a5c8799c8cd0963df0b3e1a9021dcdfa"
+  integrity sha512-OucS4KMHhFzhz27KxmWg7J+kIYqyqoW5kdIEI319hqARQQUTqhao3M/F+uFnDXD0Rg72iDDZxZNxq5gvctmLlg==
 
 "@types/minimatch@*", "@types/minimatch@^3.0.3":
   version "3.0.3"
