@@ -54,6 +54,7 @@ export interface UserSelectFormItemProps {
   hideInvalidUser?: boolean;
   userGroupQuery?: Record<string, any>;
   userQuery?: Record<string, any>;
+  saveFieldsBackend?: boolean;
 }
 
 interface UserOrUserGroupSelectProps extends FormItemWrapperProps {
@@ -636,6 +637,7 @@ export function LegacyUserSelectFormItem(
               },
             }
           : {})}
+        saveFieldsBackend={props.saveFieldsBackend}
       />
     </div>
   );
