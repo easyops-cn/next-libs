@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.10.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.10.5...@next-libs/cmdb-instances@7.10.6) (2023-10-10)
+
+
+### Bug Fixes
+
+* **cmdb:** CmdbInstancesSelectPanel support saveFieldsBackend ([b00b23d](https://github.com/easyops-cn/next-libs/commit/b00b23dc5977f2bfd7f230705e18486d2423b9b4))
+
+
+
+
+
 ## [7.10.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.10.4...@next-libs/cmdb-instances@7.10.5) (2023-09-26)
 
 
