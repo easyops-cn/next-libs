@@ -45,6 +45,7 @@ export interface BaseCmdbInstancesSelectPanelProps {
   advancedSearchDisabled?: boolean;
   showPagination?: boolean;
   aq?: Query[];
+  saveFieldsBackend?: boolean;
 }
 
 export interface CmdbInstancesSelectPanelPropsWithObjectMap
@@ -54,6 +55,7 @@ export interface CmdbInstancesSelectPanelPropsWithObjectMap
   showSizeChanger?: boolean;
   showCloseBtn?: boolean;
   pageSizeOptions?: string[];
+  saveFieldsBackend?: boolean;
 }
 
 export interface CmdbInstancesSelectPanelPropsWithModelData
@@ -63,6 +65,7 @@ export interface CmdbInstancesSelectPanelPropsWithModelData
   showSizeChanger?: boolean;
   showCloseBtn?: boolean;
   pageSizeOptions?: string[];
+  saveFieldsBackend?: boolean;
 }
 
 export type CmdbInstancesSelectPanelProps =
@@ -264,6 +267,7 @@ export function CmdbInstancesSelectPanel(
         showSizeChanger={props.showSizeChanger}
         pageSizeOptions={props.pageSizeOptions}
         aq={props.aq}
+        saveFieldsBackend={props.saveFieldsBackend}
       />
       <InstanceListModal
         objectMap={modelMap}
@@ -291,6 +295,7 @@ export function CmdbInstancesSelectPanel(
         showSizeChanger={props.showSizeChanger}
         pageSizeOptions={props.pageSizeOptions}
         onCancel={closeAllSelectedInstancesModal}
+        saveFieldsBackend={props.saveFieldsBackend}
       />
       <Spin
         style={{ textAlign: "left", marginBottom: "12px" }}

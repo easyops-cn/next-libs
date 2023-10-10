@@ -45,6 +45,7 @@ export interface CmdbInstancesInputFormItemProps {
   extraFilterBricks?: {
     useBrick: UseBrickConf;
   };
+  saveFieldsBackend?: boolean;
 }
 
 export const LegacyCmdbInstancesInputFormItem = (
@@ -397,6 +398,7 @@ export const LegacyCmdbInstancesInputFormItem = (
         hideSearchConditions={props.hideSearchConditions}
         advancedSearchDisabled={props.advancedSearchDisabled}
         data-testid="select-modal"
+        saveFieldsBackend={props.saveFieldsBackend}
       />
       <div className={style.cmdbInstancesInputFormWrapper}>
         <Input
