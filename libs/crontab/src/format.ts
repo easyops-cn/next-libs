@@ -1,7 +1,8 @@
 import cronstrue from "cronstrue/i18n";
 import { NS_CRONTAB, K } from "./i18n/constants";
 import i18n from "i18next";
-
+import { addResourceBundle } from "./i18n";
+addResourceBundle();
 /**
  * format a crontabTimeObj to human-readable string
  * @param minute {string} the minute part of crontab rule
