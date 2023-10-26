@@ -77,6 +77,7 @@ const locale: Locale = {
   [K.OPERATION]: "操作",
   [K.VIEW_ALL_SELECTED_INSTANCES]: "查看所有选择实例",
   [K.CHOOSE_INSTANCE]: "选择实例",
+  [K.CHOOSE_INSTANCE_NAME]: "选择{{ name }}",
   [K.VIEW_ALL_DATA]: "查看全部{{ count }}条数据",
   [K.FILTER_FROM_CMDB]: "从 CMDB 中筛选{{name}}",
   [K.PAGINATION_TOTAL_TEXT]: "共",

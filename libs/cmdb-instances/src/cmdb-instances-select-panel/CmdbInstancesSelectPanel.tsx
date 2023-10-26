@@ -46,6 +46,7 @@ export interface BaseCmdbInstancesSelectPanelProps {
   showPagination?: boolean;
   aq?: Query[];
   saveFieldsBackend?: boolean;
+  useModelName?: boolean;
 }
 
 export interface CmdbInstancesSelectPanelPropsWithObjectMap
@@ -308,8 +309,11 @@ export function CmdbInstancesSelectPanel(
           }}
           onClick={openAddInstancesModal}
         >
-          {props.addTitle ??
-            i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CHOOSE_INSTANCE}`)}
+          {props.addTitle ?? props.useModelName
+            ? i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CHOOSE_INSTANCE_NAME}`, {
+                name: modelData.name,
+              })
+            : i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CHOOSE_INSTANCE}`)}
         </a>
       </Spin>
       <div className={cs}>
