@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.11.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.10.6...@next-libs/cmdb-instances@7.11.0) (2023-10-27)
+
+
+### Features
+
+* 构建支持使用模型名称展示 ([1dbcfbf](https://github.com/easyops-cn/next-libs/commit/1dbcfbfed13994113864758652a80a749237ea86))
+
+
+
+
+
 ## [7.10.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.10.5...@next-libs/cmdb-instances@7.10.6) (2023-10-10)
 
 
