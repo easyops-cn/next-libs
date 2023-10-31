@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.11.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.11.0...@next-libs/cmdb-instances@7.11.1) (2023-10-31)
+
+
+### Bug Fixes
+
+* 修复自关联模型关系数量显示不对的场景 ([#618](https://github.com/easyops-cn/next-libs/issues/618)) ([fcb0b18](https://github.com/easyops-cn/next-libs/commit/fcb0b180f84c3d07132beceb5c6799df29c43632))
+
+
+
+
+
 # [7.11.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.10.6...@next-libs/cmdb-instances@7.11.0) (2023-10-27)
 
 
