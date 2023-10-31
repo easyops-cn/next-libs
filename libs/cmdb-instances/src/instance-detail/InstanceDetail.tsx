@@ -845,6 +845,13 @@ export class LegacyInstanceDetail extends React.Component<
       oppositeId = right_id;
     }
 
+    // 自关联的场景
+    if (right_object_id === left_object_id && attr.__id) {
+      objectId = left_object_id;
+      queryId = attr.__id === left_id ? right_id : left_id;
+      oppositeId = attr.__id === left_id ? left_id : right_id;
+    }
+
     const defaultRelationFields = get(modelData, [
       "view",
       "relation_default_attr",
@@ -1093,6 +1100,22 @@ export class LegacyInstanceDetail extends React.Component<
     }
     basicInfoGroup.active = !basicInfoGroup.active;
   }
+  // 用于处理模型关系自关联的字段场景
+  // istanbul ignore next
+  isSelfRelation(
+    relation: any,
+    hideModelData: string[],
+    objectId: string
+  ): boolean {
+    const { left_object_id, right_object_id, left_id, right_id } = relation;
+    if (left_object_id === right_object_id) {
+      return false;
+    }
+    return (
+      (hideModelData.includes(left_id) && left_object_id === objectId) ||
+      (hideModelData.includes(right_id) && right_object_id === objectId)
+    );
+  }
 
   // istanbul ignore next
   getInstanceDetailData(
@@ -1107,13 +1130,7 @@ export class LegacyInstanceDetail extends React.Component<
         (item) => !hideModelData.includes(item.id)
       ),
       relation_list: modelData.relation_list.filter(
-        (item) =>
-          !(
-            (hideModelData.includes(item.left_id) &&
-              item.left_object_id === props.objectId) ||
-            (hideModelData.includes(item.right_id) &&
-              item.right_object_id === props.objectId)
-          )
+        (item) => !this.isSelfRelation(item, hideModelData, props.objectId)
       ),
     };
     const basicInfoGroupList = this.formatBasicInfoGroupList(
@@ -1207,9 +1224,21 @@ export class LegacyInstanceDetail extends React.Component<
         props,
         modelDataMap
       );
+      // 用于过滤自关联场景隐藏一端模型的情况
+      const _modelData = modifyModelData(filterModelData);
+      const hideModelData = _modelData.view.hide_columns || [];
+
       this.setState({
         modelDataMap,
-        modelData: modifyModelData(filterModelData),
+        modelData: {
+          ..._modelData,
+          relation_list: _modelData.relation_list.filter(
+            (item: any) => !hideModelData.includes(item.__id)
+          ),
+          __fieldList: _modelData.__fieldList.filter(
+            (item: any) => !hideModelData.includes(item.__id)
+          ),
+        },
         instanceData,
         loaded: true,
         basicInfoGroupListShow: [],
