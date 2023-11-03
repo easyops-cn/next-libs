@@ -2,9 +2,12 @@ name: CI
 
 on:
   push:
-    branches: [ master ]
+    branches:
+    - master
+    - legacy/*
   pull_request:
-    branches: [ master ]
+    - master
+    - legacy/*
 
 jobs:
   build:
@@ -28,15 +31,37 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         registry-url: 'https://registry.npmjs.org'
-        cache: yarn
 
-    - name: Cache nx cache
+    - name: Get yarn cache directory path
+      id: yarn-cache-dir-path
+      run: echo "::set-output name=dir::$(yarn cache dir)"
+
+    - name: Cache for yarn (master)
+      uses: actions/cache@v3
+      with:
+        path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+        key: node-cache-${{ runner.os }}-yarn-master-${{ hashFiles('yarn.lock') }}
+        restore-keys: |
+          node-cache-${{ runner.os }}-yarn-master-
+      if: (github.event_name == 'pull_request' && github.base_ref == 'master') || (github.event_name == 'push' && github.ref_name == 'master')
+
+    - name: Cache for yarn (legacy)
+      uses: actions/cache@v3
+      with:
+        path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+        key: node-cache-${{ runner.os }}-yarn-legacy-${{ hashFiles('yarn.lock') }}
+        restore-keys: |
+          node-cache-${{ runner.os }}-yarn-legacy-
+      if: (github.event_name == 'pull_request' && github.base_ref != 'master') || (github.event_name == 'push' && github.ref_name != 'master')
+
+    - name: Cache nx cache (master)
       uses: actions/cache@v3
       with:
         path: .cache
         key: ${{ runner.os }}-nx-${{ hashFiles('**/package.json') }}
         restore-keys: |
-          ${{ runner.os }}-nx-
+          ${{ runner.os }}-nx
+      if: (github.event_name == 'pull_request' && github.base_ref == 'master') || (github.event_name == 'push' && github.ref_name == 'master')
 
     # Fix `yarn install --frozen-lockfile` not working in monorepo.
     # https://github.com/yarnpkg/yarn/issues/5840#issuecomment-468782288
