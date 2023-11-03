@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.12.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.11.1...@next-libs/cmdb-instances@7.12.0) (2023-11-03)
+
+
+### Features
+
+* **cmdb-instances:** 默认显示列，需显示关系字段 ([a47d517](https://github.com/easyops-cn/next-libs/commit/a47d5173a5ee5eabef0c235a99fba5d07b12f517))
+
+
+
+
+
 ## [7.11.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.11.0...@next-libs/cmdb-instances@7.11.1) (2023-10-31)
 
 
