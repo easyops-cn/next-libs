@@ -1104,7 +1104,7 @@ describe("InstanceList", () => {
   });
 
   it("instanceListTable should be hidden", async () => {
-    expect(InstanceApi_postSearchV3).toBeCalledTimes(15);
+    expect(InstanceApi_postSearchV3).toBeCalledTimes(16);
     const wrapper = mount(
       <LegacyInstanceList
         objectId="HOST"
@@ -1116,7 +1116,7 @@ describe("InstanceList", () => {
     await jest.runAllTimers();
     wrapper.update();
     expect(wrapper.find(InstanceListTable)).toEqual({});
-    expect(InstanceApi_postSearchV3).toBeCalledTimes(15);
+    expect(InstanceApi_postSearchV3).toBeCalledTimes(16);
   });
 
   it("should work with enableSearchByApp", async () => {
@@ -1159,7 +1159,7 @@ describe("InstanceList", () => {
     await (global as any).flushPromises();
     wrapper.update();
     expect(CmdbObjectApi_getObjectRef).not.toHaveBeenCalled();
-    expect(InstanceApi_postSearchV3).toBeCalledTimes(21);
+    expect(InstanceApi_postSearchV3).toBeCalledTimes(22);
     expect(providerQuery).toBeCalledTimes(0);
   });
   it("should work with extraFixedFieldIds", async () => {
@@ -1172,7 +1172,7 @@ describe("InstanceList", () => {
     );
     await (global as any).flushPromises();
     wrapper.update();
-    expect(InstanceApi_postSearchV3).toBeCalledTimes(22);
+    expect(InstanceApi_postSearchV3).toBeCalledTimes(23);
     expect(InstanceApi_postSearchV3).lastCalledWith("HOST", {
       fields: ["mmmm", "_ts", "instanceId", "_ts"],
       ignore_missing_field_error: true,
@@ -1182,13 +1182,17 @@ describe("InstanceList", () => {
     wrapper.setProps({ presetConfigs: undefined });
     await (global as any).flushPromises();
     wrapper.update();
-    expect(InstanceApi_postSearchV3).toBeCalledTimes(23);
+    expect(InstanceApi_postSearchV3).toBeCalledTimes(24);
     expect(InstanceApi_postSearchV3).lastCalledWith("HOST", {
       fields: [
+        "ip",
+        "_agentStatus",
+        "cpu",
+        "cpuHz",
+        "cpuModel",
+        "cpus",
+        "diskSize",
         "creator",
-        "ctime",
-        "modifier",
-        "mtime",
         "_ts",
         "instanceId",
         "_ts",
@@ -1210,11 +1214,21 @@ describe("InstanceList", () => {
     );
     await (global as any).flushPromises();
     wrapper.update();
-    expect(InstanceApi_postSearchV3).toBeCalledTimes(23);
+    expect(InstanceApi_postSearchV3).toBeCalledTimes(24);
     expect(providerQuery).toBeCalledWith([
       "HOST",
       {
-        fields: ["creator", "ctime", "modifier", "mtime", "instanceId"],
+        fields: [
+          "ip",
+          "_agentStatus",
+          "cpu",
+          "cpuHz",
+          "cpuModel",
+          "cpus",
+          "diskSize",
+          "creator",
+          "instanceId",
+        ],
         ignore_missing_field_error: true,
         page: 1,
         page_size: 10,
@@ -1235,7 +1249,7 @@ describe("InstanceList", () => {
     );
     await (global as any).flushPromises();
     wrapper.update();
-    expect(InstanceApi_postSearchV3).toBeCalledTimes(23);
+    expect(InstanceApi_postSearchV3).toBeCalledTimes(24);
     expect(providerQuery).toBeCalledTimes(2);
   });
   it("should work with extraFilterBricks property", async () => {
