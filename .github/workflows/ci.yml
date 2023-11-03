@@ -4,10 +4,10 @@ on:
   push:
     branches:
     - master
-    - legacy/*
+    - "legacy/*"
   pull_request:
     - master
-    - legacy/*
+    - "legacy/*"
 
 jobs:
   build:
