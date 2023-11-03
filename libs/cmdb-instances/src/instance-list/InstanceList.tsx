@@ -713,18 +713,18 @@ export function LegacyInstanceList(
   const computeDefaultFields = (
     { inModal } = { inModal: false }
   ): { fieldIds: string[] } => {
-    // 原来有隐藏逻辑，针对 APP、HOST、USER、USER_GROUP模型，默认字段特殊处理了，现产品要求干掉，统一取8个默认字段，也不区分是否是内置模型
+    // 针对 显示字段，默认优先拿排序的字段，再去拿属性字段
     const settings: any = inModal
       ? CMDB_MODAL_FIELDS_SETTINGS
       : CMDB_RESOURCE_FIELDS_SETTINGS;
-    const ignoredFields: string[] =
-      settings.ignoredFields[modelData.objectId] || [];
-    let fieldIds: string[] = difference(
-      uniq(map(modelData.attrList, "id")),
-      ignoredFields
-    ).slice(0, 8);
-    const hideModelData: string[] = modelData.view.hide_columns || [];
-    fieldIds = fieldIds.filter((field) => !hideModelData.includes(field));
+    const ignoredFields: string[] = (
+      settings.ignoredFields[modelData.objectId] || []
+    ).concat(modelData.view.hide_columns || []);
+    const sortFields = modelData.view.attr_order || [];
+    const allFields = [
+      ...new Set([...sortFields, ...map(modelData.attrList, "id")]),
+    ];
+    const fieldIds: string[] = difference(allFields, ignoredFields).slice(0, 8);
     return { fieldIds };
   };
 
