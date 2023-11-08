@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.12.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.12.0...@next-libs/cmdb-instances@7.12.1) (2023-11-08)
+
+
+### Bug Fixes
+
+* 浮点型属性值的负数显示的是正数 ([2b1744f](https://github.com/easyops-cn/next-libs/commit/2b1744fca394d963ac1ada8fffe3fb063834aa04))
+
+
+
+
+
 # [7.12.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.11.1...@next-libs/cmdb-instances@7.12.0) (2023-11-03)
 
 
