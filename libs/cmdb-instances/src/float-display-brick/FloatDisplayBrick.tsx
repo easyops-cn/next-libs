@@ -5,7 +5,7 @@ interface FloatDisplayBrickProps {
   floatValue: number;
 }
 export const floatMaxLengthMatch = (value: string): string => {
-  const pattern = /[0-9]+(.[0-9]{1,4})?/;
+  const pattern = /^-?\d+(.\d{1,4})?/;
   return value.match(pattern)?.[0];
 };
 export function FloatDisplayBrick(

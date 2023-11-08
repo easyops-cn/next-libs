@@ -7,7 +7,10 @@ describe("FloatDisplayBrick", () => {
   it.each([
     ["1.02", "1.02"],
     ["2.333322311", "2.3333"],
+    ["1234567.1234567", "1234567.1234"],
     ["2.33466", "2.3346"],
+    ["-2.33466", "-2.3346"],
+    ["-123456.1234567", "-123456.1234"],
     ["", undefined],
   ])("regex should work ", (value, expected) => {
     const result = floatMaxLengthMatch(value);
