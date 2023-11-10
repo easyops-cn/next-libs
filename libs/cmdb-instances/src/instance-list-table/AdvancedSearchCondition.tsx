@@ -197,7 +197,7 @@ export function AdvancedSearchCondition(
   return (
     <div className={styles.advancedSearchWrapper}>
       {!props?.hideDynamicSearch && (
-        <div style={{ marginBottom: "18px" }}>
+        <div style={{ marginBottom: "var(--page-padding-top)" }}>
           <DynamicSearch
             fields={state.fields}
             onSearch={onAdvancedSearch}

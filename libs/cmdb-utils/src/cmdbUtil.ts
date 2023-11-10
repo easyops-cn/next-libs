@@ -319,12 +319,22 @@ export function getFixedStyle(
   rootNodeRect: Record<string, any>
 ): Record<string, any> {
   if (rootNodeRect) {
-    const fixedStyle = {
-      position: "fixed",
-      left: rootNodeRect.left,
-      bottom: 0,
-      width: rootNodeRect?.width,
-    };
+    const fixedStyle =
+      document.querySelector("html")?.getAttribute("data-ui") === "v8-2"
+        ? {
+            position: "fixed",
+            left: 0,
+            bottom: 0,
+            width: "100%",
+            paddingLeft: rootNodeRect.left,
+            paddingTop: 0,
+          }
+        : {
+            position: "fixed",
+            left: rootNodeRect.left,
+            bottom: 0,
+            width: rootNodeRect?.width,
+          };
     return fixedStyle;
   }
   return {};

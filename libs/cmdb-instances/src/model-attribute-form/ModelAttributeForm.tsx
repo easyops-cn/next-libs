@@ -114,10 +114,16 @@ export class ModelAttributeForm extends Component<
     cancelType: "default" as ButtonType,
   };
 
-  formItemProps: FormItemProps = {
-    labelCol: { span: 6 },
-    wrapperCol: { span: 18 },
-  };
+  formItemProps: FormItemProps =
+    document.querySelector("html")?.getAttribute("data-ui") === "v8-2"
+      ? {
+          labelCol: { span: 24 },
+          wrapperCol: { span: 24 },
+        }
+      : {
+          labelCol: { span: 6 },
+          wrapperCol: { span: 18 },
+        };
 
   getFeildTag(field: any) {
     return (
@@ -219,7 +225,10 @@ export class ModelAttributeForm extends Component<
       !!Object.keys(this.state.fixedStyle).length
     ) {
       this.setState({ fixedStyle: {} });
-    } else if (heightDifferenceBetweenCardRectAndViewPort > 0) {
+    } else if (
+      heightDifferenceBetweenCardRectAndViewPort > 0 ||
+      document.querySelector("html")?.getAttribute("data-ui") === "v8-2"
+    ) {
       this.resizeUpdate();
     }
   };
@@ -753,8 +762,6 @@ export class ModelAttributeForm extends Component<
         style={{
           ...this.state.fixedStyle,
           borderTop: "none",
-          paddingTop: "16px",
-          paddingLeft: "20px",
         }}
       >
         <div className="ant-collapse-content-box">
