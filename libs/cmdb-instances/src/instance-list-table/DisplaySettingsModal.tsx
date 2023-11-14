@@ -66,7 +66,7 @@ export function DisplaySettingsModal(
           </div>
           <div style={{ marginLeft: "auto" }}>
             <Button
-              type="default"
+              type="text"
               onClick={handleCancel}
               style={{ marginRight: 10 }}
               data-testid="cancel-button"

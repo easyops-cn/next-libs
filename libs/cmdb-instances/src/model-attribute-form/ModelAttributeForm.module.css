@@ -42,10 +42,6 @@ html[data-ui="v8-2"] .collapseStyle {
   &:global(.ant-collapse) {
     :global(.ant-collapse-content) {
       padding-top: var(--page-padding-top);
-      :global(.ant-collapse-content-box) {
-        padding-left: 0px;
-        padding-right: 0px;
-      }
       :global(.ant-legacy-form-item) {
         padding-bottom: 0px;
       }
