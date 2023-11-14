@@ -327,7 +327,6 @@ export function getFixedStyle(
             bottom: 0,
             width: "100%",
             paddingLeft: rootNodeRect.left,
-            paddingTop: 0,
           }
         : {
             position: "fixed",
