@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.4.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@3.4.2...@next-libs/cmdb-utils@3.4.3) (2023-11-14)
+
+
+### Bug Fixes
+
+* 适配UI8.2 ([ac6c434](https://github.com/easyops-cn/next-libs/commit/ac6c434fcbf865ed06e1b73ea0f520bbb85f0e77))
+
+
+
+
+
 ## [3.4.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@3.4.1...@next-libs/cmdb-utils@3.4.2) (2023-11-10)
 
 
