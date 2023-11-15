@@ -111,7 +111,7 @@ export class ModelAttributeForm extends Component<
   private cardRectResize: ResizeObserver;
   static defaultProps = {
     showCancelButton: true,
-    cancelType: "default" as ButtonType,
+    cancelType: "text" as ButtonType,
   };
 
   formItemProps: FormItemProps =
@@ -760,12 +760,12 @@ export class ModelAttributeForm extends Component<
       <div
         className={styles.generalFormFooter}
         style={{
-          ...this.state.fixedStyle,
+          paddingLeft: this.props.cardRect?.getBoundingClientRect()?.left,
           borderTop: "none",
         }}
       >
         <div className="ant-collapse-content-box">
-          <Form.Item {...this.formItemProps} label=" " colon={false}>
+          <Form.Item {...this.formItemProps} label="" colon={false}>
             {allowContinueCreate && (
               <Checkbox onChange={this.handleCheckContinueCreating}>
                 {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CREATE_ANOTHER}`)}
