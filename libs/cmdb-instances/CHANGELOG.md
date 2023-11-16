@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.12.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.12.5...@next-libs/cmdb-instances@7.12.6) (2023-11-16)
+
+
+### Bug Fixes
+
+* 适配UI8.2 ([a4a56f0](https://github.com/easyops-cn/next-libs/commit/a4a56f0895078c33173e4e4b769c67ee53d93e20))
+
+
+
+
+
 ## [7.12.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.12.4...@next-libs/cmdb-instances@7.12.5) (2023-11-16)
 
 
