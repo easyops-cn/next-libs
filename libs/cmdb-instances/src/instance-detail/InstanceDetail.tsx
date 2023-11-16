@@ -190,6 +190,7 @@ interface LegacyInstanceDetailState {
   oppositeObjectId?: string;
   oppositeModelDataMap?: Record<string, Partial<CmdbModels.ModelCmdbObject>>;
   filterObjectId?: string;
+  scrollContainer?: HTMLElement;
 }
 function getHref(hash: string) {
   const isHash = (hash || "").startsWith("#");
@@ -245,6 +246,7 @@ export class LegacyInstanceDetail extends React.Component<
         pageSize: 10,
       },
       searchValue: "",
+      scrollContainer: null,
     };
   }
 
@@ -506,23 +508,47 @@ export class LegacyInstanceDetail extends React.Component<
   }
   // istanbul ignore next (Temporarily ignored)
   scrollToTarget() {
+    const firstGroup = document.getElementById("basic-group-0");
+    if (!firstGroup) {
+      return;
+    }
+    const pageView = document.querySelector("eo-page-view");
+    const pageContainer =
+      pageView?.contains(firstGroup) &&
+      (pageView.shadowRoot?.querySelector(".content") as HTMLElement);
+    const scrollContainer =
+      pageContainer && pageContainer.scrollHeight > pageContainer.clientHeight
+        ? pageContainer
+        : null;
     const target = document.getElementById(location.hash.slice(1));
-    // istanbul ignore next (Temporarily ignored)
     const initOffset =
-      (document.getElementById("basic-group-0")?.offsetTop ?? 0) +
-        this.props.anchorOffset ?? 0 + 30;
-    this.setState({ initOffset });
+      firstGroup.offsetTop +
+      (this.props.anchorOffset ?? 0) +
+      (scrollContainer ? -54 : 0);
+    this.setState({
+      initOffset,
+      scrollContainer,
+    });
     if (target) {
       setTimeout(() => {
-        window.scrollTo({
-          top: target.offsetTop + initOffset + 65,
-        });
+        if (!scrollContainer) {
+          window.scrollTo({
+            top: target.offsetTop + initOffset + 65,
+          });
+        } else {
+          target.scrollIntoView({
+            behavior: "auto",
+            block: "start",
+            inline: "start",
+          });
+        }
       });
     }
   }
 
   getCardContent(): React.ReactNode {
-    const { basicInfoGroupList, basicInfoGroupListShow } = this.state;
+    const { basicInfoGroupList, basicInfoGroupListShow, scrollContainer } =
+      this.state;
     const { useAnchor } = this.props;
     const { Link } = Anchor;
     return (
@@ -533,6 +559,7 @@ export class LegacyInstanceDetail extends React.Component<
               affix={true}
               offsetTop={this.state.initOffset}
               className={style.anchorWrapper}
+              getContainer={() => scrollContainer ?? window}
             >
               <div className={style.anchorContainer}>
                 <div className={style.anchorLinkContainer}>
