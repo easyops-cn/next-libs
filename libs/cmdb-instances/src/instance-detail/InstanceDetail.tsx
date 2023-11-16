@@ -2,7 +2,7 @@ import React from "react";
 import {
   DownOutlined,
   InfoCircleFilled,
-  InfoCircleOutlined,
+  ExclamationCircleFilled,
 } from "@ant-design/icons";
 import {
   Card,
@@ -709,8 +709,11 @@ export class LegacyInstanceDetail extends React.Component<
           {attr.__isRelation ? attr.right_description : attr.name}
           {attr.description && attr.description !== "" && (
             <Tooltip title={attr.description}>
-              <InfoCircleOutlined
-                style={{ padding: "0 2px", color: "var(--theme-blue-color)" }}
+              <ExclamationCircleFilled
+                style={{
+                  padding: "0 2px",
+                  color: "var(--color-secondary-text)",
+                }}
               />
             </Tooltip>
           )}
