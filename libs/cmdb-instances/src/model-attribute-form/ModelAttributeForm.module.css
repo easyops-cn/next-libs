@@ -56,6 +56,11 @@ html[data-ui="v8-2"] .collapseStyle {
     }
   }
 }
+html[data-ui="v8-2"] {
+  :global(.anticon):hover {
+    color: var(--color-fill-bg-container-5) !important;
+  }
+}
 .generalFormFooter {
   width: 100%;
   box-shadow: var(--slide-up-shadow);
@@ -66,7 +71,8 @@ html[data-ui="v8-2"] .collapseStyle {
   box-sizing: border-box;
   background: var(--antd-card-footer-bg);
   z-index: 998;
-  padding: 20px 20px 0;
+  padding: 15px 20px 14px;
+  height: 62px;
   /* z-index为999时，会和侧边栏的z-index冲突，侧边栏的z-index也是999 */
 }
 .submitAndContinueBtn {
