@@ -13,6 +13,19 @@
   padding: 0 12px;
   cursor: pointer;
 }
+html[data-ui="v8-2"] {
+  .detailCard .basicInfoGroupLabel {
+    &:first-child {
+      margin-left: 0px;
+    }
+  }
+  :global(.anticon):hover {
+    color: var(--color-fill-bg-container-5) !important;
+  }
+  .anchorWrapper {
+    padding: 3px 0 5px;
+  }
+}
 .detailCard .basicInfoGroupLabel:hover {
   text-decoration: none;
 }
