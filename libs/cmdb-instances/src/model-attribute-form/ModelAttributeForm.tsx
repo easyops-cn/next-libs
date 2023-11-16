@@ -2,7 +2,7 @@ import React, { Component, FormEvent } from "react";
 import { Form } from "@ant-design/compatible";
 import { Button, Checkbox, Collapse, Tooltip } from "antd";
 import { ButtonType } from "antd/lib/button";
-import { InfoCircleOutlined } from "@ant-design/icons";
+import { ExclamationCircleFilled } from "@ant-design/icons";
 import {
   CmdbModels,
   InstanceApi_GetDefaultValueTemplateResponseBody,
@@ -651,10 +651,10 @@ export class ModelAttributeForm extends Component<
                         <span>{attribute.name}</span>
                         {attribute.description && attribute.description !== "" && (
                           <Tooltip title={attribute.description}>
-                            <InfoCircleOutlined
+                            <ExclamationCircleFilled
                               style={{
                                 padding: "0 2px",
-                                color: "var(--theme-blue-color)",
+                                color: "var(--color-secondary-text)",
                               }}
                             />
                           </Tooltip>
