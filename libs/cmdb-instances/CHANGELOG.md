@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.12.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.12.4...@next-libs/cmdb-instances@7.12.5) (2023-11-16)
+
+
+### Bug Fixes
+
+* **instance-detail:** anchor compatible with new page view ([595c0f0](https://github.com/easyops-cn/next-libs/commit/595c0f0b676314b2ec631d177862c4a01c3ca27f))
+
+
+
+
+
 ## [7.12.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.12.3...@next-libs/cmdb-instances@7.12.4) (2023-11-15)
 
 
