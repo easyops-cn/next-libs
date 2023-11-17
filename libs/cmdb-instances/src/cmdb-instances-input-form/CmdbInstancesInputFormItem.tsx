@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
-import React, { forwardRef, useState, useEffect, useMemo } from "react";
+import React, { forwardRef, useState, useEffect, useMemo, useRef } from "react";
 import { Input, Button, Modal } from "antd";
-import { groupBy, map } from "lodash";
+import { groupBy, isEqual, map } from "lodash";
 
 import { InstanceListModal } from "../instance-list-modal/InstanceListModal";
 import { modifyModelData, Query } from "@next-libs/cmdb-utils";
@@ -94,6 +94,7 @@ export const LegacyCmdbInstancesInputFormItem = (
   const [inputValue, setInputValue] = useState("");
   const [inputFocused, setInputFocused] = useState(false);
   const [previewVisible, setPreviewVisible] = useState(false);
+  const valueRef = useRef<string[]>([]);
   const selectedInstancesQuery = useMemo<Query[]>(
     () =>
       props.previewEnabled && selectedInstances.valid.length > 0
@@ -190,11 +191,16 @@ export const LegacyCmdbInstancesInputFormItem = (
   };
 
   useEffect(() => {
-    updateSelected(props.value);
+    if (!isEqual(valueRef.current, props.value)) {
+      valueRef.current = props.value;
+      updateSelected(props.value);
+    }
   }, [props.value]);
 
   const handleChange = (instances: any[]): void => {
-    props.onChange?.(instances.map((instance) => instance.instanceId));
+    const instanceIds = instances.map((instance) => instance.instanceId);
+    valueRef.current = instanceIds;
+    props.onChange?.(instanceIds);
     props.onChangeV2?.(instances);
   };
 
