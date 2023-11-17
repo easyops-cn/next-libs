@@ -114,21 +114,31 @@ describe("HostInstanceSelect", () => {
   it("should work when input field value", async () => {
     const handleChange = jest.fn();
     const handleChangeV2 = jest.fn();
-    const { getByTestId } = render(
-      <CmdbInstancesInputFormItem
-        {...{
-          objectMap,
-          objectId: "HOST",
-          fieldId: "ip",
-          onChange: handleChange,
-          onChangeV2: handleChangeV2,
-        }}
-      />
+    const props = {
+      objectMap,
+      objectId: "HOST",
+      fieldId: "ip",
+      onChange: handleChange,
+      onChangeV2: handleChangeV2,
+    };
+    const { getByTestId, rerender } = render(
+      <CmdbInstancesInputFormItem {...props} />
     );
 
     const fieldValueInput = getByTestId("field-value-input");
     const fieldValueInputElement =
       fieldValueInput.parentElement.querySelector("input");
+    fireEvent.change(fieldValueInputElement, {
+      target: { value: instance.ip },
+    });
+    fireEvent.blur(fieldValueInputElement);
+
+    await (global as any).flushPromises();
+
+    expect(handleChange).toBeCalledWith([instance.instanceId]);
+    expect(handleChangeV2).toBeCalledWith([instance]);
+
+    rerender(<CmdbInstancesInputFormItem {...props} checkDisabled />);
     fireEvent.change(fieldValueInputElement, {
       target: { value: instance.ip },
     });
