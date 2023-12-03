@@ -2339,12 +2339,7 @@
   resolved "https://registry.npmjs.org/@next-core/brick-http/-/brick-http-2.7.7.tgz#08058055729d30455d2d2516f01e32c42e6fccb4"
   integrity sha512-YE4ChdgMkN9SO2W5JQGL9KVRTHHKcif+2RY4UyAgGBOhrKrVuwIvW/CoG8PaWV6Lvbv033v8rrOQqbZzijABQw==
 
-"@next-core/brick-icons@^2.30.26":
-  version "2.30.26"
-  resolved "https://registry.npmjs.org/@next-core/brick-icons/-/brick-icons-2.30.26.tgz#01d1b299d597a9d872985d24deb3cd5306b0eab3"
-  integrity sha512-RB5sfi7jUAuEhv9GErd9KOVUPQ19TVNFCy5R8XAvtxEctkLGZlhtAKODKFkF2EVRyYNhO7zg19h+BpSgO/WodA==
-
-"@next-core/brick-icons@^2.31.16":
+"@next-core/brick-icons@^2.30.26", "@next-core/brick-icons@^2.31.16":
   version "2.31.16"
   resolved "https://registry.npmjs.org/@next-core/brick-icons/-/brick-icons-2.31.16.tgz#ea6800bc567128bf15533346a0fe885477e1b021"
   integrity sha512-3U888yCgNMZBG9WEz8JO+yX9L6GOXOFq6ThqtjyTmu/Bie2j+7RAoWu7b38+JMn7yFUFpxyTKzAOQVPDhVEH2A==
@@ -3626,10 +3621,10 @@
   resolved "https://registry.npmjs.org/@types/events/-/events-3.0.0.tgz#2862f3f58a9a7f7c3e78d79f130dd4d71c25c2a7"
   integrity sha1-KGLz9Yqaf3w+eNefEw3U1xwlwqc=
 
-"@types/file-saver@^2.0.1", "@types/file-saver@^2.0.3":
-  version "2.0.3"
-  resolved "https://registry.npmjs.org/@types/file-saver/-/file-saver-2.0.3.tgz#b734c4f5a04d20615eaed3dc106e2ab321082009"
-  integrity sha512-MBIou8pd/41jkff7s97B47bc9+p0BszqqDJsO51yDm49uUxeKzrfuNl5fSLC6BpLEWKA8zlwyqALVmXrFwoBHQ==
+"@types/file-saver@^2.0.7":
+  version "2.0.7"
+  resolved "https://registry.npmjs.org/@types/file-saver/-/file-saver-2.0.7.tgz#8dbb2f24bdc7486c54aa854eb414940bbd056f7d"
+  integrity sha512-dNKVfHd/jk0SkR/exKGj2ggkB45MAkzvWCaqLUUgkyjITkGNzH8H+yUwr+BLJUBjZOe9w8X3wgmXhZDRg1ED6A==
 
 "@types/fs-extra@^8.0.1":
   version "8.1.2"
