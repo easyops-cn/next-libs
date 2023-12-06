@@ -70,6 +70,7 @@ describe("InstanceListTable", () => {
   it("should init with passed data", () => {
     const page = 2;
     const instanceListData = getInstanceListData(3, page, 2);
+    const mockOnColumnsChange = jest.fn();
     const { container } = render(
       <InstanceListTable
         fieldIds={[
@@ -86,6 +87,7 @@ describe("InstanceListTable", () => {
         sort={ipAttr.id}
         asc={true}
         relationLinkDisabled={true}
+        onColumnsChange={mockOnColumnsChange}
       />
     );
     expect(
@@ -100,6 +102,32 @@ describe("InstanceListTable", () => {
         ipAttr.name
       ).parentElement.getElementsByClassName("ant-table-column-sorter-up")[0]
     ).toHaveClass("active");
+    expect(
+      mockOnColumnsChange.mock.calls[
+        mockOnColumnsChange.mock.calls.length - 1
+      ][0]
+    ).toEqual(
+      expect.arrayContaining([
+        {
+          dataIndex: "ip",
+        },
+        {
+          dataIndex: "cpu",
+        },
+        {
+          dataIndex: "status",
+        },
+        {
+          dataIndex: "hostname",
+        },
+        {
+          dataIndex: "owner",
+        },
+        {
+          dataIndex: "_deviceList_CLUSTER",
+        },
+      ])
+    );
   });
 
   it("should call function that is passed to the onClickItem property when click link", () => {
@@ -467,6 +495,7 @@ describe("InstanceListTable", () => {
       [extraFieldKey]: `extra field value ${index}`,
     }));
 
+    const mockOnColumnsChange = jest.fn();
     const { getByTestId } = render(
       <InstanceListTable
         detailUrlTemplates={detailUrlTemplates}
@@ -480,6 +509,7 @@ describe("InstanceListTable", () => {
             useBrick: { brick },
           },
         ]}
+        onColumnsChange={mockOnColumnsChange}
       />
     );
 
@@ -491,11 +521,90 @@ describe("InstanceListTable", () => {
       rowData: instance,
       index,
     });
+
+    expect(
+      mockOnColumnsChange.mock.calls[
+        mockOnColumnsChange.mock.calls.length - 1
+      ][0]
+    ).toEqual(
+      expect.arrayContaining([
+        {
+          dataIndex: "ip",
+        },
+        {
+          dataIndex: "_agentStatus",
+        },
+        {
+          dataIndex: "cpu",
+        },
+        {
+          dataIndex: "cpuHz",
+        },
+        {
+          dataIndex: "cpuModel",
+        },
+        {
+          dataIndex: "cpus",
+        },
+        {
+          dataIndex: "diskSize",
+        },
+        {
+          dataIndex: "eth",
+        },
+        {
+          dataIndex: "memSize",
+        },
+        {
+          dataIndex: "memo",
+        },
+        {
+          dataIndex: "status",
+        },
+        {
+          dataIndex: "hostname",
+        },
+        {
+          dataIndex: "owner",
+        },
+        {
+          dataIndex: "_deviceList_CLUSTER",
+        },
+        {
+          dataIndex: "osArchitecture",
+        },
+        {
+          dataIndex: "osDistro",
+        },
+        {
+          dataIndex: "osRelease",
+        },
+        {
+          dataIndex: "osSystem",
+        },
+        {
+          dataIndex: "osVersion",
+        },
+        {
+          dataIndex: "tag",
+        },
+        {
+          dataIndex: "json",
+        },
+        {
+          dataIndex: "bool",
+        },
+        {
+          dataIndex: "extraField",
+        },
+      ])
+    );
   });
 
   it("should work when model's isAbstract is true", async () => {
     const instanceListData = getInstanceListData();
     const onInstanceSourceChange = jest.fn();
+    const mockOnColumnsChange = jest.fn();
     const wrapper = mount(
       <InstanceListTable
         detailUrlTemplates={detailUrlTemplates}
@@ -504,6 +613,7 @@ describe("InstanceListTable", () => {
         instanceListData={instanceListData}
         onInstanceSourceChange={onInstanceSourceChange}
         filterInstanceSourceDisabled={true}
+        onColumnsChange={mockOnColumnsChange}
       />
     );
     expect(mockCmdbObjectApi_getIdMapName).toBeCalled();
@@ -512,6 +622,84 @@ describe("InstanceListTable", () => {
     );
     expect(wrapper.find(Table).prop("columns")[0]).not.toHaveProperty(
       "filters"
+    );
+
+    expect(
+      mockOnColumnsChange.mock.calls[
+        mockOnColumnsChange.mock.calls.length - 1
+      ][0]
+    ).toEqual(
+      expect.arrayContaining([
+        {
+          dataIndex: "_object_id",
+        },
+        {
+          dataIndex: "ip",
+        },
+        {
+          dataIndex: "_agentStatus",
+        },
+        {
+          dataIndex: "cpu",
+        },
+        {
+          dataIndex: "cpuHz",
+        },
+        {
+          dataIndex: "cpuModel",
+        },
+        {
+          dataIndex: "cpus",
+        },
+        {
+          dataIndex: "diskSize",
+        },
+        {
+          dataIndex: "eth",
+        },
+        {
+          dataIndex: "memSize",
+        },
+        {
+          dataIndex: "memo",
+        },
+        {
+          dataIndex: "status",
+        },
+        {
+          dataIndex: "hostname",
+        },
+        {
+          dataIndex: "owner",
+        },
+        {
+          dataIndex: "_deviceList_CLUSTER",
+        },
+        {
+          dataIndex: "osArchitecture",
+        },
+        {
+          dataIndex: "osDistro",
+        },
+        {
+          dataIndex: "osRelease",
+        },
+        {
+          dataIndex: "osSystem",
+        },
+        {
+          dataIndex: "osVersion",
+        },
+        {
+          dataIndex: "tag",
+        },
+        {
+          dataIndex: "json",
+        },
+        {
+          dataIndex: "bool",
+        },
+      ])
     );
 
     await act(async () => {
@@ -538,6 +726,81 @@ describe("InstanceListTable", () => {
       {} as any
     );
     expect(onInstanceSourceChange).lastCalledWith("APP");
+    expect(
+      mockOnColumnsChange.mock.calls[
+        mockOnColumnsChange.mock.calls.length - 1
+      ][0]
+    ).toEqual([
+      {
+        dataIndex: "_object_id",
+      },
+      {
+        dataIndex: "ip",
+      },
+      {
+        dataIndex: "_agentStatus",
+      },
+      {
+        dataIndex: "cpu",
+      },
+      {
+        dataIndex: "cpuHz",
+      },
+      {
+        dataIndex: "cpuModel",
+      },
+      {
+        dataIndex: "cpus",
+      },
+      {
+        dataIndex: "diskSize",
+      },
+      {
+        dataIndex: "eth",
+      },
+      {
+        dataIndex: "memSize",
+      },
+      {
+        dataIndex: "memo",
+      },
+      {
+        dataIndex: "status",
+      },
+      {
+        dataIndex: "hostname",
+      },
+      {
+        dataIndex: "owner",
+      },
+      {
+        dataIndex: "_deviceList_CLUSTER",
+      },
+      {
+        dataIndex: "osArchitecture",
+      },
+      {
+        dataIndex: "osDistro",
+      },
+      {
+        dataIndex: "osRelease",
+      },
+      {
+        dataIndex: "osSystem",
+      },
+      {
+        dataIndex: "osVersion",
+      },
+      {
+        dataIndex: "tag",
+      },
+      {
+        dataIndex: "json",
+      },
+      {
+        dataIndex: "bool",
+      },
+    ]);
   });
   it("should work rowSelection's rowSelectionType is radio", () => {
     const instanceListData = getInstanceListData();
