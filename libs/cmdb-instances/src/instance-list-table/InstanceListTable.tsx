@@ -141,6 +141,7 @@ export interface InstanceListTableProps extends WithTranslation {
   showTooltip?: boolean;
   fixedHeader?: boolean;
   rowSelectionType?: "checkbox" | "radio";
+  onColumnsChange?(columns: ColumnType<{ dataIndex: string }>[]): void;
 }
 
 interface InstanceListTableState {
@@ -205,10 +206,18 @@ export class LegacyInstanceListTable extends React.Component<
         </span>
       ),
     };
+
+    const columns = this.getMergedColumns(
+      sortedColumns,
+      this.props.extraColumns
+    );
+    this.props.onColumnsChange?.(
+      columns.map(({ dataIndex }) => ({ dataIndex }))
+    );
     this.state = {
       list: this.props.instanceListData.list,
       instanceSourceQuery: this.props.instanceSourceQuery,
-      columns: this.getMergedColumns(sortedColumns, this.props.extraColumns),
+      columns: columns,
       pagination: {
         ...defaultPagination,
         total: this.props.instanceListData.total,
@@ -387,10 +396,17 @@ export class LegacyInstanceListTable extends React.Component<
         parentObjectId: this.props.modelData.objectId,
       } as any);
     }
-    const columns = this.getChangeColumns(this.props.fieldIds);
+    const changeColumns = this.getChangeColumns(this.props.fieldIds);
+    const columns = this.getMergedColumns(
+      changeColumns,
+      this.props.extraColumns
+    );
     this.setState({
-      columns: this.getMergedColumns(columns, this.props.extraColumns),
+      columns,
     });
+    this.props.onColumnsChange?.(
+      columns.map(({ dataIndex }) => ({ dataIndex }))
+    );
   }
 
   UNSAFE_componentWillReceiveProps(nextProps: InstanceListTableProps): void {
@@ -398,10 +414,19 @@ export class LegacyInstanceListTable extends React.Component<
       ...this.inheritanceModelIdNameMap,
       ...nextProps.inheritanceModelIdNameMap,
     };
-    const columns = this.getChangeColumns(nextProps.fieldIds);
+    const changeColumns = this.getChangeColumns(nextProps.fieldIds);
+    const columns = this.getMergedColumns(
+      changeColumns,
+      nextProps.extraColumns
+    );
+
     this.setState({
-      columns: this.getMergedColumns(columns, nextProps.extraColumns),
+      columns,
     });
+
+    this.props.onColumnsChange?.(
+      columns.map(({ dataIndex }) => ({ dataIndex }))
+    );
   }
   handleClickItem(
     e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
@@ -1050,6 +1075,9 @@ export class LegacyInstanceListTable extends React.Component<
         columns.push(this.setColumnSortOrder(column))
       );
       this.setState({ columns });
+      this.props.onColumnsChange?.(
+        columns.map(({ dataIndex }) => ({ dataIndex }))
+      );
     }
     if (this.props.instanceSourceQuery !== prevProps.instanceSourceQuery) {
       this.setState({
