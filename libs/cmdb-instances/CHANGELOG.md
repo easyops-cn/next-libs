@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.13.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.12.8...@next-libs/cmdb-instances@7.13.0) (2023-12-06)
+
+
+### Features
+
+* cmdb-instances.instance-list构件支持获取表头顺序 ([55b835c](https://github.com/easyops-cn/next-libs/commit/55b835c28ca116593add5bc14e8a0d8c743ca92b))
+
+
+
+
+
 ## [7.12.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.12.7...@next-libs/cmdb-instances@7.12.8) (2023-11-17)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
