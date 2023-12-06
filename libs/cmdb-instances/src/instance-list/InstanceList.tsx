@@ -92,6 +92,7 @@ import { IconButton } from "./IconButton";
 import { changeQueryWithCustomRules } from "../processors";
 import { DisplaySettingsModalData } from "../instance-list-table/DisplaySettingsModal";
 import FilterInstanceSource from "./FilterInstanceSource";
+import { ColumnType } from "antd/lib/table";
 
 export interface instanceArchiveRequestBody {
   // 搜索内容
@@ -581,6 +582,7 @@ interface InstanceListProps {
   objectIdQuery?: string;
   ignorePermission?: boolean;
   saveFieldsBackend?: boolean;
+  onColumnsChange?: (columns: ColumnType<{ dataIndex: string }>[]) => void;
 }
 
 interface InstanceListState {
@@ -1825,6 +1827,7 @@ export function LegacyInstanceList(
               separatorUsedInRelationData={props.separatorUsedInRelationData}
               showTooltip={showTooltip}
               rowSelectionType={props.rowSelectionType}
+              onColumnsChange={props.onColumnsChange}
             />
           )}
         </React.Fragment>
