@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.13.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.13.1...@next-libs/cmdb-instances@7.13.2) (2023-12-08)
+
+
+### Bug Fixes
+
+* 修改实例结构体属性按钮样式 ([179e174](https://github.com/easyops-cn/next-libs/commit/179e174b7be212bccd32631b8cb593d2a5c57b73))
+
+
+
+
+
 ## [7.13.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.13.0...@next-libs/cmdb-instances@7.13.1) (2023-12-06)
 
 
