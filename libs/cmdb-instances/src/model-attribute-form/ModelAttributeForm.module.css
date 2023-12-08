@@ -49,9 +49,6 @@ html[data-ui="v8-2"] .collapseStyle {
         :global(.ant-input-number) {
           min-width: 260px;
         }
-        :global(.ant-btn) {
-          padding-left: 0px;
-        }
       }
     }
   }
