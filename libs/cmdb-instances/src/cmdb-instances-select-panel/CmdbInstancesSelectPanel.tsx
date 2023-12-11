@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import classnames from "classnames";
 
 import {
@@ -18,6 +18,7 @@ import i18n from "i18next";
 import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
 import { keyBy, isEqual, isNil, isObject, isEmpty } from "lodash";
 import { Spin } from "antd";
+import { useProvider } from "@next-core/brick-kit";
 
 export interface BaseCmdbInstancesSelectPanelProps {
   objectId: string;
@@ -47,6 +48,8 @@ export interface BaseCmdbInstancesSelectPanelProps {
   aq?: Query[];
   saveFieldsBackend?: boolean;
   useModelName?: boolean;
+  useExternalCmdbApi?: boolean;
+  externalSourceId?: string;
 }
 
 export interface CmdbInstancesSelectPanelPropsWithObjectMap
@@ -85,6 +88,16 @@ export function CmdbInstancesSelectPanel(
   props: CmdbInstancesSelectPanelProps,
   ref: any
 ): React.ReactElement {
+  // 当useExternalCmdbApi为true， 外部接口才调用
+  const externalPostSearchV3 = useProvider(
+    "easyops.api.cmdb.topo_center@ProxyPostSearchV3:1.0.1",
+    { cache: false }
+  );
+  const externalGetObjectRef = useProvider(
+    "easyops.api.cmdb.topo_center@ProxyGetObjectRef:1.0.0",
+    { cache: false }
+  );
+
   let modelData: Partial<CmdbModels.ModelCmdbObject>;
   if (isCmdbInstancesSelectPanelPropsWithObjectMap(props)) {
     modelData = props.objectMap[props.objectId];
@@ -125,27 +138,38 @@ export function CmdbInstancesSelectPanel(
   });
   const [modelMap, setModelMap] = useState({});
 
+  const externalRequestParams = useMemo(() => {
+    return {
+      objectId: props.objectId,
+      sourceId: props.externalSourceId,
+    };
+  }, [props.objectId, props.externalSourceId]);
+
   const fetchInstances = async (instanceIdList: string[]): Promise<any[]> => {
     let instances: any[] = [];
+    const instancesParams = {
+      query: {
+        instanceId: {
+          $in: instanceIdList,
+        },
+      },
+      page: 1,
+      page_size: instanceIdList.length,
+      // todo(ice): selected confirm with instances
+      fields: props.fields?.length
+        ? props.fields.reduce((prev, next) => ({ ...prev, [next]: true }), {})
+        : { "*": true },
+      ...(props.useExternalCmdbApi ? externalRequestParams : {}),
+    };
     if (instanceIdList?.length) {
-      instances = (
-        await InstanceApi_postSearch(props.objectId, {
-          query: {
-            instanceId: {
-              $in: instanceIdList,
-            },
-          },
-          page: 1,
-          page_size: instanceIdList.length,
-          // todo(ice): selected confirm with instances
-          fields: props.fields?.length
-            ? props.fields.reduce(
-                (prev, next) => ({ ...prev, [next]: true }),
-                {}
-              )
-            : { "*": true },
-        })
-      ).list;
+      // istanbul ignore if
+      if (props.useExternalCmdbApi) {
+        instances = (await externalPostSearchV3.query([instancesParams])).list;
+      } else {
+        instances = (
+          await InstanceApi_postSearch(props.objectId, instancesParams)
+        ).list;
+      }
     }
 
     return instances;
@@ -156,19 +180,30 @@ export function CmdbInstancesSelectPanel(
   useEffect(() => {
     const getModelMap = async (): Promise<void> => {
       let modelMap: Record<string, Partial<CmdbModels.ModelCmdbObject>>;
-
+      let objectRef;
       if (isCmdbInstancesSelectPanelPropsWithObjectMap(props)) {
         modelMap = props.objectMap;
       } else {
-        const { data } = await CmdbObjectApi_getObjectRef({
-          ref_object: props.objectId,
-        });
-        modelMap = keyBy(data, "objectId");
+        if (props.useExternalCmdbApi) {
+          objectRef = await externalGetObjectRef.query([
+            {
+              ref_object: props.objectId,
+              ...externalRequestParams,
+            },
+          ]);
+        } else {
+          objectRef = (
+            (await CmdbObjectApi_getObjectRef({
+              ref_object: props.objectId,
+            })) as any
+          )?.data;
+        }
+        modelMap = keyBy(objectRef, "objectId");
       }
       setModelMap(modelMap);
     };
     getModelMap();
-  }, [props.objectId]);
+  }, [props.objectId, props.useExternalCmdbApi, props.externalSourceId]);
 
   useEffect(() => {
     let instances = [];
@@ -269,6 +304,8 @@ export function CmdbInstancesSelectPanel(
         pageSizeOptions={props.pageSizeOptions}
         aq={props.aq}
         saveFieldsBackend={props.saveFieldsBackend}
+        useExternalCmdbApi={props.useExternalCmdbApi}
+        externalSourceId={props.externalSourceId}
       />
       <InstanceListModal
         objectMap={modelMap}
@@ -297,6 +334,8 @@ export function CmdbInstancesSelectPanel(
         pageSizeOptions={props.pageSizeOptions}
         onCancel={closeAllSelectedInstancesModal}
         saveFieldsBackend={props.saveFieldsBackend}
+        useExternalCmdbApi={props.useExternalCmdbApi}
+        externalSourceId={props.externalSourceId}
       />
       <Spin
         style={{ textAlign: "left", marginBottom: "12px" }}
@@ -339,7 +378,9 @@ export function CmdbInstancesSelectPanel(
           }
           //
           isOperate={props.isOperate}
-          handleDeleteFunction={(v) => {
+          useExternalCmdbApi={props.useExternalCmdbApi}
+          externalSourceId={props.externalSourceId}
+          handleDeleteFunction={(v: any) => {
             setSelectedInstanceList(v);
             setPartialSelectedInstances(v);
             props.onChange?.(v);

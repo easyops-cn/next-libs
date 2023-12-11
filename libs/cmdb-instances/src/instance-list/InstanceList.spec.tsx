@@ -1043,7 +1043,7 @@ describe("InstanceList", () => {
     });
   });
 
-  it("show work and dataSource", async () => {
+  it("show work with dataSource and useExternalCmdbApi is true", async () => {
     const { findByText } = render(
       <InstanceList
         objectId="HOST"
@@ -1056,6 +1056,8 @@ describe("InstanceList", () => {
         enableSearchByApp={true}
         moreButtonsDisabled={true}
         showHiddenInfoDisabled
+        useExternalCmdbApi={true}
+        externalSourceId="60ac7f3682115"
         dataSource={{
           list: [
             {

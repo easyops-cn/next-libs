@@ -15,6 +15,7 @@ import {
   ReadPaginationChangeDetail,
   UseBrickConf,
 } from "@next-core/brick-types";
+import { useProvider } from "@next-core/brick-kit";
 addResourceBundle();
 export interface InstanceListModalProps {
   objectMap: { [key: string]: Partial<CmdbModels.ModelCmdbObject> };
@@ -71,27 +72,44 @@ export interface InstanceListModalProps {
   objectIdQuery?: string;
   ignorePermission?: boolean;
   saveFieldsBackend?: boolean;
+  useExternalCmdbApi?: boolean;
+  externalSourceId?: string;
 }
 
 export function InstanceListModal(
   props: InstanceListModalProps
 ): React.ReactElement {
   const [selectedInstanceListTemp, setSelectedInstanceListTemp] = useState([]);
-
+  const externalPostSearchV3 = useProvider(
+    "easyops.api.cmdb.topo_center@ProxyPostSearchV3:1.0.1",
+    { cache: false }
+  );
   // istanbul ignore next
   const handleOk = async () => {
     if (
       selectedInstanceListTemp.length &&
       selectedInstanceListTemp.every((i) => typeof i === "string")
     ) {
-      const resp = await InstanceApi_postSearch(props.objectId, {
+      let resp: any;
+      const requestParams = {
         query: {
           instanceId: {
             $in: selectedInstanceListTemp,
           },
         },
         page_size: selectedInstanceListTemp.length,
-      });
+      };
+      if (props.useExternalCmdbApi) {
+        resp = await externalPostSearchV3.query([
+          {
+            ...requestParams,
+            objectId: props.objectId,
+            sourceId: props.externalSourceId,
+          },
+        ]);
+      } else {
+        resp = await InstanceApi_postSearch(props.objectId, requestParams);
+      }
       props.onSelected?.(selectedInstanceListTemp);
       props.onSelectedV2?.(resp.list);
       return;
@@ -260,6 +278,8 @@ export function InstanceListModal(
           onFilterObjectIdChange={props.onFilterObjectIdChange}
           ignorePermission={props.ignorePermission}
           saveFieldsBackend={props.saveFieldsBackend}
+          useExternalCmdbApi={props.useExternalCmdbApi}
+          externalSourceId={props.externalSourceId}
         />
       </div>
     </Modal>

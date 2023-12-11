@@ -136,7 +136,7 @@ export function InstanceRelationTableShow(
         instanceListData={{
           list: value,
         }}
-        onInstanceSourceChange={(instanceQuery) => {
+        onInstanceSourceChange={(instanceQuery: any) => {
           props.onInstanceSourceChange(instanceQuery);
         }}
         filterInstanceSourceDisabled={props.filterInstanceSourceDisabled}
@@ -151,7 +151,7 @@ export function InstanceRelationTableShow(
                 total: total,
                 pageSizeOptions: ["10", "20", "50"],
                 ...relationTablePagination,
-                onChange: (page, pageSize) => {
+                onChange: (page: number, pageSize: number) => {
                   paginationChange(page, pageSize, relationData);
                 },
                 showTotal: (totals: number) => (
