@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.4.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@3.4.3...@next-libs/cmdb-utils@3.4.4) (2023-12-12)
+
+
+### Bug Fixes
+
+* 资源变更历史，变更类型 列表页与详情页要保持一致 ([5ff80d5](https://github.com/easyops-cn/next-libs/commit/5ff80d56275748a78775990b31c8165e16e98ed3))
+
+
+
+
+
 ## [3.4.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@3.4.2...@next-libs/cmdb-utils@3.4.3) (2023-11-14)
 
 
