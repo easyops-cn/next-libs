@@ -583,6 +583,8 @@ interface InstanceListProps {
   ignorePermission?: boolean;
   saveFieldsBackend?: boolean;
   onColumnsChange?: (columns: ColumnType<{ dataIndex: string }>[]) => void;
+  useExternalCmdbApi?: boolean;
+  externalSourceId?: string;
 }
 
 interface InstanceListState {
@@ -669,6 +671,24 @@ export function LegacyInstanceList(
     { cache: false }
   );
 
+  // 用于外部调用的接口, 当useExternalCmdbApi为true，才调用这些接口
+  const externalPostSearchV3 = useProvider(
+    "easyops.api.cmdb.topo_center@ProxyPostSearchV3:1.0.1",
+    { cache: false }
+  );
+  const externalGetIdMapName = useProvider(
+    "easyops.api.cmdb.topo_center@ProxyGetIdMapName:1.0.1",
+    { cache: false }
+  );
+  const externalFieldsProvider = useProvider(
+    "easyops.api.cmdb.topo_center@ProxyGetListDisplayView:1.0.0",
+    { cache: false }
+  );
+  const externalUpdateFieldsProvider = useProvider(
+    "easyops.api.cmdb.topo_center@ProxyUpdateListDisplayView:1.0.0",
+    { cache: false }
+  );
+
   const { modelData, idObjectMap } = useMemo(() => {
     let modelData: Partial<CmdbModels.ModelCmdbObject>;
     const idObjectMap: Record<string, Partial<CmdbModels.ModelCmdbObject>> = {};
@@ -695,9 +715,18 @@ export function LegacyInstanceList(
   ): Promise<void> => {
     let idNameMap = {};
     if (modelData.isAbstract) {
-      idNameMap = await CmdbObjectApi_getIdMapName({
-        parentObjectId: modelData.objectId,
-      } as any);
+      if (props.useExternalCmdbApi) {
+        idNameMap = await externalGetIdMapName.query([
+          {
+            parentObjectId: modelData.objectId,
+            sourceId: props.externalSourceId,
+          },
+        ]);
+      } else {
+        idNameMap = await CmdbObjectApi_getIdMapName({
+          parentObjectId: modelData.objectId,
+        } as any);
+      }
       props.showFilterInstanceSource &&
         jsonLocalStorage.setItem(`instances-sources-objectId-name-map`, {
           parentObjectId: modelData.objectId,
@@ -762,18 +791,29 @@ export function LegacyInstanceList(
     let fieldIds = props.presetConfigs?.fieldIds;
     const sortType = modelData?.attrList?.find((attr) => attr.id === sort)
       ?.value?.default_type;
-    let asc;
+    let asc, sortFields;
     if (props.asc === true) {
       asc = ["series-number", "auto-increment-id"].includes(sortType) ? 2 : 1;
     } else {
       asc = ["series-number", "auto-increment-id"].includes(sortType) ? -2 : -1;
     }
-    const sortFields = (
-      (await fieldsProvider.query([props.objectId])) as {
-        sortFields: ISortField[];
-        object_id: string;
-      }
-    ).sortFields;
+    if (props.useExternalCmdbApi) {
+      sortFields = (
+        (await externalFieldsProvider.query([
+          { object_id: props.objectId, sourceId: props.externalSourceId },
+        ])) as {
+          sortFields: ISortField[];
+          object_id: string;
+        }
+      ).sortFields;
+    } else {
+      sortFields = (
+        (await fieldsProvider.query([props.objectId])) as {
+          sortFields: ISortField[];
+          object_id: string;
+        }
+      ).sortFields;
+    }
     const extraFixedFieldIds = props.extraFixedFields ?? [];
     if (isEmpty(fieldIds)) {
       fieldIds = sortFields.map((item) => item.field);
@@ -867,6 +907,14 @@ export function LegacyInstanceList(
   );
   const cache = useRef(new Map<string, InstanceApi_PostSearchV3ResponseBody>());
   const isFirstRunRef = useRef(true);
+
+  // useExternalCmdbApi为true，外部接口参数
+  const externalRequestParams = useMemo(() => {
+    return {
+      objectId: props.objectId,
+      sourceId: props.externalSourceId,
+    };
+  }, [props.objectId, props.externalSourceId]);
 
   const getInstanceListData = async (
     sort: string,
@@ -1001,8 +1049,16 @@ export function LegacyInstanceList(
     }
     const promise = props.onSearchExecute?.(data, v3Data);
     // useAutoDiscoveryProvider=true, 使用useProvider的接口
+    // useExternalCmdbApi= true 使用外部接口externalPostSearchV3
     return promise
       ? promise
+      : props.useExternalCmdbApi
+      ? externalPostSearchV3.query([
+          {
+            ...v3Data,
+            ...externalRequestParams,
+          },
+        ])
       : props.useAutoDiscoveryProvider
       ? listProvider.query([props.objectId, v3Data])
       : props.ignorePermission
@@ -1170,9 +1226,18 @@ export function LegacyInstanceList(
               },
             },
             page_size: ids.length,
+            page: 1,
           };
-          // useAutoDiscoveryProvider=true, 使用useProvider的接口，虽然这里列表用不到选择功能，但还是加上保持统一
-          if (props.useAutoDiscoveryProvider) {
+          // useExternalCmdbApi为true，使用外部接口PostSearchV3
+          if (props.useExternalCmdbApi) {
+            resp = await externalPostSearchV3.query([
+              {
+                ...params,
+                ...externalRequestParams,
+              },
+            ]);
+          } else if (props.useAutoDiscoveryProvider) {
+            // useAutoDiscoveryProvider=true, 使用useProvider的接口，虽然这里列表用不到选择功能，但还是加上保持统一
             resp = await listProvider.query([
               props.objectId,
               Object.assign(params, props.extraParams),
@@ -1243,10 +1308,20 @@ export function LegacyInstanceList(
           setState({
             sortFields: newSortFields,
           });
-          await updateFieldsProvider.query([
-            props.objectId,
-            { sortFields: newSortFields },
-          ]);
+          if (props.useExternalCmdbApi) {
+            await externalUpdateFieldsProvider.query([
+              {
+                object_id: props.objectId,
+                sourceId: props.externalSourceId,
+                sortFields: newSortFields,
+              },
+            ]);
+          } else {
+            await updateFieldsProvider.query([
+              props.objectId,
+              { sortFields: newSortFields },
+            ]);
+          }
         } catch (e) {
           handleHttpError;
         }
@@ -1286,12 +1361,21 @@ export function LegacyInstanceList(
   // istanbul ignore next (state is not updated)
   const toggleSearchMode = React.useCallback(async () => {
     if (!state.searchByApp) {
-      const appListResp = await InstanceApi_postSearchV3("APP", {
+      let appListResp: any;
+      const params: any = {
         fields: ["clusters", "instanceId", "name"],
         sort: [{ key: "name", order: 1 }],
         page: 1,
         page_size: 3000,
-      });
+        ...(props.useExternalCmdbApi ? externalRequestParams : {}),
+      };
+      // useExternalCmdbApi为true，使用外部接口PostSearchV3
+      if (props.useExternalCmdbApi) {
+        appListResp = await externalPostSearchV3.query([params]);
+      } else {
+        appListResp = await InstanceApi_postSearchV3("APP", params);
+      }
+
       setState({
         appSearchInstanceId: appListResp.list?.[0].instanceId || "",
         appList: appListResp.list,
@@ -1351,7 +1435,17 @@ export function LegacyInstanceList(
       modelData.isAbstract && fieldIds.push("_object_id");
       if (props.saveFieldsBackend) {
         const sortFields = mergeFields(state.sortFields, fieldIds);
-        await updateFieldsProvider.query([props.objectId, { sortFields }]);
+        if (props.useExternalCmdbApi) {
+          await externalUpdateFieldsProvider.query([
+            {
+              object_id: props.objectId,
+              sourceId: props.externalSourceId,
+              sortFields,
+            },
+          ]);
+        } else {
+          await updateFieldsProvider.query([props.objectId, { sortFields }]);
+        }
         setState({ fieldIds, sortFields });
         props.onFieldsModalConfirm(fieldIds);
       } else {
@@ -1363,7 +1457,17 @@ export function LegacyInstanceList(
       if (props.saveFieldsBackend) {
         try {
           const sortFields = mergeFields(state.sortFields, fields);
-          await updateFieldsProvider.query([props.objectId, { sortFields }]);
+          if (props.useExternalCmdbApi) {
+            await externalUpdateFieldsProvider.query([
+              {
+                object_id: props.objectId,
+                sourceId: props.externalSourceId,
+                sortFields,
+              },
+            ]);
+          } else {
+            await updateFieldsProvider.query([props.objectId, { sortFields }]);
+          }
           setState({
             fieldIds: _sortFieldIds(fields),
             sortFields,
@@ -1411,6 +1515,7 @@ export function LegacyInstanceList(
           },
         };
         v3Data.page_size = props.selectedRowKeys.length;
+        v3Data.page = 1;
 
         if (state.relatedToMe) {
           v3Data.only_my_instance = data.only_my_instance = state.relatedToMe;
@@ -1418,8 +1523,16 @@ export function LegacyInstanceList(
         if (props.extraParams) {
           Object.assign(v3Data, props.extraParams);
         }
-        let resp;
-        if (props.useAutoDiscoveryProvider) {
+        let resp: any;
+        // useExternalCmdbApi为true，使用外部接口PostSearchV3
+        if (props.useExternalCmdbApi) {
+          resp = await externalPostSearchV3.query([
+            {
+              ...v3Data,
+              ...externalRequestParams,
+            },
+          ]);
+        } else if (props.useAutoDiscoveryProvider) {
           resp = await listProvider.query([props.objectId, v3Data]);
         } else {
           resp = await InstanceApi_postSearchV3(props.objectId, v3Data);
@@ -1808,7 +1921,7 @@ export function LegacyInstanceList(
               onClickItem={props.onClickItem}
               onClickItemV2={props.onClickItemV2}
               onPaginationChange={onPaginationChange}
-              onSortingChange={(info) => {
+              onSortingChange={(info: any) => {
                 onSortingChange(info, state.sortFields);
               }}
               onSelectionChange={onSelectionChange}
@@ -1828,6 +1941,8 @@ export function LegacyInstanceList(
               showTooltip={showTooltip}
               rowSelectionType={props.rowSelectionType}
               onColumnsChange={props.onColumnsChange}
+              useExternalCmdbApi={props.useExternalCmdbApi}
+              externalSourceId={props.externalSourceId}
             />
           )}
         </React.Fragment>
@@ -1849,6 +1964,11 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     Partial<CmdbModels.ModelCmdbObject>[]
   >(props.objectList);
 
+  const externalGetObjectRef = useProvider(
+    "easyops.api.cmdb.topo_center@ProxyGetObjectRef:1.0.0",
+    { cache: false }
+  );
+
   useEffect(() => {
     if (props.objectList?.length) {
       setObjectList(props.objectList);
@@ -1859,9 +1979,19 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
           setObjectList(cacheData);
         } else {
           try {
-            const list = (
-              await CmdbObjectApi_getObjectRef({ ref_object: props.objectId })
-            ).data;
+            let list;
+            if (props.useExternalCmdbApi) {
+              list = await externalGetObjectRef.query([
+                {
+                  ref_object: props.objectId,
+                  sourceId: props.externalSourceId,
+                },
+              ]);
+            } else {
+              list = (
+                await CmdbObjectApi_getObjectRef({ ref_object: props.objectId })
+              ).data;
+            }
             setObjectList(list);
             objectListCache.set(props.objectId, list);
           } catch (e) {

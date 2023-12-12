@@ -34,6 +34,7 @@ import {
   CmdbObjectApi_getIdMapName,
   InstanceApi_postSearch,
 } from "@next-sdk/cmdb-sdk";
+import { http } from "@next-core/brick-http";
 import { Link, GeneralIcon } from "@next-libs/basic-components";
 import {
   forEachAvailableFields,
@@ -50,7 +51,7 @@ import { ModelAttributeValueType } from "../model-attribute-form-control/ModelAt
 import { Attribute, StructTable } from "../struct-components";
 import styles from "./InstanceListTable.module.css";
 import { customRules } from "./utils";
-import { BrickAsComponent } from "@next-core/brick-kit";
+import { BrickAsComponent, useProvider } from "@next-core/brick-kit";
 import { NS_LIBS_CMDB_INSTANCES, K } from "../i18n/constants";
 import i18n from "i18next";
 import { CmdbUrlLink } from "../cmdb-url-link/CmdbUrlLink";
@@ -142,6 +143,8 @@ export interface InstanceListTableProps extends WithTranslation {
   fixedHeader?: boolean;
   rowSelectionType?: "checkbox" | "radio";
   onColumnsChange?(columns: ColumnType<{ dataIndex: string }>[]): void;
+  useExternalCmdbApi?: boolean;
+  externalSourceId?: string;
 }
 
 interface InstanceListTableState {
@@ -392,9 +395,23 @@ export class LegacyInstanceListTable extends React.Component<
       this.props.modelData.isAbstract &&
       isNil(this.inheritanceModelIdNameMap)
     ) {
-      this.inheritanceModelIdNameMap = await CmdbObjectApi_getIdMapName({
-        parentObjectId: this.props.modelData.objectId,
-      } as any);
+      // useExternalCmdbApi为true 调用外部接口
+      // istanbul ignore if
+      if (this.props.useExternalCmdbApi) {
+        this.inheritanceModelIdNameMap = (
+          (await http.post(
+            `api/gateway/easyops.api.cmdb.topo_center.ProxyGetIdMapName@1.0.1/api/v1/proxy-get-id-map-name`,
+            {
+              parentObjectId: this.props.modelData.objectId,
+              sourceId: this.props.externalSourceId,
+            }
+          )) as any
+        ).data;
+      } else {
+        this.inheritanceModelIdNameMap = await CmdbObjectApi_getIdMapName({
+          parentObjectId: this.props.modelData.objectId,
+        } as any);
+      }
     }
     const changeColumns = this.getChangeColumns(this.props.fieldIds);
     const columns = this.getMergedColumns(
@@ -1029,14 +1046,31 @@ export class LegacyInstanceListTable extends React.Component<
       selectedRows.every((row) => row[this.ROM_KEY] !== k)
     );
     if (selectedRowKeys.length > 0) {
-      const resp = await InstanceApi_postSearch(objectId, {
+      let resp: any;
+      const params = {
         query: {
           instanceId: {
             $in: selectedRowKeys,
           },
         },
         page_size: selectedRowKeys.length,
-      });
+        page: 1,
+        ...(this.props.useExternalCmdbApi
+          ? {
+              objectId,
+              sourceId: this.props.externalSourceId,
+            }
+          : {}),
+      };
+      // useExternalCmdbApi为true 调用外部接口
+      if (this.props.useExternalCmdbApi) {
+        resp = await http.post(
+          "api/gateway/easyops.api.cmdb.topo_center.ProxyPostSearchV3@1.0.1/api/v1/proxy-post-search-v3",
+          params
+        );
+      } else {
+        resp = await InstanceApi_postSearch(objectId, params);
+      }
       selectedRows = [...selectedRows, ...(resp?.list || [])];
     }
     const inputDom = document.createElement("textarea");
@@ -1160,7 +1194,24 @@ export class LegacyInstanceListTable extends React.Component<
     );
   }
 }
+// 临时做法 用HOC来间接声明契约，支持契约被扫描到
+export const withProviderDeclare = (Component: any) => {
+  // eslint-disable-next-line react/display-name
+  return (props: any) => {
+    const externalPostSearchV3 = useProvider(
+      "easyops.api.cmdb.topo_center@ProxyPostSearchV3:1.0.1",
+      { cache: false }
+    );
+    const externalGetIdMapName = useProvider(
+      "easyops.api.cmdb.topo_center@ProxyGetIdMapName:1.0.1",
+      { cache: false }
+    );
+    return <Component {...props} />;
+  };
+};
 
 export const InstanceListTable = React.memo(
-  withTranslation(NS_LIBS_CMDB_INSTANCES)(LegacyInstanceListTable)
+  withTranslation(NS_LIBS_CMDB_INSTANCES)(
+    withProviderDeclare(LegacyInstanceListTable)
+  )
 );

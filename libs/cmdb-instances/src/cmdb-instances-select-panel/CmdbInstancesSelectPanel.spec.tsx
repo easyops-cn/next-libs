@@ -11,6 +11,11 @@ import { CmdbInstancesSelectPanel } from "./CmdbInstancesSelectPanel";
 import { InstanceListTable } from "../instance-list-table";
 import { InstanceList } from "../instance-list/InstanceList";
 import { InstanceListModal } from "../instance-list-modal/InstanceListModal";
+import * as brickKit from "@next-core/brick-kit";
+
+(jest.spyOn(brickKit, "useProvider") as any).mockReturnValue({
+  query: jest.fn(),
+});
 
 jest.mock("@next-sdk/cmdb-sdk");
 jest.mock("../instance-list-table", () => {
@@ -82,6 +87,29 @@ describe("CmdbInstancesSelectPanel", () => {
         isFilterView={true}
         fields={["name"]}
         onFetchedInstances={onFetchedInstances}
+      />
+    );
+    await act(async () => {
+      await (global as any).flushPromises();
+    });
+    wrapper.update();
+    expect(wrapper.find(".wrapper").length).toBe(1);
+    expect(onFetchedInstances).toHaveBeenCalledTimes(0);
+  });
+  it("should work with useExternalCmdbApi is true", async () => {
+    const onChange = jest.fn();
+    const onFetchedInstances = jest.fn();
+    const wrapper = mount(
+      <RefCmdbInstancesSelectPanel
+        objectId="APP"
+        modelData={objectMap["APP"]}
+        value={[]}
+        onChange={onChange}
+        isFilterView={true}
+        fields={["name"]}
+        onFetchedInstances={onFetchedInstances}
+        useExternalCmdbApi={true}
+        externalSourceId={"60ac7f3682115"}
       />
     );
     await act(async () => {

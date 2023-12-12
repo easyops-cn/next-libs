@@ -16,6 +16,7 @@ import {
   UseSingleBrickConf,
 } from "@next-core/brick-types";
 import { CmdbObjectApi_getIdMapName } from "@next-sdk/cmdb-sdk";
+import { http } from "@next-core/brick-http";
 
 import { InstanceListTable } from "./InstanceListTable";
 import { getInstanceListData, HOST } from "./data-providers/__mocks__";
@@ -40,6 +41,8 @@ jest.spyOn(kit, "BrickAsComponent").mockImplementation(({ useBrick, data }) => (
 document.execCommand = jest.fn();
 
 jest.mock("@next-sdk/cmdb-sdk");
+jest.mock("@next-core/brick-http");
+
 const mockCmdbObjectApi_getIdMapName = CmdbObjectApi_getIdMapName as jest.Mock;
 
 const ipAttr = HOST.attrList.find((attr) => attr.id === "ip");
