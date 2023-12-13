@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.13.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.13.4...@next-libs/cmdb-instances@7.13.5) (2023-12-13)
+
+
+### Bug Fixes
+
+* 样式污染全局 ([49a7973](https://github.com/easyops-cn/next-libs/commit/49a7973c4700edd1c51d6337b90ff4b1485dd7ce))
+
+
+
+
+
 ## [7.13.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.13.3...@next-libs/cmdb-instances@7.13.4) (2023-12-12)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
