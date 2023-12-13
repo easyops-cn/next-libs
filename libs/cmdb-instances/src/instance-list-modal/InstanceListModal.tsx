@@ -97,6 +97,7 @@ export function InstanceListModal(
             $in: selectedInstanceListTemp,
           },
         },
+        page: 1,
         page_size: selectedInstanceListTemp.length,
       };
       if (props.useExternalCmdbApi) {

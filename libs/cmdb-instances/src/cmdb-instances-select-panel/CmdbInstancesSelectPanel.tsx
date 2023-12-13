@@ -157,7 +157,11 @@ export function CmdbInstancesSelectPanel(
       page_size: instanceIdList.length,
       // todo(ice): selected confirm with instances
       fields: props.fields?.length
-        ? props.fields.reduce((prev, next) => ({ ...prev, [next]: true }), {})
+        ? props.useExternalCmdbApi
+          ? props.fields
+          : props.fields.reduce((prev, next) => ({ ...prev, [next]: true }), {})
+        : props.useExternalCmdbApi
+        ? ["*"]
         : { "*": true },
       ...(props.useExternalCmdbApi ? externalRequestParams : {}),
     };
