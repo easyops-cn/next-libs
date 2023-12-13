@@ -52,8 +52,6 @@ html[data-ui="v8-2"] .collapseStyle {
       }
     }
   }
-}
-html[data-ui="v8-2"] {
   :global(.anticon):hover {
     color: var(--color-fill-bg-container-5) !important;
   }
