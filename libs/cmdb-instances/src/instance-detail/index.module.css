@@ -13,8 +13,8 @@
   padding: 0 12px;
   cursor: pointer;
 }
-html[data-ui="v8-2"] {
-  .detailCard .basicInfoGroupLabel {
+html[data-ui="v8-2"] .detailCard {
+  .basicInfoGroupLabel {
     &:first-child {
       margin-left: 0px;
     }
