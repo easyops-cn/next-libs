@@ -97,6 +97,7 @@ export function InstanceListModal(
             $in: selectedInstanceListTemp,
           },
         },
+        page: 1,
         page_size: selectedInstanceListTemp.length,
       };
       if (props.useExternalCmdbApi) {
@@ -105,6 +106,7 @@ export function InstanceListModal(
             ...requestParams,
             objectId: props.objectId,
             sourceId: props.externalSourceId,
+            ignore_missing_field_error: true,
           },
         ]);
       } else {
