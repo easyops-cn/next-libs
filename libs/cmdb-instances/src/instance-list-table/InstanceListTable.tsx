@@ -460,6 +460,7 @@ export class LegacyInstanceListTable extends React.Component<
     config: UseBrickAndPropertyDisplayConfig,
     isPrimary?: boolean
   ) {
+    // eslint-disable-next-line react/display-name
     return (value: any, record: Record<string, any>, index: number) => {
       return (
         <config.brick
@@ -504,6 +505,7 @@ export class LegacyInstanceListTable extends React.Component<
     };
   }
   getUseBrickConfigRender(config: UseBrickAndPropertyDisplayConfig) {
+    // eslint-disable-next-line react/display-name
     return (value: any, record: Record<string, any>, index: number) => {
       const data = { cellData: value, rowData: record, index };
       return <BrickAsComponent useBrick={config.useBrick} data={data} />;
@@ -1059,6 +1061,7 @@ export class LegacyInstanceListTable extends React.Component<
           ? {
               objectId,
               sourceId: this.props.externalSourceId,
+              ignore_missing_field_error: true,
             }
           : {}),
       };

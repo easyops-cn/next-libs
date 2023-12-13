@@ -142,8 +142,10 @@ export function CmdbInstancesSelectPanel(
     return {
       objectId: props.objectId,
       sourceId: props.externalSourceId,
+      ignore_missing_field_error: true,
+      fields: props.fields?.length ? props.fields : ["*"],
     };
-  }, [props.objectId, props.externalSourceId]);
+  }, [props.objectId, props.externalSourceId, props.fields]);
 
   const fetchInstances = async (instanceIdList: string[]): Promise<any[]> => {
     let instances: any[] = [];
