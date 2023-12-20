@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.13.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.13.6...@next-libs/cmdb-instances@7.13.7) (2023-12-20)
+
+
+### Bug Fixes
+
+* 固定列在选中时由于背景颜色为none导致表格内容重叠 ([98fa4c0](https://github.com/easyops-cn/next-libs/commit/98fa4c088368587e1b550efef1248395a1e9a7f5))
+
+
+
+
+
 ## [7.13.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.13.5...@next-libs/cmdb-instances@7.13.6) (2023-12-13)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
