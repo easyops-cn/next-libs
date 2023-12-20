@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.13.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.13.7...@next-libs/cmdb-instances@7.13.8) (2023-12-20)
+
+
+### Bug Fixes
+
+* 实例列表固定列出现的样式bug ([62910a7](https://github.com/easyops-cn/next-libs/commit/62910a79fae765d2acaeccf2a429cbf9c1a5078a))
+
+
+
+
+
 ## [7.13.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.13.6...@next-libs/cmdb-instances@7.13.7) (2023-12-20)
 
 
