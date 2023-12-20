@@ -796,20 +796,38 @@ export class LegacyInstanceListTable extends React.Component<
                       ? { target: this.props.target }
                       : {})}
                   >
-                    <Tooltip
-                      placement="top"
-                      title={`${i18n.t(
-                        `${NS_LIBS_CMDB_INSTANCES}:${K.JUMP_TO}`
-                      )}${
-                        object.isAbstract
-                          ? this.inheritanceModelIdNameMap?.[
-                              record._object_id
-                            ] || record._object_id
-                          : object.name
-                      }${i18n.t(
-                        `${NS_LIBS_CMDB_INSTANCES}:${K.INSTANCE_DETAIL}`
-                      )}`}
-                    >
+                    {this.props.showTooltip ? (
+                      <Tooltip
+                        placement="top"
+                        title={`${i18n.t(
+                          `${NS_LIBS_CMDB_INSTANCES}:${K.JUMP_TO}`
+                        )}${
+                          object.isAbstract
+                            ? this.inheritanceModelIdNameMap?.[
+                                record._object_id
+                              ] || record._object_id
+                            : object.name
+                        }${i18n.t(
+                          `${NS_LIBS_CMDB_INSTANCES}:${K.INSTANCE_DETAIL}`
+                        )}`}
+                      >
+                        <span>
+                          <span className={styles.iconWrap}>
+                            <GeneralIcon
+                              icon={{
+                                lib: "easyops",
+                                icon: "search",
+                                category: "app",
+                                color: "#167be0",
+                              }}
+                            />
+                          </span>
+                          <span className={styles.linkKey}>
+                            {tempColumns(value, record, index)}
+                          </span>
+                        </span>
+                      </Tooltip>
+                    ) : (
                       <span>
                         <span className={styles.iconWrap}>
                           <GeneralIcon
@@ -825,7 +843,7 @@ export class LegacyInstanceListTable extends React.Component<
                           {tempColumns(value, record, index)}
                         </span>
                       </span>
-                    </Tooltip>
+                    )}
                   </Link>
                 );
               } else {

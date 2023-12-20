@@ -5,6 +5,12 @@
 .tableWrapper :global(.ant-table-tbody tr.ant-table-row-selected > td) {
   background: var(--antd-table-cell-fixed-body-bg) !important;
 }
+.tableWrapper :global(.ant-pagination-options .ant-select-dropdown) {
+  z-index: 9999 !important;
+}
+.tableWrapper :global(.ant-table-tbody .ant-table-cell-fix-right) {
+  z-index: 999 !important;
+}
 
 .instanceListTableCell {
   max-width: 240px;
