@@ -2,6 +2,10 @@
   margin-bottom: 3px;
 }
 
+.tableWrapper :global(.ant-table-tbody tr.ant-table-row-selected > td) {
+  background: var(--antd-table-cell-fixed-body-bg) !important;
+}
+
 .instanceListTableCell {
   max-width: 240px;
   overflow: hidden;
