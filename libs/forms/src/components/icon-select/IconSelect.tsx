@@ -163,6 +163,9 @@ export function LegacyIconSelectItem(
       <Modal
         title={t(K.SELECT_ICON)}
         visible={props.visible}
+        cancelButtonProps={{
+          type: "text",
+        }}
         onOk={handleOk}
         onCancel={handleCancel}
         width="778px"
