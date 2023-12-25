@@ -1,17 +1,22 @@
-import { Button, Modal } from "antd";
+import { Button, Modal, Dropdown, Menu } from "antd";
 import React, { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
 import { DisplaySettings, DisplaySettingsProps } from "./DisplaySettings";
+import { getAuth } from "@next-core/brick-kit";
+import { EllipsisOutlined } from "@ant-design/icons";
 
 export interface DisplaySettingsModalData {
   fields: string[];
   isReset?: boolean;
+  isAdminSetDisplay?: boolean;
 }
 
 export interface DisplaySettingsModalProps extends DisplaySettingsProps {
   visible?: boolean;
   defaultFields?: string[];
+  saveFieldsBackend?: boolean;
+  useExternalCmdbApi?: boolean;
   onOk?(data: DisplaySettingsModalData): void;
   onCancel?(): void;
 }
@@ -23,6 +28,8 @@ export function DisplaySettingsModal(
     visible,
     objectId,
     modelData,
+    saveFieldsBackend,
+    useExternalCmdbApi,
     currentFields,
     defaultFields,
     extraDisabledField,
@@ -49,21 +56,60 @@ export function DisplaySettingsModal(
     onCancel?.();
   };
 
+  const handleDropdownMenuClick = (e: any): void => {
+    // istanbul ignore next
+    if (e.key === "restore-default") {
+      handleReset();
+    } else {
+      // istanbul ignore next
+      // 管理员将现在选中的字段设置为默认显示, 不会影响到当前列表展示字段，所以需要类似【取消】操作重置字段。
+      props?.onOk({
+        fields: nextFields,
+        isReset: false,
+        isAdminSetDisplay: true,
+      });
+      setNextFields(currentFields ? [...currentFields] : []);
+    }
+  };
+
+  const showIsAdminSetDefault = getAuth().isAdmin;
+
+  const dropdownMenuItems = (
+    <Menu>
+      <Menu.Item key="set-default-display" onClick={handleDropdownMenuClick}>
+        {t(K.DEFAULT_DISPLAY)}
+      </Menu.Item>
+      <Menu.Item key="restore-default" onClick={handleDropdownMenuClick}>
+        {t(K.RESTORE_DEFAULT)}
+      </Menu.Item>
+    </Menu>
+  );
   return (
     <Modal
       title={t(K.DISPLAY_SETTINGS)}
       visible={visible}
       footer={
         <div style={{ display: "flex" }}>
-          <div>
-            <Button
-              type="default"
-              onClick={handleReset}
-              data-testid="reset-button"
+          {showIsAdminSetDefault && saveFieldsBackend && !useExternalCmdbApi ? (
+            <Dropdown
+              overlay={dropdownMenuItems}
+              placement="topLeft"
+              trigger={["click"]}
+              data-testid="admin-set-display-dropdown"
             >
-              {t(K.RESTORE_DEFAULT)}
-            </Button>
-          </div>
+              <Button type="default" icon={<EllipsisOutlined />}></Button>
+            </Dropdown>
+          ) : (
+            <div>
+              <Button
+                type="default"
+                onClick={handleReset}
+                data-testid="reset-button"
+              >
+                {t(K.RESTORE_DEFAULT)}
+              </Button>
+            </div>
+          )}
           <div style={{ marginLeft: "auto" }}>
             <Button
               type="text"

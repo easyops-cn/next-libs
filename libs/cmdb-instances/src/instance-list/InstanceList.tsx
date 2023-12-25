@@ -93,6 +93,7 @@ import { changeQueryWithCustomRules } from "../processors";
 import { DisplaySettingsModalData } from "../instance-list-table/DisplaySettingsModal";
 import FilterInstanceSource from "./FilterInstanceSource";
 import { ColumnType } from "antd/lib/table";
+import { getAuth } from "@next-core/brick-kit";
 
 export interface instanceArchiveRequestBody {
   // 搜索内容
@@ -621,6 +622,7 @@ interface InstanceListState {
   objectIdQuery?: string;
   instanceSourcePopoverVisible?: boolean;
   sortFields?: { field: string; order: number }[];
+  backendDefaultFields?: { field: string; order: number }[];
 }
 
 export function LegacyInstanceList(
@@ -792,6 +794,7 @@ export function LegacyInstanceList(
     const sortType = modelData?.attrList?.find((attr) => attr.id === sort)
       ?.value?.default_type;
     let asc, sortFields;
+    let backendDefaultFields;
     if (props.asc === true) {
       asc = ["series-number", "auto-increment-id"].includes(sortType) ? 2 : 1;
     } else {
@@ -807,12 +810,14 @@ export function LegacyInstanceList(
         }
       ).sortFields;
     } else {
-      sortFields = (
-        (await fieldsProvider.query([props.objectId])) as {
-          sortFields: ISortField[];
-          object_id: string;
-        }
-      ).sortFields;
+      // 获取用户配置的显示列
+      const returnData = (await fieldsProvider.query([props.objectId])) as {
+        sortFields: ISortField[];
+        object_id: string;
+        defaultSortFields: ISortField[];
+      };
+      sortFields = returnData.sortFields;
+      backendDefaultFields = returnData.defaultSortFields;
     }
     const extraFixedFieldIds = props.extraFixedFields ?? [];
     if (isEmpty(fieldIds)) {
@@ -838,7 +843,7 @@ export function LegacyInstanceList(
     const hideModelData: string[] = modelData.view.hide_columns || [];
     fieldIds = fieldIds.filter((field) => !hideModelData.includes(field));
     modelData.isAbstract && fieldIds.push("_object_id");
-    return { fieldIds, sort, asc, sortFields };
+    return { fieldIds, sort, asc, sortFields, backendDefaultFields };
   };
 
   const getFields = () => {
@@ -901,6 +906,7 @@ export function LegacyInstanceList(
       },
     ],
     searchByApp: false,
+    backendDefaultFields: [],
   }));
   const [selectedRowKeys, setSelectedRowKeys] = useState(
     props.selectedRowKeys ?? []
@@ -1109,7 +1115,8 @@ export function LegacyInstanceList(
     if (props.saveFieldsBackend) {
       const getFieldIds = async () => {
         const fieldConfig = await getFieldsAsync();
-        const { fieldIds, sort, asc, sortFields } = fieldConfig;
+        const { fieldIds, sort, asc, sortFields, backendDefaultFields } =
+          fieldConfig;
         if (
           // 当 props.objectId 改变时，总是更新 state.fieldIds
           props.objectId !== state.objectId ||
@@ -1122,6 +1129,7 @@ export function LegacyInstanceList(
             sort,
             asc: [1, 2].includes(asc) ? true : false,
             sortFields,
+            backendDefaultFields,
           });
       };
       getFieldIds();
@@ -1410,6 +1418,9 @@ export function LegacyInstanceList(
       clusterValue: v,
     });
   };
+
+  // 后台返回的默认配置
+
   const defaultFields = useMemo(() => {
     let defaultFields: string[];
     const fieldIds = props.presetConfigs?.fieldIds,
@@ -1417,20 +1428,38 @@ export function LegacyInstanceList(
     if (!isEmpty(fieldIds)) {
       defaultFields = props.presetConfigs.fieldIds;
     } else {
-      defaultFields = computeDefaultFields().fieldIds;
+      // istanbul ignore next
+      // 管理员点击恢复默认按钮是恢复到模型的前N个字段
+      // 普通用户点击恢复默认按钮是恢复到 1.管理员设置的默认显示 2.管理员未设置时取前N个
+      if (
+        !getAuth().isAdmin &&
+        props.saveFieldsBackend &&
+        !props.useExternalCmdbApi &&
+        state.backendDefaultFields &&
+        state.backendDefaultFields?.length > 0
+      ) {
+        // 后台接口返回的默认字段（1. admin用户设置的，2. 前N个）
+        defaultFields = compact(
+          state.backendDefaultFields?.map((s) => s.field)
+        );
+      } else {
+        defaultFields = computeDefaultFields().fieldIds;
+      }
     }
     if (!isEmpty(extraFixedFieldIds)) {
       defaultFields = uniq([...defaultFields, ...extraFixedFieldIds]);
     }
     return defaultFields;
-  }, [props.presetConfigs, modelData]);
+  }, [props.presetConfigs, modelData, state.backendDefaultFields]);
 
   // istanbul ignore next
   const handleConfirm = async ({
     fields,
     isReset,
+    isAdminSetDisplay,
   }: DisplaySettingsModalData) => {
     if (isReset) {
+      // 恢复默认操作
       const fieldIds = defaultFields;
       modelData.isAbstract && fieldIds.push("_object_id");
       if (props.saveFieldsBackend) {
@@ -1454,34 +1483,54 @@ export function LegacyInstanceList(
         props.onFieldsModalConfirm(fieldIds);
       }
     } else {
-      if (props.saveFieldsBackend) {
-        try {
-          const sortFields = mergeFields(state.sortFields, fields);
-          if (props.useExternalCmdbApi) {
-            await externalUpdateFieldsProvider.query([
-              {
-                object_id: props.objectId,
-                sourceId: props.externalSourceId,
-                sortFields,
-              },
-            ]);
-          } else {
-            await updateFieldsProvider.query([props.objectId, { sortFields }]);
+      if (!isAdminSetDisplay) {
+        // 点击确定按钮触发
+        if (props.saveFieldsBackend) {
+          try {
+            const sortFields = mergeFields(state.sortFields, fields);
+            if (props.useExternalCmdbApi) {
+              await externalUpdateFieldsProvider.query([
+                {
+                  object_id: props.objectId,
+                  sourceId: props.externalSourceId,
+                  sortFields,
+                },
+              ]);
+            } else {
+              await updateFieldsProvider.query([
+                props.objectId,
+                { sortFields },
+              ]);
+            }
+            setState({
+              fieldIds: _sortFieldIds(fields),
+              sortFields,
+            });
+          } catch (e) {
+            handleHttpError(e);
           }
+        } else {
           setState({
             fieldIds: _sortFieldIds(fields),
-            sortFields,
           });
+          jsonLocalStorage.setItem(
+            `${modelData.objectId}-selectAttrIds`,
+            fields
+          );
+        }
+        props.onFieldsModalConfirm(fields);
+      } else {
+        // 点击【默认显示】按钮触发，不影响当前列表显示。
+        try {
+          const sortFields = mergeFields(state.sortFields, fields);
+          await updateFieldsProvider.query([
+            props.objectId,
+            { sortFields: sortFields, isDefault: true },
+          ]);
         } catch (e) {
           handleHttpError(e);
         }
-      } else {
-        setState({
-          fieldIds: _sortFieldIds(fields),
-        });
-        jsonLocalStorage.setItem(`${modelData.objectId}-selectAttrIds`, fields);
       }
-      props.onFieldsModalConfirm(fields);
     }
   };
 
@@ -1814,6 +1863,8 @@ export function LegacyInstanceList(
                   <MoreButtonsContainer
                     modelData={modelData}
                     onConfirm={handleConfirm}
+                    useExternalCmdbApi={props.useExternalCmdbApi}
+                    saveFieldsBackend={props.saveFieldsBackend}
                     fieldIds={state.fieldIds}
                     defaultFields={defaultFields}
                     extraDisabledField={props.extraDisabledField}

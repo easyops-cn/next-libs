@@ -46,6 +46,7 @@ const locale: Locale = {
   [K.FIELD_SETTINGS]: "Field settings",
   [K.SEARCH_BY_FIELD_NAME]: "Search by field name",
   [K.RESTORE_DEFAULT]: "Restore default",
+  [K.DEFAULT_DISPLAY]: "Default display",
   [K.CONFIRM]: "Confirm",
   [K.ONLY_ONE_INSTANCE_TO_ALLOWED]:
     "Only one instance is allowed to be selected",

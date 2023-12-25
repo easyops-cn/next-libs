@@ -44,6 +44,7 @@ const locale: Locale = {
   [K.FIELD_SETTINGS]: "字段设置",
   [K.SEARCH_BY_FIELD_NAME]: "按字段名称搜索",
   [K.RESTORE_DEFAULT]: "恢复默认",
+  [K.DEFAULT_DISPLAY]: "默认显示",
   [K.CONFIRM]: "确定",
   [K.ONLY_ONE_INSTANCE_TO_ALLOWED]: "只允许选择一个实例",
   [K.OPERATOR_CONTAIN_DEFINE]: "包含",
