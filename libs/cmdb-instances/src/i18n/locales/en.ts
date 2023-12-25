@@ -46,6 +46,8 @@ const locale: Locale = {
   [K.FIELD_SETTINGS]: "Field settings",
   [K.SEARCH_BY_FIELD_NAME]: "Search by field name",
   [K.RESTORE_DEFAULT]: "Restore default",
+  [K.SET_DEFAULT_DISPLAY_SUCCESS]:
+    "Set the default display fields successfully",
   [K.DEFAULT_DISPLAY]: "Default display",
   [K.CONFIRM]: "Confirm",
   [K.ONLY_ONE_INSTANCE_TO_ALLOWED]:
