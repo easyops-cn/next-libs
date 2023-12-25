@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.14.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.13.9...@next-libs/cmdb-instances@7.14.0) (2023-12-25)
+
+
+### Features
+
+* 设置模型实例列表的默认显示列 ([3307552](https://github.com/easyops-cn/next-libs/commit/33075527a1ad67e9e5028d212f8d10d7374862ba))
+
+
+
+
+
 ## [7.13.9](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.13.8...@next-libs/cmdb-instances@7.13.9) (2023-12-21)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
