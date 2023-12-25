@@ -668,9 +668,17 @@ export function LegacyInstanceList(
     "easyops.api.cmdb.instance@GetListDisplayView:1.0.1",
     { cache: false }
   );
+
+  // istanbul ignore next
   const updateFieldsProvider = useProvider(
     "easyops.api.cmdb.instance@UpdateListDisplayView:1.0.0",
-    { cache: false }
+    {
+      cache: false,
+      onError: (error) => {
+        // istanbul ignore next
+        throw error;
+      },
+    }
   );
 
   // 用于外部调用的接口, 当useExternalCmdbApi为true，才调用这些接口
@@ -1429,15 +1437,14 @@ export function LegacyInstanceList(
       defaultFields = props.presetConfigs.fieldIds;
     } else {
       // istanbul ignore next
-      // 管理员点击恢复默认按钮是恢复到模型的前N个字段
-      // 普通用户点击恢复默认按钮是恢复到 1.管理员设置的默认显示 2.管理员未设置时取前N个
+      // 所有用户（包括管理员）点击恢复默认按钮是恢复到 1.管理员设置的默认显示 2.管理员未设置时取前N个
       if (
-        !getAuth().isAdmin &&
         props.saveFieldsBackend &&
         !props.useExternalCmdbApi &&
         state.backendDefaultFields &&
         state.backendDefaultFields?.length > 0
       ) {
+        // istanbul ignore next
         // 后台接口返回的默认字段（1. admin用户设置的，2. 前N个）
         defaultFields = compact(
           state.backendDefaultFields?.map((s) => s.field)
@@ -1522,11 +1529,18 @@ export function LegacyInstanceList(
       } else {
         // 点击【默认显示】按钮触发，不影响当前列表显示。
         try {
+          // istanbul ignore next
           const sortFields = mergeFields(state.sortFields, fields);
           await updateFieldsProvider.query([
             props.objectId,
             { sortFields: sortFields, isDefault: true },
           ]);
+          message.success(
+            i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.SET_DEFAULT_DISPLAY_SUCCESS}`)
+          );
+          setState({
+            backendDefaultFields: sortFields,
+          });
         } catch (e) {
           handleHttpError(e);
         }
