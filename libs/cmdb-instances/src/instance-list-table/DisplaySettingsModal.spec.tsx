@@ -5,6 +5,10 @@ import { HOST } from "./data-providers/__mocks__";
 import { DisplaySettingsModal } from "./DisplaySettingsModal";
 import { DisplaySettings } from "./DisplaySettings";
 
+jest.mock("@next-core/brick-kit", () => ({
+  getAuth: () => ({ isAdmin: false }),
+}));
+
 describe("DisplaySettingsModal", () => {
   it("should work", () => {
     const objectId = "HOST";

@@ -171,7 +171,6 @@ export class DisplaySettings extends React.Component<
         <div
           style={{
             marginTop: 15,
-            minHeight: 200,
             maxHeight: 500,
             overflow: "auto",
           }}

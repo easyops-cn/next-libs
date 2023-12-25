@@ -17,6 +17,8 @@ interface MoreButtonsContainerProps {
   modelData: Partial<CmdbModels.ModelCmdbObject>;
   currentFields?: string[];
   defaultFields: string[];
+  saveFieldsBackend?: boolean;
+  useExternalCmdbApi?: boolean;
   onConfirm: (data: DisplaySettingsModalData) => void;
   onHideSettings?: () => void;
   fieldIds?: string[];
@@ -95,6 +97,8 @@ export class MoreButtonsContainer extends React.Component<
           modelData={this.props.modelData}
           onCancel={this.handleCancel}
           onOk={this.handleOk}
+          saveFieldsBackend={this.props.saveFieldsBackend}
+          useExternalCmdbApi={this.props.useExternalCmdbApi}
           defaultFields={this.props.defaultFields}
           extraDisabledField={this.props.extraDisabledField}
         />
