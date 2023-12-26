@@ -76,7 +76,11 @@ export function DisplaySettingsModal(
 
   const dropdownMenuItems = (
     <Menu>
-      <Menu.Item key="set-default-display" onClick={handleDropdownMenuClick}>
+      <Menu.Item
+        key="set-default-display"
+        disabled={count === 0}
+        onClick={handleDropdownMenuClick}
+      >
         {t(K.DEFAULT_DISPLAY)}
       </Menu.Item>
       <Menu.Item key="restore-default" onClick={handleDropdownMenuClick}>
