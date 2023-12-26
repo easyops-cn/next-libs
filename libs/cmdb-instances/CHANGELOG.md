@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.14.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.14.1...@next-libs/cmdb-instances@7.14.2) (2023-12-26)
+
+
+### Bug Fixes
+
+* 未选中字段时默认显示按钮置灰 ([90a2b16](https://github.com/easyops-cn/next-libs/commit/90a2b16b56f7d7fc564548b8594d083c03d99bc5))
+
+
+
+
+
 ## [7.14.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.14.0...@next-libs/cmdb-instances@7.14.1) (2023-12-25)
 
 
