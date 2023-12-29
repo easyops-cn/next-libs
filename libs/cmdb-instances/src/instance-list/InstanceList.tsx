@@ -586,6 +586,7 @@ interface InstanceListProps {
   onColumnsChange?: (columns: ColumnType<{ dataIndex: string }>[]) => void;
   useExternalCmdbApi?: boolean;
   externalSourceId?: string;
+  hiddenColumns?: Array<string>;
 }
 
 interface InstanceListState {
@@ -2008,6 +2009,7 @@ export function LegacyInstanceList(
               onColumnsChange={props.onColumnsChange}
               useExternalCmdbApi={props.useExternalCmdbApi}
               externalSourceId={props.externalSourceId}
+              hiddenColumns={props.hiddenColumns}
             />
           )}
         </React.Fragment>

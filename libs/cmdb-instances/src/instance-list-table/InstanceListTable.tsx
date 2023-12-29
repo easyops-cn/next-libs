@@ -145,6 +145,7 @@ export interface InstanceListTableProps extends WithTranslation {
   onColumnsChange?(columns: ColumnType<{ dataIndex: string }>[]): void;
   useExternalCmdbApi?: boolean;
   externalSourceId?: string;
+  hiddenColumns?: Array<string>;
 }
 
 interface InstanceListTableState {
@@ -194,7 +195,11 @@ export class LegacyInstanceListTable extends React.Component<
       (config) => (this.keyDisplayConfigMap[config.key] = config)
     );
     const fieldIds = this.props.fieldIds;
-    const sortedColumns = this.getChangeColumns(fieldIds);
+
+    const showFields = fieldIds?.filter(
+      (item) => !this.props.hiddenColumns?.includes(item)
+    );
+    const sortedColumns = this.getChangeColumns(showFields);
     this.inheritanceModelIdNameMap = this.props.inheritanceModelIdNameMap;
 
     const defaultPagination = {
@@ -209,7 +214,6 @@ export class LegacyInstanceListTable extends React.Component<
         </span>
       ),
     };
-
     const columns = this.getMergedColumns(
       sortedColumns,
       this.props.extraColumns
@@ -413,7 +417,10 @@ export class LegacyInstanceListTable extends React.Component<
         } as any);
       }
     }
-    const changeColumns = this.getChangeColumns(this.props.fieldIds);
+    const showFields = this.props.fieldIds?.filter(
+      (item) => !this.props.hiddenColumns?.includes(item)
+    );
+    const changeColumns = this.getChangeColumns(showFields);
     const columns = this.getMergedColumns(
       changeColumns,
       this.props.extraColumns
@@ -431,7 +438,10 @@ export class LegacyInstanceListTable extends React.Component<
       ...this.inheritanceModelIdNameMap,
       ...nextProps.inheritanceModelIdNameMap,
     };
-    const changeColumns = this.getChangeColumns(nextProps.fieldIds);
+    const showFields = nextProps.fieldIds?.filter(
+      (item) => !this.props.hiddenColumns?.includes(item)
+    );
+    const changeColumns = this.getChangeColumns(showFields);
     const columns = this.getMergedColumns(
       changeColumns,
       nextProps.extraColumns
