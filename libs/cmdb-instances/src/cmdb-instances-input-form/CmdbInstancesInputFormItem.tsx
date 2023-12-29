@@ -183,6 +183,8 @@ export const LegacyCmdbInstancesInputFormItem = (
     if (selectedInstances.length) {
       if (!props.checkDisabled) {
         instances = await checkSelectedInstances(selectedInstances);
+      } else {
+        setSelectedInstances({ valid: selectedInstances, invalid: [] });
       }
     } else {
       setSelectedInstances({ valid: [], invalid: [] });
