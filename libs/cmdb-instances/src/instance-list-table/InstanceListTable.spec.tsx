@@ -209,6 +209,7 @@ describe("InstanceListTable", () => {
         modelData={HOST}
         instanceListData={instanceListData}
         onPaginationChange={mockOnPaginationChange}
+        fieldIds={["hostname"]}
       />
     );
     expect(
@@ -827,5 +828,63 @@ describe("InstanceListTable", () => {
       selectedKeys: [instance.instanceId],
       selectedItems: [instance],
     });
+  });
+
+  it("should work with test property hiddenColumns", () => {
+    const instanceListData = getInstanceListData();
+    const instance = instanceListData.list[0];
+    const mockOnColumnsChange = jest.fn();
+    const { container } = render(
+      <InstanceListTable
+        fieldIds={[
+          "ip",
+          "cpu",
+          "status",
+          "hostname",
+          "owner",
+          "_deviceList_CLUSTER",
+        ]}
+        detailUrlTemplates={detailUrlTemplates}
+        idObjectMap={idObjectMap}
+        modelData={HOST}
+        instanceListData={instanceListData}
+        rowSelectionType="radio"
+        hiddenColumns={["ip"]}
+        onColumnsChange={mockOnColumnsChange}
+      />
+    );
+    fireEvent.click(
+      container
+        .querySelector(`[data-row-key="${instance.instanceId}"]`)
+        .getElementsByClassName("ant-table-selection-column")[0]
+        .querySelector("label.ant-radio-wrapper")
+    );
+    expect(mockOnSelectionChange).toBeCalledWith({
+      selectedKeys: [instance.instanceId],
+      selectedItems: [instance],
+    });
+    expect(
+      mockOnColumnsChange.mock.calls[
+        mockOnColumnsChange.mock.calls.length - 1
+      ][0]
+    ).toEqual(
+      expect.arrayContaining([
+        {
+          dataIndex: "cpu",
+        },
+        {
+          dataIndex: "status",
+        },
+        {
+          dataIndex: "hostname",
+        },
+        {
+          dataIndex: "owner",
+        },
+        {
+          dataIndex: "_deviceList_CLUSTER",
+        },
+      ])
+    );
   });
 });
