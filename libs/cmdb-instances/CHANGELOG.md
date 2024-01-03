@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.14.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.14.3...@next-libs/cmdb-instances@7.14.4) (2024-01-03)
+
+
+### Bug Fixes
+
+* **instanceList:** 增加隐藏列属性 ([#644](https://github.com/easyops-cn/next-libs/issues/644)) ([6223a52](https://github.com/easyops-cn/next-libs/commit/6223a527dd551935a81515e2c0e4b1e97764ae59))
+
+
+
+
+
 ## [7.14.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.14.2...@next-libs/cmdb-instances@7.14.3) (2023-12-29)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
