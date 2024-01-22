@@ -206,10 +206,14 @@ export const LegacyCmdbInstancesInputFormItem = (
     props.onChangeV2?.(instances);
   };
 
-  const checkFieldValues = async (fieldValues: string[]): Promise<void> => {
+  const checkFieldValues = async (
+    fieldValues: string[],
+    instanceIds?: string[]
+  ): Promise<void> => {
     if (fieldValues) {
       const instances = (
         await InstanceApi_postSearch(props.objectId, {
+          page_size: fieldValues.length,
           query: {
             $and: [
               {
@@ -219,6 +223,13 @@ export const LegacyCmdbInstancesInputFormItem = (
                 ...presetQuery,
               },
               ...(props.query ? props.query : []),
+              instanceIds?.length
+                ? {
+                    instanceId: {
+                      $in: instanceIds,
+                    },
+                  }
+                : {}, //处理重复ip的情况
             ],
           },
           permission,
@@ -249,7 +260,10 @@ export const LegacyCmdbInstancesInputFormItem = (
     }
   };
 
-  const checkInputValue = async (inputValue: string): Promise<void> => {
+  const checkInputValue = async (
+    inputValue: string,
+    instanceIds: string[]
+  ): Promise<void> => {
     const fieldValues =
       props.fieldId === "ip"
         ? inputValue.match(
@@ -257,7 +271,7 @@ export const LegacyCmdbInstancesInputFormItem = (
           )
         : inputValue.split(separator);
 
-    checkFieldValues(fieldValues);
+    checkFieldValues(fieldValues, instanceIds);
   };
 
   const openSelectInstancesModal = (): void => {
@@ -276,7 +290,7 @@ export const LegacyCmdbInstancesInputFormItem = (
     const instances = await updateSelected(selectedKeys);
 
     if (!props.checkDisabled) {
-      await checkFieldValues(map(instances, props.fieldId));
+      await checkFieldValues(map(instances, props.fieldId), selectedKeys);
     } else {
       handleChange(instances);
     }
@@ -289,10 +303,13 @@ export const LegacyCmdbInstancesInputFormItem = (
   const handleInputBlur = async (event: {
     target: { value: string };
   }): Promise<void> => {
+    const instanceIds = selectedInstances.valid.map(
+      (instance) => instance.instanceId
+    );
     const inputValue = event.target.value;
     if (inputValue) {
       if (!props.checkDisabled) {
-        await checkInputValue(inputValue);
+        await checkInputValue(inputValue, instanceIds);
       } else {
         const fieldValues =
           props.fieldId === "ip"
@@ -303,6 +320,7 @@ export const LegacyCmdbInstancesInputFormItem = (
 
         const instances = (
           await InstanceApi_postSearch(props.objectId, {
+            page_size: fieldValues.length,
             query: {
               $and: [
                 {
@@ -311,6 +329,13 @@ export const LegacyCmdbInstancesInputFormItem = (
                   },
                 },
                 ...(props.query ? props.query : []),
+                instanceIds.length
+                  ? {
+                      instanceId: {
+                        $in: instanceIds,
+                      },
+                    }
+                  : {},
               ],
             },
             fields: fields || {
