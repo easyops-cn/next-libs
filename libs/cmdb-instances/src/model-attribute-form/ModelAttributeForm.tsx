@@ -456,7 +456,7 @@ export class ModelAttributeForm extends Component<
   ): (rule: any, value: string, callback: (msg?: string) => void) => void {
     return (rule: any, value: string, callback: (msg?: string) => void) => {
       const { url } = AttributeFormControlUrl.breakDownValue(value);
-      ModelAttributeFormControl.computePattern(attribute).test(url)
+      ModelAttributeFormControl.computePattern(attribute)?.test(url)
         ? callback()
         : callback(i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.NOT_MEET_REGEX}`));
     };
@@ -520,10 +520,14 @@ export class ModelAttributeForm extends Component<
       }
 
       if (type === FormControlTypeEnum.URL) {
-        return [
-          requiredRule,
-          { validator: ModelAttributeForm.urlValidator(attribute) },
-        ];
+        // poc需求 内置函数-自定义模板时不校验
+        return attribute.value?.default === "template()" &&
+          attribute.value?.default_type === "function"
+          ? null
+          : [
+              requiredRule,
+              { validator: ModelAttributeForm.urlValidator(attribute) },
+            ];
       }
 
       if (type === FormControlTypeEnum.TAGS) {
