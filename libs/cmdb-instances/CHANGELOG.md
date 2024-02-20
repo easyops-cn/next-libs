@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.15.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.14.6...@next-libs/cmdb-instances@7.15.0) (2024-02-20)
+
+
+### Features
+
+* CMDB-模型实例列表显示列增加全选按钮 ([4bb2aba](https://github.com/easyops-cn/next-libs/commit/4bb2abaefe286955997d8ac9dc728aa093416e33))
+
+
+
+
+
 ## [7.14.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.14.5...@next-libs/cmdb-instances@7.14.6) (2024-01-30)
 
 
