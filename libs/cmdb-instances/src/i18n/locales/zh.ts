@@ -116,6 +116,7 @@ const locale: Locale = {
   [K.CLICK_TO_FILTER_INSTANCE_SOURCE]:
     "筛选实例来源，可查看来源模型的所有字段信息",
   [K.SEARCH_MODEL]: "搜索模型",
+  [K.SELECT_ALL]: "选择全部",
 };
 
 export default locale;

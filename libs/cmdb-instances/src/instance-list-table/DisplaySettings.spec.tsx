@@ -38,9 +38,56 @@ describe("DisplaySettings", () => {
       currentFields.filter((field) => field !== "_agentStatus")
     );
 
+    const getSelectAllCheckbox = () =>
+      wrapper.find(Checkbox).filter(`[data-testid='checkbox-select-all']`);
+
+    getSelectAllCheckbox().invoke("onChange")({
+      target: { checked: true },
+    } as unknown as CheckboxChangeEvent);
+    expect(getSelectAllCheckbox().prop("checked")).toBe(true);
+    expect(
+      wrapper
+        .find(Checkbox)
+        .filter(`[data-testid$='-checkbox']`)
+        .map((v) => v.prop("checked"))
+        .filter((v) => v === true)
+    ).toHaveLength(22);
+
+    const checkbox1 = getCheckbox("_agentStatus");
+    expect(checkbox1.prop("checked")).toBe(true);
+    checkbox1.invoke("onChange")({
+      target: { checked: false },
+    } as unknown as CheckboxChangeEvent);
+    expect(getCheckbox("_agentStatus").prop("checked")).toBe(false);
+    await (global as any).flushPromises();
+    expect(getSelectAllCheckbox().prop("checked")).toBe(false);
+    expect(
+      wrapper
+        .find(Checkbox)
+        .filter(`[data-testid$='-checkbox']`)
+        .map((v) => v.prop("checked"))
+        .filter((v) => v === true)
+    ).toHaveLength(21);
+    checkbox1.invoke("onChange")({
+      target: { checked: true },
+    } as unknown as CheckboxChangeEvent);
+    expect(getSelectAllCheckbox().prop("checked")).toBe(true);
+
     // search
     expect(getCheckbox("_agentStatus")).toHaveLength(1);
     expect(getCheckbox("hostname")).toHaveLength(1);
+
+    getSelectAllCheckbox().invoke("onChange")({
+      target: { checked: false },
+    } as unknown as CheckboxChangeEvent);
+    expect(
+      wrapper
+        .find(Checkbox)
+        .filter(`[data-testid$='-checkbox']`)
+        .map((v) => v.prop("checked"))
+        .filter((v) => v === true)
+    ).toHaveLength(0);
+
     wrapper
       .find(Input.Search)
       .filter("[data-testid='search-input']")

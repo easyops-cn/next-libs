@@ -128,6 +128,7 @@ const locale: Locale = {
   [K.CLICK_TO_FILTER_INSTANCE_SOURCE]:
     "Filter the instance source to view all field information for the source model",
   [K.SEARCH_MODEL]: "Search the model",
+  [K.SELECT_ALL]: "Select all",
 };
 
 export default locale;

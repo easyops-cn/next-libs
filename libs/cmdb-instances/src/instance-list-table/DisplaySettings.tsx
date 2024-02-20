@@ -23,6 +23,8 @@ interface DisplaySettingsState {
   q: string;
   filteredList: any;
   extraDisabledFieldSet: Set<string>;
+  selectAllFields: boolean;
+  allFieldsLength: number;
 }
 
 export class DisplaySettings extends React.Component<
@@ -54,11 +56,26 @@ export class DisplaySettings extends React.Component<
       name: attribute.name,
     }));
 
+    const filteredList = this.attrAndRelationList;
+    const extraAttrIds = extraFieldAttrs.map(
+      (extraFieldAttr) => extraFieldAttr.id
+    );
+    const attrs = filteredList.filter(
+      (attr: any) => !extraAttrIds.includes(attr.id)
+    );
+    const extraAttrs = filteredList.filter((attr: any) =>
+      extraAttrIds.includes(attr.id)
+    );
+
+    const nextFields = props.currentFields ? props.currentFields.slice() : [];
+    const allFieldsLength = [...attrs, ...extraAttrs].length;
     this.state = {
-      nextFields: props.currentFields ? props.currentFields.slice() : [],
+      nextFields,
       q: "",
       filteredList: this.attrAndRelationList,
       extraDisabledFieldSet: new Set(props.extraDisabledFields),
+      selectAllFields: [...new Set([...nextFields])].length === allFieldsLength,
+      allFieldsLength,
     };
     this.debounceHandleSearch = debounce(this.filterColTag, 300);
   }
@@ -85,7 +102,20 @@ export class DisplaySettings extends React.Component<
       ? this.state[fieldsKey].concat(attr.id)
       : without(this.state[fieldsKey], attr.id);
 
-    this.setState({ [fieldsKey]: fields });
+    this.setState({
+      [fieldsKey]: fields,
+      selectAllFields: fields.length === this.state.allFieldsLength,
+    });
+    this.props.onChange?.(fields);
+  }
+
+  handleSelectAllFields(event: any, allFields: any[]) {
+    const fieldsKey = "nextFields";
+    const fields = event.target.checked ? allFields.map((attr) => attr.id) : [];
+    this.setState({
+      [fieldsKey]: fields,
+      selectAllFields: event.target.checked,
+    });
     this.props.onChange?.(fields);
   }
 
@@ -167,6 +197,18 @@ export class DisplaySettings extends React.Component<
             style={{ width: 200 }}
             data-testid="search-input"
           />
+
+          <span style={{ paddingLeft: 15, verticalAlign: "sub" }}>
+            <Checkbox
+              checked={this.state.selectAllFields}
+              onChange={(e) =>
+                this.handleSelectAllFields(e, [...attrs, ...extraAttrs])
+              }
+              data-testid={`checkbox-select-all`}
+            >
+              {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.SELECT_ALL}`)}
+            </Checkbox>
+          </span>
         </div>
         <div
           style={{
