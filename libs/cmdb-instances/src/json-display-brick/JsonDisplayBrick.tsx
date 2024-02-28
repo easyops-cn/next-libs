@@ -22,7 +22,7 @@ export function JsonDisplayBrick(
 
   const displayValue = useMemo(() => {
     const _value = JSON.stringify(value, null, 0);
-    return isNumControlEllipsis && _value.length > num
+    return isNumControlEllipsis && _value?.length > num
       ? _value.slice(0, num) + "..."
       : _value;
   }, [value, isNumControlEllipsis, num]);
