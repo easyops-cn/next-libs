@@ -314,10 +314,12 @@ describe("transformToTreeData", () => {
     expect(request.child[0].fields).toEqual({
       name: true,
       readAuthorizers: true,
+      inheritedReadAuthorizers: true,
     });
     expect(request.child[2].fields).toEqual({
       name: true,
       readAuthorizers: true,
+      inheritedReadAuthorizers: true,
     });
     expect(spy).toBeCalled();
 
