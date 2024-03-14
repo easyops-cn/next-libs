@@ -74,6 +74,7 @@ export interface InstanceListModalProps {
   saveFieldsBackend?: boolean;
   useExternalCmdbApi?: boolean;
   externalSourceId?: string;
+  showHiddenInfoDisabled?: boolean;
 }
 
 export function InstanceListModal(
@@ -282,6 +283,7 @@ export function InstanceListModal(
           saveFieldsBackend={props.saveFieldsBackend}
           useExternalCmdbApi={props.useExternalCmdbApi}
           externalSourceId={props.externalSourceId}
+          showHiddenInfoDisabled={props.showHiddenInfoDisabled}
         />
       </div>
     </Modal>
