@@ -1,6 +1,9 @@
 .aceContainer {
   border: 1px solid var(--color-border-divider-line);
   border-radius: var(--larger-border-radius);
+  :global(.ace_print-margin) {
+    display: none;
+  }
 }
 
 .wrapper {
