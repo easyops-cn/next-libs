@@ -37,6 +37,8 @@ import {
   handleHttpError,
   BrickAsComponent,
   getHistory,
+  httpErrorToString,
+  EasyopsEmpty,
 } from "@next-core/brick-kit";
 import {
   AttributeConfig,
@@ -166,6 +168,7 @@ interface LegacyInstanceDetailProps extends WithTranslation {
   anchorOffset?: number;
   useAnchor?: boolean;
   ignorePermission?: boolean;
+  useHttpErrorString?: boolean;
 }
 
 interface LegacyInstanceDetailState {
@@ -191,6 +194,7 @@ interface LegacyInstanceDetailState {
   oppositeModelDataMap?: Record<string, Partial<CmdbModels.ModelCmdbObject>>;
   filterObjectId?: string;
   scrollContainer?: HTMLElement;
+  httpErrorSting?: string;
 }
 function getHref(hash: string) {
   const isHash = (hash || "").startsWith("#");
@@ -247,17 +251,18 @@ export class LegacyInstanceDetail extends React.Component<
       },
       searchValue: "",
       scrollContainer: null,
+      httpErrorSting: "",
     };
   }
 
   render(): React.ReactNode {
-    const { loaded, currentAttr, instanceRelationModalData } = this.state;
-    const { showCard = true } = this.props;
-
+    const { loaded, currentAttr, instanceRelationModalData, httpErrorSting } =
+      this.state;
+    const { showCard = true, useHttpErrorString = false } = this.props;
     return (
       // React Fragments
       <Spin spinning={!loaded}>
-        {loaded && (
+        {loaded && !httpErrorSting && (
           <>
             {showCard ? (
               <Card
@@ -381,6 +386,15 @@ export class LegacyInstanceDetail extends React.Component<
               </Card>
             ))}
           </>
+        )}
+        {httpErrorSting && (
+          <div className={style.emptyWrap}>
+            <EasyopsEmpty
+              imageStyle={{ height: "200px" }}
+              illustration={{ name: "no-permission", category: "easyops2" }}
+              description={httpErrorSting}
+            />
+          </div>
         )}
       </Spin>
     );
@@ -1278,7 +1292,12 @@ export class LegacyInstanceDetail extends React.Component<
       // this.setFormattedInstanceData(this.state);
     } catch (e) {
       // 统一处理请求错误
-      handleHttpError(e);
+      // handleHttpError(e);
+      if (this.props.useHttpErrorString) {
+        this.setState({ httpErrorSting: httpErrorToString(e) });
+      } else {
+        handleHttpError(e);
+      }
       // 标记 `loaded` 和 `failed` 状态
       this.setState({ loaded: true });
     }
