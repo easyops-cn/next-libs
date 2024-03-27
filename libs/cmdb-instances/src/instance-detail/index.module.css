@@ -195,3 +195,6 @@ html[data-ui="v8-2"] .detailCard {
     grid-column: 1 / 7;
   } */
 }
+.emptyWrap {
+  margin-top: 20px;
+}
