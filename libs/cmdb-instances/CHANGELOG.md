@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.16.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.15.3...@next-libs/cmdb-instances@7.16.0) (2024-03-27)
+
+
+### Features
+
+* **instance-detail:** useHttpErrorString支持展示报错插画 ([a3c9b5d](https://github.com/easyops-cn/next-libs/commit/a3c9b5d557ec304832068be4fdbbb4c48d3e49b9))
+
+
+
+
+
 ## [7.15.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.15.2...@next-libs/cmdb-instances@7.15.3) (2024-03-14)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
