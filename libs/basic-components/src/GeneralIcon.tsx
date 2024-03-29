@@ -1,5 +1,6 @@
-import React, { useMemo, useRef } from "react";
-import { Icon as LegacyIcon } from "@ant-design/compatible";
+import React, { DOMAttributes, useMemo, useRef } from "react";
+import { Icon as _LegacyIcon } from "@ant-design/compatible";
+import { IconComponent, IconProps } from "@ant-design/compatible/lib/icon";
 import Icon from "@ant-design/icons";
 import { Avatar, AvatarProps } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -18,19 +19,27 @@ import cssStyle from "./GeneralIcon.module.css";
 import { isEqual, omit, uniqueId } from "lodash";
 import { getRuntime } from "@next-core/brick-kit";
 
+const LegacyIcon = _LegacyIcon as IconComponent<
+  IconProps &
+    Pick<DOMAttributes<HTMLSpanElement>, "onMouseEnter" | "onMouseLeave">
+>;
+
 type SrcIcon = {
   imgSrc?: string;
   imgStyle?: React.CSSProperties;
 };
 
-interface MenuIconProps {
+interface MenuIconProps
+  extends Pick<
+    DOMAttributes<HTMLSpanElement>,
+    "onClick" | "onMouseEnter" | "onMouseLeave"
+  > {
   icon: MenuIcon | SrcIcon;
   bg?: boolean;
   size?: number | "large" | "small" | "default";
   shape?: "circle" | "square" | "round-square";
   reverseBgColor?: boolean;
   style?: React.CSSProperties;
-  onClick?(event: React.MouseEvent<HTMLElement, MouseEvent>): void;
   showEmptyIcon?: boolean;
   noPublicRoot?: boolean;
   imageLoading?: "lazy" | "eager";
@@ -54,6 +63,8 @@ export function GeneralIcon({
   shape,
   reverseBgColor,
   onClick,
+  onMouseEnter,
+  onMouseLeave,
   showEmptyIcon,
   style,
   noPublicRoot,
@@ -111,6 +122,8 @@ export function GeneralIcon({
                 <BrickIcon icon="empty-icon" category="common" />
               )}
               onClick={onClick}
+              onMouseEnter={onMouseEnter}
+              onMouseLeave={onMouseLeave}
             />
           ) : (
             iconNode
@@ -152,6 +165,8 @@ export function GeneralIcon({
           height={size}
           style={icon.imgStyle}
           onClick={onClick}
+          onMouseEnter={onMouseEnter}
+          onMouseLeave={onMouseLeave}
           loading={imageLoading}
         />
       );
@@ -199,6 +214,8 @@ export function GeneralIcon({
             theme={icon.theme}
             style={mergedStyleByBg}
             onClick={onClick}
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
             className={classnames(generalIconId, iconClassName)}
             data-icon={
               (icon as RefinedAntdIcon).icon || (icon as LegacyAntdIcon).type
@@ -227,6 +244,8 @@ export function GeneralIcon({
               />
             )}
             onClick={onClick}
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
             className={generalIconId}
             data-icon={icon.icon}
           />
@@ -244,6 +263,8 @@ export function GeneralIcon({
               />
             )}
             onClick={onClick}
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
             className={classnames(generalIconId, iconClassName)}
             data-icon={icon.icon}
           />
@@ -312,9 +333,14 @@ export function GeneralIcon({
     bg,
     memoizedIcon,
     onClick,
-    reverseBgColor,
+    onMouseEnter,
+    onMouseLeave,
     shape,
+    imageLoading,
+    getStyle,
     showEmptyIcon,
+    getDefaultIcon,
+    iconClassName,
     size,
     style,
     noPublicRoot,
