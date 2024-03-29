@@ -1,6 +1,6 @@
 {
   "name": "@next-libs/visual-builder",
-  "version": "1.12.8",
+  "version": "1.12.9",
   "description": "> TODO: description",
   "homepage": "https://github.com/easyops-cn/next-libs/tree/master/libs/visual-builder",
   "license": "GPL-3.0",
@@ -29,9 +29,9 @@
     "@next-dll/ace": "*"
   },
   "dependencies": {
-    "@next-libs/basic-components": "^5.3.6",
-    "@next-libs/code-editor-components": "^4.10.11",
-    "@next-libs/forms": "^3.5.4",
+    "@next-libs/basic-components": "^5.4.0",
+    "@next-libs/code-editor-components": "^4.10.12",
+    "@next-libs/forms": "^3.5.5",
     "@types/react-color": "^3.0.6",
     "react-color": "^2.19.3"
   }

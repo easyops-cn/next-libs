@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.4.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@5.3.6...@next-libs/basic-components@5.4.0) (2024-03-29)
+
+
+### Features
+
+* **GeneralIcon:** add onMouseEnter and onMouseLeave properties ([0891300](https://github.com/easyops-cn/next-libs/commit/0891300e850784ff74eb7f3e425d7842000d200f))
+
+
+
+
+
 ## [5.3.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@5.3.5...@next-libs/basic-components@5.3.6) (2023-08-14)
 
 
