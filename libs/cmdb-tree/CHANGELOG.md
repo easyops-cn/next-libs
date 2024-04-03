@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.5.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-tree@4.5.6...@next-libs/cmdb-tree@4.5.7) (2024-04-03)
+
+**Note:** Version bump only for package @next-libs/cmdb-tree
+
+
+
+
+
 ## [4.5.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-tree@4.5.5...@next-libs/cmdb-tree@4.5.6) (2024-03-05)
 
 **Note:** Version bump only for package @next-libs/cmdb-tree
