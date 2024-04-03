@@ -251,8 +251,9 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
 
           if (
             (!this.props.checkWhiteList ||
-              this.permissionsMap["cmdb:APP_instance_access"]
-                .authorizationStatus === "authorized") &&
+              (this.objectIds.includes("APP") &&
+                this.permissionsMap["cmdb:APP_instance_access"]
+                  .authorizationStatus === "authorized")) &&
             this.props.showNoSystemAppsNode
           ) {
             [resp, notSlaveSystemApplicationData] = await Promise.all([
@@ -366,8 +367,9 @@ export class CMDBTree extends React.Component<CMDBTreeProps, CMDBTreeState> {
     const nodes = this.formatTreeNodes(data, this.objectIds);
     if (
       (!this.props.checkWhiteList ||
-        this.permissionsMap["cmdb:APP_instance_access"].authorizationStatus ===
-          "authorized") &&
+        (this.objectIds.includes("APP") &&
+          this.permissionsMap["cmdb:APP_instance_access"]
+            .authorizationStatus === "authorized")) &&
       this.props.showNoSystemAppsNode
     ) {
       nodes.push({
