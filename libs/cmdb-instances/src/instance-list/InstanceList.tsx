@@ -587,6 +587,7 @@ interface InstanceListProps {
   useExternalCmdbApi?: boolean;
   externalSourceId?: string;
   hiddenColumns?: Array<string>;
+  showCustomizedSerialNumber?: boolean;
 }
 
 interface InstanceListState {
@@ -2010,6 +2011,7 @@ export function LegacyInstanceList(
               useExternalCmdbApi={props.useExternalCmdbApi}
               externalSourceId={props.externalSourceId}
               hiddenColumns={props.hiddenColumns}
+              showCustomizedSerialNumber={props.showCustomizedSerialNumber}
             />
           )}
         </React.Fragment>

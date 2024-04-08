@@ -146,6 +146,7 @@ export interface InstanceListTableProps extends WithTranslation {
   useExternalCmdbApi?: boolean;
   externalSourceId?: string;
   hiddenColumns?: Array<string>;
+  showCustomizedSerialNumber?: boolean;
 }
 
 interface InstanceListTableState {
@@ -1201,8 +1202,26 @@ export class LegacyInstanceListTable extends React.Component<
         style={{ overflowX: "auto", overflowY: "hidden" }}
       >
         <Table
-          columns={this.state.columns}
-          dataSource={this.props.instanceListData.list}
+          columns={
+            this.props.showCustomizedSerialNumber
+              ? [
+                  {
+                    dataIndex: "customizedSerialNumber",
+                    title: "序号",
+                    align: "center",
+                  },
+                  ...this.state.columns,
+                ]
+              : this.state.columns
+          }
+          dataSource={
+            this.props.showCustomizedSerialNumber
+              ? this.props.instanceListData.list.map((item, index) => ({
+                  ...item,
+                  customizedSerialNumber: index + 1,
+                }))
+              : this.props.instanceListData.list
+          }
           rowKey={this.ROM_KEY}
           scroll={{
             x: this.props.fixedHeader
