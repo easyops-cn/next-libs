@@ -887,4 +887,42 @@ describe("InstanceListTable", () => {
       ])
     );
   });
+  it("should work with test property showCustomizedSerialNumber", () => {
+    const instanceListData = getInstanceListData();
+    const mockOnColumnsChange = jest.fn();
+    const { container } = render(
+      <InstanceListTable
+        fieldIds={[
+          "ip",
+          "cpu",
+          "status",
+          "hostname",
+          "owner",
+          "_deviceList_CLUSTER",
+        ]}
+        detailUrlTemplates={detailUrlTemplates}
+        idObjectMap={idObjectMap}
+        modelData={HOST}
+        instanceListData={instanceListData}
+        onColumnsChange={mockOnColumnsChange}
+        showCustomizedSerialNumber={true}
+      />
+    );
+
+    expect(
+      container
+        .querySelector(".ant-table-thead")
+        .getElementsByClassName("ant-table-cell")[1].textContent
+    ).toBe("序号");
+    expect(
+      container
+        .querySelectorAll("tbody tr")[1]
+        .getElementsByClassName("ant-table-cell")[1].textContent
+    ).toBe("1");
+    expect(
+      container
+        .querySelectorAll("tbody tr")[2]
+        .getElementsByClassName("ant-table-cell")[1].textContent
+    ).toBe("2");
+  });
 });
