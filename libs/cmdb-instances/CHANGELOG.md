@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.16.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.16.1...@next-libs/cmdb-instances@7.16.2) (2024-04-08)
+
+
+### Bug Fixes
+
+* **instanceListTable:** 实例列表增加序号列开关 ([#657](https://github.com/easyops-cn/next-libs/issues/657)) ([381cd98](https://github.com/easyops-cn/next-libs/commit/381cd98a4461767d40681c24561873cd2bba7662))
+
+
+
+
+
 ## [7.16.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.16.0...@next-libs/cmdb-instances@7.16.1) (2024-03-29)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
