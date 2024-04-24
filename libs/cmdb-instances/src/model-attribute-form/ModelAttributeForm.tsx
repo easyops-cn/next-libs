@@ -704,6 +704,11 @@ export class ModelAttributeForm extends Component<
                           showError[tag + index] = err;
                           this.setState({ showError });
                         }}
+                        xmlValidateCollection={(err: any) => {
+                          const showError = { ...this.state.showError };
+                          showError[tag + index] = err;
+                          this.setState({ showError });
+                        }}
                       />
                     )}
                   </Form.Item>

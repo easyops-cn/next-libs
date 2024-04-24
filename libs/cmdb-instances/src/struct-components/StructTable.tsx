@@ -60,6 +60,12 @@ export class StructTable extends React.Component<
         let copyText: string;
         let showText: string;
         switch (item.type) {
+          case "str": {
+            if (item.mode === "password") {
+              return "*".repeat(text?.length);
+            }
+            return text;
+          }
           case "bool":
             return String(text ?? "");
           case "enums":

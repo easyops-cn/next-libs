@@ -78,6 +78,17 @@ describe("ModelAttributeFormControl", () => {
       expect(result).toEqual(FormControlTypeEnum.MARKDOWN);
     });
 
+    it("should return 'textarea' when type equal 'str' and mode equal 'xml'", () => {
+      const result = computeFormControlType({
+        value: {
+          type: "str",
+          mode: "xml" as any,
+        },
+      });
+
+      expect(result).toEqual(FormControlTypeEnum.XML_EDITOR);
+    });
+
     it("should return 'number' when type equal 'int'", () => {
       const result = computeFormControlType({
         value: {

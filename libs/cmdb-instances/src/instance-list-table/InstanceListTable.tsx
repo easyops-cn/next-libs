@@ -57,6 +57,7 @@ import i18n from "i18next";
 import { CmdbUrlLink } from "../cmdb-url-link/CmdbUrlLink";
 import { FloatDisplayBrick } from "../float-display-brick/FloatDisplayBrick";
 import { JsonDisplayBrick } from "../json-display-brick/JsonDisplayBrick";
+import { XmlDisplayBrick } from "../xml-display-brick/XmlDisplayBrick";
 // const { Paragraph } = Typography;
 export interface CustomColumn extends ColumnType<Record<string, unknown>> {
   useBrick: UseBrickConf;
@@ -723,7 +724,25 @@ export class LegacyInstanceListTable extends React.Component<
           };
           break;
         case ModelAttributeValueType.STRING:
-          tempColumns = (v: string) => v;
+          switch (attribute.value.mode as any) {
+            case "xml": {
+              tempColumns = (v: string) => {
+                return (
+                  <XmlDisplayBrick value={v} isNumControlEllipsis={false} />
+                );
+              };
+              break;
+            }
+            case "password": {
+              tempColumns = (v: string) => {
+                return "*".repeat(v?.length);
+              };
+              break;
+            }
+            default: {
+              tempColumns = (v: string) => v;
+            }
+          }
           break;
         case ModelAttributeValueType.FLOAT:
           tempColumns = (value: number) => {

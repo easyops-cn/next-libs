@@ -12,6 +12,9 @@ import FileSaver from "file-saver";
 import ResizeObserver from "resize-observer-polyfill";
 import i18n from "i18next";
 import { NS_CODE_DISPLAY_COMPONENTS, K } from "../i18n/constants";
+import { addResourceBundle } from "../i18n";
+
+addResourceBundle();
 
 interface CodeDisplayProps {
   language: string;

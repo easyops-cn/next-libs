@@ -127,6 +127,28 @@ describe("InstanceDetail", () => {
     expect(instance.isMarkdownField({})).toBeFalsy();
   });
 
+  it("tests isXmlField", () => {
+    const data = {
+      value: {
+        type: "str",
+        mode: "xml",
+      },
+    };
+    expect(instance.isXmlField(data)).toBeTruthy();
+    expect(instance.isXmlField({})).toBeFalsy();
+  });
+
+  it("tests isPasswordField", () => {
+    const data = {
+      value: {
+        type: "str",
+        mode: "password",
+      },
+    };
+    expect(instance.isPasswordField(data)).toBeTruthy();
+    expect(instance.isPasswordField({})).toBeFalsy();
+  });
+
   it("tests isRelation", () => {
     expect(
       instance.isRelation({

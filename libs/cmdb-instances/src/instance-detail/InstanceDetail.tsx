@@ -60,6 +60,7 @@ import {
   InstanceApi_PostSearchV3RequestBody,
 } from "@next-sdk/cmdb-sdk";
 import { Link } from "@next-libs/basic-components";
+import { CodeDisplay } from "@next-libs/code-display-components";
 import { StructTable } from "../struct-components/StructTable";
 import { FieldsByTag } from "../model-attribute-form/ModelAttributeForm";
 import { InstanceFormat } from "../components";
@@ -673,6 +674,8 @@ export class LegacyInstanceDetail extends React.Component<
       isStructs,
       isRelation,
       isMarkdownField,
+      isXmlField,
+      isPasswordField,
       isUrl,
       isFloat,
       isJson,
@@ -712,6 +715,7 @@ export class LegacyInstanceDetail extends React.Component<
           className={
             isStruct(attr) ||
             isStructs(attr) ||
+            isXmlField(attr) ||
             isRelation(attr) ||
             attr.__isRelation ||
             isMarkdownField(attr) ||
@@ -738,6 +742,7 @@ export class LegacyInstanceDetail extends React.Component<
           className={
             isStruct(attr) ||
             isStructs(attr) ||
+            isXmlField(attr) ||
             isRelation(attr) ||
             attr.__isRelation ||
             isMarkdownField(attr) ||
@@ -765,6 +770,22 @@ export class LegacyInstanceDetail extends React.Component<
               }}
             />
           )}
+          {isXmlField(attr) && (
+            <CodeDisplay
+              language="xml"
+              value={instanceData[attr.id]}
+              maxLines={20}
+              minLines={5}
+              showLineNumber={true}
+              showExportButton={false}
+              showCopyButton={true}
+            />
+          )}
+          {isPasswordField(attr) && (
+            <span className="attr-field">
+              {"*".repeat(instanceData[attr.id]?.length)}
+            </span>
+          )}
           {attr.__isRelation && !isUrl(attr) && (
             <div>
               <InstanceRelationTableShow
@@ -789,6 +810,8 @@ export class LegacyInstanceDetail extends React.Component<
           {!isStructs(attr) &&
             !isStruct(attr) &&
             !isRelation(attr) &&
+            !isXmlField(attr) &&
+            !isPasswordField(attr) &&
             isComponentMode &&
             !isUrl(attr) &&
             !isFloat(attr) &&
@@ -815,6 +838,8 @@ export class LegacyInstanceDetail extends React.Component<
             !isStruct(attr) &&
             !isRelation(attr) &&
             !isMarkdownField(attr) &&
+            !isXmlField(attr) &&
+            !isPasswordField(attr) &&
             !isComponentMode &&
             !isUrl(attr) &&
             !isFloat(attr) &&
@@ -1335,6 +1360,14 @@ export class LegacyInstanceDetail extends React.Component<
 
   isMarkdownField(attr: any) {
     return attr.value?.type === "str" && get(attr, "value.mode") === "markdown";
+  }
+
+  isPasswordField(attr: any) {
+    return attr.value?.type === "str" && get(attr, "value.mode") === "password";
+  }
+
+  isXmlField(attr: any) {
+    return attr.value?.type === "str" && get(attr, "value.mode") === "xml";
   }
 }
 
