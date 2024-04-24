@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.17.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.16.2...@next-libs/cmdb-instances@7.17.0) (2024-04-24)
+
+
+### Features
+
+* cmdb str mode support xml & password ([#658](https://github.com/easyops-cn/next-libs/issues/658)) ([2eff128](https://github.com/easyops-cn/next-libs/commit/2eff128c24ca52870f00d2791bfd0ddfce46452b))
+
+
+
+
+
 ## [7.16.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.16.1...@next-libs/cmdb-instances@7.16.2) (2024-04-08)
 
 

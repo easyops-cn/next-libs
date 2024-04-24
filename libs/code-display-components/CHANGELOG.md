@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-display-components@2.0.4...@next-libs/code-display-components@2.1.0) (2024-04-24)
+
+
+### Features
+
+* cmdb str mode support xml & password ([#658](https://github.com/easyops-cn/next-libs/issues/658)) ([2eff128](https://github.com/easyops-cn/next-libs/commit/2eff128c24ca52870f00d2791bfd0ddfce46452b))
+
+
+
+
+
 ## [2.0.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-display-components@2.0.3...@next-libs/code-display-components@2.0.4) (2022-11-10)
 
 **Note:** Version bump only for package @next-libs/code-display-components
