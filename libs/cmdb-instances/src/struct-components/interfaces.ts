@@ -6,6 +6,7 @@ export interface Structkey {
   type: ModelObjectAttrValue["type"];
   regex?: any;
   protected?: boolean;
+  mode?: "default" | "password";
 }
 export interface AttributeValue {
   default?: any;

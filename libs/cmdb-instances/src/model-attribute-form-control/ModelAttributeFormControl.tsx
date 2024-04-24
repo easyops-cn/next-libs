@@ -38,6 +38,8 @@ export enum ModelAttributeValueModeType {
   DEFAULT = "default",
   MARKDOWN = "markdown",
   URL = "url",
+  XML = "xml",
+  PASSWORD = "password",
 }
 
 export enum FormControlTypeEnum {
@@ -60,6 +62,7 @@ export enum FormControlTypeEnum {
   MARKDOWN = "markdown",
   URL = "url",
   CODE_EDITOR = "code_editor",
+  XML_EDITOR = "xml_editor",
 }
 
 export interface FormControl {
@@ -89,6 +92,7 @@ export interface ModelAttributeFormControlProps {
   style?: React.CSSProperties;
   objectId?: string;
   jsonValidateCollection?: (err: boolean) => void;
+  xmlValidateCollection?: (err: boolean) => void;
   isSupportMultiStringValue?: boolean;
 }
 
@@ -207,6 +211,9 @@ export class ModelAttributeFormControl extends Component<
   ): FormControlTypeEnum {
     switch (attribute.value.type) {
       case ModelAttributeValueType.STRING: {
+        if ((attribute.value.mode as any) === ModelAttributeValueModeType.XML) {
+          return FormControlTypeEnum.XML_EDITOR;
+        }
         if (
           attribute.value.mode === ModelAttributeValueModeType.MULTIPLE_LINES
         ) {
@@ -423,6 +430,11 @@ export class ModelAttributeFormControl extends Component<
     this.props.jsonValidateCollection?.(error);
     this.setState({ showError: error });
   };
+  validateXML = (err: any) => {
+    const error = some(err, ["type", "error"]);
+    this.props.xmlValidateCollection?.(error);
+    this.setState({ showError: error });
+  };
 
   FormControlTypeMap = (): ReactNode => {
     const { attribute } = this.props;
@@ -507,6 +519,31 @@ export class ModelAttributeFormControl extends Component<
               }}
             >
               {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.NOT_MEET_JSON}`)}
+            </label>
+          </>
+        );
+      case FormControlTypeEnum.XML_EDITOR:
+        return (
+          <>
+            <CodeEditor
+              theme="monokai"
+              mode={"xml"}
+              minLines={5}
+              maxLines={20}
+              showLineNumbers={true}
+              showPrintMargin={false}
+              highlightActiveLine={true}
+              value={value}
+              onChange={(e: any) => this.onChange(e)}
+              onValidate={(err: any) => this.validateXML(err)}
+            />
+            <label
+              style={{
+                display: this.state.showError ? "block" : "none",
+                color: "#fc5043",
+              }}
+            >
+              {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.NOT_MEET_XML}`)}
             </label>
           </>
         );

@@ -3,5 +3,7 @@ import { NS_CODE_DISPLAY_COMPONENTS } from "./constants";
 import en from "./locales/en";
 import zh from "./locales/zh";
 
-i18next.addResourceBundle("en", NS_CODE_DISPLAY_COMPONENTS, en);
-i18next.addResourceBundle("zh", NS_CODE_DISPLAY_COMPONENTS, zh);
+export function addResourceBundle(): void {
+  i18next.addResourceBundle("en", NS_CODE_DISPLAY_COMPONENTS, en);
+  i18next.addResourceBundle("zh", NS_CODE_DISPLAY_COMPONENTS, zh);
+}
