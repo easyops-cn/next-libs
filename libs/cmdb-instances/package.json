@@ -38,6 +38,7 @@
     "@next-core/brick-types": "^2.16.0",
     "@next-libs/basic-components": "^5.4.0",
     "@next-libs/cmdb-utils": "^3.4.4",
+    "@next-libs/code-display-components": "^2.1.0",
     "@next-libs/code-editor-components": "^4.10.12",
     "@next-libs/forms": "^3.5.5",
     "@next-libs/storage": "^2.0.4",
