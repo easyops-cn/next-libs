@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.17.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.17.1...@next-libs/cmdb-instances@7.17.2) (2024-04-26)
+
+
+### Bug Fixes
+
+* code-editor 默认值 ([d9e261b](https://github.com/easyops-cn/next-libs/commit/d9e261bacf2d7fa2ebeaba1f362fabdb1b6caa06))
+
+
+
+
+
 ## [7.17.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.17.0...@next-libs/cmdb-instances@7.17.1) (2024-04-25)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
