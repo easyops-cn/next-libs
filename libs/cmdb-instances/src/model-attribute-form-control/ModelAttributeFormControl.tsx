@@ -533,7 +533,7 @@ export class ModelAttributeFormControl extends Component<
               showLineNumbers={true}
               showPrintMargin={false}
               highlightActiveLine={true}
-              value={value}
+              value={value ?? ""}
               onChange={(e: any) => this.onChange(e)}
               onValidate={(err: any) => this.validateXML(err)}
             />
