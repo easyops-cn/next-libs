@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.17.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.17.2...@next-libs/cmdb-instances@7.17.3) (2024-04-28)
+
+
+### Bug Fixes
+
+* 结构体modal打开没有更新form value ([a4e0896](https://github.com/easyops-cn/next-libs/commit/a4e08961ca5bbf27bb081c8683c71e8744f18b20))
+
+
+
+
+
 ## [7.17.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.17.1...@next-libs/cmdb-instances@7.17.2) (2024-04-26)
 
 
