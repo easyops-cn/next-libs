@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   DatePicker,
   Input,
@@ -295,6 +295,12 @@ export function AddStructModal(props: AddStructModalProps): React.ReactElement {
     handleCancelFunction();
     form.resetFields();
   };
+
+  useEffect(() => {
+    if (visible) {
+      form.setFieldsValue(structValue);
+    }
+  }, [visible]);
 
   return (
     <Modal
