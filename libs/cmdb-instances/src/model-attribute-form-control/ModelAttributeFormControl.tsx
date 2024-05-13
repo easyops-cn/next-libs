@@ -662,6 +662,7 @@ export class ModelAttributeFormControl extends Component<
             className={this.props.className}
             style={this.props.style}
             showSearch
+            allowClear={true}
           >
             {restProps.items &&
               restProps.items.map(({ id, text }) => (
