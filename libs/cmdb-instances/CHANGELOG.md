@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.18.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.17.3...@next-libs/cmdb-instances@7.18.0) (2024-05-13)
+
+
+### Features
+
+* CMDB的单选枚举值，非必填，没选之前可以是空的，但是选了之后就不能为空 ([69cc683](https://github.com/easyops-cn/next-libs/commit/69cc6835fc4dc9314ba3526328ca2751e052fc3e))
+
+
+
+
+
 ## [7.17.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.17.2...@next-libs/cmdb-instances@7.17.3) (2024-04-28)
 
 
