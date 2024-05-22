@@ -1,7 +1,7 @@
 import React from "react";
 import { ClockCircleOutlined } from "@ant-design/icons";
 import { Popover, Button, Radio, DatePicker } from "antd";
-import { find, get } from "lodash";
+import { find, get, isEqual } from "lodash";
 import { RadioChangeEvent } from "antd/lib/radio";
 import { TooltipPlacement } from "antd/lib/tooltip";
 import moment from "moment";
@@ -53,6 +53,7 @@ export interface DatatimeRangeState {
   visible: boolean;
   format: string;
   dates?: RangeValue<moment.Moment> | null;
+  rangeOptionList: RangeText[];
 }
 
 export interface RangeText {
@@ -111,11 +112,11 @@ export class DatetimeRange extends React.Component<
         ? defaultInitRange
         : customInitRange) as DateRange);
 
-    this.rangeOptionList =
-      this.props.type === "default"
-        ? defaultRangeOptionList
-        : this.props.customTimeRange;
     this.state = {
+      rangeOptionList:
+        this.props.type === "default"
+          ? defaultRangeOptionList
+          : this.props.customTimeRange,
       dateRange: initDateRange,
       type: initDateRange.type,
       range: initDateRange.type === DATE_RANGE ? initDateRange.value : null,
@@ -131,8 +132,10 @@ export class DatetimeRange extends React.Component<
 
   getButtonText() {
     if (this.state.dateRange.type === DATE_RANGE) {
-      return find(this.rangeOptionList, ["range", this.state.dateRange.value])
-        .text;
+      return find(this.state.rangeOptionList, [
+        "range",
+        this.state.dateRange.value,
+      ]).text;
     } else {
       return (
         moment(this.state.dateRange.value.from).format(this.state.format) +
@@ -226,7 +229,43 @@ export class DatetimeRange extends React.Component<
       return false;
     }
   };
+  componentDidUpdate(prevProps: DatatimeRangeProps) {
+    if (
+      this.props.type !== prevProps.type ||
+      !isEqual(this.props.customTimeRange, prevProps.customTimeRange) ||
+      this.props.format !== prevProps.format ||
+      !isEqual(this.props.initDateRange, prevProps.initDateRange)
+    ) {
+      const defaultInitRange = {
+        type: DATE_RANGE,
+        value: "now-7d",
+      };
 
+      const customInitRange = {
+        type: DATE_RANGE,
+        value: get(this.props.customTimeRange, "[0].range"),
+      };
+      const initDateRange: DateRange | SpecifiedDateRange =
+        this.props.initDateRange ||
+        ((this.props.type === "default"
+          ? defaultInitRange
+          : customInitRange) as DateRange);
+      this.setState({
+        rangeOptionList:
+          this.props.type === "default"
+            ? defaultRangeOptionList
+            : this.props.customTimeRange,
+        dateRange: initDateRange,
+        type: initDateRange.type,
+        range: initDateRange.type === DATE_RANGE ? initDateRange.value : null,
+        specifiedDate:
+          initDateRange.type === SPECIFIED_DATE
+            ? [moment(initDateRange.value.from), moment(initDateRange.value.to)]
+            : null,
+        format: this.props.format || "YYYY-MM-DD HH:mm:ss",
+      });
+    }
+  }
   render(): React.ReactNode {
     const labelStyle = {
       display: "block",
@@ -257,7 +296,7 @@ export class DatetimeRange extends React.Component<
           buttonStyle="solid"
           className="btnGroup"
         >
-          {this.rangeOptionList.map((item) => (
+          {this.state.rangeOptionList.map((item) => (
             <Radio.Button
               value={item.range}
               key={item.range}
