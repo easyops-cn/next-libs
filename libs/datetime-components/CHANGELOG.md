@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/datetime-components@3.2.2...@next-libs/datetime-components@3.2.3) (2024-05-22)
+
+
+### Bug Fixes
+
+* **datetime-selector:**  修复props更新没有更新对应state状态导致构件效果不对 ([#663](https://github.com/easyops-cn/next-libs/issues/663)) ([94b95f3](https://github.com/easyops-cn/next-libs/commit/94b95f354c97b59767b1bd8d1101f3ba4df22c14))
+
+
+
+
+
 ## [3.2.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/datetime-components@3.2.1...@next-libs/datetime-components@3.2.2) (2023-05-18)
 
 
