@@ -10,7 +10,7 @@ export function parseTemplate(
   skipUndefined = false
 ) {
   return template.replace(
-    /#{([A-Za-z_$][\w$]*(?:(?:\.[A-Za-z_$][\w$]*)|(?:\[[0-9]+\]))*)}/g,
+    /#{([#A-Za-z_$][\w$]*(?:(?:\.[A-Za-z_$][\w$]*)|(?:\[[0-9]+\]))*)}/g,
     (match: string, key: string) => {
       const value = get(data, key);
 
