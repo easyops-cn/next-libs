@@ -55,6 +55,8 @@ test("WorkbenchMiniActionBar with actions", () => {
   expect(onActionClick).toHaveBeenNthCalledWith(1, {
     action: "add",
     data: { type: "production" },
+    clientX: 0,
+    clientY: 0,
   });
 
   expect(onActionClick).toBeCalledTimes(1);
@@ -62,6 +64,8 @@ test("WorkbenchMiniActionBar with actions", () => {
   expect(onActionClick).toHaveBeenNthCalledWith(2, {
     action: "move-up",
     data: { type: "production" },
+    clientX: 0,
+    clientY: 0,
   });
 
   fireEvent.mouseDown(screen.getAllByRole("button")[0]);

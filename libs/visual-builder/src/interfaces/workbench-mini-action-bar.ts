@@ -13,4 +13,6 @@ export interface WorkbenchTreeAction {
 export interface ActionClickDetail {
   action: string;
   data?: unknown;
+  clientX: number;
+  clientY?: number;
 }

@@ -88,6 +88,8 @@ function WorkbenchSubAction({
         onActionClick?.({
           action: action.action,
           data: data,
+          clientX: event.clientX,
+          clientY: event.clientY,
         });
     },
     [action.action, data, disabled, onActionClick]
