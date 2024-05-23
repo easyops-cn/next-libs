@@ -13,6 +13,19 @@ describe("parseTemplate", () => {
     expect(result).toEqual("/next/product/232bda");
   });
 
+  it("parse the the #showKey of data", () => {
+    const url = "/next/product/#{#showKey}";
+    const data = {
+      instanceId: "232bda",
+      name: "console",
+      "#showKey": "192.168.100.92(hostname)",
+    };
+
+    const result = parseTemplate(url, data);
+
+    expect(result).toEqual("/next/product/192.168.100.92(hostname)");
+  });
+
   it("parse the nested key of data", () => {
     const url = "/next/product/#{description.text}";
     const data = {
