@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.5.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@3.4.4...@next-libs/cmdb-utils@3.5.0) (2024-05-23)
+
+
+### Features
+
+* parseTemplate支持解析#showKey ([1248fec](https://github.com/easyops-cn/next-libs/commit/1248fecca42e6f21b65832fe5d6252cfc5a7a6e3))
+
+
+
+
+
 ## [3.4.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@3.4.3...@next-libs/cmdb-utils@3.4.4) (2023-12-12)
 
 
