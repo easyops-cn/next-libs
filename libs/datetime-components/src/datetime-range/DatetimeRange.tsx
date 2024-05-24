@@ -184,8 +184,8 @@ export class DatetimeRange extends React.Component<
       dateRange = {
         type: this.state.type,
         value: {
-          from: +this.state.specifiedDate[0],
-          to: +this.state.specifiedDate[1],
+          from: this.state.specifiedDate[0].unix()*1000,
+          to: this.state.specifiedDate[1].unix()*1000,
         },
       };
     }

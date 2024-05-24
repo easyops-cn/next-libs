@@ -92,8 +92,8 @@ describe("DatetimeRange onConfirm", () => {
     const dateRange = {
       type: SPECIFIED_DATE,
       value: {
-        from: 1556703515644,
-        to: 1556789915644,
+        from: 1556703515000,
+        to: 1556789915000,
       },
     };
     wrapper.setState({
