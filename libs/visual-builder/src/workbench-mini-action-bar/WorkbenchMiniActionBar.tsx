@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import classNames from "classnames";
+import { Tooltip } from "antd";
 import {
   BrickAsComponent,
   looseCheckIfByTransform,
@@ -121,11 +122,16 @@ function WorkbenchSubAction({
       onContextMenu={preventMouseEvent}
       onMouseDown={preventMouseEvent}
     >
-      {action.iconUseBrick?.useBrick ? (
-        <BrickAsComponent useBrick={action.iconUseBrick.useBrick} data={data} />
-      ) : (
-        <GeneralIcon icon={action.icon} />
-      )}
+      <Tooltip title={action.tooltip}>
+        {action.iconUseBrick?.useBrick ? (
+          <BrickAsComponent
+            useBrick={action.iconUseBrick.useBrick}
+            data={data}
+          />
+        ) : (
+          <GeneralIcon icon={action.icon} />
+        )}
+      </Tooltip>
     </a>
   );
 }

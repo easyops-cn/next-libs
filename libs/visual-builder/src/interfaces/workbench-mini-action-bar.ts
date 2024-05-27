@@ -4,6 +4,7 @@ export interface WorkbenchTreeAction {
   action: string;
   icon: MenuIcon;
   title?: string;
+  tooltip?: string;
   if?: string | boolean;
   iconUseBrick?: {
     useBrick: UseBrickConf;
