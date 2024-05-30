@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.11.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.10.12...@next-libs/code-editor-components@4.11.0) (2024-05-30)
+
+
+### Features
+
+* **CodeEditor:** add disable_lint_yaml mode ([b165a74](https://github.com/easyops-cn/next-libs/commit/b165a7453bcbb440894ea3c9a3d68e90bfae59c0))
+
+
+
+
+
 ## [4.10.12](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.10.11...@next-libs/code-editor-components@4.10.12) (2024-03-29)
 
 **Note:** Version bump only for package @next-libs/code-editor-components
