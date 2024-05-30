@@ -460,6 +460,8 @@ export function CodeEditorItem(
             props.mode === "cel" ||
             props.mode === "terraform"
               ? "text"
+              : props.mode === "disable_lint_yaml"
+              ? "yaml"
               : props.mode)) ??
           "text"
         }
