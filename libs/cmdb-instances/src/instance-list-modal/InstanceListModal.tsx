@@ -10,6 +10,7 @@ import {
   filterObjectIdQuery,
 } from "../instance-list/InstanceList";
 import { InstanceListPresetConfigs } from "../instance-list-table/interfaces";
+import { UseBrickAndPropertyDisplayConfig } from "../instance-list-table";
 import { addResourceBundle } from "../i18n";
 import {
   ReadPaginationChangeDetail,
@@ -75,6 +76,7 @@ export interface InstanceListModalProps {
   useExternalCmdbApi?: boolean;
   externalSourceId?: string;
   showHiddenInfoDisabled?: boolean;
+  propertyDisplayConfigs?: UseBrickAndPropertyDisplayConfig[];
 }
 
 export function InstanceListModal(
@@ -284,6 +286,7 @@ export function InstanceListModal(
           useExternalCmdbApi={props.useExternalCmdbApi}
           externalSourceId={props.externalSourceId}
           showHiddenInfoDisabled={props.showHiddenInfoDisabled}
+          propertyDisplayConfigs={props.propertyDisplayConfigs}
         />
       </div>
     </Modal>
