@@ -18,10 +18,17 @@ import {
 import { CmdbModels } from "@next-sdk/cmdb-sdk";
 import { Input, InputNumber, Radio, Select } from "antd";
 import { CodeEditor } from "@next-libs/code-editor-components";
+import * as kit from "@next-core/brick-kit";
 
 /* eslint-disable @typescript-eslint/naming-convention */
 jest.mock("../i18n");
 jest.spyOn(i18n, "t").mockReturnValue("");
+
+const flags: Record<string, boolean> = {};
+jest.spyOn(kit, "getRuntime").mockReturnValue({
+  getFeatureFlags: () => flags,
+} as any);
+
 describe("ModelAttributeFormControl", () => {
   const attribute: Partial<CmdbModels.ModelObjectAttr> =
     mockFetchCmdbObjectDetailReturnValue.attrList[0];

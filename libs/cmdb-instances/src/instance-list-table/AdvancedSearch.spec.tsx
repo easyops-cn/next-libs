@@ -12,6 +12,7 @@ import {
 import { HOST } from "./data-providers/__mocks__/fetchCmdbObjectDetail";
 import { ModelAttributeValueType } from "../model-attribute-form-control/ModelAttributeFormControl";
 import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
+import * as kit from "@next-core/brick-kit";
 const mockOnSearch = jest.fn((query) => null);
 const mockAutoSearch = jest.fn();
 
@@ -20,6 +21,11 @@ afterEach(() => {
   mockOnSearch.mockClear();
 });
 jest.mock("../i18n");
+
+const flags: Record<string, boolean> = {};
+jest.spyOn(kit, "getRuntime").mockReturnValue({
+  getFeatureFlags: () => flags,
+} as any);
 
 describe("AdvancedSearch", () => {
   it("should init fields with given q", () => {
