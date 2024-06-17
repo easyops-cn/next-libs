@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.19.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.18.3...@next-libs/cmdb-instances@7.19.0) (2024-06-17)
+
+
+### Features
+
+* cmdb维护资源的多层级的枚举型的属性 ([#670](https://github.com/easyops-cn/next-libs/issues/670)) ([5ad9415](https://github.com/easyops-cn/next-libs/commit/5ad941595b0e787e25f50c4171ddc103ae5b0053))
+
+
+
+
+
 ## [7.18.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.18.2...@next-libs/cmdb-instances@7.18.3) (2024-06-06)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances

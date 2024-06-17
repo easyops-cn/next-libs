@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.6.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@3.5.0...@next-libs/cmdb-utils@3.6.0) (2024-06-17)
+
+
+### Features
+
+* cmdb维护资源的多层级的枚举型的属性 ([#670](https://github.com/easyops-cn/next-libs/issues/670)) ([5ad9415](https://github.com/easyops-cn/next-libs/commit/5ad941595b0e787e25f50c4171ddc103ae5b0053))
+
+
+
+
+
 # [3.5.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@3.4.4...@next-libs/cmdb-utils@3.5.0) (2024-05-23)
 
 
