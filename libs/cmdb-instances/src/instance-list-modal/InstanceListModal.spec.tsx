@@ -9,11 +9,17 @@ import { InstanceApi_postSearch } from "@next-sdk/cmdb-sdk";
 import i18n from "i18next";
 import { Button } from "antd";
 import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
+import * as kit from "@next-core/brick-kit";
 jest.mock("@next-sdk/cmdb-sdk");
 
 jest.mock("../i18n");
 jest.spyOn(i18n, "t").mockReturnValue("");
 const mockInstanceListData = InstanceApi_postSearch as jest.Mock;
+
+const flags: Record<string, boolean> = {};
+jest.spyOn(kit, "getRuntime").mockReturnValue({
+  getFeatureFlags: () => flags,
+} as any);
 
 mockInstanceListData.mockResolvedValue(getInstanceListData);
 

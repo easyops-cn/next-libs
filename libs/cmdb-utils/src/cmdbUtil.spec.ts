@@ -11,6 +11,8 @@ import {
   modifyModelData,
   getFixedStyle,
   getBatchEditableFields,
+  treeEnumFormat,
+  nodeData,
 } from "./cmdbUtil";
 
 describe("util", () => {
@@ -588,5 +590,115 @@ describe("util", () => {
         __inverted: true,
       },
     ]);
+  });
+});
+
+describe("treeEnumFormat", () => {
+  const value = ["A1/B1/C1", "A1/B1", "A1/B1/C2", "A1"];
+  it("treeEnumFormat", () => {
+    const result = treeEnumFormat(value);
+    expect(result).toEqual([
+      {
+        children: [
+          {
+            children: [
+              {
+                children: null,
+                id: "A1/B1/C1",
+                isLeaf: true,
+                parentId: "A1/B1",
+                title: "C1",
+                value: "A1/B1/C1",
+              },
+              {
+                children: null,
+                id: "A1/B1/C2",
+                isLeaf: true,
+                parentId: "A1/B1",
+                title: "C2",
+                value: "A1/B1/C2",
+              },
+            ],
+            id: "A1/B1",
+            isLeaf: false,
+            parentId: "A1",
+            title: "B1",
+            value: "A1/B1",
+          },
+        ],
+        id: "A1",
+        isLeaf: false,
+        parentId: "",
+        title: "A1",
+        value: "A1",
+      },
+    ]);
+    const result2 = treeEnumFormat("A1/B1/C1\nA1/B1\nA1/B1/C2\nA1");
+    expect(result2).toEqual([
+      {
+        children: [
+          {
+            children: [
+              {
+                children: null,
+                id: "A1/B1/C1",
+                isLeaf: true,
+                parentId: "A1/B1",
+                title: "C1",
+                value: "A1/B1/C1",
+              },
+              {
+                children: null,
+                id: "A1/B1/C2",
+                isLeaf: true,
+                parentId: "A1/B1",
+                title: "C2",
+                value: "A1/B1/C2",
+              },
+            ],
+            id: "A1/B1",
+            isLeaf: false,
+            parentId: "A1",
+            title: "B1",
+            value: "A1/B1",
+          },
+        ],
+        id: "A1",
+        isLeaf: false,
+        parentId: "",
+        title: "A1",
+        value: "A1",
+      },
+    ]);
+  });
+});
+describe("nodeData", () => {
+  it("nodeData", () => {
+    const result = nodeData({
+      id: "123",
+      title: "123",
+      isLeaf: true,
+      value: "123",
+    });
+    expect(result).toEqual({
+      id: "123",
+      title: "123",
+      isLeaf: true,
+      value: "123",
+      children: null,
+    });
+    const result2 = nodeData({
+      id: "123",
+      title: "123",
+      isLeaf: false,
+      value: "123",
+    });
+    expect(result2).toEqual({
+      id: "123",
+      title: "123",
+      isLeaf: false,
+      value: "123",
+      children: [],
+    });
   });
 });

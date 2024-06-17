@@ -2,14 +2,23 @@ import React, { Component, ReactNode } from "react";
 import { CmdbModels } from "@next-sdk/cmdb-sdk";
 import i18n from "i18next";
 import { NS_LIBS_CMDB_INSTANCES, K } from "../i18n/constants";
-import { DatePicker, Input, InputNumber, Radio, Select } from "antd";
+import {
+  DatePicker,
+  Input,
+  InputNumber,
+  Radio,
+  Select,
+  TreeSelect,
+} from "antd";
 import { AddStruct } from "../struct-components";
-import moment, { Moment } from "moment";
+import { Moment } from "moment";
 import { AttributeFormControlUrl } from "../attribute-form-control-url/AttributeFormControlUrl";
 import { computeDateFormat, isClusterType } from "../processors";
 import { clusterMap } from "../instance-list-table/constants";
 import { CodeEditor } from "@next-libs/code-editor-components";
+import { getRuntime } from "@next-core/brick-kit";
 import { some } from "lodash";
+import { treeEnumFormat } from "@next-libs/cmdb-utils";
 export interface FormControlSelectItem {
   id: any;
   text: string;
@@ -40,6 +49,7 @@ export enum ModelAttributeValueModeType {
   URL = "url",
   XML = "xml",
   PASSWORD = "password",
+  CASCADE = "cascade",
 }
 
 export enum FormControlTypeEnum {
@@ -63,6 +73,7 @@ export enum FormControlTypeEnum {
   URL = "url",
   CODE_EDITOR = "code_editor",
   XML_EDITOR = "xml_editor",
+  TREESELECT = "tree_select",
 }
 
 export interface FormControl {
@@ -287,6 +298,12 @@ export class ModelAttributeFormControl extends Component<
       case ModelAttributeValueType.BOOLEAN:
         return FormControlTypeEnum.SELECT;
       case ModelAttributeValueType.ENUMS:
+        if (
+          getRuntime().getFeatureFlags()["cmdb-use-tree-enum-attr"] &&
+          (attribute.value.mode as any) === ModelAttributeValueModeType.CASCADE
+        ) {
+          return FormControlTypeEnum.TREESELECT;
+        }
         return FormControlTypeEnum.SELECT;
       default:
         throw new Error(
@@ -671,6 +688,27 @@ export class ModelAttributeFormControl extends Component<
                 </Select.Option>
               ))}
           </Select>
+        );
+      }
+
+      case FormControlTypeEnum.TREESELECT: {
+        // istanbul ignore next
+        const { readOnly, placeholder } = restProps;
+        const newValue =
+          typeof value === "boolean" ? value : value ? value : [];
+        const treeData: any = treeEnumFormat(attribute.value.regex || []);
+        return (
+          <TreeSelect
+            value={newValue}
+            allowClear
+            treeData={treeData}
+            disabled={readOnly}
+            placeholder={placeholder}
+            className={this.props.className}
+            style={this.props.style}
+            treeCheckable
+            onChange={(e: any) => this.onChange(e)}
+          />
         );
       }
 

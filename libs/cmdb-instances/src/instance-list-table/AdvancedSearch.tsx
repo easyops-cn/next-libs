@@ -14,6 +14,7 @@ import { Form } from "@ant-design/compatible";
 import { Button, Col, Input, Row, Select } from "antd";
 import { FormComponentProps } from "@ant-design/compatible/lib/form";
 import { CmdbModels } from "@next-sdk/cmdb-sdk";
+import { getRuntime } from "@next-core/brick-kit";
 import {
   ComparisonOperators,
   ElementOperators,
@@ -34,6 +35,7 @@ import {
   FormControlTypeEnum,
   ModelAttributeFormControl,
   ModelAttributeValueType,
+  ModelAttributeValueModeType,
 } from "../model-attribute-form-control/ModelAttributeFormControl";
 import {
   processAttrValueWithQuote,
@@ -636,6 +638,7 @@ export class AdvancedSearchForm extends React.Component<
           case ModelAttributeValueType.ENUMS:
             attrValue.type = attr.value.type;
             attrValue.regex = attr.value.regex;
+            attrValue.mode = attr.value.mode;
             break;
           default:
             attrValue.type = attr.value.type;
@@ -820,7 +823,16 @@ export class AdvancedSearchForm extends React.Component<
           break;
         case ModelAttributeValueType.ENUM:
         case ModelAttributeValueType.ENUMS:
-          type = FormControlTypeEnum.SELECT;
+          if (
+            getRuntime().getFeatureFlags()["cmdb-use-tree-enum-attr"] &&
+            (field.attrValue.mode as any) ===
+              ModelAttributeValueModeType.CASCADE
+          ) {
+            // istanbul ignore next
+            type = FormControlTypeEnum.TREESELECT;
+          } else {
+            type = FormControlTypeEnum.SELECT;
+          }
           multiSelect = true;
           break;
         case ModelAttributeValueType.DATETIME:
