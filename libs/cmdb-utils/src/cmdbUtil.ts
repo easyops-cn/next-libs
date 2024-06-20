@@ -339,85 +339,67 @@ export function getFixedStyle(
   return {};
 }
 
-interface treeItem {
+interface TreeItem {
   title: string;
   value: string;
   isLeaf?: boolean;
   parentId?: string;
   key?: string;
   id?: string;
-  children?: treeItem[];
+  children?: TreeItem[];
 }
 
-// 根据扁平数组对象生成树形数组中的节点对象
-export function nodeData(obj: treeItem) {
-  return {
-    ...obj,
-    children: (obj.isLeaf ? null : []) as any,
-  };
-}
-
-// 通过ID，递归查找树形结构中的元素
-// istanbul ignore next
-export const getElementById: any = (arr: treeItem[], parentId: string) => {
-  for (const ele of arr) {
-    if (ele.id === parentId) {
-      return ele;
-    } else if (ele.children?.length > 0) {
-      const temp = getElementById(ele.children, parentId);
-      if (temp) {
-        return temp;
-      }
-    }
-  }
-};
-export function allRegexToTree(data: treeItem[]) {
-  // tree来保存树形数组
-  const tree: any[] = [];
-
-  if (!Array.isArray(data)) {
-    return tree;
-  }
-
-  data.forEach((ele) => {
-    // istanbul ignore next
-    if (ele.parentId === "" || _.isNil(ele.parentId))
-      return tree.push(nodeData(ele));
-    // 在树形数组上查找父级节点对象
-    const obj = getElementById(tree, ele.parentId);
-    // 如果存在，添加到这个节点的children属性中
-    obj && obj.children.push(nodeData(ele));
-  });
-
-  return tree;
-}
-
-export const treeEnumFormat = (value: string | string[]) => {
-  const regex: any[] = [];
-  const results = _.compact(
+export function treeEnumFormat(value: string | string[]): TreeItem[] {
+  const root: TreeItem[] = [];
+  const arr = _.compact(
     _.uniq((_.isString(value) ? value?.split("\n") : value) || [])
   );
-  results.forEach((item, index) => {
-    // 有子节点的项不能作为枚举项
-    const isLeaf = !results?.find(
-      (h, i) => h?.match(item) && h?.match(item).index === 0 && i !== index
-    );
-    if (isLeaf) {
-      const itemArray = item?.split("/");
-      regex.push(
-        itemArray?.map((s, i) => {
-          const parentString = itemArray?.slice(0, i)?.join("/");
-          return {
-            title: s,
-            value: `${parentString ? parentString + "/" : ""}${s}`,
-            isLeaf: i === itemArray?.length - 1,
-            parentId: `${parentString}`,
-            id: `${parentString ? parentString + "/" : ""}${s}`,
-          };
-        })
-      );
+  arr.forEach((path) => {
+    const parts = path.split("/");
+    let currentLevel = root;
+
+    parts.forEach((part, index) => {
+      let existingNode = currentLevel.find((node) => node.title === part);
+
+      if (!existingNode) {
+        existingNode = {
+          id: parts.slice(0, index + 1).join("/"),
+          parentId: parts.slice(0, index).join("/") || "",
+          title: part,
+          value: parts.slice(0, index + 1).join("/"),
+          children: [],
+        };
+        currentLevel.push(existingNode);
+      }
+
+      if (index === parts.length - 1) {
+        existingNode.isLeaf = true;
+      } else {
+        existingNode.isLeaf = false;
+      }
+
+      currentLevel = existingNode.children;
+    });
+  });
+
+  function sortChildren(node: TreeItem): void {
+    if (node.children?.length) {
+      node.children.sort((a, b) => a.title.localeCompare(b.title));
+      node.children.forEach(sortChildren);
+    } else {
+      node.children = null;
+    }
+  }
+
+  root.forEach(sortChildren);
+
+  root.forEach((node) => {
+    if (node.children.length === 0) {
+      node.isLeaf = true;
+    } else {
+      node.isLeaf = false;
     }
   });
-  const allRegex = _.uniqBy(_.flatMap(regex), "id");
-  return allRegexToTree(allRegex);
-};
+
+  return root;
+}
