@@ -130,6 +130,9 @@ const locale: Locale = {
     "Filter the instance source to view all field information for the source model",
   [K.SEARCH_MODEL]: "Search the model",
   [K.SELECT_ALL]: "Select all",
+  [K.UPLOAD_SIZE_LARGE_TEXT]:
+    "The size of the upload file is larger than the limited size",
+  [K.UPLOAD]: "Upload",
 };
 
 export default locale;

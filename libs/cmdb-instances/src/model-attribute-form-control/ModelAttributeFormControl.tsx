@@ -9,6 +9,7 @@ import {
   Radio,
   Select,
   TreeSelect,
+  Upload,
 } from "antd";
 import { AddStruct } from "../struct-components";
 import { Moment } from "moment";
@@ -19,6 +20,7 @@ import { CodeEditor } from "@next-libs/code-editor-components";
 import { getRuntime } from "@next-core/brick-kit";
 import { some } from "lodash";
 import { treeEnumFormat } from "@next-libs/cmdb-utils";
+import { CmdbUpload, UploadConfig } from "../components/cmdb-upload";
 export interface FormControlSelectItem {
   id: any;
   text: string;
@@ -40,6 +42,8 @@ export enum ModelAttributeValueType {
   FLOAT = "float",
   BOOLEAN = "bool",
   JSON = "json",
+  // 附件
+  ATTACHMENT = "attachment",
 }
 
 export enum ModelAttributeValueModeType {
@@ -74,6 +78,7 @@ export enum FormControlTypeEnum {
   CODE_EDITOR = "code_editor",
   XML_EDITOR = "xml_editor",
   TREESELECT = "tree_select",
+  ATTACHMENT = "attachment",
 }
 
 export interface FormControl {
@@ -105,6 +110,7 @@ export interface ModelAttributeFormControlProps {
   jsonValidateCollection?: (err: boolean) => void;
   xmlValidateCollection?: (err: boolean) => void;
   isSupportMultiStringValue?: boolean;
+  uploadConfig?: UploadConfig;
 }
 
 export interface ModelAttributeFormControlState {
@@ -220,7 +226,8 @@ export class ModelAttributeFormControl extends Component<
     type?: string,
     isSupportMultiStringValue?: boolean
   ): FormControlTypeEnum {
-    switch (attribute.value.type) {
+    const attrValueType: any = attribute.value.type;
+    switch (attrValueType) {
       case ModelAttributeValueType.STRING: {
         if ((attribute.value.mode as any) === ModelAttributeValueModeType.XML) {
           return FormControlTypeEnum.XML_EDITOR;
@@ -305,6 +312,8 @@ export class ModelAttributeFormControl extends Component<
           return FormControlTypeEnum.TREESELECT;
         }
         return FormControlTypeEnum.SELECT;
+      case ModelAttributeValueType.ATTACHMENT:
+        return FormControlTypeEnum.ATTACHMENT;
       default:
         throw new Error(
           i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.TYPE_NO_SUPPORT_EDIT}`, {
@@ -709,6 +718,21 @@ export class ModelAttributeFormControl extends Component<
             treeCheckable
             onChange={(e: any) => this.onChange(e)}
           />
+        );
+      }
+
+      case FormControlTypeEnum.ATTACHMENT: {
+        const { readOnly } = restProps;
+        return (
+          <CmdbUpload
+            disabled={readOnly}
+            value={value}
+            className={this.props.className}
+            style={this.props.style}
+            autoUpload
+            uploadConfig={this.props.uploadConfig}
+            onChange={(e: any) => this.onChange(e)}
+          ></CmdbUpload>
         );
       }
 

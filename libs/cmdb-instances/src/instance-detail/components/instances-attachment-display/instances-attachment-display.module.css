@@ -1,0 +1,22 @@
+.attachmentIconItem {
+  color: #167be0;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: 6px;
+}
+.attachmentText {
+  font-weight: 400;
+  font-size: 14px;
+  color: #595959;
+}
+.attachmentItem {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+html[data-ui="v8-2"] .attachmentItem > .attachmentSpan {
+  :global(.anticon):hover {
+    color: #167be0 !important;
+  }
+}

@@ -1,0 +1,128 @@
+.uploadContainer {
+  :global(.ant-upload-list .ant-tooltip) {
+    display: none;
+  }
+
+  :global(.anticon-download) {
+    display: none;
+  }
+  :global(.ant-upload-picture-card-wrapper) {
+    display: block;
+  }
+  :global(.ant-upload-list-picture-card-container) {
+    background: var(--antd-component-background);
+  }
+  :global(.ant-upload-select-picture-card) {
+    background: var(--color-fill-bg-base-1);
+  }
+
+  /* text style */
+  :global(.ant-upload-list-text) {
+    margin-top: 6px;
+  }
+
+  :global(.ant-upload-list-item-list-type-text) {
+    /* 上传失败 */
+    &:global(.ant-upload-list-item-error) {
+      :global(.ant-upload-list-item-name) {
+        color: var(--color-error) !important;
+      }
+
+      :global(.ant-upload-list-item-card-actions-btn .anticon) {
+        position: initial;
+        opacity: 1;
+        color: var(--color-error) !important;
+      }
+    }
+
+    &:hover {
+      background-color: var(--antd-upload-list-item-hover-bg);
+
+      :global(.ant-upload-list-item-info) {
+        background-color: inherit;
+      }
+    }
+
+    /* 上传信息 */
+    margin-top: 2px;
+    padding: 5px 8px 5px 8px;
+    height: auto;
+    border-radius: 6px;
+
+    :global(.ant-upload-list-item-info) {
+      height: auto;
+      padding: 0;
+    }
+
+    :global(.ant-upload-list-item-info > span) {
+      height: auto;
+      position: relative;
+
+      /* 文件名 */
+      :global(.ant-upload-list-item-name) {
+        color: var(--color-secondary-text);
+        overflow: inherit;
+      }
+
+      /* 删除按钮 */
+      :global(.ant-upload-list-item-card-actions) {
+        :global(.ant-upload-list-item-card-actions-btn) {
+          &:hover {
+            background-color: transparent;
+          }
+
+          :global(.anticon) {
+            color: var(--text-color-disabled);
+            font-size: 14px;
+
+            &:hover {
+              color: var(--theme-red-color);
+            }
+          }
+        }
+      }
+    }
+
+    /* 进度条 */
+    :global(.ant-upload-list-item-progress) {
+      bottom: -4px;
+      padding-left: 22px;
+      width: calc(100% - 18px);
+    }
+  }
+
+  /* draggableUpload style*/
+  :global(.ant-upload-drag) {
+    background: var(--antd-upload-drag-bg) !important;
+    border-color: var(--antd-upload-drag-border-color) !important;
+    &:hover:not(:global(.ant-upload-disabled)) {
+      background: var(--antd-upload-drag-hover-bg) !important;
+      border-color: var(--antd-upload-drag-hover-border-color) !important;
+    }
+    &:global(.ant-upload-drag-hover):not(:global(.ant-upload-disabled)) {
+      background: var(--antd-upload-drag-hover-bg) !important;
+      border-color: var(--antd-upload-drag-hover-border-color) !important;
+    }
+    :global(.ant-upload-btn) {
+      padding: 24px 0 !important;
+      :global(.ant-upload-drag-icon) {
+        margin-bottom: 10px !important;
+      }
+    }
+
+    :global(.ant-upload-drag-icon eo-easyops-icon) {
+      font-size: 3.2em;
+      height: 42px;
+    }
+  }
+}
+.textContainer {
+  margin-bottom: 10px;
+}
+.uploadContainerDisplayNone {
+  display: none;
+}
+
+.uploadContainerDisplayNone ~ :global(.ant-upload-list-text) {
+  margin-top: -2px;
+}
