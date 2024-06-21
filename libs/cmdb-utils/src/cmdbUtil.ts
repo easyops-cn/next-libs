@@ -394,7 +394,7 @@ export function treeEnumFormat(value: string | string[]): TreeItem[] {
   root.forEach(sortChildren);
 
   root.forEach((node) => {
-    if (node.children.length === 0) {
+    if (node.children?.length === 0) {
       node.isLeaf = true;
     } else {
       node.isLeaf = false;
