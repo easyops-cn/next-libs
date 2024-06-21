@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.6.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@3.6.1...@next-libs/cmdb-utils@3.6.2) (2024-06-21)
+
+
+### Bug Fixes
+
+* node没有children时报错 ([#672](https://github.com/easyops-cn/next-libs/issues/672)) ([74d5479](https://github.com/easyops-cn/next-libs/commit/74d5479230a0e9afe1a90a69c8beba17d460eae5))
+
+
+
+
+
 ## [3.6.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@3.6.0...@next-libs/cmdb-utils@3.6.1) (2024-06-21)
 
 
