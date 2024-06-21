@@ -12,7 +12,6 @@ import {
   getFixedStyle,
   getBatchEditableFields,
   treeEnumFormat,
-  nodeData,
 } from "./cmdbUtil";
 
 describe("util", () => {
@@ -670,35 +669,57 @@ describe("treeEnumFormat", () => {
         value: "A1",
       },
     ]);
-  });
-});
-describe("nodeData", () => {
-  it("nodeData", () => {
-    const result = nodeData({
-      id: "123",
-      title: "123",
-      isLeaf: true,
-      value: "123",
-    });
-    expect(result).toEqual({
-      id: "123",
-      title: "123",
-      isLeaf: true,
-      value: "123",
-      children: null,
-    });
-    const result2 = nodeData({
-      id: "123",
-      title: "123",
-      isLeaf: false,
-      value: "123",
-    });
-    expect(result2).toEqual({
-      id: "123",
-      title: "123",
-      isLeaf: false,
-      value: "123",
-      children: [],
-    });
+
+    const result3 = treeEnumFormat([
+      "A1/B1/C1",
+      "A1/B1",
+      "A1/B1/C",
+      "A1/B1/C23",
+      "A1",
+    ]);
+    expect(result3).toEqual([
+      {
+        id: "A1",
+        parentId: "",
+        title: "A1",
+        value: "A1",
+        children: [
+          {
+            id: "A1/B1",
+            parentId: "A1",
+            title: "B1",
+            value: "A1/B1",
+            children: [
+              {
+                id: "A1/B1/C",
+                parentId: "A1/B1",
+                title: "C",
+                value: "A1/B1/C",
+                children: null,
+                isLeaf: true,
+              },
+              {
+                id: "A1/B1/C1",
+                parentId: "A1/B1",
+                title: "C1",
+                value: "A1/B1/C1",
+                children: null,
+                isLeaf: true,
+              },
+              {
+                id: "A1/B1/C23",
+                parentId: "A1/B1",
+                title: "C23",
+                value: "A1/B1/C23",
+                children: null,
+                isLeaf: true,
+              },
+            ],
+            isLeaf: false,
+          },
+        ],
+        isLeaf: false,
+      },
+    ]);
   });
 });
