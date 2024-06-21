@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.6.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@3.6.0...@next-libs/cmdb-utils@3.6.1) (2024-06-21)
+
+
+### Bug Fixes
+
+* 层级枚举值解析有点问题， 例如把【a/b/c1】,当成了【a/b/c111】子节点了 ([05bff09](https://github.com/easyops-cn/next-libs/commit/05bff09823cdabe9bbba9d09ed7881c95f75b02e))
+
+
+
+
+
 # [3.6.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@3.5.0...@next-libs/cmdb-utils@3.6.0) (2024-06-17)
 
 
