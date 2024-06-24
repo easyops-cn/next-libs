@@ -626,9 +626,10 @@ export class LegacyInstanceListTable extends React.Component<
     const displayConfig = this.keyDisplayConfigMap[attribute.id];
     const isPrimary = attribute.id === getInstanceNameKeys(object)[0];
     let tempColumns: any;
-
-    switch (attribute.value.type) {
+    const attrValueType: any = attribute.value.type;
+    switch (attrValueType) {
       case ModelAttributeValueType.STRUCT:
+      case ModelAttributeValueType.ATTACHMENT:
       case ModelAttributeValueType.STRUCT_LIST:
         column.sorter = false;
         break;
@@ -670,10 +671,12 @@ export class LegacyInstanceListTable extends React.Component<
       }
     } else {
       let isLegacy: boolean;
-      switch (attribute.value.type) {
+      const attrValueType: any = attribute.value.type;
+      switch (attrValueType) {
         case ModelAttributeValueType.STRUCT:
           isLegacy = true;
         // falls through
+        case ModelAttributeValueType.ATTACHMENT:
         case ModelAttributeValueType.STRUCT_LIST:
           tempColumns = (
             value: Record<string, any> | Record<string, any>[],

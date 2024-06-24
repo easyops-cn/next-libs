@@ -3,6 +3,7 @@ import { Form } from "@ant-design/compatible";
 import { Button, Checkbox, Collapse, Tooltip } from "antd";
 import { ButtonType } from "antd/lib/button";
 import { ExclamationCircleFilled } from "@ant-design/icons";
+import { UploadConfig } from "../components/cmdb-upload";
 import {
   CmdbModels,
   InstanceApi_GetDefaultValueTemplateResponseBody,
@@ -88,6 +89,7 @@ interface ModelAttributeFormProps extends FormComponentProps {
     selectedUserGroup?: string[];
   };
   isResetInstanceNameWhenSaveAndContinueToAddInstance?: boolean;
+  uploadConfig?: UploadConfig;
 }
 
 export type attributesFieldsByTag = [string, ModifiedModelObjectField[]];

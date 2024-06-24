@@ -3,6 +3,9 @@ import {
   DownOutlined,
   InfoCircleFilled,
   ExclamationCircleFilled,
+  EyeOutlined,
+  DownloadOutlined,
+  FileTextOutlined,
 } from "@ant-design/icons";
 import {
   Card,
@@ -48,6 +51,7 @@ import {
   BrickAction,
 } from "@next-core/brick-types";
 import { InstanceRelationTableShow } from "./components/instance-relation-table-show/instance-relation-table-show";
+import { InstancesAttachmentDisplay } from "./components/instances-attachment-display/instances-attachment-display";
 import {
   getInstanceNameKeys,
   modifyModelData,
@@ -679,6 +683,7 @@ export class LegacyInstanceDetail extends React.Component<
       isUrl,
       isFloat,
       isJson,
+      isAttachment,
     } = this;
     const { modelDataMap, modelData, instanceData } = this.state;
     let config;
@@ -715,6 +720,7 @@ export class LegacyInstanceDetail extends React.Component<
           className={
             isStruct(attr) ||
             isStructs(attr) ||
+            isAttachment(attr) ||
             isXmlField(attr) ||
             isRelation(attr) ||
             attr.__isRelation ||
@@ -741,6 +747,7 @@ export class LegacyInstanceDetail extends React.Component<
         <dd
           className={
             isStruct(attr) ||
+            isAttachment(attr) ||
             isStructs(attr) ||
             isXmlField(attr) ||
             isRelation(attr) ||
@@ -769,6 +776,9 @@ export class LegacyInstanceDetail extends React.Component<
                 __html: DOMPurify.sanitize(marked(instanceData[attr.id] || "")),
               }}
             />
+          )}
+          {isAttachment(attr) && (
+            <InstancesAttachmentDisplay value={instanceData[attr.id]} />
           )}
           {isXmlField(attr) && (
             <CodeDisplay
@@ -809,6 +819,7 @@ export class LegacyInstanceDetail extends React.Component<
           )}
           {!isStructs(attr) &&
             !isStruct(attr) &&
+            !isAttachment(attr) &&
             !isRelation(attr) &&
             !isXmlField(attr) &&
             !isPasswordField(attr) &&
@@ -836,6 +847,7 @@ export class LegacyInstanceDetail extends React.Component<
             ))}
           {!isStructs(attr) &&
             !isStruct(attr) &&
+            !isAttachment(attr) &&
             !isRelation(attr) &&
             !isMarkdownField(attr) &&
             !isXmlField(attr) &&
@@ -1347,6 +1359,11 @@ export class LegacyInstanceDetail extends React.Component<
   }
   isJson(attr: any) {
     return attr.value?.type === "json";
+  }
+
+  // 判断是否为附件
+  isAttachment(attr: any) {
+    return attr.value?.type === "attachment";
   }
 
   isSpecialDisplayField(attr: any) {
