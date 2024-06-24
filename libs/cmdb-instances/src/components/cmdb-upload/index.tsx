@@ -81,14 +81,14 @@ export function compareValues(
   return !result;
 }
 
-const defaultUploadConfig: UploadConfig = {
-  uploadButtonName: i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.UPLOAD}`),
-  url: UploadFileUrl,
-  maxNumber: 5,
-  method: "put",
-};
-
 export function CmdbUpload(props: CmdbUploadProps): React.ReactElement {
+  // 默认上传配置
+  const defaultUploadConfig: UploadConfig = {
+    uploadButtonName: i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.UPLOAD}`),
+    url: UploadFileUrl,
+    maxNumber: 5,
+    method: "put",
+  };
   const { uploadButtonProps, uploadConfig = defaultUploadConfig } = props;
   const [value, setValue] = React.useState([]);
   const [fileList, setFileList] = useState([]);
