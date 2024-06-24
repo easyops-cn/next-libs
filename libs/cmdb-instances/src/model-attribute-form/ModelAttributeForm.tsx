@@ -700,6 +700,7 @@ export class ModelAttributeForm extends Component<
                           attribute?.value?.type ===
                           ModelAttributeValueType.ENUMS
                         }
+                        uploadConfig={this.props.uploadConfig}
                         objectId={this.props.objectId}
                         jsonValidateCollection={(err: any) => {
                           const showError = { ...this.state.showError };
