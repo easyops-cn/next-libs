@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.7.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@3.7.0...@next-libs/cmdb-utils@3.7.1) (2024-06-25)
+
+
+### Bug Fixes
+
+* 支持属性附件类型值处理 ([#677](https://github.com/easyops-cn/next-libs/issues/677)) ([27f7b93](https://github.com/easyops-cn/next-libs/commit/27f7b9364f12ecf427d8728bd004288d155e89b5))
+
+
+
+
+
 # [3.7.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@3.6.2...@next-libs/cmdb-utils@3.7.0) (2024-06-24)
 
 
