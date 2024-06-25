@@ -4,7 +4,7 @@ import {
   DownloadOutlined,
   FileTextOutlined,
 } from "@ant-design/icons";
-// import { Base64 } from "js-base64";
+import { Base64 } from "js-base64";
 import { FileUtils } from "@next-libs/cmdb-utils";
 import styles from "./instances-attachment-display.module.css";
 
@@ -31,8 +31,8 @@ export function InstancesAttachmentDisplay(
     const domain = `${window.location.origin}/next`;
     const url = `${domain}/${file.url}`;
     const previewUrl = `${domain}/api/gateway/file_previewer.preview.PreviewFile/onlinePreview?url=${encodeURIComponent(
-      // Base64.encode(url)
-      window.btoa(url)
+      Base64.encode(url)
+      // window.btoa(url)
     )}`;
     window.open(previewUrl, "_blank");
   };

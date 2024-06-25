@@ -1,7 +1,7 @@
 import React, { ReactNode, useState } from "react";
 import { uniqueId, map, findIndex, some, isEqual } from "lodash";
 import { LoadingOutlined } from "@ant-design/icons";
-import { Upload, Button } from "antd";
+import { Upload, Button, message } from "antd";
 import i18n from "i18next";
 import update from "immutability-helper";
 import { ButtonType } from "antd/lib/button";
@@ -88,6 +88,7 @@ export function CmdbUpload(props: CmdbUploadProps): React.ReactElement {
     url: UploadFileUrl,
     maxNumber: 5,
     method: "put",
+    limitSize: 100,
   };
   const { uploadButtonProps, uploadConfig = defaultUploadConfig } = props;
   const [value, setValue] = React.useState([]);
@@ -109,17 +110,18 @@ export function CmdbUpload(props: CmdbUploadProps): React.ReactElement {
 
   const handleBeforeUpload = (file: RcFile): Promise<RcFile> | boolean => {
     if (FileUtils.sizeCompare(file, uploadConfig.limitSize ?? 100)) {
-      // 如果上传文件大小大于限定大小
-      props.onError?.(
-        i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.UPLOAD_SIZE_LARGE_TEXT}`)
+      const sizeTipsText = i18n.t(
+        `${NS_LIBS_CMDB_INSTANCES}:${K.UPLOAD_SIZE_LARGE_TEXT}`,
+        {
+          size: `${uploadConfig.limitSize}M`,
+        }
       );
+      // 如果上传文件大小大于限定大小
+      props.onError?.(sizeTipsText);
+      message.info(sizeTipsText);
       return new Promise((_resolve, reject) => {
         // 返回reject阻止文件添加
-        reject(
-          new Error(
-            i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.UPLOAD_SIZE_LARGE_TEXT}`)
-          )
-        );
+        reject(new Error(sizeTipsText));
       });
     }
     if (props.autoUpload) {

@@ -118,7 +118,7 @@ const locale: Locale = {
     "筛选实例来源，可查看来源模型的所有字段信息",
   [K.SEARCH_MODEL]: "搜索模型",
   [K.SELECT_ALL]: "选择全部",
-  [K.UPLOAD_SIZE_LARGE_TEXT]: "上传文件体积大于限定体积",
+  [K.UPLOAD_SIZE_LARGE_TEXT]: "上传文件体积大于限定体积{{size}}",
   [K.UPLOAD]: "上传",
 };
 

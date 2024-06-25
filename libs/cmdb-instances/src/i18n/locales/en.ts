@@ -131,7 +131,7 @@ const locale: Locale = {
   [K.SEARCH_MODEL]: "Search the model",
   [K.SELECT_ALL]: "Select all",
   [K.UPLOAD_SIZE_LARGE_TEXT]:
-    "The size of the upload file is larger than the limited size",
+    "The size of the upload file is larger than the limited size {{size}}",
   [K.UPLOAD]: "Upload",
 };
 
