@@ -29,7 +29,7 @@ export function InstancesAttachmentDisplay(
   // 预览
   const handlePreview = (file: any): void => {
     const domain = `${window.location.origin}/next`;
-    const url = `${domain}/${file.url}`;
+    const url = `${domain}/${file.url}?fileName=${file.name}`;
     const previewUrl = `${domain}/api/gateway/file_previewer.preview.PreviewFile/onlinePreview?url=${encodeURIComponent(
       Base64.encode(url)
       // window.btoa(url)
