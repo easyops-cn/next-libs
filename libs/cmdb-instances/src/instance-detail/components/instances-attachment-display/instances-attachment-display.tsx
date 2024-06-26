@@ -6,6 +6,7 @@ import {
 } from "@ant-design/icons";
 import { Base64 } from "js-base64";
 import { FileUtils } from "@next-libs/cmdb-utils";
+import { DownloadFileUrl } from "../../../constants";
 import styles from "./instances-attachment-display.module.css";
 
 interface InstancesAttachmentDisplayProps {
@@ -20,7 +21,7 @@ export function InstancesAttachmentDisplay(
   const handleDownload = (file: any): void => {
     const domain = `${window.location.origin}/next`;
     const link = document.createElement("a");
-    link.href = `${domain}/${file.url}`;
+    link.href = `${domain}/${file.url}?fileName=${file.name}`;
     link.download = file.name;
     document.body.appendChild(link);
     link.click();
@@ -29,7 +30,11 @@ export function InstancesAttachmentDisplay(
   // 预览
   const handlePreview = (file: any): void => {
     const domain = `${window.location.origin}/next`;
-    const url = `${domain}/${file.url}?fileName=${file.name}`;
+    const checksum = file.url?.slice(
+      DownloadFileUrl.length + 1,
+      file.url.length
+    );
+    const url = `${domain}/${file.url}?checksum=${checksum}&fileName=${file.name}&fullfilename=${file.name}`;
     const previewUrl = `${domain}/api/gateway/file_previewer.preview.PreviewFile/onlinePreview?url=${encodeURIComponent(
       Base64.encode(url)
       // window.btoa(url)
