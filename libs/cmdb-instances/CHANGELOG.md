@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.20.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.20.5...@next-libs/cmdb-instances@7.20.6) (2024-06-26)
+
+
+### Bug Fixes
+
+* 调整预览地址,添加checksum和fullfilename参数 ([#680](https://github.com/easyops-cn/next-libs/issues/680)) ([e2a0912](https://github.com/easyops-cn/next-libs/commit/e2a09128616eea380bc52cfa4ee6c8886a2ba9c8))
+
+
+
+
+
 ## [7.20.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.20.4...@next-libs/cmdb-instances@7.20.5) (2024-06-26)
 
 
