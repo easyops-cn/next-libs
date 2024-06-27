@@ -176,8 +176,6 @@ const multiValueSearchOperators = [
 ];
 FieldTypeConditionTypesMap[ModelAttributeValueType.STRUCT_LIST] =
   FieldTypeConditionTypesMap[ModelAttributeValueType.STRUCT];
-FieldTypeConditionTypesMap[ModelAttributeValueType.ATTACHMENT] =
-  FieldTypeConditionTypesMap[ModelAttributeValueType.STRUCT];
 
 export function getCondition(
   conditionType: ConditionType,
@@ -631,7 +629,6 @@ export class AdvancedSearchForm extends React.Component<
         const attrValueType: any = attr.value.type;
         switch (attrValueType) {
           case ModelAttributeValueType.STRUCT:
-          case ModelAttributeValueType.ATTACHMENT:
           case ModelAttributeValueType.STRUCT_LIST:
             attrValue.type = ModelAttributeValueType.STRING;
             attrValue.struct_define = attr.value.struct_define;
