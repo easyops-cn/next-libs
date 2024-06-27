@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.20.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.20.6...@next-libs/cmdb-instances@7.20.7) (2024-06-27)
+
+
+### Bug Fixes
+
+* 调整附件属性的方案 ([#681](https://github.com/easyops-cn/next-libs/issues/681)) ([30b6c88](https://github.com/easyops-cn/next-libs/commit/30b6c886cfe286ebecc2bdc40cc0f1e543f9cb0e))
+
+
+
+
+
 ## [7.20.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.20.5...@next-libs/cmdb-instances@7.20.6) (2024-06-26)
 
 
