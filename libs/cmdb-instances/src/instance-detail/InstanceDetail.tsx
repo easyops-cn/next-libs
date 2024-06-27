@@ -1345,7 +1345,7 @@ export class LegacyInstanceDetail extends React.Component<
   }
 
   isStructs(attr: any) {
-    return attr.value?.type === "structs";
+    return attr.value?.type === "structs" && attr.value?.mode !== "attachment";
   }
   isUrl(attr: any) {
     return attr.value?.type === "str" && attr.value?.mode === "url";
@@ -1363,7 +1363,7 @@ export class LegacyInstanceDetail extends React.Component<
 
   // 判断是否为附件
   isAttachment(attr: any) {
-    return attr.value?.type === "attachment";
+    return attr.value?.type === "structs" && attr.value?.mode === "attachment";
   }
 
   isSpecialDisplayField(attr: any) {

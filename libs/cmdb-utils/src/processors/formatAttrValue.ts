@@ -43,7 +43,6 @@ export const formatAttrValue = (value: any, attr: any, objectId: string) => {
       display = _.join(value, "; ");
       break;
     case "struct":
-    case "attachment":
     case "structs":
       display = _.isEmpty(value)
         ? ""

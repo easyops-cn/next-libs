@@ -301,6 +301,10 @@ export class ModelAttributeFormControl extends Component<
             })
           );
         }
+        // 附件类型
+        if ((attribute.value.mode as any) === "attachment") {
+          return FormControlTypeEnum.ATTACHMENT;
+        }
         return FormControlTypeEnum.STRUCT;
       case ModelAttributeValueType.BOOLEAN:
         return FormControlTypeEnum.SELECT;
@@ -312,8 +316,6 @@ export class ModelAttributeFormControl extends Component<
           return FormControlTypeEnum.TREESELECT;
         }
         return FormControlTypeEnum.SELECT;
-      case ModelAttributeValueType.ATTACHMENT:
-        return FormControlTypeEnum.ATTACHMENT;
       default:
         throw new Error(
           i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.TYPE_NO_SUPPORT_EDIT}`, {
