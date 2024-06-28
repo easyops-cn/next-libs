@@ -77,6 +77,7 @@ export interface InstanceListModalProps {
   externalSourceId?: string;
   showHiddenInfoDisabled?: boolean;
   propertyDisplayConfigs?: UseBrickAndPropertyDisplayConfig[];
+  modalWidth?: number;
 }
 
 export function InstanceListModal(
@@ -234,7 +235,7 @@ export function InstanceListModal(
     <Modal
       title={props.title}
       visible={props.visible}
-      width={900}
+      width={props.modalWidth || 900}
       onOk={handleOk}
       onCancel={handleCancel}
       destroyOnClose={true}
