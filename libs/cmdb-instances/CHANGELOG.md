@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.21.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.20.7...@next-libs/cmdb-instances@7.21.0) (2024-06-28)
+
+
+### Features
+
+* **cmdb-instances:** InstanceListModal support ([#682](https://github.com/easyops-cn/next-libs/issues/682)) ([bc70ac6](https://github.com/easyops-cn/next-libs/commit/bc70ac6b36b9c8dfdebb0a3b933d474ba17be581))
+
+
+
+
+
 ## [7.20.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.20.6...@next-libs/cmdb-instances@7.20.7) (2024-06-27)
 
 
