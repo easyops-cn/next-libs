@@ -54,6 +54,7 @@ export const brickNextKeywords = [
   "STATE",
   "ITEM",
   "INDEX",
+  "SIZE",
   "SNIPPET_PARAMS",
   "action",
   "target",
