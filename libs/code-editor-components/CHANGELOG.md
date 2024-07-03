@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.12.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.11.0...@next-libs/code-editor-components@4.12.0) (2024-07-03)
+
+
+### Features
+
+* add keyword SIZE ([1f850e4](https://github.com/easyops-cn/next-libs/commit/1f850e45067617955d661028ecf7854c55b62758))
+
+
+
+
+
 # [4.11.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.10.12...@next-libs/code-editor-components@4.11.0) (2024-05-30)
 
 
