@@ -2339,12 +2339,7 @@
   resolved "https://registry.npmjs.org/@next-core/brick-http/-/brick-http-2.7.7.tgz#08058055729d30455d2d2516f01e32c42e6fccb4"
   integrity sha512-YE4ChdgMkN9SO2W5JQGL9KVRTHHKcif+2RY4UyAgGBOhrKrVuwIvW/CoG8PaWV6Lvbv033v8rrOQqbZzijABQw==
 
-"@next-core/brick-icons@^2.30.26":
-  version "2.30.26"
-  resolved "https://registry.npmjs.org/@next-core/brick-icons/-/brick-icons-2.30.26.tgz#01d1b299d597a9d872985d24deb3cd5306b0eab3"
-  integrity sha512-RB5sfi7jUAuEhv9GErd9KOVUPQ19TVNFCy5R8XAvtxEctkLGZlhtAKODKFkF2EVRyYNhO7zg19h+BpSgO/WodA==
-
-"@next-core/brick-icons@^2.31.16":
+"@next-core/brick-icons@^2.30.26", "@next-core/brick-icons@^2.31.16":
   version "2.31.16"
   resolved "https://registry.npmjs.org/@next-core/brick-icons/-/brick-icons-2.31.16.tgz#ea6800bc567128bf15533346a0fe885477e1b021"
   integrity sha512-3U888yCgNMZBG9WEz8JO+yX9L6GOXOFq6ThqtjyTmu/Bie2j+7RAoWu7b38+JMn7yFUFpxyTKzAOQVPDhVEH2A==
@@ -6730,10 +6725,10 @@ domhandler@^4.2.0:
   dependencies:
     domelementtype "^2.2.0"
 
-dompurify@^2.4.1:
-  version "2.4.1"
-  resolved "https://registry.npmjs.org/dompurify/-/dompurify-2.4.1.tgz#f9cb1a275fde9af6f2d0a2644ef648dd6847b631"
-  integrity sha512-ewwFzHzrrneRjxzmK6oVz/rZn9VWspGFRDb4/rRtIsM1n36t9AKma/ye8syCpcw+XJ25kOK/hOG7t1j2I2yBqA==
+dompurify@^3.1.6:
+  version "3.1.6"
+  resolved "https://registry.npmjs.org/dompurify/-/dompurify-3.1.6.tgz#43c714a94c6a7b8801850f82e756685300a027e2"
+  integrity sha512-cTOAhc36AalkjtBpfG6O8JimdTMWNXjiePT2xQH/ppBGi/4uIpmj8eKyIkMJErXWARyINV/sB38yf8JCLF5pbQ==
 
 domutils@1.5.1:
   version "1.5.1"
