@@ -30,7 +30,7 @@ describe("CmdbUpload", () => {
     const wrapper = mount(
       <CmdbUpload
         autoUpload
-        uploadConfig={{ method: "put", url: url }}
+        uploadConfig={{ method: "put", url: url, uploadButtonName: "Upload" }}
         value={fileList}
         onChange={onChange}
       />
@@ -101,7 +101,6 @@ describe("CmdbUpload", () => {
       ],
     });
     expect(wrapper.find(Upload).prop("disabled")).toBe(true);
-
     expect(wrapper.find("Button").text()).toBe("Upload");
     expect(wrapper.find("GeneralIcon").at(0).prop("icon")).toEqual({
       lib: "antd",

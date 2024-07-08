@@ -90,7 +90,8 @@ export function CmdbUpload(props: CmdbUploadProps): React.ReactElement {
     method: "put",
     limitSize: 100,
   };
-  const { uploadButtonProps, uploadConfig = defaultUploadConfig } = props;
+  const { uploadButtonProps, uploadConfig: otherUploadConfig } = props;
+  const uploadConfig = { ...defaultUploadConfig, ...(otherUploadConfig ?? {}) };
   const [value, setValue] = React.useState([]);
   const [fileList, setFileList] = useState([]);
   const [disabled, setDisabled] = useState(false);
