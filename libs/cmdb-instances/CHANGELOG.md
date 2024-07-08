@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.21.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.21.1...@next-libs/cmdb-instances@7.21.2) (2024-07-08)
+
+
+### Bug Fixes
+
+* 上传支持自定义配置 ([#684](https://github.com/easyops-cn/next-libs/issues/684)) ([c209719](https://github.com/easyops-cn/next-libs/commit/c209719426d23426243bddb1ab816a65c55bc9eb))
+
+
+
+
+
 ## [7.21.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.21.0...@next-libs/cmdb-instances@7.21.1) (2024-07-03)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
