@@ -2,7 +2,7 @@ import "@testing-library/jest-dom/extend-expect";
 import React from "react";
 import { cleanup, render, fireEvent } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
-import { PropertyDisplayConfig } from "@next-core/brick-types";
+import { PropertyDisplayConfig, UseBrickConf } from "@next-core/brick-types";
 import {
   InstanceApi_postSearchV3,
   CmdbObjectApi_getIdMapName,
@@ -59,6 +59,12 @@ const providerQuery = jest.fn();
     };
   },
 });
+(jest.spyOn(brickKit, "BrickAsComponent") as any).mockImplementation(
+  ({ useBrick }: { useBrick: UseBrickConf }) => (
+    <div>{`Mocked BrickAsComponent
+useBrick: ${JSON.stringify(useBrick)}`}</div>
+  )
+);
 jest.mock("../instance-list-table", () => ({
   AdvancedSearch: jest.fn(() => {
     return "<div>Fake advanced search loaded!</div>";
@@ -1259,7 +1265,7 @@ describe("InstanceList", () => {
     expect(providerQuery).toBeCalledTimes(2);
   });
 
-  it("should work with extraFilterBricks property", async () => {
+  it("should work with extraOperateBricks property", async () => {
     const extraOperateBricks = { useBrick: { brick: "span" } };
     const wrapper = mount(
       <InstanceList objectId="HOST" extraOperateBricks={extraOperateBricks} />

@@ -70,7 +70,7 @@ export const formatAttrValue = (value: any, attr: any, objectId: string) => {
   return display;
 };
 
-function getFkAttrDisplay(attr: any) {
+function getFkAttrDisplay(attr: Record<string, any>) {
   return function (item: any) {
     // 兼容老数据
     if (!_.has(attr, "relation_view")) {
