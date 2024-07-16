@@ -1,7 +1,7 @@
 import React from "react";
 import { Menu } from "antd";
 import { MenuTheme } from "antd/lib/menu/MenuContext";
-import { uniq } from "lodash";
+import { isObject, uniq } from "lodash";
 import { UnregisterCallback, Location, parsePath } from "history";
 import { getHistory } from "@next-core/brick-kit";
 import { matchPath } from "@next-core/brick-utils";
@@ -109,19 +109,35 @@ export function matchMenuItem(
 
   if (!match && Array.isArray(item.activeIncludes)) {
     for (const include of item.activeIncludes) {
-      let parseInclude;
-      const hasSearch = include.includes("?");
+      let paths: string[];
+      let exact = true;
 
-      if (hasSearch) {
-        parseInclude = parsePath(include);
+      if (isObject(include)) {
+        paths = Array.isArray(include.path) ? include.path : [include.path];
+        exact = include.exact;
+      } else {
+        paths = [include];
       }
-      match = !!matchPath(pathname, {
-        path: hasSearch ? parseInclude.pathname : include,
-        exact: true,
-      });
 
-      if (match && parseInclude?.search) {
-        match = getMatchOfSearch(search, parseInclude.search);
+      for (const path of paths) {
+        let parsedPath;
+        const hasSearch = path.includes("?");
+
+        if (hasSearch) {
+          parsedPath = parsePath(path);
+        }
+        match = !!matchPath(pathname, {
+          path: hasSearch ? parsedPath.pathname : path,
+          exact,
+        });
+
+        if (match && parsedPath?.search) {
+          match = getMatchOfSearch(search, parsedPath.search);
+        }
+
+        if (match) {
+          break;
+        }
       }
 
       if (match) {
@@ -132,10 +148,27 @@ export function matchMenuItem(
 
   if (match && Array.isArray(item.activeExcludes)) {
     for (const include of item.activeExcludes) {
-      match = !matchPath(pathname, {
-        path: include,
-        exact: true,
-      });
+      let paths: string[];
+      let exact = true;
+
+      if (isObject(include)) {
+        paths = Array.isArray(include.path) ? include.path : [include.path];
+        exact = include.exact;
+      } else {
+        paths = [include];
+      }
+
+      for (const path of paths) {
+        match = !matchPath(pathname, {
+          path,
+          exact,
+        });
+
+        if (!match) {
+          break;
+        }
+      }
+
       if (!match) {
         break;
       }
