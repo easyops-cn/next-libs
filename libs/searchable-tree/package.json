@@ -29,7 +29,7 @@
     "@next-core/brick-dll": "*"
   },
   "devDependencies": {
-    "@next-core/brick-types": "^2.16.0"
+    "@next-core/brick-types": "^2.97.0"
   },
   "dependencies": {
     "@next-libs/basic-components": "^5.4.0"

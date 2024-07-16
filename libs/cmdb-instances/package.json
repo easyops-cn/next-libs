@@ -35,7 +35,7 @@
     "brace": "*"
   },
   "dependencies": {
-    "@next-core/brick-types": "^2.16.0",
+    "@next-core/brick-types": "^2.97.0",
     "@next-libs/basic-components": "^5.4.0",
     "@next-libs/cmdb-utils": "^3.7.2",
     "@next-libs/code-display-components": "^2.1.0",

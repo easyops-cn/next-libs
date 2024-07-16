@@ -36,7 +36,7 @@
     "@next-dll/react-dnd": "*"
   },
   "dependencies": {
-    "@next-core/brick-types": "^2.16.0",
+    "@next-core/brick-types": "^2.97.0",
     "@next-libs/basic-components": "^5.4.0",
     "classnames": "^2.3.2"
   }

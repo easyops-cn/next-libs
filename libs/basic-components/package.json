@@ -63,6 +63,6 @@
     "@next-core/brick-dll": "*"
   },
   "dependencies": {
-    "@next-core/brick-types": "^2.16.0"
+    "@next-core/brick-types": "^2.97.0"
   }
 }
