@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.5.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@5.4.0...@next-libs/basic-components@5.5.0) (2024-07-16)
+
+
+### Features
+
+* **Sidebar:** activeIncludes and activeExcludes of menuItems support MatchOptions ([fd02bbe](https://github.com/easyops-cn/next-libs/commit/fd02bbe7eff288bd0abf883183720670f0fa9c72))
+
+
+
+
+
 # [5.4.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@5.3.6...@next-libs/basic-components@5.4.0) (2024-03-29)
 
 
