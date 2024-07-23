@@ -14,12 +14,12 @@
 }
 
 .action:hover {
-  background-color: rgba(90, 93, 94, 0.31);
+  background-color: #f5f5f5;
 }
 
 .action,
 .action:hover {
-  color: #c5c5c5;
+  color: #8c8c8c;
 }
 
 .disabled,
@@ -27,4 +27,15 @@
   color: var(--color-disabled-text);
   cursor: not-allowed;
   background-color: initial;
+}
+
+html[data-theme="dark-v2"] {
+  .action,
+  .action:hover {
+    color: #c5c5c5;
+  }
+
+  .action:hover {
+    background-color: rgba(90, 93, 94, 0.31);
+  }
 }
