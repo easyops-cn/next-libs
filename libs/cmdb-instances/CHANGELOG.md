@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.21.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.21.4...@next-libs/cmdb-instances@7.21.5) (2024-07-25)
+
+
+### Bug Fixes
+
+* 支持父模型情况系,隐藏实例来源的这一列 ([caeb84b](https://github.com/easyops-cn/next-libs/commit/caeb84b64a8a6c3c22f5ceba141ebe63ce2244d7))
+
+
+
+
+
 ## [7.21.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.21.3...@next-libs/cmdb-instances@7.21.4) (2024-07-16)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
