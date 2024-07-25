@@ -198,10 +198,7 @@ export class LegacyInstanceListTable extends React.Component<
     );
     const fieldIds = this.props.fieldIds;
 
-    const showFields = fieldIds?.filter(
-      (item) => !this.props.hiddenColumns?.includes(item)
-    );
-    const sortedColumns = this.getChangeColumns(showFields);
+    const sortedColumns = this.getChangeColumns(fieldIds);
     this.inheritanceModelIdNameMap = this.props.inheritanceModelIdNameMap;
 
     const defaultPagination = {
@@ -216,9 +213,13 @@ export class LegacyInstanceListTable extends React.Component<
         </span>
       ),
     };
-    const columns = this.getMergedColumns(
+    const currentColumns = this.getMergedColumns(
       sortedColumns,
       this.props.extraColumns
+    );
+    // 用于支持父模型情况下，可以自定义隐藏实例来源这一列
+    const columns = currentColumns?.filter(
+      (v) => !this.props.hiddenColumns?.includes(v.dataIndex as string)
     );
     this.props.onColumnsChange?.(
       columns.map(({ dataIndex }) => ({ dataIndex }))
@@ -419,13 +420,14 @@ export class LegacyInstanceListTable extends React.Component<
         } as any);
       }
     }
-    const showFields = this.props.fieldIds?.filter(
-      (item) => !this.props.hiddenColumns?.includes(item)
-    );
+    const showFields = this.props.fieldIds;
     const changeColumns = this.getChangeColumns(showFields);
-    const columns = this.getMergedColumns(
+    const currentColumns = this.getMergedColumns(
       changeColumns,
       this.props.extraColumns
+    );
+    const columns = currentColumns?.filter(
+      (v) => !this.props.hiddenColumns?.includes(v.dataIndex as string)
     );
     this.setState({
       columns,
@@ -440,13 +442,14 @@ export class LegacyInstanceListTable extends React.Component<
       ...this.inheritanceModelIdNameMap,
       ...nextProps.inheritanceModelIdNameMap,
     };
-    const showFields = nextProps.fieldIds?.filter(
-      (item) => !this.props.hiddenColumns?.includes(item)
-    );
+    const showFields = nextProps.fieldIds;
     const changeColumns = this.getChangeColumns(showFields);
-    const columns = this.getMergedColumns(
+    const currentColumns = this.getMergedColumns(
       changeColumns,
       nextProps.extraColumns
+    );
+    const columns = currentColumns?.filter(
+      (v) => !this.props.hiddenColumns?.includes(v.dataIndex as string)
     );
 
     this.setState({
