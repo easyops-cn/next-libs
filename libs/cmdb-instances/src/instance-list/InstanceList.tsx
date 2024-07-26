@@ -26,6 +26,7 @@ import {
   keyBy,
   cloneDeep,
   isNil,
+  get,
 } from "lodash";
 import {
   BrickAsComponent,
@@ -1633,7 +1634,9 @@ export function LegacyInstanceList(
           if (!Array.isArray(query[key]) && isSpecialFn(query, key)) {
             queries.push(query);
           } else {
-            const fieldId = Object.keys((query[key] as Query[])[0])[0];
+            // 多枚举值数据结构返回这种 {attrId: {$in:[]}}
+            const fieldId =
+              Object.keys(get(query[key] as Query[], "[0]", {}))?.[0] || key;
             // 判断是否为结构体
             const isStruct = isOfStruct(modelData, fieldId);
             // 结构体情况处理
