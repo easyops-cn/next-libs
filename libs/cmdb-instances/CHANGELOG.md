@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.21.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.21.6...@next-libs/cmdb-instances@7.21.7) (2024-07-26)
+
+
+### Bug Fixes
+
+* 售中工单_模型实例列表页面，当前筛选条件字段为多选枚举型时，无法删除筛选条件 ([49b6d3b](https://github.com/easyops-cn/next-libs/commit/49b6d3bb304bc0e5b9e4bc9f68db2fb36cd2d0f5))
+
+
+
+
+
 ## [7.21.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.21.5...@next-libs/cmdb-instances@7.21.6) (2024-07-26)
 
 
