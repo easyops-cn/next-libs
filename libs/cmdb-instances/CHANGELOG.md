@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.21.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.21.5...@next-libs/cmdb-instances@7.21.6) (2024-07-26)
+
+
+### Bug Fixes
+
+* FLOW-1282 export cmdb-instances下面的componnents下面的子组件 ref FLOW-1282 ([78baeca](https://github.com/easyops-cn/next-libs/commit/78baecaa4f568944686c1955ddc2c5e86e656cd0))
+
+
+
+
+
 ## [7.21.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.21.4...@next-libs/cmdb-instances@7.21.5) (2024-07-25)
 
 
