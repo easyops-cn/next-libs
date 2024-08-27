@@ -346,7 +346,7 @@ export function CmdbInstancesSelectPanel(
         <a
           className={style.addButton}
           style={{
-            marginBottom: "20px",
+            marginBottom: "10px",
           }}
           onClick={openAddInstancesModal}
         >
