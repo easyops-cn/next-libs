@@ -3,22 +3,43 @@ import {
   InstanceApi_getDetail,
   InstanceApi_GetDetailRequestParams,
 } from "@next-sdk/cmdb-sdk";
+import { http } from "@next-core/brick-http";
 
 export function fetchCmdbInstanceDetail(
   objectId: string,
-  instanceId: string
+  instanceId: string,
+  sourceId?: string
 ): Promise<Partial<InstanceApi_GetDetailResponseBody>> {
-  return InstanceApi_getDetail(objectId, instanceId, {});
+  return sourceId
+    ? http.post(
+        "api/gateway/easyops.api.cmdb.topo_center.ProxyGetInstanceDetail@1.0.0/api/v1/proxy-get-instance-detail",
+        {
+          objectId,
+          sourceId,
+        }
+      )
+    : InstanceApi_getDetail(objectId, instanceId, {});
 }
 
 export function fetchCmdbInstanceDetailByFields(
   objectId: string,
   instanceId: string,
   fields: string,
-  relation_limit?: number
+  relation_limit?: number,
+  sourceId?: string
 ): Promise<Partial<InstanceApi_GetDetailResponseBody>> {
-  return InstanceApi_getDetail(objectId, instanceId, {
-    fields,
-    relation_limit,
-  } as InstanceApi_GetDetailRequestParams);
+  return sourceId
+    ? http.post(
+        "api/gateway/easyops.api.cmdb.topo_center.ProxyGetInstanceDetail@1.0.0/api/v1/proxy-get-instance-detail",
+        {
+          objectId,
+          sourceId,
+          fields,
+          relation_limit,
+        }
+      )
+    : InstanceApi_getDetail(objectId, instanceId, {
+        fields,
+        relation_limit,
+      } as InstanceApi_GetDetailRequestParams);
 }

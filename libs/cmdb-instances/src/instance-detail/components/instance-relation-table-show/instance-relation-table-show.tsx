@@ -32,6 +32,7 @@ export interface InstanceRelationTableShowProps {
   hideRelationLink?: boolean;
   onInstanceSourceChange?: (instanceSource: string) => void;
   filterInstanceSourceDisabled?: boolean;
+  externalSourceId?: string;
 }
 export function reOrderAttrs(fields: string[], fieldOrder: string[] = []) {
   return sortBy(fields, (field) => {
@@ -67,6 +68,7 @@ export function InstanceRelationTableShow(
     paginationChange,
     total,
     relationTablePagination,
+    externalSourceId,
   } = props;
   const [oppositeModelDataMap, setOppositeModelDataMap] = useState({});
   /**
@@ -77,14 +79,15 @@ export function InstanceRelationTableShow(
   useEffect(() => {
     const fetchOppositeModelData = async () => {
       const modelListData = await fetchCmdbObjectRef(
-        relationData.right_object_id
+        relationData.right_object_id,
+        externalSourceId
       );
       setOppositeModelDataMap(keyBy(modelListData.data, "objectId"));
     };
     fetchOppositeModelData().catch((error) => {
       handleHttpError(error);
     });
-  }, [relationData]);
+  }, [relationData, externalSourceId]);
   const [instanceSourceQuery, setInstanceSourceQuery] = useState(null);
   const modelData = modelDataMap[relationData.left_object_id];
   let oppositeModelData = modifyModelData(
@@ -169,6 +172,8 @@ export function InstanceRelationTableShow(
             : false,
         }}
         target={"_blank"}
+        externalSourceId={externalSourceId}
+        useExternalCmdbApi={externalSourceId ? true : false}
       ></InstanceListTable>
     </div>
   );
