@@ -174,6 +174,7 @@ interface LegacyInstanceDetailProps extends WithTranslation {
   useAnchor?: boolean;
   ignorePermission?: boolean;
   useHttpErrorString?: boolean;
+  externalSourceId?: string;
 }
 
 interface LegacyInstanceDetailState {
@@ -200,6 +201,7 @@ interface LegacyInstanceDetailState {
   filterObjectId?: string;
   scrollContainer?: HTMLElement;
   httpErrorSting?: string;
+  externalSourceId?: string;
 }
 function getHref(hash: string) {
   const isHash = (hash || "").startsWith("#");
@@ -257,13 +259,18 @@ export class LegacyInstanceDetail extends React.Component<
       searchValue: "",
       scrollContainer: null,
       httpErrorSting: "",
+      externalSourceId: "",
     };
   }
 
   render(): React.ReactNode {
     const { loaded, currentAttr, instanceRelationModalData, httpErrorSting } =
       this.state;
-    const { showCard = true, useHttpErrorString = false } = this.props;
+    const {
+      showCard = true,
+      useHttpErrorString = false,
+      externalSourceId,
+    } = this.props;
     return (
       // React Fragments
       <Spin spinning={!loaded}>
@@ -321,7 +328,8 @@ export class LegacyInstanceDetail extends React.Component<
                         1,
                         this.state.relationTablePagination.pageSize,
                         this.state.currentAttr,
-                        value
+                        value,
+                        externalSourceId
                       );
                     }}
                     enterButton
@@ -343,7 +351,8 @@ export class LegacyInstanceDetail extends React.Component<
                           1,
                           this.state.relationTablePagination.pageSize,
                           this.state.currentAttr,
-                          undefined
+                          undefined,
+                          externalSourceId
                         );
                       });
                     }
@@ -351,6 +360,7 @@ export class LegacyInstanceDetail extends React.Component<
                   relationTablePagination={this.state.relationTablePagination}
                   relationFieldUrlTemplate={this.props.relationFieldUrlTemplate}
                   isPagination={true}
+                  externalSourceId={externalSourceId}
                   total={instanceRelationModalData?.total || 0}
                   paginationChange={(page, pageSize, relationData) => {
                     if (
@@ -360,7 +370,9 @@ export class LegacyInstanceDetail extends React.Component<
                       this.searchInstanceRelationData(
                         page,
                         pageSize,
-                        relationData
+                        relationData,
+                        undefined,
+                        externalSourceId
                       );
                     }
                   }}
@@ -685,7 +697,8 @@ export class LegacyInstanceDetail extends React.Component<
       isJson,
       isAttachment,
     } = this;
-    const { modelDataMap, modelData, instanceData } = this.state;
+    const { modelDataMap, modelData, instanceData, externalSourceId } =
+      this.state;
     let config;
     let isComponentMode = false;
     let attrCustomConfig: LegacyCustomComponent;
@@ -805,12 +818,15 @@ export class LegacyInstanceDetail extends React.Component<
                 value={instanceData[attr.__id]?.slice(0, 10)}
                 relationFieldUrlTemplate={this.props.relationFieldUrlTemplate}
                 filterInstanceSourceDisabled={true}
+                externalSourceId={externalSourceId}
               />
               {instanceData[attr.__id]?.length >= 10 && (
                 <Button
                   data-testid={"view-more-" + attr.__id}
                   type="link"
-                  onClick={() => this.handleRelationModal(attr)}
+                  onClick={() =>
+                    this.handleRelationModal(attr, externalSourceId)
+                  }
                 >
                   {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.VIEW_MORE}`)}
                 </Button>
@@ -894,8 +910,17 @@ export class LegacyInstanceDetail extends React.Component<
     );
   }
   // istanbul ignore next
-  async handleRelationModal(attr: any): Promise<void> {
-    await this.searchInstanceRelationData(1, 10, attr);
+  async handleRelationModal(
+    attr: any,
+    externalSourceId?: string
+  ): Promise<void> {
+    await this.searchInstanceRelationData(
+      1,
+      10,
+      attr,
+      undefined,
+      externalSourceId
+    );
   }
 
   // istanbul ignore next
@@ -903,7 +928,8 @@ export class LegacyInstanceDetail extends React.Component<
     page: number,
     pageSize: number,
     attr: any,
-    value?: string
+    value?: string,
+    externalSourceId?: string
   ): Promise<void> {
     const { right_id, left_object_id, right_object_id, left_id } = attr;
     let objectId, queryId, oppositeId;
@@ -950,7 +976,10 @@ export class LegacyInstanceDetail extends React.Component<
     if (value !== undefined ? value : this.state.searchValue) {
       let oppositeModelDataMap = this.state.oppositeModelDataMap;
       if (this.state.oppositeObjectId !== objectId) {
-        const oppositeModelList = await fetchCmdbObjectRef(objectId);
+        const oppositeModelList = await fetchCmdbObjectRef(
+          objectId,
+          externalSourceId
+        );
         oppositeModelDataMap = keyBy(oppositeModelList.data, "objectId");
         this.setState({
           oppositeObjectId: objectId,
@@ -997,7 +1026,8 @@ export class LegacyInstanceDetail extends React.Component<
     } else {
       instanceRelationModalData = await fetchCmdbInstanceSearch(
         objectId,
-        params
+        params,
+        externalSourceId
       );
     }
 
@@ -1251,6 +1281,7 @@ export class LegacyInstanceDetail extends React.Component<
   async fetchData(props: LegacyInstanceDetailProps): Promise<void> {
     let modelListData, modelDataMap, instanceData;
     const relationLimit = 10;
+    const externalSourceId = props.externalSourceId;
     try {
       if (props.modelDataList) {
         modelDataMap = keyBy(props.modelDataList, "objectId");
@@ -1260,17 +1291,22 @@ export class LegacyInstanceDetail extends React.Component<
             props.objectId,
             props.instanceId,
             fields,
-            relationLimit
+            relationLimit,
+            externalSourceId
           );
         } else {
           instanceData = await fetchCmdbInstanceDetail(
             props.objectId,
-            props.instanceId
+            props.instanceId,
+            externalSourceId
           );
         }
       } else {
         if (props.showFields) {
-          modelListData = await fetchCmdbObjectRef(props.objectId);
+          modelListData = await fetchCmdbObjectRef(
+            props.objectId,
+            externalSourceId
+          );
           modelDataMap = keyBy(modelListData.data, "objectId") as {
             [objectId: string]: CmdbModels.ModelCmdbObject;
           };
@@ -1279,12 +1315,13 @@ export class LegacyInstanceDetail extends React.Component<
             props.objectId,
             props.instanceId,
             fields,
-            relationLimit
+            relationLimit,
+            externalSourceId
           );
         } else {
           if (props.ignorePermission) {
             [modelListData, { data: instanceData }] = await Promise.all([
-              fetchCmdbObjectRef(props.objectId),
+              fetchCmdbObjectRef(props.objectId, externalSourceId),
               http.get(
                 `api/gateway/easyops.api.cmdb.instance.GetDetailWithAdmin/object/${props.objectId}/instance/${props.instanceId}`,
                 {}
@@ -1292,8 +1329,12 @@ export class LegacyInstanceDetail extends React.Component<
             ]);
           } else {
             [modelListData, instanceData] = await Promise.all([
-              fetchCmdbObjectRef(props.objectId),
-              fetchCmdbInstanceDetail(props.objectId, props.instanceId),
+              fetchCmdbObjectRef(props.objectId, externalSourceId),
+              fetchCmdbInstanceDetail(
+                props.objectId,
+                props.instanceId,
+                externalSourceId
+              ),
             ]);
           }
           modelDataMap = keyBy(modelListData.data, "objectId") as {
@@ -1324,6 +1365,7 @@ export class LegacyInstanceDetail extends React.Component<
         loaded: true,
         basicInfoGroupListShow: [],
         basicInfoGroupList: [],
+        externalSourceId,
       });
       this.setBasicInfoGroupList(this.state);
       // this.setFormattedInstanceData(this.state);
