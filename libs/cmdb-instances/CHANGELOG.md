@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.22.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.21.8...@next-libs/cmdb-instances@7.22.0) (2024-11-05)
+
+
+### Features
+
+* cmdb详情构件支持proxy数据源接口 ([#693](https://github.com/easyops-cn/next-libs/issues/693)) ([e2ba7ba](https://github.com/easyops-cn/next-libs/commit/e2ba7ba94f83c3d029915b530ed01be18feb6fe0))
+
+
+
+
+
 ## [7.21.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.21.7...@next-libs/cmdb-instances@7.21.8) (2024-08-27)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
