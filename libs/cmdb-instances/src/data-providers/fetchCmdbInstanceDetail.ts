@@ -11,13 +11,16 @@ export function fetchCmdbInstanceDetail(
   sourceId?: string
 ): Promise<Partial<InstanceApi_GetDetailResponseBody>> {
   return sourceId
-    ? http.post(
-        "api/gateway/easyops.api.cmdb.topo_center.ProxyGetInstanceDetail@1.0.0/api/v1/proxy-get-instance-detail",
-        {
-          objectId,
-          sourceId,
-        }
-      )
+    ? http
+        .post(
+          "api/gateway/easyops.api.%20cmdb.topo_center.ProxyGetInstanceDetail@1.0.0/api/v1/proxy-get-instance-detail",
+          {
+            objectId,
+            sourceId,
+            instanceId,
+          }
+        )
+        .then((res: InstanceApi_GetDetailResponseBody) => res.data)
     : InstanceApi_getDetail(objectId, instanceId, {});
 }
 
@@ -29,15 +32,18 @@ export function fetchCmdbInstanceDetailByFields(
   sourceId?: string
 ): Promise<Partial<InstanceApi_GetDetailResponseBody>> {
   return sourceId
-    ? http.post(
-        "api/gateway/easyops.api.cmdb.topo_center.ProxyGetInstanceDetail@1.0.0/api/v1/proxy-get-instance-detail",
-        {
-          objectId,
-          sourceId,
-          fields,
-          relation_limit,
-        }
-      )
+    ? http
+        .post(
+          "api/gateway/easyops.api.%20cmdb.topo_center.ProxyGetInstanceDetail@1.0.0/api/v1/proxy-get-instance-detail",
+          {
+            objectId,
+            sourceId,
+            instanceId,
+            fields,
+            relation_limit,
+          }
+        )
+        .then((res: InstanceApi_GetDetailResponseBody) => res.data)
     : InstanceApi_getDetail(objectId, instanceId, {
         fields,
         relation_limit,
