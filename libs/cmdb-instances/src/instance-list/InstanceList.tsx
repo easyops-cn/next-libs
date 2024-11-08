@@ -158,7 +158,7 @@ export function getQuery(
     const searchIpFields =
       (getRuntime().getCurrentApp().config?.searchIpFields as string[]) || [];
     const queryOrs = [
-      ...new Set(["ip", ...(extraFixedFields || searchIpFields)]),
+      ...new Set(["ip", ...uniq([...searchIpFields, ...extraFixedFields])]),
     ];
     const searchValue = { $like: `%${q.trim()}%` };
     queryOrs.forEach((key) => {
