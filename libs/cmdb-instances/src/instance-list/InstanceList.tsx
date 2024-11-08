@@ -149,14 +149,20 @@ export function getQuery(
   idObjectMap: Record<string, Partial<CmdbModels.ModelCmdbObject>>,
   q: string,
   fields?: string[],
-  onlySearchByIp?: boolean
+  onlySearchByIp?: boolean,
+  extraFixedFields?: string[]
 ) {
   const query: Record<string, any> = { $or: [] };
   const queryValues = q.trim().split(/\s+/);
   if (onlySearchByIp) {
     const searchIpFields =
       (getRuntime().getCurrentApp().config?.searchIpFields as string[]) || [];
-    const queryOrs = [...new Set(["ip", ...searchIpFields])];
+    const queryOrs = [
+      ...new Set([
+        "ip",
+        ...uniq([...searchIpFields, ...(extraFixedFields || [])]),
+      ]),
+    ];
     const searchValue = { $like: `%${q.trim()}%` };
     queryOrs.forEach((key) => {
       query.$or.push({ [key]: searchValue });
@@ -976,7 +982,8 @@ export function LegacyInstanceList(
         idObjectMap,
         state.q,
         state.fieldIds,
-        props.onlySearchByIp
+        props.onlySearchByIp,
+        props.extraFixedFields
       );
     }
 
