@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.22.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.22.1...@next-libs/cmdb-instances@7.22.2) (2024-11-08)
+
+
+### Bug Fixes
+
+* 加强代码健壮性 refs CMDB_CONSUME-398 ([3fac0a0](https://github.com/easyops-cn/next-libs/commit/3fac0a0dc683336042b74b928350d5e67e33ddcd))
+* 调整ip搜索是字段赋值逻辑 refs CMDB_CONSUME-398 ([407ff59](https://github.com/easyops-cn/next-libs/commit/407ff59129d81c96978bc844252f5c6e8a63e886))
+* 调整只有ip搜索赋值逻辑 refs CMDB_CONSUME-398 ([519ec72](https://github.com/easyops-cn/next-libs/commit/519ec7218e2d4fd57db7683b3218035d2e6348cc))
+
+
+
+
+
 ## [7.22.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.22.0...@next-libs/cmdb-instances@7.22.1) (2024-11-06)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
