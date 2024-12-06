@@ -474,6 +474,7 @@ export function CodeEditorItem(
           highlightActiveLine: props.highlightActiveLine,
           enableLiveAutocompletion: props.enableLiveAutocompletion,
           showGutter: props.showGutter,
+          wrap: props.wrap,
           ...(expanded
             ? {
                 maxLines: expandedLines,
