@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.12.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.12.1...@next-libs/code-editor-components@4.12.2) (2024-12-06)
+
+
+### Bug Fixes
+
+* SHLSTYYWPT-736 HTTP请求的body支持 全屏 或 自动换行（优化一行太长的展示效果） ref SHLSTYYWPT-736 ([107f097](https://github.com/easyops-cn/next-libs/commit/107f097698b44eac69cf012b1720940efafd7e8c))
+
+
+
+
+
 ## [4.12.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.12.0...@next-libs/code-editor-components@4.12.1) (2024-07-16)
 
 **Note:** Version bump only for package @next-libs/code-editor-components
