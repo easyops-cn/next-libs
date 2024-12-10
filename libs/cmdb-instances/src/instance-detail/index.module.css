@@ -158,6 +158,7 @@ html[data-ui="v8-2"] .detailCard {
   }
   .anchorLinkContainer {
     display: flex;
+    flex-wrap: wrap;
     background: var(--antd-anchor-radio-type-bg);
     border-radius: 6px;
     padding: 2px;
