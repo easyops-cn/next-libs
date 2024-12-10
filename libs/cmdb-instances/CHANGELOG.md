@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.22.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.22.3...@next-libs/cmdb-instances@7.22.4) (2024-12-10)
+
+
+### Bug Fixes
+
+* 售中工单_cmdb实例展示界面，属性太长挤压了值的展示空间_X86 麒麟V10 SP2 ([#697](https://github.com/easyops-cn/next-libs/issues/697)) ([75a3936](https://github.com/easyops-cn/next-libs/commit/75a3936012df14579051f7869ab35808371a4ae4))
+
+
+
+
+
 ## [7.22.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.22.2...@next-libs/cmdb-instances@7.22.3) (2024-12-06)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
