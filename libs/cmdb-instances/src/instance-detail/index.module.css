@@ -180,7 +180,8 @@ html[data-ui="v8-2"] .detailCard {
     grid-column: 1 / 7;
   }
   .detailCard dl {
-    grid-template-columns: auto 1fr auto 1fr auto 1fr;
+    /* grid-template-columns: auto 1fr auto 1fr auto 1fr; */
+    grid-template-columns: auto;
   }
   .detailCard dd.structAttr {
     grid-column: 2 / 7;
