@@ -412,8 +412,11 @@ describe("FormItemWrapper", () => {
 line2`}
       />
     );
-    const title = wrapper.find(Tooltip).at(0).prop("title");
-    expect(title.length).toBe(2);
+    const title = wrapper
+      .find(Tooltip)
+      .at(0)
+      .prop("title") as React.ReactElement[];
+    expect(title).toHaveLength(2);
     expect(title[0].type).toBe("div");
     expect(title[0].props.children).toBe("line1");
     expect(title[1].type).toBe("div");
