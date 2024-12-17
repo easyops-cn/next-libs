@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.6.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@3.5.6...@next-libs/forms@3.6.0) (2024-12-17)
+
+
+### Features
+
+* FormItemWrapper 的 labelTooltip 支持换行 ([b72baa5](https://github.com/easyops-cn/next-libs/commit/b72baa56b08a226766d307b0ba1dc405188676d3))
+
+
+
+
+
 ## [3.5.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@3.5.5...@next-libs/forms@3.5.6) (2024-07-16)
 
 **Note:** Version bump only for package @next-libs/forms
