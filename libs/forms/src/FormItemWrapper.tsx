@@ -239,8 +239,14 @@ export function FormItemWrapper(
 
   const getLabelTooltipNode = () => {
     if (typeof labelTooltip === "string" || typeof labelTooltip === "number") {
+      let title: React.ReactNode = labelTooltip;
+      if (typeof labelTooltip === "string" && labelTooltip.includes("\n")) {
+        title = labelTooltip
+          .split("\n")
+          .map((line, index) => <div key={index}>{line}</div>);
+      }
       return (
-        <Tooltip title={labelTooltip}>
+        <Tooltip title={title}>
           <span
             className={classNames(
               style.labelTooltipIcon,

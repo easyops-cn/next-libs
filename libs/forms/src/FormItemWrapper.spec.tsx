@@ -403,6 +403,26 @@ describe("FormItemWrapper", () => {
     expect(wrapper.find(".labelTooltipIcon").length).toBe(1);
   });
 
+  it("should work when the type of labelTooltip is string with multiple lines", () => {
+    const wrapper = mount(
+      <FormItemWrapper
+        name="username"
+        label="hello"
+        labelTooltip={`line1
+line2`}
+      />
+    );
+    const title = wrapper
+      .find(Tooltip)
+      .at(0)
+      .prop("title") as React.ReactElement[];
+    expect(title).toHaveLength(2);
+    expect(title[0].type).toBe("div");
+    expect(title[0].props.children).toBe("line1");
+    expect(title[1].type).toBe("div");
+    expect(title[1].props.children).toBe("line2");
+  });
+
   it("should work when the type of labelTooltip is LabelTooltipProps", () => {
     const icon: any = {
       lib: "antd",
