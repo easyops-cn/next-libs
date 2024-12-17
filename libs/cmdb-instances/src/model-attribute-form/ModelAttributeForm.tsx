@@ -90,6 +90,8 @@ interface ModelAttributeFormProps extends FormComponentProps {
   };
   isResetInstanceNameWhenSaveAndContinueToAddInstance?: boolean;
   uploadConfig?: UploadConfig;
+  useManualVerification?: boolean;
+  ref?: any;
 }
 
 export type attributesFieldsByTag = [string, ModifiedModelObjectField[]];
@@ -399,8 +401,12 @@ export class ModelAttributeForm extends Component<
     }
   };
   /* istanbul ignore next */
-  handleSubmit = (e: FormEvent, type?: string) => {
-    e.preventDefault();
+  public handleSubmit = (e?: FormEvent, type?: string) => {
+    // 允许不传入 event 参数
+    if (e) {
+      e.preventDefault();
+    }
+
     this.props.scrollToFirstError
       ? this.props.form.validateFieldsAndScroll(
           {
@@ -655,16 +661,17 @@ export class ModelAttributeForm extends Component<
                     label={
                       <span>
                         <span>{attribute.name}</span>
-                        {attribute.description && attribute.description !== "" && (
-                          <Tooltip title={attribute.description}>
-                            <ExclamationCircleFilled
-                              style={{
-                                padding: "0 2px",
-                                color: "var(--color-secondary-text)",
-                              }}
-                            />
-                          </Tooltip>
-                        )}
+                        {attribute.description &&
+                          attribute.description !== "" && (
+                            <Tooltip title={attribute.description}>
+                              <ExclamationCircleFilled
+                                style={{
+                                  padding: "0 2px",
+                                  color: "var(--color-secondary-text)",
+                                }}
+                              />
+                            </Tooltip>
+                          )}
                       </span>
                     }
                     key={attribute.name}
@@ -827,7 +834,7 @@ export class ModelAttributeForm extends Component<
     return (
       <Form>
         {collapse}
-        {submitContainer}
+        {!this.props.useManualVerification && submitContainer}
       </Form>
     );
   }
@@ -835,3 +842,14 @@ export class ModelAttributeForm extends Component<
 
 export const InstanceModelAttributeForm =
   Form.create<ModelAttributeFormProps>()(ModelAttributeForm);
+
+export const InstanceModelAttributeFormRef = React.forwardRef<
+  ModelAttributeForm,
+  ModelAttributeFormProps
+>((props, ref) => {
+  const WrappedForm = Form.create<ModelAttributeFormProps & { ref: any }>()(
+    ModelAttributeForm
+  ) as any;
+  return <WrappedForm {...props} wrappedComponentRef={ref} />;
+});
+InstanceModelAttributeFormRef.displayName = "InstanceModelAttributeFormRef";
