@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.24.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.23.0...@next-libs/cmdb-instances@7.24.0) (2024-12-23)
+
+
+### Features
+
+* cmdb显示设置 构件支持分组 ([#702](https://github.com/easyops-cn/next-libs/issues/702)) ([e4cccfa](https://github.com/easyops-cn/next-libs/commit/e4cccfa2563e6722371e15a401f4aa07cf65c5b1))
+
+
+
+
+
 # [7.23.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.22.7...@next-libs/cmdb-instances@7.23.0) (2024-12-17)
 
 
