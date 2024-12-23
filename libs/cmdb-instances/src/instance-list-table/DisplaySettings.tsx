@@ -1,5 +1,13 @@
 import React from "react";
-import { debounce, remove, without, get, isEmpty } from "lodash";
+import {
+  debounce,
+  remove,
+  without,
+  get,
+  isEmpty,
+  groupBy,
+  mapValues,
+} from "lodash";
 import { extraFieldAttrs } from "./constants";
 import { Checkbox, Col, Divider, Input, Row } from "antd";
 import {
@@ -24,6 +32,7 @@ interface DisplaySettingsState {
   filteredList: any;
   extraDisabledFieldSet: Set<string>;
   selectAllFields: boolean;
+  selectCategoryAllFieldsMap: Record<string, boolean>;
   allFieldsLength: number;
 }
 
@@ -32,7 +41,7 @@ export class DisplaySettings extends React.Component<
   DisplaySettingsState
 > {
   debounceHandleSearch: () => void;
-  attrAndRelationList: { id: string; name: string }[] = [];
+  attrAndRelationList: { id: string; name: string; category: string }[] = [];
 
   constructor(props: DisplaySettingsProps) {
     super(props);
@@ -54,6 +63,11 @@ export class DisplaySettings extends React.Component<
     this.attrAndRelationList = attrAndRelationList.map((attribute: any) => ({
       id: attribute.id,
       name: attribute.name,
+      category: get(
+        attribute,
+        "tag[0]",
+        get(attribute, "left_tags[0]", "其他")
+      ),
     }));
 
     const filteredList = this.attrAndRelationList;
@@ -66,16 +80,30 @@ export class DisplaySettings extends React.Component<
     const extraAttrs = filteredList.filter((attr: any) =>
       extraAttrIds.includes(attr.id)
     );
-
     const nextFields = props.currentFields ? props.currentFields.slice() : [];
+
     const allFieldsLength = [...attrs, ...extraAttrs].length;
+    const selectAllFields =
+      [...new Set([...nextFields])].length === allFieldsLength;
+
+    const categoryOrders = this.getCAategoryOrders();
+    const categoryMap = groupBy(attrs, "category");
+    const selectCategoryAllFieldsMap: Record<string, boolean> = {};
+    categoryOrders.reduce((acc, item) => {
+      const categoryAttrIds = categoryMap[item]?.map((attr) => attr.id);
+      acc[item] = selectAllFields
+        ? selectAllFields
+        : !!categoryAttrIds?.every((id) => nextFields.includes(id));
+      return acc;
+    }, selectCategoryAllFieldsMap);
     this.state = {
       nextFields,
       q: "",
       filteredList: this.attrAndRelationList,
       extraDisabledFieldSet: new Set(props.extraDisabledFields),
-      selectAllFields: [...new Set([...nextFields])].length === allFieldsLength,
+      selectAllFields,
       allFieldsLength,
+      selectCategoryAllFieldsMap,
     };
     this.debounceHandleSearch = debounce(this.filterColTag, 300);
   }
@@ -96,30 +124,75 @@ export class DisplaySettings extends React.Component<
     }
   }
 
-  handleChecked(event: any, attr: any) {
+  handleChecked(event: any, attr: any, categoryData?: any) {
     const fieldsKey = "nextFields";
+    const { category, attrs } = categoryData ?? {};
     const fields = event.target.checked
       ? this.state[fieldsKey].concat(attr.id)
       : without(this.state[fieldsKey], attr.id);
+    if (category) {
+      const attrsIds = attrs.map((attr: any) => attr.id);
+      this.setState({
+        [fieldsKey]: fields,
+        selectAllFields: fields.length === this.state.allFieldsLength,
+        selectCategoryAllFieldsMap: {
+          ...this.state.selectCategoryAllFieldsMap,
+          [category]: attrsIds.every((id: string) => fields.includes(id)),
+        },
+      });
+    } else {
+      this.setState({
+        [fieldsKey]: fields,
+        selectAllFields: fields.length === this.state.allFieldsLength,
+      });
+    }
 
+    this.props.onChange?.(fields);
+  }
+
+  handlecCategoryChecked(event: any, categoryData: any) {
+    const checked = event.target.checked;
+    const fieldsKey = "nextFields";
+    const { category, attrs } = categoryData;
+    const attrsIds = attrs.map((attr: any) => attr.id);
+    const fields = [
+      ...new Set([
+        ...(checked
+          ? this.state[fieldsKey].concat(attrsIds)
+          : without(this.state[fieldsKey], ...attrsIds)),
+      ]),
+    ];
     this.setState({
       [fieldsKey]: fields,
       selectAllFields: fields.length === this.state.allFieldsLength,
+      selectCategoryAllFieldsMap: {
+        ...this.state.selectCategoryAllFieldsMap,
+        [category]: checked,
+      },
     });
     this.props.onChange?.(fields);
   }
 
   handleSelectAllFields(event: any, allFields: any[]) {
     const fieldsKey = "nextFields";
-    const fields = event.target.checked ? allFields.map((attr) => attr.id) : [];
+    const checked = event.target.checked;
+    const fields = checked ? allFields.map((attr) => attr.id) : [];
     this.setState({
       [fieldsKey]: fields,
       selectAllFields: event.target.checked,
+      selectCategoryAllFieldsMap: mapValues(
+        this.state.selectCategoryAllFieldsMap,
+        () => checked
+      ),
     });
     this.props.onChange?.(fields);
   }
 
-  renderCheckbox(attr: any, field: "nextFields" | "otherFields") {
+  renderCheckbox(
+    attr: any,
+    field: "nextFields" | "otherFields",
+    categoryData?: any
+  ) {
     const fieldsKey = "nextFields";
     const checked = this.state[fieldsKey].includes(attr.id);
     const disabled =
@@ -140,7 +213,7 @@ export class DisplaySettings extends React.Component<
           }}
           checked={checked}
           disabled={disabled}
-          onChange={(event) => this.handleChecked(event, attr)}
+          onChange={(event) => this.handleChecked(event, attr, categoryData)}
           data-testid={`${attr.id}-checkbox`}
         >
           {attr.name}
@@ -148,7 +221,15 @@ export class DisplaySettings extends React.Component<
       </Col>
     );
   }
-
+  getCAategoryOrders = () => {
+    const categoryOrders = [
+      ...new Set([
+        ...get(this.props.modelData, "view.attr_category_order", []),
+        "其他",
+      ]),
+    ]; //分组排序
+    return categoryOrders;
+  };
   filterColTag = () => {
     let filteredList = this.attrAndRelationList;
     const q = this.state.q.trim().toLowerCase();
@@ -157,8 +238,23 @@ export class DisplaySettings extends React.Component<
         return attr.name.toLowerCase().includes(q);
       });
     }
+    const fieldsKey = "nextFields";
+    const attrs = this.state[fieldsKey];
+    const categoryOrders = this.getCAategoryOrders();
+    const categoryMap = groupBy(filteredList, "category");
+    const selectAllFields = attrs.length === this.state.allFieldsLength;
+    const selectCategoryAllFieldsMap: Record<string, boolean> = {};
+    categoryOrders.reduce((acc, item) => {
+      const categoryAttrIds = categoryMap[item]?.map((attr) => attr.id);
+      acc[item] = selectAllFields
+        ? selectAllFields
+        : !!categoryAttrIds?.every((id) => attrs.includes(id));
+      return acc;
+    }, selectCategoryAllFieldsMap);
     this.setState({
       filteredList,
+      selectAllFields,
+      selectCategoryAllFieldsMap,
     });
   };
 
@@ -169,7 +265,6 @@ export class DisplaySettings extends React.Component<
     });
     this.debounceHandleSearch();
   };
-
   render() {
     const filteredList = this.state.filteredList;
     const extraAttrIds = extraFieldAttrs.map(
@@ -178,10 +273,11 @@ export class DisplaySettings extends React.Component<
     const attrs = filteredList.filter(
       (attr: any) => !extraAttrIds.includes(attr.id)
     );
+    const categoryOrders = this.getCAategoryOrders();
+    const categoryMap = groupBy(attrs, "category");
     const extraAttrs = filteredList.filter((attr: any) =>
       extraAttrIds.includes(attr.id)
     );
-
     return (
       <>
         <Divider orientation="left" plain style={{ marginTop: 0 }}>
@@ -218,17 +314,44 @@ export class DisplaySettings extends React.Component<
           }}
           className="nextFields"
         >
-          <Row>
-            {attrs.map((attr: any) => this.renderCheckbox(attr, "nextFields"))}
-            {extraAttrs.length > 0 ? (
-              <>
-                <Divider />
-                {extraAttrs.map((attr: any) =>
-                  this.renderCheckbox(attr, "nextFields")
-                )}
-              </>
-            ) : null}
-          </Row>
+          {categoryOrders?.map((category, index) => {
+            const categoryAttrs = categoryMap?.[category] ?? [];
+            return categoryAttrs.length > 0 ? (
+              <div
+                style={{
+                  marginBottom: index === categoryOrders.length - 1 ? 0 : 15,
+                }}
+              >
+                <Checkbox
+                  checked={this.state.selectCategoryAllFieldsMap[category]}
+                  onChange={(e) => {
+                    this.handlecCategoryChecked(e, {
+                      category,
+                      attrs: categoryAttrs,
+                    });
+                  }}
+                >
+                  {category}
+                </Checkbox>
+                <Row style={{ padding: "12px 12px 0px 12px" }}>
+                  {categoryAttrs.map((attr: any) =>
+                    this.renderCheckbox(attr, "nextFields", {
+                      category,
+                      attrs: categoryAttrs,
+                    })
+                  )}
+                </Row>
+              </div>
+            ) : null;
+          })}
+          {extraAttrs.length > 0 ? (
+            <Row>
+              <Divider />
+              {extraAttrs.map((attr: any) =>
+                this.renderCheckbox(attr, "nextFields")
+              )}
+            </Row>
+          ) : null}
         </div>
       </>
     );

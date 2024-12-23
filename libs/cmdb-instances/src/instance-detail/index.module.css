@@ -57,6 +57,7 @@ html[data-ui="v8-2"] .detailCard {
   grid-template-columns: auto 1fr auto 1fr;
   row-gap: 12px;
   column-gap: 16px;
+  min-width: 120px;
   margin-bottom: 0;
 }
 
