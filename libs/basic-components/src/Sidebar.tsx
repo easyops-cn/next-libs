@@ -107,6 +107,10 @@ export function matchMenuItem(
     exact: item.exact,
   });
 
+  if (match && (item as any).activeMatchSearch) {
+    match = getMatchOfSearch(search, to.search);
+  }
+
   if (!match && Array.isArray(item.activeIncludes)) {
     for (const include of item.activeIncludes) {
       let paths: string[];
@@ -159,10 +163,19 @@ export function matchMenuItem(
       }
 
       for (const path of paths) {
-        match = !matchPath(pathname, {
-          path,
-          exact,
-        });
+        let parsedPathWithSearch: Location | undefined;
+        if (path.includes("?")) {
+          parsedPathWithSearch = parsePath(path);
+        }
+
+        match = !(
+          matchPath(pathname, {
+            path: parsedPathWithSearch ? parsedPathWithSearch.pathname : path,
+            exact,
+          }) &&
+          (!parsedPathWithSearch ||
+            getMatchOfSearch(search, parsedPathWithSearch.search))
+        );
 
         if (!match) {
           break;
@@ -173,10 +186,6 @@ export function matchMenuItem(
         break;
       }
     }
-  }
-
-  if (match && (item as any).activeMatchSearch) {
-    match = getMatchOfSearch(search, to.search);
   }
 
   return match;
