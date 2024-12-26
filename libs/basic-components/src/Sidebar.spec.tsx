@@ -218,4 +218,22 @@ describe("Sidebar", () => {
     expect(matchMenuItem(item, pathname2, "?search=false")).toBe(true);
     expect(matchMenuItem(item, pathname3, "?search=true")).toBe(false);
   });
+
+  it("matchMenuItem with activeExcludes with query", () => {
+    const item = {
+      text: "Test",
+      to: "/test?tab=a",
+      exact: true,
+      activeMatchSearch: true,
+      activeIncludes: ["/test?tab=b"],
+      activeExcludes: ["/test?system=x"],
+    };
+    const pathname = "/test";
+    expect(matchMenuItem(item, pathname, "")).toBe(false);
+    expect(matchMenuItem(item, pathname, "?tab=a")).toBe(true);
+    expect(matchMenuItem(item, pathname, "?tab=b")).toBe(true);
+    expect(matchMenuItem(item, pathname, "?tab=c")).toBe(false);
+    expect(matchMenuItem(item, pathname, "?tab=a&system=x")).toBe(false);
+    expect(matchMenuItem(item, pathname, "?tab=a&system=y")).toBe(true);
+  });
 });
