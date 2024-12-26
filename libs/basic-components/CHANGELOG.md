@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@5.5.0...@next-libs/basic-components@5.5.1) (2024-12-26)
+
+
+### Bug Fixes
+
+* **menu:** support query in active excludes ([db21dd8](https://github.com/easyops-cn/next-libs/commit/db21dd87d1869f712083a58cb9b0c7ee7c3b34fe))
+
+
+
+
+
 # [5.5.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@5.4.0...@next-libs/basic-components@5.5.0) (2024-07-16)
 
 
