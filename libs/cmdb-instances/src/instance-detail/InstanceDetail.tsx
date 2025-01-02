@@ -1350,7 +1350,7 @@ export class LegacyInstanceDetail extends React.Component<
       const _modelData = modifyModelData(filterModelData);
       const hideModelData = _modelData.view.hide_columns || [];
 
-      this.setState({
+      const _state = {
         modelDataMap,
         modelData: {
           ..._modelData,
@@ -1366,8 +1366,9 @@ export class LegacyInstanceDetail extends React.Component<
         basicInfoGroupListShow: [],
         basicInfoGroupList: [],
         externalSourceId,
-      });
-      this.setBasicInfoGroupList(this.state);
+      } as LegacyInstanceDetailState;
+      this.setState({ ..._state });
+      this.setBasicInfoGroupList(_state);
       // this.setFormattedInstanceData(this.state);
     } catch (e) {
       // 统一处理请求错误
