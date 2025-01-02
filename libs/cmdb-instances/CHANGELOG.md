@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.24.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.24.1...@next-libs/cmdb-instances@7.24.2) (2025-01-02)
+
+
+### Bug Fixes
+
+* **instance-detail:** 修复如果是异步渲染组件报TypeError: Cannot read properties of null (reading '__fieldList')问题 ([1962f6d](https://github.com/easyops-cn/next-libs/commit/1962f6dc7a49d3b0cb5bab1e7f747c4eaea90919))
+
+
+
+
+
 ## [7.24.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.24.0...@next-libs/cmdb-instances@7.24.1) (2024-12-26)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
