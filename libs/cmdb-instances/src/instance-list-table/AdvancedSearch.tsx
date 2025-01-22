@@ -957,7 +957,8 @@ export class AdvancedSearchForm extends React.Component<
             if (multiValueSearchOperator) {
               let values: any[];
               if (
-                field.attrValue.type === ModelAttributeValueType.ENUM ||
+                (field.attrValue.type === ModelAttributeValueType.ENUM &&
+                  (field.attrValue.mode as any) !== "cascade") ||
                 field.attrValue.type === ModelAttributeValueType.ARR
               ) {
                 values = value;

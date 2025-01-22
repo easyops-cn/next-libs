@@ -272,6 +272,12 @@ export class ModelAttributeFormControl extends Component<
         ) {
           return FormControlTypeEnum.RADIO;
         }
+        if (
+          getRuntime().getFeatureFlags()["cmdb-use-tree-enum-attr"] &&
+          (attribute.value.mode as any) === ModelAttributeValueModeType.CASCADE
+        ) {
+          return FormControlTypeEnum.TREESELECT;
+        }
         return FormControlTypeEnum.SELECT;
       case ModelAttributeValueType.INTEGER:
       case ModelAttributeValueType.FLOAT:
@@ -707,7 +713,13 @@ export class ModelAttributeFormControl extends Component<
         const { readOnly, placeholder } = restProps;
         const newValue =
           typeof value === "boolean" ? value : value ? value : [];
-        const treeData: any = treeEnumFormat(attribute.value.regex || []);
+        const isMultiple =
+          attribute.value.type === "enums" &&
+          (attribute.value.mode as any) === "cascade";
+        const treeData: any = treeEnumFormat(
+          attribute.value.regex || [],
+          isMultiple
+        );
         return (
           <TreeSelect
             value={newValue}
@@ -717,7 +729,7 @@ export class ModelAttributeFormControl extends Component<
             placeholder={placeholder}
             className={this.props.className}
             style={this.props.style}
-            treeCheckable
+            treeCheckable={attribute.value.type === "enums"}
             onChange={(e: any) => this.onChange(e)}
           />
         );

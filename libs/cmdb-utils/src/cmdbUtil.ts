@@ -342,6 +342,7 @@ export function getFixedStyle(
 interface TreeItem {
   title: string;
   value: string;
+  selectable?: boolean;
   isLeaf?: boolean;
   parentId?: string;
   key?: string;
@@ -349,7 +350,10 @@ interface TreeItem {
   children?: TreeItem[];
 }
 
-export function treeEnumFormat(value: string | string[]): TreeItem[] {
+export function treeEnumFormat(
+  value: string | string[],
+  isMultiple = true
+): TreeItem[] {
   const root: TreeItem[] = [];
   const arr = _.compact(
     _.uniq((_.isString(value) ? value?.split("\n") : value) || [])
@@ -373,8 +377,10 @@ export function treeEnumFormat(value: string | string[]): TreeItem[] {
       }
 
       if (index === parts.length - 1) {
+        existingNode.selectable = true;
         existingNode.isLeaf = true;
       } else {
+        existingNode.selectable = isMultiple;
         existingNode.isLeaf = false;
       }
 
@@ -395,6 +401,7 @@ export function treeEnumFormat(value: string | string[]): TreeItem[] {
 
   root.forEach((node) => {
     if (node.children?.length === 0) {
+      node.selectable = true;
       node.isLeaf = true;
     } else {
       node.isLeaf = false;

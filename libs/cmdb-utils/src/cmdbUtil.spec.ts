@@ -595,7 +595,7 @@ describe("util", () => {
 describe("treeEnumFormat", () => {
   const value = ["A1/B1/C1", "A1/B1", "A1/B1/C2", "A1"];
   it("treeEnumFormat", () => {
-    const result = treeEnumFormat(value);
+    const result = treeEnumFormat(value, true);
     expect(result).toEqual([
       {
         children: [
@@ -606,6 +606,7 @@ describe("treeEnumFormat", () => {
                 id: "A1/B1/C1",
                 isLeaf: true,
                 parentId: "A1/B1",
+                selectable: true,
                 title: "C1",
                 value: "A1/B1/C1",
               },
@@ -614,6 +615,7 @@ describe("treeEnumFormat", () => {
                 id: "A1/B1/C2",
                 isLeaf: true,
                 parentId: "A1/B1",
+                selectable: true,
                 title: "C2",
                 value: "A1/B1/C2",
               },
@@ -621,6 +623,7 @@ describe("treeEnumFormat", () => {
             id: "A1/B1",
             isLeaf: false,
             parentId: "A1",
+            selectable: true,
             title: "B1",
             value: "A1/B1",
           },
@@ -628,11 +631,12 @@ describe("treeEnumFormat", () => {
         id: "A1",
         isLeaf: false,
         parentId: "",
+        selectable: true,
         title: "A1",
         value: "A1",
       },
     ]);
-    const result2 = treeEnumFormat("A1/B1/C1\nA1/B1\nA1/B1/C2\nA1");
+    const result2 = treeEnumFormat("A1/B1/C1\nA1/B1\nA1/B1/C2\nA1", true);
     expect(result2).toEqual([
       {
         children: [
@@ -643,6 +647,7 @@ describe("treeEnumFormat", () => {
                 id: "A1/B1/C1",
                 isLeaf: true,
                 parentId: "A1/B1",
+                selectable: true,
                 title: "C1",
                 value: "A1/B1/C1",
               },
@@ -651,6 +656,7 @@ describe("treeEnumFormat", () => {
                 id: "A1/B1/C2",
                 isLeaf: true,
                 parentId: "A1/B1",
+                selectable: true,
                 title: "C2",
                 value: "A1/B1/C2",
               },
@@ -658,6 +664,7 @@ describe("treeEnumFormat", () => {
             id: "A1/B1",
             isLeaf: false,
             parentId: "A1",
+            selectable: true,
             title: "B1",
             value: "A1/B1",
           },
@@ -665,28 +672,28 @@ describe("treeEnumFormat", () => {
         id: "A1",
         isLeaf: false,
         parentId: "",
+        selectable: true,
         title: "A1",
         value: "A1",
       },
     ]);
 
-    const result3 = treeEnumFormat([
-      "A1/B1/C1",
-      "A1/B1",
-      "A1/B1/C",
-      "A1/B1/C23",
-      "A1",
-    ]);
+    const result3 = treeEnumFormat(
+      ["A1/B1/C1", "A1/B1", "A1/B1/C", "A1/B1/C23", "A1"],
+      true
+    );
     expect(result3).toEqual([
       {
         id: "A1",
         parentId: "",
+        selectable: true,
         title: "A1",
         value: "A1",
         children: [
           {
             id: "A1/B1",
             parentId: "A1",
+            selectable: true,
             title: "B1",
             value: "A1/B1",
             children: [
@@ -695,6 +702,7 @@ describe("treeEnumFormat", () => {
                 parentId: "A1/B1",
                 title: "C",
                 value: "A1/B1/C",
+                selectable: true,
                 children: null,
                 isLeaf: true,
               },
@@ -703,6 +711,7 @@ describe("treeEnumFormat", () => {
                 parentId: "A1/B1",
                 title: "C1",
                 value: "A1/B1/C1",
+                selectable: true,
                 children: null,
                 isLeaf: true,
               },
@@ -711,6 +720,7 @@ describe("treeEnumFormat", () => {
                 parentId: "A1/B1",
                 title: "C23",
                 value: "A1/B1/C23",
+                selectable: true,
                 children: null,
                 isLeaf: true,
               },
