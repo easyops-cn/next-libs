@@ -724,6 +724,7 @@ export class ModelAttributeFormControl extends Component<
           <TreeSelect
             value={newValue}
             allowClear
+            showSearch
             treeData={treeData}
             disabled={readOnly}
             placeholder={placeholder}
