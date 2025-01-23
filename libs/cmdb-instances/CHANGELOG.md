@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.24.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.24.3...@next-libs/cmdb-instances@7.24.4) (2025-01-23)
+
+
+### Bug Fixes
+
+* 模型属性中，单选枚举型支持显示为树状结构 refs: CMDB_MODEL-345 ([e15b94f](https://github.com/easyops-cn/next-libs/commit/e15b94f1c3f4707205b23156367b2744e0df9893))
+
+
+
+
+
 ## [7.24.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.24.2...@next-libs/cmdb-instances@7.24.3) (2025-01-22)
 
 
