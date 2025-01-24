@@ -1,6 +1,6 @@
 {
   "name": "@next-libs/forms",
-  "version": "3.6.1",
+  "version": "3.6.2",
   "description": "> TODO: description",
   "homepage": "https://github.com/easyops-cn/next-libs/tree/master/libs/forms",
   "license": "GPL-3.0",
@@ -33,6 +33,6 @@
     "@next-core/brick-dll": "*"
   },
   "dependencies": {
-    "@next-libs/basic-components": "^5.5.1"
+    "@next-libs/basic-components": "^5.5.2"
   }
 }

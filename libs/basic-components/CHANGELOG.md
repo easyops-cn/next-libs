@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@5.5.1...@next-libs/basic-components@5.5.2) (2025-01-24)
+
+
+### Bug Fixes
+
+* **GeneralIcon:** memorize style and functions in component to avoid unnecessary rendering ([7858b8c](https://github.com/easyops-cn/next-libs/commit/7858b8cf0c6e9c99b9b27ebbe7da1b440140869a))
+
+
+
+
+
 ## [5.5.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@5.5.0...@next-libs/basic-components@5.5.1) (2024-12-26)
 
 
