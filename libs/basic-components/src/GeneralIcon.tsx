@@ -1,4 +1,4 @@
-import React, { DOMAttributes, useMemo, useRef } from "react";
+import React, { DOMAttributes, useCallback, useMemo, useRef } from "react";
 import { Icon as _LegacyIcon } from "@ant-design/compatible";
 import { IconComponent, IconProps } from "@ant-design/compatible/lib/icon";
 import Icon from "@ant-design/icons";
@@ -66,80 +66,83 @@ export function GeneralIcon({
   onMouseEnter,
   onMouseLeave,
   showEmptyIcon,
-  style,
+  style: _style,
   noPublicRoot,
   imageLoading,
   iconClassName,
 }: MenuIconProps): React.ReactElement {
   const memoizedIcon = useDeepEqualMemo(_icon);
-  const getStyle = (icon: MenuIcon): React.CSSProperties => {
-    let mergedStyle: React.CSSProperties;
-    if (icon?.color) {
-      if (!isGradientColor(icon.color)) {
-        if (bg) {
-          if (COLORS_MAP[icon.color as Colors]) {
-            if (reverseBgColor) {
+  const memoizedStyle = useDeepEqualMemo(_style);
+  const getStyle = useCallback(
+    (icon: MenuIcon): React.CSSProperties => {
+      let mergedStyle: React.CSSProperties;
+      if (icon?.color) {
+        if (!isGradientColor(icon.color)) {
+          if (bg) {
+            if (COLORS_MAP[icon.color as Colors]) {
+              if (reverseBgColor) {
+                mergedStyle = {
+                  color: "#ffffff",
+                  backgroundColor: getColor(icon.color).color,
+                };
+              } else {
+                mergedStyle = getColor(icon.color);
+              }
+            } else {
               mergedStyle = {
                 color: "#ffffff",
-                backgroundColor: getColor(icon.color).color,
+                backgroundColor: icon.color,
               };
-            } else {
-              mergedStyle = getColor(icon.color);
             }
           } else {
             mergedStyle = {
-              color: "#ffffff",
-              backgroundColor: icon.color,
+              color: COLORS_MAP[icon.color as Colors]
+                ? getColor(icon.color).color
+                : icon.color,
             };
           }
         } else {
           mergedStyle = {
-            color: COLORS_MAP[icon.color as Colors]
-              ? getColor(icon.color).color
-              : icon.color,
+            color: "transparent",
           };
         }
-      } else {
-        mergedStyle = {
-          color: "transparent",
-        };
       }
-    }
-    return mergedStyle;
-  };
-  const getDefaultIcon = (
-    bg: boolean,
-    mergedStyle: React.CSSProperties,
-    iconNode: JSX.Element
-  ) => {
-    return bg ? (
-      <Avatar
-        icon={
-          showEmptyIcon ? (
-            <Icon
-              style={omit(mergedStyle, "background")}
-              component={() => (
-                <BrickIcon icon="empty-icon" category="common" />
-              )}
-              onClick={onClick}
-              onMouseEnter={onMouseEnter}
-              onMouseLeave={onMouseLeave}
-            />
-          ) : (
-            iconNode
-          )
-        }
-        size={size ?? "default"}
-        shape={(shape as AvatarProps["shape"]) ?? "circle"}
-        style={mergedStyle}
-        className={classnames({
-          [cssStyle.roundSquareBg]: shape === "round-square",
-        })}
-      ></Avatar>
-    ) : (
-      iconNode
-    );
-  };
+      return mergedStyle;
+    },
+    [bg, reverseBgColor]
+  );
+  const getDefaultIcon = useCallback(
+    (bg: boolean, mergedStyle: React.CSSProperties, iconNode: JSX.Element) => {
+      return bg ? (
+        <Avatar
+          icon={
+            showEmptyIcon ? (
+              <Icon
+                style={omit(mergedStyle, "background")}
+                component={() => (
+                  <BrickIcon icon="empty-icon" category="common" />
+                )}
+                onClick={onClick}
+                onMouseEnter={onMouseEnter}
+                onMouseLeave={onMouseLeave}
+              />
+            ) : (
+              iconNode
+            )
+          }
+          size={size ?? "default"}
+          shape={(shape as AvatarProps["shape"]) ?? "circle"}
+          style={mergedStyle}
+          className={classnames({
+            [cssStyle.roundSquareBg]: shape === "round-square",
+          })}
+        ></Avatar>
+      ) : (
+        iconNode
+      );
+    },
+    [onClick, onMouseEnter, onMouseLeave, shape, showEmptyIcon, size]
+  );
 
   return useMemo(() => {
     let iconNode = <></>;
@@ -173,11 +176,11 @@ export function GeneralIcon({
     } else if ("lib" in icon) {
       mergedStyle = getStyle(icon);
 
-      if (style) {
+      if (memoizedStyle) {
         if (mergedStyle) {
-          Object.assign(mergedStyle, style);
+          Object.assign(mergedStyle, memoizedStyle);
         } else {
-          mergedStyle = style;
+          mergedStyle = memoizedStyle;
         }
       }
 
@@ -342,7 +345,7 @@ export function GeneralIcon({
     getDefaultIcon,
     iconClassName,
     size,
-    style,
+    memoizedStyle,
     noPublicRoot,
   ]);
 }
