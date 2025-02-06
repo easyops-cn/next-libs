@@ -371,7 +371,8 @@ export function getFieldConditionsAndValues(
   isRelation?: boolean,
   relationSideId?: string,
   objectId?: string,
-  attrId?: string
+  attrId?: string,
+  mode?: ModelAttributeValueModeType
 ) {
   // let isRelationWithNoExpression = false;
   // 针对主机的 agent状态，暂不支持 为空/不为空的筛选，将特殊处理
@@ -445,6 +446,7 @@ export function getFieldConditionsAndValues(
         (multiValueSearchOperator) =>
           multiValueSearchOperator.comparisonOperator === operation.operator
       );
+
       if (i) {
         if (
           valueType === ModelAttributeValueType.ENUM ||
@@ -475,11 +477,14 @@ export function getFieldConditionsAndValues(
           }
           return value;
         });
+
         value = [
           ModelAttributeValueType.ENUM,
           ModelAttributeValueType.ARR,
         ].includes(valueType)
-          ? values
+          ? mode === "cascade"
+            ? values.join(" ")
+            : values
           : values.join(" ");
       }
     } else {
@@ -655,7 +660,9 @@ export class AdvancedSearchForm extends React.Component<
             attr.value.type as ModelAttributeValueType,
             false,
             "",
-            this.props.modelData.objectId
+            this.props.modelData.objectId,
+            "",
+            attr.value.mode as ModelAttributeValueModeType
           ),
         });
       },
@@ -672,7 +679,6 @@ export class AdvancedSearchForm extends React.Component<
             relation[`${sides.this}_id` as RelationIdKeys]
           }.${showKey}`;
           const type = ModelAttributeValueType.STRING;
-
           fields.push({
             id: `_${id}`,
             name: `${
@@ -792,7 +798,6 @@ export class AdvancedSearchForm extends React.Component<
     this.setState({
       fields: newFields,
     });
-
     this.setFormFieldValues(newFields);
   };
 
@@ -923,6 +928,7 @@ export class AdvancedSearchForm extends React.Component<
       let queries: Query[] = [];
       let queriesToShow: Query[] = [];
       const fieldToShow: Record<string, any[]>[] = [];
+
       fields.forEach((field) => {
         const expressions: QueryOperatorExpressions = {};
         let fieldQuery: Query = { [field.id]: expressions };
@@ -945,7 +951,6 @@ export class AdvancedSearchForm extends React.Component<
 
           const fieldIdToShow = field.id;
           fieldQueryToShow = { [fieldIdToShow]: expressions };
-
           if (
             value !== null &&
             value !== "" &&
@@ -954,6 +959,7 @@ export class AdvancedSearchForm extends React.Component<
             const multiValueSearchOperator = multiValueSearchOperators.find(
               (operator) => operator.comparisonOperator === operation.operator
             );
+
             if (multiValueSearchOperator) {
               let values: any[];
               if (
