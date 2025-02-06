@@ -345,7 +345,8 @@ export function translateConditions(
             undefined,
             undefined,
             modelData.objectId,
-            attr.id
+            attr.id,
+            attr.value.mode
           );
           if (
             ![
