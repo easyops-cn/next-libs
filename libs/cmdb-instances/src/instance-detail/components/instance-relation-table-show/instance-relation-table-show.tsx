@@ -76,7 +76,7 @@ function getHiddenColumns(
     const attrData = head(data)?.[relationGangedConfig?.rightControlAttrId];
     const attrType = get(
       filter(
-        oppositeModelData.attrList,
+        oppositeModelData.__fieldList,
         (o: any) => o.id === relationGangedConfig?.rightControlAttrId
       ),
       "[0].value.type"
