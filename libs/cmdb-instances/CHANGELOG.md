@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.24.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.24.6...@next-libs/cmdb-instances@7.24.7) (2025-03-04)
+
+
+### Bug Fixes
+
+* **instance-detail:** cmdb实例详情构件支持根据某一字段动态显其它字段以及当left_max===1及关系模型某属性类型为arr时，动态显示匹配arr数值的表格字段 ([6564370](https://github.com/easyops-cn/next-libs/commit/6564370b00a1490e50255de1c4de112a1163cce4))
+
+
+
+
+
 ## [7.24.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.24.5...@next-libs/cmdb-instances@7.24.6) (2025-02-06)
 
 
