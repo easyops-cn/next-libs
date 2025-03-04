@@ -35,6 +35,8 @@ import {
   flatten,
   uniq,
   isNil,
+  filter,
+  head,
 } from "lodash";
 import {
   handleHttpError,
@@ -175,6 +177,7 @@ interface LegacyInstanceDetailProps extends WithTranslation {
   ignorePermission?: boolean;
   useHttpErrorString?: boolean;
   externalSourceId?: string;
+  attrGangedConfig?: Record<string, any>[];
 }
 
 interface LegacyInstanceDetailState {
@@ -727,6 +730,7 @@ export class LegacyInstanceDetail extends React.Component<
         }
       }
     }
+    const attrGangedConfig = this.props.attrGangedConfig || [];
     return (
       <>
         <dt
@@ -809,6 +813,7 @@ export class LegacyInstanceDetail extends React.Component<
               {"*".repeat(instanceData[attr.id]?.length)}
             </span>
           )}
+
           {attr.__isRelation && !isUrl(attr) && (
             <div>
               <InstanceRelationTableShow
@@ -819,6 +824,11 @@ export class LegacyInstanceDetail extends React.Component<
                 relationFieldUrlTemplate={this.props.relationFieldUrlTemplate}
                 filterInstanceSourceDisabled={true}
                 externalSourceId={externalSourceId}
+                relationGangedConfig={head(
+                  attrGangedConfig.filter(
+                    (c) => c.isRelation && c.attrId === attr.__id
+                  )
+                )}
               />
               {instanceData[attr.__id]?.length >= 10 && (
                 <Button
@@ -1279,7 +1289,7 @@ export class LegacyInstanceDetail extends React.Component<
 
   // istanbul ignore next
   async fetchData(props: LegacyInstanceDetailProps): Promise<void> {
-    let modelListData, modelDataMap, instanceData;
+    let modelListData, modelDataMap, instanceData: any;
     const relationLimit = 10;
     const externalSourceId = props.externalSourceId;
     try {
@@ -1348,7 +1358,38 @@ export class LegacyInstanceDetail extends React.Component<
       );
       // 用于过滤自关联场景隐藏一端模型的情况
       const _modelData = modifyModelData(filterModelData);
+
       const hideModelData = _modelData.view.hide_columns || [];
+      const attrGangedConfig = props.attrGangedConfig || [];
+      if (instanceData && attrGangedConfig.length !== 0) {
+        const cloneModelData = cloneDeep(_modelData);
+        attrGangedConfig
+          .filter((c) => !c.isRelation)
+          .forEach((item) => {
+            if (item.objectId === props.objectId) {
+              const attr = cloneModelData.__fieldList.find(
+                (attr: any) => attr.__id === item.attrId
+              );
+              if (attr) {
+                const value = instanceData[item.attrId];
+                const hiddenField = get(
+                  filter(item.control, (i: any) => i.value === value),
+                  "[0].hiddenField",
+                  []
+                );
+                if (hiddenField && hiddenField.length !== 0) {
+                  cloneModelData.__fieldList =
+                    cloneModelData.__fieldList.filter(
+                      (attr: any) =>
+                        !hiddenField.includes(attr.id) &&
+                        !hiddenField.includes(attr.__id)
+                    );
+                }
+              }
+            }
+          });
+        _modelData.__fieldList = cloneModelData.__fieldList;
+      }
 
       const _state = {
         modelDataMap,
