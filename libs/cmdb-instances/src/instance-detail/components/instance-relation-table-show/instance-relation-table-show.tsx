@@ -8,7 +8,7 @@ import { CmdbModels } from "@next-sdk/cmdb-sdk";
 import { InstanceListTable } from "../../../instance-list-table";
 import { NS_LIBS_CMDB_INSTANCES, K } from "../../../i18n/constants";
 import i18n from "i18next";
-import { get, sortBy, keyBy } from "lodash";
+import { get, sortBy, keyBy, head, isArray, filter } from "lodash";
 import styles from "../../../instance-list-table/InstanceListTable.module.css";
 import { fetchCmdbObjectRef } from "../../../data-providers";
 import { handleHttpError } from "@next-core/brick-kit";
@@ -33,6 +33,7 @@ export interface InstanceRelationTableShowProps {
   onInstanceSourceChange?: (instanceSource: string) => void;
   filterInstanceSourceDisabled?: boolean;
   externalSourceId?: string;
+  relationGangedConfig?: Record<string, any>;
 }
 export function reOrderAttrs(fields: string[], fieldOrder: string[] = []) {
   return sortBy(fields, (field) => {
@@ -56,6 +57,43 @@ export function getRelationShowFields(
   }
   return showFields;
 }
+
+function getHiddenColumns(
+  data: any[],
+  oppositeModelData: any,
+  relationData: ModifiedModelObjectRelation,
+  relationGangedConfig?: Record<string, any>
+): string[] {
+  const oppositeAttrList = oppositeModelData.attrList.map(
+    (attr: any) => attr.id
+  );
+  if (
+    relationGangedConfig &&
+    relationData?.left_max === 1 &&
+    relationGangedConfig?.rightObjectId === relationData?.right_object_id &&
+    relationGangedConfig?.objectId === relationData?.left_object_id
+  ) {
+    const attrData = head(data)?.[relationGangedConfig?.rightControlAttrId];
+    const attrType = get(
+      filter(
+        oppositeModelData.attrList,
+        (o: any) => o.id === relationGangedConfig?.rightControlAttrId
+      ),
+      "[0].value.type"
+    );
+    if (attrData && attrType === "arr" && isArray(attrData)) {
+      const nonIncludedControlFields = filter(
+        relationGangedConfig?.control || [],
+        (attr: any) => !attrData.includes(attr)
+      );
+      return oppositeAttrList.filter((item: any) =>
+        nonIncludedControlFields.includes(item)
+      );
+    }
+  }
+
+  return [];
+}
 //istanbul ignore next
 export function InstanceRelationTableShow(
   props: InstanceRelationTableShowProps
@@ -69,6 +107,7 @@ export function InstanceRelationTableShow(
     total,
     relationTablePagination,
     externalSourceId,
+    relationGangedConfig,
   } = props;
   const [oppositeModelDataMap, setOppositeModelDataMap] = useState({});
   /**
@@ -122,6 +161,12 @@ export function InstanceRelationTableShow(
         )
     ),
   };
+  const hiddenColumns = getHiddenColumns(
+    value,
+    oppositeModelData,
+    relationData,
+    relationGangedConfig
+  );
 
   return (
     <div style={{ display: "grid" }}>
@@ -174,6 +219,7 @@ export function InstanceRelationTableShow(
         target={"_blank"}
         externalSourceId={externalSourceId}
         useExternalCmdbApi={externalSourceId ? true : false}
+        hiddenColumns={hiddenColumns}
       ></InstanceListTable>
     </div>
   );
