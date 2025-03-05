@@ -1,9 +1,18 @@
 import { ShortUnitId, numberFormatUnits } from "@next-libs/constants";
 
+/**
+ *
+ * @param value
+ * @param unit
+ * @param precision
+ * @param fixedPrecision 默认为 true
+ * @returns
+ */
 export const humanizeNumberValue = (
   value: number,
   unit?: ShortUnitId,
-  precision?: number
+  precision?: number,
+  fixedPrecision?: boolean
 ): string => {
   let baseNumberUnitIndex = 0;
   const sign = Math.sign(value);
@@ -33,15 +42,37 @@ export const humanizeNumberValue = (
   }
 
   if (numberFormatUnit.id === ShortUnitId.None) {
-    return (sign * positiveValue).toFixed(precision ?? 2);
+    return convertFixedPrecision(
+      (sign * positiveValue).toFixed(precision ?? 2),
+      fixedPrecision
+    );
   } else {
     return (
-      (
-        (positiveValue /
-          (numberFormatUnit.divisor /
-            numberFormatUnits[baseNumberUnitIndex].divisor)) *
-        sign
-      ).toFixed(precision ?? 2) + numberFormatUnit.display
+      convertFixedPrecision(
+        (
+          (positiveValue /
+            (numberFormatUnit.divisor /
+              numberFormatUnits[baseNumberUnitIndex].divisor)) *
+          sign
+        ).toFixed(precision ?? 2),
+        fixedPrecision
+      ) + numberFormatUnit.display
     );
   }
 };
+
+/**
+ *
+ * @param value
+ * @param fixedPrecision 默认为 true
+ * @returns
+ */
+export function convertFixedPrecision(
+  value: string,
+  fixedPrecision?: boolean
+): string {
+  if (fixedPrecision === false) {
+    return (+value).toString();
+  }
+  return value;
+}
