@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.24.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.24.7...@next-libs/cmdb-instances@7.24.8) (2025-03-05)
+
+
+### Bug Fixes
+
+* **instance-detail:** 修复配置字段被隐藏后获取不到的问题 ([ee7fcba](https://github.com/easyops-cn/next-libs/commit/ee7fcba0da2a5374a1e0e4922a14cc4ac6019cd8))
+
+
+
+
+
 ## [7.24.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.24.6...@next-libs/cmdb-instances@7.24.7) (2025-03-04)
 
 
