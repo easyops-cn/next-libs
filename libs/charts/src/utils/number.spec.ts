@@ -7,6 +7,9 @@ describe("dateRate", () => {
     expect(humanizeNumberValue(8000)).toEqual("8.00K");
     expect(humanizeNumberValue(8000000)).toEqual("8.00M");
     expect(humanizeNumberValue(8000000000)).toEqual("8.00B");
+    expect(
+      humanizeNumberValue(8000000000, undefined, undefined, false)
+    ).toEqual("8B");
     expect(humanizeNumberValue(8000000000000)).toEqual("8.00T");
     expect(humanizeNumberValue(8000, ShortUnitId.K)).toEqual("8.00M");
     expect(humanizeNumberValue(8000, ShortUnitId.M, 1)).toEqual("8.0B");
@@ -18,5 +21,6 @@ describe("dateRate", () => {
     expect(humanizeNumberValue(-8000000000000)).toEqual("-8.00T");
     expect(humanizeNumberValue(-8000, ShortUnitId.K)).toEqual("-8.00M");
     expect(humanizeNumberValue(-8000, ShortUnitId.M, 1)).toEqual("-8.0B");
+    expect(humanizeNumberValue(-8000, ShortUnitId.M, 1, false)).toEqual("-8B");
   });
 });
