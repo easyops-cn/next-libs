@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/charts@2.1.3...@next-libs/charts@2.1.4) (2025-03-05)
+
+
+### Bug Fixes
+
+* **formatValue:** allow disable fixed precision ([89f41f0](https://github.com/easyops-cn/next-libs/commit/89f41f0c32ad68b00b334931bc3fec6f12fd60ce))
+
+
+
+
+
 ## [2.1.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/charts@2.1.2...@next-libs/charts@2.1.3) (2022-11-10)
 
 **Note:** Version bump only for package @next-libs/charts
