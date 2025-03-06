@@ -1358,7 +1358,6 @@ export class LegacyInstanceDetail extends React.Component<
       );
       // 用于过滤自关联场景隐藏一端模型的情况
       const _modelData = modifyModelData(filterModelData);
-
       const hideModelData = _modelData.view.hide_columns || [];
       const attrGangedConfig = props.attrGangedConfig || [];
       if (instanceData && attrGangedConfig.length !== 0) {
@@ -1366,25 +1365,19 @@ export class LegacyInstanceDetail extends React.Component<
         attrGangedConfig
           .filter((c) => !c.isRelation)
           .forEach((item) => {
-            if (item.objectId === props.objectId) {
-              const attr = cloneModelData.__fieldList.find(
-                (attr: any) => attr.__id === item.attrId
+            const value = instanceData[item.attrId];
+            if (item.objectId === props.objectId && value) {
+              const hiddenField = get(
+                filter(item.control, (i: any) => i.value === value),
+                "[0].hiddenField",
+                []
               );
-              if (attr) {
-                const value = instanceData[item.attrId];
-                const hiddenField = get(
-                  filter(item.control, (i: any) => i.value === value),
-                  "[0].hiddenField",
-                  []
+              if (hiddenField && hiddenField.length !== 0) {
+                cloneModelData.__fieldList = cloneModelData.__fieldList.filter(
+                  (attr: any) =>
+                    !hiddenField.includes(attr.id) &&
+                    !hiddenField.includes(attr.__id)
                 );
-                if (hiddenField && hiddenField.length !== 0) {
-                  cloneModelData.__fieldList =
-                    cloneModelData.__fieldList.filter(
-                      (attr: any) =>
-                        !hiddenField.includes(attr.id) &&
-                        !hiddenField.includes(attr.__id)
-                    );
-                }
               }
             }
           });
