@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.24.9](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.24.8...@next-libs/cmdb-instances@7.24.9) (2025-03-06)
+
+
+### Bug Fixes
+
+* **instance-detail:** 修复配置字段在模型中未启用时，无法控制其它属性显隐 ([6c3f906](https://github.com/easyops-cn/next-libs/commit/6c3f9061ae3f77176bbd5d1bd4a0c971d30a52bd))
+
+
+
+
+
 ## [7.24.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.24.7...@next-libs/cmdb-instances@7.24.8) (2025-03-05)
 
 
