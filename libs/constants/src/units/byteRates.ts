@@ -14,7 +14,7 @@ export enum ByteRatesUnitId {
   Bps = "Bps",
   KBps = "KBps",
   MBps = "MBps",
-  GBps = "GBps"
+  GBps = "GBps",
 }
 
 export const bitRates: Unit[] = [
@@ -22,26 +22,26 @@ export const bitRates: Unit[] = [
     id: ByteRatesUnitId.BitsPerSecond,
     alias: ["bps", "bits/sec(bps)"],
     divisor: 1,
-    display: "bps"
+    display: "bps",
   },
   {
     id: ByteRatesUnitId.KilobitsPerSecond,
     alias: ["Kbps", "kilobits/sec(Kbps)"],
-    divisor: 1024,
-    display: "Kbps"
+    divisor: 1000,
+    display: "Kbps",
   },
   {
     id: ByteRatesUnitId.MegabitsPerSecond,
     alias: ["Mbps", "megabits/sec(Mbps)"],
-    divisor: 1024 * 1024,
-    display: "Mbps"
+    divisor: 1000 * 1000,
+    display: "Mbps",
   },
   {
     id: ByteRatesUnitId.GigabitsPerSecond,
     alias: ["Gbps", "gigabits/sec(Gbps)"],
-    divisor: 1024 * 1024 * 1024,
-    display: "Gbps"
-  }
+    divisor: 1000 * 1000 * 1000,
+    display: "Gbps",
+  },
 ];
 
 export const byteRates: Unit[] = [
@@ -49,52 +49,52 @@ export const byteRates: Unit[] = [
     id: ByteRatesUnitId.BytesPerSecond,
     alias: ["Bps", "bytes/sec(Bps)"],
     divisor: 8,
-    display: "Bps"
+    display: "Bps",
   },
   {
     id: ByteRatesUnitId.KilobytesPerSecond,
     alias: ["KBps", "kilobytes/sec(KBps)"],
-    divisor: 8 * 1024,
-    display: "KBps"
+    divisor: 8 * 1000,
+    display: "KBps",
   },
   {
     id: ByteRatesUnitId.MegabytesPerSecond,
     alias: ["MBps", "megabytes/sec(MBps)"],
-    divisor: 8 * 1024 * 1024,
-    display: "MBps"
+    divisor: 8 * 1000 * 1000,
+    display: "MBps",
   },
   {
     id: ByteRatesUnitId.GigabytesPerSecond,
     alias: ["GBps", "gigabytes/sec(GBps)"],
-    divisor: 8 * 1024 * 1024 * 1024,
-    display: "GBps"
-  }
+    divisor: 8 * 1000 * 1000 * 1000,
+    display: "GBps",
+  },
 ];
 
 export const deprecatedByteRates: Unit[] = [
   {
     id: ByteRatesUnitId.bps,
     divisor: 1,
-    display: "bps"
+    display: "bps",
   },
   {
     id: ByteRatesUnitId.Bps,
     divisor: 8,
-    display: "Bps"
+    display: "Bps",
   },
   {
     id: ByteRatesUnitId.KBps,
-    divisor: 8 * 1024,
-    display: "KBps"
+    divisor: 8 * 1000,
+    display: "KBps",
   },
   {
     id: ByteRatesUnitId.MBps,
-    divisor: 8 * 1024 * 1024,
-    display: "MBps"
+    divisor: 8 * 1000 * 1000,
+    display: "MBps",
   },
   {
     id: ByteRatesUnitId.GBps,
-    divisor: 8 * 1024 * 1024 * 1024,
-    display: "GBps"
-  }
+    divisor: 8 * 1000 * 1000 * 1000,
+    display: "GBps",
+  },
 ];
