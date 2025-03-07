@@ -21,13 +21,13 @@ describe("valueFormatter", () => {
       null,
     ]);
     expect(
-      formatValue(1024, {
+      formatValue(1000, {
         type: FormatType.DataRate,
         unit: "KBps",
       })
     ).toEqual(["1.00", "MBps"]);
     expect(
-      formatValue(1024, {
+      formatValue(1000, {
         type: FormatType.DataRate,
         unit: "KBps",
         fixedPrecision: false,
@@ -37,7 +37,7 @@ describe("valueFormatter", () => {
       formatValue(1024, {
         unit: "KBps",
       })
-    ).toEqual(["1.00", "MBps"]);
+    ).toEqual(["1.02", "MBps"]);
 
     expect(
       formatValue(1000, {
@@ -133,25 +133,25 @@ describe("valueFormatter", () => {
       null,
     ]);
     expect(
-      formatValue(-1024, {
+      formatValue(-1000, {
         type: FormatType.DataRate,
         unit: "KBps",
       })
     ).toEqual(["-1.00", "MBps"]);
     expect(
-      formatValue(-1024, {
+      formatValue(-1000, {
         unit: "KBps",
       })
     ).toEqual(["-1.00", "MBps"]);
 
     expect(
-      formatValue(-1024, {
+      formatValue(-1000, {
         unit: "KBps",
       })
     ).toEqual(["-1.00", "MBps"]);
 
     expect(
-      formatValue(-1024, {
+      formatValue(-1000, {
         unit: "KBps",
         fixedPrecision: false,
       })
