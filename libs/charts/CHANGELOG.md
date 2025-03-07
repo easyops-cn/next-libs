@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/charts@2.1.4...@next-libs/charts@2.1.5) (2025-03-07)
+
+
+### Bug Fixes
+
+* data rate units are decimal based ([e2f1b45](https://github.com/easyops-cn/next-libs/commit/e2f1b45c04cbcfd8a7c6d8dc33ceb5c6ec8ccb01))
+
+
+
+
+
 ## [2.1.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/charts@2.1.3...@next-libs/charts@2.1.4) (2025-03-05)
 
 
