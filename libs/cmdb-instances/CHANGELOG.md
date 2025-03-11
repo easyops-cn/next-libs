@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.24.10](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.24.9...@next-libs/cmdb-instances@7.24.10) (2025-03-11)
+
+
+### Bug Fixes
+
+* support filterInstanceSourceDisabled ([ae5c387](https://github.com/easyops-cn/next-libs/commit/ae5c387911e63553e023ff97506c3d729ce25f3d))
+
+
+
+
+
 ## [7.24.9](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.24.8...@next-libs/cmdb-instances@7.24.9) (2025-03-06)
 
 
