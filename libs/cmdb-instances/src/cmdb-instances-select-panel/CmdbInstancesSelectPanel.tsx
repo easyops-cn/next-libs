@@ -50,6 +50,7 @@ export interface BaseCmdbInstancesSelectPanelProps {
   useModelName?: boolean;
   useExternalCmdbApi?: boolean;
   externalSourceId?: string;
+  filterInstanceSourceDisabled?: boolean;
 }
 
 export interface CmdbInstancesSelectPanelPropsWithObjectMap
@@ -308,6 +309,7 @@ export function CmdbInstancesSelectPanel(
         saveFieldsBackend={props.saveFieldsBackend}
         useExternalCmdbApi={props.useExternalCmdbApi}
         externalSourceId={props.externalSourceId}
+        filterInstanceSourceDisabled={props.filterInstanceSourceDisabled}
       />
       <InstanceListModal
         objectMap={modelMap}
@@ -338,6 +340,7 @@ export function CmdbInstancesSelectPanel(
         saveFieldsBackend={props.saveFieldsBackend}
         useExternalCmdbApi={props.useExternalCmdbApi}
         externalSourceId={props.externalSourceId}
+        filterInstanceSourceDisabled={props.filterInstanceSourceDisabled}
       />
       <Spin
         style={{ textAlign: "left", marginBottom: "12px" }}
@@ -382,6 +385,7 @@ export function CmdbInstancesSelectPanel(
           isOperate={props.isOperate}
           useExternalCmdbApi={props.useExternalCmdbApi}
           externalSourceId={props.externalSourceId}
+          filterInstanceSourceDisabled={props.filterInstanceSourceDisabled}
           handleDeleteFunction={(v: any) => {
             setSelectedInstanceList(v);
             setPartialSelectedInstances(v);
