@@ -178,6 +178,7 @@ interface LegacyInstanceDetailProps extends WithTranslation {
   useHttpErrorString?: boolean;
   externalSourceId?: string;
   attrGangedConfig?: Record<string, any>[];
+  displayFields?: Record<string, any>[];
 }
 
 interface LegacyInstanceDetailState {
@@ -731,6 +732,7 @@ export class LegacyInstanceDetail extends React.Component<
       }
     }
     const attrGangedConfig = this.props.attrGangedConfig || [];
+    const displayFields = this.props.displayFields || [];
     return (
       <>
         <dt
@@ -1360,8 +1362,9 @@ export class LegacyInstanceDetail extends React.Component<
       const _modelData = modifyModelData(filterModelData);
       const hideModelData = _modelData.view.hide_columns || [];
       const attrGangedConfig = props.attrGangedConfig || [];
+      const displayFields = props.displayFields || [];
+      const cloneModelData = cloneDeep(_modelData);
       if (instanceData && attrGangedConfig.length !== 0) {
-        const cloneModelData = cloneDeep(_modelData);
         attrGangedConfig
           .filter((c) => !c.isRelation)
           .forEach((item) => {
@@ -1382,6 +1385,16 @@ export class LegacyInstanceDetail extends React.Component<
             }
           });
         _modelData.__fieldList = cloneModelData.__fieldList;
+      }
+      if (displayFields.length > 0) {
+        _modelData.__fieldList.forEach((item: any) => {
+          const fieldId = item.__isRelation ? item.__id : item.id;
+          const field = displayFields.find((f) => f.field === fieldId);
+          if (field) {
+            item[item.__isRelation ? "right_description" : "name"] =
+              field.label;
+          }
+        });
       }
 
       const _state = {
