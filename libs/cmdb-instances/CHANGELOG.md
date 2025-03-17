@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.24.11](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.24.10...@next-libs/cmdb-instances@7.24.11) (2025-03-17)
+
+
+### Bug Fixes
+
+* support displayFields ([6edfc0b](https://github.com/easyops-cn/next-libs/commit/6edfc0bc57f4188465615f8e51ccc893285a341c))
+
+
+
+
+
 ## [7.24.10](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.24.9...@next-libs/cmdb-instances@7.24.10) (2025-03-11)
 
 
