@@ -13,7 +13,7 @@ export function fetchCmdbInstanceDetail(
   return sourceId
     ? http
         .post(
-          "api/gateway/easyops.api.%20cmdb.topo_center.ProxyGetInstanceDetail@1.0.0/api/v1/proxy-get-instance-detail",
+          "api/gateway/easyops.api.cmdb.topo_center.ProxyGetInstanceDetail@1.0.0/api/v1/proxy-get-instance-detail",
           {
             objectId,
             sourceId,
@@ -34,7 +34,7 @@ export function fetchCmdbInstanceDetailByFields(
   return sourceId
     ? http
         .post(
-          "api/gateway/easyops.api.%20cmdb.topo_center.ProxyGetInstanceDetail@1.0.0/api/v1/proxy-get-instance-detail",
+          "api/gateway/easyops.api.cmdb.topo_center.ProxyGetInstanceDetail@1.0.0/api/v1/proxy-get-instance-detail",
           {
             objectId,
             sourceId,
