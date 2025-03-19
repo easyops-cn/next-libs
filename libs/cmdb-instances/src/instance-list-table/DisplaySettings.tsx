@@ -66,7 +66,7 @@ export class DisplaySettings extends React.Component<
       category: get(
         attribute,
         "tag[0]",
-        get(attribute, "left_tags[0]", "其他")
+        get(attribute, "left_tags[0]", "其他") || "其他"
       ),
     }));
 
