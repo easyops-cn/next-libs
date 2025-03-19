@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.25.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.24.11...@next-libs/cmdb-instances@7.25.0) (2025-03-19)
+
+
+### Features
+
+* 同步后台契约调整ProxyGetInstanceDetail ([#716](https://github.com/easyops-cn/next-libs/issues/716)) ([86879e3](https://github.com/easyops-cn/next-libs/commit/86879e3814d74ab62c894ff7cbbaf0811d086c6b))
+
+
+
+
+
 ## [7.24.11](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.24.10...@next-libs/cmdb-instances@7.24.11) (2025-03-17)
 
 
