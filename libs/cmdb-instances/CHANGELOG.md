@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.25.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.25.0...@next-libs/cmdb-instances@7.25.1) (2025-03-19)
+
+
+### Bug Fixes
+
+* 售中工单_CMDB实例列表字段显示问题_Centos7.9_x86 ([a3ea943](https://github.com/easyops-cn/next-libs/commit/a3ea943cadd3283795e3151449461fcd16ae6c23))
+
+
+
+
+
 # [7.25.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.24.11...@next-libs/cmdb-instances@7.25.0) (2025-03-19)
 
 
