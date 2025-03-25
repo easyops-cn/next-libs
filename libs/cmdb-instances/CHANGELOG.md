@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.25.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.25.2...@next-libs/cmdb-instances@7.25.3) (2025-03-25)
+
+
+### Bug Fixes
+
+* CMDB_INSTANCE-2633 应用系统管理的实例预览详情抽屉的自适应方案优化 ref CMDB_INSTANCE-2633 ([09b2246](https://github.com/easyops-cn/next-libs/commit/09b22469e4c7edec184a1bdc3dcdcdd8a4ee7dee))
+
+
+
+
+
 ## [7.25.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.25.1...@next-libs/cmdb-instances@7.25.2) (2025-03-25)
 
 
