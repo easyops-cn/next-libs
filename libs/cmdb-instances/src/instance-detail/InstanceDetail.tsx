@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef } from "react";
 import {
   DownOutlined,
   InfoCircleFilled,
@@ -93,6 +93,8 @@ import { CmdbUrlLink } from "../cmdb-url-link/CmdbUrlLink";
 import { FloatDisplayBrick } from "../float-display-brick/FloatDisplayBrick";
 import { getQuery } from "../instance-list/InstanceList";
 import { JsonDisplayBrick } from "../json-display-brick/JsonDisplayBrick";
+import ResizeObserver from "resize-observer-polyfill";
+import classNames from "classnames";
 
 export interface AttrCustomConfigs {
   [attrId: string]: LegacyCustomComponent;
@@ -206,6 +208,7 @@ interface LegacyInstanceDetailState {
   scrollContainer?: HTMLElement;
   httpErrorSting?: string;
   externalSourceId?: string;
+  displayColumns?: number;
 }
 function getHref(hash: string) {
   const isHash = (hash || "").startsWith("#");
@@ -264,8 +267,11 @@ export class LegacyInstanceDetail extends React.Component<
       scrollContainer: null,
       httpErrorSting: "",
       externalSourceId: "",
+      displayColumns: null,
     };
   }
+  private cardContentRef = createRef<HTMLDivElement>();
+  private cardContentResize: ResizeObserver;
 
   render(): React.ReactNode {
     const { loaded, currentAttr, instanceRelationModalData, httpErrorSting } =
@@ -587,7 +593,13 @@ export class LegacyInstanceDetail extends React.Component<
     const { useAnchor } = this.props;
     const { Link } = Anchor;
     return (
-      <div className={`${style.detailCard} ${shared.showMultipleLines}`}>
+      <div
+        className={classNames([style.detailCard, shared.showMultipleLines], {
+          [style.oneColumnCard]: this.state.displayColumns === 1,
+          [style.twoColumnCard]: this.state.displayColumns === 2,
+        })}
+        ref={this.cardContentRef}
+      >
         {basicInfoGroupList.length > 1 &&
           (useAnchor ? (
             <Anchor
@@ -1203,6 +1215,26 @@ export class LegacyInstanceDetail extends React.Component<
       await this.fetchData(this.props);
     }
     this.scrollToTarget();
+
+    if (this.cardContentRef?.current) {
+      this.cardContentResize = new ResizeObserver(() => {
+        const { width } = this.cardContentRef.current.getBoundingClientRect();
+        let displayColumns: number;
+        if (width < 600) {
+          displayColumns = 1;
+        } else if (width < 900) {
+          displayColumns = 2;
+        } else {
+          displayColumns = 3;
+        }
+        this.setState({ displayColumns });
+      });
+      this.cardContentResize.observe(this.cardContentRef.current);
+    }
+  }
+
+  componentWillUnmount() {
+    this.cardContentResize?.disconnect();
   }
 
   toggleBasicInfoGroupFilter(basicInfoGroup: any): void {
