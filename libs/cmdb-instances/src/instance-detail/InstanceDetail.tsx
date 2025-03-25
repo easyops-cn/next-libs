@@ -761,18 +761,25 @@ export class LegacyInstanceDetail extends React.Component<
               : style.basicAttr
           }
         >
-          {attr.__isRelation ? attr.right_description : attr.name}
-          {attr.description && attr.description !== "" && (
-            <Tooltip title={attr.description}>
-              <ExclamationCircleFilled
-                style={{
-                  padding: "0 2px",
-                  color: "var(--color-secondary-text)",
-                }}
-              />
+          <div className={style.labelContainer}>
+            <Tooltip
+              title={attr.__isRelation ? attr.right_description : attr.name}
+              className={style.labelTooltip}
+            >
+              {attr.__isRelation ? attr.right_description : attr.name}
             </Tooltip>
-          )}
-          :
+            {attr.description && attr.description !== "" && (
+              <Tooltip title={attr.description}>
+                <ExclamationCircleFilled
+                  style={{
+                    padding: "0 2px 4px 2px",
+                    color: "var(--color-secondary-text)",
+                  }}
+                />
+              </Tooltip>
+            )}
+            :
+          </div>
         </dt>
 
         <dd
@@ -1182,13 +1189,36 @@ export class LegacyInstanceDetail extends React.Component<
       basicInfoGroupListShow: basicInfoList,
     });
   }
+  listenCardContent() {
+    if (this.cardContentRef?.current) {
+      this.cardContentResize = new ResizeObserver(() => {
+        const { width } = this.cardContentRef.current.getBoundingClientRect();
+        let displayColumns: number;
+        if (width < 600) {
+          displayColumns = 1;
+        } else if (width < 900) {
+          displayColumns = 2;
+        } else {
+          displayColumns = 3;
+        }
+        this.setState({ displayColumns });
+      });
+      this.cardContentResize.observe(this.cardContentRef.current);
+    }
+  }
+
   componentDidUpdate(prevProps: LegacyInstanceDetailProps): void {
     if (
       this.props.objectId &&
       this.props.instanceId &&
       prevProps.instanceId !== this.props.instanceId
     ) {
-      (async () => await this.fetchData(this.props))();
+      (async () => {
+        await this.fetchData(this.props);
+        if (!this.cardContentResize) {
+          this.listenCardContent();
+        }
+      })();
     }
   }
 
@@ -1213,24 +1243,9 @@ export class LegacyInstanceDetail extends React.Component<
     }
     if (this.props.instanceId && this.props.objectId) {
       await this.fetchData(this.props);
+      this.listenCardContent();
     }
     this.scrollToTarget();
-
-    if (this.cardContentRef?.current) {
-      this.cardContentResize = new ResizeObserver(() => {
-        const { width } = this.cardContentRef.current.getBoundingClientRect();
-        let displayColumns: number;
-        if (width < 600) {
-          displayColumns = 1;
-        } else if (width < 900) {
-          displayColumns = 2;
-        } else {
-          displayColumns = 3;
-        }
-        this.setState({ displayColumns });
-      });
-      this.cardContentResize.observe(this.cardContentRef.current);
-    }
   }
 
   componentWillUnmount() {
