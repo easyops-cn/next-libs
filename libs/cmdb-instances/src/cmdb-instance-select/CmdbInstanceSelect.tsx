@@ -96,10 +96,12 @@ export const CmdbInstanceSelect = React.forwardRef(function CmdbInstanceSelect(
     mode,
     placeholder,
     allowClear,
-    pageSize,
+    pageSize = 30,
+    isMultiLabel = true,
     showSearchTip,
     permission,
     ignoreMissingFieldError,
+    dropdownMatchSelectWidth = true,
     blurAfterValueChanged,
     suffix,
     useExternalCmdbApi,
@@ -264,11 +266,11 @@ export const CmdbInstanceSelect = React.forwardRef(function CmdbInstanceSelect(
         if (Array.isArray(firstKey) && props.showKeyField) {
           const subFirstKey = firstKey[0];
           const subResKey = firstKey.slice(1, firstKey.length).join(",");
-          return subResKey && props.isMultiLabel
+          return subResKey && isMultiLabel
             ? `${subFirstKey}(${subResKey})`
             : subFirstKey ?? "";
         }
-        return resKey && props.isMultiLabel
+        return resKey && isMultiLabel
           ? `${firstKey ?? " - "}(${resKey})`
           : firstKey ?? "";
       } else {
@@ -338,7 +340,7 @@ export const CmdbInstanceSelect = React.forwardRef(function CmdbInstanceSelect(
       onFocus={fetchInstanceData}
       disabled={props.disabled}
       dropdownStyle={{ padding: "2px", ...props.dropdownStyle }}
-      dropdownMatchSelectWidth={props.dropdownMatchSelectWidth}
+      dropdownMatchSelectWidth={dropdownMatchSelectWidth}
       dropdownRender={(menu) => {
         return (
           <div>

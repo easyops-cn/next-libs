@@ -77,7 +77,7 @@ describe("CmdbInstanceSelect", () => {
       fields: ["instanceId", "hostname", "memo", "ip"],
       permission: ["read"],
       page: 1,
-      page_size: undefined,
+      page_size: 30,
       query: {
         $and: [
           {
@@ -371,7 +371,7 @@ describe("CmdbInstanceSelect", () => {
     expect(mockPostSearch.mock.calls[0][1]).toEqual({
       fields: ["instanceId", "name"],
       page: 1,
-      page_size: undefined,
+      page_size: 30,
       query: {
         $and: [
           {
@@ -438,7 +438,7 @@ describe("CmdbInstanceSelect", () => {
     expect(mockPostSearch.mock.calls[0][1]).toEqual({
       fields: ["instanceId", "name", "title"],
       page: 1,
-      page_size: undefined,
+      page_size: 30,
       query: {
         $and: [
           {
