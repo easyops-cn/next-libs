@@ -1,0 +1,30 @@
+.avatar {
+  flex-shrink: 0;
+  &.defaultIcon {
+    background-color: #167be0;
+    vertical-align: middle;
+  }
+}
+.moreChoices {
+  padding: 3px 20px;
+  clear: both;
+  font-weight: 400;
+  line-height: 1.42857143;
+  color: #999;
+  font-style: italic;
+}
+.optionSpan {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.optionDiv {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 100%;
+}
+
+.suffixContainer {
+  margin-left: auto;
+}
