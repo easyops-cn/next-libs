@@ -119,6 +119,7 @@ export enum K {
   SEARCH_MODEL = "SEARCH_MODEL",
   UPLOAD_SIZE_LARGE_TEXT = "UPLOAD_SIZE_LARGE_TEXT",
   UPLOAD = "UPLOAD",
+  BACKGROUND_SEARCH = "BACKGROUND_SEARCH",
 }
 
 export type Locale = { [key in K]: string };

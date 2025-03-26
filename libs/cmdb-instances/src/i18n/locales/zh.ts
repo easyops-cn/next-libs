@@ -120,6 +120,7 @@ const locale: Locale = {
   [K.SELECT_ALL]: "选择全部",
   [K.UPLOAD_SIZE_LARGE_TEXT]: "上传文件体积大于限定体积{{size}}",
   [K.UPLOAD]: "上传",
+  [K.BACKGROUND_SEARCH]: "输入关键字搜索",
 };
 
 export default locale;

@@ -133,6 +133,7 @@ const locale: Locale = {
   [K.UPLOAD_SIZE_LARGE_TEXT]:
     "The size of the upload file is larger than the limited size {{size}}",
   [K.UPLOAD]: "Upload",
+  [K.BACKGROUND_SEARCH]: "input keyword to search",
 };
 
 export default locale;
