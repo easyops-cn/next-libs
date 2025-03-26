@@ -34,7 +34,7 @@ export interface CmdbInstanceSelectProps {
   instanceQuery?: any;
   placeholder?: string;
   fields?: Partial<ComplexOption<string>>;
-  firstRender: boolean;
+  firstRender?: boolean;
   minimumInputLength?: number;
   value?: any;
   onChange?: (value: string, option?: ComplexOption) => void;
@@ -89,7 +89,7 @@ export const CmdbInstanceSelect = React.forwardRef(function CmdbInstanceSelect(
       label: [showKeyField ? "#showKey" : getInstanceNameKey(props.objectId)],
       value: "instanceId",
     },
-
+    firstRender = true,
     minimumInputLength = 0,
     extraSearchKey = [],
     extraFields = [],
@@ -310,7 +310,7 @@ export const CmdbInstanceSelect = React.forwardRef(function CmdbInstanceSelect(
   }, [props.value, props.objectId]);
 
   React.useEffect(() => {
-    if (!props.firstRender) {
+    if (!firstRender) {
       const resetVal: [] | "" = mode === "multiple" ? [] : "";
       setValue(resetVal);
     }
