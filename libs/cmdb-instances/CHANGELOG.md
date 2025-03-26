@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.26.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.26.0...@next-libs/cmdb-instances@7.26.1) (2025-03-26)
+
+
+### Bug Fixes
+
+* **CmdbInstanceSelect:** Make the firstRender property optional ([ad6b12b](https://github.com/easyops-cn/next-libs/commit/ad6b12b6b382d20d032ef1b167f7d0d71a21932e))
+* **CmdbInstanceSelect:** Update property default values ([ba3bd25](https://github.com/easyops-cn/next-libs/commit/ba3bd25ca45375601d310ac76b2561907914d5e3))
+
+
+
+
+
 # [7.26.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.25.3...@next-libs/cmdb-instances@7.26.0) (2025-03-26)
 
 
