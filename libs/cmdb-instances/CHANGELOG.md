@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.26.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.25.3...@next-libs/cmdb-instances@7.26.0) (2025-03-26)
+
+
+### Features
+
+* **CmdbInstanceSelect:** Move the CmdbInstanceSelect component here ([80246b9](https://github.com/easyops-cn/next-libs/commit/80246b91e4c9d52005f75f221c674b902c733a6f))
+
+
+
+
+
 ## [7.25.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.25.2...@next-libs/cmdb-instances@7.25.3) (2025-03-25)
 
 
