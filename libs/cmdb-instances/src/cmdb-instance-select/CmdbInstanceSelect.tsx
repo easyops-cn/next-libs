@@ -34,7 +34,7 @@ export interface CmdbInstanceSelectProps {
   instanceQuery?: any;
   placeholder?: string;
   fields?: Partial<ComplexOption<string>>;
-  firstRender: boolean;
+  firstRender?: boolean;
   minimumInputLength?: number;
   value?: any;
   onChange?: (value: string, option?: ComplexOption) => void;
@@ -89,17 +89,19 @@ export const CmdbInstanceSelect = React.forwardRef(function CmdbInstanceSelect(
       label: [showKeyField ? "#showKey" : getInstanceNameKey(props.objectId)],
       value: "instanceId",
     },
-
+    firstRender = true,
     minimumInputLength = 0,
     extraSearchKey = [],
     extraFields = [],
     mode,
     placeholder,
     allowClear,
-    pageSize,
+    pageSize = 30,
+    isMultiLabel = true,
     showSearchTip,
     permission,
     ignoreMissingFieldError,
+    dropdownMatchSelectWidth = true,
     blurAfterValueChanged,
     suffix,
     useExternalCmdbApi,
@@ -264,11 +266,11 @@ export const CmdbInstanceSelect = React.forwardRef(function CmdbInstanceSelect(
         if (Array.isArray(firstKey) && props.showKeyField) {
           const subFirstKey = firstKey[0];
           const subResKey = firstKey.slice(1, firstKey.length).join(",");
-          return subResKey && props.isMultiLabel
+          return subResKey && isMultiLabel
             ? `${subFirstKey}(${subResKey})`
             : subFirstKey ?? "";
         }
-        return resKey && props.isMultiLabel
+        return resKey && isMultiLabel
           ? `${firstKey ?? " - "}(${resKey})`
           : firstKey ?? "";
       } else {
@@ -310,7 +312,7 @@ export const CmdbInstanceSelect = React.forwardRef(function CmdbInstanceSelect(
   }, [props.value, props.objectId]);
 
   React.useEffect(() => {
-    if (!props.firstRender) {
+    if (!firstRender) {
       const resetVal: [] | "" = mode === "multiple" ? [] : "";
       setValue(resetVal);
     }
@@ -338,7 +340,7 @@ export const CmdbInstanceSelect = React.forwardRef(function CmdbInstanceSelect(
       onFocus={fetchInstanceData}
       disabled={props.disabled}
       dropdownStyle={{ padding: "2px", ...props.dropdownStyle }}
-      dropdownMatchSelectWidth={props.dropdownMatchSelectWidth}
+      dropdownMatchSelectWidth={dropdownMatchSelectWidth}
       dropdownRender={(menu) => {
         return (
           <div>
