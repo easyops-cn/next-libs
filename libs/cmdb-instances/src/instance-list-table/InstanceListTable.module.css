@@ -24,6 +24,17 @@
   text-overflow: unset;
 }
 
+.relationMoreIcon {
+  margin-left: 4px;
+  display: inline;
+}
+
+.relationMoreIconBreakLine {
+  position: absolute;
+  right: 2px;
+  top: 15px;
+}
+
 .totalText {
   color: var(--antd-pagination-total-text, #bfbfbf);
 }

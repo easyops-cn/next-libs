@@ -16,7 +16,13 @@ import * as brickKit from "@next-core/brick-kit";
 (jest.spyOn(brickKit, "useProvider") as any).mockReturnValue({
   query: jest.fn(),
 });
-
+(jest.spyOn(brickKit, "getRuntime") as any).mockReturnValue({
+  getMiscSettings: () => {
+    return {
+      defaultRelationLimit: 5,
+    };
+  },
+});
 jest.mock("@next-sdk/cmdb-sdk");
 jest.mock("../instance-list-table", () => {
   return {

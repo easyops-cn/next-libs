@@ -121,6 +121,8 @@ const locale: Locale = {
   [K.UPLOAD_SIZE_LARGE_TEXT]: "上传文件体积大于限定体积{{size}}",
   [K.UPLOAD]: "上传",
   [K.BACKGROUND_SEARCH]: "输入关键字搜索",
+  [K.BACK]: "返回",
+  [K.RELATION_INSTANCE_TOOLTIP]: "查看全部关系实例",
 };
 
 export default locale;

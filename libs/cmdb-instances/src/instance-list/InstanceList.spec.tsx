@@ -19,7 +19,7 @@ import FilterInstanceSource from "./FilterInstanceSource";
 
 import {
   LegacyInstanceList,
-  InstanceList,
+  LegacyInstanceListWrapper as InstanceList,
   getQuery,
   initAqToShow,
   isValueEqualFn,
@@ -538,6 +538,7 @@ describe("InstanceList", () => {
       ignore_missing_field_error: true,
       page: page,
       page_size: pageSize,
+      relation_limit: 0,
       query: {
         $and: [
           {
@@ -1190,6 +1191,7 @@ describe("InstanceList", () => {
       ignore_missing_field_error: true,
       page: 1,
       page_size: 10,
+      relation_limit: 0,
     });
     wrapper.setProps({ presetConfigs: undefined });
     await (global as any).flushPromises();
@@ -1212,6 +1214,7 @@ describe("InstanceList", () => {
       ignore_missing_field_error: true,
       page: 1,
       page_size: 10,
+      relation_limit: 0,
     });
   });
   it("should work with useAutoDiscoveryProvider", async () => {

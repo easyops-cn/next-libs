@@ -81,6 +81,7 @@ import {
   Field,
   UseBrickAndPropertyDisplayConfig,
 } from "../instance-list-table";
+import { InstanceListDrawer } from "../instance-list-drawer/InstanceListDrawer";
 import styles from "./InstanceList.module.css";
 import {
   extraFieldAttrs,
@@ -493,7 +494,7 @@ export interface filterObjectIdQuery {
   checked?: boolean;
 }
 
-interface InstanceListProps {
+export interface InstanceListProps {
   objectId: string;
   objectList?: Partial<CmdbModels.ModelCmdbObject>[];
   detailUrlTemplates?: Record<string, string>;
@@ -596,6 +597,8 @@ interface InstanceListProps {
   externalSourceId?: string;
   hiddenColumns?: Array<string>;
   showCustomizedSerialNumber?: boolean;
+  relationLimit?: number;
+  onRelationMoreIconClick?: (record: Record<string, any>) => void;
 }
 
 interface InstanceListState {
@@ -1069,6 +1072,14 @@ export function LegacyInstanceList(
           : {}),
       };
     }
+
+    if (!(props.useExternalCmdbApi || props.useAutoDiscoveryProvider)) {
+      v3Data.relation_limit =
+        isNil(props.relationLimit) || props.relationLimit === 0
+          ? 0
+          : props.relationLimit + 1;
+    }
+
     if (props.useInstanceArchiveProvider) {
       return instanceArchiveListProvider.query([props.objectId, archiveData]);
     }
@@ -1245,7 +1256,7 @@ export function LegacyInstanceList(
         const ids = selectedKeys.filter((id) => !cache.current.has(id));
         if (ids.length) {
           let resp;
-          const params = {
+          const params: any = {
             fields: ["instanceId"],
             query: {
               instanceId: {
@@ -1255,6 +1266,13 @@ export function LegacyInstanceList(
             page_size: ids.length,
             page: 1,
           };
+
+          if (!(props.useExternalCmdbApi || props.useAutoDiscoveryProvider)) {
+            params.relation_limit =
+              isNil(props.relationLimit) || props.relationLimit === 0
+                ? 0
+                : props.relationLimit + 1;
+          }
           // useExternalCmdbApi为true，使用外部接口PostSearchV3
           if (props.useExternalCmdbApi) {
             resp = await externalPostSearchV3.query([
@@ -1590,6 +1608,12 @@ export function LegacyInstanceList(
         };
         v3Data.page_size = props.selectedRowKeys.length;
         v3Data.page = 1;
+        if (!(props.useExternalCmdbApi || props.useAutoDiscoveryProvider)) {
+          v3Data.relation_limit =
+            isNil(props.relationLimit) || props.relationLimit === 0
+              ? 0
+              : props.relationLimit + 1;
+        }
 
         if (state.relatedToMe) {
           v3Data.only_my_instance = data.only_my_instance = state.relatedToMe;
@@ -2023,6 +2047,8 @@ export function LegacyInstanceList(
               externalSourceId={props.externalSourceId}
               hiddenColumns={props.hiddenColumns}
               showCustomizedSerialNumber={props.showCustomizedSerialNumber}
+              relationLimit={props.relationLimit}
+              onRelationMoreIconClick={props.onRelationMoreIconClick}
             />
           )}
         </React.Fragment>
@@ -2039,7 +2065,9 @@ export function LegacyInstanceList(
  *  同时也兼容之前的使用方式，对于外部传进来的会优先使用外部的数据，构件内部不会额外请求，
  *  不传的话构件内部做请求，并作缓存
  */
-export function InstanceList(props: InstanceListProps): React.ReactElement {
+export function LegacyInstanceListWrapper(
+  props: InstanceListProps
+): React.ReactElement {
   const [objectList, setObjectList] = useState<
     Partial<CmdbModels.ModelCmdbObject>[]
   >(props.objectList);
@@ -2090,4 +2118,12 @@ export function InstanceList(props: InstanceListProps): React.ReactElement {
     return null;
 
   return <LegacyInstanceList {...props} objectList={objectList} />;
+}
+
+/**
+ *
+ *  支持关系点击打开抽屉查看更多关系，展示关系的实例列表
+ */
+export function InstanceList(props: InstanceListProps): React.ReactElement {
+  return <InstanceListDrawer {...props} />;
 }
