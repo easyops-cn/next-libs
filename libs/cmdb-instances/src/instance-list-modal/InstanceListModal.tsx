@@ -78,6 +78,7 @@ export interface InstanceListModalProps {
   showHiddenInfoDisabled?: boolean;
   propertyDisplayConfigs?: UseBrickAndPropertyDisplayConfig[];
   modalWidth?: number;
+  relationLimit?: number;
 }
 
 export function InstanceListModal(
@@ -288,6 +289,7 @@ export function InstanceListModal(
           externalSourceId={props.externalSourceId}
           showHiddenInfoDisabled={props.showHiddenInfoDisabled}
           propertyDisplayConfigs={props.propertyDisplayConfigs}
+          relationLimit={props.relationLimit}
         />
       </div>
     </Modal>

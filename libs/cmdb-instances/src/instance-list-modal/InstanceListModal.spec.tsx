@@ -19,6 +19,11 @@ const mockInstanceListData = InstanceApi_postSearch as jest.Mock;
 const flags: Record<string, boolean> = {};
 jest.spyOn(kit, "getRuntime").mockReturnValue({
   getFeatureFlags: () => flags,
+  getMiscSettings: () => {
+    return {
+      defaultRelationLimit: 5,
+    };
+  },
 } as any);
 
 mockInstanceListData.mockResolvedValue(getInstanceListData);

@@ -7,6 +7,7 @@ export * from "./struct-components";
 export * from "./instance-list-table";
 export * from "./instance-list-table/AdvancedSearchCondition";
 export * from "./instance-list-modal/InstanceListModal";
+export * from "./instance-list-drawer/InstanceListDrawer";
 export * from "./instance-list/InstanceList";
 export * from "./cmdb-instance-select/CmdbInstanceSelect";
 export * from "./cmdb-instances-input-form/CmdbInstancesInputFormItem";

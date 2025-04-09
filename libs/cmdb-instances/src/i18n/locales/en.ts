@@ -134,6 +134,8 @@ const locale: Locale = {
     "The size of the upload file is larger than the limited size {{size}}",
   [K.UPLOAD]: "Upload",
   [K.BACKGROUND_SEARCH]: "input keyword to search",
+  [K.BACK]: "Back",
+  [K.RELATION_INSTANCE_TOOLTIP]: "View all instances of the relationship",
 };
 
 export default locale;

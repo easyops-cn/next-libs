@@ -11,7 +11,7 @@ import {
   message,
   Typography,
 } from "antd";
-import { isNil, isBoolean, compact, map } from "lodash";
+import { isNil, isBoolean, compact, map, divide } from "lodash";
 import { CopyOutlined, DeleteOutlined } from "@ant-design/icons";
 import { ColumnType, TablePaginationConfig, TableProps } from "antd/lib/table";
 import {
@@ -148,6 +148,9 @@ export interface InstanceListTableProps extends WithTranslation {
   externalSourceId?: string;
   hiddenColumns?: Array<string>;
   showCustomizedSerialNumber?: boolean;
+  // 关系查询限制数量
+  relationLimit?: number;
+  onRelationMoreIconClick?(record: Record<string, any>): void;
 }
 
 interface InstanceListTableState {
@@ -895,6 +898,10 @@ export class LegacyInstanceListTable extends React.Component<
     return column;
   }
 
+  handleRelationMoreIconClick(record: Record<string, any>): void {
+    this.props?.onRelationMoreIconClick?.(record);
+  }
+
   getRelationColumnData(
     relation: Partial<CmdbModels.ModelObjectRelation>,
     object: Partial<CmdbModels.ModelCmdbObject>,
@@ -923,6 +930,7 @@ export class LegacyInstanceListTable extends React.Component<
         if (instances && instances.length > 0) {
           const objectId =
             relation[`${sides.that}_object_id` as RelationObjectIdKeys];
+          const leftName = relation[`${sides.this}_name`];
           const nameKeys = getInstanceNameKeys(
             this.props.idObjectMap[objectId]
           );
@@ -934,8 +942,10 @@ export class LegacyInstanceListTable extends React.Component<
               objectId
             );
           }
-
-          const instanceNodes = instances.map((instance, index) => {
+          // 过滤后的实例
+          const filterInstances = instances?.slice(0, this.props.relationLimit);
+          const isGetRelation = instances?.length > this.props.relationLimit;
+          const instanceNodes = filterInstances.map((instance, index) => {
             let subName: string;
             if (nameKeys.length > 1) {
               subName = instance[nameKeys[1]];
@@ -984,6 +994,36 @@ export class LegacyInstanceListTable extends React.Component<
             }
           });
 
+          if (isGetRelation) {
+            instanceNodes.push(
+              <Tooltip
+                title={i18n.t(
+                  `${NS_LIBS_CMDB_INSTANCES}:${K.RELATION_INSTANCE_TOOLTIP}`
+                )}
+                placement="top"
+              >
+                <GeneralIcon
+                  icon={{
+                    lib: "easyops",
+                    category: "patch-manager",
+                    icon: "patch-list",
+                    color: "#167be0",
+                  }}
+                  iconClassName={classnames(styles.relationMoreIcon, {
+                    [styles.relationMoreIconBreakLine]:
+                      !this.props.autoBreakLine,
+                  })}
+                  onClick={() =>
+                    this.handleRelationMoreIconClick({
+                      ...record,
+                      objectId,
+                      left_name: leftName,
+                    })
+                  }
+                />
+              </Tooltip>
+            );
+          }
           return instanceNodes;
         } else {
           return null;
