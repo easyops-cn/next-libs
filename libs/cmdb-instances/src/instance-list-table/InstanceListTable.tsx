@@ -944,7 +944,6 @@ export class LegacyInstanceListTable extends React.Component<
           }
           // 过滤后的实例
           const filterInstances = instances?.slice(0, this.props.relationLimit);
-          const isGetRelation = instances?.length > this.props.relationLimit;
           const instanceNodes = filterInstances.map((instance, index) => {
             let subName: string;
             if (nameKeys.length > 1) {
@@ -971,6 +970,7 @@ export class LegacyInstanceListTable extends React.Component<
                       target={"_blank"}
                       // 使用 <Link> 以保持链接的原生能力
                       to={url}
+                      className={styles.relationLink}
                       // 自定义 onClick 以支持事件配置和拦截
                       onClick={(e: MouseEvent | React.MouseEvent) =>
                         this.handleClickItem(
@@ -993,9 +993,13 @@ export class LegacyInstanceListTable extends React.Component<
               return instanceName;
             }
           });
-
-          if (isGetRelation) {
-            instanceNodes.push(
+          const instanceNodesWrapper = (
+            <span
+              className={classnames(styles.instanceListTableRelationWrapper)}
+            >
+              <span className={styles.instanceListTableRelationText}>
+                {instanceNodes}
+              </span>
               <Tooltip
                 title={i18n.t(
                   `${NS_LIBS_CMDB_INSTANCES}:${K.RELATION_INSTANCE_TOOLTIP}`
@@ -1007,12 +1011,8 @@ export class LegacyInstanceListTable extends React.Component<
                     lib: "easyops",
                     category: "patch-manager",
                     icon: "patch-list",
-                    color: "#167be0",
                   }}
-                  iconClassName={classnames(styles.relationMoreIcon, {
-                    [styles.relationMoreIconBreakLine]:
-                      !this.props.autoBreakLine,
-                  })}
+                  iconClassName={styles.relationMoreIcon}
                   onClick={() =>
                     this.handleRelationMoreIconClick({
                       ...record,
@@ -1022,9 +1022,9 @@ export class LegacyInstanceListTable extends React.Component<
                   }
                 />
               </Tooltip>
-            );
-          }
-          return instanceNodes;
+            </span>
+          );
+          return instanceNodesWrapper;
         } else {
           return null;
         }

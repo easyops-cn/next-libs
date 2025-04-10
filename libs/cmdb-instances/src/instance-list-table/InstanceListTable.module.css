@@ -24,6 +24,37 @@
   text-overflow: unset;
 }
 
+.instanceListTableRelationWrapper {
+  display: inline-flex;
+  width: 100%;
+  align-items: center;
+}
+
+.shouldEllipsis .instanceListTableCell .instanceListTableRelationWrapper {
+  display: inline;
+}
+
+.instanceListTableRelationText {
+  max-width: 200px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.relationLink {
+  color: var(--color-normal-text);
+}
+
+.relationLink:hover {
+  text-decoration: underline;
+  color: var(--color-normal-text);
+}
+
+.shouldEllipsis .instanceListTableCell .instanceListTableRelationText {
+  white-space: unset;
+  text-overflow: unset;
+}
+
 .relationMoreIcon {
   margin-left: 4px;
   display: inline;
