@@ -931,6 +931,7 @@ export class LegacyInstanceListTable extends React.Component<
           const objectId =
             relation[`${sides.that}_object_id` as RelationObjectIdKeys];
           const leftName = relation[`${sides.this}_name`];
+          const leftId = relation[`${sides.this}_id`];
           const nameKeys = getInstanceNameKeys(
             this.props.idObjectMap[objectId]
           );
@@ -1018,6 +1019,7 @@ export class LegacyInstanceListTable extends React.Component<
                       ...record,
                       objectId,
                       left_name: leftName,
+                      left_id: leftId,
                     })
                   }
                 />

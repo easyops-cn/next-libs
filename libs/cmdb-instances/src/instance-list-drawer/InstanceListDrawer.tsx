@@ -31,6 +31,7 @@ interface InstanceListDrawerState {
   open: boolean;
   objectId: string;
   drawerTitle: string;
+  query: Record<string, any>;
 }
 
 export function InstanceListDrawer(
@@ -40,6 +41,7 @@ export function InstanceListDrawer(
     open: false,
     objectId: null,
     drawerTitle: "",
+    query: null,
   });
 
   /* istanbul ignore next */
@@ -68,6 +70,11 @@ export function InstanceListDrawer(
       open: true,
       objectId: record.objectId,
       drawerTitle: record.left_name,
+      query: {
+        instanceId: {
+          $in: record?.[record.left_id]?.map((v: any) => v.instanceId) || [],
+        },
+      },
     });
   };
 
@@ -97,6 +104,7 @@ export function InstanceListDrawer(
           onRelationMoreIconClick={handleRelationMoreIconClick}
           relationLimit={_relationLimit}
           detailUrlTemplates={props.detailUrlTemplates}
+          presetConfigs={{ query: state.query }}
           selectDisabled={true}
           ipCopy={props.ipCopy}
           target={props.target}
