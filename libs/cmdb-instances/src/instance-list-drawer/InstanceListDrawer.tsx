@@ -71,9 +71,7 @@ export function InstanceListDrawer(
       objectId: record.objectId,
       drawerTitle: record.left_name,
       query: {
-        instanceId: {
-          $in: record?.[record.left_id]?.map((v: any) => v.instanceId) || [],
-        },
+        [`${record.right_id}.instanceId`]: record.instanceId,
       },
     });
   };

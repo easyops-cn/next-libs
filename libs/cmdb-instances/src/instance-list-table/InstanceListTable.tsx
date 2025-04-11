@@ -58,6 +58,7 @@ import { CmdbUrlLink } from "../cmdb-url-link/CmdbUrlLink";
 import { FloatDisplayBrick } from "../float-display-brick/FloatDisplayBrick";
 import { JsonDisplayBrick } from "../json-display-brick/JsonDisplayBrick";
 import { XmlDisplayBrick } from "../xml-display-brick/XmlDisplayBrick";
+import { TableTooltip } from "./TableTooltip";
 // const { Paragraph } = Typography;
 export interface CustomColumn extends ColumnType<Record<string, unknown>> {
   useBrick: UseBrickConf;
@@ -931,7 +932,7 @@ export class LegacyInstanceListTable extends React.Component<
           const objectId =
             relation[`${sides.that}_object_id` as RelationObjectIdKeys];
           const leftName = relation[`${sides.this}_name`];
-          const leftId = relation[`${sides.this}_id`];
+          const rightId = relation[`${sides.that}_id`];
           const nameKeys = getInstanceNameKeys(
             this.props.idObjectMap[objectId]
           );
@@ -1001,29 +1002,16 @@ export class LegacyInstanceListTable extends React.Component<
               <span className={styles.instanceListTableRelationText}>
                 {instanceNodes}
               </span>
-              <Tooltip
-                title={i18n.t(
-                  `${NS_LIBS_CMDB_INSTANCES}:${K.RELATION_INSTANCE_TOOLTIP}`
-                )}
-                placement="top"
-              >
-                <GeneralIcon
-                  icon={{
-                    lib: "easyops",
-                    category: "patch-manager",
-                    icon: "patch-list",
-                  }}
-                  iconClassName={styles.relationMoreIcon}
-                  onClick={() =>
-                    this.handleRelationMoreIconClick({
-                      ...record,
-                      objectId,
-                      left_name: leftName,
-                      left_id: leftId,
-                    })
-                  }
-                />
-              </Tooltip>
+              <TableTooltip
+                onClick={() =>
+                  this.handleRelationMoreIconClick({
+                    ...record,
+                    objectId,
+                    left_name: leftName,
+                    right_id: rightId,
+                  })
+                }
+              />
             </span>
           );
           return instanceNodesWrapper;
