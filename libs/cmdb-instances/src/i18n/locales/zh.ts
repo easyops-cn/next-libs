@@ -47,6 +47,7 @@ const locale: Locale = {
   [K.SET_DEFAULT_DISPLAY_SUCCESS]: "设置默认显示字段成功!",
   [K.DEFAULT_DISPLAY]: "默认显示",
   [K.CONFIRM]: "确定",
+  [K.SORT_SETTINGS]: "排序设置",
   [K.ONLY_ONE_INSTANCE_TO_ALLOWED]: "只允许选择一个实例",
   [K.OPERATOR_CONTAIN_DEFINE]: "包含",
   [K.OPERATOR_NOT_CONTAIN_DEFINE]: "不包含",
@@ -123,6 +124,9 @@ const locale: Locale = {
   [K.BACKGROUND_SEARCH]: "输入关键字搜索",
   [K.BACK]: "返回",
   [K.RELATION_INSTANCE_TOOLTIP]: "查看全部关系实例",
+  [K.NAME]: "名称",
+  [K.ID]: "ID",
+  [K.SORT]: "排序",
 };
 
 export default locale;

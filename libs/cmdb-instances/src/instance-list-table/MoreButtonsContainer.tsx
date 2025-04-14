@@ -13,6 +13,7 @@ import {
   DisplaySettingsModal,
   DisplaySettingsModalData,
 } from "./DisplaySettingsModal";
+
 interface MoreButtonsContainerProps {
   modelData: Partial<CmdbModels.ModelCmdbObject>;
   currentFields?: string[];
@@ -26,6 +27,7 @@ interface MoreButtonsContainerProps {
   handleToggleFixHeader?: () => void;
   fixedHeader?: boolean;
   showFixedHeader?: boolean;
+  sortFields?: { field: string; order: number }[];
 }
 
 interface MoreButtonsContainerState {
@@ -46,7 +48,7 @@ export class MoreButtonsContainer extends React.Component<
     };
   }
 
-  handleSettingButtonClick = () => {
+  handleSettingButtonClick = (): void => {
     this.setState({
       visible: true,
     });
@@ -59,11 +61,12 @@ export class MoreButtonsContainer extends React.Component<
     this.props?.onConfirm(data);
   };
 
-  handleCancel = () => {
+  handleCancel = (): void => {
     this.setState({
       visible: false,
     });
   };
+
   render(): React.ReactNode {
     const menu = (
       <Menu>
@@ -95,6 +98,7 @@ export class MoreButtonsContainer extends React.Component<
           visible={this.state.visible}
           currentFields={this.props.fieldIds}
           modelData={this.props.modelData}
+          sortFields={this.props.sortFields}
           onCancel={this.handleCancel}
           onOk={this.handleOk}
           saveFieldsBackend={this.props.saveFieldsBackend}
