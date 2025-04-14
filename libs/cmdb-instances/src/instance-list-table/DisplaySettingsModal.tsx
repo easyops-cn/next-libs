@@ -123,6 +123,7 @@ export function DisplaySettingsModal(
   const handleSortSettingOk = (): void => {
     setSortSettingsVisible(false);
     setNextFields(nextFields ? [...nextFields] : []);
+    props?.onOk({ fields: nextFields });
   };
 
   return (
