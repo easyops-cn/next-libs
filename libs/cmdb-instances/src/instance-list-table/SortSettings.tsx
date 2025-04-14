@@ -31,8 +31,8 @@ interface DraggableBodyRowProps
 
 const type = "DraggableBodyRow";
 
-const sortField = (dataSource: any, order: string[]) => {
-  return dataSource.sort((a: any, b: any) => {
+const sortField = (dataSource: any[] = [], order: string[]) => {
+  return dataSource?.sort((a: any, b: any) => {
     const indexA = order.indexOf(a.id);
     const indexB = order.indexOf(b.id);
     return indexA - indexB;

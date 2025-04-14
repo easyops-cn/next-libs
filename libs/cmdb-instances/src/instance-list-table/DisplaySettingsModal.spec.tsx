@@ -4,6 +4,7 @@ import { Button, Modal } from "antd";
 import { HOST } from "./data-providers/__mocks__";
 import { DisplaySettingsModal } from "./DisplaySettingsModal";
 import { DisplaySettings } from "./DisplaySettings";
+import { SortSettings } from "./SortSettings";
 
 jest.mock("@next-core/brick-kit", () => ({
   getAuth: () => ({ isAdmin: false }),
@@ -59,6 +60,12 @@ describe("DisplaySettingsModal", () => {
     );
     expect(handleCancel).toBeCalled();
     expect(wrapper.find(DisplaySettings).prop("currentFields")).toEqual(fields);
+
+    footerButtons.filter("[data-testid='sort-settings-button']").invoke("onClick")(
+      {} as unknown as React.MouseEvent<HTMLElement>
+    );
+    expect(wrapper.find(SortSettings).prop("currentFields")).toEqual(fields);
+
     // reset
     footerButtons.filter("[data-testid='reset-button']").invoke("onClick")(
       {} as unknown as React.MouseEvent<HTMLElement>

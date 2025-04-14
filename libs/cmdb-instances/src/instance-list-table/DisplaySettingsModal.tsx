@@ -24,8 +24,8 @@ export interface DisplaySettingsModalProps extends DisplaySettingsProps {
   onCancel?(): void;
 }
 
-const sortField = (dataSource: string[], order: string[]) => {
-  return dataSource.sort((a: string, b: string) => {
+const sortField = (dataSource: string[] = [], order: string[]) => {
+  return dataSource?.sort((a: string, b: string) => {
     const indexA = order.indexOf(a);
     const indexB = order.indexOf(b);
     return indexA - indexB;
