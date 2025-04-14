@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.28.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.28.0...@next-libs/cmdb-instances@7.28.1) (2025-04-14)
+
+
+### Bug Fixes
+
+* 调整交互：【排序设置】确定之后直接关闭连同【显示设置】一起关闭 ([d0eaf12](https://github.com/easyops-cn/next-libs/commit/d0eaf12ded121a4874f1e36d633fbf20d94b8b59))
+
+
+
+
+
 # [7.28.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.27.3...@next-libs/cmdb-instances@7.28.0) (2025-04-14)
 
 
