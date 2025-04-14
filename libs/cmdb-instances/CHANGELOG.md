@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.28.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.27.3...@next-libs/cmdb-instances@7.28.0) (2025-04-14)
+
+
+### Features
+
+* 保留模型定义的属性顺序，在【显示设置】弹窗新增【排序设置】,支持用户自定义显示字段顺序 ([cbe905a](https://github.com/easyops-cn/next-libs/commit/cbe905a6612bac79928c63cfcbb96c22410fa174))
+
+
+
+
+
 ## [7.27.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.27.2...@next-libs/cmdb-instances@7.27.3) (2025-04-14)
 
 
