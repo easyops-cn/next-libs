@@ -95,7 +95,6 @@ import { changeQueryWithCustomRules } from "../processors";
 import { DisplaySettingsModalData } from "../instance-list-table/DisplaySettingsModal";
 import FilterInstanceSource from "./FilterInstanceSource";
 import { ColumnType } from "antd/lib/table";
-import { getAuth } from "@next-core/brick-kit";
 
 export interface instanceArchiveRequestBody {
   // 搜索内容
@@ -1922,6 +1921,7 @@ export function LegacyInstanceList(
                     handleToggleFixHeader={handleToggleFixHeader}
                     fixedHeader={fixedHeader}
                     showFixedHeader={props.showFixedHeader}
+                    sortFields={state.sortFields}
                   />
                 )}
               </div>

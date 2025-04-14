@@ -50,6 +50,7 @@ const locale: Locale = {
     "Set the default display fields successfully",
   [K.DEFAULT_DISPLAY]: "Default display",
   [K.CONFIRM]: "Confirm",
+  [K.SORT_SETTINGS]: "Sort Settings",
   [K.ONLY_ONE_INSTANCE_TO_ALLOWED]:
     "Only one instance is allowed to be selected",
   [K.OPERATOR_CONTAIN_DEFINE]: "Contain",
@@ -136,6 +137,9 @@ const locale: Locale = {
   [K.BACKGROUND_SEARCH]: "input keyword to search",
   [K.BACK]: "Back",
   [K.RELATION_INSTANCE_TOOLTIP]: "View all instances of the relationship",
+  [K.NAME]: "name",
+  [K.ID]: "ID",
+  [K.SORT]: "sort",
 };
 
 export default locale;

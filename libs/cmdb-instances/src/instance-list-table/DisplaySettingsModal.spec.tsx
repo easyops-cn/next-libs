@@ -42,7 +42,7 @@ describe("DisplaySettingsModal", () => {
       nextFields
     );
     const footerButtons = shallow(
-      wrapper.find(Modal).prop("footer") as React.ReactElement
+      wrapper.find(Modal).at(0).prop("footer") as React.ReactElement
     ).find(Button);
     // ok
     expect(currentFields).not.toBe(nextFields);
@@ -59,6 +59,7 @@ describe("DisplaySettingsModal", () => {
     );
     expect(handleCancel).toBeCalled();
     expect(wrapper.find(DisplaySettings).prop("currentFields")).toEqual(fields);
+
     // reset
     footerButtons.filter("[data-testid='reset-button']").invoke("onClick")(
       {} as unknown as React.MouseEvent<HTMLElement>

@@ -1,0 +1,15 @@
+.customDropTable {
+  :global(.ant-table-tbody) {
+    tr.dropOverDownward {
+      td {
+        border-bottom: 2px dashed var(--antd-table-drop-hover-border-color);
+      }
+    }
+
+    tr.dropOverUpward {
+      td {
+        border-top: 2px dashed var(--antd-table-drop-hover-border-color);
+      }
+    }
+  }
+}
