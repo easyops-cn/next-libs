@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.28.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.28.1...@next-libs/cmdb-instances@7.28.2) (2025-04-16)
+
+
+### Bug Fixes
+
+* 查看全部关系实例，应该要展示所有关联的实例；抽屉关闭后，tooltips没有消失，建议优化一下。 ([c49e537](https://github.com/easyops-cn/next-libs/commit/c49e537012b173d282feb0f8c6e62ece24f63d2b))
+
+
+
+
+
 ## [7.28.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.28.0...@next-libs/cmdb-instances@7.28.1) (2025-04-14)
 
 
