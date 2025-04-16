@@ -19,6 +19,11 @@
   text-overflow: ellipsis;
 }
 
+.relationMoreIcon {
+  margin-left: 5px;
+  display: inline;
+}
+
 .shouldEllipsis .instanceListTableCell {
   white-space: unset;
   text-overflow: unset;
