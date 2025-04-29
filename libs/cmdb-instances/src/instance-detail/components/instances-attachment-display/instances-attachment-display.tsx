@@ -13,6 +13,27 @@ interface InstancesAttachmentDisplayProps {
   value?: Record<string, any>[];
 }
 
+function getParams(url: string): Record<string, any> {
+  const regex = /[?&]([^=&#]+)(?:=([^&#]*))?/g;
+  const params: Record<string, any> = {};
+  let match;
+
+  while ((match = regex.exec(url)) !== null) {
+    const key = decodeURIComponent(match[1]);
+    const value = match[2] ? decodeURIComponent(match[2]) : "";
+    params[key] = value;
+  }
+  return params;
+}
+
+function setUrlSearchParams(paramsObject: Record<string, any>): string {
+  const params = new URLSearchParams();
+  for (const [key, value] of Object.entries(paramsObject)) {
+    params.set(key, value);
+  }
+  return params.toString();
+}
+
 export function InstancesAttachmentDisplay(
   props: InstancesAttachmentDisplayProps
 ): React.ReactElement {
@@ -21,7 +42,10 @@ export function InstancesAttachmentDisplay(
   const handleDownload = (file: any): void => {
     const domain = `${window.location.origin}/next`;
     const link = document.createElement("a");
-    link.href = `${domain}/${file.url}?fileName=${file.name}`;
+    link.href = `${domain}/${file.url?.split("?")?.[0]}?${setUrlSearchParams({
+      fileName: file.name,
+      ...getParams(file.url),
+    })}`;
     link.download = file.name;
     document.body.appendChild(link);
     link.click();
@@ -30,11 +54,17 @@ export function InstancesAttachmentDisplay(
   // 预览
   const handlePreview = (file: any): void => {
     const domain = `${window.location.origin}/next`;
-    const checksum = file.url?.slice(
-      DownloadFileUrl.length + 1,
-      file.url.length
-    );
-    const url = `${domain}/${file.url}?checksum=${checksum}&fileName=${file.name}&fullfilename=${file.name}`;
+    const params: Record<string, any> = getParams(file.url);
+    const checksum =
+      params.checksum ||
+      file.url?.slice(DownloadFileUrl.length + 1, file.url.length);
+    const queryString = setUrlSearchParams({
+      checksum,
+      fileName: file.name,
+      fullfilename: file.name,
+      ...params,
+    });
+    const url = `${domain}/${file.url?.split("?")?.[0]}?${queryString}`;
     const previewUrl = `${domain}/api/gateway/file_previewer.preview.PreviewFile/onlinePreview?url=${encodeURIComponent(
       Base64.encode(url)
       // window.btoa(url)
