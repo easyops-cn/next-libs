@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.28.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.28.2...@next-libs/cmdb-instances@7.28.3) (2025-04-29)
+
+
+### Bug Fixes
+
+* cmdb实例详情构件支持查看文件url中带有查询参数的附件属性 ref CMDB_INSTANCE-2756 ([828f714](https://github.com/easyops-cn/next-libs/commit/828f71465a26ea9c9b5fd6da8131f123da05ba93))
+* cmdb实例详情构件支持查看文件url中带有查询参数的附件属性 ref CMDB_INSTANCE-2756 ([57f8981](https://github.com/easyops-cn/next-libs/commit/57f8981d0b60462a13d849e9810b10631c0122b6))
+
+
+
+
+
 ## [7.28.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.28.1...@next-libs/cmdb-instances@7.28.2) (2025-04-16)
 
 
