@@ -1019,7 +1019,11 @@ export function LegacyInstanceList(
       data.fields = Object.fromEntries(
         state.fieldIds.map((fieldId) => [fieldId, true])
       );
-      v3Data.fields = [...state.fieldIds, ...v3Data.fields];
+      v3Data.fields = [
+        ...state.fieldIds,
+        ...v3Data.fields,
+        ...(modelData.isAbstract ? ["_object_id"] : []),
+      ];
       (v3Data as any).ignore_missing_field_error = true;
     }
     if (props.useAutoDiscoveryProvider) {

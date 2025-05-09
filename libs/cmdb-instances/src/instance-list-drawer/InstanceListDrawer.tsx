@@ -32,6 +32,7 @@ interface InstanceListDrawerState {
   objectId: string;
   drawerTitle: string;
   query: Record<string, any>;
+  detailUrlTemplates: Record<string, any>;
 }
 
 export function InstanceListDrawer(
@@ -40,6 +41,7 @@ export function InstanceListDrawer(
   const [state, setState] = useReducer(reducer, {
     open: false,
     objectId: null,
+    detailUrlTemplates: undefined,
     drawerTitle: "",
     query: null,
   });
@@ -70,6 +72,9 @@ export function InstanceListDrawer(
       open: true,
       objectId: record.objectId,
       drawerTitle: record.left_name,
+      detailUrlTemplates: {
+        [record.objectId]: Object.values(props.detailUrlTemplates || {})?.[0],
+      },
       query: {
         [`${record.right_id}.instanceId`]: record.instanceId,
       },
@@ -101,7 +106,7 @@ export function InstanceListDrawer(
           objectId={state.objectId}
           onRelationMoreIconClick={handleRelationMoreIconClick}
           relationLimit={_relationLimit}
-          detailUrlTemplates={props.detailUrlTemplates}
+          detailUrlTemplates={state.detailUrlTemplates}
           presetConfigs={{ query: state.query }}
           selectDisabled={true}
           ipCopy={props.ipCopy}

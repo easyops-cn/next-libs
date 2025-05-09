@@ -287,7 +287,9 @@ export class LegacyInstanceListTable extends React.Component<
             )
           )
         ),
-      ids
+      this.props.modelData.isAbstract
+        ? ids?.filter((i) => i !== "_object_id")
+        : ids
     );
     const idColumnMap = new Map<string, ColumnType<Record<string, any>>>();
     columns.forEach((column) =>
