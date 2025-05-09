@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.28.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.28.3...@next-libs/cmdb-instances@7.28.4) (2025-05-09)
+
+
+### Bug Fixes
+
+* instanceList新增tableConfig属性用于修改表格ui ref CMDB_INSTANCE-2769 ([177bdd6](https://github.com/easyops-cn/next-libs/commit/177bdd6ba8f28fb4e281824cea8b00ac0df55c64))
+
+
+
+
+
 ## [7.28.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.28.2...@next-libs/cmdb-instances@7.28.3) (2025-04-29)
 
 
