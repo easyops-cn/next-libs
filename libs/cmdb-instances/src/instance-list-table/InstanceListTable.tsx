@@ -11,7 +11,7 @@ import {
   message,
   Typography,
 } from "antd";
-import { isNil, isBoolean, compact, map, divide } from "lodash";
+import { isNil, isBoolean, compact, map, divide, omit } from "lodash";
 import { CopyOutlined, DeleteOutlined } from "@ant-design/icons";
 import { ColumnType, TablePaginationConfig, TableProps } from "antd/lib/table";
 import {
@@ -1293,10 +1293,13 @@ export class LegacyInstanceListTable extends React.Component<
           }
           rowKey={this.ROM_KEY}
           scroll={{
-            x: this.props.fixedHeader
-              ? (this.state.columns?.length ?? 0) * 150
-              : "max-content",
-            y: this.props.fixedHeader ? 560 : null,
+            x:
+              this.props.fixedHeader || this.props.configProps?.scroll?.y
+                ? (this.state.columns?.length ?? 0) * 150
+                : "max-content",
+            y: this.props.fixedHeader
+              ? 560
+              : this.props.configProps?.scroll?.y ?? null,
           }}
           pagination={this.state.pagination}
           rowSelection={rowSelection}
@@ -1307,7 +1310,7 @@ export class LegacyInstanceListTable extends React.Component<
             // 故这里将默认展开的字段设置为不符合模型属性id校验的值
             childrenColumnName: "0",
           }}
-          {...this.props.configProps}
+          {...omit(this.props.configProps, ["scroll"])}
         />
       </div>
     );

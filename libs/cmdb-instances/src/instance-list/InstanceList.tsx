@@ -598,6 +598,7 @@ export interface InstanceListProps {
   showCustomizedSerialNumber?: boolean;
   relationLimit?: number;
   onRelationMoreIconClick?: (record: Record<string, any>) => void;
+  tableConfigProps?: Record<string, any>;
 }
 
 interface InstanceListState {
@@ -2049,6 +2050,7 @@ export function LegacyInstanceList(
               showCustomizedSerialNumber={props.showCustomizedSerialNumber}
               relationLimit={props.relationLimit}
               onRelationMoreIconClick={props.onRelationMoreIconClick}
+              configProps={props.tableConfigProps}
             />
           )}
         </React.Fragment>
