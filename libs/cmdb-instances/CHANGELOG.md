@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.28.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.28.4...@next-libs/cmdb-instances@7.28.5) (2025-05-12)
+
+
+### Bug Fixes
+
+* CMDB的父模型的通用实例列表无法点击进去实例详情页&实例列表预览关系时，点击实例详情无法跳转 ([9cadb9f](https://github.com/easyops-cn/next-libs/commit/9cadb9f48964be16245569546f5e138511f70b1a))
+
+
+
+
+
 ## [7.28.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.28.3...@next-libs/cmdb-instances@7.28.4) (2025-05-09)
 
 
