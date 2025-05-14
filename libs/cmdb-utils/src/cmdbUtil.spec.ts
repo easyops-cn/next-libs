@@ -350,7 +350,13 @@ describe("util", () => {
   });
 
   it("should modify objectDataList correctly", () => {
-    const modifiedClusterObjectData = modifyModelData(clusterObjectData);
+    const modifiedClusterObjectData = modifyModelData({
+      ...clusterObjectData,
+      view: {
+        ...clusterObjectData.view,
+        hide_columns: ["type", "appId"],
+      },
+    });
 
     expect(modifiedClusterObjectData.__fieldList).toEqual([
       {
@@ -380,34 +386,6 @@ describe("util", () => {
         __id: "deviceList",
         __isRelation: true,
         __inverted: false,
-      },
-      {
-        id: "type",
-        name: "集群类型",
-        __id: "type",
-        __isRelation: false,
-      },
-      {
-        relation_id: "APP_clusters_CLUSTER",
-        left_object_id: "CLUSTER",
-        left_id: "appId",
-        left_name: "所属应用",
-        left_description: "集群",
-        left_min: 0,
-        left_max: 1,
-        left_groups: [],
-        left_tags: [],
-        right_object_id: "APP",
-        right_id: "clusters",
-        right_name: "集群",
-        right_description: "所属应用",
-        right_min: 0,
-        right_max: -1,
-        right_groups: [],
-        right_tags: [],
-        __id: "appId",
-        __isRelation: true,
-        __inverted: true,
       },
     ]);
   });

@@ -272,6 +272,7 @@ export function modifyModelData(
     }
   });
 
+  const hideColumns = clonedModelData?.view?.hide_columns || [];
   const currentOrderedFieldIds = clonedModelData?.view?.attr_order || [];
   const orderedFieldIds: string[] = [];
   const notOrderedFieldIds: string[] = [];
@@ -289,18 +290,12 @@ export function modifyModelData(
   const fieldList: ModifiedModelObjectField[] = [];
   const attrList: Partial<ModifiedModelObjectAttr>[] = [];
   const relationList: Partial<ModifiedModelObjectRelation>[] = [];
-  orderedFieldIds.forEach((orderedFieldId) => {
-    const field = fieldMap[orderedFieldId];
-    fieldList.push(field);
-    if (field.__isRelation) {
-      relationList.push(field);
-    } else if (field.__isRelation === false) {
-      attrList.push(field);
+
+  [...orderedFieldIds, ...notOrderedFieldIds].forEach((fieldId) => {
+    const field = fieldMap[fieldId];
+    if (!hideColumns.includes(fieldId)) {
+      fieldList.push(field);
     }
-  });
-  notOrderedFieldIds.forEach((notOrderedFieldId) => {
-    const field = fieldMap[notOrderedFieldId];
-    fieldList.push(field);
     if (field.__isRelation) {
       relationList.push(field);
     } else if (field.__isRelation === false) {
