@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.7.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@3.7.4...@next-libs/cmdb-utils@3.7.5) (2025-05-14)
+
+
+### Bug Fixes
+
+* 售中工单_拨测任务-过滤实例的字段包含视图隐藏的字段_centos7.9_x86 ([#734](https://github.com/easyops-cn/next-libs/issues/734)) ([d32e82c](https://github.com/easyops-cn/next-libs/commit/d32e82c6ea3033c02fd0b74916c7c9ce9e804c67))
+
+
+
+
+
 ## [3.7.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@3.7.3...@next-libs/cmdb-utils@3.7.4) (2025-01-22)
 
 
