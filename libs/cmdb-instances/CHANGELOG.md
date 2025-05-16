@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.28.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.28.6...@next-libs/cmdb-instances@7.28.7) (2025-05-16)
+
+
+### Bug Fixes
+
+* **ModelAttributeForm:** adjust placeholders ([16d2777](https://github.com/easyops-cn/next-libs/commit/16d27771da9331d4fcf7492fa3b7f0a9046cbd5f))
+
+
+
+
+
 ## [7.28.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.28.5...@next-libs/cmdb-instances@7.28.6) (2025-05-14)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
