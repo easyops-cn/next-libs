@@ -109,6 +109,10 @@ const locale: Locale = {
   [K.SELECT_COPY_DATA]: "请选择需要复制的数据",
   [K.ADVANCE_SEARCH_SINGLE_INPUT_PLACEHOLDER]: "输入关键词，多值用空格隔开",
   [K.NUMBER_INPUT_PLACEHOLDER]: "输入数字",
+  [K.INTEGER_INPUT_PLACEHOLDER]: "输入整数",
+  [K.FLOAT_INPUT_PLACEHOLDER]: "输入浮点数",
+  [K.INPUT_PLACEHOLDER_TPL]: "请输入{{label}}",
+  [K.SELECT_PLACEHOLDER_TPL]: "请选择{{label}}",
   [K.FIX_HEADER]: "固定表头",
   [K.CANCEL_FIX_HEADER]: "取消固定表头",
   [K.VIEW_SPECIFIC_INSTANCES]: "查看具体实例",
@@ -127,6 +131,7 @@ const locale: Locale = {
   [K.NAME]: "名称",
   [K.ID]: "ID",
   [K.SORT]: "排序",
+  [K.COMMA]: "，",
 };
 
 export default locale;

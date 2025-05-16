@@ -121,6 +121,10 @@ const locale: Locale = {
   [K.ADVANCE_SEARCH_SINGLE_INPUT_PLACEHOLDER]:
     "Please enter keywords, multiple values ​​separated by spaces",
   [K.NUMBER_INPUT_PLACEHOLDER]: "Please enter number",
+  [K.INTEGER_INPUT_PLACEHOLDER]: "Please enter integer",
+  [K.FLOAT_INPUT_PLACEHOLDER]: "Please enter float",
+  [K.INPUT_PLACEHOLDER_TPL]: "Please enter {{label}}",
+  [K.SELECT_PLACEHOLDER_TPL]: "Please select {{label}}",
   [K.FIX_HEADER]: "Fix the header",
   [K.CANCEL_FIX_HEADER]: "Cancel fix the header",
   [K.VIEW_SPECIFIC_INSTANCES]: "View specific instances",
@@ -140,6 +144,7 @@ const locale: Locale = {
   [K.NAME]: "name",
   [K.ID]: "ID",
   [K.SORT]: "sort",
+  [K.COMMA]: ", ",
 };
 
 export default locale;

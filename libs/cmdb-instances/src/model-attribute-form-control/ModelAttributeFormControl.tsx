@@ -377,7 +377,9 @@ export class ModelAttributeFormControl extends Component<
     switch (formControl.type) {
       case FormControlTypeEnum.SELECT:
         placeholders.push(
-          i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CLICK_TO_SELECT}`)
+          i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.SELECT_PLACEHOLDER_TPL}`, {
+            label: formControl.label,
+          })
         );
         break;
       case FormControlTypeEnum.DATETIME:
@@ -400,9 +402,9 @@ export class ModelAttributeFormControl extends Component<
         break;
       default:
         placeholders.push(
-          i18n.t(
-            `${NS_LIBS_CMDB_INSTANCES}:${K.ADVANCE_SEARCH_SINGLE_INPUT_PLACEHOLDER}`
-          )
+          i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.INPUT_PLACEHOLDER_TPL}`, {
+            label: formControl.label,
+          })
         );
     }
 
@@ -422,7 +424,7 @@ export class ModelAttributeFormControl extends Component<
         })
       );
     }
-    return placeholders.join("，");
+    return placeholders.join(i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.COMMA}`));
   }
 
   /*computeFormControlAndCatchError = () => {
