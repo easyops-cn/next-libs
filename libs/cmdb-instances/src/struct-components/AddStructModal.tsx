@@ -8,13 +8,15 @@ import {
   Select,
   Form,
 } from "antd";
-import { Attribute, Structkey, StructDefineType } from "./interfaces";
-import { boolOptions } from "../model-attribute-form-control/ModelAttributeFormControl";
 import i18n from "i18next";
-import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
 import moment from "moment";
 import { keyBy, reduce, isString, isNil } from "lodash";
 import { CodeEditor } from "@next-libs/code-editor-components";
+import { useTranslation } from "react-i18next";
+
+import { Attribute, Structkey, StructDefineType } from "./interfaces";
+import { boolOptions } from "../model-attribute-form-control/ModelAttributeFormControl";
+import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
 
 export interface AddStructModalProps {
   structData?: any;
@@ -25,6 +27,7 @@ export interface AddStructModalProps {
 }
 
 export function AddStructModal(props: AddStructModalProps): React.ReactElement {
+  const { t } = useTranslation(NS_LIBS_CMDB_INSTANCES);
   const {
     attribute,
     visible,
@@ -65,10 +68,9 @@ export function AddStructModal(props: AddStructModalProps): React.ReactElement {
 
   const handleJsonValidate = (err: any, define: Structkey) => {
     const errors: string[] = [];
-    err.some((v: any) => v.type === "error") &&
-      errors.push(i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.NOT_MEET_JSON}`));
+    err.some((v: any) => v.type === "error") && errors.push(t(K.NOT_MEET_JSON));
     err.some((v: any) => v.type === "warning") &&
-      errors.push(i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.NOT_MEET_REGEX}`));
+      errors.push(t(K.NOT_MEET_REGEX));
     form.setFields([
       {
         name: define.id,
@@ -78,24 +80,25 @@ export function AddStructModal(props: AddStructModalProps): React.ReactElement {
   };
 
   const getFormType = (define: Structkey) => {
-    switch (define.type) {
+    const { name, type, regex } = define;
+
+    switch (type) {
       case StructDefineType.INTEGER: {
         return (
           <InputNumber
             style={{ width: "100%" }}
             precision={0}
-            placeholder={
-              hasRegex(define.regex)
-                ? i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.MATCHING_REGULAR}`, {
-                    regexp: define.regex,
-                  })
-                : ""
-            }
+            placeholder={t(K.INTEGER_INPUT_PLACEHOLDER)}
           />
         );
       }
       case StructDefineType.FLOAT: {
-        return <InputNumber style={{ width: "100%" }} />;
+        return (
+          <InputNumber
+            style={{ width: "100%" }}
+            placeholder={t(K.FLOAT_INPUT_PLACEHOLDER)}
+          />
+        );
       }
       case StructDefineType.BOOLEAN: {
         return (
@@ -114,18 +117,21 @@ export function AddStructModal(props: AddStructModalProps): React.ReactElement {
             mode="tags"
             style={{ width: "100%" }}
             placeholder={
-              hasRegex(define.regex)
-                ? i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.MATCHING_REGULAR}`, {
-                    regexp: define.regex,
-                  })
-                : ""
+              t(K.ENTER_MULTIPLE_STRING_WITH_ENTER_KEY_AS_THE_SEPARATOR, {
+                label: name,
+              }) +
+              (hasRegex(regex)
+                ? `${t(K.COMMA)}${t(K.MATCHING_REGULAR, {
+                    regexp: regex,
+                  })}`
+                : "")
             }
           />
         );
       }
-      case StructDefineType.ENUM: {
-        const { regex } = define;
-        if (regex.length < 6) {
+      case StructDefineType.ENUM:
+      case StructDefineType.ENUMS: {
+        if (regex.length < 6 && type === StructDefineType.ENUM) {
           return (
             <Radio.Group>
               {regex.map((item: string) => (
@@ -137,7 +143,11 @@ export function AddStructModal(props: AddStructModalProps): React.ReactElement {
           );
         } else {
           return (
-            <Select style={{ width: "100%" }}>
+            <Select
+              mode={type === StructDefineType.ENUMS ? "multiple" : undefined}
+              style={{ width: "100%" }}
+              placeholder={t(K.SELECT_PLACEHOLDER_TPL, { label: name })}
+            >
               {regex.map((item: string) => (
                 <Select.Option value={item} key={item}>
                   {item}
@@ -147,28 +157,22 @@ export function AddStructModal(props: AddStructModalProps): React.ReactElement {
           );
         }
       }
-      case StructDefineType.ENUMS: {
-        return (
-          <Select mode="multiple" style={{ width: "100%" }}>
-            {define.regex.map((item: string) => (
-              <Select.Option value={item} key={item}>
-                {item}
-              </Select.Option>
-            ))}
-          </Select>
-        );
-      }
       case StructDefineType.DATE:
       case StructDefineType.DATETIME: {
-        return <DatePicker showTime={define.type === "datetime"} />;
+        return (
+          <DatePicker
+            showTime={type === "datetime"}
+            placeholder={t(K.CLICK_TO_SELECT)}
+          />
+        );
       }
       case StructDefineType.IP: {
-        return <Input />;
+        return <Input placeholder={t(K.IP_PLACEHOLDER)} />;
       }
       case StructDefineType.JSON: {
         let jsonSchema: any;
-        if (hasRegex(define.regex)) {
-          jsonSchema = JSON.parse(define.regex);
+        if (hasRegex(regex)) {
+          jsonSchema = JSON.parse(regex);
         }
         return (
           <CodeEditor
@@ -190,11 +194,12 @@ export function AddStructModal(props: AddStructModalProps): React.ReactElement {
         return (
           <Input
             placeholder={
-              hasRegex(define.regex)
-                ? i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.MATCHING_REGULAR}`, {
-                    regexp: define.regex,
-                  })
-                : ""
+              t(K.INPUT_PLACEHOLDER_TPL, { label: name }) +
+              (hasRegex(regex)
+                ? `${t(K.COMMA)}${t(K.MATCHING_REGULAR, {
+                    regexp: regex,
+                  })}`
+                : "")
             }
           />
         );
@@ -210,12 +215,8 @@ export function AddStructModal(props: AddStructModalProps): React.ReactElement {
         hasRegex(define.regex) &&
           rules.push({
             pattern: define.regex,
-            message: i18n.t(
-              `${NS_LIBS_CMDB_INSTANCES}:${
-                define.type === "ip"
-                  ? K.NOT_MEET_REGEX
-                  : K.NOT_MEET_REGEX_DETAIL
-              }`,
+            message: t(
+              define.type === "ip" ? K.NOT_MEET_REGEX : K.NOT_MEET_REGEX_DETAIL,
               {
                 regex: define.regex,
               }
@@ -232,12 +233,9 @@ export function AddStructModal(props: AddStructModalProps): React.ReactElement {
                 ? cb()
                 : cb(rule.message);
             },
-            message: i18n.t(
-              `${NS_LIBS_CMDB_INSTANCES}:${K.NOT_MEET_REGEX_DETAIL}`,
-              {
-                regex: define.regex,
-              }
-            ),
+            message: t(K.NOT_MEET_REGEX_DETAIL, {
+              regex: define.regex,
+            }),
           });
         break;
       }
@@ -248,12 +246,9 @@ export function AddStructModal(props: AddStructModalProps): React.ReactElement {
             validator: (rule: any, value: any, cb: any) => {
               !hasValue(value) || regex.test(value) ? cb() : cb(rule.message);
             },
-            message: i18n.t(
-              `${NS_LIBS_CMDB_INSTANCES}:${K.NOT_MEET_REGEX_DETAIL}`,
-              {
-                regex: define.regex,
-              }
-            ),
+            message: t(K.NOT_MEET_REGEX_DETAIL, {
+              regex: define.regex,
+            }),
           });
         break;
       }
@@ -308,8 +303,8 @@ export function AddStructModal(props: AddStructModalProps): React.ReactElement {
       onOk={handleStore}
       onCancel={handleCloseModal}
       okButtonProps={{ id: "okBtn" }}
-      okText={i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CONFIRM}`)}
-      cancelText={i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CANCEL}`)}
+      okText={t(K.CONFIRM)}
+      cancelText={t(K.CANCEL)}
       cancelButtonProps={{ id: "cancelBtn" }}
       destroyOnClose={true}
     >
