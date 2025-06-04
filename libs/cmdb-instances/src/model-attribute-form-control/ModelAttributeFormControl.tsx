@@ -84,6 +84,7 @@ export enum FormControlTypeEnum {
 export interface FormControl {
   id: string;
   type: FormControlTypeEnum;
+  valueType?: CmdbModels.ModelObjectAttrValue["type"];
   items?: FormControlSelectItem[];
   name: string;
   label?: string;
@@ -350,6 +351,7 @@ export class ModelAttributeFormControl extends Component<
 
     const result: FormControl = {
       type: formControlType,
+      valueType: attribute.value.type,
       items,
       id: id || attribute.id,
       name: attribute.id,
@@ -385,19 +387,35 @@ export class ModelAttributeFormControl extends Component<
       case FormControlTypeEnum.DATETIME:
       case FormControlTypeEnum.DATE:
         placeholders.push(
-          i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CLICK_TO_SELECT}`)
+          i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.SELECT_PLACEHOLDER_TPL}`, {
+            label: formControl.label,
+          })
         );
         break;
       case FormControlTypeEnum.TAGS:
         placeholders.push(
           i18n.t(
-            `${NS_LIBS_CMDB_INSTANCES}:${K.ENTER_MULTIPLE_STRING_WITH_ENTER_KEY_AS_THE_SEPARATOR}`
+            `${NS_LIBS_CMDB_INSTANCES}:${K.ENTER_MULTIPLE_STRING_WITH_ENTER_KEY_AS_THE_SEPARATOR}`,
+            {
+              label: formControl.label,
+            }
           )
         );
         break;
       case FormControlTypeEnum.NUMBER:
         placeholders.push(
-          i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.NUMBER_INPUT_PLACEHOLDER}`)
+          i18n.t(
+            `${NS_LIBS_CMDB_INSTANCES}:${
+              formControl.valueType === "int"
+                ? K.INTEGER_INPUT_PLACEHOLDER_TPL
+                : formControl.valueType === "float"
+                ? K.FLOAT_INPUT_PLACEHOLDER_TPL
+                : K.NUMBER_INPUT_PLACEHOLDER_TPL
+            }`,
+            {
+              label: formControl.label,
+            }
+          )
         );
         break;
       default:

@@ -88,7 +88,9 @@ export function AddStructModal(props: AddStructModalProps): React.ReactElement {
           <InputNumber
             style={{ width: "100%" }}
             precision={0}
-            placeholder={t(K.INTEGER_INPUT_PLACEHOLDER)}
+            placeholder={t(K.INTEGER_INPUT_PLACEHOLDER_TPL, {
+              label: name,
+            })}
           />
         );
       }
@@ -96,7 +98,9 @@ export function AddStructModal(props: AddStructModalProps): React.ReactElement {
         return (
           <InputNumber
             style={{ width: "100%" }}
-            placeholder={t(K.FLOAT_INPUT_PLACEHOLDER)}
+            placeholder={t(K.FLOAT_INPUT_PLACEHOLDER_TPL, {
+              label: name,
+            })}
           />
         );
       }
@@ -162,7 +166,7 @@ export function AddStructModal(props: AddStructModalProps): React.ReactElement {
         return (
           <DatePicker
             showTime={type === "datetime"}
-            placeholder={t(K.CLICK_TO_SELECT)}
+            placeholder={t(K.SELECT_PLACEHOLDER_TPL, { label: name })}
           />
         );
       }
