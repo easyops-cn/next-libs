@@ -764,6 +764,14 @@ export class ModelAttributeForm extends Component<
                     }
                   )(
                     <UserOrUserGroupSelect
+                      placeholder={i18n.t(
+                        `${NS_LIBS_CMDB_INSTANCES}:${K.SELECT_PLACEHOLDER_TPL}`,
+                        {
+                          label: i18n.t(
+                            `${NS_LIBS_CMDB_INSTANCES}:${K.USERS_OR_USER_GROUPS}`
+                          ),
+                        }
+                      )}
                       objectMap={keyBy(this.props.objectListOfUser, "objectId")}
                       optionsMode="all"
                     ></UserOrUserGroupSelect>
