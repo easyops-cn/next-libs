@@ -38,7 +38,11 @@ import { permissionListMapOfApp } from "./constants";
 import i18n from "i18next";
 import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
 import { ATTRIBUTE_ID_PREFIX } from "../processors";
-const DEFAULT_ATTRIBUTE_TAG = "基本信息";
+import i18next from "i18next";
+
+const t = i18next.getFixedT(null, NS_LIBS_CMDB_INSTANCES);
+const DEFAULT_ATTRIBUTE_TAG = t(K.BASIC_INFORMATION);
+
 export interface ModelAttributeFormChildren {
   header: string;
   name: string;

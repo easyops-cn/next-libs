@@ -15,7 +15,7 @@ import {
   CMDB_RESOURCE_FIELDS_SETTINGS,
 } from "@next-libs/cmdb-utils";
 import { CmdbModels } from "@next-sdk/cmdb-sdk";
-import i18n from "i18next";
+import { WithTranslation, withTranslation } from "react-i18next";
 import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
 export interface DisplaySettingsProps {
   currentFields: string[];
@@ -25,6 +25,10 @@ export interface DisplaySettingsProps {
   extraDisabledFields?: string[];
   onChange?(fields: string[]): void;
 }
+
+export interface WithTranslationDisplaySettingsProps
+  extends DisplaySettingsProps,
+    WithTranslation {}
 
 interface DisplaySettingsState {
   nextFields: string[];
@@ -36,15 +40,16 @@ interface DisplaySettingsState {
   allFieldsLength: number;
 }
 
-export class DisplaySettings extends React.Component<
-  DisplaySettingsProps,
+export class LegacyDisplaySettings extends React.Component<
+  WithTranslationDisplaySettingsProps,
   DisplaySettingsState
 > {
   debounceHandleSearch: () => void;
   attrAndRelationList: { id: string; name: string; category: string }[] = [];
 
-  constructor(props: DisplaySettingsProps) {
+  constructor(props: WithTranslationDisplaySettingsProps) {
     super(props);
+    const { t } = props;
     const attrAndRelationList = getBatchEditableFields(this.props.modelData);
     let hideColumns = this.props.modelData.view.hide_columns || [];
     const ignoredFields = get(
@@ -66,7 +71,7 @@ export class DisplaySettings extends React.Component<
       category: get(
         attribute,
         "tag[0]",
-        get(attribute, "left_tags[0]", "其他") || "其他"
+        get(attribute, "left_tags[0]") || t(K.OTHERS)
       ),
     }));
 
@@ -108,7 +113,7 @@ export class DisplaySettings extends React.Component<
     this.debounceHandleSearch = debounce(this.filterColTag, 300);
   }
 
-  componentDidUpdate(prevProps: DisplaySettingsProps) {
+  componentDidUpdate(prevProps: WithTranslationDisplaySettingsProps) {
     if (this.props.currentFields !== prevProps.currentFields) {
       this.setState({
         nextFields: this.props.currentFields
@@ -225,7 +230,7 @@ export class DisplaySettings extends React.Component<
     const categoryOrders = [
       ...new Set([
         ...get(this.props.modelData, "view.attr_category_order", []),
-        "其他",
+        this.props.t(K.OTHERS),
       ]),
     ]; //分组排序
     return categoryOrders;
@@ -266,6 +271,7 @@ export class DisplaySettings extends React.Component<
     this.debounceHandleSearch();
   };
   render() {
+    const { t } = this.props;
     const filteredList = this.state.filteredList;
     const extraAttrIds = extraFieldAttrs.map(
       (extraFieldAttr) => extraFieldAttr.id
@@ -281,14 +287,12 @@ export class DisplaySettings extends React.Component<
     return (
       <>
         <Divider orientation="left" plain style={{ marginTop: 0 }}>
-          {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.FIELD_SETTINGS}`)}
+          {t(K.FIELD_SETTINGS)}
         </Divider>
         <div>
           <Input.Search
             value={this.state.q}
-            placeholder={i18n.t(
-              `${NS_LIBS_CMDB_INSTANCES}:${K.SEARCH_BY_FIELD_NAME}`
-            )}
+            placeholder={t(K.SEARCH_BY_FIELD_NAME)}
             onChange={this.handleSearchChange}
             style={{ width: 200 }}
             data-testid="search-input"
@@ -302,7 +306,7 @@ export class DisplaySettings extends React.Component<
               }
               data-testid={`checkbox-select-all`}
             >
-              {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.SELECT_ALL}`)}
+              {t(K.SELECT_ALL)}
             </Checkbox>
           </span>
         </div>
@@ -357,3 +361,7 @@ export class DisplaySettings extends React.Component<
     );
   }
 }
+
+export const DisplaySettings = withTranslation(NS_LIBS_CMDB_INSTANCES)(
+  LegacyDisplaySettings
+);

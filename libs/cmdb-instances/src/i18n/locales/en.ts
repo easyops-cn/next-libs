@@ -66,10 +66,13 @@ const locale: Locale = {
   [K.SEARCH]: "Search",
   [K.RESET]: "Reset",
   [K.CREATOR]: "Creator",
-  [K.CREATION_TIME]: "Creation time",
+  [K.CREATE_TIME]: "Creation time",
   [K.MODIFIER]: "Modifier",
-  [K.LAST_MODIFICATION_TIME]: "Last modification time",
-  [K.DEVELOPMENT]: "Development",
+  [K.MODIFY_TIME]: "Modification time",
+  [K.DEV]: "Development",
+  [K.TEST]: "Testing",
+  [K.PROD]: "Production",
+  [K.PRE_RELEASE]: "Pre-release",
   [K.VIEW]: "View",
   [K.ITEM_ADD_IN_BATCHES]: "Add {{name}} in batches",
   [K.SAVE]: "Save",
@@ -146,6 +149,9 @@ const locale: Locale = {
   [K.ID]: "ID",
   [K.SORT]: "sort",
   [K.COMMA]: ", ",
+  [K.MORE_RESULTS_TIPS]:
+    "Only display the top {{pageSize}} items, more results please search",
+  [K.OTHERS]: "Others",
 };
 
 export default locale;

@@ -80,7 +80,7 @@ export const extraFieldAttrs: extraFieldAttrType[] = [
   },
   {
     id: "ctime",
-    name: i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CREATION_TIME}`),
+    name: i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CREATE_TIME}`),
     isRelation: false,
     value: {
       type: "datetime",
@@ -96,7 +96,7 @@ export const extraFieldAttrs: extraFieldAttrType[] = [
   },
   {
     id: "mtime",
-    name: i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.LAST_MODIFICATION_TIME}`),
+    name: i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.MODIFY_TIME}`),
     isRelation: false,
     value: {
       type: "datetime",

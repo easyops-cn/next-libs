@@ -394,19 +394,19 @@ describe("ModelAttributeFormControl", () => {
       const data = [
         {
           id: "0",
-          text: "开发",
+          text: "DEV",
         },
         {
           id: "1",
-          text: "测试",
+          text: "TEST",
         },
         {
           id: "2",
-          text: "生产",
+          text: "PROD",
         },
         {
           id: "3",
-          text: "预发布",
+          text: "PRE_RELEASE",
         },
       ];
       expect(result).toEqual(data);
@@ -879,10 +879,10 @@ describe("ModelAttributeFormControl", () => {
     wrapper.update();
     const options = wrapper.find("Radio");
     expect(options).toHaveLength(4);
-    expect(options.get(0).props.children).toEqual("开发");
-    expect(options.get(1).props.children).toEqual("测试");
-    expect(options.get(2).props.children).toEqual("生产");
-    expect(options.get(3).props.children).toEqual("预发布");
+    expect(options.get(0).props.children).toEqual("DEV");
+    expect(options.get(1).props.children).toEqual("TEST");
+    expect(options.get(2).props.children).toEqual("PROD");
+    expect(options.get(3).props.children).toEqual("PRE_RELEASE");
   });
 
   it("should works with url", () => {
