@@ -347,7 +347,7 @@ export const CmdbInstanceSelect = React.forwardRef(function CmdbInstanceSelect(
             {menu}
             {showSearchTip && total > pageSize && (
               <div className={style.moreChoices}>
-                仅显示前{pageSize}项，更多结果请搜索
+                {t(K.MORE_RESULTS_TIPS, { pageSize })}
               </div>
             )}
           </div>

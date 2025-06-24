@@ -62,10 +62,13 @@ const locale: Locale = {
   [K.SEARCH]: "搜索",
   [K.RESET]: "重置",
   [K.CREATOR]: "创建者",
-  [K.CREATION_TIME]: "创建时间",
+  [K.CREATE_TIME]: "创建时间",
   [K.MODIFIER]: "修改者",
-  [K.LAST_MODIFICATION_TIME]: "修改时间",
-  [K.DEVELOPMENT]: "开发",
+  [K.MODIFY_TIME]: "修改时间",
+  [K.DEV]: "开发",
+  [K.TEST]: "测试",
+  [K.PROD]: "生产",
+  [K.PRE_RELEASE]: "预发布",
   [K.VIEW]: "查看",
   [K.ITEM_ADD_IN_BATCHES]: "批量添加{{name}}",
   [K.SAVE]: "保存",
@@ -133,6 +136,8 @@ const locale: Locale = {
   [K.ID]: "ID",
   [K.SORT]: "排序",
   [K.COMMA]: "，",
+  [K.MORE_RESULTS_TIPS]: "仅显示前{{pageSize}}项，更多结果请搜索",
+  [K.OTHERS]: "其他",
 };
 
 export default locale;

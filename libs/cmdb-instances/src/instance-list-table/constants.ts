@@ -1,3 +1,8 @@
+import i18next from "i18next";
+import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
+
+const t = i18next.getFixedT(null, NS_LIBS_CMDB_INSTANCES);
+
 export const CMDB_RESOURCE_FIELDS_SETTINGS = {
   defaultFields: {
     APP: ["name", "businesses", "owner", "developer", "tester"],
@@ -59,7 +64,7 @@ export enum otherFieldIds {
 export const extraFieldAttrs = [
   {
     id: "creator",
-    name: "创建者",
+    name: t(K.CREATOR),
     isRelation: false,
     value: {
       type: "str",
@@ -67,7 +72,7 @@ export const extraFieldAttrs = [
   },
   {
     id: "ctime",
-    name: "创建时间",
+    name: t(K.CREATE_TIME),
     isRelation: false,
     value: {
       type: "datetime",
@@ -75,7 +80,7 @@ export const extraFieldAttrs = [
   },
   {
     id: "modifier",
-    name: "修改者",
+    name: t(K.MODIFIER),
     isRelation: false,
     value: {
       type: "str",
@@ -83,7 +88,7 @@ export const extraFieldAttrs = [
   },
   {
     id: "mtime",
-    name: "修改时间",
+    name: t(K.MODIFY_TIME),
     isRelation: false,
     value: {
       type: "datetime",
@@ -91,8 +96,8 @@ export const extraFieldAttrs = [
   },
 ];
 export const clusterMap: Record<string, string> = {
-  "0": "开发",
-  "1": "测试",
-  "2": "生产",
-  "3": "预发布",
+  "0": t(K.DEV),
+  "1": t(K.TEST),
+  "2": t(K.PROD),
+  "3": t(K.PRE_RELEASE),
 };

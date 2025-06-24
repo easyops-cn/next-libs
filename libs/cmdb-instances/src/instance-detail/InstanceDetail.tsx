@@ -239,7 +239,7 @@ export class LegacyInstanceDetail extends React.Component<
         },
         {
           value: "ctime",
-          label: i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CREATION_TIME}`),
+          label: i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.CREATE_TIME}`),
         },
         {
           value: "modifier",
@@ -247,9 +247,7 @@ export class LegacyInstanceDetail extends React.Component<
         },
         {
           value: "mtime",
-          label: i18n.t(
-            `${NS_LIBS_CMDB_INSTANCES}:${K.LAST_MODIFICATION_TIME}`
-          ),
+          label: i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.MODIFY_TIME}`),
         },
       ],
       basicInfoGroupList: [],

@@ -1048,7 +1048,7 @@ describe("ModelAttributeForm", () => {
     expect(instance.permissionAttrProcess("test_key")).toBe("test_key");
 
     expect(instance.getFeildTag({ tag: "", __isRelation: true })).toEqual("");
-    expect(instance.getFeildTag({ tag: "" })).toEqual("基本信息");
+    expect(instance.getFeildTag({ tag: "" })).toEqual("BASIC_INFORMATION");
     expect(instance.getFeildTag({ tag: ["aa"] })).toEqual("aa");
     expect(instance.getFeildTag({ left_tags: ["bb"] })).toEqual("bb");
 
