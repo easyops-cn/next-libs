@@ -1206,7 +1206,7 @@ export function LegacyInstanceList(
         });
       }
     }
-  }, [props.objectId, props.presetConfigs]);
+  }, [props.objectId, props.presetConfigs, processFixedFields]);
 
   useEffect(() => {
     setSelectedRowKeys(props.selectedRowKeys ?? []);
