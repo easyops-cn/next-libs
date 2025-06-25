@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.29.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.28.10...@next-libs/cmdb-instances@7.29.0) (2025-06-25)
+
+
+### Features
+
+* 实例列表属性extraFixedField支持表格固定列 ([#739](https://github.com/easyops-cn/next-libs/issues/739)) ([c147a66](https://github.com/easyops-cn/next-libs/commit/c147a6606556919fbebdd7d259aad426cdb83acd))
+
+
+
+
+
 ## [7.28.10](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.28.9...@next-libs/cmdb-instances@7.28.10) (2025-06-24)
 
 
