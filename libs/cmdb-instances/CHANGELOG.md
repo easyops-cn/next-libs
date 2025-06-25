@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.29.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.29.0...@next-libs/cmdb-instances@7.29.1) (2025-06-25)
+
+
+### Bug Fixes
+
+* 修复extraFixedFields变化没有重新计算 fieldids 值 ([f474455](https://github.com/easyops-cn/next-libs/commit/f474455fc40f7f943fc84b3ace4f65284ddd6b50))
+
+
+
+
+
 # [7.29.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.28.10...@next-libs/cmdb-instances@7.29.0) (2025-06-25)
 
 
