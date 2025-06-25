@@ -27,6 +27,7 @@ import {
   cloneDeep,
   isNil,
   get,
+  isArray,
 } from "lodash";
 import {
   BrickAsComponent,
@@ -493,6 +494,26 @@ export interface filterObjectIdQuery {
   checked?: boolean;
 }
 
+interface FixedField {
+  field: string;
+  fixed?: boolean;
+}
+
+export type ExtraFixedFields = string[] | FixedField[];
+
+// 判断是不是字符串数组
+function isStringArray(arr: ExtraFixedFields): boolean {
+  return isArray(arr) && (arr as any[]).every((item) => isString(item));
+}
+// 格式化extraFixedFields
+function getExtraFixedFields(fields: ExtraFixedFields): string[] {
+  if (isNil(fields) || isStringArray(fields)) {
+    return fields as string[];
+  } else {
+    return (fields as FixedField[]).map((v: FixedField) => v.field);
+  }
+}
+
 export interface InstanceListProps {
   objectId: string;
   objectList?: Partial<CmdbModels.ModelCmdbObject>[];
@@ -573,9 +594,9 @@ export interface InstanceListProps {
   rowSelectionType?: "checkbox" | "radio";
   useAutoDiscoveryProvider?: boolean;
   extraParams?: Record<string, any>;
-  // 指定固定显示的field,与presetConfigs的fieldIds同时生效
-  extraFixedFields?: string[];
-  //  如果在presetConfigs的query参数中指定了资源的范围，“按应用筛选”的功能是否也要限定资源的范围
+  // 指定固定显示的field,与presetConfigs的fieldIds同时生效,支持在最后固定列展示
+  extraFixedFields?: ExtraFixedFields;
+  //  如果在presetConfigs的query参数中指定了资源的范围，"按应用筛选"的功能是否也要限定资源的范围
   limitInstanceRange?: boolean;
   useInstanceArchiveProvider?: boolean;
   placeholder?: string;
@@ -728,6 +749,10 @@ export function LegacyInstanceList(
     return { modelData, idObjectMap };
   }, [props.objectList, props.objectId]);
 
+  const processFixedFields = useMemo(() => {
+    return getExtraFixedFields(props?.extraFixedFields);
+  }, [props.extraFixedFields]);
+
   const [inheritanceModelIdNameMap, setInheritanceModelIdNameMap] = useState<
     Record<string, string>
   >({});
@@ -840,7 +865,7 @@ export function LegacyInstanceList(
       sortFields = returnData.sortFields;
       backendDefaultFields = returnData.defaultSortFields;
     }
-    const extraFixedFieldIds = props.extraFixedFields ?? [];
+    const extraFixedFieldIds = processFixedFields ?? [];
     if (isEmpty(fieldIds)) {
       fieldIds = sortFields.map((item) => item.field);
       if (isEmpty(sort) || isEmpty(asc)) {
@@ -869,7 +894,7 @@ export function LegacyInstanceList(
 
   const getFields = () => {
     let fieldIds = props.presetConfigs?.fieldIds;
-    const extraFixedFieldIds = props.extraFixedFields ?? [];
+    const extraFixedFieldIds = processFixedFields ?? [];
     if (isEmpty(fieldIds)) {
       fieldIds = jsonLocalStorage.getItem(
         `${modelData.objectId}-selectAttrIds`
@@ -950,8 +975,8 @@ export function LegacyInstanceList(
   ): Promise<InstanceApi_PostSearchV3ResponseBody> => {
     const data: InstanceApi_PostSearchRequestBody = {};
     const v3Data: InstanceApi_PostSearchV3RequestBody = {
-      fields: props?.extraFixedFields
-        ? uniq(["instanceId"].concat(props?.extraFixedFields))
+      fields: processFixedFields
+        ? uniq(["instanceId"].concat(processFixedFields))
         : ["instanceId"],
     };
     if (!isEmpty(props.permission)) {
@@ -987,7 +1012,7 @@ export function LegacyInstanceList(
         state.q,
         state.fieldIds,
         props.onlySearchByIp,
-        props.extraFixedFields
+        processFixedFields
       );
     }
 
@@ -1465,7 +1490,7 @@ export function LegacyInstanceList(
   const defaultFields = useMemo(() => {
     let defaultFields: string[];
     const fieldIds = props.presetConfigs?.fieldIds,
-      extraFixedFieldIds = props.extraFixedFields ?? [];
+      extraFixedFieldIds = processFixedFields ?? [];
     if (!isEmpty(fieldIds)) {
       defaultFields = props.presetConfigs.fieldIds;
     } else {
@@ -1490,7 +1515,12 @@ export function LegacyInstanceList(
       defaultFields = uniq([...defaultFields, ...extraFixedFieldIds]);
     }
     return defaultFields;
-  }, [props.presetConfigs, modelData, state.backendDefaultFields]);
+  }, [
+    props.presetConfigs,
+    modelData,
+    state.backendDefaultFields,
+    processFixedFields,
+  ]);
 
   // istanbul ignore next
   const handleConfirm = async ({
@@ -1751,6 +1781,16 @@ export function LegacyInstanceList(
       setState({ aq, aqToShow });
     }
   }, [props.aq, props.aqToShow, props.showFilterInstanceSource]);
+
+  const fixedFieldIds = useMemo(() => {
+    if (!props.extraFixedFields || isStringArray(props.extraFixedFields)) {
+      return [];
+    } else {
+      return (props.extraFixedFields as FixedField[])
+        .filter((v: FixedField) => v.fixed)
+        .map((v) => v.field);
+    }
+  }, [props.extraFixedFields]);
 
   return (
     <Spin spinning={state.loading}>
@@ -2055,6 +2095,7 @@ export function LegacyInstanceList(
               relationLimit={props.relationLimit}
               onRelationMoreIconClick={props.onRelationMoreIconClick}
               configProps={props.tableConfigProps}
+              fixedFieldIds={fixedFieldIds}
             />
           )}
         </React.Fragment>
