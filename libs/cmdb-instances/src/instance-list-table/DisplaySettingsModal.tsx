@@ -51,7 +51,7 @@ export function DisplaySettingsModal(
 
   const { t } = useTranslation(NS_LIBS_CMDB_INSTANCES);
   const sortAttrList = sortFields ? sortFields.map((v) => v.field) : [];
-  const sortCurrentFields = sortField(currentFields, sortAttrList);
+  const sortCurrentFields = sortField([...(currentFields ?? [])], sortAttrList);
 
   const [nextFields, setNextFields] = useState<string[]>(sortCurrentFields);
   const [sortSettingsVisible, setSortSettingsVisible] =

@@ -150,6 +150,8 @@ export interface InstanceListTableProps extends WithTranslation {
   showCustomizedSerialNumber?: boolean;
   // 关系查询限制数量
   relationLimit?: number;
+  // 支持表格项固定列展示的字段数组
+  fixedFieldIds?: string[];
   onRelationMoreIconClick?(record: Record<string, any>): void;
 }
 
@@ -630,6 +632,7 @@ export class LegacyInstanceListTable extends React.Component<
       title: attribute.name,
       dataIndex: attribute.id,
       className: styles.instanceListTableCell,
+      fixed: this.props.fixedFieldIds?.includes(attribute.id) ? "right" : false,
     };
     const displayConfig = this.keyDisplayConfigMap[attribute.id];
     const isPrimary = attribute.id === getInstanceNameKeys(object)[0];
@@ -911,12 +914,12 @@ export class LegacyInstanceListTable extends React.Component<
     firstColumns?: boolean
   ): ColumnType<Record<string, any>> {
     const key = relation[`${sides.this}_id` as RelationIdKeys];
-
     const column: ColumnType<Record<string, any>> = {
       title: relation[`${sides.this}_name` as RelationNameKeys],
       dataIndex: key,
       sorter: !this.props.sortDisabled,
       className: styles.instanceListTableCell,
+      fixed: this.props.fixedFieldIds?.includes(key) ? "right" : false,
     };
     const displayConfig = this.keyDisplayConfigMap[key];
     let tempColumns: any;

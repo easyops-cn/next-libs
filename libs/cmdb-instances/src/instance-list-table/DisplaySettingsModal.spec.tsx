@@ -36,7 +36,7 @@ describe("DisplaySettingsModal", () => {
     // DisplaySettings onChange
     const nextFields = currentFields.slice(0, 2);
     const displaySettings = wrapper.find(DisplaySettings);
-    expect(displaySettings.prop("currentFields")).toBe(currentFields);
+    expect(displaySettings.prop("currentFields")).toStrictEqual(currentFields);
     displaySettings.invoke("onChange")(nextFields);
     expect(wrapper.find(DisplaySettings).prop("currentFields")).toBe(
       nextFields
