@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.29.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.29.1...@next-libs/cmdb-instances@7.29.2) (2025-06-30)
+
+
+### Bug Fixes
+
+* CMDB_INSTANCE-2987 CMDB实例页面对关系进行排序时，不按照对端关系的showkey来排序，导致乱序 ref CMDB_INSTANCE-2987 ([1b2212c](https://github.com/easyops-cn/next-libs/commit/1b2212c063a6f32d2ce60068d5f285ef6c68ff76))
+
+
+
+
+
 ## [7.29.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.29.0...@next-libs/cmdb-instances@7.29.1) (2025-06-25)
 
 
