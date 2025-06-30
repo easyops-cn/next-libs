@@ -1002,7 +1002,28 @@ export function LegacyInstanceList(
       : -1;
     if (sort) {
       data.sort = { [sort]: order };
-      v3Data.sort = [{ key: sort, order }];
+      let relationObjectShowKeys: string[] = [];
+      if (
+        !props.useExternalCmdbApi &&
+        !props.useAutoDiscoveryProvider &&
+        !props.ignorePermission
+      ) {
+        const relation = modelData?.relation_list?.find((i) =>
+          i.right_object_id === props.objectId
+            ? sort === i.right_id
+            : sort === i.left_id
+        );
+        const relationObjectId =
+          relation?.right_object_id === props.objectId
+            ? relation?.left_object_id
+            : relation?.right_object_id;
+        relationObjectShowKeys = props.objectList?.find(
+          (i) => i.objectId === relationObjectId
+        )?.view?.show_key;
+      }
+      v3Data.sort = relationObjectShowKeys?.length
+        ? relationObjectShowKeys.map((i) => ({ key: `${sort}.${i}`, order }))
+        : [{ key: sort, order }];
     }
 
     if (state.q) {
