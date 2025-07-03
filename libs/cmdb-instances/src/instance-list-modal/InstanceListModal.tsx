@@ -105,20 +105,24 @@ export function InstanceListModal(
         page: 1,
         page_size: selectedInstanceListTemp.length,
       };
-      if (props.useExternalCmdbApi) {
-        resp = await externalPostSearchV3.query([
-          {
-            ...requestParams,
-            objectId: props.objectId,
-            sourceId: props.externalSourceId,
-            ignore_missing_field_error: true,
-          },
-        ]);
-      } else {
-        resp = await InstanceApi_postSearch(props.objectId, requestParams);
+      try {
+        if (props.useExternalCmdbApi) {
+          resp = await externalPostSearchV3.query([
+            {
+              ...requestParams,
+              objectId: props.objectId,
+              sourceId: props.externalSourceId,
+              ignore_missing_field_error: true,
+            },
+          ]);
+        } else {
+          resp = await InstanceApi_postSearch(props.objectId, requestParams);
+        }
+        props.onSelected?.(selectedInstanceListTemp);
+        props.onSelectedV2?.(resp.list);
+      } catch {
+        props.onSelected?.(selectedInstanceListTemp);
       }
-      props.onSelected?.(selectedInstanceListTemp);
-      props.onSelectedV2?.(resp.list);
       return;
     }
 
