@@ -16,7 +16,7 @@ import {
 import style from "./style.module.css";
 import i18n from "i18next";
 import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
-import { keyBy, isEqual, isNil, isObject, isEmpty } from "lodash";
+import { keyBy, isEqual, isNil, isObject, isEmpty, uniqBy } from "lodash";
 import { Spin } from "antd";
 import { useProvider } from "@next-core/brick-kit";
 
@@ -51,6 +51,7 @@ export interface BaseCmdbInstancesSelectPanelProps {
   useExternalCmdbApi?: boolean;
   externalSourceId?: string;
   filterInstanceSourceDisabled?: boolean;
+  limitMaxQueryNumber?: boolean; //value超过了3000条数据时，是否限制只查询3000条数据
 }
 
 export interface CmdbInstancesSelectPanelPropsWithObjectMap
@@ -127,7 +128,7 @@ export function CmdbInstancesSelectPanel(
   }
 
   const displayedSelectedInstancesMaxNumber = props.previewMaxNumber ?? 5;
-
+  const { limitMaxQueryNumber = true } = props;
   const [selectedInstanceList, setSelectedInstanceList] = useState([]);
   const [partialSelectedInstances, setPartialSelectedInstances] = useState([]);
   // const [instanceTableData, setInstanceTableData] = useState({list: []})
@@ -169,9 +170,51 @@ export function CmdbInstancesSelectPanel(
       if (props.useExternalCmdbApi) {
         instances = (await externalPostSearchV3.query([instancesParams])).list;
       } else {
-        instances = (
-          await InstanceApi_postSearch(props.objectId, instancesParams)
-        ).list;
+        const maxQueryNumber = 3000;
+        const instanceIdListLen = limitMaxQueryNumber
+          ? maxQueryNumber
+          : instanceIdList.length;
+        const queryInstances = (
+          await Promise.all(
+            Array(Math.ceil(instanceIdListLen / maxQueryNumber))
+              .fill(0)
+              .map(async (_, index) => {
+                const pageSize =
+                  instanceIdList.length < maxQueryNumber
+                    ? instanceIdList.length
+                    : instanceIdList.length - index * maxQueryNumber <
+                      maxQueryNumber
+                    ? instanceIdList.length - index * maxQueryNumber
+                    : maxQueryNumber;
+                const instanceIds = instanceIdList.slice(
+                  index * maxQueryNumber,
+                  index * maxQueryNumber + pageSize
+                );
+                return (
+                  await InstanceApi_postSearch(props.objectId, {
+                    ...instancesParams,
+                    query: {
+                      instanceId: {
+                        $in: instanceIds,
+                      },
+                    },
+                    page_size: pageSize,
+                    page: 1,
+                  })
+                ).list;
+              })
+          )
+        ).flat();
+        instances =
+          limitMaxQueryNumber && instanceIdList.length > maxQueryNumber
+            ? uniqBy(
+                [
+                  ...queryInstances,
+                  ...instanceIdList.map((i) => ({ instanceId: i })),
+                ],
+                "instanceId"
+              )
+            : queryInstances;
       }
     }
 
