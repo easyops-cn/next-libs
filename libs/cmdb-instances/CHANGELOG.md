@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.29.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.29.3...@next-libs/cmdb-instances@7.29.4) (2025-07-04)
+
+
+### Bug Fixes
+
+* DESKTOP-589 售后工单_资产管理新建盘点指定盘点范围大于3000条报错_Linux4.19.9023.34.v2101.ky10 _x86 ref DESKTOP-589 ([05b0d96](https://github.com/easyops-cn/next-libs/commit/05b0d965333d9cf4bddd20a02e2ceb056f95a478))
+
+
+
+
+
 ## [7.29.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.29.2...@next-libs/cmdb-instances@7.29.3) (2025-07-03)
 
 
