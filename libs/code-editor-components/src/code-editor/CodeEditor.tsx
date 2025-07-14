@@ -55,6 +55,7 @@ export function CodeEditorItem(
   const compileSchema = useRef(false);
   const containerRef = useRef<HTMLDivElement>();
   const [tempOverrideMode, setTempOverrideMode] = useState<string>();
+  const value = props.value ?? "";
 
   useEffect(() => {
     let schemaValue = props.jsonSchema;
@@ -116,10 +117,10 @@ export function CodeEditorItem(
     // ace 官方库缺少 yaml 语法校验，这里主动校验。等 https://github.com/ajaxorg/ace/pull/3979 合并后可去掉
     let yamlLintAnnotations: Annotation[] = [];
     let schemaAnnotations: Annotation[] = [];
-    if (props.value) {
+    if (value) {
       try {
         if (!props.enableUseMultipleYamlFiles) {
-          const data = yaml.safeLoad(props.value, {
+          const data = yaml.safeLoad(value, {
             schema: yaml.JSON_SCHEMA,
             json: true,
           });
@@ -128,7 +129,7 @@ export function CodeEditorItem(
           }
         } else {
           yaml.safeLoadAll(
-            props.value,
+            value,
             function (doc) {
               if (jsonSchema) {
                 schemaAnnotations.push(...schemaLint(doc));
@@ -211,7 +212,7 @@ export function CodeEditorItem(
         editor.getSession()?.setAnnotations(newAnnotations);
       }
     }
-  }, [props.value, props.mode]);
+  }, [value, props.mode]);
 
   useEffect(() => {
     if (
@@ -255,7 +256,7 @@ export function CodeEditorItem(
   };
 
   const handleExport = () => {
-    FileSaver.saveAs(new Blob([props.value]), props.exportFileName);
+    FileSaver.saveAs(new Blob([value]), props.exportFileName);
   };
 
   useEffect(() => {
@@ -311,9 +312,9 @@ export function CodeEditorItem(
       jsonSchema
     ) {
       let schemaAnnotations: Annotation[] = [];
-      let data = props.value;
+      let data = value;
       try {
-        data = JSON.parse(props.value);
+        data = JSON.parse(value);
         schemaAnnotations = schemaLint(data);
       } catch (e) {
         // do nothing
@@ -352,7 +353,7 @@ export function CodeEditorItem(
 
   useEffect(() => {
     findHighlightTokens();
-  }, [props.value, findHighlightTokens]);
+  }, [value, findHighlightTokens]);
 
   const markersRef = useRef<ExtendedMarker[]>();
   useEffect(() => {
@@ -465,7 +466,7 @@ export function CodeEditorItem(
               : props.mode)) ??
           "text"
         }
-        value={props.value}
+        value={value}
         setOptions={{
           readOnly: props.readOnly,
           showLineNumbers: props.showLineNumbers,
@@ -509,7 +510,7 @@ export function CodeEditorItem(
           >
             <span className={shareStyle.copyIcon}>
               <Clipboard
-                text={props.value}
+                text={value}
                 onCopy={onButtonCopy}
                 icon={{ theme: "outlined" }}
               />
