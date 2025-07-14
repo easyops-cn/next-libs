@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.12.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.12.5...@next-libs/code-editor-components@4.12.6) (2025-07-14)
+
+
+### Bug Fixes
+
+* **CodeEditor:** value defaults to an empty string ([0bf1da3](https://github.com/easyops-cn/next-libs/commit/0bf1da3a9f21303d24041429ab15ce3342c46bf2))
+
+
+
+
+
 ## [4.12.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.12.4...@next-libs/code-editor-components@4.12.5) (2025-01-24)
 
 **Note:** Version bump only for package @next-libs/code-editor-components
