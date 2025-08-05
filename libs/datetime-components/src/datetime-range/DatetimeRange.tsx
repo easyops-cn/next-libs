@@ -64,11 +64,11 @@ export interface RangeText {
 export const defaultRangeOptionList: RangeText[] = [
   {
     range: "now-1h",
-    text: i18n.t(`${NS_LIBS_DATETIME_COMPONENTS}:${K.NEARLY_AN_HOUR}`),
+    text: i18n.t(`${NS_LIBS_DATETIME_COMPONENTS}:${K.LAST_AN_HOUR}`),
   },
   {
     range: "now-1d",
-    text: i18n.t(`${NS_LIBS_DATETIME_COMPONENTS}:${K.NEARLY_24_HOURS}`),
+    text: i18n.t(`${NS_LIBS_DATETIME_COMPONENTS}:${K.LAST_24_HOURS}`),
   },
   {
     range: "now/d",
@@ -80,7 +80,7 @@ export const defaultRangeOptionList: RangeText[] = [
   },
   {
     range: "now-30d",
-    text: i18n.t(`${NS_LIBS_DATETIME_COMPONENTS}:${K.NEARLY_30_DAYS}`),
+    text: i18n.t(`${NS_LIBS_DATETIME_COMPONENTS}:${K.LAST_30_DAYS}`),
   },
 ];
 
@@ -184,8 +184,8 @@ export class DatetimeRange extends React.Component<
       dateRange = {
         type: this.state.type,
         value: {
-          from: this.state.specifiedDate[0].unix()*1000,
-          to: this.state.specifiedDate[1].unix()*1000,
+          from: this.state.specifiedDate[0].unix() * 1000,
+          to: this.state.specifiedDate[1].unix() * 1000,
         },
       };
     }
