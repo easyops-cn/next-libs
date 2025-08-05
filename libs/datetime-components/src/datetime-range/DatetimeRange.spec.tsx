@@ -24,7 +24,7 @@ describe("DatetimeRange", () => {
     };
     wrapper.setState({ dateRange });
     expect(component.getButtonText()).toBe(
-      i18n.t(`${NS_LIBS_DATETIME_COMPONENTS}:${K.NEARLY_30_DAYS}`)
+      i18n.t(`${NS_LIBS_DATETIME_COMPONENTS}:${K.LAST_30_DAYS}`)
     );
   });
   it("test getButtonText SPECIFIED_DATE", () => {
