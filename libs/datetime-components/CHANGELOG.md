@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/datetime-components@3.2.4...@next-libs/datetime-components@3.2.5) (2025-08-05)
+
+
+### Bug Fixes
+
+* datetime-range defaultRangeOptionList 国际化 优化 ([d8943ff](https://github.com/easyops-cn/next-libs/commit/d8943ffb9e1ed5dd5d22a3b383f8ac4f8fc8c7a6))
+* datetime-range defaultRangeOptionList 国际化 优化 ([fe14552](https://github.com/easyops-cn/next-libs/commit/fe14552748cc01d49e0d10da3694af65daa94351))
+
+
+
+
+
 ## [3.2.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/datetime-components@3.2.3...@next-libs/datetime-components@3.2.4) (2024-05-24)
 
 
