@@ -228,7 +228,9 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
               <GeneralIcon icon={item.icon} size={14} />
             </i>
           )}
-          <span className={style.menuItemText}>{item.text}</span>
+          <span className={style.menuItemText} title={item.text}>
+            {item.text}
+          </span>
         </Link>
       </Menu.Item>
     );
@@ -236,7 +238,10 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
 
   private renderGroupMenu(item: SidebarMenuGroup): React.ReactNode {
     return (
-      <Menu.ItemGroup key={item.key} title={item.title}>
+      <Menu.ItemGroup
+        key={item.key}
+        title={<span title={item.title}>{item.title}</span>}
+      >
         {item.items.map((innerItem) => this.renderMenuItem(innerItem))}
       </Menu.ItemGroup>
     );
@@ -253,7 +258,9 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
                 <GeneralIcon icon={item.icon} size={14} />
               </i>
             )}
-            <span className={style.menuItemText}>{item.title}</span>
+            <span className={style.menuItemText} title={item.title}>
+              {item.title}
+            </span>
           </span>
         }
       >

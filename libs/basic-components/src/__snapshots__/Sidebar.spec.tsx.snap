@@ -22,6 +22,7 @@ exports[`Sidebar should work 1`] = `
     >
       <span
         className="menuItemText"
+        title="for-good"
       >
         for-good
       </span>
@@ -41,6 +42,7 @@ exports[`Sidebar should work 1`] = `
     >
       <span
         className="menuItemText"
+        title="for-better"
       >
         for-better
       </span>
@@ -49,7 +51,13 @@ exports[`Sidebar should work 1`] = `
   <MenuItemGroup
     disabled={true}
     key="2"
-    title="grouped"
+    title={
+      <span
+        title="grouped"
+      >
+        grouped
+      </span>
+    }
   >
     <MenuItem
       key="2.0"
@@ -60,6 +68,7 @@ exports[`Sidebar should work 1`] = `
       >
         <span
           className="menuItemText"
+          title="for-perfect"
         >
           for-perfect
         </span>
@@ -84,6 +93,7 @@ exports[`Sidebar should work 1`] = `
           </i>
           <span
             className="menuItemText"
+            title="subMenu"
           >
             subMenu
           </span>
@@ -98,6 +108,7 @@ exports[`Sidebar should work 1`] = `
         >
           <span
             className="menuItemText"
+            title="for-submenu"
           >
             for-submenu
           </span>

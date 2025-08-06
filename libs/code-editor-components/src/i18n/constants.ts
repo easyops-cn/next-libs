@@ -5,6 +5,8 @@ export enum K {
   EXPORT_TOOLTIP = "EXPORT_TOOLTIP",
   EXPAND = "EXPAND",
   COLLAPSE = "COLLAPSE",
+  COPY_SUCCESS = "COPY_SUCCESS",
+  COPY_ERROR = "COPY_ERROR",
 }
 
 export type Locale = { [key in K]: string };

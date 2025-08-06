@@ -5,6 +5,8 @@ const locale: Locale = {
   [K.EXPORT_TOOLTIP]: "下载",
   [K.EXPAND]: "展开",
   [K.COLLAPSE]: "折叠",
+  [K.COPY_SUCCESS]: "复制成功",
+  [K.COPY_ERROR]: "复制失败",
 };
 
 export default locale;

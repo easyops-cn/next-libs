@@ -101,7 +101,7 @@ const locale: Locale = {
   [K.INSTANCE_DETAIL]: "",
   [K.COPY]: "Copy",
   [K.COPY_SUCCESS]: "Copy success",
-  [K.FILTER_FROM_CMDB_TYPE]: "Filter {{type}} from CMDB",
+  [K.FILTER_FROM_CMDB_TYPE]: "Filter {{type}} From CMDB",
   [K.USERS]: "Users",
   [K.USER_GROUPS]: "User Groups",
   [K.USERS_OR_USER_GROUPS]: "Users or user groups",
