@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.12.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.12.6...@next-libs/code-editor-components@4.12.7) (2025-08-06)
+
+
+### Bug Fixes
+
+* i18n fix ([efadedd](https://github.com/easyops-cn/next-libs/commit/efadedd662c8c66471e6c6f7aefdbefa7e4fac61))
+
+
+
+
+
 ## [4.12.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.12.5...@next-libs/code-editor-components@4.12.6) (2025-07-14)
 
 

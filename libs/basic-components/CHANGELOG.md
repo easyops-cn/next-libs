@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@5.5.2...@next-libs/basic-components@5.5.3) (2025-08-06)
+
+
+### Bug Fixes
+
+* i18n fix ([efadedd](https://github.com/easyops-cn/next-libs/commit/efadedd662c8c66471e6c6f7aefdbefa7e4fac61))
+
+
+
+
+
 ## [5.5.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/basic-components@5.5.1...@next-libs/basic-components@5.5.2) (2025-01-24)
 
 
