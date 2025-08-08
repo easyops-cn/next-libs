@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.29.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.29.7...@next-libs/cmdb-instances@7.29.8) (2025-08-08)
+
+
+### Bug Fixes
+
+* **cmdb-instances:** i8n fix ([21d3a46](https://github.com/easyops-cn/next-libs/commit/21d3a46153c485ab6e7741d3a8b2fbf2e7f215a2))
+
+
+
+
+
 ## [7.29.7](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.29.6...@next-libs/cmdb-instances@7.29.7) (2025-08-06)
 
 
