@@ -249,9 +249,9 @@ export function CodeEditorItem(
 
   const onButtonCopy = (text: string, success: boolean): void => {
     if (success) {
-      message.success("复制成功");
+      message.success(i18n.t(`${NS_CODE_EDITOR_COMPONENTS}:${K.COPY_SUCCESS}`));
     } else {
-      message.error("复制失败");
+      message.error(i18n.t(`${NS_CODE_EDITOR_COMPONENTS}:${K.COPY_ERROR}`));
     }
   };
 
