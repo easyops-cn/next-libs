@@ -13,7 +13,7 @@ const locale: Locale = {
   [K.MATCHING_REGULAR]: "Matching regular {{regexp}}",
   [K.ADD]: "Add",
   [K.ENTER_MULTIPLE_STRING_WITH_ENTER_KEY_AS_THE_SEPARATOR]:
-    "Please enter {{label}}, separate multiple entries with enter key",
+    "Please enter {{label}}, supports entering multiple values by pressing the Enter key",
   [K.UNIQUE_NO_REPEAT]: "{{label}} is unique and cannot be repeated",
   [K.TYPE_NO_SUPPORT_EDIT]: "{{type}} does not support editing for now",
   [K.TEMPORARILY_NOT_CHOOSE]: "Temporarily not choose",
