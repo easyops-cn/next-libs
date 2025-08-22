@@ -79,6 +79,8 @@ export interface InstanceListModalProps {
   propertyDisplayConfigs?: UseBrickAndPropertyDisplayConfig[];
   modalWidth?: number;
   relationLimit?: number;
+  detailUrlTemplates?: Record<string, any>;
+  detailUrlTarget?: string;
 }
 
 export function InstanceListModal(
@@ -294,6 +296,8 @@ export function InstanceListModal(
           showHiddenInfoDisabled={props.showHiddenInfoDisabled}
           propertyDisplayConfigs={props.propertyDisplayConfigs}
           relationLimit={props.relationLimit}
+          target={props.detailUrlTarget}
+          detailUrlTemplates={props.detailUrlTemplates}
         />
       </div>
     </Modal>
