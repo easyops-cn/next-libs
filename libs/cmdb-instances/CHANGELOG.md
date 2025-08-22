@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.29.11](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.29.10...@next-libs/cmdb-instances@7.29.11) (2025-08-22)
+
+
+### Bug Fixes
+
+*  CMDB_INSTANCE-3148 实例拓扑聚类为列表模式时，提供实例详情的跳转 ref CMDB_INSTANCE-3148 ([b2624e3](https://github.com/easyops-cn/next-libs/commit/b2624e36c46bf6968681820574363566bd62daff))
+
+
+
+
+
 ## [7.29.10](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.29.9...@next-libs/cmdb-instances@7.29.10) (2025-08-11)
 
 
