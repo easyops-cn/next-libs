@@ -807,7 +807,7 @@ export function LegacyInstanceList(
     return { fieldIds };
   };
 
-  // 根据用户预定义的 presetConfigs.fieldIds 进行排序，如果不在预定义的字段，则根据 modelData.view.attr_order 进行排序
+  // 根据用户预定义的 presetConfigs.fieldIds 进行排序，如果不在预定义的字段，则根据 fieldIds 进行排序
   const _sortFieldIds = (fieldIds: any[]) => {
     let frontFields: any[] = [];
     let restFields: any[] = [];
@@ -816,20 +816,8 @@ export function LegacyInstanceList(
         fieldIds.includes(id)
       );
     }
-    restFields = sortBy(
-      reject(fieldIds, (id) => frontFields.includes(id)),
-      (fieldId) => {
-        const foundIndex = findIndex(
-          modelData.view.attr_order,
-          (orderId) => orderId === fieldId
-        );
-        if (foundIndex === -1) {
-          return null;
-        } else {
-          return foundIndex;
-        }
-      }
-    );
+    restFields = reject(fieldIds, (id) => frontFields.includes(id));
+
     return [...frontFields, ...restFields];
   };
   // istanbul ignore next
@@ -1601,12 +1589,14 @@ export function LegacyInstanceList(
             handleHttpError(e);
           }
         } else {
+          const sortFields = mergeFields(state.sortFields, fields);
           setState({
             fieldIds: _sortFieldIds(fields),
+            sortFields,
           });
           jsonLocalStorage.setItem(
             `${modelData.objectId}-selectAttrIds`,
-            fields
+            _sortFieldIds(fields)
           );
         }
         props.onFieldsModalConfirm(fields);
