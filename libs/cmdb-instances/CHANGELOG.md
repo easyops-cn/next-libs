@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.29.13](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.29.12...@next-libs/cmdb-instances@7.29.13) (2025-09-02)
+
+
+### Bug Fixes
+
+* 在cmdb实例，用户自定义显示字段排序不生效 ([c880272](https://github.com/easyops-cn/next-libs/commit/c880272296e1c13125de08ecab2e2edf55c1fc36))
+
+
+
+
+
 ## [7.29.12](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.29.11...@next-libs/cmdb-instances@7.29.12) (2025-08-26)
 
 
