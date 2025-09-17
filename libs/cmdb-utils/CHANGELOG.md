@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.8.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@3.7.5...@next-libs/cmdb-utils@3.8.0) (2025-09-17)
+
+
+### Features
+
+* CMDB_INSTANCE-3076 实例列表可查看与自定义跨级关系  ref CMDB_INSTANCE-3076 ([25176b0](https://github.com/easyops-cn/next-libs/commit/25176b06ffdd908508f1d184da6eb5693a41edc2))
+
+
+
+
+
 ## [3.7.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-utils@3.7.4...@next-libs/cmdb-utils@3.7.5) (2025-05-14)
 
 
