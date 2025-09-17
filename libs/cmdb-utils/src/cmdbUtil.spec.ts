@@ -390,6 +390,95 @@ describe("util", () => {
     ]);
   });
 
+  it("should modify objectDataList correctly with trans_hier_relation_list", () => {
+    const modifiedClusterObjectData = modifyModelData(
+      {
+        ...clusterObjectData,
+        view: {
+          ...clusterObjectData.view,
+          hide_columns: ["type", "appId"],
+          trans_hier_relation_list: [
+            {
+              type: "transHierRelation",
+              protected: false,
+              memo: "部署实例(部署实例)-所属应用服务(服务)",
+              query_path: "artifactInsts.deployedServices",
+              relation_object: "SERVICE@ONEMODEL",
+              reverse_query_path: "relatedArtifactInst.host",
+              is_inherit: true,
+              relation_id: "transHierRelation_abc",
+              relation_name: "部署实例(部署实例)-所属应用服务(服务)",
+              display_keys: ["name", "cwd"],
+              is_parent_object: true,
+              object_id: "HOST",
+              query: {
+                fields_relation_filter: {},
+                query_path: "artifactInsts.deployedServices",
+                relation_object: "SERVICE@ONEMODEL",
+                reverse_query_path: "relatedArtifactInst.host",
+              },
+            },
+          ],
+        },
+      },
+      true
+    );
+
+    expect(modifiedClusterObjectData.__fieldList).toEqual([
+      {
+        id: "name",
+        name: "名称",
+        __id: "name",
+        __isRelation: false,
+      },
+      {
+        relation_id: "CLUSTER_deviceList_HOST",
+        left_object_id: "CLUSTER",
+        left_id: "deviceList",
+        left_name: "主机",
+        left_description: "所属集群",
+        left_min: 0,
+        left_max: -1,
+        left_groups: ["basic_info"],
+        left_tags: [],
+        right_object_id: "HOST",
+        right_id: "_deviceList_CLUSTER",
+        right_name: "所属集群",
+        right_description: "主机",
+        right_min: 0,
+        right_max: 1,
+        right_groups: [],
+        right_tags: [],
+        __id: "deviceList",
+        __isRelation: true,
+        __inverted: false,
+      },
+      {
+        __id: "transHierRelation_abc",
+        __inverted: false,
+        __isTransHierRelation: true,
+        display_keys: ["name", "cwd"],
+        is_inherit: true,
+        is_parent_object: true,
+        memo: "部署实例(部署实例)-所属应用服务(服务)",
+        object_id: "HOST",
+        protected: false,
+        query: {
+          fields_relation_filter: {},
+          query_path: "artifactInsts.deployedServices",
+          relation_object: "SERVICE@ONEMODEL",
+          reverse_query_path: "relatedArtifactInst.host",
+        },
+        query_path: "artifactInsts.deployedServices",
+        relation_id: "transHierRelation_abc",
+        relation_name: "部署实例(部署实例)-所属应用服务(服务)",
+        relation_object: "SERVICE@ONEMODEL",
+        reverse_query_path: "relatedArtifactInst.host",
+        type: "transHierRelation",
+      },
+    ]);
+  });
+
   it("should getFixedStyle", () => {
     expect(getFixedStyle({ left: 304, width: 1098 })).toStrictEqual({
       position: "fixed",
@@ -479,6 +568,28 @@ describe("util", () => {
       ],
       view: {
         attr_order: ["test_json", "TESTJJ", "EASYOPS_WIMIETEST"],
+        trans_hier_relation_list: [
+          {
+            type: "transHierRelation",
+            protected: false,
+            memo: "部署实例(部署实例)-所属应用服务(服务)",
+            query_path: "artifactInsts.deployedServices",
+            relation_object: "SERVICE@ONEMODEL",
+            reverse_query_path: "relatedArtifactInst.host",
+            is_inherit: true,
+            relation_id: "transHierRelation_abc",
+            relation_name: "部署实例(部署实例)-所属应用服务(服务)",
+            display_keys: ["name", "cwd"],
+            is_parent_object: true,
+            object_id: "HOST",
+            query: {
+              fields_relation_filter: {},
+              query_path: "artifactInsts.deployedServices",
+              relation_object: "SERVICE@ONEMODEL",
+              reverse_query_path: "relatedArtifactInst.host",
+            },
+          },
+        ],
       },
     };
     expect(getBatchEditableFields(modelData)).toEqual([
@@ -565,6 +676,34 @@ describe("util", () => {
         __isRelation: true,
         __id: "EASYOPS_WIMIETEST",
         __inverted: true,
+      },
+
+      {
+        __id: "transHierRelation_abc",
+        __inverted: false,
+        __isTransHierRelation: true,
+        display_keys: ["name", "cwd"],
+        id: "transHierRelation_abc",
+        isTransHierRelation: true,
+        is_inherit: true,
+        is_parent_object: true,
+        memo: "部署实例(部署实例)-所属应用服务(服务)",
+        name: "部署实例(部署实例)-所属应用服务(服务)",
+        objectId: "SERVICE@ONEMODEL",
+        object_id: "HOST",
+        protected: false,
+        query: {
+          fields_relation_filter: {},
+          query_path: "artifactInsts.deployedServices",
+          relation_object: "SERVICE@ONEMODEL",
+          reverse_query_path: "relatedArtifactInst.host",
+        },
+        query_path: "artifactInsts.deployedServices",
+        relation_id: "transHierRelation_abc",
+        relation_name: "部署实例(部署实例)-所属应用服务(服务)",
+        relation_object: "SERVICE@ONEMODEL",
+        reverse_query_path: "relatedArtifactInst.host",
+        type: "transHierRelation",
       },
     ]);
   });

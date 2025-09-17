@@ -68,6 +68,7 @@ import {
   ElementOperators,
   LogicalOperators,
   ComparisonOperators,
+  TransHierRelationType,
 } from "@next-libs/cmdb-utils";
 import { JsonStorage } from "@next-libs/storage";
 import { ModelObjectAttr } from "@next-sdk/cmdb-sdk/dist/types/model/cmdb";
@@ -110,6 +111,11 @@ interface ISortField {
   field: string;
   order: number;
 }
+type ObjectType = Partial<CmdbModels.ModelCmdbObject> & {
+  view?: Partial<CmdbModels.ModelObjectView> & {
+    trans_hier_relation_list?: TransHierRelationType[];
+  };
+};
 export interface InstanceListPresetConfigs {
   query?: Record<string, any>;
   fieldIds?: string[];
@@ -261,7 +267,7 @@ export function updateSortFields(
 export function translateConditions(
   aq: Query[],
   idObjectMap: Record<string, Partial<CmdbModels.ModelCmdbObject>>,
-  modelData: Partial<CmdbModels.ModelCmdbObject>,
+  modelData: ObjectType,
   t?: () => string
 ): { attrId: string; condition: string; valuesStr: string }[] {
   const conditions: {
@@ -270,6 +276,25 @@ export function translateConditions(
     valuesStr: string;
   }[] = [];
   const relations: any[] = [];
+  const transHierRelations: {
+    id: string;
+    name: string;
+    value: { type: string };
+    relationSideId: string;
+  }[] = [];
+  modelData.view?.trans_hier_relation_list?.forEach((relation) => {
+    const nameKeys = relation.display_keys?.length
+      ? relation.display_keys
+      : getInstanceNameKeys(idObjectMap[relation.relation_object]);
+    nameKeys.forEach((nameKey) => {
+      transHierRelations.push({
+        id: `${relation.relation_id}.${nameKey}`,
+        name: relation.relation_name,
+        value: { type: "str" },
+        relationSideId: relation.relation_id,
+      });
+    });
+  });
   modelData.relation_list.forEach((relation) => {
     let sidesArr: RelationObjectSides[] = [];
     if (isSelfRelation(relation)) {
@@ -309,7 +334,11 @@ export function translateConditions(
       });
     });
   });
-  const attrAndRelationList = [...modelData.attrList, ...relations];
+  const attrAndRelationList = [
+    ...modelData.attrList,
+    ...relations,
+    ...transHierRelations,
+  ];
   if (!isEmpty(aq)) {
     for (const query of aq) {
       let queries: Query[] = [query];
@@ -516,7 +545,7 @@ function getExtraFixedFields(fields: ExtraFixedFields): string[] {
 
 export interface InstanceListProps {
   objectId: string;
-  objectList?: Partial<CmdbModels.ModelCmdbObject>[];
+  objectList?: ObjectType[];
   detailUrlTemplates?: Record<string, string>;
   presetConfigs?: InstanceListPresetConfigs;
   permission?: string[];
@@ -734,8 +763,8 @@ export function LegacyInstanceList(
   );
 
   const { modelData, idObjectMap } = useMemo(() => {
-    let modelData: Partial<CmdbModels.ModelCmdbObject>;
-    const idObjectMap: Record<string, Partial<CmdbModels.ModelCmdbObject>> = {};
+    let modelData: ObjectType;
+    const idObjectMap: Record<string, ObjectType> = {};
     props.objectList.forEach((object) => {
       idObjectMap[object.objectId] = object;
       if (object.objectId === props.objectId) {
@@ -1137,7 +1166,7 @@ export function LegacyInstanceList(
       ? listProvider.query([props.objectId, v3Data])
       : props.ignorePermission
       ? ignorePermissionProvider.query([props.objectId, v3Data])
-      : InstanceApi_postSearchV3(props.objectId, v3Data);
+      : InstanceApi_postSearchV3(props.objectId, v3Data); //涉及到v3data的请求
   };
 
   const refreshInstanceList = async (
@@ -1537,6 +1566,41 @@ export function LegacyInstanceList(
     isReset,
     isAdminSetDisplay,
   }: DisplaySettingsModalData) => {
+    const onConfirm = async () => {
+      if (props.saveFieldsBackend) {
+        try {
+          const sortFields = mergeFields(state.sortFields, fields);
+          if (props.useExternalCmdbApi) {
+            await externalUpdateFieldsProvider.query([
+              {
+                object_id: props.objectId,
+                sourceId: props.externalSourceId,
+                sortFields,
+              },
+            ]);
+          } else {
+            await updateFieldsProvider.query([props.objectId, { sortFields }]);
+          }
+          setState({
+            fieldIds: _sortFieldIds(fields),
+            sortFields,
+          });
+        } catch (e) {
+          handleHttpError(e);
+        }
+      } else {
+        const sortFields = mergeFields(state.sortFields, fields);
+        setState({
+          fieldIds: _sortFieldIds(fields),
+          sortFields,
+        });
+        jsonLocalStorage.setItem(
+          `${modelData.objectId}-selectAttrIds`,
+          _sortFieldIds(fields)
+        );
+      }
+      props.onFieldsModalConfirm(fields);
+    };
     if (isReset) {
       // 恢复默认操作
       const fieldIds = defaultFields;
@@ -1564,42 +1628,7 @@ export function LegacyInstanceList(
     } else {
       if (!isAdminSetDisplay) {
         // 点击确定按钮触发
-        if (props.saveFieldsBackend) {
-          try {
-            const sortFields = mergeFields(state.sortFields, fields);
-            if (props.useExternalCmdbApi) {
-              await externalUpdateFieldsProvider.query([
-                {
-                  object_id: props.objectId,
-                  sourceId: props.externalSourceId,
-                  sortFields,
-                },
-              ]);
-            } else {
-              await updateFieldsProvider.query([
-                props.objectId,
-                { sortFields },
-              ]);
-            }
-            setState({
-              fieldIds: _sortFieldIds(fields),
-              sortFields,
-            });
-          } catch (e) {
-            handleHttpError(e);
-          }
-        } else {
-          const sortFields = mergeFields(state.sortFields, fields);
-          setState({
-            fieldIds: _sortFieldIds(fields),
-            sortFields,
-          });
-          jsonLocalStorage.setItem(
-            `${modelData.objectId}-selectAttrIds`,
-            _sortFieldIds(fields)
-          );
-        }
-        props.onFieldsModalConfirm(fields);
+        await onConfirm();
       } else {
         // 点击【默认显示】按钮触发，不影响当前列表显示。
         try {
@@ -1609,6 +1638,7 @@ export function LegacyInstanceList(
             props.objectId,
             { sortFields: sortFields, isDefault: true },
           ]);
+          await onConfirm();
           message.success(
             i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.SET_DEFAULT_DISPLAY_SUCCESS}`)
           );
@@ -1678,7 +1708,7 @@ export function LegacyInstanceList(
         } else if (props.useAutoDiscoveryProvider) {
           resp = await listProvider.query([props.objectId, v3Data]);
         } else {
-          resp = await InstanceApi_postSearchV3(props.objectId, v3Data);
+          resp = await InstanceApi_postSearchV3(props.objectId, v3Data); //涉及到v3data的请求
         }
         resp.list.forEach((i: Record<string, any>) =>
           cache.current.set(i.instanceId, i)
@@ -2126,9 +2156,11 @@ export function LegacyInstanceList(
 export function LegacyInstanceListWrapper(
   props: InstanceListProps
 ): React.ReactElement {
-  const [objectList, setObjectList] = useState<
-    Partial<CmdbModels.ModelCmdbObject>[]
-  >(props.objectList);
+  const [objectList, setObjectList] = useState<ObjectType[]>(props.objectList);
+
+  const [mergeObjectList, setMergeObjectList] = useState<ObjectType[]>(
+    props.objectList
+  );
 
   const externalGetObjectRef = useProvider(
     "easyops.api.cmdb.topo_center@ProxyGetObjectRef:1.0.0",
@@ -2169,13 +2201,52 @@ export function LegacyInstanceListWrapper(
     }
   }, [props.objectId, props.objectList]);
 
+  useEffect(() => {
+    if (!objectList?.length && isEqual(objectList, mergeObjectList)) return;
+    (async () => {
+      const object = objectList?.find(
+        (item) => item.objectId === props.objectId
+      );
+      const transHierRelationSideObjectIds: string[] =
+        object?.view?.trans_hier_relation_list?.map((i) => i.relation_object);
+      if (
+        transHierRelationSideObjectIds?.length &&
+        !transHierRelationSideObjectIds.every((i) =>
+          objectList.some((o) => o.objectId === i)
+        )
+      ) {
+        let list;
+        if (props.useExternalCmdbApi) {
+          list = await externalGetObjectRef.query([
+            {
+              ref_object: transHierRelationSideObjectIds.join(","),
+              sourceId: props.externalSourceId,
+            },
+          ]);
+        } else {
+          list = (
+            await CmdbObjectApi_getObjectRef({
+              ref_object: transHierRelationSideObjectIds.join(","),
+            })
+          ).data;
+        }
+        if (list?.length) {
+          objectList.push(...list);
+          objectListCache.set(props.objectId, objectList);
+        }
+      }
+
+      setMergeObjectList(objectList);
+    })();
+  }, [objectList]);
+
   if (
-    !objectList ||
-    !objectList.find((item) => item.objectId === props.objectId)
+    !mergeObjectList ||
+    !mergeObjectList.find((item) => item.objectId === props.objectId)
   )
     return null;
 
-  return <LegacyInstanceList {...props} objectList={objectList} />;
+  return <LegacyInstanceList {...props} objectList={mergeObjectList} />;
 }
 
 /**

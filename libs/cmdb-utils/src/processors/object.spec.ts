@@ -62,6 +62,65 @@ const modelData = {
   ],
   view: {
     hide_columns: ["_deviceList_CLUSTER"],
+    trans_hier_relation_list: [
+      {
+        relation_id: "transHierRelation_abcjjjjjj",
+        relation_name: "哈哈哈哈哈",
+        display_keys: [],
+        is_parent_object: true,
+        object_id: "HOST",
+        query_path: "artifactInsts.artifactVersion.ARTIFACT_CONTAINER",
+        relation_object: "ARTIFACT_CONTAINER",
+        reverse_query_path: "ARTIFACT_VERSION.artifactInsts.host",
+        query: {
+          fields_relation_filter: {},
+          query_path: "artifactInsts.artifactVersion.ARTIFACT_CONTAINER",
+          relation_object: "ARTIFACT_CONTAINER",
+          reverse_query_path: "ARTIFACT_VERSION.artifactInsts.host",
+        },
+      },
+      {
+        type: "transHierRelation",
+        protected: false,
+        memo: "部署实例(部署实例)-所属应用服务(服务)",
+        query_path: "artifactInsts.deployedServices",
+        relation_object: "SERVICE@ONEMODEL",
+        reverse_query_path: "relatedArtifactInst.host",
+        is_inherit: true,
+        relation_id: "transHierRelation_abc",
+        relation_name: "部署实例(部署实例)-所属应用服务(服务)",
+        display_keys: ["name", "cwd"],
+        is_parent_object: true,
+        object_id: "HOST",
+        query: {
+          fields_relation_filter: {},
+          query_path: "artifactInsts.deployedServices",
+          relation_object: "SERVICE@ONEMODEL",
+          reverse_query_path: "relatedArtifactInst.host",
+        },
+      },
+      {
+        type: "transHierRelation",
+        protected: false,
+        memo: "部署实例(部署实例)-所属应用服务(服务)",
+        query_path: "artifactInsts.deployedServices",
+        relation_object: "SERVICE@ONEMODEL",
+        reverse_query_path: "relatedArtifactInst.host",
+        is_inherit: true,
+        relation_id: "transHierRelation_efg",
+        relation_name: "部署实例(部署实例)-所属应用服务(服务)111",
+        display_keys: ["name", "cwd"],
+        tags: ["基本信息"],
+        is_parent_object: true,
+        object_id: "HOST",
+        query: {
+          fields_relation_filter: {},
+          query_path: "artifactInsts.deployedServices",
+          relation_object: "SERVICE@ONEMODEL",
+          reverse_query_path: "relatedArtifactInst.host",
+        },
+      },
+    ],
   },
 };
 describe("getRelationObjectSides", () => {
@@ -104,17 +163,29 @@ describe("forEachAvailableFields", () => {
   it("should work", () => {
     const attrCallback = jest.fn();
     const relationCallback = jest.fn();
+    const transHierRelationCallback = jest.fn();
 
-    forEachAvailableFields(modelData, attrCallback, relationCallback);
+    forEachAvailableFields(
+      modelData,
+      attrCallback,
+      relationCallback,
+      undefined,
+      transHierRelationCallback
+    );
     expect(attrCallback).toBeCalled();
     expect(relationCallback).toBeCalled();
+    expect;
 
-    forEachAvailableFields(modelData, attrCallback, relationCallback, [
-      "name",
-      "backupowner",
-    ]);
+    forEachAvailableFields(
+      modelData,
+      attrCallback,
+      relationCallback,
+      ["name", "backupowner"],
+      transHierRelationCallback
+    );
     expect(attrCallback).toBeCalled();
     expect(relationCallback).toBeCalled();
+    expect(transHierRelationCallback).toBeCalled();
   });
 });
 describe("isSelfRelation", () => {

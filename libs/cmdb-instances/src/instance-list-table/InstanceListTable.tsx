@@ -58,6 +58,7 @@ import { CmdbUrlLink } from "../cmdb-url-link/CmdbUrlLink";
 import { FloatDisplayBrick } from "../float-display-brick/FloatDisplayBrick";
 import { JsonDisplayBrick } from "../json-display-brick/JsonDisplayBrick";
 import { XmlDisplayBrick } from "../xml-display-brick/XmlDisplayBrick";
+import { TransHierRelationType } from "@next-libs/cmdb-utils";
 // const { Paragraph } = Typography;
 export interface CustomColumn extends ColumnType<Record<string, unknown>> {
   useBrick: UseBrickConf;
@@ -101,11 +102,16 @@ const SELF_RENDER_COLUMNS: {
   ],
 };
 
+type ObjectType = Partial<CmdbModels.ModelCmdbObject> & {
+  view?: Partial<CmdbModels.ModelObjectView> & {
+    trans_hier_relation_list?: TransHierRelationType[];
+  };
+};
 export interface InstanceListTableProps extends WithTranslation {
   detailUrlTemplates?: Record<string, string>;
   fieldIds?: string[];
-  idObjectMap: Record<string, Partial<CmdbModels.ModelCmdbObject>>;
-  modelData: Partial<CmdbModels.ModelCmdbObject>;
+  idObjectMap: Record<string, ObjectType>;
+  modelData: Partial<ObjectType>;
   instanceListData: InstanceApi_PostSearchV3ResponseBody;
   sort?: string;
   asc?: boolean;
@@ -267,7 +273,7 @@ export class LegacyInstanceListTable extends React.Component<
   getChangeColumns(ids: string[]) {
     const columns: InstanceListTableState["columns"] = [];
     forEachAvailableFields(
-      modifyModelData(this.props.modelData),
+      modifyModelData(this.props.modelData, true),
       (attr, firstColumns?: boolean) =>
         columns.push(
           this.setColumnSortOrder(
@@ -291,7 +297,18 @@ export class LegacyInstanceListTable extends React.Component<
         ),
       this.props.modelData.isAbstract
         ? ids?.filter((i) => i !== "_object_id")
-        : ids
+        : ids,
+      (relation, firstColumns?: boolean) => {
+        columns.push(
+          this.setColumnSortOrder(
+            this.getTransHierRelationColumnData(
+              relation,
+              this.props.modelData,
+              firstColumns
+            )
+          )
+        );
+      }
     );
     const idColumnMap = new Map<string, ColumnType<Record<string, any>>>();
     columns.forEach((column) =>
@@ -553,7 +570,7 @@ export class LegacyInstanceListTable extends React.Component<
   }
   // istanbul ignore next
   getSpecialUrlTemplates(
-    object: Partial<CmdbModels.ModelCmdbObject>,
+    object: Partial<ObjectType>,
     record: any,
     node: any,
     url?: string,
@@ -625,7 +642,7 @@ export class LegacyInstanceListTable extends React.Component<
   }
   getAttributeColumnData(
     attribute: Partial<CmdbModels.ModelObjectAttr>,
-    object: Partial<CmdbModels.ModelCmdbObject>,
+    object: Partial<ObjectType>,
     firstColumns?: boolean
   ): ColumnType<Record<string, any>> {
     const column: ColumnType<Record<string, any>> = {
@@ -909,7 +926,7 @@ export class LegacyInstanceListTable extends React.Component<
 
   getRelationColumnData(
     relation: Partial<CmdbModels.ModelObjectRelation>,
-    object: Partial<CmdbModels.ModelCmdbObject>,
+    object: Partial<ObjectType>,
     sides: RelationObjectSides,
     firstColumns?: boolean
   ): ColumnType<Record<string, any>> {
@@ -1026,6 +1043,172 @@ export class LegacyInstanceListTable extends React.Component<
                         objectId,
                         left_name: leftName,
                         right_id: rightId,
+                      })
+                    }
+                  />
+                </span>
+              </Tooltip>
+            </span>
+          );
+          return instanceNodesWrapper;
+        } else {
+          return null;
+        }
+      };
+    }
+    // istanbul ignore next
+    if (tempColumns) {
+      column.render =
+        firstColumns && this.props.detailUrlTemplates
+          ? (value: string, record: Record<string, any>, index: number) => {
+              //要跳到的路由
+              const detailUrlTemplate = getTemplateFromMap(
+                this.props.detailUrlTemplates,
+                object.objectId
+              );
+              if (detailUrlTemplate) {
+                const data = {
+                  ...record,
+                  objectId: object.objectId,
+                };
+                const url = parseTemplate(detailUrlTemplate, data);
+                return this.getSpecialUrlTemplates(
+                  object,
+                  record,
+                  tempColumns(value, record, index),
+                  url
+                );
+              } else {
+                return this.getSpecialUrlTemplates(
+                  object,
+                  record,
+                  tempColumns(value, record, index)
+                );
+              }
+            }
+          : tempColumns;
+    }
+    return column;
+  }
+
+  getTransHierRelationColumnData(
+    relation: TransHierRelationType,
+    object: Partial<ObjectType>,
+    firstColumns?: boolean
+  ): ColumnType<Record<string, any>> {
+    const key = relation.relation_id;
+    const column: ColumnType<Record<string, any>> = {
+      title: relation.relation_name,
+      dataIndex: key,
+      sorter: !this.props.sortDisabled,
+      className: styles.instanceListTableCell,
+      fixed: this.props.fixedFieldIds?.includes(key) ? "right" : false,
+    };
+    const displayConfig = this.keyDisplayConfigMap[key];
+    let tempColumns: any;
+
+    if (displayConfig) {
+      tempColumns = this.getDisplayConfigColumn(displayConfig);
+    } else {
+      tempColumns = (
+        instances: Record<string, any>[],
+        record: Record<string, any>,
+        index: number
+      ) => {
+        if (instances && instances.length > 0) {
+          const objectId = relation.relation_object;
+          const leftName = relation.relation_name;
+          const rightId = relation.reverse_query_path;
+          const nameKeys = relation.display_keys?.length
+            ? relation.display_keys
+            : getInstanceNameKeys(this.props.idObjectMap[objectId]);
+          let detailUrlTemplate: string;
+
+          if (this.props.detailUrlTemplates) {
+            detailUrlTemplate = getTemplateFromMap(
+              this.props.detailUrlTemplates,
+              objectId
+            );
+          }
+          // 过滤后的实例
+          const filterInstances = instances?.slice(0, this.props.relationLimit);
+          const instanceNodes = filterInstances.map((instance, index) => {
+            let subName: string;
+            if (nameKeys.length > 1) {
+              subName = instance[nameKeys[1]];
+            }
+
+            let instanceName = subName
+              ? `${instance[nameKeys[0]]} (${subName})`
+              : instance[nameKeys[0]];
+
+            if (detailUrlTemplate) {
+              const url = parseTemplate(detailUrlTemplate, {
+                ...instance,
+                objectId,
+              });
+              return (
+                <React.Fragment key={instance.instanceId}>
+                  {index > 0 &&
+                    (this.props.separatorUsedInRelationData ?? "; ")}
+                  {this.props.relationLinkDisabled ? (
+                    instanceName
+                  ) : (
+                    <Link
+                      target={"_blank"}
+                      // 使用 <Link> 以保持链接的原生能力
+                      to={url}
+                      className={styles.relationLink}
+                      // 自定义 onClick 以支持事件配置和拦截
+                      onClick={(e: MouseEvent | React.MouseEvent) =>
+                        this.handleClickItem(
+                          e as React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+                          record
+                        )
+                      }
+                    >
+                      {instanceName}
+                    </Link>
+                  )}
+                </React.Fragment>
+              );
+            } else {
+              if (index > 0) {
+                instanceName =
+                  (this.props.separatorUsedInRelationData ?? "; ") +
+                  instanceName;
+              }
+              return instanceName;
+            }
+          });
+          const instanceNodesWrapper = (
+            <span
+              className={classnames(styles.instanceListTableRelationWrapper)}
+            >
+              <span className={styles.instanceListTableRelationText}>
+                {instanceNodes}
+              </span>
+              <Tooltip
+                title={i18n.t(
+                  `${NS_LIBS_CMDB_INSTANCES}:${K.RELATION_INSTANCE_TOOLTIP}`
+                )}
+                placement="top"
+                trigger={["hover", "focus"]}
+              >
+                <span className={styles.relationMoreIcon}>
+                  <GeneralIcon
+                    icon={{
+                      lib: "easyops",
+                      category: "patch-manager",
+                      icon: "patch-list",
+                    }}
+                    onClick={() =>
+                      this.handleRelationMoreIconClick({
+                        ...record,
+                        objectId,
+                        left_name: leftName,
+                        right_id: rightId,
+                        instanceIds: instances.map((i) => i.instanceId),
                       })
                     }
                   />

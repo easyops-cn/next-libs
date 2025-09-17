@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import { Button, Modal, Dropdown, Menu } from "antd";
+import { Button, Modal, Dropdown, Menu, Alert } from "antd";
 import React, { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
@@ -7,6 +7,7 @@ import { DisplaySettings, DisplaySettingsProps } from "./DisplaySettings";
 import { SortSettings } from "./SortSettings";
 import { getAuth } from "@next-core/brick-kit";
 import { EllipsisOutlined } from "@ant-design/icons";
+import { Link } from "@next-libs/basic-components";
 
 export interface DisplaySettingsModalData {
   fields: string[];
@@ -90,7 +91,6 @@ export function DisplaySettingsModal(
         isReset: false,
         isAdminSetDisplay: true,
       });
-      setNextFields(sortCurrentFields ? [...sortCurrentFields] : []);
     }
   };
 
@@ -185,6 +185,23 @@ export function DisplaySettingsModal(
         width={780}
         centered={true}
       >
+        <Alert
+          message={
+            <>
+              {t(K.SORT_SETTINGS_ALERT)}
+              <Link
+                to={`/cmdb-model-management/object/${modelData.objectId}/view?key=3`}
+                target={"_blank"}
+              >
+                {t(K.MANAGING)}
+              </Link>
+              {t(K.SORT_SETTINGS_AFTER_ALERT)}
+            </>
+          }
+          type="info"
+          showIcon={false}
+          style={{ marginBottom: 16 }}
+        />
         <DisplaySettings
           objectId={objectId}
           modelData={modelData}

@@ -3,6 +3,7 @@ import { Table } from "antd";
 import {
   ModifiedModelObjectRelation,
   modifyModelData,
+  TransHierRelationType,
 } from "@next-libs/cmdb-utils";
 import { CmdbModels } from "@next-sdk/cmdb-sdk";
 import { InstanceListTable } from "../../../instance-list-table";
@@ -14,7 +15,8 @@ import { fetchCmdbObjectRef } from "../../../data-providers";
 import { handleHttpError } from "@next-core/brick-kit";
 export interface InstanceRelationTableShowProps {
   modelDataMap: { [objectId: string]: CmdbModels.ModelCmdbObject };
-  relationData: ModifiedModelObjectRelation;
+  relationData: ModifiedModelObjectRelation &
+    TransHierRelationType & { __isTransHierRelation?: boolean };
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   value: any[];
   relationFieldUrlTemplate?: string;
@@ -118,7 +120,9 @@ export function InstanceRelationTableShow(
   useEffect(() => {
     const fetchOppositeModelData = async () => {
       const modelListData = await fetchCmdbObjectRef(
-        relationData.right_object_id,
+        relationData.__isTransHierRelation
+          ? relationData.relation_object
+          : relationData.right_object_id,
         externalSourceId
       );
       setOppositeModelDataMap(keyBy(modelListData.data, "objectId"));
@@ -130,7 +134,11 @@ export function InstanceRelationTableShow(
   const [instanceSourceQuery, setInstanceSourceQuery] = useState(null);
   const modelData = modelDataMap[relationData.left_object_id];
   let oppositeModelData = modifyModelData(
-    modelDataMap[relationData.right_object_id]
+    modelDataMap[
+      relationData.__isTransHierRelation
+        ? relationData.relation_object
+        : relationData.right_object_id
+    ]
   );
   // 如果指定了relation_default_attr，则取里面的字段
   const defaultRelationFields = get(modelData, [

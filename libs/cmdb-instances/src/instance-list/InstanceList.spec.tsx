@@ -41,6 +41,7 @@ import {
 } from "../instance-list-table";
 import { InstanceListPresetConfigs } from "../instance-list/InstanceList";
 import * as constants from "./constants";
+import { HostWidthtransHierRelation } from "../instance-list-table/data-providers/__mocks__";
 
 jest.mock("../i18n");
 jest.spyOn(i18n, "t").mockReturnValue("");
@@ -1160,6 +1161,9 @@ describe("InstanceList", () => {
     });
     const wrapper = mount(<InstanceList objectId="HOST" />);
     await (global as any).flushPromises();
+    await act(async () => {
+      await (global as any).flushPromises();
+    });
     wrapper.update();
 
     expect(wrapper.find(LegacyInstanceList).prop("objectList")).toEqual([HOST]);
@@ -1170,6 +1174,9 @@ describe("InstanceList", () => {
     constants.objectListCache.set("HOST", [HOST]);
     const wrapper = mount(<InstanceList objectId="HOST" />);
     await (global as any).flushPromises();
+    await act(async () => {
+      await (global as any).flushPromises();
+    });
     wrapper.update();
     expect(CmdbObjectApi_getObjectRef).not.toHaveBeenCalled();
     expect(InstanceApi_postSearchV3).toBeCalledTimes(22);
@@ -1462,4 +1469,28 @@ it("should work with updateSortFields", () => {
       order: 0,
     },
   ]);
+});
+
+it("should work with cross level relationship", async () => {
+  constants.objectListCache.set("HOST", [HostWidthtransHierRelation]);
+  (CmdbObjectApi_getObjectRef as jest.Mock).mockResolvedValue({
+    data: [
+      HostWidthtransHierRelation,
+      {
+        objectId: "SERVICE@ONEMODEL",
+      },
+    ],
+  });
+  const wrapper = mount(<InstanceList objectId="HOST" />);
+  await (global as any).flushPromises();
+  await act(async () => {
+    await (global as any).flushPromises();
+  });
+  wrapper.update();
+  await act(async () => {
+    await (global as any).flushPromises();
+  });
+  expect(CmdbObjectApi_getObjectRef).toBeCalledTimes(1);
+
+  expect(providerQuery).toBeCalledTimes(2);
 });

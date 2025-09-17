@@ -1,4 +1,5 @@
 import { CmdbModels } from "@next-sdk/cmdb-sdk";
+import { TransHierRelationType } from "../interfaces";
 
 type Sides = "left" | "right";
 export type RelationIdKeys = "left_id" | "right_id";
@@ -36,7 +37,11 @@ export function forEachAvailableFields(
     sides: RelationObjectSides,
     firstColumn?: boolean
   ) => void,
-  fieldIds?: string[]
+  fieldIds?: string[],
+  transHierRelationCallback?: (
+    transHierRelation: TransHierRelationType,
+    firstColumn?: boolean
+  ) => void
 ) {
   if (fieldIds) {
     const fieldIdSet = new Set(fieldIds);
@@ -72,6 +77,19 @@ export function forEachAvailableFields(
         });
       });
     }
+    if (transHierRelationCallback) {
+      (
+        object?.view as CmdbModels.ModelObjectView & {
+          trans_hier_relation_list: TransHierRelationType[];
+        }
+      )?.trans_hier_relation_list?.forEach((transHierRelation) => {
+        if (fieldIdSet.has(transHierRelation.relation_id)) {
+          fieldIds.indexOf(transHierRelation.relation_id) === 0
+            ? transHierRelationCallback(transHierRelation, true)
+            : transHierRelationCallback(transHierRelation);
+        }
+      });
+    }
   } else {
     let hideColumnsSet: Set<string>;
 
@@ -105,6 +123,20 @@ export function forEachAvailableFields(
             relationCallback(relation, sides);
           }
         });
+      });
+    }
+    if (transHierRelationCallback) {
+      (
+        object?.view as CmdbModels.ModelObjectView & {
+          trans_hier_relation_list: TransHierRelationType[];
+        }
+      )?.trans_hier_relation_list?.forEach((transHierRelation) => {
+        if (
+          !hideColumnsSet ||
+          !hideColumnsSet.has(transHierRelation.relation_id)
+        ) {
+          transHierRelationCallback(transHierRelation);
+        }
       });
     }
   }

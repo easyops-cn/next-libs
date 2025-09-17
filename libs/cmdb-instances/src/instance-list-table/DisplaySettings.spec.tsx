@@ -97,5 +97,24 @@ describe("DisplaySettings", () => {
     jest.runAllTimers();
     expect(getCheckbox("_agentStatus")).toHaveLength(1);
     expect(getCheckbox("hostname")).toHaveLength(0);
+
+    wrapper
+      .find(Input.Search)
+      .filter("[data-testid='search-input']")
+      .invoke("onChange")({
+      target: { value: "" },
+    } as React.ChangeEvent<HTMLInputElement>);
+    jest.runAllTimers();
+    wrapper.find(".fieldTypeTag").at(0).simulate("click");
+    jest.runAllTimers();
+    expect(
+      wrapper.find(Checkbox).filter(`[data-testid$='-checkbox']`)
+    ).toHaveLength(20);
+
+    wrapper.find(".fieldTypeTag").at(0).simulate("click");
+    jest.runAllTimers();
+    expect(
+      wrapper.find(Checkbox).filter(`[data-testid$='-checkbox']`)
+    ).toHaveLength(22);
   });
 });

@@ -26,6 +26,7 @@ import {
   RelationIdKeys,
   RelationNameKeys,
   RelationObjectIdKeys,
+  TransHierRelationType,
 } from "@next-libs/cmdb-utils";
 import { clusterMap } from "./constants";
 import styles from "./AdvancedSearch.module.css";
@@ -698,7 +699,35 @@ export class AdvancedSearchForm extends React.Component<
           });
         });
       },
-      this.props.fieldIds
+      this.props.fieldIds,
+      (relation: TransHierRelationType) => {
+        const relationObject = this.props.idObjectMap[relation.relation_object];
+        const showKeys = relation.display_keys?.length
+          ? relation.display_keys
+          : getInstanceNameKeys(relationObject);
+
+        showKeys.forEach((showKey, index) => {
+          const nameOfShowKey =
+            find(relationObject?.attrList, ["id", showKey])?.name ?? showKey;
+          const id = `${relation.relation_id}.${showKey}`;
+          const type = ModelAttributeValueType.STRING;
+          fields.push({
+            id: `_${id}`,
+            name: `${relation.relation_name}(${nameOfShowKey})`,
+            attrValue: { type },
+            isRelation: true,
+            relationSideId: relation.relation_id,
+            ...getFieldConditionsAndValues(
+              fieldQueryOperatorExpressionsMap,
+              id,
+              type,
+              true,
+              relation.relation_name,
+              this.props.modelData.objectId
+            ),
+          });
+        });
+      }
     );
     return { fields };
   }
