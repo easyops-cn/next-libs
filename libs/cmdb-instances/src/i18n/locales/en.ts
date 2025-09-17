@@ -152,6 +152,14 @@ const locale: Locale = {
   [K.MORE_RESULTS_TIPS]:
     "Only display the top {{pageSize}} items, more results please search",
   [K.OTHERS]: "Others",
+  [K.SORT_SETTINGS_ALERT]:
+    "In addition to the relationship fields defined by the current model, it now supports ",
+  [K.MANAGING]: "managing",
+  [K.SORT_SETTINGS_AFTER_ALERT]:
+    " and cross-level relationship, after enabling, you can directly view the cross-level relationship information in the instance list or instance details page. For example, you can view the room where the physical server is located, the system that may be affected by the physical server fault, the connection relationship of network devices, etc.",
+  [K.CROSS_LEVEL_RELATIONSHIPS]: "Cross-level Relationships",
+  [K.ATTRIBUTES]: "Attributes",
+  [K.RELATIONSHIPS]: "Relationships",
 };
 
 export default locale;

@@ -138,6 +138,13 @@ const locale: Locale = {
   [K.COMMA]: "，",
   [K.MORE_RESULTS_TIPS]: "仅显示前{{pageSize}}项，更多结果请搜索",
   [K.OTHERS]: "其他",
+  [K.SORT_SETTINGS_ALERT]: "除了当前模型定义的关系字段，现支持 ",
+  [K.MANAGING]: "管理",
+  [K.SORT_SETTINGS_AFTER_ALERT]:
+    " 和启用跨级关系，启用后可在实例列表或实例详情页直接查看到跨级关系的信息。比如可查看物理服务器的所在机房、物理服务器故障可能影响的系统、网络设备的连接关系等。",
+  [K.CROSS_LEVEL_RELATIONSHIPS]: "跨级关系",
+  [K.ATTRIBUTES]: "属性",
+  [K.RELATIONSHIPS]: "关系",
 };
 
 export default locale;

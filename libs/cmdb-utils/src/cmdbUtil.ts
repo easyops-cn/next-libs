@@ -5,6 +5,7 @@ import {
 import { CMDB_RESOURCE_FIELDS_SETTINGS } from "./constants";
 import { getRelationObjectSides } from "./processors";
 import _ from "lodash";
+import { TransHierRelationType } from "./interfaces";
 export function composeInstanceShowName(nameKeys: string[], maxCharNum = 0) {
   let d;
   // 即使超过2个，也只显示前2个
@@ -111,7 +112,7 @@ export interface BatchEditableFields extends CmdbModels.ModelCmdbObject {
 export const getBatchEditableFields = (
   modelData: Partial<CmdbModels.ModelCmdbObject>
 ): Partial<BatchEditableFields>[] => {
-  const cloneModelData = modifyModelData(modelData);
+  const cloneModelData = modifyModelData(modelData, true);
   cloneModelData.__fieldList.forEach((item: any) => {
     if (item.__isRelation) {
       const side = getRelationObjectSides(item, modelData);
@@ -120,6 +121,14 @@ export const getBatchEditableFields = (
         name: item[`${side.that}_description`],
         isRelation: true,
         objectId: item[`${side.that}_object_id`],
+      });
+    }
+    if (item.__isTransHierRelation) {
+      Object.assign(item, {
+        id: item.relation_id,
+        name: item.relation_name,
+        isTransHierRelation: true,
+        objectId: item.relation_object,
       });
     }
   });
@@ -192,6 +201,12 @@ export interface ModifiedModelObjectRelation
   __id: string;
   __inverted: boolean;
 }
+export interface ModifiedModelObjectTransHierRelation
+  extends TransHierRelationType {
+  __id: string;
+  __inverted: boolean;
+  __isTransHierRelation: boolean;
+}
 
 export type ModifiedModelObjectField =
   | Partial<ModifiedModelObjectAttr>
@@ -202,7 +217,12 @@ export interface ModifiedModelCmdbObject extends CmdbModels.ModelCmdbObject {
 }
 
 export function modifyModelData(
-  modelData: Partial<CmdbModels.ModelCmdbObject>
+  modelData: Partial<CmdbModels.ModelCmdbObject> & {
+    view?: Partial<CmdbModels.ModelObjectView> & {
+      trans_hier_relation_list?: TransHierRelationType[];
+    };
+  },
+  displayTransHierRelation?: boolean
 ): Partial<ModifiedModelCmdbObject> {
   const clonedModelData: Partial<ModifiedModelCmdbObject> =
     _.cloneDeep(modelData);
@@ -210,6 +230,7 @@ export function modifyModelData(
   const fieldIdList: string[] = [];
   const fieldMap: Record<string, ModifiedModelObjectField> = {};
   const ignoredFields = IGNORED_FIELDS[clonedModelData.objectId] || [];
+  const transHierRelations = modelData.view?.trans_hier_relation_list || [];
 
   clonedModelData.attrList.forEach((attr) => {
     if (!ignoredFields.includes(attr.id)) {
@@ -271,6 +292,20 @@ export function modifyModelData(
       fieldMap[clonedRelation.__id] = clonedRelation;
     }
   });
+
+  if (displayTransHierRelation) {
+    transHierRelations.forEach((transHierRelation) => {
+      if (!ignoredFields.includes(transHierRelation.relation_id)) {
+        const clonedRelation: Partial<ModifiedModelObjectTransHierRelation> =
+          _.cloneDeep(transHierRelation);
+        clonedRelation.__id = clonedRelation.relation_id;
+        clonedRelation.__inverted = false;
+        clonedRelation.__isTransHierRelation = true;
+        fieldIdList.push(clonedRelation.__id);
+        fieldMap[clonedRelation.__id] = clonedRelation;
+      }
+    });
+  }
 
   const hideColumns = clonedModelData?.view?.hide_columns || [];
   const currentOrderedFieldIds = clonedModelData?.view?.attr_order || [];

@@ -19,7 +19,12 @@ import { CmdbObjectApi_getIdMapName } from "@next-sdk/cmdb-sdk";
 import { http } from "@next-core/brick-http";
 
 import { InstanceListTable } from "./InstanceListTable";
-import { getInstanceListData, HOST } from "./data-providers/__mocks__";
+import {
+  getInstanceListData,
+  HOST,
+  HostInstanceWidthtransHierRelationData,
+  HostWidthtransHierRelation,
+} from "./data-providers/__mocks__";
 import { mount } from "enzyme";
 import { message, Table } from "antd";
 
@@ -924,5 +929,38 @@ describe("InstanceListTable", () => {
         .querySelectorAll("tbody tr")[2]
         .getElementsByClassName("ant-table-cell")[1].textContent
     ).toBe("2");
+  });
+  it("should work with test support cross-level relation", () => {
+    const instanceListData = getInstanceListData();
+    const mockOnColumnsChange = jest.fn();
+    const { container } = render(
+      <InstanceListTable
+        fieldIds={[
+          "ip",
+          "cpu",
+          "status",
+          "hostname",
+          "owner",
+          "_deviceList_CLUSTER",
+          "transHierRelation_abc",
+        ]}
+        detailUrlTemplates={detailUrlTemplates}
+        idObjectMap={idObjectMap}
+        modelData={HostWidthtransHierRelation}
+        instanceListData={{
+          ...instanceListData,
+          list: instanceListData.list.concat([
+            HostInstanceWidthtransHierRelationData,
+          ]),
+        }}
+        onColumnsChange={mockOnColumnsChange}
+        showCustomizedSerialNumber={true}
+      />
+    );
+    expect(
+      container
+        .querySelector(".ant-table-thead")
+        .getElementsByClassName("ant-table-column-sorters")[5].textContent
+    ).toBe("部署实例(部署实例)-所属应用服务(服务)-测试跨级关系");
   });
 });

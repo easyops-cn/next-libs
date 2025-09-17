@@ -1,0 +1,7 @@
+.fieldTypeTag {
+  cursor: pointer;
+}
+.fieldTypeActive {
+  background: var(--antd-tag-checkable-checked-bg) !important;
+  color: var(--antd-tag-checkable-checked-color) !important;
+}

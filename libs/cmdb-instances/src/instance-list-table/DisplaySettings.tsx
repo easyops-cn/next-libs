@@ -9,7 +9,7 @@ import {
   mapValues,
 } from "lodash";
 import { extraFieldAttrs } from "./constants";
-import { Checkbox, Col, Divider, Input, Row } from "antd";
+import { Checkbox, Col, Divider, Input, Row, Tag } from "antd";
 import {
   getBatchEditableFields,
   CMDB_RESOURCE_FIELDS_SETTINGS,
@@ -17,6 +17,8 @@ import {
 import { CmdbModels } from "@next-sdk/cmdb-sdk";
 import { WithTranslation, withTranslation } from "react-i18next";
 import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
+import styles from "./DisplaySettings.module.css";
+import classNames from "classnames";
 export interface DisplaySettingsProps {
   currentFields: string[];
   modelData: Partial<CmdbModels.ModelCmdbObject>;
@@ -38,6 +40,13 @@ interface DisplaySettingsState {
   selectAllFields: boolean;
   selectCategoryAllFieldsMap: Record<string, boolean>;
   allFieldsLength: number;
+  type: AttributeType | string;
+}
+
+enum AttributeType {
+  Attribute = "attribute",
+  Relation = "relation",
+  TransHierRelation = "transHierRelation",
 }
 
 export class LegacyDisplaySettings extends React.Component<
@@ -45,7 +54,12 @@ export class LegacyDisplaySettings extends React.Component<
   DisplaySettingsState
 > {
   debounceHandleSearch: () => void;
-  attrAndRelationList: { id: string; name: string; category: string }[] = [];
+  attrAndRelationList: {
+    id: string;
+    name: string;
+    category: string;
+    type: AttributeType;
+  }[] = [];
 
   constructor(props: WithTranslationDisplaySettingsProps) {
     super(props);
@@ -68,10 +82,17 @@ export class LegacyDisplaySettings extends React.Component<
     this.attrAndRelationList = attrAndRelationList.map((attribute: any) => ({
       id: attribute.id,
       name: attribute.name,
+      type: attribute.isTransHierRelation
+        ? AttributeType.TransHierRelation
+        : attribute.isRelation
+        ? AttributeType.Relation
+        : AttributeType.Attribute,
       category: get(
         attribute,
         "tag[0]",
-        get(attribute, "left_tags[0]") || t(K.OTHERS)
+        get(attribute, "left_tags[0]") ||
+          get(attribute, "tags[0]") ||
+          t(K.OTHERS)
       ),
     }));
 
@@ -109,6 +130,7 @@ export class LegacyDisplaySettings extends React.Component<
       selectAllFields,
       allFieldsLength,
       selectCategoryAllFieldsMap,
+      type: "",
     };
     this.debounceHandleSearch = debounce(this.filterColTag, 300);
   }
@@ -238,11 +260,13 @@ export class LegacyDisplaySettings extends React.Component<
   filterColTag = () => {
     let filteredList = this.attrAndRelationList;
     const q = this.state.q.trim().toLowerCase();
-    if (q) {
-      filteredList = filteredList.filter((attr) => {
-        return attr.name.toLowerCase().includes(q);
-      });
-    }
+    const type = this.state.type;
+    filteredList = filteredList.filter((attr) => {
+      const qResult = attr.name.toLowerCase().includes(q);
+      const typeResult = !this.state.type || attr.type === this.state.type;
+      return qResult && typeResult;
+    });
+
     const fieldsKey = "nextFields";
     const attrs = this.state[fieldsKey];
     const categoryOrders = this.getCAategoryOrders();
@@ -270,6 +294,12 @@ export class LegacyDisplaySettings extends React.Component<
     });
     this.debounceHandleSearch();
   };
+  handleFilterType = (type: AttributeType | string) => {
+    this.setState({
+      type,
+    });
+    this.debounceHandleSearch();
+  };
   render() {
     const { t } = this.props;
     const filteredList = this.state.filteredList;
@@ -284,19 +314,44 @@ export class LegacyDisplaySettings extends React.Component<
     const extraAttrs = filteredList.filter((attr: any) =>
       extraAttrIds.includes(attr.id)
     );
+    const attributeTypeMap = {
+      [AttributeType.Attribute]: t(K.ATTRIBUTES),
+      [AttributeType.Relation]: t(K.RELATIONSHIPS),
+      [AttributeType.TransHierRelation]: t(K.CROSS_LEVEL_RELATIONSHIPS),
+    };
+
     return (
       <>
         <Divider orientation="left" plain style={{ marginTop: 0 }}>
           {t(K.FIELD_SETTINGS)}
         </Divider>
-        <div>
+        <div style={{ display: "flex", alignItems: "center" }}>
           <Input.Search
             value={this.state.q}
             placeholder={t(K.SEARCH_BY_FIELD_NAME)}
             onChange={this.handleSearchChange}
-            style={{ width: 200 }}
+            style={{ width: 200, paddingRight: 10 }}
             data-testid="search-input"
           />
+
+          {Object.keys(attributeTypeMap).map((key) => (
+            <Tag
+              className={classNames(styles.fieldTypeTag, {
+                [styles.fieldTypeActive]:
+                  this.state.type === (key as AttributeType),
+              })}
+              key={key}
+              onClick={() =>
+                this.handleFilterType(
+                  !this.state.type || this.state.type !== key
+                    ? (key as AttributeType)
+                    : ""
+                )
+              }
+            >
+              {attributeTypeMap[key as AttributeType]}
+            </Tag>
+          ))}
 
           <span style={{ paddingLeft: 15, verticalAlign: "sub" }}>
             <Checkbox

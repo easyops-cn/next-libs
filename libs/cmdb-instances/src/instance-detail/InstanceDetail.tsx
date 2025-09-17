@@ -60,6 +60,7 @@ import {
   IGNORED_FIELDS,
   ModifiedModelCmdbObject,
   ModifiedModelObjectField,
+  TransHierRelationType,
 } from "@next-libs/cmdb-utils";
 import {
   CmdbModels,
@@ -124,7 +125,9 @@ export function attrFilter(
         BASIC_INFORMATION_RELATION_GROUP_ID
       )) ||
     modelData.view.attr_category_order.includes(
-      (field as CmdbModels.ModelObjectRelation).left_tags[0]
+      (field as any).__isTransHierRelation
+        ? (field as any).tags?.[0]
+        : (field as CmdbModels.ModelObjectRelation).left_tags?.[0]
     )
   );
 }
@@ -753,6 +756,7 @@ export class LegacyInstanceDetail extends React.Component<
             isXmlField(attr) ||
             isRelation(attr) ||
             attr.__isRelation ||
+            attr.__isTransHierRelation ||
             isMarkdownField(attr) ||
             (config && config.isWholeLine)
               ? style.structAttr
@@ -761,10 +765,20 @@ export class LegacyInstanceDetail extends React.Component<
         >
           <div className={style.labelContainer}>
             <Tooltip
-              title={attr.__isRelation ? attr.right_description : attr.name}
+              title={
+                attr.__isRelation
+                  ? attr.right_description
+                  : attr.__isTransHierRelation
+                  ? attr.relation_name
+                  : attr.name
+              }
               className={style.labelTooltip}
             >
-              {attr.__isRelation ? attr.right_description : attr.name}
+              {attr.__isRelation
+                ? attr.right_description
+                : attr.__isTransHierRelation
+                ? attr.relation_name
+                : attr.name}
             </Tooltip>
             {attr.description && attr.description !== "" && (
               <Tooltip title={attr.description}>
@@ -788,6 +802,7 @@ export class LegacyInstanceDetail extends React.Component<
             isXmlField(attr) ||
             isRelation(attr) ||
             attr.__isRelation ||
+            attr.__isTransHierRelation ||
             isMarkdownField(attr) ||
             (config && config.isWholeLine)
               ? style.structAttr
@@ -833,35 +848,36 @@ export class LegacyInstanceDetail extends React.Component<
             </span>
           )}
 
-          {attr.__isRelation && !isUrl(attr) && (
-            <div>
-              <InstanceRelationTableShow
-                hideRelationLink={this.props.ignorePermission}
-                modelDataMap={modelDataMap}
-                relationData={attr}
-                value={instanceData[attr.__id]?.slice(0, 10)}
-                relationFieldUrlTemplate={this.props.relationFieldUrlTemplate}
-                filterInstanceSourceDisabled={true}
-                externalSourceId={externalSourceId}
-                relationGangedConfig={head(
-                  attrGangedConfig.filter(
-                    (c) => c.isRelation && c.attrId === attr.__id
-                  )
+          {(attr.__isRelation || attr.__isTransHierRelation) &&
+            !isUrl(attr) && (
+              <div>
+                <InstanceRelationTableShow
+                  hideRelationLink={this.props.ignorePermission}
+                  modelDataMap={modelDataMap}
+                  relationData={attr}
+                  value={instanceData[attr.__id]?.slice(0, 10)}
+                  relationFieldUrlTemplate={this.props.relationFieldUrlTemplate}
+                  filterInstanceSourceDisabled={true}
+                  externalSourceId={externalSourceId}
+                  relationGangedConfig={head(
+                    attrGangedConfig.filter(
+                      (c) => c.isRelation && c.attrId === attr.__id
+                    )
+                  )}
+                />
+                {instanceData[attr.__id]?.length >= 10 && (
+                  <Button
+                    data-testid={"view-more-" + attr.__id}
+                    type="link"
+                    onClick={() =>
+                      this.handleRelationModal(attr, externalSourceId)
+                    }
+                  >
+                    {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.VIEW_MORE}`)}
+                  </Button>
                 )}
-              />
-              {instanceData[attr.__id]?.length >= 10 && (
-                <Button
-                  data-testid={"view-more-" + attr.__id}
-                  type="link"
-                  onClick={() =>
-                    this.handleRelationModal(attr, externalSourceId)
-                  }
-                >
-                  {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.VIEW_MORE}`)}
-                </Button>
-              )}
-            </div>
-          )}
+              </div>
+            )}
           {!isStructs(attr) &&
             !isStruct(attr) &&
             !isAttachment(attr) &&
@@ -1130,7 +1146,7 @@ export class LegacyInstanceDetail extends React.Component<
               ? field.left_tags[0]
               : DEFAULT_ATTRIBUTE_TAG;
             */
-        } else {
+        } else if (field.__isAttr) {
           const basicInfoText = i18n.t(
             `${NS_LIBS_CMDB_INSTANCES}:${K.BASIC_INFORMATION}`
           );
@@ -1138,6 +1154,11 @@ export class LegacyInstanceDetail extends React.Component<
             field.tag?.length > 0
               ? field.tag[0] || basicInfoText
               : basicInfoText;
+        } else if (field.__isTransHierRelation) {
+          groupTag =
+            field.tags?.length && field.tags[0].trim() !== ""
+              ? field.tags[0]
+              : "";
         }
 
         const basicInfoGroup = basicInfoGroupList.find(
@@ -1302,7 +1323,7 @@ export class LegacyInstanceDetail extends React.Component<
       ),
     };
     const basicInfoGroupList = this.formatBasicInfoGroupList(
-      modifyModelData(filterModelData),
+      modifyModelData(filterModelData, true),
       []
     );
     let attrIdList = flatten(
@@ -1336,7 +1357,8 @@ export class LegacyInstanceDetail extends React.Component<
 
   // istanbul ignore next
   async fetchData(props: LegacyInstanceDetailProps): Promise<void> {
-    let modelListData, modelDataMap, instanceData: any;
+    let modelListData, instanceData: any;
+    let modelDataMap: { [objectId: string]: CmdbModels.ModelCmdbObject };
     const relationLimit = 10;
     const externalSourceId = props.externalSourceId;
     try {
@@ -1398,6 +1420,28 @@ export class LegacyInstanceDetail extends React.Component<
             [objectId: string]: CmdbModels.ModelCmdbObject;
           };
         }
+      }
+      const modelData = modelDataMap[props.objectId];
+      const transHierRelationSideObjectIds: string[] = (
+        modelData.view as any
+      )?.trans_hier_relation_list?.map(
+        (i: TransHierRelationType) => i.relation_object
+      );
+
+      if (
+        transHierRelationSideObjectIds?.length &&
+        !transHierRelationSideObjectIds.every((i) => modelDataMap[i])
+      ) {
+        const transHierRelationSideObject = await fetchCmdbObjectRef(
+          transHierRelationSideObjectIds.join(","),
+          externalSourceId
+        );
+        modelDataMap = {
+          ...modelDataMap,
+          ...(keyBy(transHierRelationSideObject.data, "objectId") as {
+            [objectId: string]: CmdbModels.ModelCmdbObject;
+          }),
+        };
       }
       const { filterModelData } = this.getInstanceDetailData(
         props,

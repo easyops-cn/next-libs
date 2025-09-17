@@ -9,7 +9,10 @@ import {
   ConditionType,
   convertValue,
 } from "./AdvancedSearch";
-import { HOST } from "./data-providers/__mocks__/fetchCmdbObjectDetail";
+import {
+  HOST,
+  HostWidthtransHierRelation,
+} from "./data-providers/__mocks__/fetchCmdbObjectDetail";
 import { ModelAttributeValueType } from "../model-attribute-form-control/ModelAttributeFormControl";
 import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
 import * as kit from "@next-core/brick-kit";
@@ -57,8 +60,8 @@ describe("AdvancedSearch", () => {
     const arrValue = ["bbb", "ccc"];
     const { getByLabelText } = render(
       <AdvancedSearch
-        idObjectMap={{ HOST }}
-        modelData={HOST}
+        idObjectMap={{ HOST: HostWidthtransHierRelation }}
+        modelData={HostWidthtransHierRelation}
         q={[
           { [intAttr.id]: { $eq: intValue } },
           { [strAttr.id]: { $like: `%${strValue}%` } },

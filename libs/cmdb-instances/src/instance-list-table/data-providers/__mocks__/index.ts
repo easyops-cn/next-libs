@@ -712,3 +712,118 @@ export const HOST: Partial<CmdbModels.ModelCmdbObject> = {
   creator: "",
   modifier: "easyops",
 };
+
+export const HostInstanceWidthtransHierRelationData = {
+  transHierRelation_abc: [
+    {
+      _object_id: "GENERAL_SERVICE@ONEMODEL",
+      clusterMode: "standalone",
+      instanceId: "618f0ec441565",
+      label: "general-172.30.0.59:8226",
+      name: "general-172.30.0.59:8226",
+    },
+    {
+      _object_id: "GENERAL_SERVICE@ONEMODEL",
+      clusterMode: "standalone",
+      instanceId: "618f0ec441ba5",
+      label: "general-172.30.0.59:8185",
+      name: "general-172.30.0.59:8185",
+    },
+    {
+      _object_id: "GENERAL_SERVICE@ONEMODEL",
+      clusterMode: "standalone",
+      instanceId: "618f0ec4435d1",
+      label: "general-172.30.0.59:19336",
+      name: "general-172.30.0.59:19336",
+    },
+    {
+      _object_id: "GENERAL_SERVICE@ONEMODEL",
+      clusterMode: "standalone",
+      instanceId: "618f0ec443ae5",
+      label: "general-172.30.0.59:8136",
+      name: "general-172.30.0.59:8136",
+    },
+    {
+      _object_id: "GENERAL_SERVICE@ONEMODEL",
+      clusterMode: "standalone",
+      instanceId: "618f0ec447a2d",
+      label: "general-172.30.0.59:8180",
+      name: "general-172.30.0.59:8180",
+    },
+    {
+      _object_id: "GENERAL_SERVICE@ONEMODEL",
+      clusterMode: "standalone",
+      instanceId: "618f0ec449909",
+      label: "general-172.30.0.59:8179",
+      name: "general-172.30.0.59:8179",
+    },
+    {
+      _object_id: "GENERAL_SERVICE@ONEMODEL",
+      clusterMode: "standalone",
+      instanceId: "618f0ec449e1d",
+      label: "general-172.30.0.59:8165",
+      name: "general-172.30.0.59:8165",
+    },
+    {
+      _object_id: "GENERAL_SERVICE@ONEMODEL",
+      clusterMode: "standalone",
+      instanceId: "618f0ec44c1a9",
+      label: "general-172.30.0.59:8301",
+      name: "general-172.30.0.59:8301",
+    },
+    {
+      _object_id: "GENERAL_SERVICE@ONEMODEL",
+      clusterMode: "standalone",
+      instanceId: "618f0ec44e8b9",
+      label: "general-172.30.0.59:8826",
+      name: "general-172.30.0.59:8826",
+    },
+    {
+      _object_id: "GENERAL_SERVICE@ONEMODEL",
+      clusterMode: "standalone",
+      instanceId: "618f0ec450411",
+      label: "general-172.30.0.59:8277",
+      name: "general-172.30.0.59:8277",
+    },
+  ],
+
+  _agentHeartBeat: -1,
+  _agentStatus: "异常",
+  _uuid: "1",
+
+  agentVersion: "123",
+  c_realIps: [
+    {
+      ip: "1",
+    },
+  ],
+  ctime: "2024-06-12 08:51:06",
+};
+export const HostWidthtransHierRelation = {
+  ...HOST,
+  view: {
+    ...HOST.view,
+    trans_hier_relation_list: [
+      {
+        type: "transHierRelation",
+        protected: false,
+        memo: "部署实例(部署实例)-所属应用服务(服务)",
+        query_path: "artifactInsts.deployedServices",
+        relation_object: "SERVICE@ONEMODEL",
+        reverse_query_path: "relatedArtifactInst.host",
+        is_inherit: true,
+        relation_id: "transHierRelation_abc",
+        relation_name: "部署实例(部署实例)-所属应用服务(服务)-测试跨级关系",
+        display_keys: ["name", "cwd"],
+        is_parent_object: true,
+        object_id: "HOST",
+        query: {
+          fields_relation_filter: {},
+          query_path: "artifactInsts.deployedServices",
+          relation_object: "SERVICE@ONEMODEL",
+          reverse_query_path: "relatedArtifactInst.host",
+        },
+      },
+    ],
+  },
+};

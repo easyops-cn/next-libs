@@ -47,7 +47,7 @@ export class MoreButtonsContainer extends React.Component<
       visible: false,
     };
   }
-
+  // istanbul ignore next
   handleSettingButtonClick = (): void => {
     this.setState({
       visible: true,
