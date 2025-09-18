@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.12.9](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.12.8...@next-libs/code-editor-components@4.12.9) (2025-09-18)
+
+
+### Bug Fixes
+
+* codeEditor国际化补充  ref CMDB_INSTANCE-3076 ([94ac8d8](https://github.com/easyops-cn/next-libs/commit/94ac8d860fed5c5049f221ba71c960fbf7bd1214))
+
+
+
+
+
 ## [4.12.8](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.12.7...@next-libs/code-editor-components@4.12.8) (2025-08-11)
 
 
