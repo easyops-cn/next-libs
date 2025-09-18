@@ -565,14 +565,21 @@ export function CodeEditor(props: CodeEditorProps): React.ReactElement {
     } else {
       callback(
         hasJsonSchemaError
-          ? "请填写正确的数据结构"
-          : `请填写正确的 ${
-              props.mode === "brick_next"
-                ? "json"
-                : props.mode === "brick_next_yaml" || props.mode === "cel_yaml"
-                ? "yaml"
-                : props.mode
-            } 语法`
+          ? i18n.t(
+              `${NS_CODE_EDITOR_COMPONENTS}:${K.PLEASE_FILL_IN_THE_CORRECT_DATA_STRUCTURE}`
+            )
+          : i18n.t(
+              `${NS_CODE_EDITOR_COMPONENTS}:${K.PLEASE_FILL_IN_THE_CORRECT_GRAMMAR}`,
+              {
+                mode:
+                  props.mode === "brick_next"
+                    ? "json"
+                    : props.mode === "brick_next_yaml" ||
+                      props.mode === "cel_yaml"
+                    ? "yaml"
+                    : props.mode,
+              }
+            )
       );
     }
   };

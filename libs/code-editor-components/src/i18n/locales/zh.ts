@@ -7,6 +7,8 @@ const locale: Locale = {
   [K.COLLAPSE]: "折叠",
   [K.COPY_SUCCESS]: "复制成功",
   [K.COPY_ERROR]: "复制失败",
+  [K.PLEASE_FILL_IN_THE_CORRECT_DATA_STRUCTURE]: "请填写正确的数据结构",
+  [K.PLEASE_FILL_IN_THE_CORRECT_GRAMMAR]: "请填写正确的 {{mode}} 语法",
 };
 
 export default locale;

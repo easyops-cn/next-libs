@@ -7,6 +7,10 @@ const locale: Locale = {
   [K.COLLAPSE]: "Collapse",
   [K.COPY_SUCCESS]: "Copy successfully",
   [K.COPY_ERROR]: "Copy failed",
+  [K.PLEASE_FILL_IN_THE_CORRECT_DATA_STRUCTURE]:
+    "Please fill in the correct data structure",
+  [K.PLEASE_FILL_IN_THE_CORRECT_GRAMMAR]:
+    "Please fill in the correct {{mode}} grammar",
 };
 
 export default locale;
