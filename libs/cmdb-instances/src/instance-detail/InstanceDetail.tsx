@@ -1146,7 +1146,12 @@ export class LegacyInstanceDetail extends React.Component<
               ? field.left_tags[0]
               : DEFAULT_ATTRIBUTE_TAG;
             */
-        } else if (field.__isAttr) {
+        } else if (field.__isTransHierRelation) {
+          groupTag =
+            field.tags?.length && field.tags[0].trim() !== ""
+              ? field.tags[0]
+              : "";
+        } else {
           const basicInfoText = i18n.t(
             `${NS_LIBS_CMDB_INSTANCES}:${K.BASIC_INFORMATION}`
           );
@@ -1154,11 +1159,6 @@ export class LegacyInstanceDetail extends React.Component<
             field.tag?.length > 0
               ? field.tag[0] || basicInfoText
               : basicInfoText;
-        } else if (field.__isTransHierRelation) {
-          groupTag =
-            field.tags?.length && field.tags[0].trim() !== ""
-              ? field.tags[0]
-              : "";
         }
 
         const basicInfoGroup = basicInfoGroupList.find(
