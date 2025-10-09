@@ -52,6 +52,7 @@ import {
   InstanceApi_postSearchV3,
   CmdbObjectApi_getIdMapName,
   CmdbObjectApi_getObjectRef,
+  CmdbObjectApi_list,
 } from "@next-sdk/cmdb-sdk";
 import { Icon as LegacyIcon } from "@ant-design/compatible";
 import { Button, Spin, Input, Tag, Select, Popover, message } from "antd";
@@ -197,7 +198,24 @@ export function getQuery(
         });
       });
     },
-    fields
+    fields,
+    //istanbul ignore next
+    (relation: TransHierRelationType) => {
+      const relationObject = idObjectMap[relation.relation_object];
+      const showKeys = relation.display_keys?.length
+        ? relation.display_keys
+        : getInstanceNameKeys(relationObject);
+
+      queryValues.forEach((queryValue) => {
+        showKeys.forEach((nameKey) => {
+          query.$or.push({
+            [`${relation.relation_id}.${nameKey}`]: {
+              $like: `%${queryValue}%`,
+            },
+          });
+        });
+      });
+    }
   );
 
   return query;
@@ -649,6 +667,10 @@ export interface InstanceListProps {
   relationLimit?: number;
   onRelationMoreIconClick?: (record: Record<string, any>) => void;
   tableConfigProps?: Record<string, any>;
+  //跨级关系，查询某个实例下的某条跨级关系数据
+  searchTransHierRelationInstance?: boolean;
+  transHierRelation?: TransHierRelationType;
+  searchTransHierRelationSource?: { objectId: string; instanceId: string };
 }
 
 interface InstanceListState {
@@ -723,6 +745,11 @@ export function LegacyInstanceList(
   );
   const ignorePermissionProvider = useProvider(
     "easyops.api.cmdb.instance@PostSearchV3WithAdmin:1.0.0",
+    { cache: false }
+  );
+
+  const searchRelationInstanceProvider = useProvider(
+    "easyops.api.cmdb.instance@SearchRelationInstance:1.1.0",
     { cache: false }
   );
   // istanbul ignore next
@@ -1166,6 +1193,15 @@ export function LegacyInstanceList(
       ? listProvider.query([props.objectId, v3Data])
       : props.ignorePermission
       ? ignorePermissionProvider.query([props.objectId, v3Data])
+      : props.searchTransHierRelationInstance &&
+        props.transHierRelation?.relation_id &&
+        props.searchTransHierRelationSource
+      ? searchRelationInstanceProvider.query([
+          props.searchTransHierRelationSource.objectId,
+          props.transHierRelation.relation_id,
+          props.searchTransHierRelationSource.instanceId,
+          { query_relation: v3Data.query, ...v3Data },
+        ])
       : InstanceApi_postSearchV3(props.objectId, v3Data); //涉及到v3data的请求
   };
 
@@ -2216,19 +2252,19 @@ export function LegacyInstanceListWrapper(
         )
       ) {
         let list;
-        if (props.useExternalCmdbApi) {
-          list = await externalGetObjectRef.query([
-            {
-              ref_object: transHierRelationSideObjectIds.join(","),
-              sourceId: props.externalSourceId,
-            },
-          ]);
-        } else {
-          list = (
-            await CmdbObjectApi_getObjectRef({
-              ref_object: transHierRelationSideObjectIds.join(","),
-            })
-          ).data;
+        try {
+          if (!props.useExternalCmdbApi) {
+            list = (
+              await CmdbObjectApi_list({
+                page: 1,
+                page_size: transHierRelationSideObjectIds.length,
+                objectIds: transHierRelationSideObjectIds.join(","),
+              })
+            ).list;
+          }
+        } catch (e) {
+          // istanbul ignore next
+          handleHttpError(e);
         }
         if (list?.length) {
           objectList.push(...list);

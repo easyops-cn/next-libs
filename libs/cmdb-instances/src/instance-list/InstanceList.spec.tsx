@@ -1490,7 +1490,7 @@ it("should work with cross level relationship", async () => {
   await act(async () => {
     await (global as any).flushPromises();
   });
-  expect(CmdbObjectApi_getObjectRef).toBeCalledTimes(1);
+  expect(CmdbObjectApi_getObjectRef).toBeCalledTimes(0);
 
   expect(providerQuery).toBeCalledTimes(2);
 });

@@ -8,6 +8,7 @@ import {
 } from "../instance-list/InstanceList";
 import { addResourceBundle } from "../i18n";
 import { getRuntime } from "@next-core/brick-kit";
+import { TransHierRelationType } from "@next-libs/cmdb-utils";
 addResourceBundle();
 
 export interface InstanceListDrawerProps extends InstanceListProps {
@@ -33,6 +34,9 @@ interface InstanceListDrawerState {
   drawerTitle: string;
   query: Record<string, any>;
   detailUrlTemplates: Record<string, any>;
+  searchTransHierRelationInstance: boolean;
+  transHierRelation?: TransHierRelationType;
+  searchTransHierRelationSource?: { objectId: string; instanceId: string };
 }
 
 export function InstanceListDrawer(
@@ -44,6 +48,9 @@ export function InstanceListDrawer(
     detailUrlTemplates: undefined,
     drawerTitle: "",
     query: null,
+    searchTransHierRelationInstance: false,
+    transHierRelation: null,
+    searchTransHierRelationSource: null,
   });
 
   /* istanbul ignore next */
@@ -51,6 +58,9 @@ export function InstanceListDrawer(
     setState({
       open: false,
       drawerTitle: "",
+      searchTransHierRelationInstance: false,
+      transHierRelation: null,
+      searchTransHierRelationSource: null,
     });
   };
 
@@ -67,17 +77,30 @@ export function InstanceListDrawer(
       </>
     );
   };
-  const handleRelationMoreIconClick = (record: Record<string, any>): void => {
+  const handleRelationMoreIconClick = (
+    record: Record<string, any>,
+    relation?: Record<string, any>,
+    sourceObjectId?: string
+  ): void => {
     setState({
+      transHierRelation: relation as any,
+      searchTransHierRelationInstance: relation?.type === "transHierRelation",
+      searchTransHierRelationSource: {
+        objectId: sourceObjectId,
+        instanceId: record.instanceId,
+      },
       open: true,
       objectId: record.objectId,
       drawerTitle: record.left_name,
       detailUrlTemplates: {
         [record.objectId]: Object.values(props.detailUrlTemplates || {})?.[0],
       },
-      query: {
-        [`${record.right_id}.instanceId`]: record.instanceId,
-      },
+      query:
+        relation?.type === "transHierRelation"
+          ? {}
+          : {
+              [`${record.right_id}.instanceId`]: record.instanceId,
+            },
     });
   };
 
@@ -103,6 +126,11 @@ export function InstanceListDrawer(
         footerStyle={{ background: "var(--color-fill-bg-base-3)" }}
       >
         <InstanceListDrawer
+          searchTransHierRelationSource={state.searchTransHierRelationSource}
+          transHierRelation={state.transHierRelation}
+          searchTransHierRelationInstance={
+            state.searchTransHierRelationInstance
+          }
           objectId={state.objectId}
           onRelationMoreIconClick={handleRelationMoreIconClick}
           relationLimit={_relationLimit}

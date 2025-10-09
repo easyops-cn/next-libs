@@ -158,7 +158,11 @@ export interface InstanceListTableProps extends WithTranslation {
   relationLimit?: number;
   // 支持表格项固定列展示的字段数组
   fixedFieldIds?: string[];
-  onRelationMoreIconClick?(record: Record<string, any>): void;
+  onRelationMoreIconClick?(
+    record: Record<string, any>,
+    relation?: Record<string, any>,
+    sourceObjectId?: string
+  ): void;
 }
 
 interface InstanceListTableState {
@@ -920,8 +924,12 @@ export class LegacyInstanceListTable extends React.Component<
     return column;
   }
 
-  handleRelationMoreIconClick(record: Record<string, any>): void {
-    this.props?.onRelationMoreIconClick?.(record);
+  handleRelationMoreIconClick(
+    record: Record<string, any>,
+    relation?: Record<string, any>,
+    sourceObjectId?: string
+  ): void {
+    this.props?.onRelationMoreIconClick?.(record, relation, sourceObjectId);
   }
 
   getRelationColumnData(
@@ -1203,13 +1211,17 @@ export class LegacyInstanceListTable extends React.Component<
                       icon: "patch-list",
                     }}
                     onClick={() =>
-                      this.handleRelationMoreIconClick({
-                        ...record,
-                        objectId,
-                        left_name: leftName,
-                        right_id: rightId,
-                        instanceIds: instances.map((i) => i.instanceId),
-                      })
+                      this.handleRelationMoreIconClick(
+                        {
+                          ...record,
+                          objectId,
+                          left_name: leftName,
+                          right_id: rightId,
+                          instanceIds: instances.map((i) => i.instanceId),
+                        },
+                        relation,
+                        this.props.modelData.objectId
+                      )
                     }
                   />
                 </span>
