@@ -65,6 +65,7 @@ import {
 import {
   CmdbModels,
   InstanceApi_PostSearchV3RequestBody,
+  CmdbObjectApi_list,
 } from "@next-sdk/cmdb-sdk";
 import { Link } from "@next-libs/basic-components";
 import { CodeDisplay } from "@next-libs/code-display-components";
@@ -1200,7 +1201,7 @@ export class LegacyInstanceDetail extends React.Component<
   setBasicInfoGroupList(state: LegacyInstanceDetailState) {
     const { modelData, basicInfoGroupList } = state;
     const basicInfoList = this.formatBasicInfoGroupList(
-      modelData,
+      modifyModelData(modelData, true),
       basicInfoGroupList
     );
     this.setState({
@@ -1432,13 +1433,16 @@ export class LegacyInstanceDetail extends React.Component<
         transHierRelationSideObjectIds?.length &&
         !transHierRelationSideObjectIds.every((i) => modelDataMap[i])
       ) {
-        const transHierRelationSideObject = await fetchCmdbObjectRef(
-          transHierRelationSideObjectIds.join(","),
-          externalSourceId
-        );
+        const transHierRelationSideObjectList = (
+          await CmdbObjectApi_list({
+            page: 1,
+            page_size: transHierRelationSideObjectIds.length,
+            objectIds: transHierRelationSideObjectIds.join(","),
+          })
+        ).list;
         modelDataMap = {
           ...modelDataMap,
-          ...(keyBy(transHierRelationSideObject.data, "objectId") as {
+          ...(keyBy(transHierRelationSideObjectList, "objectId") as {
             [objectId: string]: CmdbModels.ModelCmdbObject;
           }),
         };
