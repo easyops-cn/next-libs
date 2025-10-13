@@ -37,6 +37,7 @@ import {
   isNil,
   filter,
   head,
+  isEmpty,
 } from "lodash";
 import {
   handleHttpError,
@@ -977,8 +978,16 @@ export class LegacyInstanceDetail extends React.Component<
     value?: string,
     externalSourceId?: string
   ): Promise<void> {
+    const isTransHierRelation = attr.__isTransHierRelation;
     const { right_id, left_object_id, right_object_id, left_id } = attr;
-    let objectId, queryId, oppositeId;
+    let lastRelation = "";
+    let lastRelationSourceObjectId = "";
+    let lastRelationSourceObject: Partial<ModifiedModelCmdbObject> = {};
+    let lastRelationSourceObjectRef: Record<
+      string,
+      Partial<CmdbModels.ModelCmdbObject>
+    > = {};
+    let objectId: string, queryId: string, oppositeId: string;
     const { modelData, modelDataMap } = this.state;
     const hideColumns = modelData?.view?.hide_columns || [];
     if (
@@ -1004,18 +1013,45 @@ export class LegacyInstanceDetail extends React.Component<
       queryId = attr.__id === left_id ? right_id : left_id;
       oppositeId = attr.__id === left_id ? left_id : right_id;
     }
+    if (isTransHierRelation) {
+      objectId = attr.relation_object;
+      const paths = attr.query_path.split(".");
+      lastRelation = paths[paths.length - 1];
+      lastRelationSourceObjectId =
+        modelDataMap[objectId]?.relation_list?.find(
+          (item: any) =>
+            item.left_id === lastRelation && item.right_object_id === objectId
+        )?.left_object_id ||
+        modelDataMap[objectId]?.relation_list?.find(
+          (item: any) =>
+            item.right_id === lastRelation && item.left_object_id === objectId
+        )?.right_object_id;
+      lastRelationSourceObject = modelDataMap[lastRelationSourceObjectId] || {};
+      if (isEmpty(lastRelationSourceObject)) {
+        const lastRelationSourceObjectList = await fetchCmdbObjectRef(objectId);
+        lastRelationSourceObjectRef = keyBy(
+          lastRelationSourceObjectList.data || [],
+          "objectId"
+        );
+        lastRelationSourceObject =
+          lastRelationSourceObjectRef[lastRelationSourceObjectId] || {};
+      }
+    }
 
-    const defaultRelationFields = get(modelData, [
-      "view",
-      "relation_default_attr",
-      oppositeId,
-    ]);
+    const defaultRelationFields = get(
+      isTransHierRelation ? lastRelationSourceObject : modelData,
+      [
+        "view",
+        "relation_default_attr",
+        isTransHierRelation ? lastRelation : oppositeId,
+      ]
+    );
     const fields = defaultRelationFields?.length
       ? defaultRelationFields.map((item: string) =>
           item.startsWith("#") ? item.slice(1) : item
         )
       : uniq(map(modelDataMap[objectId]?.attrList, "id"));
-    if (modelDataMap[objectId].isAbstract) {
+    if (modelDataMap[objectId]?.isAbstract) {
       fields.unshift("_object_id");
     }
     let query = {};
@@ -1060,21 +1096,34 @@ export class LegacyInstanceDetail extends React.Component<
       },
     };
     let instanceRelationModalData;
-    if (this.props.ignorePermission) {
+    if (isTransHierRelation) {
       instanceRelationModalData = (
         (await http.post(
-          `api/gateway/easyops.api.cmdb.instance.PostSearchV3WithAdmin/v3/object/${objectId}/instance/_search`,
+          `/api/gateway/logic.cmdb.service/object/${this.props.objectId}/relation/${attr.relation_id}/instance/${this.props.instanceId}`,
           {
             ...params,
+            query_relation: query,
+            query: {},
           }
         )) as any
       ).data;
     } else {
-      instanceRelationModalData = await fetchCmdbInstanceSearch(
-        objectId,
-        params,
-        externalSourceId
-      );
+      if (this.props.ignorePermission) {
+        instanceRelationModalData = (
+          (await http.post(
+            `api/gateway/easyops.api.cmdb.instance.PostSearchV3WithAdmin/v3/object/${objectId}/instance/_search`,
+            {
+              ...params,
+            }
+          )) as any
+        ).data;
+      } else {
+        instanceRelationModalData = await fetchCmdbInstanceSearch(
+          objectId,
+          params,
+          externalSourceId
+        );
+      }
     }
 
     this.setState({

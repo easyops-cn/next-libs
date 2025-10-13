@@ -1,0 +1,21 @@
+.drawerTitleWrapper {
+  display: flex;
+  align-items: center;
+}
+.drawerTitleWrapper .tag {
+  background-color: var(--tag-green-background);
+  border-color: var(--tag-green-border-color);
+  display: inline-block;
+  vertical-align: middle;
+  box-sizing: border-box;
+  color: var(--tag-green-color);
+  list-style: none;
+  font-size: 12px;
+  line-height: 20px;
+  height: 24px;
+  padding: 2px 8px;
+  border-radius: 3px;
+  white-space: nowrap;
+  transition: all 0.3s ease 0s;
+  margin-left: 5px;
+}

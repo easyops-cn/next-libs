@@ -1219,7 +1219,11 @@ export function LegacyInstanceList(
         });
       } else {
         if (!props.hideInstanceList) {
-          const instanceListData = await getInstanceListData(sort, asc, page);
+          const instanceListData = (await getInstanceListData(
+            sort,
+            asc,
+            page
+          )) || { list: [] };
           instanceListData.list.forEach((i) =>
             cache.current.set(i.instanceId, i)
           );
