@@ -322,9 +322,9 @@ export class LegacyDisplaySettings extends React.Component<
 
     return (
       <>
-        <Divider orientation="left" plain style={{ marginTop: 0 }}>
+        {/* <Divider orientation="left" plain style={{ marginTop: 0 }}>
           {t(K.FIELD_SETTINGS)}
-        </Divider>
+        </Divider> */}
         <div style={{ display: "flex", alignItems: "center" }}>
           <Input.Search
             value={this.state.q}

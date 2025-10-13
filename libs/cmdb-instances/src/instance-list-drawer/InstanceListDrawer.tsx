@@ -9,6 +9,7 @@ import {
 import { addResourceBundle } from "../i18n";
 import { getRuntime } from "@next-core/brick-kit";
 import { TransHierRelationType } from "@next-libs/cmdb-utils";
+import styles from "./InstanceListDrawer.module.css";
 addResourceBundle();
 
 export interface InstanceListDrawerProps extends InstanceListProps {
@@ -116,7 +117,20 @@ export function InstanceListDrawer(
         relationLimit={_relationLimit}
       />
       <Drawer
-        title={state.drawerTitle}
+        title={(() => {
+          return (
+            <div className={styles.drawerTitleWrapper}>
+              {state.drawerTitle}
+              {state.searchTransHierRelationInstance && (
+                <div className={styles.tag}>
+                  {i18n.t(
+                    `${NS_LIBS_CMDB_INSTANCES}:${K.CROSS_LEVEL_RELATIONSHIPS}`
+                  )}
+                </div>
+              )}
+            </div>
+          );
+        })()}
         visible={state.open}
         width={props.drawerWidth || 900}
         onClose={handleClose}

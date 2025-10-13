@@ -960,7 +960,7 @@ describe("InstanceListTable", () => {
     expect(
       container
         .querySelector(".ant-table-thead")
-        .getElementsByClassName("ant-table-column-sorters")[5].textContent
+        .getElementsByClassName("ant-table-cell")[8].textContent
     ).toBe("部署实例(部署实例)-所属应用服务(服务)-测试跨级关系");
   });
 });

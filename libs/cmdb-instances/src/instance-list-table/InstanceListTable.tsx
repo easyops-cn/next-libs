@@ -1108,7 +1108,7 @@ export class LegacyInstanceListTable extends React.Component<
     const column: ColumnType<Record<string, any>> = {
       title: relation.relation_name,
       dataIndex: key,
-      sorter: !this.props.sortDisabled,
+      sorter: false,
       className: styles.instanceListTableCell,
       fixed: this.props.fixedFieldIds?.includes(key) ? "right" : false,
     };

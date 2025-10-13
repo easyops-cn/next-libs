@@ -190,7 +190,7 @@ export function DisplaySettingsModal(
             <>
               {t(K.SORT_SETTINGS_ALERT)}
               <Link
-                to={`/cmdb-model-management/object/${modelData.objectId}/view?key=3`}
+                to={`/cmdb-model-management/object/${modelData.objectId}/view?key=3&openCrossLevelRelationShipDrawer=true`}
                 target={"_blank"}
               >
                 {t(K.MANAGING)}
