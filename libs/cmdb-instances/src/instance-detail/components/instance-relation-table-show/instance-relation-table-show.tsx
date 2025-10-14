@@ -14,6 +14,7 @@ import styles from "../../../instance-list-table/InstanceListTable.module.css";
 import { fetchCmdbObjectRef } from "../../../data-providers";
 import { handleHttpError } from "@next-core/brick-kit";
 export interface InstanceRelationTableShowProps {
+  objectId: string;
   modelDataMap: { [objectId: string]: CmdbModels.ModelCmdbObject };
   relationData: ModifiedModelObjectRelation &
     TransHierRelationType & { __isTransHierRelation?: boolean };
@@ -133,8 +134,12 @@ export function InstanceRelationTableShow(
   }, [relationData, externalSourceId]);
   const [instanceSourceQuery, setInstanceSourceQuery] = useState(null);
 
-  let modelData = modelDataMap[relationData.left_object_id];
-  let lastPath: string;
+  const modelData =
+    modelDataMap[
+      relationData.__isTransHierRelation
+        ? props.objectId
+        : relationData.left_object_id
+    ];
 
   let oppositeModelData = modifyModelData(
     modelDataMap[
@@ -143,29 +148,12 @@ export function InstanceRelationTableShow(
         : relationData.right_object_id
     ]
   );
-  if (relationData.__isTransHierRelation) {
-    const paths = relationData.query_path.split(".");
-    lastPath = paths[paths.length - 1];
-    const lastPathSourceObjectId =
-      oppositeModelData?.relation_list?.find(
-        (item: any) =>
-          item.left_id === lastPath &&
-          item.right_object_id === relationData.relation_object
-      )?.left_object_id ||
-      oppositeModelData?.relation_list?.find(
-        (item: any) =>
-          item.right_id === lastPath &&
-          item.left_object_id === relationData.relation_object
-      )?.right_object_id;
-    modelData =
-      modelDataMap[lastPathSourceObjectId] ||
-      (oppositeModelDataMap as any)[lastPathSourceObjectId];
-  }
+
   // 如果指定了relation_default_attr，则取里面的字段
   const defaultRelationFields = get(modelData, [
     "view",
     "relation_default_attr",
-    relationData.__isTransHierRelation ? lastPath : relationData.__id,
+    relationData.__id,
   ]);
 
   const fieldIds = getRelationShowFields(
@@ -204,7 +192,9 @@ export function InstanceRelationTableShow(
           props.hideRelationLink
             ? null
             : {
-                [relationData.right_object_id]:
+                [relationData.__isTransHierRelation
+                  ? relationData.relation_object
+                  : relationData.right_object_id]:
                   "/next-cmdb-instance-management/next/#{objectId}/instance/#{instanceId}",
               }
         }

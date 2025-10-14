@@ -7,6 +7,7 @@ import {
   isEmpty,
   groupBy,
   mapValues,
+  uniq,
 } from "lodash";
 import { extraFieldAttrs } from "./constants";
 import { Checkbox, Col, Divider, Input, Row, Tag } from "antd";
@@ -204,15 +205,16 @@ export class LegacyDisplaySettings extends React.Component<
     const fieldsKey = "nextFields";
     const checked = event.target.checked;
     const fields = checked ? allFields.map((attr) => attr.id) : [];
+    const finalFields = uniq(this.state[fieldsKey].concat(fields));
     this.setState({
-      [fieldsKey]: fields,
+      [fieldsKey]: finalFields,
       selectAllFields: event.target.checked,
       selectCategoryAllFieldsMap: mapValues(
         this.state.selectCategoryAllFieldsMap,
         () => checked
       ),
     });
-    this.props.onChange?.(fields);
+    this.props.onChange?.(finalFields);
   }
 
   renderCheckbox(
