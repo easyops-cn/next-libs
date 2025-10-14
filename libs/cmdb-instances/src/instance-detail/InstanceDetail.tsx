@@ -349,6 +349,7 @@ export class LegacyInstanceDetail extends React.Component<
                   />
                 }
                 <InstanceRelationTableShow
+                  objectId={this.props.objectId}
                   modelDataMap={this.state.modelDataMap}
                   relationData={currentAttr}
                   hideRelationLink={this.props.ignorePermission}
@@ -854,6 +855,7 @@ export class LegacyInstanceDetail extends React.Component<
             !isUrl(attr) && (
               <div>
                 <InstanceRelationTableShow
+                  objectId={this.props.objectId}
                   hideRelationLink={this.props.ignorePermission}
                   modelDataMap={modelDataMap}
                   relationData={attr}
@@ -980,13 +982,6 @@ export class LegacyInstanceDetail extends React.Component<
   ): Promise<void> {
     const isTransHierRelation = attr.__isTransHierRelation;
     const { right_id, left_object_id, right_object_id, left_id } = attr;
-    let lastRelation = "";
-    let lastRelationSourceObjectId = "";
-    let lastRelationSourceObject: Partial<ModifiedModelCmdbObject> = {};
-    let lastRelationSourceObjectRef: Record<
-      string,
-      Partial<CmdbModels.ModelCmdbObject>
-    > = {};
     let objectId: string, queryId: string, oppositeId: string;
     const { modelData, modelDataMap } = this.state;
     const hideColumns = modelData?.view?.hide_columns || [];
@@ -1015,37 +1010,13 @@ export class LegacyInstanceDetail extends React.Component<
     }
     if (isTransHierRelation) {
       objectId = attr.relation_object;
-      const paths = attr.query_path.split(".");
-      lastRelation = paths[paths.length - 1];
-      lastRelationSourceObjectId =
-        modelDataMap[objectId]?.relation_list?.find(
-          (item: any) =>
-            item.left_id === lastRelation && item.right_object_id === objectId
-        )?.left_object_id ||
-        modelDataMap[objectId]?.relation_list?.find(
-          (item: any) =>
-            item.right_id === lastRelation && item.left_object_id === objectId
-        )?.right_object_id;
-      lastRelationSourceObject = modelDataMap[lastRelationSourceObjectId] || {};
-      if (isEmpty(lastRelationSourceObject)) {
-        const lastRelationSourceObjectList = await fetchCmdbObjectRef(objectId);
-        lastRelationSourceObjectRef = keyBy(
-          lastRelationSourceObjectList.data || [],
-          "objectId"
-        );
-        lastRelationSourceObject =
-          lastRelationSourceObjectRef[lastRelationSourceObjectId] || {};
-      }
     }
 
-    const defaultRelationFields = get(
-      isTransHierRelation ? lastRelationSourceObject : modelData,
-      [
-        "view",
-        "relation_default_attr",
-        isTransHierRelation ? lastRelation : oppositeId,
-      ]
-    );
+    const defaultRelationFields = get(modelData, [
+      "view",
+      "relation_default_attr",
+      isTransHierRelation ? attr.__id : oppositeId,
+    ]);
     const fields = defaultRelationFields?.length
       ? defaultRelationFields.map((item: string) =>
           item.startsWith("#") ? item.slice(1) : item

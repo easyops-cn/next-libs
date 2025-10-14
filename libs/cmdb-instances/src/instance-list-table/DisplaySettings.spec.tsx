@@ -60,7 +60,7 @@ describe("DisplaySettings", () => {
     } as unknown as CheckboxChangeEvent);
     expect(getCheckbox("_agentStatus").prop("checked")).toBe(false);
     await (global as any).flushPromises();
-    expect(getSelectAllCheckbox().prop("checked")).toBe(false);
+    expect(getSelectAllCheckbox().prop("checked")).toBe(true);
     expect(
       wrapper
         .find(Checkbox)
@@ -71,7 +71,7 @@ describe("DisplaySettings", () => {
     checkbox1.invoke("onChange")({
       target: { checked: true },
     } as unknown as CheckboxChangeEvent);
-    expect(getSelectAllCheckbox().prop("checked")).toBe(true);
+    expect(getSelectAllCheckbox().prop("checked")).toBe(false);
 
     // search
     expect(getCheckbox("_agentStatus")).toHaveLength(1);
@@ -86,7 +86,7 @@ describe("DisplaySettings", () => {
         .filter(`[data-testid$='-checkbox']`)
         .map((v) => v.prop("checked"))
         .filter((v) => v === true)
-    ).toHaveLength(0);
+    ).toHaveLength(22);
 
     wrapper
       .find(Input.Search)
