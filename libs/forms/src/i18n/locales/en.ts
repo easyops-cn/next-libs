@@ -8,7 +8,7 @@ const locale: Locale = {
   [K.SELECT_ICON]: "Select Icon",
   [K.SET_COLOR]: "Color",
   [K.ICON]: "Icon",
-  [K.BACKGROUND_SEARCH]: "input keyword to search",
+  [K.BACKGROUND_SEARCH]: "Input keyword to search",
 };
 
 export default locale;

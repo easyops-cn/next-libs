@@ -106,6 +106,10 @@ export class LegacyInstanceAttributeForm extends Component<InstanceAttributeForm
                 {
                   required:
                     (attribute as ModifiedModelObjectAttr).required !== "false",
+                  message: i18n.t(
+                    `${NS_LIBS_CMDB_INSTANCES}:${K.VALIDATE_MESSAGE_REQUIRED}`,
+                    { s: attribute.name }
+                  ),
                 },
               ],
               initialValue: get(
@@ -131,9 +135,4 @@ export class LegacyInstanceAttributeForm extends Component<InstanceAttributeForm
 
 export const InstanceAttributeForm = Form.create<InstanceAttributeFormProps>({
   name: "instanceAttributeForm",
-  validateMessages: {
-    required: i18n.t(
-      `${NS_LIBS_CMDB_INSTANCES}:${K.VALIDATE_MESSAGE_REQUIRED}`
-    ),
-  },
 })(LegacyInstanceAttributeForm);

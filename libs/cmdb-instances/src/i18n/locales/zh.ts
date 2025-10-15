@@ -1,7 +1,7 @@
 import { Locale, K } from "../constants";
 
 const locale: Locale = {
-  [K.VALIDATE_MESSAGE_REQUIRED]: "%s 为必填项",
+  [K.VALIDATE_MESSAGE_REQUIRED]: "{{s}} 为必填项",
   [K.DYNAMIC_FILTER]: "动态过滤器",
   [K.TIP]: "提示",
   [K.DELETE]: "剔除",
