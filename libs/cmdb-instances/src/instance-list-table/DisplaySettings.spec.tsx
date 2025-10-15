@@ -86,7 +86,7 @@ describe("DisplaySettings", () => {
         .filter(`[data-testid$='-checkbox']`)
         .map((v) => v.prop("checked"))
         .filter((v) => v === true)
-    ).toHaveLength(22);
+    ).toHaveLength(0);
 
     wrapper
       .find(Input.Search)

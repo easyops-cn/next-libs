@@ -205,7 +205,12 @@ export class LegacyDisplaySettings extends React.Component<
     const fieldsKey = "nextFields";
     const checked = event.target.checked;
     const fields = checked ? allFields.map((attr) => attr.id) : [];
-    const finalFields = uniq(this.state[fieldsKey].concat(fields));
+    const realAllFieldsIds = allFields.map((attr) => attr.id);
+    const finalFields = checked
+      ? uniq(this.state[fieldsKey].concat(fields))
+      : this.state[fieldsKey].filter(
+          (id: string) => !realAllFieldsIds.includes(id)
+        );
     this.setState({
       [fieldsKey]: finalFields,
       selectAllFields: event.target.checked,
