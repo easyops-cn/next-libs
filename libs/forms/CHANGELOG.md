@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.6.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@3.6.3...@next-libs/forms@3.6.4) (2025-10-15)
+
+
+### Bug Fixes
+
+* 平台配置bug合集（一） ([fd515aa](https://github.com/easyops-cn/next-libs/commit/fd515aa2babc120b9ee38710e4b03d8c63d47835))
+
+
+
+
+
 ## [3.6.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@3.6.2...@next-libs/forms@3.6.3) (2025-08-06)
 
 **Note:** Version bump only for package @next-libs/forms
