@@ -14,6 +14,13 @@ import {
 import style from "./IconSelect.module.css";
 import classNames from "classnames";
 import { getIconList, IconType } from "@next-libs/basic-components";
+import i18next from "i18next";
+
+import en from "../../i18n/locales/en";
+import zh from "../../i18n/locales/zh";
+
+i18next.addResourceBundle("en", NS_LIBS_FORM, en);
+i18next.addResourceBundle("zh", NS_LIBS_FORM, zh);
 
 export interface IconSelectProps extends FormItemWrapperProps {
   visible?: boolean;
@@ -215,7 +222,7 @@ export function LegacyIconSelectItem(
             <Input.Search
               value={searchQuery}
               className={style.iconSearch}
-              placeholder={t(K.BACKGROUND_SEARCH)}
+              placeholder={props.placeholder || t(K.BACKGROUND_SEARCH)}
               onChange={handleChange}
             />
             <Radio.Group
