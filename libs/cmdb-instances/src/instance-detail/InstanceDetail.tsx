@@ -1070,7 +1070,7 @@ export class LegacyInstanceDetail extends React.Component<
     if (isTransHierRelation) {
       instanceRelationModalData = (
         (await http.post(
-          `/api/gateway/logic.cmdb.service/object/${this.props.objectId}/relation/${attr.relation_id}/instance/${this.props.instanceId}`,
+          `api/gateway/logic.cmdb.service/object/${this.props.objectId}/relation/${attr.relation_id}/instance/${this.props.instanceId}`,
           {
             ...params,
             query_relation: query,

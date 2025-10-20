@@ -1,5 +1,5 @@
 import React, { useReducer } from "react";
-import { Button, Drawer } from "antd";
+import { Button, Drawer, Alert } from "antd";
 import i18n from "i18next";
 import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
 import {
@@ -37,6 +37,7 @@ interface InstanceListDrawerState {
   detailUrlTemplates: Record<string, any>;
   searchTransHierRelationInstance: boolean;
   transHierRelation?: TransHierRelationType;
+  relatedToMe: boolean;
   searchTransHierRelationSource?: { objectId: string; instanceId: string };
 }
 
@@ -52,6 +53,7 @@ export function InstanceListDrawer(
     searchTransHierRelationInstance: false,
     transHierRelation: null,
     searchTransHierRelationSource: null,
+    relatedToMe: false,
   });
 
   /* istanbul ignore next */
@@ -85,6 +87,7 @@ export function InstanceListDrawer(
   ): void => {
     setState({
       transHierRelation: relation as any,
+      relatedToMe: false,
       searchTransHierRelationInstance: relation?.type === "transHierRelation",
       searchTransHierRelationSource: {
         objectId: sourceObjectId,
@@ -139,6 +142,17 @@ export function InstanceListDrawer(
         zIndex={props.drawerZIndex ?? 1000}
         footerStyle={{ background: "var(--color-fill-bg-base-3)" }}
       >
+        {state.searchTransHierRelationInstance && (
+          <Alert
+            className={styles.alert}
+            message={i18n.t(
+              `${NS_LIBS_CMDB_INSTANCES}:${K.CROSS_LEVEL_RELATIONSHIPS_ALERT}`
+            )}
+            type="info"
+            showIcon
+            closable
+          />
+        )}
         <InstanceListDrawer
           searchTransHierRelationSource={state.searchTransHierRelationSource}
           transHierRelation={state.transHierRelation}
@@ -153,7 +167,7 @@ export function InstanceListDrawer(
           selectDisabled={true}
           ipCopy={props.ipCopy}
           target={props.target}
-          relatedToMe={props.relatedToMe}
+          relatedToMe={state.relatedToMe}
           relatedToMeDisabled={props.relatedToMeDisabled}
           searchDisabled={props.searchDisabled}
           sortDisabled={props.sortDisabled}

@@ -1639,7 +1639,7 @@ export function LegacyInstanceList(
           _sortFieldIds(fields)
         );
       }
-      props.onFieldsModalConfirm(fields);
+      props.onFieldsModalConfirm?.(fields);
     };
     if (isReset) {
       // 恢复默认操作
@@ -1659,11 +1659,11 @@ export function LegacyInstanceList(
           await updateFieldsProvider.query([props.objectId, { sortFields }]);
         }
         setState({ fieldIds, sortFields });
-        props.onFieldsModalConfirm(fieldIds);
+        props.onFieldsModalConfirm?.(fieldIds);
       } else {
         jsonLocalStorage.removeItem(`${modelData.objectId}-selectAttrIds`);
         setState({ fieldIds });
-        props.onFieldsModalConfirm(fieldIds);
+        props.onFieldsModalConfirm?.(fieldIds);
       }
     } else {
       if (!isAdminSetDisplay) {
