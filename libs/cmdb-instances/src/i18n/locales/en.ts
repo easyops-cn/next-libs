@@ -91,7 +91,7 @@ const locale: Locale = {
     "Are you sure you want to delete the relation?",
   [K.OPERATION]: "Operation",
   [K.VIEW_ALL_SELECTED_INSTANCES]: "View all selected instances",
-  [K.CHOOSE_INSTANCE]: "Choose instance",
+  [K.CHOOSE_INSTANCE]: "Choose Instance",
   [K.CHOOSE_INSTANCE_NAME]: "Choose {{ name }}",
   [K.VIEW_ALL_DATA]: "View all {{count}} data",
   [K.FILTER_FROM_CMDB]: "Filter {{name}} From CMDB",
@@ -138,7 +138,7 @@ const locale: Locale = {
   [K.CLICK_TO_FILTER_INSTANCE_SOURCE]:
     "Filter the instance source to view all field information for the source model",
   [K.SEARCH_MODEL]: "Search the model",
-  [K.SELECT_ALL]: "Select all",
+  [K.SELECT_ALL]: "Select All",
   [K.UPLOAD_SIZE_LARGE_TEXT]:
     "The size of the upload file is larger than the limited size {{size}}",
   [K.UPLOAD]: "Upload",
