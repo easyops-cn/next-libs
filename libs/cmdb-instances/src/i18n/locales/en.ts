@@ -161,7 +161,7 @@ const locale: Locale = {
   [K.ATTRIBUTES]: "Attributes",
   [K.RELATIONSHIPS]: "Relationships",
   [K.CROSS_LEVEL_RELATIONSHIPS_ALERT]:
-    "The current relationship is a cross level relationship that supports data browsing, but does not currently support the addition, removal, and maintenance of cross level relationship instances.",
+    "The current relationship is a cross-level relationship, supporting only data browsing and temporarily not allowing maintenance operations such as adding or removing instances of cross-level relationships.",
 };
 
 export default locale;

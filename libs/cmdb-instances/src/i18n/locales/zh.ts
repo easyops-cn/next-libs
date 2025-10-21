@@ -146,7 +146,7 @@ const locale: Locale = {
   [K.ATTRIBUTES]: "属性",
   [K.RELATIONSHIPS]: "关系",
   [K.CROSS_LEVEL_RELATIONSHIPS_ALERT]:
-    "当前关系为跨级关系，支持供数据浏览，暂不支持跨级关系实例的添加、移除等维护。",
+    "当前关系为跨级关系，仅支持数据浏览，暂不支持跨级关系实例的添加、移除等维护。",
 };
 
 export default locale;
