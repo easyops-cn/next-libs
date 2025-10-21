@@ -1148,7 +1148,7 @@ export class LegacyInstanceListTable extends React.Component<
 
             let instanceName = subName
               ? `${instance[nameKeys[0]]} (${subName})`
-              : instance[nameKeys[0]];
+              : `${instance[nameKeys[0]] || undefined}`;
 
             if (detailUrlTemplate) {
               const url = parseTemplate(detailUrlTemplate, {
