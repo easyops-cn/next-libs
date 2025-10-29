@@ -10,7 +10,7 @@ const locale: Locale = {
   [K.SELECT_FROM_CMDB]: "Select from CMDB",
   [K.IP_PLACEHOLDER]: "Please enter an IP address, for example: 192.168.100.1",
   [K.CLICK_TO_SELECT]: "Click to select",
-  [K.MATCHING_REGULAR]: "Matching regular {{regexp}}",
+  [K.MATCHING_REGULAR]: "matching regular {{regexp}}",
   [K.ADD]: "Add",
   [K.ENTER_MULTIPLE_STRING_WITH_ENTER_KEY_AS_THE_SEPARATOR]:
     "Please enter {{label}}, supports entering multiple values by pressing the Enter key",
