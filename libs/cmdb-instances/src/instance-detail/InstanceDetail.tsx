@@ -186,6 +186,7 @@ interface LegacyInstanceDetailProps extends WithTranslation {
   externalSourceId?: string;
   attrGangedConfig?: Record<string, any>[];
   displayFields?: Record<string, any>[];
+  instanceDataFormatter?: (instanceData: any) => any;
 }
 
 interface LegacyInstanceDetailState {
@@ -851,37 +852,36 @@ export class LegacyInstanceDetail extends React.Component<
             </span>
           )}
 
-          {(attr.__isRelation || attr.__isTransHierRelation) &&
-            !isUrl(attr) && (
-              <div>
-                <InstanceRelationTableShow
-                  objectId={this.props.objectId}
-                  hideRelationLink={this.props.ignorePermission}
-                  modelDataMap={modelDataMap}
-                  relationData={attr}
-                  value={instanceData[attr.__id]?.slice(0, 10)}
-                  relationFieldUrlTemplate={this.props.relationFieldUrlTemplate}
-                  filterInstanceSourceDisabled={true}
-                  externalSourceId={externalSourceId}
-                  relationGangedConfig={head(
-                    attrGangedConfig.filter(
-                      (c) => c.isRelation && c.attrId === attr.__id
-                    )
-                  )}
-                />
-                {instanceData[attr.__id]?.length >= 10 && (
-                  <Button
-                    data-testid={"view-more-" + attr.__id}
-                    type="link"
-                    onClick={() =>
-                      this.handleRelationModal(attr, externalSourceId)
-                    }
-                  >
-                    {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.VIEW_MORE}`)}
-                  </Button>
+          {(attr.__isRelation || attr.__isTransHierRelation) && !isUrl(attr) && (
+            <div>
+              <InstanceRelationTableShow
+                objectId={this.props.objectId}
+                hideRelationLink={this.props.ignorePermission}
+                modelDataMap={modelDataMap}
+                relationData={attr}
+                value={instanceData[attr.__id]?.slice(0, 10)}
+                relationFieldUrlTemplate={this.props.relationFieldUrlTemplate}
+                filterInstanceSourceDisabled={true}
+                externalSourceId={externalSourceId}
+                relationGangedConfig={head(
+                  attrGangedConfig.filter(
+                    (c) => c.isRelation && c.attrId === attr.__id
+                  )
                 )}
-              </div>
-            )}
+              />
+              {instanceData[attr.__id]?.length >= 10 && (
+                <Button
+                  data-testid={"view-more-" + attr.__id}
+                  type="link"
+                  onClick={() =>
+                    this.handleRelationModal(attr, externalSourceId)
+                  }
+                >
+                  {i18n.t(`${NS_LIBS_CMDB_INSTANCES}:${K.VIEW_MORE}`)}
+                </Button>
+              )}
+            </div>
+          )}
           {!isStructs(attr) &&
             !isStruct(attr) &&
             !isAttachment(attr) &&
@@ -1521,7 +1521,9 @@ export class LegacyInstanceDetail extends React.Component<
             (item: any) => !hideModelData.includes(item.__id)
           ),
         },
-        instanceData,
+        instanceData: props.instanceDataFormatter
+          ? props.instanceDataFormatter(instanceData)
+          : instanceData,
         loaded: true,
         basicInfoGroupListShow: [],
         basicInfoGroupList: [],
