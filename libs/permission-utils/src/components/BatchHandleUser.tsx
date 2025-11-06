@@ -4,6 +4,8 @@ import { User, Permission } from "../interfaces";
 import { initPermissionOptions } from "../processors";
 import { SelectUserOrGroup } from "./SelectUserOrGroup";
 import { LabeledValue } from "antd/lib/select";
+import i18next from "i18next";
+import { NS_LIBS_PERMISSION, K } from "../i18n/constants";
 
 export interface BatchHandleUserProps {
   batchType: string;
@@ -38,7 +40,12 @@ export class BatchHandleUser extends React.Component<
           onChange={this.handleCheckPerm}
         />
         <div>
-          <label>用户（组）：</label>
+          <label>
+            {i18next.t(
+              `${NS_LIBS_PERMISSION}:${K.USER_OR_GROUP_LABEL}`,
+              "用户（组）："
+            )}
+          </label>
           <SelectUserOrGroup
             handleUsersChange={this.handleUsersChange}
             currentUsers={batchType === "remove" ? currentUsers : undefined}

@@ -9,6 +9,8 @@ import {
 import { InstanceApi_postSearch } from "@next-sdk/cmdb-sdk";
 import { handleHttpError } from "@next-core/brick-kit";
 import { LabeledValue } from "antd/lib/select";
+import i18next from "i18next";
+import { NS_LIBS_PERMISSION, K } from "../i18n/constants";
 
 export class SelectUserOrGroup extends React.Component<
   SelectUserOrGroupProps,
@@ -87,14 +89,19 @@ export class SelectUserOrGroup extends React.Component<
         labelInValue
         style={{ width: "100%" }}
         mode="multiple"
-        placeholder="选择用户（组）"
+        placeholder={i18next.t(
+          `${NS_LIBS_PERMISSION}:${K.SELECT_USER_OR_GROUP}`,
+          "选择用户（组）"
+        )}
         onChange={this.handleUsersChange}
         filterOption={false}
         showSearch
         onSearch={(value) => this.debounceUpdateUserAndUserGroup(value)}
         loading={loading}
       >
-        <Select.OptGroup label="用户">
+        <Select.OptGroup
+          label={i18next.t(`${NS_LIBS_PERMISSION}:${K.USER}`, "用户")}
+        >
           {users.map((item: any) => (
             <Select.Option
               value={item.instanceId}
@@ -105,7 +112,9 @@ export class SelectUserOrGroup extends React.Component<
             </Select.Option>
           ))}
         </Select.OptGroup>
-        <Select.OptGroup label="用户组">
+        <Select.OptGroup
+          label={i18next.t(`${NS_LIBS_PERMISSION}:${K.USER_GROUP}`, "用户组")}
+        >
           {userGroups.map((item: any) => (
             <Select.Option
               value={item.instanceId}

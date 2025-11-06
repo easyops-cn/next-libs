@@ -16,6 +16,8 @@ import { initPermissionOptions } from "../processors";
 import { KEY_AUTHORIZERS_OF_PERM } from "../constants";
 import styles from "./index.module.css";
 import { LabeledValue } from "antd/lib/select";
+import i18next from "i18next";
+import { NS_LIBS_PERMISSION, K } from "../i18n/constants";
 export interface BatchSettingProps {
   modelData?: any;
   instanceIds: string[];
@@ -101,19 +103,28 @@ export class BatchSetting extends React.Component<
     const method = this.state.formData.method;
     const operations = [
       {
-        label: "重置",
+        label: i18next.t(`${NS_LIBS_PERMISSION}:${K.RESET}`, "重置"),
         value: "overwrite",
-        message: "重置白名单为：",
+        message: i18next.t(
+          `${NS_LIBS_PERMISSION}:${K.RESET_WHITELIST_TO}`,
+          "重置白名单为："
+        ),
       },
       {
-        label: "添加",
+        label: i18next.t(`${NS_LIBS_PERMISSION}:${K.ADD}`, "添加"),
         value: "append",
-        message: "向白名单添加：",
+        message: i18next.t(
+          `${NS_LIBS_PERMISSION}:${K.ADD_TO_WHITELIST}`,
+          "向白名单添加："
+        ),
       },
       {
-        label: "移除",
+        label: i18next.t(`${NS_LIBS_PERMISSION}:${K.REMOVE}`, "移除"),
         value: "remove",
-        message: "从白名单移除：",
+        message: i18next.t(
+          `${NS_LIBS_PERMISSION}:${K.REMOVE_FROM_WHITELIST}`,
+          "从白名单移除："
+        ),
       },
     ];
     const message = operations.find((item) => item.value === method).message;
@@ -156,21 +167,35 @@ export class BatchSetting extends React.Component<
     return (
       <div>
         <Button onClick={this.showModal} disabled={!instanceIds.length}>
-          批量设置权限
+          {i18next.t(
+            `${NS_LIBS_PERMISSION}:${K.BATCH_SET_PERMISSION}`,
+            "批量设置权限"
+          )}
         </Button>
         <Modal
-          title="批量设置权限"
+          title={i18next.t(
+            `${NS_LIBS_PERMISSION}:${K.BATCH_SET_PERMISSION}`,
+            "批量设置权限"
+          )}
           visible={this.state.visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
-          okText="确定"
-          cancelText="取消"
+          okText={i18next.t(`${NS_LIBS_PERMISSION}:${K.CONFIRM}`, "确定")}
+          cancelText={i18next.t(`${NS_LIBS_PERMISSION}:${K.CANCEL}`, "取消")}
           okButtonProps={{ disabled: !this.formIsValid() }}
           destroyOnClose={true}
         >
           <Alert
-            message={`已选择${instanceIds.length}个${
-              modelData ? modelData.name : "程序包"
+            message={`${i18next.t(
+              `${NS_LIBS_PERMISSION}:${K.SELECTED}`,
+              "已选择"
+            )}${instanceIds.length}${i18next.t(
+              `${NS_LIBS_PERMISSION}:${K.ITEMS}`,
+              "个"
+            )}${
+              modelData
+                ? modelData.name
+                : i18next.t(`${NS_LIBS_PERMISSION}:${K.PACKAGE}`, "程序包")
             }`}
             type="info"
           />
@@ -179,7 +204,10 @@ export class BatchSetting extends React.Component<
               <label
                 className={`ant-legacy-form-item-required ${styles.formLabel}`}
               >
-                选择权限：
+                {i18next.t(
+                  `${NS_LIBS_PERMISSION}:${K.SELECT_PERMISSIONS}`,
+                  "选择权限："
+                )}
               </label>
               <CheckboxGroup
                 options={permissionOptions}
@@ -187,7 +215,9 @@ export class BatchSetting extends React.Component<
               />
             </div>
             <div className={styles.formRow}>
-              <label className={styles.formLabel}>白名单：</label>
+              <label className={styles.formLabel}>
+                {i18next.t(`${NS_LIBS_PERMISSION}:${K.WHITELIST}`, "白名单：")}
+              </label>
               <div>
                 <Switch
                   defaultChecked={false}
