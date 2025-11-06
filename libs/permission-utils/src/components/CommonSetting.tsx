@@ -14,6 +14,8 @@ import {
   UserAdminApi_ListGroupsIdNameResponseBody,
 } from "@next-sdk/user-service-sdk";
 import { LabeledValue } from "antd/lib/select";
+import i18next from "i18next";
+import { NS_LIBS_PERMISSION, K } from "../i18n/constants";
 
 export interface CommonSettingPropsDefine {
   instanceData: any;
@@ -105,7 +107,10 @@ export class CommonSetting extends React.Component<
     const modifyButton = (
       <div className={styles.btnGroupContainer}>
         <Button onClick={this.enableEdit} id="modifyPermissionBtn">
-          修改权限
+          {i18next.t(
+            `${NS_LIBS_PERMISSION}:${K.MODIFY_PERMISSION}`,
+            "修改权限"
+          )}
         </Button>
       </div>
     );
@@ -117,14 +122,14 @@ export class CommonSetting extends React.Component<
           onClick={this.store}
           style={{ marginRight: "8px" }}
         >
-          保存
+          {i18next.t(`${NS_LIBS_PERMISSION}:${K.SAVE}`, "保存")}
         </Button>
         <Button
           id="cancelEditBtn"
           onClick={this.cancelEdit}
           style={{ marginRight: "16px" }}
         >
-          取消
+          {i18next.t(`${NS_LIBS_PERMISSION}:${K.CANCEL}`, "取消")}
         </Button>
         <Button
           style={{ marginRight: "8px" }}
@@ -132,39 +137,51 @@ export class CommonSetting extends React.Component<
           icon={<PlusOutlined />}
           onClick={() => this.openBatchSetUserModel("add")}
         >
-          批量添加
+          {i18next.t(`${NS_LIBS_PERMISSION}:${K.BATCH_ADD}`, "批量添加")}
         </Button>
         <Button
           id="batchRemoveBtn"
           icon={<DeleteOutlined />}
           onClick={() => this.openBatchSetUserModel("remove")}
         >
-          批量删除
+          {i18next.t(`${NS_LIBS_PERMISSION}:${K.BATCH_REMOVE}`, "批量删除")}
         </Button>
       </div>
     );
     const columns = [
       {
-        title: "权限名称",
+        title: i18next.t(
+          `${NS_LIBS_PERMISSION}:${K.PERMISSION_NAME}`,
+          "权限名称"
+        ),
         dataIndex: ["data", "remark"],
       },
       {
-        title: "适用角色",
+        title: i18next.t(
+          `${NS_LIBS_PERMISSION}:${K.APPLICABLE_ROLES}`,
+          "适用角色"
+        ),
         dataIndex: ["data", "roles"],
         render: this.renderRoles,
       },
       {
-        title: "启用白名单",
+        title: i18next.t(
+          `${NS_LIBS_PERMISSION}:${K.ENABLE_WHITELIST}`,
+          "启用白名单"
+        ),
         dataIndex: "_whiteListEnabled",
         render: this.renderWhiteListEnabled,
       },
       {
-        title: "操作",
+        title: i18next.t(`${NS_LIBS_PERMISSION}:${K.OPERATION}`, "操作"),
         dataIndex: "operation",
         render: this.renderOperation,
       },
       {
-        title: "用户组／用户",
+        title: i18next.t(
+          `${NS_LIBS_PERMISSION}:${K.USER_GROUP_OR_USER}`,
+          "用户组／用户"
+        ),
         dataIndex: "authorizers",
         render: (text: any, record: any) => {
           return record._whiteListEnabled
@@ -196,7 +213,10 @@ export class CommonSetting extends React.Component<
         <Table columns={columns} dataSource={collections.permissionList} />
         <Modal
           destroyOnClose={true}
-          title="选择用户"
+          title={i18next.t(
+            `${NS_LIBS_PERMISSION}:${K.SELECT_USER_OR_GROUP}`,
+            "选择用户"
+          )}
           visible={showAddUser}
           onOk={this.handleStoreSingleAddUser}
           onCancel={this.closeSingleAddUserModel}
@@ -205,7 +225,11 @@ export class CommonSetting extends React.Component<
         </Modal>
         <Modal
           destroyOnClose={true}
-          title={`批量${batchType === "add" ? "添加" : "移除"}`}
+          title={
+            batchType === "add"
+              ? i18next.t(`${NS_LIBS_PERMISSION}:${K.BATCH_ADD}`, "批量添加")
+              : i18next.t(`${NS_LIBS_PERMISSION}:${K.BATCH_REMOVE}`, "批量删除")
+          }
           onOk={this.handleStoreBatchSetUser}
           onCancel={this.closeBatchSetUserModel}
           visible={showBatchHandleUserModal}
