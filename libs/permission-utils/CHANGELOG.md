@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.13](https://github.com/easyops-cn/next-libs/compare/@next-libs/permission-utils@4.0.12...@next-libs/permission-utils@4.0.13) (2025-11-07)
+
+
+### Bug Fixes
+
+* i18n fix ([60a36c9](https://github.com/easyops-cn/next-libs/commit/60a36c9cc0c0e76818e20138c1d9b26146bf570f))
+
+
+
+
+
 ## [4.0.12](https://github.com/easyops-cn/next-libs/compare/@next-libs/permission-utils@4.0.11...@next-libs/permission-utils@4.0.12) (2025-11-07)
 
 
