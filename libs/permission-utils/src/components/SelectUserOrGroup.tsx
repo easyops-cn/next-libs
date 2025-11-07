@@ -11,6 +11,9 @@ import { handleHttpError } from "@next-core/brick-kit";
 import { LabeledValue } from "antd/lib/select";
 import i18next from "i18next";
 import { NS_LIBS_PERMISSION, K } from "../i18n/constants";
+import { addResourceBundle } from "../i18n";
+
+addResourceBundle();
 
 export class SelectUserOrGroup extends React.Component<
   SelectUserOrGroupProps,
