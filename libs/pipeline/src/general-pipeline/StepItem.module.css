@@ -25,30 +25,39 @@
     overflow: hidden;
   }
 
+  &:hover {
+    box-shadow: var(--pipeline-stage-item-box-shadow);
+  }
+
   &.stepItemDisabled {
     background: var(--pipeline-stage-item-disabled-bg);
+    cursor: not-allowed;
 
     .stepName {
       color: var(--color-disabled-text);
     }
-  }
 
-  &:hover {
-    box-shadow: 0px 4px 8px 0px #d4dbe6;
+    &:hover {
+      box-shadow: none;
+    }
   }
 
   &.stepItemActive {
-    box-shadow: 0px 4px 8px 0px #d4dbe6;
+    box-shadow: var(--pipeline-stage-item-box-shadow);
+
+    &.stepItemDisabled {
+      box-shadow: none;
+    }
   }
 }
 
 .stepItemDark {
   &:hover {
-    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.36);
+    box-shadow: var(--pipeline-stage-item-box-shadow);
   }
 
   &.stepItemActive {
-    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.36);
+    box-shadow: var(--pipeline-stage-item-box-shadow);
   }
 }
 
