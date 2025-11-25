@@ -137,7 +137,7 @@ export function StepItem(props: StepItemProps): React.ReactElement {
             {title}
           </span>
           <div />
-          {operateButtons && operateVisible && (
+          {operateButtons && operateVisible && !!operateButtons?.length && (
             <div
               className={style.operateList}
               onClick={(e) => e.stopPropagation()}
