@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.7.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/pipeline@0.6.27...@next-libs/pipeline@0.7.0) (2025-11-25)
+
+
+### Features
+
+* pipe构件支持 item 的 disabledTooltip和 tooltip ([3d304d3](https://github.com/easyops-cn/next-libs/commit/3d304d3ed8bf5801806f843afd47f39fe0f8fe54))
+
+
+
+
+
 ## [0.6.27](https://github.com/easyops-cn/next-libs/compare/@next-libs/pipeline@0.6.26...@next-libs/pipeline@0.6.27) (2025-08-06)
 
 **Note:** Version bump only for package @next-libs/pipeline
