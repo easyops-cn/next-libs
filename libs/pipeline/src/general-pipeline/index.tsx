@@ -29,6 +29,8 @@ export interface GeneralPipelineProps {
       icon: MenuIcon;
       color: string;
       disabled?: boolean;
+      disabledTooltip?: string;
+      tooltip?: string;
       key: string;
       data?: any;
     }[];
@@ -180,6 +182,8 @@ export function GeneralPipeline(
                   color={item.color}
                   disabled={item.disabled}
                   data={item.data}
+                  disabledTooltip={item.disabledTooltip}
+                  tooltip={item.tooltip}
                   operateButtons={renderOperates(item.data)}
                   onOperateButtonClick={handleOperateButtonClick}
                   onStepItemClick={handleStepItemClick}
