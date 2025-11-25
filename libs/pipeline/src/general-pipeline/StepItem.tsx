@@ -35,6 +35,8 @@ interface StepItemProps {
     indexKey: [number, number];
   };
   refRepository?: RefRepositoryType;
+  disabledTooltip?: string;
+  tooltip?: string;
 }
 
 export function StepItem(props: StepItemProps): React.ReactElement {
@@ -50,6 +52,8 @@ export function StepItem(props: StepItemProps): React.ReactElement {
     onStepItemClick,
     keys,
     refRepository,
+    disabledTooltip,
+    tooltip,
   } = props;
 
   const [operateVisible, setOperateVisible] = useState(false);
@@ -98,71 +102,73 @@ export function StepItem(props: StepItemProps): React.ReactElement {
 
   return (
     <>
-      <div
-        className={classnames(style.stepItem, {
-          [style.stepItemActive]: operateVisible,
-          [style.stepItemDisabled]: disabled,
-          [style.stepItemDark]: isDark,
-        })}
-        ref={ref}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        onClick={handleStepItemClick}
-      >
+      <Tooltip title={disabled ? disabledTooltip : tooltip}>
         <div
-          className={style.colorTip}
-          style={{
-            backgroundColor: disabled
-              ? "var(--pipeline-stage-item-disabled-color)"
-              : color,
-          }}
-        />
-        <div />
-        <GeneralIcon
-          icon={{
-            ...icon,
-            color: disabled
-              ? "var(--pipeline-stage-item-disabled-color)"
-              : color,
-          }}
-          style={{ fontSize: 16 }}
-        />
-        <div />
-        <span className={style.stepName} title={title}>
-          {title}
-        </span>
-        <div />
-        {operateButtons && operateVisible && (
+          className={classnames(style.stepItem, {
+            [style.stepItemActive]: operateVisible,
+            [style.stepItemDisabled]: disabled,
+            [style.stepItemDark]: isDark,
+          })}
+          ref={ref}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          onClick={handleStepItemClick}
+        >
           <div
-            className={style.operateList}
-            onClick={(e) => e.stopPropagation()}
-          >
-            {operateButtons?.map((v) => (
-              <Tooltip key={v.key} title={v.tooltip}>
-                <Button
-                  type="link"
-                  disabled={v.disabled}
-                  onClick={(e) => {
-                    onOperateButtonClick?.({ key: v.key }, data);
-                    handleHideOperate();
-                  }}
-                >
-                  <GeneralIcon icon={v.icon} />
-                </Button>
-              </Tooltip>
-            ))}
-          </div>
+            className={style.colorTip}
+            style={{
+              backgroundColor: disabled
+                ? "var(--pipeline-stage-item-disabled-color)"
+                : color,
+            }}
+          />
+          <div />
+          <GeneralIcon
+            icon={{
+              ...icon,
+              color: disabled
+                ? "var(--pipeline-stage-item-disabled-color)"
+                : color,
+            }}
+            style={{ fontSize: 16 }}
+          />
+          <div />
+          <span className={style.stepName} title={title}>
+            {title}
+          </span>
+          <div />
+          {operateButtons && operateVisible && (
+            <div
+              className={style.operateList}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {operateButtons?.map((v) => (
+                <Tooltip key={v.key} title={v.tooltip}>
+                  <Button
+                    type="link"
+                    disabled={v.disabled}
+                    onClick={(e) => {
+                      onOperateButtonClick?.({ key: v.key }, data);
+                      handleHideOperate();
+                    }}
+                  >
+                    <GeneralIcon icon={v.icon} />
+                  </Button>
+                </Tooltip>
+              ))}
+            </div>
+          )}
+        </div>
+        {operateButtonsTrigger === "click" && (
+          <div
+            className={style.operateWrapper}
+            style={{
+              display: operateVisible ? "block" : "none",
+            }}
+            onClick={handleHideOperate}
+          />
         )}
-      </div>
-      {operateButtonsTrigger === "click" && (
-        <div
-          className={style.operateWrapper}
-          style={{
-            display: operateVisible ? "block" : "none",
-          }}
-          onClick={handleHideOperate}
-        />
-      )}
+      </Tooltip>
     </>
   );
 }
