@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.7.1](https://github.com/easyops-cn/next-libs/compare/@next-libs/pipeline@0.7.0...@next-libs/pipeline@0.7.1) (2025-11-25)
+
+
+### Bug Fixes
+
+* hover效果调整 ([d4fed55](https://github.com/easyops-cn/next-libs/commit/d4fed55619c8036981786884672b214576429aa9))
+
+
+
+
+
 # [0.7.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/pipeline@0.6.27...@next-libs/pipeline@0.7.0) (2025-11-25)
 
 
