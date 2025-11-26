@@ -31,23 +31,14 @@
 
   &.stepItemDisabled {
     background: var(--pipeline-stage-item-disabled-bg);
-    cursor: not-allowed;
 
     .stepName {
       color: var(--color-disabled-text);
-    }
-
-    &:hover {
-      box-shadow: none;
     }
   }
 
   &.stepItemActive {
     box-shadow: var(--pipeline-stage-item-box-shadow);
-
-    &.stepItemDisabled {
-      box-shadow: none;
-    }
   }
 }
 
