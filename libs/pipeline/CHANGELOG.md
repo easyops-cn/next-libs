@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.7.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/pipeline@0.7.2...@next-libs/pipeline@0.7.3) (2025-12-03)
+
+
+### Bug Fixes
+
+* 调整成手动控制 tooltip 的显隐 ([f6061f6](https://github.com/easyops-cn/next-libs/commit/f6061f6739c49a38c1d8d6f9647d56d682a8be3f))
+
+
+
+
+
 ## [0.7.2](https://github.com/easyops-cn/next-libs/compare/@next-libs/pipeline@0.7.1...@next-libs/pipeline@0.7.2) (2025-11-26)
 
 **Note:** Version bump only for package @next-libs/pipeline
