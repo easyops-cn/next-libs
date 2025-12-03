@@ -102,7 +102,10 @@ export function StepItem(props: StepItemProps): React.ReactElement {
 
   return (
     <>
-      <Tooltip title={disabled ? disabledTooltip : tooltip}>
+      <Tooltip
+        title={disabled ? disabledTooltip : tooltip}
+        visible={operateVisible}
+      >
         <div
           className={classnames(style.stepItem, {
             [style.stepItemActive]: operateVisible,
@@ -141,6 +144,7 @@ export function StepItem(props: StepItemProps): React.ReactElement {
             <div
               className={style.operateList}
               onClick={(e) => e.stopPropagation()}
+              onMouseEnter={(e) => e.stopPropagation()}
             >
               {operateButtons?.map((v) => (
                 <Tooltip key={v.key} title={v.tooltip}>
@@ -148,6 +152,7 @@ export function StepItem(props: StepItemProps): React.ReactElement {
                     type="link"
                     disabled={v.disabled}
                     onClick={(e) => {
+                      setOperateVisible(false);
                       onOperateButtonClick?.({ key: v.key }, data);
                       handleHideOperate();
                     }}
