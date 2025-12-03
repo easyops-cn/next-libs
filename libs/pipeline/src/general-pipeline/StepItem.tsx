@@ -104,7 +104,7 @@ export function StepItem(props: StepItemProps): React.ReactElement {
     <>
       <Tooltip
         title={disabled ? disabledTooltip : tooltip}
-        visible={operateVisible}
+        visible={disabled ? operateVisible : !!tooltip}
       >
         <div
           className={classnames(style.stepItem, {
