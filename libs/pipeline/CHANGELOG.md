@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.7.4](https://github.com/easyops-cn/next-libs/compare/@next-libs/pipeline@0.7.3...@next-libs/pipeline@0.7.4) (2025-12-04)
+
+
+### Bug Fixes
+
+* 没有禁用时不显示 tooltip ([bbe7212](https://github.com/easyops-cn/next-libs/commit/bbe72122f961fa4b67f6d0b330e1fc4499cfd3bc))
+
+
+
+
+
 ## [0.7.3](https://github.com/easyops-cn/next-libs/compare/@next-libs/pipeline@0.7.2...@next-libs/pipeline@0.7.3) (2025-12-03)
 
 
