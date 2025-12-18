@@ -6,8 +6,6 @@ import { DynamicSearch } from "./DynamicSearch";
 import { isEmpty, uniqueId, startsWith } from "lodash";
 import { Tag } from "antd";
 import styles from "./AdvancedSearchCondition.module.css";
-import { addResourceBundle } from "../i18n";
-addResourceBundle();
 
 export interface AdvancedSearchConditionProps {
   fields: Record<string, any>[];

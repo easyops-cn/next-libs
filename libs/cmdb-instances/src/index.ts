@@ -1,3 +1,4 @@
+import "./i18n";
 export * from "./instance-attribute-form/InstanceAttributeForm";
 export * from "./model-attribute-form/ModelAttributeForm";
 export * from "./model-relation-form/ModelRelationForm";
