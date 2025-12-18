@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.30.16](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.30.15...@next-libs/cmdb-instances@7.30.16) (2025-12-18)
+
+
+### Bug Fixes
+
+* 【7.12en】资源故障分析，执行ping命令，placeholder为英文，应该是中文 ([#779](https://github.com/easyops-cn/next-libs/issues/779)) ([3b5e84c](https://github.com/easyops-cn/next-libs/commit/3b5e84c19046ce1dc32b53120a96988cbbc17387))
+
+
+
+
+
 ## [7.30.15](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.30.14...@next-libs/cmdb-instances@7.30.15) (2025-11-04)
 
 
