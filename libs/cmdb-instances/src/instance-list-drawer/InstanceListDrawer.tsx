@@ -6,11 +6,9 @@ import {
   LegacyInstanceListWrapper,
   InstanceListProps,
 } from "../instance-list/InstanceList";
-import { addResourceBundle } from "../i18n";
 import { getRuntime } from "@next-core/brick-kit";
 import { TransHierRelationType } from "@next-libs/cmdb-utils";
 import styles from "./InstanceListDrawer.module.css";
-addResourceBundle();
 
 export interface InstanceListDrawerProps extends InstanceListProps {
   drawerZIndex?: number;

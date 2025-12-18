@@ -23,9 +23,6 @@ import {
 
 import { ModelRelationForm } from "../model-relation-form/ModelRelationForm";
 
-import { addResourceBundle } from "../i18n";
-addResourceBundle();
-
 export interface InstanceAttributeFormProps extends FormComponentProps {
   isCreate?: boolean;
   objectList?: Partial<CmdbModels.ModelCmdbObject>[];

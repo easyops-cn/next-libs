@@ -11,13 +11,11 @@ import {
 } from "../instance-list/InstanceList";
 import { InstanceListPresetConfigs } from "../instance-list-table/interfaces";
 import { UseBrickAndPropertyDisplayConfig } from "../instance-list-table";
-import { addResourceBundle } from "../i18n";
 import {
   ReadPaginationChangeDetail,
   UseBrickConf,
 } from "@next-core/brick-types";
 import { useProvider } from "@next-core/brick-kit";
-addResourceBundle();
 export interface InstanceListModalProps {
   objectMap: { [key: string]: Partial<CmdbModels.ModelCmdbObject> };
   objectId: string;
