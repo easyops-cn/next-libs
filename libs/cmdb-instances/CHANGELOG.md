@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.30.19](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.30.18...@next-libs/cmdb-instances@7.30.19) (2026-01-09)
+
+
+### Bug Fixes
+
+* 修复cmdb 国际化英文模式显示key的问题 Refs ([7d6f337](https://github.com/easyops-cn/next-libs/commit/7d6f337012648c42b91b3a9c5d0068359e6186e6))
+
+
+
+
+
 ## [7.30.18](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.30.17...@next-libs/cmdb-instances@7.30.18) (2026-01-09)
 
 
