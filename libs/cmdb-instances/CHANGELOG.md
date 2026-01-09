@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.30.18](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.30.17...@next-libs/cmdb-instances@7.30.18) (2026-01-09)
+
+
+### Bug Fixes
+
+* 撤回代码 Refs ([dbedac6](https://github.com/easyops-cn/next-libs/commit/dbedac61dfe93c4bb77e61e5cd7a9c699ae756a8))
+
+
+
+
+
 ## [7.30.17](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.30.16...@next-libs/cmdb-instances@7.30.17) (2026-01-09)
 
 
