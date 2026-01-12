@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.30.20](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.30.19...@next-libs/cmdb-instances@7.30.20) (2026-01-12)
+
+
+### Bug Fixes
+
+* **cmdb-instance:** 修复I18n被tree shaking的问题 Refs ([505c446](https://github.com/easyops-cn/next-libs/commit/505c44622598dadb9baeecd302c5fdf698695903))
+
+
+
+
+
 ## [7.30.19](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.30.18...@next-libs/cmdb-instances@7.30.19) (2026-01-09)
 
 
