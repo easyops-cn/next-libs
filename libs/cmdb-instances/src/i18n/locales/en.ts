@@ -1,4 +1,4 @@
-import { Locale, K } from "../constants";
+import { Locale, K } from "../definitions";
 
 const locale: Locale = {
   [K.VALIDATE_MESSAGE_REQUIRED]: "{{s}} is required",
