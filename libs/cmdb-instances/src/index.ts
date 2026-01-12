@@ -1,4 +1,4 @@
-import "./i18n";
+import { initI18n } from "./i18n";
 export * from "./instance-attribute-form/InstanceAttributeForm";
 export * from "./model-attribute-form/ModelAttributeForm";
 export * from "./model-relation-form/ModelRelationForm";
@@ -16,6 +16,7 @@ export * from "./cmdb-instances-select-panel/CmdbInstancesSelectPanel";
 export * from "./instance-detail/InstanceDetail";
 export * from "./float-display-brick/FloatDisplayBrick";
 export * from "./components";
+initI18n();
 // For compatibility
 export {
   ComparisonOperators,

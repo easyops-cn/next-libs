@@ -28,9 +28,7 @@
     "test": "cross-env NODE_ENV='test' jest",
     "test:ci": "cross-env NODE_ENV='test' CI=true jest"
   },
-  "sideEffects": [
-    "./src/i18n/index.ts"
-  ],
+  "sideEffects": false,
   "peerDependencies": {
     "@next-core/brick-dll": "*",
     "@next-dll/ace": "*",
