@@ -5,5 +5,6 @@ module.exports = sizeLimit({
     "*": "20 KB",
     "cmdb-instances": "150 KB",
     "storyboard-visualization": "40 KB",
+    "code-editor-components": "25 KB",
   },
 });
