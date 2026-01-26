@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.13.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.12.11...@next-libs/code-editor-components@4.13.0) (2026-01-26)
+
+
+### Features
+
+* code-editor-components 新增spl模式 ([e54fc89](https://github.com/easyops-cn/next-libs/commit/e54fc89da4203ee23df26c2c6583cc039c2ce8f1))
+
+
+
+
+
 ## [4.12.11](https://github.com/easyops-cn/next-libs/compare/@next-libs/code-editor-components@4.12.10...@next-libs/code-editor-components@4.12.11) (2025-10-20)
 
 **Note:** Version bump only for package @next-libs/code-editor-components
