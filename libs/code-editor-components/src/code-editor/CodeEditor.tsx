@@ -28,7 +28,9 @@ import { NS_CODE_EDITOR_COMPONENTS, K } from "../i18n/constants";
 import { getBrickNextMode } from "../custom-mode/BrickNextMode";
 import { getBrickNextYamlMode } from "../custom-mode/BrickNextYamlMode";
 import { getTerraformMode } from "../custom-mode/TerraformMode";
+import { getSplMode } from "../custom-mode/SplMode";
 import { brickNextCompleters } from "../custom-mode/brickNextUtil";
+import { splCompleters } from "../custom-mode/splUtil";
 import { CodeEditorProps, ExtendedMarker } from "../interfaces";
 import { loadPluginsForCodeEditor } from "../brace";
 import { getCommonExpressionLanguageYamlMode } from "../custom-mode/CommonExpressionLanguageYamlMode";
@@ -280,6 +282,12 @@ export function CodeEditorItem(
       } else if (props.mode === "terraform") {
         const customMode = new (getTerraformMode())();
         editor.getSession()?.setMode(customMode);
+      } else if (props.mode === "spl") {
+        const customMode = new (getSplMode())();
+        editor.getSession()?.setMode(customMode);
+        if (!editor.completers?.includes(splCompleters[0])) {
+          editor.completers?.push(...splCompleters);
+        }
       } else if (props.mode === "cel_yaml") {
         const customMode = new (getCommonExpressionLanguageYamlMode())();
         editor.getSession()?.setMode(customMode);
@@ -459,7 +467,8 @@ export function CodeEditorItem(
             props.mode === "brick_next_yaml" ||
             props.mode === "cel_yaml" ||
             props.mode === "cel" ||
-            props.mode === "terraform"
+            props.mode === "terraform" ||
+            props.mode === "spl"
               ? "text"
               : props.mode === "disable_lint_yaml"
               ? "yaml"
