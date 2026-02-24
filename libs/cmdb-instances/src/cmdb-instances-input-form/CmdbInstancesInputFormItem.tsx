@@ -367,6 +367,7 @@ export const LegacyCmdbInstancesInputFormItem = (
     props.onChange?.(
       selectedInstances.valid.map((instance) => instance.instanceId)
     );
+    props.onChangeV2?.(selectedInstances.valid);
   };
 
   const text = props.selectFromText
