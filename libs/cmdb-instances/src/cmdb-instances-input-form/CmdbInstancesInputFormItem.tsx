@@ -260,10 +260,7 @@ export const LegacyCmdbInstancesInputFormItem = (
     }
   };
 
-  const checkInputValue = async (
-    inputValue: string,
-    instanceIds: string[]
-  ): Promise<void> => {
+  const checkInputValue = async (inputValue: string): Promise<void> => {
     const fieldValues =
       props.fieldId === "ip"
         ? inputValue.match(
@@ -271,7 +268,7 @@ export const LegacyCmdbInstancesInputFormItem = (
           )
         : inputValue.split(separator);
 
-    checkFieldValues(fieldValues, instanceIds);
+    checkFieldValues(fieldValues);
   };
 
   const openSelectInstancesModal = (): void => {
@@ -309,7 +306,7 @@ export const LegacyCmdbInstancesInputFormItem = (
     const inputValue = event.target.value;
     if (inputValue) {
       if (!props.checkDisabled) {
-        await checkInputValue(inputValue, instanceIds);
+        await checkInputValue(inputValue);
       } else {
         const fieldValues =
           props.fieldId === "ip"
@@ -329,13 +326,6 @@ export const LegacyCmdbInstancesInputFormItem = (
                   },
                 },
                 ...(props.query ? props.query : []),
-                instanceIds.length
-                  ? {
-                      instanceId: {
-                        $in: instanceIds,
-                      },
-                    }
-                  : {},
               ],
             },
             fields: fields || {
