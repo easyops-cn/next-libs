@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.30.24](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.30.23...@next-libs/cmdb-instances@7.30.24) (2026-02-24)
+
+
+### Bug Fixes
+
+* CI-1142 文件分发-前端bug 输入多个ip的时候会提示无效ip Closes CI-1142 ([6f72d96](https://github.com/easyops-cn/next-libs/commit/6f72d96824fc305291fffabf0a1a6efcad510dbc))
+
+
+
+
+
 ## [7.30.23](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.30.22...@next-libs/cmdb-instances@7.30.23) (2026-02-24)
 
 
