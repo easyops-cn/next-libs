@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.30.25](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.30.24...@next-libs/cmdb-instances@7.30.25) (2026-06-11)
+
+
+### Bug Fixes
+
+* **topo_center:** 问题修复 ([cfa228e](https://github.com/easyops-cn/next-libs/commit/cfa228e5094804bdb57380ae4974a7de963c1206))
+* **topo_center:** 问题修复 ([dcf9254](https://github.com/easyops-cn/next-libs/commit/dcf9254c47b7cda9e8f2169d56eaa26c195b8726))
+
+
+
+
+
 ## [7.30.24](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.30.23...@next-libs/cmdb-instances@7.30.24) (2026-02-24)
 
 
