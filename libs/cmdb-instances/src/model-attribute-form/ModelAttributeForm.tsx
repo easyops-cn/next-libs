@@ -37,6 +37,7 @@ import { UserOrUserGroupSelect } from "../components";
 import { permissionListMapOfApp } from "./constants";
 import i18n from "i18next";
 import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
+import { getRuntime } from "@next-core/brick-kit";
 import { ATTRIBUTE_ID_PREFIX } from "../processors";
 import i18next from "i18next";
 
@@ -108,6 +109,7 @@ interface ModelAttributeFormState {
   showError?: Record<string, any>;
   fixedStyle?: Record<string, any>;
   defaultValueTemplateIndex?: number;
+  keepFormValues?: boolean;
 }
 
 export class ModelAttributeForm extends Component<
@@ -263,12 +265,15 @@ export class ModelAttributeForm extends Component<
 
   static getDerivedStateFromProps(props: any, state: any): any {
     if (props.defaultValueTemplateIndex !== state.defaultValueTemplateIndex) {
-      props.form.setFieldsValue({
-        ...props.form.getFieldsValue(),
-        ...pickBy(props.attributeFormControlInitialValueMap),
-      });
+      if (!state.keepFormValues) {
+        props.form.setFieldsValue({
+          ...props.form.getFieldsValue(),
+          ...pickBy(props.attributeFormControlInitialValueMap),
+        });
+      }
       return {
         defaultValueTemplateIndex: props.defaultValueTemplateIndex,
+        keepFormValues: false,
       };
     }
     return null;
@@ -371,7 +376,12 @@ export class ModelAttributeForm extends Component<
   validateFieldsCallback = async (err: any, values: any, type?: string) => {
     if (!err) {
       const { continueCreating } = this.state;
-      this.setState({ sending: true });
+      const keepFormValues =
+        type === "continue" &&
+        !!getRuntime().getFeatureFlags()[
+          "cmdb-keep-form-values-on-continue-create"
+        ];
+      this.setState({ sending: true, keepFormValues });
       const actualValues = Object.fromEntries(
         Object.entries(values).map(([attrId, value]) => [
           attrId.replace(ATTRIBUTE_ID_PREFIX, ""),
@@ -395,6 +405,9 @@ export class ModelAttributeForm extends Component<
       }
       if (result !== "error" && type === "continue") {
         // istanbul ignore if
+        if (!keepFormValues) {
+          this.props.form.resetFields();
+        }
         if (this.props.isResetInstanceNameWhenSaveAndContinueToAddInstance) {
           this.props.form.resetFields([ATTRIBUTE_ID_PREFIX + "name"]);
         }
