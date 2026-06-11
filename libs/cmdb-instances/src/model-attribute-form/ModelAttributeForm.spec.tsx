@@ -21,6 +21,7 @@ jest.mock("@next-core/brick-kit", () => ({
   }),
   UpdatingElement: class {},
   property: () => () => {},
+  useProvider: jest.fn().mockReturnValue([jest.fn(), { data: undefined }]),
 }));
 jest.useFakeTimers();
 jest.spyOn(global, "setTimeout");
