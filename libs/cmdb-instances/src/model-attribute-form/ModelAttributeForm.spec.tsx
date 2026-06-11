@@ -15,6 +15,14 @@ import i18n from "i18next";
 import { K, NS_LIBS_CMDB_INSTANCES } from "../i18n/constants";
 /* eslint-disable  */
 jest.mock("../i18n");
+jest.mock("@next-core/brick-kit", () => ({
+  getRuntime: jest.fn().mockReturnValue({
+    getFeatureFlags: jest.fn().mockReturnValue({}),
+  }),
+  UpdatingElement: class {},
+  property: () => () => {},
+  useProvider: jest.fn().mockReturnValue([jest.fn(), { data: undefined }]),
+}));
 jest.useFakeTimers();
 jest.spyOn(global, "setTimeout");
 window.ResizeObserver = jest.fn().mockImplementation(() => ({
