@@ -620,6 +620,8 @@ export interface InstanceListProps {
     useBrick: UseBrickConf;
   };
   extraColumns?: CustomColumn[];
+  isOperate?: boolean;
+  operateUseBrick?: UseBrickConf;
   extraDisabledField?: string;
   hideSearchConditions?: boolean;
   onlySearchByIp?: boolean;
@@ -2162,6 +2164,8 @@ export function LegacyInstanceList(
               pageSizeOptions={props.pageSizeOptions}
               showSizeChanger={props.showSizeChanger}
               extraColumns={props.extraColumns}
+              isOperate={props.isOperate}
+              operateUseBrick={props.operateUseBrick}
               target={props.target}
               ipCopy={props.ipCopy}
               fixedHeader={fixedHeader}

@@ -142,6 +142,7 @@ export interface InstanceListTableProps extends WithTranslation {
   configProps?: TableProps<Record<string, any>>;
   extraColumns?: CustomColumn[];
   isOperate?: boolean;
+  operateUseBrick?: UseBrickConf;
   handleDeleteFunction?: (v: any[]) => void;
   target?: string;
   ipCopy?: boolean;
@@ -348,6 +349,14 @@ export class LegacyInstanceListTable extends React.Component<
         dataIndex: "operation",
         fixed: "right",
         render: (_text: string, record: any, index: number): any => {
+          if (this.props.operateUseBrick) {
+            return (
+              <BrickAsComponent
+                useBrick={this.props.operateUseBrick}
+                data={{ ...record, index }}
+              />
+            );
+          }
           return (
             <Button
               data-testid={"button-up-" + index}

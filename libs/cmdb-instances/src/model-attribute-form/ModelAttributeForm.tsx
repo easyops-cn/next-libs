@@ -417,6 +417,10 @@ export class ModelAttributeForm extends Component<
       }
     }
   };
+  public reset = (): void => {
+    this.props.form.resetFields();
+  };
+
   /* istanbul ignore next */
   public handleSubmit = (e?: FormEvent, type?: string) => {
     // 允许不传入 event 参数
