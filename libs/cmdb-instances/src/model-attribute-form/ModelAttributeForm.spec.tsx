@@ -1235,7 +1235,6 @@ describe("ModelAttributeForm", () => {
     await (global as any).flushPromises();
 
     expect(instance.props.form.resetFields).not.toHaveBeenCalled();
-    expect(instance.state.keepFormValues).toBeTruthy();
 
     // restore
     getRuntime.mockReturnValue({

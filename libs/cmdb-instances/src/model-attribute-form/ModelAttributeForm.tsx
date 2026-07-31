@@ -109,7 +109,6 @@ interface ModelAttributeFormState {
   showError?: Record<string, any>;
   fixedStyle?: Record<string, any>;
   defaultValueTemplateIndex?: number;
-  keepFormValues?: boolean;
 }
 
 export class ModelAttributeForm extends Component<
@@ -265,7 +264,11 @@ export class ModelAttributeForm extends Component<
 
   static getDerivedStateFromProps(props: any, state: any): any {
     if (props.defaultValueTemplateIndex !== state.defaultValueTemplateIndex) {
-      if (!state.keepFormValues) {
+      const keepFlag =
+        !!getRuntime().getFeatureFlags()[
+          "cmdb-keep-form-values-on-continue-create"
+        ];
+      if (!keepFlag) {
         props.form.setFieldsValue({
           ...props.form.getFieldsValue(),
           ...pickBy(props.attributeFormControlInitialValueMap),
@@ -273,7 +276,6 @@ export class ModelAttributeForm extends Component<
       }
       return {
         defaultValueTemplateIndex: props.defaultValueTemplateIndex,
-        keepFormValues: false,
       };
     }
     return null;
@@ -381,7 +383,7 @@ export class ModelAttributeForm extends Component<
         !!getRuntime().getFeatureFlags()[
           "cmdb-keep-form-values-on-continue-create"
         ];
-      this.setState({ sending: true, keepFormValues });
+      this.setState({ sending: true });
       const actualValues = Object.fromEntries(
         Object.entries(values).map(([attrId, value]) => [
           attrId.replace(ATTRIBUTE_ID_PREFIX, ""),
@@ -872,13 +874,14 @@ export class ModelAttributeForm extends Component<
 export const InstanceModelAttributeForm =
   Form.create<ModelAttributeFormProps>()(ModelAttributeForm);
 
+const WrappedModelAttributeForm = Form.create<
+  ModelAttributeFormProps & { ref: any }
+>()(ModelAttributeForm) as any;
+
 export const InstanceModelAttributeFormRef = React.forwardRef<
   ModelAttributeForm,
   ModelAttributeFormProps
 >((props, ref) => {
-  const WrappedForm = Form.create<ModelAttributeFormProps & { ref: any }>()(
-    ModelAttributeForm
-  ) as any;
-  return <WrappedForm {...props} wrappedComponentRef={ref} />;
+  return <WrappedModelAttributeForm {...props} wrappedComponentRef={ref} />;
 });
 InstanceModelAttributeFormRef.displayName = "InstanceModelAttributeFormRef";
