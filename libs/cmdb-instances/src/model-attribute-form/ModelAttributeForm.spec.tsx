@@ -1201,6 +1201,164 @@ describe("ModelAttributeForm", () => {
       expect(instance.state.sending).toBeTruthy();
     });
   });
+  it("should keep form values when feature flag is enabled and type is continue", async () => {
+    const { getRuntime } = require("@next-core/brick-kit");
+    getRuntime.mockReturnValue({
+      getFeatureFlags: jest.fn().mockReturnValue({
+        "cmdb-keep-form-values-on-continue-create": true,
+      }),
+    });
+
+    const values: any = {
+      name: "sdfsdf",
+      check_string: "sdfdsfsdf",
+    };
+    const newProps = Object.assign({}, props, {
+      isCreate: true,
+      allowContinueCreate: true,
+    });
+    const wrapper = mount(<InstanceModelAttributeForm {...newProps} />);
+    const instance = wrapper
+      .find(ModelAttributeForm)
+      .instance() as ModelAttributeForm;
+
+    instance.props.form.validateFields = jest
+      .fn()
+      .mockImplementation(
+        (callback: (err: boolean, value: Record<string, any>) => void) => {
+          callback(false, values);
+        }
+      );
+    instance.props.form.resetFields = jest.fn();
+
+    instance.handleSubmit(undefined, "continue");
+    await (global as any).flushPromises();
+
+    expect(instance.props.form.resetFields).not.toHaveBeenCalled();
+    expect(instance.state.keepFormValues).toBeTruthy();
+
+    // restore
+    getRuntime.mockReturnValue({
+      getFeatureFlags: jest.fn().mockReturnValue({}),
+    });
+  });
+
+  it("should reset form values when feature flag is disabled and type is continue", async () => {
+    const values: any = {
+      name: "sdfsdf",
+      check_string: "sdfdsfsdf",
+    };
+    const newProps = Object.assign({}, props, {
+      isCreate: true,
+      allowContinueCreate: true,
+    });
+    const wrapper = mount(<InstanceModelAttributeForm {...newProps} />);
+    const instance = wrapper
+      .find(ModelAttributeForm)
+      .instance() as ModelAttributeForm;
+
+    instance.props.form.validateFields = jest
+      .fn()
+      .mockImplementation(
+        (callback: (err: boolean, value: Record<string, any>) => void) => {
+          callback(false, values);
+        }
+      );
+    const resetFields = jest.fn();
+    instance.props.form.resetFields = resetFields;
+
+    instance.handleSubmit(undefined, "continue");
+    await (global as any).flushPromises();
+
+    expect(resetFields).toHaveBeenCalled();
+  });
+
+  it("should unmount without errors", () => {
+    const wrapper = mount(<InstanceModelAttributeForm {...props} />);
+    expect(() => wrapper.unmount()).not.toThrow();
+  });
+
+  describe("tagsValidator", () => {
+    const attribute: any = {
+      value: { type: "arr", regex: "^[a-z]+$" },
+    };
+
+    it("should callback without error when value is falsy", () => {
+      const validator = ModelAttributeForm.tagsValidator(attribute);
+      const callback = jest.fn();
+      validator({}, null, callback);
+      expect(callback).toHaveBeenCalledWith();
+    });
+
+    it("should callback with error when value is not an array", () => {
+      const validator = ModelAttributeForm.tagsValidator(attribute);
+      const callback = jest.fn();
+      validator({}, "not-an-array" as any, callback);
+      expect(callback).toHaveBeenCalledWith(expect.any(String));
+    });
+
+    it("should callback without error when all values pass regex", () => {
+      const validator = ModelAttributeForm.tagsValidator(attribute);
+      const callback = jest.fn();
+      validator({}, ["abc", "def"], callback);
+      expect(callback).toHaveBeenCalledWith();
+    });
+
+    it("should callback with error when some values fail regex", () => {
+      const validator = ModelAttributeForm.tagsValidator(attribute);
+      const callback = jest.fn();
+      validator({}, ["abc", "123"], callback);
+      expect(callback).toHaveBeenCalledWith(expect.any(String));
+    });
+  });
+
+  describe("urlValidator", () => {
+    const attribute: any = {
+      value: { type: "str", regex: "^https?://" },
+    };
+
+    it("should callback without error when url matches pattern", () => {
+      const validator = ModelAttributeForm.urlValidator(attribute);
+      const callback = jest.fn();
+      validator({}, "[title](http://example.com)", callback);
+      expect(callback).toHaveBeenCalledWith();
+    });
+
+    it("should callback with error when url does not match pattern", () => {
+      const validator = ModelAttributeForm.urlValidator(attribute);
+      const callback = jest.fn();
+      validator({}, "[title](ftp://example.com)", callback);
+      expect(callback).toHaveBeenCalledWith(expect.any(String));
+    });
+  });
+
+  describe("relationRules", () => {
+    it("should return rules when left_required is true", () => {
+      const wrapper = mount(<InstanceModelAttributeForm {...props} />);
+      const instance = wrapper
+        .find(ModelAttributeForm)
+        .instance() as ModelAttributeForm;
+      const rules = instance.relationRules({
+        left_required: true,
+        right_description: "test relation",
+      } as any);
+      expect(rules.length).toBe(1);
+      expect((rules[0] as any).required).toBe(true);
+    });
+
+    it("should return empty array when left_required is false", () => {
+      const wrapper = mount(<InstanceModelAttributeForm {...props} />);
+      const instance = wrapper
+        .find(ModelAttributeForm)
+        .instance() as ModelAttributeForm;
+      const rules = instance.relationRules({
+        left_required: false,
+        right_description: "test relation",
+      } as any);
+      expect(rules).toEqual([]);
+    });
+  });
+
   it("should work with json validate", () => {
     const wrapper = mount(
       <InstanceModelAttributeForm

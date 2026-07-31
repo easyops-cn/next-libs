@@ -397,7 +397,7 @@ export class ModelAttributeForm extends Component<
             : actualValues,
         type,
       });
-      if (result !== "error" && continueCreating) {
+      if (result !== "error" && continueCreating && !keepFormValues) {
         this.props.form.resetFields();
       }
       if (result === "error") {
