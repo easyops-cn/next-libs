@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.6.6](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@3.6.5...@next-libs/forms@3.6.6) (2026-09-17)
+
+
+### Bug Fixes
+
+* **forms:** 为 FormItemElement 的属性补充英文描述 ([254988e](https://github.com/easyops-cn/next-libs/commit/254988ea35587ac647cd5cb934db6be96297c3e6))
+
+
+
+
+
 ## [3.6.5](https://github.com/easyops-cn/next-libs/compare/@next-libs/forms@3.6.4...@next-libs/forms@3.6.5) (2025-10-20)
 
 **Note:** Version bump only for package @next-libs/forms
