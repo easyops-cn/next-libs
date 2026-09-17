@@ -22,6 +22,7 @@ export abstract class FormItemElement extends UpdatingElement {
    * @required true
    * @default -
    * @description 表单项的 name 值, 即唯一 id
+   * @description.en The name value of the form item, i.e. the unique id
    * @group basic
    */
   @property()
@@ -33,6 +34,7 @@ export abstract class FormItemElement extends UpdatingElement {
    * @required false
    * @default -
    * @description 占位符
+   * @description.en Placeholder
    * @group basic
    */
   @property()
@@ -46,6 +48,7 @@ export abstract class FormItemElement extends UpdatingElement {
    * @required false
    * @default -
    * @description 标签文字
+   * @description.en Label text
    * @group formLabel
    */
   @property()
@@ -57,6 +60,7 @@ export abstract class FormItemElement extends UpdatingElement {
    * @required false
    * @default -
    * @description 标签对齐方式
+   * @description.en Label alignment
    * @editor radio
    * @editorProps {
    *   "optionType": "button",
@@ -90,6 +94,7 @@ export abstract class FormItemElement extends UpdatingElement {
    * @required false
    * @default -
    * @description 标签颜色
+   * @description.en Label color
    * @editor color
    * @group formLabel
    */
@@ -102,6 +107,7 @@ export abstract class FormItemElement extends UpdatingElement {
    * @required false
    * @default -
    * @description 标签加粗
+   * @description.en Bold label
    * @group formLabel
    */
   @property({ type: Boolean })
@@ -111,6 +117,7 @@ export abstract class FormItemElement extends UpdatingElement {
    * @property
    * @required false
    * @description 标签 tooltip
+   * @description.en Label tooltip
    * @group formLabel
    */
   @property({
@@ -122,6 +129,7 @@ export abstract class FormItemElement extends UpdatingElement {
    * @property
    * @required false
    * @description 标签布局，可设置 span offset 值
+   * @description.en Label layout, where the span and offset values can be set
    * @group formLabel
    */
   @property({
@@ -133,6 +141,7 @@ export abstract class FormItemElement extends UpdatingElement {
    * @property
    * @required false
    * @description 控件布局，可设置 span offset 值
+   * @description.en Widget layout, where the span and offset values can be set
    * @group formLabel
    */
   @property({
@@ -144,6 +153,7 @@ export abstract class FormItemElement extends UpdatingElement {
    * @property
    * @required false
    * @description 标签构件, 可以指定额外构件作为标签展示
+   * @description.en Label brick; an extra brick can be specified to display as the label
    * @group formLabel
    */
   @property({
@@ -159,6 +169,7 @@ export abstract class FormItemElement extends UpdatingElement {
    * @required false
    * @default -
    * @description 表单项是否必填
+   * @description.en Whether the form item is required
    * @group formValidation
    */
   @property({
@@ -172,6 +183,7 @@ export abstract class FormItemElement extends UpdatingElement {
    * @required false
    * @default -
    * @description 数据校验格式(正则表达式)
+   * @description.en Data validation format (regular expression)
    * @group formValidation
    */
   @property()
@@ -184,6 +196,7 @@ export abstract class FormItemElement extends UpdatingElement {
    * @default -
    * @editor message
    * @description 数据校验错误提示
+   * @description.en Data validation error message
    * @group formValidation
    */
   @property({
@@ -197,6 +210,7 @@ export abstract class FormItemElement extends UpdatingElement {
    * @required false
    * @default -
    * @description 自定义校验规则
+   * @description.en Custom validation rule
    * @group formValidation
    */
   @property({
@@ -210,6 +224,7 @@ export abstract class FormItemElement extends UpdatingElement {
    * @property
    * @default true
    * @description 是否自动去除前后的空白字符
+   * @description.en Whether to automatically trim the leading and trailing whitespace
    * @group formValidation
    */
   @property({
@@ -224,6 +239,7 @@ export abstract class FormItemElement extends UpdatingElement {
    * @required false
    * @default false
    * @description 控制该表单项是否隐藏
+   * @description.en Controls whether the form item is hidden
    * @group ui
    */
   @property({
@@ -242,6 +258,7 @@ export abstract class FormItemElement extends UpdatingElement {
    * @property
    * @required false
    * @description 帮助构件, 通常用于在表单项右侧和下方，展示此表单项的帮助信息
+   * @description.en Help brick, usually used to the right of and below the form item to display help information for this form item
    * @group ui
    */
   @property({
@@ -269,6 +286,7 @@ export abstract class FormItemElement extends UpdatingElement {
    * @method
    * @params notRender:boolean
    * @description 参数为 true 时，不渲染该表单子项；反之，为 false 时，则渲染该表单子项。不渲染时，validate.success事件详情将不输出该表单子项的值。
+   * @description.en When the parameter is true, the form item is not rendered; otherwise, when it is false, the form item is rendered. When it is not rendered, the value of the form item will not be included in the validate.success event detail.
    */
   setNotRender(value: boolean): void {
     this.notRender = value;
