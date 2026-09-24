@@ -40,7 +40,7 @@
     "@next-core/brick-kit": "^2.197.3",
     "@next-core/brick-types": "^2.97.0",
     "@next-core/brick-utils": "^2.52.1",
-    "@next-core/dev-dependencies": "^1.18.45",
+    "@next-core/dev-dependencies": "^1.18.46",
     "@next-core/easyops-analytics": "^0.12.1",
     "@next-core/editor-bricks-helper": "^0.50.71",
     "@next-core/fontawesome-library": "^1.1.38",
@@ -100,7 +100,7 @@
   ],
   "easyops": {
     "create-next-repo": "0.10.1",
-    "dev-dependencies": "1.18.45"
+    "dev-dependencies": "1.18.46"
   },
   "resolutions": {
     "lodash": "^4.17.21",
