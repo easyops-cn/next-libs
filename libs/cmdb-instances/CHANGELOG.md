@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.31.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.30.29...@next-libs/cmdb-instances@7.31.0) (2026-10-14)
+
+
+### Features
+
+* **cmdb-instances:** cmdb-instance-select 支持 misc 设置按模型启用 showKey 展示 ([de2aa0c](https://github.com/easyops-cn/next-libs/commit/de2aa0cb6e27005960e2f31839abfc655f08d86e))
+
+
+
+
+
 ## [7.30.29](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.30.28...@next-libs/cmdb-instances@7.30.29) (2026-09-17)
 
 **Note:** Version bump only for package @next-libs/cmdb-instances
