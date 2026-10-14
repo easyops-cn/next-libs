@@ -12,6 +12,11 @@ jest.spyOn(i18n, "t").mockReturnValue("后台搜索");
 jest.mock("@next-sdk/cmdb-sdk");
 const spyOnHandleHttpError = jest.spyOn(kit, "handleHttpError");
 
+const mockGetRuntime = jest.spyOn(kit, "getRuntime") as any;
+mockGetRuntime.mockReturnValue({
+  getMiscSettings: () => ({}),
+});
+
 const mockPostSearch = InstanceApi_postSearchV3 as jest.Mock;
 
 afterEach(() => {
@@ -219,6 +224,117 @@ describe("CmdbInstanceSelect", () => {
     expect(
       wrapper.find(Select).invoke("getPopupContainer")(childElement)
     ).toEqual(parnetElement);
+  });
+
+  const showKeyList = [
+    {
+      hostname: "host1",
+      objectId: "HOST",
+      instanceId: "abc",
+      mem: "主机1",
+      "#showKey": ["host1"],
+    },
+
+    {
+      hostname: "host2",
+      instanceId: "bcd",
+      objectId: "HOST",
+      mem: "主机2",
+      "#showKey": ["host2"],
+    },
+  ];
+
+  it("should enable showKey by misc settings when showKeyField is not set", async () => {
+    mockGetRuntime.mockReturnValue({
+      getMiscSettings: () => ({
+        cmdbInstanceSelectShowKeyFields: ["HOST"],
+      }),
+    });
+
+    mockPostSearch.mockResolvedValueOnce({
+      list: showKeyList,
+    });
+
+    const wrapper = mount(
+      <CmdbInstanceSelect
+        objectId="HOST"
+        placeholder="选择主机"
+        value="world"
+        firstRender={false}
+      />
+    );
+
+    await (global as any).flushPromises();
+    wrapper.update();
+
+    expect(
+      (
+        wrapper.find(Select).first().prop("children") as React.ReactElement[]
+      ).map((child) =>
+        mount(child.props.children)
+          .find("[data-testid='option-label']")
+          .prop("children")
+      )
+    ).toEqual(showKeyList.map((item) => item["#showKey"].join("")));
+
+    mockGetRuntime.mockReturnValue({
+      getMiscSettings: () => ({}),
+    });
+  });
+
+  it("should respect explicit showKeyField false even if misc settings enabled", async () => {
+    mockGetRuntime.mockReturnValue({
+      getMiscSettings: () => ({
+        cmdbInstanceSelectShowKeyFields: ["HOST"],
+      }),
+    });
+
+    const list = [
+      {
+        hostname: "host1",
+        objectId: "HOST",
+        instanceId: "abc",
+        mem: "主机1",
+      },
+
+      {
+        hostname: "host2",
+        instanceId: "bcd",
+        objectId: "HOST",
+        mem: "主机2",
+      },
+    ];
+
+    mockPostSearch.mockResolvedValueOnce({
+      list,
+    });
+
+    const wrapper = mount(
+      <CmdbInstanceSelect
+        objectId="HOST"
+        placeholder="选择主机"
+        value="world"
+        firstRender={false}
+        showKeyField={false}
+      />
+    );
+
+    await (global as any).flushPromises();
+    wrapper.update();
+
+    expect(
+      (
+        wrapper.find(Select).first().prop("children") as React.ReactElement[]
+      ).map((child) =>
+        mount(child.props.children)
+          .find("[data-testid='option-label']")
+          .prop("children")
+      )
+    ).toEqual(list.map((item) => item.hostname));
+
+    mockGetRuntime.mockReturnValue({
+      getMiscSettings: () => ({}),
+    });
   });
 
   it("should render origin label if user don't set field props ", async () => {
