@@ -17,6 +17,7 @@ import {
   BrickAsComponent,
   handleHttpError,
   useProvider,
+  getRuntime,
 } from "@next-core/brick-kit";
 import { UseBrickConf } from "@next-core/brick-types";
 import { InstanceApi_postSearchV3 } from "@next-sdk/cmdb-sdk";
@@ -81,12 +82,19 @@ export const CmdbInstanceSelect = React.forwardRef(function CmdbInstanceSelect(
   ref: any
 ): React.ReactElement {
   const { t } = useTranslation(NS_LIBS_CMDB_INSTANCES);
+  // 编排未显式指定 showKeyField 时，由 misc 设置 cmdbInstanceSelectShowKeyFields
+  // 按模型启用 showKey 展示，如：["HOST", "APP"]
+  const miscShowKeyFields = getRuntime().getMiscSettings()
+    ?.cmdbInstanceSelectShowKeyFields as string[] | undefined;
+  const effectiveShowKeyField =
+    props.showKeyField ?? !!miscShowKeyFields?.includes(props.objectId);
   const {
-    showKeyField,
     // 默认显示 label 为模型的 name/hostname, value 为 instanceId
     // 当showKeyField时，实例展示是用showKey里的数据展示
     fields = {
-      label: [showKeyField ? "#showKey" : getInstanceNameKey(props.objectId)],
+      label: [
+        effectiveShowKeyField ? "#showKey" : getInstanceNameKey(props.objectId),
+      ],
       value: "instanceId",
     },
     firstRender = true,
@@ -263,7 +271,7 @@ export const CmdbInstanceSelect = React.forwardRef(function CmdbInstanceSelect(
       if (Array.isArray(label)) {
         const firstKey = label[0];
         const resKey = label.slice(1, label.length).join(",");
-        if (Array.isArray(firstKey) && props.showKeyField) {
+        if (Array.isArray(firstKey) && effectiveShowKeyField) {
           const subFirstKey = firstKey[0];
           const subResKey = firstKey.slice(1, firstKey.length).join(",");
           return subResKey && isMultiLabel
