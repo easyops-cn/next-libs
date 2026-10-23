@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.32.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.31.0...@next-libs/cmdb-instances@7.32.0) (2026-10-23)
+
+
+### Features
+
+* **cmdb-instance-select:** support slash show key format ([68ac7df](https://github.com/easyops-cn/next-libs/commit/68ac7dfa522541e0a7736eab4e50166ebb185a2e))
+
+
+
+
+
 # [7.31.0](https://github.com/easyops-cn/next-libs/compare/@next-libs/cmdb-instances@7.30.29...@next-libs/cmdb-instances@7.31.0) (2026-10-14)
 
 
