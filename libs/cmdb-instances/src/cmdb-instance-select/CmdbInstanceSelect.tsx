@@ -84,8 +84,11 @@ export const CmdbInstanceSelect = React.forwardRef(function CmdbInstanceSelect(
   const { t } = useTranslation(NS_LIBS_CMDB_INSTANCES);
   // 编排未显式指定 showKeyField 时，由 misc 设置 cmdbInstanceSelectShowKeyFields
   // 按模型启用 showKey 展示，如：["HOST", "APP"]
-  const miscShowKeyFields = getRuntime().getMiscSettings()
-    ?.cmdbInstanceSelectShowKeyFields as string[] | undefined;
+  const miscSettings = getRuntime().getMiscSettings();
+  const miscShowKeyFields = miscSettings?.cmdbInstanceSelectShowKeyFields as
+    | string[]
+    | undefined;
+  const showKeyFieldWithSlash = miscSettings?.showKeyFieldWithSlash === true;
   const effectiveShowKeyField =
     props.showKeyField ?? !!miscShowKeyFields?.includes(props.objectId);
   const {
@@ -275,7 +278,9 @@ export const CmdbInstanceSelect = React.forwardRef(function CmdbInstanceSelect(
           const subFirstKey = firstKey[0];
           const subResKey = firstKey.slice(1, firstKey.length).join(",");
           return subResKey && isMultiLabel
-            ? `${subFirstKey}(${subResKey})`
+            ? showKeyFieldWithSlash
+              ? `${subFirstKey}/${subResKey}`
+              : `${subFirstKey}(${subResKey})`
             : subFirstKey ?? "";
         }
         return resKey && isMultiLabel

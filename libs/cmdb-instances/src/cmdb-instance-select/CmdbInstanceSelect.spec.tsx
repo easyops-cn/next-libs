@@ -226,6 +226,53 @@ describe("CmdbInstanceSelect", () => {
     ).toEqual(parnetElement);
   });
 
+  it("should render showKey with slash when misc feature is enabled", async () => {
+    mockGetRuntime.mockReturnValue({
+      getMiscSettings: () => ({
+        showKeyFieldWithSlash: true,
+      }),
+    });
+    mockPostSearch.mockResolvedValueOnce({
+      list: [
+        {
+          instanceId: "abc",
+          objectId: "USER",
+          "#showKey": ["fanxiaodong_ncb", "范晓东"],
+        },
+        {
+          instanceId: "bcd",
+          objectId: "USER",
+          "#showKey": ["fanxiaodong_ncb"],
+        },
+      ],
+    });
+
+    const wrapper = mount(
+      <CmdbInstanceSelect
+        objectId="USER"
+        value="world"
+        firstRender={false}
+        showKeyField={true}
+      />
+    );
+
+    await (global as any).flushPromises();
+    wrapper.update();
+
+    expect(
+      (wrapper.find(Select).first().prop("children") as React.ReactElement[]).map(
+        (child) =>
+          mount(child.props.children)
+            .find("[data-testid='option-label']")
+            .prop("children")
+      )
+    ).toEqual(["fanxiaodong_ncb/范晓东", "fanxiaodong_ncb"]);
+
+    mockGetRuntime.mockReturnValue({
+      getMiscSettings: () => ({}),
+    });
+  });
+
   const showKeyList = [
     {
       hostname: "host1",
