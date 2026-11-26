@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.11](https://github.com/easyops-cn/next-libs/compare/@next-libs/crontab@2.0.10...@next-libs/crontab@2.0.11) (2026-11-26)
+
+
+### Bug Fixes
+
+* **crontab:** expand hour ranges so range and enum expressions share the same description ([3a11d98](https://github.com/easyops-cn/next-libs/commit/3a11d981c092b507ca601171186b574973c78b65))
+
+
+
+
+
 ## [2.0.10](https://github.com/easyops-cn/next-libs/compare/@next-libs/crontab@2.0.9...@next-libs/crontab@2.0.10) (2023-10-10)
 
 **Note:** Version bump only for package @next-libs/crontab
